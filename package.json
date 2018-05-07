@@ -1,12 +1,12 @@
 {
   "name": "Eros-socialcommer",
-  "version": "1.0.1-beta.3",
+  "version": "1.0.0",
   "description": "a weex project",
   "main": "index.js",
   "keywords": [
     "weex"
   ],
-  "author": "Zero<a2192466@163.com>",
+  "author": "Heyh<hyh2017312@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bui-weex": "^0.2.5",
