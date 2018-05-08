@@ -3,14 +3,14 @@
         <div class="status-bar" :style="{'height': statusBarHeight}"></div>
         <waterfall class="container" :show-scrollbar="false">
             <eros-profile></eros-profile>
+
             <cell class="line"></cell>
-            
             <eros-core></eros-core>
             <eros-native></eros-native>
             <eros-notice></eros-notice>
             <eros-tools></eros-tools>
             <eros-three></eros-three>
-            
+
             <eros-expand></eros-expand>
 
             <eros-components></eros-components>
@@ -41,9 +41,9 @@ import ErosAdvanced from './components/advanced'
 import { buiButton } from 'bui-weex';
 
 export default {
-    components: { 
-        ErosCore, ErosTools, ErosNative, 
-        ErosProfile, ErosExpand, ErosNotice, 
+    components: {
+        ErosCore, ErosTools, ErosNative,
+        ErosProfile, ErosExpand, ErosNotice,
         ErosThree, ErosComponents, ErosUilib,
         ErosAdvanced, buiButton
     },
@@ -82,6 +82,25 @@ export default {
                 (this.curHomeBackTriggerTimes === this.maxHomeBackTriggerTimes) && this.$router.finish()
                 this.curHomeBackTriggerTimes++
                 this.$notice.toast({ message: `点击返回${this.maxHomeBackTriggerTimes}次之后，会关闭应用，当前点击第${this.curHomeBackTriggerTimes}次` })
+            })
+        },
+        showPicture () {
+            // this.$image.pick({
+            //     maxCount: 9,
+            //     imageWidth: '800',
+            //     allowCrop: true
+            // })
+            //     .then(resData => {
+            //         console.log(resData)
+            //     }, error => {
+            //         console.log(error)
+            //     })
+            this.$image.preview({
+                index: 2, // 所点击图片下标
+                images: [
+                    'https://img-download.pchome.net/download/1k1/bn/41/okh9r7-1043.png',
+                    'https://attach.setn.com/newsimages/2016/05/04/517684-XXL.jpg',
+                    'https://attach.setn.com/newsimages/2016/05/04/517684-XXL.jpg'] // 图片的网络地址
             })
         }
     }

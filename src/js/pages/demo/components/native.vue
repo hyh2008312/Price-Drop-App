@@ -56,7 +56,7 @@
 import { WxcCell } from 'weex-ui'
 import ErosHeader from './header'
 export default {
-    components: { WxcCell, ErosHeader }, 
+    components: { WxcCell, ErosHeader },
     methods: {
         pickAndUpload () {
             this.$image
@@ -147,6 +147,8 @@ export default {
             this.$image.preview({
                 index: 1,
                 images: [
+                    'http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg',
+                    'http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg',
                     'http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg'
                 ]
             });

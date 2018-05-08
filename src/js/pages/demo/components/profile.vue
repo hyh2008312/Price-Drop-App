@@ -21,10 +21,10 @@
 
 <script>
 const DESC_TYPE = [
-    'iOS', 'Android', 'VUE', 
+    'iOS', 'Android', 'VUE',
     'Widget', 'Module', 'Appboard',
-    'Mediator', 'BS diff', 'eros-cli', 'eros-publish', 
-    'weex debug', 
+    'Mediator', 'BS diff', 'eros-cli', 'eros-publish',
+    'weex debug',
     'Camera', 'Image', 'Contacts', 'ESlint', 'hot-refresh', 'weex-ui']
 import { WxcTag } from 'weex-ui'
 export default {
