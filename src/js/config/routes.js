@@ -5,6 +5,14 @@
 //  dev.json 的 exports 需要打包的js地址，填入src的需要被打包成js bundle的地址   从src开始
 
 export default {
+    'mobile': {
+        title: 'Landing',
+        url: '/pages/mobile/landing/index.js'
+    },
+    'mobile.home': {
+        title: 'Home',
+        url: '/pages/mobile/home/index.js'
+    },
     'demo': {
         title: 'weex-eros demo',
         url: '/pages/demo/index.js'

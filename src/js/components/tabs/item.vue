@@ -1,57 +1,60 @@
 <template>
-  <div class="container" @click="onclickitem">
-     <image src="http://gtms03.alicdn.com/tps/i3/TB1mdsiMpXXXXXpXXXXNw4JIXXX-640-4.png" class="top-line"></image>
-    <image :src="icon" class="tab-icon"></image>
-    <text :style="{ color: titleColor }" class="tab-text">{{title}}</text> 
-  </div>
+    <div class="container" @click="onclickitem">
+        <text :style="{ color: titleColor }" class="tab-icon">{{icon}}</text>
+        <text :style="{ color: titleColor }" class="tab-text">{{title}}</text>
+    </div>
 </template>
 
 <style scoped>
-.container {
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100;
-}
+    .container {
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 112;
+        border-top-width: 1;
+        border-top-style: solid;
+        border-color: rgba(0,0,0,.12);
+    }
 
-.top-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2;
-}
+    .tab-icon {
+        font-size: 48;
+        line-height: 48;
+        font-weight: 500;
+        font-family: iconfont-socialcommer;
+    }
 
-.tab-icon {
-  margin-top: 5;
-  width: 49;
-  height: 49
-}
-
-.tab-text {
-  margin-top: 5;
-  text-align: center;
-  font-size: 20;
-}
+    .tab-text {
+        margin-top: 4;
+        text-align: center;
+        font-size: 24;
+    }
 </style>
 
 <script>
-export default {
-  props: {
-    index: { default: 0 },
-    title: { default: '' },
-    titleColor: { default: '#000000' },
-    icon: { default: '' },
-    backgroundColor: { default: '#ffffff' }
-  },
-  methods: {
-    onclickitem (e) {
-      var params = {
-        index: this.index
-      };
-      this.$emit('tabItemOnClick', params);
+    export default {
+        props: {
+            index: { default: 0 },
+            title: { default: '' },
+            titleColor: { default: '#000000' },
+            icon: { default: '' },
+            backgroundColor: { default: '#ffffff' }
+        },
+        beforeCreate: function () {
+            const domModule = weex.requireModule('dom');
+
+            domModule.addRule('fontFace', {
+                'fontFamily': 'iconfont-socialcommer',
+                'src': 'url(\'http://at.alicdn.com/t/font_568686_dxffcu5dfpy9o1or.ttf\')'
+            });
+        },
+        methods: {
+            onclickitem (e) {
+                const params = {
+                    index: this.index
+                };
+                this.$emit('tabItemOnClick', params);
+            }
+        }
     }
-  }
-}
 </script>
