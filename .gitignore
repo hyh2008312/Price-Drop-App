@@ -100,3 +100,4 @@ Podfile.lock
 # END IOS
 
 ip.txt
+/platforms
