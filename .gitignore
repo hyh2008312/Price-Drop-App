@@ -99,5 +99,4 @@ Pods
 Podfile.lock
 # END IOS
 
-platforms/*
 ip.txt
