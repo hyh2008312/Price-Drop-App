@@ -98,3 +98,5 @@ Pods
 *.xcworkspace
 Podfile.lock
 # END IOS
+
+platforms
