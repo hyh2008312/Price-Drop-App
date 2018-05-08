@@ -99,4 +99,4 @@ Pods
 Podfile.lock
 # END IOS
 
-platforms
+platforms/*
