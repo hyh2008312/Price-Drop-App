@@ -15,6 +15,7 @@
 .scroller {
     width: 750px;
     height: 68px;
+    flex-direction: row;
 }
 
 .i-c {
@@ -24,7 +25,6 @@
     padding-bottom: 10px;
     font-size: 26px;
     color: #fff;
-    flex: 1;
 }
 
 .c-act {
