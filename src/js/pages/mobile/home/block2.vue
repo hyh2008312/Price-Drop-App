@@ -114,6 +114,7 @@ export default {
 .i-good {
     padding-left: 8px;
     padding-right: 8px;
+    width: 304px;
     align-items: center;
 }
 
