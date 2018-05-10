@@ -4,13 +4,9 @@
         <home-header></home-header>
         <scroller class="main-list" offset-accuracy="300px">
             <refresher @loadingDown="loadingDown"></refresher>
-            <div class="cell-button">
-                <yx-slider :imageList="YXBanners"></yx-slider>
-                <div class="slogan">
-                    <text class="i-slg iconfont">&#xe63a; 网易自营品牌</text>
-                    <text class="i-slg iconfont">&#xe63a; 30天无忧退货</text>
-                    <text class="i-slg iconfont">&#xe63a; 48小时快速退款</text>
-                </div>
+            <div class="cell-button slider-wrap">
+                <div class="slider-bg"></div>
+                <yx-slider class="mt20 slider-container" :imageList="YXBanners"></yx-slider>
             </div>
             <div class="cell-button">
                 <block-1 :title="block1.title" :items="block1.items" :url="block1.url"></block-1>
@@ -112,7 +108,7 @@ export default {
             this.getGoods2()
             this.getGoods3()
         },
-        getYXBanners() {
+        getYXBanners () {
             // this.$fetch({
             //     method: 'GET',
             //     name: 'yanxuan_home_getYXBanners',
@@ -125,7 +121,7 @@ export default {
 
             this.YXBanners = YXBANNERS
         },
-        getBlock1() {
+        getBlock1 () {
             // this.$fetch({
             //     method: 'GET',
             //     name: 'yanxuan_home_getBlock1',
@@ -181,10 +177,10 @@ export default {
 
             this.goods3 = GOODS3
         },
-        onchange(index) {
+        onchange (index) {
             console.log(index);
             // dom.scrollToElement(this.$refs[`page_${index}`][0], { animated: false })
-        },
+        }
     }
 }
 

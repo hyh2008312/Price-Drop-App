@@ -1,25 +1,21 @@
 <template>
     <div class="wrapper">
-        <div class="scan">
-            <text class="ic iconfont">&#xe689;</text>
-            <text class="txt">扫一扫</text>
-        </div>
-        <text class="search iconfont" @click="jumpWeb()">&#xe65c; 搜索商品，共8888款好物</text>
+        <text class="search iconfont" @click="jumpWeb()">&#xe6f0;  搜索</text>
         <div class="notice">
-            <text class="ic iconfont">&#xe70a;</text>
-            <text class="txt">消息</text>
+            <text class="ic iconfont">&#xe6f0;</text>
+            <text class="txt">规则</text>
         </div>
     </div>
 </template>
 <script>
 export default {
     methods: {
-        jumpWeb(_url) {
+        jumpWeb (_url) {
             if (!_url) _url = 'http://m.you.163.com/search';
             this.$router.toWebView({
                 url: _url,
                 title: '',
-                navShow: true,
+                navShow: true
             })
         }
     }
@@ -36,45 +32,48 @@ export default {
     /*margin-top: 40;*/
     left: 0;
     right: 0;
-    height: 114px;
-    padding-top: 44px;
+    height: 152px;
+    padding-top: 48px;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     z-index: 101;
-    background-color: #fafafa;
-    opacity: .99;
+    background-color: #000;
 }
 
 .scan,
 .notice {
     height: 80px;
-    width: 96px
+    width: 100px
 }
 
 .ic,
-.txt,
-.search {
+.txt{
     text-align: center;
-    color: #666;
+    color: #fff;
     font-weight: 300;
+}
+
+.txt{
+    margin-top: 8px;
+    font-size: 20px;
 }
 
 .ic {
     font-size: 32px;
 }
 
-.txt {
-    font-size: 18px;
-}
-
 .search {
     flex: 1;
-    height: 60px;
+    height: 80px;
     font-size: 26px;
-    padding-top: 13px;
-    background-color: #ededed;
-    border-radius: 8px;
+    color: rgba(0,0,0,0.54);
+    background-color: #fff;
+    border-radius: 6px;
+    align-items: center;
+    margin-left: 32px;
+    padding: 22px 16px;
 }
 </style>

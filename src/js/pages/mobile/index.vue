@@ -23,7 +23,11 @@ export default {
         'tab-bar': tabBar
     },
     created () {
-        debugger
+        this.$navigator.setNavigationInfo({
+            title: '',
+            navShow: false,
+            statusBarStyle: 'LightContent'
+        });
         util.initIconFont()
     },
     data () {
@@ -72,7 +76,7 @@ body {
 }
 
 .app-wrapper {
-    background-color: #f4f4f4;
+    background-color: #F1F1F1;
 }
 
 .r-box {
@@ -100,7 +104,7 @@ body {
 }
 
 .cell-button {
-    padding-bottom: 18px;
+    padding-bottom: 16px;
 }
 
 .slogan {

@@ -82,54 +82,30 @@ export const GOODS3 = [
 
 export const CHANNELLIST = [{
     name: '推荐',
-    width: '82',
+    width: '56',
     left: '0'
 }, {
-    name: '限时购',
-    width: '108',
-    left: '142'
+    name: '美妆',
+    width: '56',
+    left: '98'
 }, {
-    name: '新品',
-    width: '82',
-    left: '310'
+    name: 'T恤',
+    width: '56',
+    left: '194'
 }, {
-    name: '居家',
-    width: '82',
-    left: '452'
+    name: '连衣裙',
+    width: '84',
+    left: '290'
 }, {
-    name: '餐厨',
-    width: '82',
-    left: '594'
+    name: '针织衫',
+    width: '84',
+    left: '412'
 }, {
-    name: '配件',
-    width: '82',
-    left: '736'
+    name: '高跟鞋',
+    width: '84',
+    left: '540'
 }, {
-    name: '服装',
-    width: '82',
-    left: '878'
-}, {
-    name: '电器',
-    width: '82',
-    left: '1020'
-}, {
-    name: '洗护',
-    width: '82',
-    left: '1162'
-}, {
-    name: '杂货',
-    width: '82',
-    left: '1304'
-}, {
-    name: '饮食',
-    width: '82',
-    left: '1446'
-}, {
-    name: '婴童',
-    width: '82',
-    left: '1588'
-}, {
-    name: '志趣',
-    width: '82',
-    left: '1730'
+    name: '高跟鞋',
+    width: '84',
+    left: '672'
 }];

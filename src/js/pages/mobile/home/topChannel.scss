@@ -4,41 +4,40 @@
 
 .wrapper {
     position: fixed;
-    top: 114px;
+    top: 152px;
     left: 0;
     right: 0;
-    height: 54px;
+    height: 68px;
     z-index: 10;
-    background-color: #fafafa;
-    border-bottom-width: 1px;
-    border-bottom-color: #d9d9d9;
+    background-color: #000;
 }
 
 .scroller {
-    width: 660px;
-    height: 54px;
+    width: 750px;
+    height: 68px;
 }
 
 .i-c {
     padding-top: 10px;
-    padding-left: 45px;
-    padding-right: 45px;
-    padding-bottom: 6px;
+    padding-left: 32px;
+    padding-right: 16px;
+    padding-bottom: 10px;
     font-size: 26px;
-    color: #333;
+    color: #fff;
 }
 
 .c-act {
-    color: #b4282d;
+    font-weight: 500;
 }
 
 .j-uline {
     position: absolute;
-    left: 30px;
+    left: 32px;
     bottom: 0;
-    width: 82px;
+    width: 56px;
     height: 4px;
-    background-color: #b4282d;
+    background-color: #fff;
+    border-radius: 4px;
 }
 
 .more {
@@ -47,7 +46,7 @@
     right: 0;
     height: 52px;
     width: 100px;
-    background-color: #fafafa;
+    background-color: #000;
     padding-top: 10px;
     opacity: 0.96;
     box-shadow: -6px -4px 4px #fafafa;

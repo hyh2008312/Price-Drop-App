@@ -8,7 +8,7 @@
 </template>
 <script>
 export default {
-    props: ["imageList"]
+    props: ['imageList']
 }
 </script>
 <style scoped>
@@ -17,29 +17,33 @@ export default {
 }
 
 .image {
-    width: 750px;
-    height: 430px;
+    width: 718px;
+    height: 438px;
+    border-radius: 8px;
 }
 
 .slider {
-    width: 750px;
-    height: 430px;
+    width: 718px;
+    height: 438px;
+    border-radius: 8px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
 }
 
 .frame {
-    width: 750px;
-    height: 430px;
+    width: 718px;
+    height: 438px;
     position: relative;
+    border-radius: 8px;
 }
 
 .indicator {
-    width: 750px;
-    height: 40px;
+    width: 718px;
+    height: 12px;
     item-color: white;
-    item-selected-color: #b4282d;
+    item-selected-color: #957914;
     item-size: 12px;
     position: absolute;
-    bottom: 10px;
+    bottom: 32px;
     right: 0px;
 }
 </style>
