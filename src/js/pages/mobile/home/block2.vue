@@ -116,7 +116,7 @@ export default {
     padding-left: 8px;
     padding-right: 8px;
     width: 304px;
-    height: 484px;
+    height: 486px;
     align-items: center;
 }
 
