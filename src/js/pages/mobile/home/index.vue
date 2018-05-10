@@ -12,9 +12,6 @@
                 <block-4 :items="block1.items" ></block-4>
             </div>
             <div class="cell-button">
-                <block-1 :title="block1.title" :items="block1.items" :url="block1.url"></block-1>
-            </div>
-            <div class="cell-button">
                 <block-2 hasMore=true newGoods=true :head="head1" :goods="goods1"></block-2>
             </div>
             <div class="cell-button">
@@ -57,10 +54,10 @@ export default {
         'block-3': block3,
         'block-4': block4
     },
-    created() {
+    created () {
         this.init()
     },
-    data() {
+    data () {
         return {
             YXBanners: [],
             block1: {

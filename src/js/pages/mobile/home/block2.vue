@@ -2,13 +2,17 @@
     <div class="wrapper">
         <div class="tlt-box" v-if="newGoods">
             <image class="tlt-image" resize="cover" src="http://doc.zwwill.com/yanxuan/imgs/bg-new.png"></image>
-            <text class="tlt tlt-new">{{head.tlt}}</text>
-            <text class="btn-all btn-new" @click="jumpWeb(head.url)">查看全部 ></text>
+            <div class="tlt-bg">
+                <text class="tlt tlt-new">{{head.tlt}}</text>
+                <text class="btn-all" @click="jumpWeb(head.url)">查看全部</text>
+            </div>
         </div>
         <div class="tlt-box" v-else-if="hotGoods">
             <image class="tlt-image" resize="cover" src="http://doc.zwwill.com/yanxuan/imgs/bg-hot.png"></image>
-            <text class="tlt tlt-hot">{{head.tlt}}</text>
-            <text class="btn-all btn-hot" @click="jumpWeb(head.url)">查看全部 ></text>
+            <div class="tlt-bg">
+                <text class="tlt tlt-hot">{{head.tlt}}</text>
+                <text class="btn-all" @click="jumpWeb(head.url)">查看全部</text>
+            </div>
         </div>
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
             <div class="i-good" v-for="i in goods" @click="jumpWeb(i.url)">
@@ -27,14 +31,14 @@
 </template>
 <script>
 export default {
-    props: ["newGoods", "hotGoods", "head", "hasMore", "goods"],
+    props: ['newGoods', 'hotGoods', 'head', 'hasMore', 'goods'],
     methods: {
-        jumpWeb(_url) {
+        jumpWeb (_url) {
             if (!_url) return;
             this.$router.toWebView({
                 url: _url,
                 title: '',
-                navShow: true,
+                navShow: true
             })
         }
     }
@@ -51,39 +55,44 @@ export default {
 }
 
 .tlt-box {
-    height: 260px;
+    height: 375px;
     width: 750px;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+.tlt-bg{
+    width: 750px;
+    height: 116px;
+    align-items: center;
+    justify-content: center;
 }
 
 .tlt {
-    margin-top: 76px;
     text-align: center;
-    font-size: 34px;
-    color: #8BA0B6;
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.87);
 }
 
 .tlt-hot {
-    color: #B4A078;
+    color: rgba(255,255,255,0.87);
 }
 
 .btn-all {
     text-align: center;
-    font-size: 26px;
-    width: 220px;
-    padding: 10px;
-    margin-top: 20px;
-    color: #8BA0B6;
-    border-radius: 4px;
-    background-color: #D8E5F1;
+    font-size: 24px;
+    width: 114px;
+    line-height: 44px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 28px;
+    color: rgba(255,255,255,0.87);
+    border-style: solid;
+    border-width: 1px;
+    border-color: #fff;
 }
 
-.btn-hot {
-    color: #B4A078;
-    background-color: #F4E9CB;
-}
 
 .tlt-image {
     position: absolute;
