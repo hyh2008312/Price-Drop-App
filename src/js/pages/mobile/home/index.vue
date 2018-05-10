@@ -13,8 +13,6 @@
             </div>
             <div class="cell-button">
                 <block-2 hasMore=true newGoods=true :head="head1" :goods="goods1"></block-2>
-            </div>
-            <div class="cell-button">
                 <block-2 hasMore=true hotGoods=true :head="head2" :goods="goods2"></block-2>
             </div>
             <div class="cell-button">

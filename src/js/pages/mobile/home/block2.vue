@@ -22,9 +22,7 @@
                 <text class="gd-tlt">{{i.tlt}}</text>
                 <text class="gd-info">{{i.info}}</text>
                 <text class="gd-price">¥{{i.price}}</text>
-            </div>
-            <div class="i-good" v-if="hasMore">
-                <text class="gd-more" @click="jumpWeb(head.url)">查看全部</text>
+                <text class="gd-button">砍价立减</text>
             </div>
         </scroller>
     </div>
@@ -51,7 +49,7 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    padding-bottom: 6px;
+    padding-bottom: 16px;
 }
 
 .tlt-box {
@@ -60,7 +58,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
+
 .tlt-bg{
     width: 750px;
     height: 116px;
@@ -104,16 +104,17 @@ export default {
 
 .box {
     width: 750px;
-    height: 500px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 15px;
-    padding-right: 15px;
+    height: 532px;
+    padding-top: 16px;
+    padding-bottom: 32px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .i-good {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 8px;
+    padding-right: 8px;
+    align-items: center;
 }
 
 .gd-bg {
@@ -121,53 +122,60 @@ export default {
 }
 
 .gd-img {
-    height: 286px;
-    width: 286px;
+    height: 288px;
+    width: 288px;
 }
 
 .gd-tlt {
-    font-size: 28px;
-    color: #333;
-    width: 286px;
+    font-size: 24px;
+    color: rgba(0,0,0,0.87);
+    width: 288px;
     margin-top: 16px;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-align: center;
+    line-height: 34px;
 }
 
 .gd-info {
-    display: block;
-    font-size: 24px;
+    font-size: 20px;
     width: 286px;
     margin-top: 8px;
-    color: #7f7f7f;
+    color: rgba(0,0,0, .54);
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-align: center;
+    line-height: 28px;
 }
 
 .gd-price {
     font-size: 28px;
-    width: 286px;
-    margin-top: 16px;
-    color: #b4282d;
+    width: 288px;
+    line-height: 40px;
+    margin-top: 6px;
+    color: #957914;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-align: center;
 }
 
-.gd-more {
-    height: 286px;
-    width: 286px;
-    font-size: 28px;
-    line-height: 40px;
-    border-width: 6px;
-    padding-top: 120px;
-    padding-bottom: 120px;
-    border-color: #f4f4f4;
+.gd-button{
+    margin-top: 14px;
+    font-size: 24px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000;
+    border-radius: 4px;
+    line-height: 50px;
+    width: 120px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 </style>
