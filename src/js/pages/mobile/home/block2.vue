@@ -109,6 +109,7 @@ export default {
     padding-bottom: 32px;
     padding-left: 20px;
     padding-right: 20px;
+    flex-direction: row;
 }
 
 .i-good {
