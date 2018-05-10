@@ -1,21 +1,14 @@
 <template>
     <div class="wrapper">
-        <text class="tlt">猜你喜欢</text>
-        <div class="gb-box">
-            <div class="i-gd" v-for="i in goods" @click="jumpWeb(i.url)">
-                <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="i.img"></image>
-                </div>
-                <text class="gd-info">{{i.info}}</text>
-                <text class="gd-tlt">{{i.tlt}}</text>
-                <text class="gd-price">¥{{i.price}}</text>
-            </div>
+        <div class="inner-container" v-for="item in items">
+            <image class="header" :src="item.bg"></image>
+            <text class="tlt">{{item.name}}</text>
         </div>
     </div>
 </template>
 <script>
 export default {
-    props: ['newGoods', 'hotGoods', 'head', 'hasMore', 'goods'],
+    props: ['items'],
     methods: {
         jumpWeb (_url) {
             if (!_url) return;
@@ -34,10 +27,26 @@ export default {
 }
 
 .wrapper {
-    background-color: #fff;
-    padding-bottom: 10px;
-    padding-top: 26px;
+    margin-top: 16px;
+    margin-bottom: 16px;
     width: 750px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inner-container{
+    width: 718px;
+    height: 96px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+    border-radius: 4px;
+
+}
+
+.header{
+    width: 64px;
+
 }
 
 .tlt {

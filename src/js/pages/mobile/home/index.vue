@@ -2,11 +2,14 @@
     <div class="wrapper">
         <!-- <div class="status-bar"></div> -->
         <home-header></home-header>
-        <scroller class="main-list" offset-accuracy="300px">
+        <scroller class="main-list" offset-accuracy="300px" @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
             <div class="cell-button slider-wrap">
                 <div class="slider-bg"></div>
                 <yx-slider class="mt20 slider-container" :imageList="YXBanners"></yx-slider>
+            </div>
+            <div class="cell-button">
+                <block-4 :items="block1.items" ></block-4>
             </div>
             <div class="cell-button">
                 <block-1 :title="block1.title" :items="block1.items" :url="block1.url"></block-1>
@@ -20,7 +23,7 @@
             <div class="cell-button">
                 <block-3 :goods="goods3"></block-3>
             </div>
-            <loading class="loading" @loading="onloading" :display="showLoading">
+            <loading class="loading" :display="showLoading">
                 <text class="indicator">加载中...</text>
             </loading>
         </scroller>
@@ -37,7 +40,8 @@ import YXSlider from './YXSlider';
 import block1 from './block1';
 import block2 from './block2';
 import block3 from './block3';
-import { YXBANNERS, BLOCK1, GOODS1, GOODS2, GOODS3 } from './config'
+import block4 from './block4';
+import { YXBANNERS, BLOCK1, BLOCK4, GOODS1, GOODS2, GOODS3 } from './config'
 
 const SCROLL_FULL_WIDTH = 750
 const dom = weex.requireModule('dom');
@@ -50,7 +54,8 @@ export default {
         'yx-slider': YXSlider,
         'block-1': block1,
         'block-2': block2,
-        'block-3': block3
+        'block-3': block3,
+        'block-4': block4
     },
     created() {
         this.init()
@@ -59,6 +64,11 @@ export default {
         return {
             YXBanners: [],
             block1: {
+                title: '',
+                url: '',
+                items: []
+            },
+            block4: {
                 title: '',
                 url: '',
                 items: []
@@ -81,29 +91,26 @@ export default {
         }
     },
     methods: {
-        jumpWeb(_url) {
+        jumpWeb (_url) {
             this.$router.toWebView({
                 url: _url,
                 title: ''
             })
         },
-        onloading() {
-            this.$notice.loading.show()
+        onloading () {
             this.showLoading = 'show';
-            setTimeout(() => {
-                this.$notice.loading.hide()
-                this.goods3.push(...this.goods1);
-                this.showLoading = 'hide'
-            }, 600)
+            this.goods3.push(...this.goods1);
+            this.showLoading = 'hide';
         },
-        loadingDown() {
+        loadingDown () {
             this.goods3 = [];
             this.goods3.push(...this.goods2);
             this.goods3.push(...this.goods1);
         },
-        init() {
+        init () {
             this.getYXBanners()
             this.getBlock1()
+            this.getBlock4()
             this.getGoods1()
             this.getGoods2()
             this.getGoods3()
@@ -138,7 +145,22 @@ export default {
             this.block1.url = BLOCK1.url
             this.block1.items = BLOCK1.items
         },
-        getGoods1() {
+        getBlock4 () {
+            // this.$fetch({
+            //     method: 'GET',
+            //     name: 'yanxuan_home_getBlock1',
+            //     data: {}
+            // }).then(resData => {
+            //     this.block1.title = resData.data.title
+            //     this.block1.url = resData.data.url
+            //     this.block1.items = resData.data.items
+            // }, error => {
+
+            // })
+
+            this.block4.items = BLOCK4.items
+        },
+        getGoods1 () {
             // this.$fetch({
             //     method: 'GET',
             //     name: 'yanxuan_home_getGoods1',
@@ -164,7 +186,7 @@ export default {
 
             this.goods2 = GOODS2
         },
-        getGoods3() {
+        getGoods3 () {
             // this.$fetch({
             //     method: 'GET',
             //     name: 'yanxuan_home_getGoods3',

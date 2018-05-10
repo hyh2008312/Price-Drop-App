@@ -19,7 +19,6 @@ export default {
 .image {
     width: 718px;
     height: 438px;
-    border-radius: 8px;
 }
 
 .slider {
@@ -34,6 +33,8 @@ export default {
     height: 438px;
     position: relative;
     border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
 }
 
 .indicator {

@@ -41,6 +41,37 @@ export const BLOCK1 = {
     ]
 };
 
+export const BLOCK4 = {
+    items: [{
+        name: '新秀丽制造商',
+        price: '59',
+        state: '上新',
+        bg: 'http://doc.zwwill.com/yanxuan/imgs/ppbg-1.jpg',
+        url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
+    },
+        {
+            name: 'MUJI制造商',
+            price: '12.9',
+            state: '上新',
+            bg: 'http://doc.zwwill.com/yanxuan/imgs/ppbg-2.jpg',
+            url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
+        },
+        {
+            name: 'CK制造商',
+            price: '29',
+            state: '上新',
+            bg: 'http://doc.zwwill.com/yanxuan/imgs/ppbg-3.jpg',
+            url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
+        },
+        {
+            name: 'Adidas制造商',
+            price: '29',
+            bg: 'http://yanxuan.nosdn.127.net/75523d4274d85825ece16370cdb1693f.jpg',
+            url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
+        }
+    ]
+};
+
 export const GOODS1 = [
     { tlt: '日式和风声波式电动牙刷', img: 'http://yanxuan.nosdn.127.net/e5474a8f4fd5748079e2ba2ead806b51.png?imageView&quality=85&thumbnail=330x330', info: '进口刷毛，专利技术', price: '119', url: 'http://m.you.163.com/item/detail?id=1251047#/?_k=gv06ft' },
     { tlt: '小馒头 多色双肩包', img: 'http://yanxuan.nosdn.127.net/455eee1712358dbcb2e33d54ab287808.png?imageView&quality=85&thumbnail=330x330', info: '奶油色泽，小巧减龄', price: '79', url: 'http://m.you.163.com/item/detail?id=1251047#/?_k=gv06ft' },
