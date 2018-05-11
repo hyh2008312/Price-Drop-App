@@ -7,7 +7,7 @@ const utilFunc = {
         const domModule = weex.requireModule('dom');
         domModule.addRule('fontFace', {
             'fontFamily': 'iconfont',
-            'src': 'url(\'http://at.alicdn.com/t/font_568686_dxffcu5dfpy9o1or.ttf\')'
+            'src': 'url(\'http://at.alicdn.com/t/font_568686_fx45h6011rxm9529.ttf\')'
         });
     },
     setBundleUrl (url, jsFile) {

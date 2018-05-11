@@ -13,9 +13,9 @@
 import { WxcCell } from 'weex-ui'
 import ErosHeader from './header'
 export default {
-    components: { WxcCell, ErosHeader }, 
+    components: { WxcCell, ErosHeader },
     methods: {
-        jump(name) {
+        jump (name) {
             this.$router.open({
                 gesBack: false,
                 name: `demo.other.${name}`

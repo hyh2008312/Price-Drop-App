@@ -9,6 +9,7 @@ module.exports = {
     },
     'page': {
         'homePage': '/pages/mobile/index.js',
+        // 'homePage': '/pages/mobile/index.js',
         'mediatorPage': '/mediator/index.js',
         'navBarColor': '#1DA1F2',
         'navItemColor': '#ffffff'

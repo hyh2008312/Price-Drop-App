@@ -5,7 +5,7 @@
             <refresher @loadingDown="loadingDown"></refresher>
             <div class="cell-button slider-wrap">
                 <div class="slider-bg"></div>
-                <yx-slider class="mt20 slider-container" :imageList="YXBanners"></yx-slider>
+                <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
             </div>
             <div class="cell-button">
                 <block-4 :items="block1.items" ></block-4>
@@ -83,7 +83,8 @@ export default {
             goods2: [],
             goods3: [],
             showLoading: 'hide',
-            tabKey: 'hot'
+            tabKey: 'hot',
+            refresh: true
         }
     },
     methods: {
@@ -97,11 +98,6 @@ export default {
             this.showLoading = 'show';
             this.goods3.push(...this.goods1);
             this.showLoading = 'hide';
-        },
-        loadingDown () {
-            this.goods3 = [];
-            this.goods3.push(...this.goods2);
-            this.goods3.push(...this.goods1);
         },
         init () {
             this.getYXBanners()
