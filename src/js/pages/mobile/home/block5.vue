@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-    props: ['newGoods', 'hotGoods', 'head', 'hasMore', 'logo'],
+    props: ['logo'],
     methods: {
         jumpWeb (_url) {
             if (!_url) return;
@@ -36,73 +36,22 @@ export default {
 .box {
     width: 750px;
     height: 192px;
+    padding-top: 52px;
+    flex-direction: row;
 }
 
 .i-good {
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 24px;
+    padding-right: 24px;
     align-items: center;
 }
 
 .gd-bg {
-    background-color: #f4f4f4;
+    background-color: #fff;
 }
 
 .gd-img {
-    height: 288px;
-    width: 288px;
-}
-
-.gd-tlt {
-    font-size: 24px;
-    color: rgba(0,0,0,0.87);
-    width: 288px;
-    margin-top: 16px;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: center;
-    line-height: 34px;
-}
-
-.gd-info {
-    font-size: 20px;
-    width: 286px;
-    margin-top: 8px;
-    color: rgba(0,0,0, .54);
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: center;
-    line-height: 28px;
-}
-
-.gd-price {
-    font-size: 28px;
-    width: 288px;
-    line-height: 40px;
-    margin-top: 6px;
-    color: #957914;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: center;
-}
-
-.gd-button{
-    margin-top: 14px;
-    font-size: 24px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #000;
-    border-radius: 4px;
-    line-height: 50px;
-    width: 120px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+    height: 88px;
+    width: 88px;
 }
 </style>

@@ -12,9 +12,6 @@ export default {
 }
 </script>
 <style scoped>
-.iconfont {
-    font-family: iconfont;
-}
 
 .image {
     width: 718px;
@@ -31,7 +28,6 @@ export default {
 .frame {
     width: 718px;
     height: 438px;
-    position: relative;
     border-radius: 8px;
     overflow: hidden;
     background-color: #fff;

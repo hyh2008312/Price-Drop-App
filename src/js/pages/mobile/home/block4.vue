@@ -30,6 +30,7 @@ export default {
 
 .wrapper {
     width: 750px;
+    height: 96px;
     justify-content: center;
     align-items: center;
 }
@@ -67,68 +68,6 @@ export default {
     lines: 1;
     margin-left: 20px;
     margin-right: 20px;
-    text-overflow: ellipsis;
-}
-
-.gb-box {
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.i-gd {
-    width: 350px;
-    height: 510px;
-    margin-bottom: 20px;
-}
-
-.gd-bg {
-    background-color: #f4f4f4;
-}
-
-.gd-img {
-    width: 350px;
-    height: 350px;
-}
-
-.gd-tlt {
-    font-size: 28px;
-    color: #333;
-    width: 350px;
-    margin-top: 15px;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.gd-info {
-    display: block;
-    font-size: 28px;
-    width: 350px;
-    height: 65px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: #9F8A60;
-    background-color: #F1ECE2;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.gd-price {
-    font-size: 28px;
-    width: 350px;
-    margin-top: 10px;
-    color: #b4282d;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
     text-overflow: ellipsis;
 }
 </style>

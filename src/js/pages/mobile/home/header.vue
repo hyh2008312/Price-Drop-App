@@ -29,7 +29,6 @@ export default {
 .wrapper {
     position: fixed;
     top: 0;
-    /*margin-top: 40;*/
     left: 0;
     right: 0;
     height: 152px;
@@ -69,7 +68,7 @@ export default {
     flex: 1;
     height: 80px;
     font-size: 26px;
-    color: rgba(0,0,0,0.54);
+    color: rgba(0, 0, 0, 0.54);
     background-color: #fff;
     border-radius: 6px;
     align-items: center;

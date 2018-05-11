@@ -23,11 +23,6 @@ export default {
         'tab-bar': tabBar
     },
     created () {
-        this.$navigator.setNavigationInfo({
-            title: '',
-            navShow: false,
-            statusBarStyle: 'LightContent'
-        });
         util.initIconFont()
     },
     data () {
@@ -93,19 +88,6 @@ body {
 
 .wrapper {}
 
-.main-list {
-    position: fixed;
-    top: 168px;
-    bottom: 90px;
-    left: 0;
-    right: 0;
-    /*margin-top: 167px;*/
-    /*margin-bottom: 90px;*/
-}
-
-.cell-button {
-    padding-bottom: 16px;
-}
 
 .slogan {
     display: flex;

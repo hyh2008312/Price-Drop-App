@@ -21,28 +21,6 @@ export default {
         activeIndex (newVal, oldVal) {
             const scrollIndex = newVal < 4 ? 0 : newVal - 4;
             this.scrollToMenu(scrollIndex)
-        },
-        pullStatus (newVal) {
-            const num = newVal ? 180 : 0
-            const height = newVal ? 160 + 86 * (this.row - 1) : 0
-
-            // animation.transition(this.$refs.panel, {
-            //     styles: {
-            //         height: height + 'px'
-            //     },
-            //     duration: 200,
-            //     timingFunction: 'ease',
-            //     delay: 0
-            // }, function() {});
-
-            animation.transition(this.$refs.more, {
-                styles: {
-                    transform: 'rotate(' + num + 'deg)'
-                },
-                duration: 200,
-                timingFunction: 'ease',
-                delay: 0
-            }, function () {});
         }
     },
     created () {
@@ -51,10 +29,7 @@ export default {
     data () {
         return {
             channelList: [],
-            row: 1,
-            pullStatus: false,
-            dataReady: false,
-            panelHeight: 0
+            dataReady: false
         }
     },
     methods: {
@@ -73,12 +48,9 @@ export default {
             // })
 
             this.channelList = CHANNELLIST
-            this.row = Math.ceil(this.channelList.length / 4)
-            this.panelHeight = 160 + 86 * (this.row - 1)
             this.dataReady = true
         },
         chooseChannel (index, channel) {
-            this.pullStatus = false
             this.activeIndex = index
             const item = channel || this.channelList[index]
             animation.transition(this.$refs.jcLine, {
@@ -94,9 +66,6 @@ export default {
         },
         scrollToMenu (index) {
             dom.scrollToElement(this.$refs[`channel_${index}`][0])
-        },
-        pull () {
-            this.pullStatus = !this.pullStatus
         }
     }
 }

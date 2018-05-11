@@ -72,11 +72,11 @@ export default {
     text-align: center;
     font-size: 32px;
     font-weight: 700;
-    color: rgba(255,255,255,0.87);
+    color: rgba(255,255, 255, 0.87);
 }
 
 .tlt-hot {
-    color: rgba(255,255,255,0.87);
+    color: rgba(255,255,255, 0.87);
 }
 
 .btn-all {
@@ -116,7 +116,6 @@ export default {
     padding-left: 8px;
     padding-right: 8px;
     width: 304px;
-    height: 486px;
     align-items: center;
 }
 
@@ -172,10 +171,10 @@ export default {
     margin-top: 14px;
     font-size: 24px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 2px;
     border-color: #000;
     border-radius: 4px;
-    line-height: 50px;
+    line-height: 46px;
     width: 120px;
     text-align: center;
     justify-content: center;

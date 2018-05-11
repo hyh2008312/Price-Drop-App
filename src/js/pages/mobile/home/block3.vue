@@ -1,14 +1,17 @@
 <template>
     <div class="wrapper">
-        <text class="tlt">猜你喜欢</text>
         <div class="gb-box">
             <div class="i-gd" v-for="i in goods" @click="jumpWeb(i.url)">
                 <div class="gd-bg">
                     <image class="gd-img" resize="cover" :src="i.img"></image>
                 </div>
-                <text class="gd-info">{{i.info}}</text>
-                <text class="gd-tlt">{{i.tlt}}</text>
-                <text class="gd-price">¥{{i.price}}</text>
+                <div class="gd-bg-right">
+                    <text class="gd-info">{{i.info}}</text>
+                    <text class="gd-tlt">{{i.tlt}}</text>
+                    <text class="gd-sm">{{i.info}}</text>
+                    <text class="gd-price">¥ {{i.price}}</text>
+                    <text class="gd-button">砍价立减</text>
+                </div>
             </div>
         </div>
     </div>
@@ -40,42 +43,43 @@ export default {
     width: 750px;
 }
 
-.tlt {
-    text-align: center;
-    color: #333;
-    width: 750px;
-    padding: 10px;
-    font-size: 30px;
-}
-
 .gb-box {
     padding: 16px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .i-gd {
-    width: 350px;
-    height: 510px;
-    margin-bottom: 20px;
+    width: 718px;
+    height: 288px;
+    margin-bottom: 32px;
+    flex-direction: row;
+    justify-content: start;
+    align-items: stretch;
 }
 
 .gd-bg {
+    width: 288px;
+    height: 288px;
     background-color: #f4f4f4;
 }
 
+.gd-bg-right {
+    margin-left: 32px;
+    width: 398px;
+    height: 288px;
+}
+
 .gd-img {
-    width: 350px;
-    height: 350px;
+    width: 288px;
+    height: 288px;
 }
 
 .gd-tlt {
-    font-size: 28px;
-    color: #333;
-    width: 350px;
-    margin-top: 15px;
+    margin-top: 16px;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 40px;
+    width: 398px;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
@@ -85,14 +89,9 @@ export default {
 .gd-info {
     display: block;
     font-size: 28px;
-    width: 350px;
-    height: 65px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: #9F8A60;
-    background-color: #F1ECE2;
+    width: 398px;
+    line-height: 40px;
+    color: rgba(0,0,0,0.87);
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
@@ -101,12 +100,36 @@ export default {
 
 .gd-price {
     font-size: 28px;
-    width: 350px;
-    margin-top: 10px;
-    color: #b4282d;
+    width: 398px;
+    margin-top: 32px;
+    color: #987D1A;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.gd-sm {
+    margin-top: 4px;
+    font-size: 20px;
+    line-height: 28px;
+    color: rgba(0,0,0, 0.54);
+    width: 398px;
+    overflow: hidden;
+    lines: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.gd-button {
+    margin-top: 8px;
+    width: 144px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 56px;
+    border-style: solid;
+    border-radius: 4px;
+    border-width: 2px;
+    border-color: #000;
 }
 </style>

@@ -17,7 +17,7 @@
 var animation = weex.requireModule('animation')
 export default {
     props: [],
-    data() {
+    data () {
         return {
             refreshing: false,
             stopAnimation: false,
@@ -34,44 +34,43 @@ export default {
         }
     },
     methods: {
-        loadingAni() {
+        loadingAni () {
             for (var i = 0; i < this.loadingAR.length; i++) {
                 this.shake(this.$refs[this.loadingAR[i].ref], this.loadingAR[i].p[0], this.loadingAR[i].p[1], 3, 1, 200, this.loadingAR[i].delay);
             }
         },
-        loadingAniDown() {
-            for (var i = 0; i < this.loadingAR.length; i++) {
+        loadingAniDown () {
+            for (let i = 0; i < this.loadingAR.length; i++) {
                 this.shake(this.$refs[this.loadingAR[i].ref], 0, 0, 0, 0, 500, 0, i == this.loadingAR.length - 1);
-            }                        
+            }
         },
-        endRefresh(time) {
+        endRefresh (time) {
             setTimeout(() => {
                 this.$emit('loadingDown', {
                     status: 'loadingDown'
-                })       
+                })
                 setTimeout(() => {
                     this.refreshing = false
-                },100)            
-            }, time) 
+                }, 100)
+            }, time)
         },
-        shake(_ref, _x, _y, _k, _d, _duration, _delay, endShake) {
+        shake (_ref, _x, _y, _k, _d, _duration, _delay, endShake) {
             animation.transition(_ref, {
                 styles: {
-                    transform: 'translate(' + (_x - 0) + 'px,' + (_y - _k * _d) + 'px)',
+                    transform: 'translate(' + (_x - 0) + 'px,' + (_y - _k * _d) + 'px)'
                 },
-                duration: _duration | 500, //ms
+                duration: _duration | 500, // ms
                 timingFunction: 'ease-out',
-                delay: _delay | 0 //ms
-            }, function() {
+                delay: _delay | 0 // ms
+            }, function () {
                 !this.stopAnimation && this.shake(_ref, _x, _y, _k, -1 * _d);
                 if (endShake) {
                     this.endRefresh(_duration + 100)
                 }
-
             }.bind(this))
         },
-        onrefresh(event) {
-            this.stopAnimation= false
+        onrefresh (event) {
+            this.stopAnimation = false
             this.loadingAni();
             this.refreshing = true;
             setTimeout(() => {
@@ -79,7 +78,7 @@ export default {
                 this.loadingAniDown();
             }, 2000)
         },
-        onpullingdown(event) {}
+        onpullingdown (event) {}
     }
 }
 </script>

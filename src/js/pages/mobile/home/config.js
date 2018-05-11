@@ -41,6 +41,14 @@ export const BLOCK1 = {
     ]
 };
 
+export const TAB = [{
+    name: '热门',
+    key: 'hot'
+}, {
+    name: '最新',
+    key: 'new'
+}];
+
 export const BLOCK4 = {
     items: [{
         name: '新秀丽制造商好好啊好啊好啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
@@ -111,7 +119,7 @@ export const CHANNELLIST = [{
 }, {
     name: '美妆',
     width: '56',
-    left: '98'
+    left: '96'
 }, {
     name: 'T恤',
     width: '56',
@@ -119,7 +127,7 @@ export const CHANNELLIST = [{
 }, {
     name: '连衣裙',
     width: '84',
-    left: '290'
+    left: '286'
 }, {
     name: '针织衫',
     width: '84',
@@ -127,9 +135,9 @@ export const CHANNELLIST = [{
 }, {
     name: '高跟鞋',
     width: '84',
-    left: '540'
+    left: '532'
 }, {
     name: '高跟鞋',
     width: '84',
-    left: '672'
+    left: '660'
 }];
