@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper" >
-        <list loadmoreoffset="30"  @loadmore="onloading">
+        <list loadmoreoffset="30" @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
             <cell class="cell-button slider-wrap">
                 <div class="slider-bg"></div>

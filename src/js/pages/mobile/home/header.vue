@@ -31,12 +31,9 @@
     }
 
     .wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 152px;
-        padding-top: 48px;
+        position: sticky;
+        height: 112px;
+        padding-top: 8px;
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
@@ -49,7 +46,9 @@
     .scan,
     .notice {
         height: 80px;
-        width: 100px
+        width: 100px;
+        justify-content: center;
+        align-items: center;
     }
 
     .ic,

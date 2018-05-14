@@ -1,12 +1,14 @@
 <template>
     <div class="wrapper">
-        <!-- <div class="status-bar"></div> -->
-        <home-header></home-header>
+        <div class="status-bar"></div>
+        <home-header v-if="headerShow"></home-header>
         <top-channel @change="onchange" ref="topChannel" :activeIndex="activeIndex"></top-channel>
-        <slider infinite="false" ref="slider" :style="height" class="box" @change="onchangeTab" :index="activeIndex">
-            <suggest></suggest>
-            <category v-for="(i, index) in channelList" v-if="index > 0" :activeIndex="index" :index="activeIndex"></category>
-        </slider>
+        <div :style="height" class="box">
+            <slider class="slider" infinite="false" ref="slider" @swipe="onswipe" @change="onchangeTab" :index="activeIndex">
+                <suggest></suggest>
+                <category v-for="(i, index) in channelList" v-if="index > 0" :activeIndex="index" :index="activeIndex"></category>
+            </slider>
+        </div>
     </div>
 </template>
 <script>
@@ -32,10 +34,23 @@ export default {
     data () {
         return {
             channelList: [],
-            activeIndex: 0
+            activeIndex: 0,
+            headerShow: true
         }
     },
     methods: {
+        onswipe (event) {
+            if (event.direction == 'up') {
+                this.headerShow = false;
+                const pageHeight = Utils.env.getScreenHeight()
+                this.height = { height: (pageHeight - 112 - 44) + 'px' }
+            } else if (event.direction == 'down') {
+                this.headerShow = true;
+                const pageHeight = Utils.env.getScreenHeight()
+                this.height = { height: (pageHeight - 112 - 236) + 'px' }
+            }
+            this.$notice.toast(this.headerShow.toString())
+        },
         getChannel () {
             this.channelList = CHANNELLIST
         },
