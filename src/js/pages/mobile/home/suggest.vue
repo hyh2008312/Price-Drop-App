@@ -218,8 +218,6 @@ export default {
         },
         onTabTo (event) {
             this.tabKey = event.data.key;
-            this.goods3 = [];
-            this.goods3 = GOODS3;
             dom.scrollToElement(this.$refs['tab'], { animated: false })
         }
     }

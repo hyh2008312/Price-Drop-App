@@ -2,16 +2,17 @@
     <div class="wrapper">
         <list loadmoreoffset="30" @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
-            <cell class="cell-button">
+            <cell class="cell-button cell-top">
                 <block-4 :items="block1.items" ></block-4>
             </cell>
+            <cell ref="tab"></cell>
             <header>
                 <tab @tabTo="onTabTo" :items="tabsItems" ref="tab"></tab>
             </header>
-            <cell v-for="item in goods3"  v-if="tabKey == 'hot'">
+            <cell v-for="item in goods3"  :style="{ visibility: tabKey == 'hot'}">
                 <block-3 :goods="item"></block-3>
             </cell>
-            <cell v-for="item in goods3"  v-if="tabKey == 'new'">
+            <cell v-for="item in goods3"  :style="{ visibility: tabKey == 'new'}">
                 <block-3 :goods="item"></block-3>
             </cell>
             <loading class="loading" >
@@ -44,7 +45,6 @@ export default {
     watch: {
         'index': {
             handler: function (val, oldVal) {
-                this.$notice.toast(oldVal)
                 if (this.activeIndex == val) {
                     this.init()
                 }
@@ -129,9 +129,9 @@ export default {
         },
         onTabTo (event) {
             this.tabKey = event.data.key;
+            dom.scrollToElement(this.$refs['tab'], { animated: false })
             this.goods3 = [];
             this.goods3 = GOODS3;
-            dom.scrollToElement(this.$refs['tab'], { animated: false })
         }
     }
 }
