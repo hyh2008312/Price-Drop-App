@@ -38,20 +38,18 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    padding-bottom: 10px;
     padding-top: 26px;
     width: 750px;
 }
 
 .gb-box {
-    padding: 16px;
+    padding: 0 16px;
     display: flex;
 }
 
 .i-gd {
     width: 718px;
     height: 288px;
-    margin-bottom: 32px;
     flex-direction: row;
     justify-content: start;
     align-items: stretch;
@@ -60,7 +58,6 @@ export default {
 .gd-bg {
     width: 288px;
     height: 288px;
-    background-color: #f4f4f4;
 }
 
 .gd-bg-right {
@@ -72,6 +69,10 @@ export default {
 .gd-img {
     width: 288px;
     height: 288px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(0,0,0,.12);
+    border-radius: 8px;
 }
 
 .gd-tlt {

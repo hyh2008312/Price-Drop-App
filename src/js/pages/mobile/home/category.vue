@@ -7,7 +7,7 @@
             </cell>
             <cell ref="tab"></cell>
             <header>
-                <tab @tabTo="onTabTo" :items="tabsItems" ref="tab"></tab>
+                <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
             <cell v-for="item in goods3">
                 <block-3 :goods="item"></block-3>
@@ -125,8 +125,9 @@ export default {
             this.goods3 = GOODS3
         },
         onTabTo (event) {
-            dom.scrollToElement(this.$refs['tab'], { animated: false })
             this.goods3 = [];
+            dom.scrollToElement(this.$refs['tab'], { animated: false })
+            this.tabKey = event.data.key;
             this.goods3 = GOODS3;
         }
     }

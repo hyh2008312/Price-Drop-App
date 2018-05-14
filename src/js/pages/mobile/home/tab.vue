@@ -7,7 +7,11 @@
 </template>
 <script>
 export default {
-    props: ['items'],
+    props: {
+        items: {
+            type: Array
+        }
+    },
     data () {
         return {
             pIndexKey: 'hot'
@@ -53,7 +57,7 @@ export default {
     line-height: 34px;
     padding-bottom: 8px;
     border-bottom-width: 6px;
-    border-bottom-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0,0,0,0);
     border-bottom-style: solid;
 }
 

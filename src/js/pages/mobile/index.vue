@@ -23,9 +23,13 @@ export default {
         'tab-bar': tabBar
     },
     created () {
-        util.initIconFont();
-        // 安卓自定义退出 app
-        this.androidFinishApp();
+        this.$navigator.setNavigationInfo({
+            title: '',
+            navShow: false,
+            statusBarStyle: 'LightContent'
+        });
+        util.initIconFont()
+        this.androidFinishApp()
     },
     data () {
         return {

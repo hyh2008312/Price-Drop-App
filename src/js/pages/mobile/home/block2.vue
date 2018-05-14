@@ -118,12 +118,15 @@ export default {
 }
 
 .gd-bg {
-    background-color: #f4f4f4;
 }
 
 .gd-img {
     height: 288px;
     width: 288px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(0,0,0,.12);
+    border-radius: 8px;
 }
 
 .gd-tlt {

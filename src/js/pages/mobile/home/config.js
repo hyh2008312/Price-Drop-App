@@ -119,25 +119,25 @@ export const CHANNELLIST = [{
 }, {
     name: '美妆',
     width: '56',
-    left: '96'
+    left: '104'
 }, {
     name: 'T恤',
     width: '56',
-    left: '194'
+    left: '202'
 }, {
     name: '连衣裙',
     width: '84',
-    left: '286'
+    left: '300'
 }, {
     name: '针织衫',
     width: '84',
-    left: '412'
+    left: '432'
 }, {
     name: '高跟鞋',
     width: '84',
-    left: '532'
+    left: '564'
 }, {
     name: '高跟鞋',
     width: '84',
-    left: '660'
+    left: '696'
 }];
