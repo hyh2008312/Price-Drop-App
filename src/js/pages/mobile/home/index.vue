@@ -3,20 +3,21 @@
         <!-- <div class="status-bar"></div> -->
         <home-header></home-header>
         <top-channel @change="onchange" ref="topChannel" :activeIndex="activeIndex"></top-channel>
-        <slider ref="slider" :style="height" class="box" @change="onchangeTab" :index="activeIndex">
+        <slider infinite="false" ref="slider" :style="height" class="box" @change="onchangeTab" :index="activeIndex">
             <suggest></suggest>
-            <suggest></suggest>
-            <suggest></suggest>
-            <suggest></suggest>
-            <suggest></suggest>
-            <suggest></suggest>
-            <suggest></suggest>
+            <category></category>
+            <category></category>
+            <category></category>
+            <category></category>
+            <category></category>
+            <category></category>
         </slider>
     </div>
 </template>
 <script>
 import header from './header';
 import suggest from './suggest';
+import category from './category';
 import topChannel from './topChannel';
 import { CHANNELLIST } from './config';
 import { Utils } from 'weex-ui';
@@ -25,7 +26,8 @@ export default {
     components: {
         'home-header': header,
         'top-channel': topChannel,
-        'suggest': suggest
+        suggest,
+        category
     },
     created () {
         this.getChannel()

@@ -1,15 +1,15 @@
 <template>
     <div class="wrapper">
         <div class="gb-box">
-            <div class="i-gd" v-for="i in goods" @click="jumpWeb(i.url)">
+            <div class="i-gd">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="i.img"></image>
+                    <image class="gd-img" resize="cover" :src="goods.img"></image>
                 </div>
                 <div class="gd-bg-right">
-                    <text class="gd-info">{{i.info}}</text>
-                    <text class="gd-tlt">{{i.tlt}}</text>
-                    <text class="gd-sm">{{i.info}}</text>
-                    <text class="gd-price">¥ {{i.price}}</text>
+                    <text class="gd-info">{{goods.info}}</text>
+                    <text class="gd-tlt">{{goods.tlt}}</text>
+                    <text class="gd-sm">{{goods.info}}</text>
+                    <text class="gd-price">¥ {{goods.price}}</text>
                     <text class="gd-button">砍价立减</text>
                 </div>
             </div>
@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-    props: ['newGoods', 'hotGoods', 'head', 'hasMore', 'goods'],
+    props: ['goods'],
     methods: {
         jumpWeb (_url) {
             if (!_url) return;

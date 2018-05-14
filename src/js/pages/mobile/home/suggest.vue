@@ -1,30 +1,34 @@
 <template>
     <div class="wrapper" >
-        <scroller offset-accuracy="300" loadmoreoffset="300"  @loadmore="onloading">
+        <list ref="list"  loadmoreoffset="30"  @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
-            <div class="cell-button slider-wrap">
+            <cell class="cell-button slider-wrap">
                 <div class="slider-bg"></div>
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
-            </div>
-            <div class="cell-button">
+            </cell>
+            <cell class="cell-button">
                 <block-4 :items="block1.items" ></block-4>
-            </div>
-            <div class="cell-button">
+            </cell>
+            <cell class="cell-button">
                 <block-2 hasMore=true newGoods=true :head="head1" :goods="goods1"></block-2>
                 <block-2 hasMore=true hotGoods=true :head="head2" :goods="goods2"></block-2>
-            </div>
-            <div class="cell-button">
+            </cell>
+            <cell class="cell-button">
                 <block-5 :logo="block5.items"></block-5>
-            </div>
-            <div class="cell-button">
+            </cell>
+            <header>
                 <tab @tabTo="onTabTo" :items="tabsItems" ref="tab"></tab>
-                <block-3 :goods="goods3" v-if="tabKey == 'hot'"></block-3>
-                <block-3 :goods="goods3" v-if="tabKey == 'new'"></block-3>
-            </div>
-            <loading class="loading" :display="showLoading">
+            </header>
+            <cell v-for="item in goods3"  v-if="tabKey == 'hot'">
+                <block-3 :goods="item"></block-3>
+            </cell>
+            <cell v-for="item in goods3"  v-if="tabKey == 'new'">
+                <block-3 :goods="item"></block-3>
+            </cell>
+            <loading class="loading">
                 <text class="indicator">加载中...</text>
             </loading>
-        </scroller>
+        </list>
     </div>
 </template>
 <script>
@@ -94,9 +98,8 @@ export default {
             })
         },
         onloading () {
-            this.showLoading = 'show';
             this.goods3.push(...this.goods1);
-            this.showLoading = 'hide';
+            this.$refs['list'].resetLoadmore();
         },
         init () {
             this.getYXBanners()
