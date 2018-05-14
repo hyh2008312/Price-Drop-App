@@ -2,19 +2,8 @@
     <div class="wrapper" >
         <scroller offset-accuracy="300" loadmoreoffset="300"  @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
-            <div class="cell-button slider-wrap">
-                <div class="slider-bg"></div>
-                <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
-            </div>
             <div class="cell-button">
                 <block-4 :items="block1.items" ></block-4>
-            </div>
-            <div class="cell-button">
-                <block-2 hasMore=true newGoods=true :head="head1" :goods="goods1"></block-2>
-                <block-2 hasMore=true hotGoods=true :head="head2" :goods="goods2"></block-2>
-            </div>
-            <div class="cell-button">
-                <block-5 :logo="block5.items"></block-5>
             </div>
             <div class="cell-button">
                 <tab @tabTo="onTabTo" :items="tabsItems" ref="tab"></tab>
@@ -29,13 +18,10 @@
 </template>
 <script>
 import refresher from '../common/refresh';
-import YXSlider from './YXSlider';
 import tab from './tab';
-import block2 from './block2';
 import block3 from './block3';
 import block4 from './block4';
-import block5 from './block5';
-import { YXBANNERS, BLOCK1, TAB, BLOCK4, GOODS1, GOODS2, GOODS3 } from './config';
+import { BLOCK1, TAB, GOODS3 } from './config';
 
 const SCROLL_FULL_WIDTH = 750
 const dom = weex.requireModule('dom');
@@ -43,12 +29,9 @@ const dom = weex.requireModule('dom');
 export default {
     components: {
         'refresher': refresher,
-        'yx-slider': YXSlider,
         'tab': tab,
-        'block-2': block2,
         'block-3': block3,
-        'block-4': block4,
-        'block-5': block5
+        'block-4': block4
     },
     created () {
         this.init()
@@ -87,39 +70,15 @@ export default {
         }
     },
     methods: {
-        jumpWeb (_url) {
-            this.$router.toWebView({
-                url: _url,
-                title: ''
-            })
-        },
         onloading () {
             this.showLoading = 'show';
             this.goods3.push(...this.goods1);
             this.showLoading = 'hide';
         },
         init () {
-            this.getYXBanners()
             this.getBlock1()
             this.getTabName()
-            this.getBlock4()
-            this.getBlock5()
-            this.getGoods1()
-            this.getGoods2()
             this.getGoods3()
-        },
-        getYXBanners () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getYXBanners',
-            //     data: {}
-            // }).then(resData => {
-            //     this.YXBanners = resData.data
-            // }, error => {
-
-            // })
-
-            this.YXBanners = YXBANNERS
         },
         getBlock1 () {
             // this.$fetch({
@@ -140,62 +99,6 @@ export default {
         },
         getTabName () {
             this.tabsItems = TAB;
-        },
-        getBlock4 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getBlock1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.block1.title = resData.data.title
-            //     this.block1.url = resData.data.url
-            //     this.block1.items = resData.data.items
-            // }, error => {
-
-            // })
-
-            this.block4.items = BLOCK4.items
-        },
-        getBlock5 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getBlock1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.block1.title = resData.data.title
-            //     this.block1.url = resData.data.url
-            //     this.block1.items = resData.data.items
-            // }, error => {
-
-            // })
-
-            this.block5.items = GOODS2
-        },
-        getGoods1 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getGoods1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.goods1 = resData.data
-            // }, error => {
-
-            // })
-
-            this.goods1 = GOODS1
-        },
-        getGoods2 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getGoods2',
-            //     data: {}
-            // }).then(resData => {
-            //     this.goods2 = resData.data
-            // }, error => {
-
-            // })
-
-            this.goods2 = GOODS2
         },
         getGoods3 () {
             // this.$fetch({

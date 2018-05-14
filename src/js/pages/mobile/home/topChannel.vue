@@ -20,6 +20,7 @@ export default {
     watch: {
         activeIndex (newVal, oldVal) {
             const scrollIndex = newVal < 4 ? 0 : newVal - 4;
+            this.changeRect(newVal)
             this.scrollToMenu(scrollIndex)
         }
     },
@@ -63,6 +64,18 @@ export default {
                 delay: 0
             }, function () {});
             this.$emit('change', index)
+        },
+        changeRect (index) {
+            const item = this.channelList[index]
+            animation.transition(this.$refs.jcLine, {
+                styles: {
+                    width: item.width + 'px',
+                    transform: 'translateX(' + item.left + 'px)'
+                },
+                duration: 200,
+                timingFunction: 'ease',
+                delay: 0
+            }, function () {});
         },
         scrollToMenu (index) {
             dom.scrollToElement(this.$refs[`channel_${index}`][0])

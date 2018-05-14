@@ -8,8 +8,8 @@ module.exports = {
         'iOS': '1.0.0'
     },
     'page': {
-        // 'homePage': '/pages/mobile/index.js',
-        'homePage': '/pages/demo/index.js',
+        'homePage': '/pages/mobile/index.js',
+        // 'homePage': '/pages/demo/index.js',
         'mediatorPage': '/mediator/index.js',
         'navBarColor': '#1DA1F2',
         'navItemColor': '#ffffff'
