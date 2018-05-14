@@ -29,7 +29,7 @@ export default {
     created () {
         this.getChannel()
         const pageHeight = Utils.env.getScreenHeight()
-        this.height = { height: (pageHeight - 112 - 236) + 'px' }
+        this.height = { height: (pageHeight - 112 - 44) + 'px' }
     },
     data () {
         return {
@@ -42,12 +42,8 @@ export default {
         onswipe (event) {
             if (event.direction == 'up') {
                 this.headerShow = false;
-                const pageHeight = Utils.env.getScreenHeight()
-                this.height = { height: (pageHeight - 112 - 44) + 'px' }
             } else if (event.direction == 'down') {
                 this.headerShow = true;
-                const pageHeight = Utils.env.getScreenHeight()
-                this.height = { height: (pageHeight - 112 - 236) + 'px' }
             }
             this.$notice.toast(this.headerShow.toString())
         },
