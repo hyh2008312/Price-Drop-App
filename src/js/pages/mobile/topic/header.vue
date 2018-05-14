@@ -22,7 +22,7 @@ export default {
     right: 0;
     height: 114px;
     padding-top: 44px;
-    background-color: #fafafa;
+    background-color: transparent;
     opacity: .99;
     z-index: 101;
     flex-wrap: nowrap;

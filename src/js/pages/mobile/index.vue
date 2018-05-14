@@ -23,7 +23,9 @@ export default {
         'tab-bar': tabBar
     },
     created () {
-        util.initIconFont()
+        util.initIconFont();
+        // 安卓自定义退出 app
+        this.androidFinishApp();
     },
     data () {
         return {
@@ -39,6 +41,26 @@ export default {
                     return
                 }
                 val.visibility = 'hidden'
+            })
+        },
+        androidFinishApp () {
+            const globalEvent = weex.requireModule('globalEvent');
+            let self = this ;
+            globalEvent.addEventListener('homeBack', options => {
+                this.$notice.confirm({
+                    title: '退出',
+                    message: '确定退出SocialCommer吗？',
+                    okTitle: '确认',
+                    cancelTitle: '取消',
+                    okCallback () {
+                        self.$router.finish();
+                        // 点击确认按钮的回调
+                    },
+                    cancelCallback () {
+                       // 点击取消按钮的回调
+                    }
+
+                })
             })
         }
     }
