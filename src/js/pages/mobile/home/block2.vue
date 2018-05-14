@@ -31,12 +31,10 @@
 export default {
     props: ['newGoods', 'hotGoods', 'head', 'hasMore', 'goods'],
     methods: {
-        jumpWeb (_url) {
-            if (!_url) return;
-            this.$router.toWebView({
-                url: _url,
-                title: '',
-                navShow: true
+        jumpWeb (url) {
+            // if (!url) return;
+            this.$router.open({
+                name: 'goods.details'
             })
         }
     }

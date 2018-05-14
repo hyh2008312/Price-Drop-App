@@ -22,14 +22,12 @@ export default {
     right: 0;
     height: 114px;
     padding-top: 44px;
-    background-color: #fafafa;
-    opacity: .99;
     z-index: 101;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-around;
-    border-bottom-width: 1px;
-    border-bottom-color: #d9d9d9;
+    /*border-bottom-width: 1px;*/
+    /*border-bottom-color: #d9d9d9;*/
 }
 
 .tlt {

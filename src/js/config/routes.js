@@ -92,5 +92,8 @@ export default {
     'a': {
         title: '路由测试页',
         url: '/pages/mobile/shop/a.js'
+    },
+    'goods.details': {
+        url: '/pages/mobile/shop/goodsDetail.js'
     }
 }
