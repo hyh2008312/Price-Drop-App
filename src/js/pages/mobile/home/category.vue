@@ -9,10 +9,7 @@
             <header>
                 <tab @tabTo="onTabTo" :items="tabsItems" ref="tab"></tab>
             </header>
-            <cell v-for="item in goods3"  :style="{ visibility: tabKey == 'hot'}">
-                <block-3 :goods="item"></block-3>
-            </cell>
-            <cell v-for="item in goods3"  :style="{ visibility: tabKey == 'new'}">
+            <cell v-for="item in goods3">
                 <block-3 :goods="item"></block-3>
             </cell>
             <loading class="loading" >
@@ -128,7 +125,6 @@ export default {
             this.goods3 = GOODS3
         },
         onTabTo (event) {
-            this.tabKey = event.data.key;
             dom.scrollToElement(this.$refs['tab'], { animated: false })
             this.goods3 = [];
             this.goods3 = GOODS3;
