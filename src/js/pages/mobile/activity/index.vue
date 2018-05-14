@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="state"></div>
         <div class="navigation">
-            <text class="homeBack">&#xe6f6;</text>
+            <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">美妆</text>
         </div>
         <waterfall class="main-list" column-count="2" column-gap="14" ref="list" loadmoreoffset="30"
@@ -117,6 +117,9 @@
                 // })
 
                 this.goods3 = GOODS3
+            },
+            homeBack () {
+                this.$router.back();
             }
         }
     }
@@ -183,6 +186,7 @@
     }
 
     .wrapper {
+        background-color: white;
     }
 
     .margin-left16 {
@@ -200,7 +204,11 @@
     }
 
     .gd-bg {
-       /* background-color: #f4f4f4;*/
+        border-width: 1px;
+        border-color: rgba(0, 0, 0, 0.12);
+        border-style: solid;
+        border-radius: 8px;
+        /* background-color: #f4f4f4;*/
     }
 
     .gd-img {
