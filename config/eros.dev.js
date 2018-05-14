@@ -15,6 +15,7 @@ module.exports = {
         'js/pages/mobile/shop/index.vue',
         'js/pages/mobile/my/index.vue',
         'js/pages/mobile/shop/a.vue',
+        'js/pages/mobile/shop/goodsDetail.vue',
         'js/pages/demo/index.vue',
         'js/pages/demo/lifecycle/index.vue',
         'js/pages/demo/assets/index.vue',
