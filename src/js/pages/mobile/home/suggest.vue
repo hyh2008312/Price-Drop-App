@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper" >
-        <list ref="list"  loadmoreoffset="30"  @loadmore="onloading">
+        <list loadmoreoffset="30"  @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
             <cell class="cell-button slider-wrap">
                 <div class="slider-bg"></div>
@@ -16,8 +16,9 @@
             <cell class="cell-button">
                 <block-5 :logo="block5.items"></block-5>
             </cell>
+            <cell ref="tab"></cell>
             <header>
-                <tab @tabTo="onTabTo" :items="tabsItems" ref="tab"></tab>
+                <tab @tabTo="onTabTo" :items="tabsItems" ></tab>
             </header>
             <cell v-for="item in goods3"  v-if="tabKey == 'hot'">
                 <block-3 :goods="item"></block-3>
@@ -99,7 +100,9 @@ export default {
         },
         onloading () {
             this.goods3.push(...this.goods1);
-            this.$refs['list'].resetLoadmore();
+        },
+        loadingDown () {
+            this.init();
         },
         init () {
             this.getYXBanners()

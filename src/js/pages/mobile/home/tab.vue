@@ -36,7 +36,6 @@ export default {
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    position: sticky;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
 }
 

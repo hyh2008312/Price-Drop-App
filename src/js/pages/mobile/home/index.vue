@@ -5,12 +5,7 @@
         <top-channel @change="onchange" ref="topChannel" :activeIndex="activeIndex"></top-channel>
         <slider infinite="false" ref="slider" :style="height" class="box" @change="onchangeTab" :index="activeIndex">
             <suggest></suggest>
-            <category></category>
-            <category></category>
-            <category></category>
-            <category></category>
-            <category></category>
-            <category></category>
+            <category v-for="(i, index) in channelList" v-if="index > 0" :activeIndex="index" :index="activeIndex"></category>
         </slider>
     </div>
 </template>

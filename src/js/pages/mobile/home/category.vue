@@ -1,6 +1,6 @@
 <template>
-    <div class="wrapper" >
-        <list ref="list" loadmoreoffset="30"  @loadmore="onloading">
+    <div class="wrapper">
+        <list loadmoreoffset="30" @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
             <cell class="cell-button">
                 <block-4 :items="block1.items" ></block-4>
@@ -25,7 +25,7 @@ import refresher from '../common/refresh';
 import tab from './tab';
 import block3 from './block3';
 import block4 from './block4';
-import { BLOCK1, TAB, GOODS3 } from './config';
+import { BLOCK1, TAB, GOODS3, GOODS1 } from './config';
 
 const SCROLL_FULL_WIDTH = 750
 const dom = weex.requireModule('dom');
@@ -37,8 +37,20 @@ export default {
         'block-3': block3,
         'block-4': block4
     },
+    props: ['index', 'activeIndex'],
     created () {
-        this.init()
+        // this.init()
+    },
+    watch: {
+        'index': {
+            handler: function (val, oldVal) {
+                this.$notice.toast(oldVal)
+                if (this.activeIndex == val) {
+                    this.init()
+                }
+            },
+            deep: true
+        }
     },
     data () {
         return {
@@ -48,25 +60,8 @@ export default {
                 url: '',
                 items: []
             },
-            block4: {
-                items: []
-            },
-            block5: {
-                items: []
-            },
-            head1: {
-                tlt: '周一周四 · 新品发布',
-                tltBg: 'http://doc.zwwill.com/yanxuan/imgs/bg-new.png',
-                url: 'http://m.you.163.com/item/newItem'
-            },
-            head2: {
-                tlt: '人气推荐 · 好物精选',
-                tltBg: 'http://doc.zwwill.com/yanxuan/imgs/bg-hot.png',
-                url: 'http://m.you.163.com/item/recommend'
-            },
             tabsItems: [],
             goods1: [],
-            goods2: [],
             goods3: [],
             showLoading: 'hide',
             tabKey: 'hot',
@@ -75,14 +70,15 @@ export default {
     },
     methods: {
         onloading () {
-            this.showLoading = 'show';
             this.goods3.push(...this.goods1);
-            this.showLoading = 'hide';
-            this.$refs['list'].resetLoadmore();
+        },
+        loadingDown () {
+            this.init();
         },
         init () {
             this.getBlock1()
             this.getTabName()
+            this.getGoods1()
             this.getGoods3()
         },
         getBlock1 () {
@@ -104,6 +100,19 @@ export default {
         },
         getTabName () {
             this.tabsItems = TAB;
+        },
+        getGoods1 () {
+            // this.$fetch({
+            //     method: 'GET',
+            //     name: 'yanxuan_home_getGoods1',
+            //     data: {}
+            // }).then(resData => {
+            //     this.goods1 = resData.data
+            // }, error => {
+
+            // })
+
+            this.goods1 = GOODS1
         },
         getGoods3 () {
             // this.$fetch({
