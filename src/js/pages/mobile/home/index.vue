@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="status-bar"></div>
         <home-header v-if="headerShow"></home-header>
-        <top-channel @change="onchange" ref="topChannel" :activeIndex="activeIndex"></top-channel>
+        <top-channel class="channel" @change="onchange" ref="topChannel" :activeIndex="activeIndex"></top-channel>
         <div :style="height" class="box">
             <slider class="slider" infinite="false" ref="slider" @swipe="onswipe" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
