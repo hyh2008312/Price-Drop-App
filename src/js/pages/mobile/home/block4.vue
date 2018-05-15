@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="container">
-            <div ref="notice">
+            <div v-if="activeIndex == index" ref="notice">
                 <div class="inner-container" v-for="message in items">
                     <image class="header" :src="message.bg" resize="contain"></image>
                     <text class="tlt">{{message.name}}</text>
@@ -13,7 +13,7 @@
 <script>
     const animation = weex.requireModule('animation')
     export default {
-        props: ['items'],
+        props: ['items', 'index', 'activeIndex'],
         data () {
             return {
                 isOnAni: false

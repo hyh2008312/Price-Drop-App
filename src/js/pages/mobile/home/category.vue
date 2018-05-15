@@ -1,13 +1,14 @@
 <template>
     <div class="wrapper">
-        <list loadmoreoffset="30" @loadmore="onloading">
+        <list loadmoreoffset="100" @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
             <cell class="cell-button cell-top" >
                 <block-4 :items="block1.items" @noticeFinished="noNoticeFinished"
+                         :activeIndex="activeIndex" :index="index"
                          v-if="block1.items.length > 0" ></block-4>
             </cell>
             <cell ref="tab"></cell>
-            <header  v-if="tabsItems.length > 0">
+            <header v-if="tabsItems.length > 0">
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
             <cell v-for="item in goods3">

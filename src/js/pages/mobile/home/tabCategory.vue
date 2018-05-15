@@ -3,8 +3,8 @@
         <div v-for="(i,index) in items" :key="index" class="tab-item" @click="tabTo(i.key)">
             <text class="tab-txt" :class="[pIndexKey == i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
             <div class="tab-tri" v-if="i.tri" >
-                <text class="iconfont tab-tri-1" :class="[priceIdx == 1?'tab-txt-active': '']">&#xe6f8;</text>
-                <text class="iconfont tab-tri-2" :class="[priceIdx == 2?'tab-txt-active': '']">&#xe6f8;</text>
+                <text class="iconfont tab-tri-1" :class="[priceIdx == 1?'tab-txt-active': '']">&#xe6fc;</text>
+                <text class="iconfont tab-tri-2" :class="[priceIdx == 2?'tab-txt-active': '']">&#xe6fd;</text>
             </div>
         </div>
     </div>
@@ -94,13 +94,13 @@ export default {
 }
 
 .tab-tri-1{
-    margin-bottom: -8px;
-    transform: rotate(-90deg);
+    margin-left: 8px;
+    font-size: 16px;
 }
 
 .tab-tri-2{
-    margin-top: -8px;
-    transform: rotate(90deg);
+    margin-left: 8px;
+    font-size: 16px;
 }
 
 </style>
