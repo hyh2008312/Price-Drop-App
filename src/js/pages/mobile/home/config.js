@@ -49,6 +49,20 @@ export const TAB = [{
     key: 'new'
 }];
 
+export const TABCAT = [{
+    name: '综合',
+    key: 'hot',
+    tri: false
+}, {
+    name: '最新',
+    key: 'new',
+    tri: false
+}, {
+    name: '价格',
+    key: 'price',
+    tri: true
+}];
+
 export const BLOCK4 = {
     items: [{
         name: '新秀丽制造商好好啊好啊好啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',

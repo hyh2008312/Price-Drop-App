@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="gb-box">
-            <div class="i-gd">
+            <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
                     <image class="gd-img" resize="cover" :src="goods.img"></image>
                 </div>
@@ -20,12 +20,10 @@
 export default {
     props: ['goods'],
     methods: {
-        jumpWeb (_url) {
-            if (!_url) return;
-            this.$router.toWebView({
-                url: _url,
-                title: '',
-                navShow: true
+        jumpWeb () {
+            // if (!url) return;
+            this.$router.open({
+                name: 'goods.details'
             })
         }
     }
@@ -49,10 +47,8 @@ export default {
 
 .i-gd {
     width: 718px;
-    height: 288px;
+    height: 290px;
     flex-direction: row;
-    justify-content: start;
-    align-items: stretch;
 }
 
 .gd-bg {
@@ -69,10 +65,10 @@ export default {
 .gd-img {
     width: 288px;
     height: 288px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgba(0,0,0,.12);
     border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.12);
 }
 
 .gd-tlt {
@@ -89,6 +85,8 @@ export default {
 
 .gd-info {
     display: block;
+    font-weight: 500;
+    margin-top: 16px;
     font-size: 28px;
     width: 398px;
     line-height: 40px;
@@ -103,6 +101,7 @@ export default {
     font-size: 28px;
     width: 398px;
     margin-top: 32px;
+    font-weight: 500;
     color: #987D1A;
     overflow: hidden;
     lines: 1;

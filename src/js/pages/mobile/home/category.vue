@@ -21,10 +21,10 @@
 </template>
 <script>
 import refresher from '../common/refresh';
-import tab from './tab';
+import tab from './tabCategory';
 import block3 from './block3';
 import block4 from './block4';
-import { BLOCK1, TAB, GOODS3, GOODS1 } from './config';
+import { BLOCK1, TABCAT, GOODS3, GOODS1 } from './config';
 
 const SCROLL_FULL_WIDTH = 750
 const dom = weex.requireModule('dom');
@@ -100,7 +100,7 @@ export default {
             this.block1.items = BLOCK1.items
         },
         getTabName () {
-            this.tabsItems = TAB;
+            this.tabsItems = TABCAT;
         },
         getGoods1 () {
             // this.$fetch({

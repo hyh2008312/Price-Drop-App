@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper">
-        <div class="tlt-box" v-if="newGoods">
+        <div class="tlt-box" v-if="newGoods" @click="jumpActivity">
             <image class="tlt-image" resize="cover" src="http://doc.zwwill.com/yanxuan/imgs/bg-new.png"></image>
             <div class="tlt-bg">
                 <text class="tlt tlt-new">{{head.tlt}}</text>
                 <text class="btn-all" @click="jumpWeb(head.url)">查看全部</text>
             </div>
         </div>
-        <div class="tlt-box" v-else-if="hotGoods">
+        <div class="tlt-box" v-else-if="hotGoods" @click="jumpActivity">
             <image class="tlt-image" resize="cover" src="http://doc.zwwill.com/yanxuan/imgs/bg-hot.png"></image>
             <div class="tlt-bg">
                 <text class="tlt tlt-hot">{{head.tlt}}</text>
@@ -31,6 +31,12 @@
 export default {
     props: ['newGoods', 'hotGoods', 'head', 'hasMore', 'goods'],
     methods: {
+        jumpActivity () {
+            this.$router.open({
+                name: 'mobile.activity',
+                type: 'PUSH'
+            })
+        },
         jumpWeb (url) {
             // if (!url) return;
             this.$router.open({
@@ -123,14 +129,15 @@ export default {
 .gd-img {
     height: 288px;
     width: 288px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgba(0,0,0,.12);
     border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.12);
 }
 
 .gd-tlt {
     font-size: 24px;
+    font-weight: 500;
     color: rgba(0,0,0,0.87);
     width: 288px;
     margin-top: 16px;
@@ -157,6 +164,7 @@ export default {
 
 .gd-price {
     font-size: 28px;
+    font-weight: 500;
     width: 288px;
     line-height: 40px;
     margin-top: 6px;

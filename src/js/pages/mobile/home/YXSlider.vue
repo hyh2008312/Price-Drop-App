@@ -23,6 +23,10 @@ export default {
 .image {
     width: 316px;
     height: 316px;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.12);
 }
 
 .slider {
@@ -45,7 +49,7 @@ export default {
     margin-top: 20px;
     font-size: 28px;
     line-height: 48px;
-    font-weight: 700;
+    font-weight: 500;
     color: rgba(0,0,0, .87);
     lines: 1;
     white-space: nowrap;
@@ -76,6 +80,7 @@ export default {
     margin-top: 62px;
     font-size: 28px;
     line-height: 40px;
+    font-weight: 500;
     color: #957914;
     lines: 1;
     white-space: nowrap;
