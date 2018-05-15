@@ -25,6 +25,9 @@ export default {
     methods: {
         tabTo (_key) {
             if (_key != 'price' && this.pIndexKey == _key) return;
+            if (_key != 'price') {
+                this.priceIdx = 0;
+            }
             if (_key == 'price') {
                 switch (this.priceIdx) {
                     case 0:
@@ -75,7 +78,7 @@ export default {
 }
 
 .tab-txt {
-    width: 64px;
+    width: 48px;
     text-align: center;
     font-size: 24px;
     line-height: 34px;
