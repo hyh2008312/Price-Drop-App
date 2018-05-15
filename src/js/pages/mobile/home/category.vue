@@ -2,8 +2,9 @@
     <div class="wrapper">
         <list loadmoreoffset="30" @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
-            <cell class="cell-button cell-top" v-if="block1.items.length > 0">
-                <block-4 :items="block1.items" ></block-4>
+            <cell class="cell-button cell-top" >
+                <block-4 :items="block1.items" @noticeFinished="noNoticeFinished"
+                         v-if="block1.items.length > 0" ></block-4>
             </cell>
             <cell ref="tab"></cell>
             <header  v-if="tabsItems.length > 0">
@@ -66,6 +67,9 @@ export default {
         }
     },
     methods: {
+        noNoticeFinished (e) {
+            this.block1.items = [...BLOCK1.items];
+        },
         onloading () {
             this.goods3.push(...this.goods1);
         },

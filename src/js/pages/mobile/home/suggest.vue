@@ -7,7 +7,7 @@
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
             </cell>
             <cell class="cell-button">
-                <block-4 :items="block1.items" ></block-4>
+                <block-4 v-if="block1.items.length > 0" :items="block1.items" @noticeFinished="noNoticeFinished"></block-4>
             </cell>
             <cell class="cell-button">
                 <block-2 hasMore=true newGoods=true :head="head1" :goods="goods1"></block-2>
@@ -94,6 +94,9 @@ export default {
                 url: _url,
                 title: ''
             })
+        },
+        noNoticeFinished (e) {
+            this.block1.items = [...BLOCK4.items];
         },
         onloading () {
             this.goods3.push(...this.goods1);

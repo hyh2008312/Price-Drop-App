@@ -45,14 +45,12 @@ export default {
             } else if (event.direction == 'down') {
                 this.headerShow = true;
             }
-            this.$notice.toast(this.headerShow.toString())
         },
         getChannel () {
             this.channelList = CHANNELLIST
         },
         onchange (index) {
             this.activeIndex = index;
-            // dom.scrollToElement(this.$refs[`page_${index}`][0], { animated: false })
         },
         onchangeTab (event) {
             this.activeIndex = event.index

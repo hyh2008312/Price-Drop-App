@@ -8,7 +8,7 @@
 </template>
 <script>
 import { CHANNELLIST } from './config'
-const dom = weex.requireModule('dom');
+const dom = weex.requireModule('dom')
 const animation = weex.requireModule('animation')
 export default {
     props: {
