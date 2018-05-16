@@ -16,7 +16,6 @@ import header from './header';
 import suggest from './suggest';
 import category from './category';
 import topChannel from './topChannel';
-import { CHANNELLIST } from './config';
 import { Utils } from 'weex-ui';
 
 export default {
@@ -27,7 +26,6 @@ export default {
         category
     },
     created () {
-        this.getChannel()
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 44) + 'px' }
     },
@@ -64,16 +62,6 @@ export default {
             this.positionY = 0
             this.deltaX = 0
             this.deltaY = 0
-        },
-        onswipe (event) {
-            if (event.direction == 'up') {
-                this.headerShow = false;
-            } else if (event.direction == 'down') {
-                this.headerShow = true;
-            }
-        },
-        getChannel () {
-            this.channelList = CHANNELLIST
         },
         onchange (index) {
             this.activeIndex = index;

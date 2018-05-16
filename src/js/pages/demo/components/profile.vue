@@ -1,7 +1,7 @@
 <template>
     <header class="desc" ref="profile">
         <text class="desc-title icon" ref="logo" style="font-size: 100px">&#xe618;</text>
-        <!--<text class="desc-info">eros 的定位不是仅仅是一个库，由于 app 开发的特殊性，则更偏重关心于整个 app 项目。</text>-->
+        <!--<text drops="desc-info">eros 的定位不是仅仅是一个库，由于 app 开发的特殊性，则更偏重关心于整个 app 项目。</text>-->
         <div class="desc-info-1">
             <bmrichtext style="height: 100px;">
                 <bmspan class="desc-info-text-bold" value="eros"></bmspan>

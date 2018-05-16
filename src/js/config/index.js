@@ -11,7 +11,7 @@ new Widget({
         routes
     },
     ajax: {
-        baseUrl: 'http://app.weex-eros.com:52077',
+        baseUrl: 'http://47.104.171.91',
         /**
          * 接口别名
          */

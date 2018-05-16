@@ -1,9 +1,9 @@
 <template>
     <div>
         <scroller v-if="attrArr.length" :show-scrollbar="false">
-            <!--<cell v-for="(attr,index) in attrArr" :key="index" :index="index" class="panel">
-                <text class="text arrtName">{{attr.text}}: </text>
-                <text class="text">{{attr.value || '无'}}</text>
+            <!--<cell v-for="(attr,index) in attrArr" :key="index" :index="index" drops="panel">
+                <text drops="text arrtName">{{attr.text}}: </text>
+                <text drops="text">{{attr.value || '无'}}</text>
             </cell>-->
              <wxc-cell :title="attr.text"
                 :desc="attr.value || '无'"
@@ -12,7 +12,7 @@
                 @wxcCellClicked="wxcCellClicked"
                 :has-top-border="true"></wxc-cell>
         </scroller>
-       
+
         <div class="touch-bar" :style="{'height': touchBarHeight}"></div>
     </div>
 </template>

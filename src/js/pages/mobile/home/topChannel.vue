@@ -2,7 +2,7 @@
     <div class="wrapper">
         <scroller class="scroller" scroll-direction="horizontal" flex-direction="row" loadmoreoffset="0" show-scrollbar=false>
             <div class="j-uline" ref="jcLine"></div>
-            <text jact="true" class="i-c" v-for="(item,index) in channelList" :class="[ activeIndex == index ? 'c-act' : '']" @click="chooseChannel(index,item)" :ref="'channel_' + index">{{item.name}}</text>
+            <text class="i-c" v-for="(item,index) in channelList" :class="[ activeIndex == index ? 'c-act' : '']" @click="chooseChannel(index,item)" :ref="'channel_' + index">{{item.name}}</text>
         </scroller>
     </div>
 </template>
@@ -47,9 +47,31 @@ export default {
             // }, error => {
 
             // })
-
-            this.channelList = CHANNELLIST
-            this.dataReady = true
+            this.$fetch({
+                method: 'GET', // 大写
+                name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
+                data: {}
+            }).then(data => {
+                this.channelList = [];
+                let left = 0;
+                for (const item of data) {
+                    const width = item.fullName.length * 28
+                    this.channelList.push({
+                        name: item.fullName,
+                        width: width,
+                        left: left
+                    })
+                    left += 48 + item.fullName.length * 28
+                }
+                this.$notice.alert({
+                    title: 'category',
+                    message: JSON.stringify(this.channelList)
+                });
+                this.dataReady = true
+            }, error => {
+                this.$notice.toast(JSON.stringify(error));
+            });
+            // this.channelList = CHANNELLIST
         },
         chooseChannel (index, channel) {
             this.activeIndex = index
@@ -57,7 +79,8 @@ export default {
             animation.transition(this.$refs.jcLine, {
                 styles: {
                     width: item.width + 'px',
-                    transform: 'translateX(' + item.left + 'px)'
+                    transformOrigin: 'left center',
+                    left: 'translateX(' + item.left + 'px)'
                 },
                 duration: 200,
                 timingFunction: 'ease',
@@ -70,6 +93,7 @@ export default {
             animation.transition(this.$refs.jcLine, {
                 styles: {
                     width: item.width + 'px',
+                    transformOrigin: 'left',
                     transform: 'translateX(' + item.left + 'px)'
                 },
                 duration: 200,

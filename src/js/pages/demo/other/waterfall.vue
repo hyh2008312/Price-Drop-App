@@ -5,9 +5,9 @@
   :show-scrollbar="showScrollbar" :scrollable="scrollable"
   @scroll="recylerScroll" @loadmore="loadmore" loadmoreoffset=3000
   >
-  <!--<refresh class="refresh" @refresh="onrefresh" @pullingdown="onpullingdown" :display="refreshing ? 'show' : 'hide'">
-      <loading-indicator class="indicator"></loading-indicator>
-      <text class="refreshText">{{refreshText}}</text>
+  <!--<refresh drops="refresh" @refresh="onrefresh" @pullingdown="onpullingdown" :display="refreshing ? 'show' : 'hide'">
+      <loading-indicator drops="indicator"></loading-indicator>
+      <text drops="refreshText">{{refreshText}}</text>
   </refresh>-->
     <header class="header" ref="header" v-if="showHeader">
       <div class="banner">
