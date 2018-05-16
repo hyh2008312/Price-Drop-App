@@ -1,4 +1,4 @@
-<template> 
+<template>
     <div></div>
 </template>
 
@@ -25,6 +25,7 @@
         },
         created () {
             this.bindEvent()
+            this.$router.setHomePage('/')
         }
     }
 </script>

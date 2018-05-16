@@ -49,7 +49,7 @@ export default {
         },
         androidFinishApp () {
             const globalEvent = weex.requireModule('globalEvent');
-            let self = this ;
+            let self = this;
             globalEvent.addEventListener('homeBack', options => {
                 this.$notice.confirm({
                     title: '退出',
