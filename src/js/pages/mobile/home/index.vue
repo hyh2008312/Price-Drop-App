@@ -2,7 +2,8 @@
     <div class="wrapper">
         <div class="status-bar"></div>
         <home-header v-if="headerShow"></home-header>
-        <top-channel class="channel" @change="onchange" ref="topChannel" :activeIndex="activeIndex"></top-channel>
+        <top-channel class="channel" @change="onchange" ref="topChannel"
+                     :activeIndex="activeIndex" :channelList="channelList"></top-channel>
         <div :style="height" class="box" @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend">
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
@@ -28,6 +29,7 @@ export default {
     created () {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 44) + 'px' }
+        this.getChannel()
     },
     data () {
         return {
@@ -68,6 +70,37 @@ export default {
         },
         onchangeTab (event) {
             this.activeIndex = event.index
+        },
+        getChannel () {
+            this.$fetch({
+                method: 'GET', // 大写
+                name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
+                data: {}
+            }).then(data => {
+                this.channelList = [];
+                let left = 0;
+                const firstCat = '推荐';
+                this.channelList.push({
+                    name: firstCat,
+                    width: 56,
+                    left: 0,
+                    id: '0'
+                })
+                left += 48 + firstCat.length * 28;
+                for (const item of data) {
+                    const width = item.fullName.replace(/[\u0391-\uFFE5]/g, 'aa').length * 14
+                    this.channelList.push({
+                        name: item.fullName,
+                        width: width,
+                        left: left,
+                        id: item.id
+                    })
+                    left += 48 + item.fullName.replace(/[\u0391-\uFFE5]/g, 'aa').length * 14
+                }
+                this.dataReady = true
+            }, error => {
+                this.$notice.toast(JSON.stringify(error));
+            });
         }
     }
 }

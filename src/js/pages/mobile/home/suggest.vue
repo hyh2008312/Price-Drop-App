@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
     <div class="wrapper" >
         <list loadmoreoffset="100" @loadmore="onloading">
@@ -39,7 +40,7 @@ import block4 from './block4';
 import block5 from './block5';
 import { YXBANNERS, BLOCK1, TAB, BLOCK4, GOODS1, GOODS2, GOODS3 } from './config';
 
-const SCROLL_FULL_WIDTH = 750
+const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
 
 export default {
@@ -105,13 +106,13 @@ export default {
             this.init();
         },
         init () {
-            this.getYXBanners()
-            this.getBlock1()
-            this.getTabName()
-            this.getBlock4()
-            this.getBlock5()
-            this.getGoods1()
-            this.getGoods2()
+            this.getYXBanners();
+            this.getBlock1();
+            this.getTabName();
+            this.getBlock4();
+            this.getBlock5();
+            this.getGoods1();
+            this.getGoods2();
             this.getGoods3()
         },
         getYXBanners () {
@@ -140,8 +141,8 @@ export default {
 
             // })
 
-            this.block1.title = BLOCK1.title
-            this.block1.url = BLOCK1.url
+            this.block1.title = BLOCK1.title;
+            this.block1.url = BLOCK1.url;
             this.block1.items = BLOCK1.items
         },
         getTabName () {
@@ -214,15 +215,32 @@ export default {
 
             // })
 
-            this.goods3 = GOODS3
+            this.goods3 = [...GOODS3]
+        },
+        getNewGoods() {
+            this.$fetch({
+                method: 'GET', // 大写
+                name: 'product.customer.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
+                data: {}
+            }).then((data) => {
+                this.goods3 = [...GOODS3]
+                this.$notice.toast(JSON.stringify(data))
+                this.$nextTick(() => {
+                    dom.scrollToElement(this.$refs['tab'], { animated: false })
+                })
+            }, (error) => {
+
+            })
         },
         onTabTo (event) {
             this.tabKey = event.data.key;
-            this.goods3 = [];
-            this.goods3 = GOODS3;
-            this.$nextTick(() => {
+            if(event.data.key === 'new') {
+                this.getNewGoods()
+            } else {
+                this.getGoods3()
                 dom.scrollToElement(this.$refs['tab'], { animated: false })
-            })
+            }
+
         }
     }
 }

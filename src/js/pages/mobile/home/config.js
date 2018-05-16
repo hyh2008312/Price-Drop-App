@@ -42,7 +42,7 @@ export const BLOCK1 = {
 };
 
 export const TAB = [{
-    name: '热门',
+    name: '精选',
     key: 'hot'
 }, {
     name: '最新',

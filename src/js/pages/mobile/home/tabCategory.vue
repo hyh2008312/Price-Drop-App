@@ -96,6 +96,7 @@ export default {
 .tab-tri-1{
     margin-left: 8px;
     font-size: 16px;
+    flex-direction: row;
 }
 
 .tab-tri-2{
