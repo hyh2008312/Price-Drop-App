@@ -25,7 +25,6 @@
         },
         created () {
             this.bindEvent()
-            this.$router.setHomePage('/')
         }
     }
 </script>
