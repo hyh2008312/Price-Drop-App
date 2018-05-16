@@ -3,8 +3,8 @@
         <div class="status-bar"></div>
         <home-header v-if="headerShow"></home-header>
         <top-channel class="channel" @change="onchange" ref="topChannel" :activeIndex="activeIndex"></top-channel>
-        <div :style="height" class="box">
-            <slider class="slider" infinite="false" ref="slider" @swipe="onswipe" @change="onchangeTab" :index="activeIndex">
+        <div :style="height" class="box" @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend">
+            <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
                 <category v-for="(i, index) in channelList" v-if="index > 0" :activeIndex="index" :index="activeIndex"></category>
             </slider>
@@ -35,10 +35,36 @@ export default {
         return {
             channelList: [],
             activeIndex: 0,
-            headerShow: true
+            headerShow: true,
+            positionX: 0,
+            positionY: 0,
+            deltaX: 0,
+            deltaY: 0
         }
     },
     methods: {
+        ontouchstart (event) {
+            this.positionX = event.changedTouches[0].screenX;
+            this.positionY = event.changedTouches[0].screenY;
+        },
+        ontouchmove (event) {
+            const moveX = event.changedTouches[0].screenX;
+            const moveY = event.changedTouches[0].screenY;
+            this.deltaX = moveX - this.positionX;
+            this.deltaY = moveY - this.positionY;
+            if (this.deltaY > 0 && Math.abs(this.deltaY) > Math.abs(this.deltaX)) {
+                this.headerShow = true
+            }
+            if (this.deltaY < 0 && Math.abs(this.deltaY) > Math.abs(this.deltaX)) {
+                this.headerShow = false;
+            }
+        },
+        ontouchend (event) {
+            this.positionX = 0
+            this.positionY = 0
+            this.deltaX = 0
+            this.deltaY = 0
+        },
         onswipe (event) {
             if (event.direction == 'up') {
                 this.headerShow = false;
