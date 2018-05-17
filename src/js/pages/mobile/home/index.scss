@@ -71,11 +71,12 @@ body {
   margin-bottom: 16px;
 }
 
-.slogan {
+.cell-fixed {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   background-color: #fff;
+  padding-bottom: 26px;
 }
 
 .i-slg {

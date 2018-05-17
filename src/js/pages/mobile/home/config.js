@@ -50,7 +50,7 @@ export const TAB = [{
 }];
 
 export const TABCAT = [{
-    name: '综合',
+    name: '精选',
     key: 'hot',
     tri: false
 }, {

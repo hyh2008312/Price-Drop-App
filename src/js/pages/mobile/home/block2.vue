@@ -8,7 +8,7 @@
             </div>
         </div>
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
-            <div class="i-good" v-for="i in goods" :key="i.id" @click="jumpWeb(i.id)">
+            <div class="i-good" v-for="i in goods" :key="i.id" @click="jumpWeb(i.productId)">
                 <div class="gd-bg">
                     <image class="gd-img" resize="cover" :src="i.mainImage"></image>
                 </div>

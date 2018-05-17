@@ -23,6 +23,7 @@
             <cell v-for="(item,index) in goods3">
                 <block-3 :goods="item"></block-3>
             </cell>
+            <cell class="cell-fixed"></cell>
             <loading class="loading">
                 <text class="indicator">加载中...</text>
             </loading>
@@ -90,7 +91,8 @@ export default {
             pageNew: 1,
             pageHot: 1,
             pageSize: 6,
-            length: 2
+            lengthHot: 2,
+            lengthNew: 2
         }
     },
     methods: {
@@ -105,9 +107,9 @@ export default {
         },
         onloading () {
             if(this.tabKey == 'new') {
-                this.getNewGoods()
+                this.getNewGoods(false)
             } else {
-                this.getHotGoods()
+                this.getHotGoods(false)
             }
         },
         loadingDown () {
@@ -232,7 +234,7 @@ export default {
                     page_size: this.pageSize
                 }
             }).then(data => {
-                this.length= Math.ceil(data.count / this.pageSize)
+                this.lengthHot = Math.ceil(data.count / this.pageSize)
                 this.goods3 = []
                 this.pageHot++
                 this.goods3.push(...data.results)
@@ -244,7 +246,7 @@ export default {
             if(isfirst) {
                 this.pageNew = 1
             }
-            if(this.pageNew > this.length) {
+            if(this.pageNew > this.lengthNew) {
                 return
             }
             this.$fetch({
@@ -255,7 +257,7 @@ export default {
                     page_size: this.pageSize
                 }
             }).then((data) => {
-                this.length = Math.ceil(data.count / this.pageSize)
+                this.lengthNew = Math.ceil(data.count / this.pageSize)
                 if(isfirst) {
                     this.goods3 = []
                 }
@@ -268,11 +270,11 @@ export default {
 
             })
         },
-        getHotGoods (isFirst) {
+        getHotGoods (isfirst) {
             if(isfirst) {
                 this.pageHot = 1
             }
-            if(this.pageHot > this.length) {
+            if(this.pageHot > this.lengthHot) {
                 return
             }
             this.$fetch({
@@ -283,7 +285,7 @@ export default {
                     page_size: this.pageSize
                 }
             }).then(data => {
-                this.length = Math.ceil(data.count / this.pageSize)
+                this.lengthHot = Math.ceil(data.count / this.pageSize)
                 if(isfirst) {
                     this.goods3 = []
                 }
@@ -298,7 +300,6 @@ export default {
         },
         onTabTo (event) {
             this.tabKey = event.data.key;
-            this.$notice.toast(event.data.key)
             if(event.data.key == 'new') {
                 this.getNewGoods(true)
             } else {

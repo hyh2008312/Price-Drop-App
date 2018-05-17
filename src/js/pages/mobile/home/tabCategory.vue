@@ -45,7 +45,8 @@ export default {
             this.$emit('tabTo', {
                 status: 'tabTo',
                 data: {
-                    key: _key
+                    key: _key,
+                    priceStatus: this.priceIdx
                 }
             })
         }

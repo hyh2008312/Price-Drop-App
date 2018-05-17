@@ -37,9 +37,8 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    padding-top: 10px;
+    padding-top: 26px;
     width: 750px;
-    padding-bottom: 16px;
 }
 
 .gb-box {
