@@ -10,7 +10,7 @@
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
             <div class="i-good" v-for="i in goods" :key="i.id" @click="jumpWeb(i.productId)">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="i.mainImage"></image>
+                    <image class="gd-img" resize="cover" :src="i.mainImage || src"></image>
                 </div>
                 <text class="gd-tlt">{{i.title}}</text>
                 <text class="gd-info">{{i.cutGet? i.cutGet: 0}}人已砍到了1折</text>
@@ -23,14 +23,16 @@
 <script>
 export default {
     props: ['head'],
-    mounted () {
+    created () {
         this.getActivityProduct()
+        this.$notice.alert({ message: JSON.stringify(weex.config.env) })
     },
     data () {
         return {
             goods: [],
             page: 1,
-            pageSize: 6
+            pageSize: 6,
+            src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
         }
     },
     methods: {

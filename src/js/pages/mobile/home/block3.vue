@@ -3,8 +3,7 @@
         <div class="gb-box">
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="goods.mainImage"
-                           placeholder="http://ww2.sinaimg.cn/large/006tKfTcgy1fez04i56w5j31hc0kuwhz.jpg"></image>
+                    <image class="gd-img" resize="cover" :src="goods.mainImage || src"></image>
                 </div>
                 <div class="gd-bg-right">
                     <text class="gd-info">{{goods.brandName}}</text>
@@ -20,6 +19,11 @@
 <script>
 export default {
     props: ['goods'],
+    data () {
+        return {
+            src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
+        }
+    },
     methods: {
         jumpWeb () {
             // if (!url) return;
