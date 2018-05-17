@@ -72,11 +72,9 @@ body {
 }
 
 .cell-fixed {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  width: 750px;
+  height: 26px;
   background-color: #fff;
-  padding-bottom: 26px;
 }
 
 .i-slg {
