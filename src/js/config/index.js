@@ -25,6 +25,9 @@ new Widget({
          * next
          */
         requestHandler (options, next) {
+            // this.$notice.toast({
+            //     message: options
+            // })
             console.log('request-opts', options)
             next()
         },

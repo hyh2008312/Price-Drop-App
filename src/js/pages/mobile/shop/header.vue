@@ -1,11 +1,11 @@
 <template>
-    <div class="wrapper">
+    <div class="wrappertop">
         <div class="left">
-            <text class="leftTxt" v-if="leftBtn">{{leftBtn.name}}</text>
+            <text class="leftTxt" >&#xe6f6;</text>
         </div>
-        <text class="tlt">{{title}}</text>
+        <!--<text class="tlt">{{title}}</text>-->
         <div class="right">
-            <text class="rightTxt" v-if="rightBtn">{{rightBtn.name}}</text>
+            <text class="rightTxt" >&#xe6f1;</text>
         </div>
     </div>
 </template>
@@ -15,39 +15,72 @@ export default {
 }
 </script>
 <style scoped>
-.wrapper {
+.wrappertop {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 114px;
+    height: 48px;
     padding-top: 44px;
     z-index: 101;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-around;
+    background-color: #000;
+    opacity: 1;
     /*border-bottom-width: 1px;*/
     /*border-bottom-color: #d9d9d9;*/
 }
-
-.tlt {
-    flex: 1;
-    font-size: 36px;
-    padding-top: 10px;
-    color: #333;
-    text-align: center;
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 112px;
+    padding-top: 44px;
+    z-index: 101;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #000;
+    opacity: 1;
+    /*border-bottom-width: 1px;*/
+    /*border-bottom-color: #d9d9d9;*/
 }
-
-.left,
-.right {
+.left{
+    font-family: iconfont;
+    color: #FFFFFF;
     height: 80px;
     width: 120px;
+    position: absolute;
+    left: 50px;
+    top:50px;
     padding-top: 10px;
+
+}
+.right {
+    font-family: iconfont;
+    color: #FFFFFF;
+    height: 80px;
+    width: 120px;
+    position: absolute;
+    right: 5px;
+    top:50px;
+    padding-top: 10px;
+
 }
 
-.leftTxt,
+.leftTxt{
+    font-family: iconfont;
+    color: #FFFFFF;
+    font-size: 32px;
+    text-align: left;
+}
+
 .rightTxt {
-    font-size: 30px;
+    font-family: iconfont;
+    color: #FFFFFF;
+    font-size: 32px;
     text-align: center;
 }
 </style>
