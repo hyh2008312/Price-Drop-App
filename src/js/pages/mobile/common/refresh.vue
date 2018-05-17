@@ -16,10 +16,9 @@
 <script>
 var animation = weex.requireModule('animation')
 export default {
-    props: [],
+    props: ['refreshing'],
     data () {
         return {
-            refreshing: false,
             stopAnimation: false,
             loadingAR: [
                 { ref: 'lTxt1', p: [-77, -75], delay: 0 },
@@ -70,15 +69,13 @@ export default {
             }.bind(this))
         },
         onrefresh (event) {
-            this.stopAnimation = false
-            this.loadingAni();
-            this.refreshing = true;
-            setTimeout(() => {
-                this.stopAnimation = true
-                this.loadingAniDown();
-            }, 2000)
+            this.$emit('loadingDown', {
+                status: 'loadingDown'
+            })
         },
-        onpullingdown (event) {}
+        onpullingdown (event) {
+            // this.$notice.toast(JSON.stringify(event))
+        }
     }
 }
 </script>

@@ -86,15 +86,33 @@ export default {
             })
             left += 48 + firstCat.length * 28;
             for (const item of data) {
-                const width = item.fullName.replace(/[\u0391-\uFFE5]/g, 'aa').length * 14
+                const width = this.getLength(item.fullName) * 14
                 this.channelList.push({
                     name: item.fullName,
                     width: width,
                     left: left,
                     id: item.id
                 })
-                left += 48 + item.fullName.replace(/[\u0391-\uFFE5]/g, 'aa').length * 14
+                left += 48 + this.getLength(item.fullName) * 14
             }
+        },
+        getLength (str) {
+            let realLength = 0;
+            let charCode = -1;
+            const len = str.length;
+
+            for (let i = 0; i < len; i++) {
+                charCode = str.charCodeAt(i);
+                if (charCode >= 0 && charCode <= 128) {
+                    realLength += 1;
+                    if (charCode >= 65 && charCode <= 90) {
+                        realLength += 0.05;
+                    }
+                } else {
+                    realLength += 2;
+                }
+            }
+            return realLength;
         }
     }
 }

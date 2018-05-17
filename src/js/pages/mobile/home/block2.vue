@@ -25,7 +25,6 @@ export default {
     props: ['head'],
     created () {
         this.getActivityProduct()
-        this.$notice.alert({ message: JSON.stringify(weex.config.env) })
     },
     data () {
         return {

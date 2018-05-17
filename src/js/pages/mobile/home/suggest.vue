@@ -2,7 +2,7 @@
 <template>
     <div class="wrapper" >
         <list loadmoreoffset="100" @loadmore="onloading">
-            <refresher @loadingDown="loadingDown"></refresher>
+            <refresher :refreshing="refreshing" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button slider-wrap">
                 <div class="slider-bg"></div>
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
@@ -23,7 +23,7 @@
             <cell v-for="(item,index) in goods3">
                 <block-3 :goods="item"></block-3>
             </cell>
-            <cell class="cell-fixed"></cell>
+            <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
             <loading class="loading">
                 <text class="indicator">加载中...</text>
             </loading>
@@ -70,16 +70,6 @@ export default {
             block5: {
                 items: []
             },
-            head1: {
-                tlt: '周一周四 · 新品发布',
-                tltBg: 'http://doc.zwwill.com/yanxuan/imgs/bg-new.png',
-                url: 'http://m.you.163.com/item/newItem'
-            },
-            head2: {
-                tlt: '人气推荐 · 好物精选',
-                tltBg: 'http://doc.zwwill.com/yanxuan/imgs/bg-hot.png',
-                url: 'http://m.you.163.com/item/recommend'
-            },
             activity: [],
             tabsItems: [],
             goods1: [],
@@ -87,12 +77,13 @@ export default {
             goods3: [],
             showLoading: 'hide',
             tabKey: 'hot',
-            refresh: true,
+            refreshing: false,
             pageNew: 1,
             pageHot: 1,
             pageSize: 6,
             lengthHot: 2,
-            lengthNew: 2
+            lengthNew: 2,
+            countApi: 0
         }
     },
     methods: {
@@ -106,6 +97,7 @@ export default {
             this.block1.items = [...BLOCK4.items];
         },
         onloading () {
+            this.countApi = 0;
             if(this.tabKey == 'new') {
                 this.getNewGoods(false)
             } else {
@@ -113,6 +105,8 @@ export default {
             }
         },
         loadingDown () {
+            this.refreshing = true
+            this.countApi = 0;
             this.init();
         },
         init () {
@@ -124,7 +118,11 @@ export default {
             this.getBlock5()
             this.getGoods1()
             this.getGoods2()
-            this.getGoods3()
+            if(this.tabKey == 'new') {
+                this.getNewGoods(true)
+            } else {
+                this.getHotGoods(true)
+            }
         },
         getYXBanners () {
             this.$fetch({
@@ -136,6 +134,8 @@ export default {
                 }
             }).then(resData => {
                 this.YXBanners = [...resData.results]
+                this.refreshing = false
+                this.refreshApiFinished()
             }, error => {
 
             })
@@ -147,6 +147,7 @@ export default {
                 data: {}
             }).then(resData => {
                 this.activity = [...resData]
+                this.refreshApiFinished()
             }, error => {
 
             })
@@ -194,10 +195,10 @@ export default {
                 data: {}
             }).then(resData => {
                 this.block5.items = [...resData.results]
+                this.refreshApiFinished()
             }, error => {
 
             })
-
         },
         getGoods1 () {
             // this.$fetch({
@@ -225,23 +226,6 @@ export default {
 
             this.goods2 = GOODS2
         },
-        getGoods3 () {
-            this.$fetch({
-                method: 'GET',
-                name: 'product.selected.list',
-                data: {
-                    page: this.pageHot,
-                    page_size: this.pageSize
-                }
-            }).then(data => {
-                this.lengthHot = Math.ceil(data.count / this.pageSize)
-                this.goods3 = []
-                this.pageHot++
-                this.goods3.push(...data.results)
-            }, error => {
-
-            })
-        },
         getNewGoods(isfirst) {
             if(isfirst) {
                 this.pageNew = 1
@@ -263,9 +247,8 @@ export default {
                 }
                 this.pageNew++
                 this.goods3.push(...data.results)
-                this.$nextTick(() => {
-                    dom.scrollToElement(this.$refs['tab'], { animated: false })
-                })
+
+                this.refreshApiFinished()
             }, (error) => {
 
             })
@@ -291,21 +274,28 @@ export default {
                 }
                 this.pageHot++
                 this.goods3.push(...data.results)
-                this.$nextTick(() => {
-                    dom.scrollToElement(this.$refs['tab'], { animated: false })
-                })
+                this.refreshApiFinished()
             }, error => {
 
             })
         },
         onTabTo (event) {
+            dom.scrollToElement(this.$refs['tab'], { animated: false })
             this.tabKey = event.data.key;
             if(event.data.key == 'new') {
                 this.getNewGoods(true)
             } else {
                 this.getHotGoods(true)
             }
-
+        },
+        refreshApiFinished() {
+            this.countApi++
+            this.$notice.toast(this.countApi)
+            if(this.countApi >= 3) {
+                this.refreshing = false;
+                //this.$notice.toast('refreshing success')
+                this.countApi = 0
+            }
         }
     }
 }

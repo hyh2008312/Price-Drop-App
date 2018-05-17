@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <list loadmoreoffset="100" @loadmore="onloading">
-            <refresher @loadingDown="loadingDown"></refresher>
+            <refresher :refreshing="refreshing" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button cell-top" >
                 <block-4 :items="block1.items" @noticeFinished="noNoticeFinished"
                          :activeIndex="activeIndex" :index="index"
@@ -14,7 +14,7 @@
             <cell v-for="(item, index) in goods3">
                 <block-3 :goods="item"></block-3>
             </cell>
-            <cell class="cell-fixed"></cell>
+            <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
             <loading class="loading" >
                 <text class="indicator">加载中...</text>
             </loading>
@@ -65,7 +65,7 @@ export default {
             showLoading: 'hide',
             tabKey: 'hot',
             priceStatus: 0,
-            refresh: true,
+            refreshing: false,
             pageNew: 1,
             pageHot: 1,
             pagePrice: 1,
@@ -83,6 +83,7 @@ export default {
             this.getGoods3(false);
         },
         loadingDown () {
+            this.refreshing = true;
             this.init();
         },
         init () {
@@ -167,6 +168,7 @@ export default {
                     this.goods3 = []
                 }
                 this.goods3.push(...data.results)
+                this.refreshing = false
             }, error => {
 
             })
@@ -188,6 +190,8 @@ export default {
                 } else {
                     this.goods3.push(...data.results)
                 }
+                this.refreshing = false
+                this.$notice.toast('refresh success')
             }, error => {
 
             })
