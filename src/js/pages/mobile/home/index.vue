@@ -8,7 +8,8 @@
              @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend">
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
-                <category v-for="(i, index) in channelList" v-if="index > 0" :activeIndex="index" :index="activeIndex"></category>
+                <category v-for="(i, index) in channelList" v-if="index > 0" :key="i.id"
+                          :activeIndex="index" :index="activeIndex" :id="i.id"></category>
             </slider>
         </div>
     </div>
@@ -73,35 +74,27 @@ export default {
             this.activeIndex = event.index
         },
         getChannel () {
-            this.$fetch({
-                method: 'GET', // 大写
-                name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
-                data: {}
-            }).then(data => {
-                this.channelList = [];
-                let left = 0;
-                const firstCat = '推荐';
+            const data = this.$storage.getSync('channel');
+            this.channelList = [];
+            let left = 0;
+            const firstCat = '推荐';
+            this.channelList.push({
+                name: firstCat,
+                width: 56,
+                left: 0,
+                id: '0'
+            })
+            left += 48 + firstCat.length * 28;
+            for (const item of data) {
+                const width = item.fullName.replace(/[\u0391-\uFFE5]/g, 'aa').length * 14
                 this.channelList.push({
-                    name: firstCat,
-                    width: 56,
-                    left: 0,
-                    id: '0'
+                    name: item.fullName,
+                    width: width,
+                    left: left,
+                    id: item.id
                 })
-                left += 48 + firstCat.length * 28;
-                for (const item of data) {
-                    const width = item.fullName.replace(/[\u0391-\uFFE5]/g, 'aa').length * 14
-                    this.channelList.push({
-                        name: item.fullName,
-                        width: width,
-                        left: left,
-                        id: item.id
-                    })
-                    left += 48 + item.fullName.replace(/[\u0391-\uFFE5]/g, 'aa').length * 14
-                }
-                this.dataReady = true
-            }, error => {
-                this.$notice.toast(JSON.stringify(error));
-            });
+                left += 48 + item.fullName.replace(/[\u0391-\uFFE5]/g, 'aa').length * 14
+            }
         }
     }
 }

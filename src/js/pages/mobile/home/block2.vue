@@ -1,27 +1,20 @@
 <template>
     <div class="wrapper">
-        <div class="tlt-box" v-if="newGoods" @click="jumpActivity">
-            <image class="tlt-image" resize="cover" src="http://doc.zwwill.com/yanxuan/imgs/bg-new.png"></image>
+        <div class="tlt-box" @click="jumpActivity">
+            <image class="tlt-image" resize="cover" :src="head.image"></image>
             <div class="tlt-bg">
-                <text class="tlt tlt-new">{{head.tlt}}</text>
-                <text class="btn-all" @click="jumpWeb(head.url)">查看全部</text>
-            </div>
-        </div>
-        <div class="tlt-box" v-else-if="hotGoods" @click="jumpActivity">
-            <image class="tlt-image" resize="cover" src="http://doc.zwwill.com/yanxuan/imgs/bg-hot.png"></image>
-            <div class="tlt-bg">
-                <text class="tlt tlt-hot">{{head.tlt}}</text>
-                <text class="btn-all" @click="jumpWeb(head.url)">查看全部</text>
+                <text class="tlt tlt-new">{{head.name}}</text>
+                <text class="btn-all">查看全部</text>
             </div>
         </div>
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
-            <div class="i-good" v-for="i in goods" @click="jumpWeb(i.url)">
+            <div class="i-good" v-for="i in goods" :key="i.id" @click="jumpWeb(i.id)">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="i.img"></image>
+                    <image class="gd-img" resize="cover" :src="i.mainImage"></image>
                 </div>
-                <text class="gd-tlt">{{i.tlt}}</text>
-                <text class="gd-info">{{i.info}}</text>
-                <text class="gd-price">¥{{i.price}}</text>
+                <text class="gd-tlt">{{i.title}}</text>
+                <text class="gd-info">{{i.cutGet? i.cutGet: 0}}人已砍到了1折</text>
+                <text class="gd-price">¥{{i.saleUnitPrice}}</text>
                 <text class="gd-button">砍价立减</text>
             </div>
         </scroller>
@@ -29,18 +22,47 @@
 </template>
 <script>
 export default {
-    props: ['newGoods', 'hotGoods', 'head', 'hasMore', 'goods'],
+    props: ['head'],
+    mounted () {
+        this.getActivityProduct()
+    },
+    data () {
+        return {
+            goods: [],
+            page: 1,
+            pageSize: 6
+        }
+    },
     methods: {
+        getActivityProduct () {
+            this.$fetch({
+                method: 'GET',
+                name: 'product.topic.products',
+                data: {
+                    id: this.head.id,
+                    page: this.page,
+                    page_size: this.pageSize
+                }
+            }).then(data => {
+                this.goods = [...data.results]
+            }, error => {
+
+            })
+        },
         jumpActivity () {
             this.$router.open({
                 name: 'mobile.activity',
                 type: 'PUSH'
             })
         },
-        jumpWeb (url) {
+        jumpWeb (id) {
             // if (!url) return;
             this.$router.open({
-                name: 'goods.details'
+                name: 'goods.details',
+                type: 'PUSH',
+                params: {
+                    id: id
+                }
             })
         }
     }
@@ -153,7 +175,7 @@ export default {
     font-size: 20px;
     width: 286px;
     margin-top: 8px;
-    color: rgba(0,0,0, .54);
+    color: #AC0B0B;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;

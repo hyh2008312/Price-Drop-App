@@ -37,7 +37,7 @@ export default {
         'block-3': block3,
         'block-4': block4
     },
-    props: ['index', 'activeIndex'],
+    props: ['index', 'activeIndex', 'id'],
     created () {
         // this.init()
     },
@@ -60,11 +60,15 @@ export default {
                 items: []
             },
             tabsItems: [],
-            goods1: [],
             goods3: [],
             showLoading: 'hide',
             tabKey: 'hot',
-            refresh: true
+            refresh: true,
+            pageNew: 1,
+            pageHot: 1,
+            pagePrice: 1,
+            pageSize: 6,
+            length: 2
         }
     },
     methods: {
@@ -72,7 +76,7 @@ export default {
             this.block1.items = [...BLOCK1.items];
         },
         onloading () {
-            this.goods3.push(...this.goods1);
+            this.getGoods3();
         },
         loadingDown () {
             this.init();
@@ -80,21 +84,9 @@ export default {
         init () {
             this.getBlock1()
             this.getTabName()
-            this.getGoods1()
-            this.getGoods3()
+            this.getGoods3(true)
         },
         getBlock1 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getBlock1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.block1.title = resData.data.title
-            //     this.block1.url = resData.data.url
-            //     this.block1.items = resData.data.items
-            // }, error => {
-
-            // })
 
             this.block1.title = BLOCK1.title
             this.block1.url = BLOCK1.url
@@ -103,37 +95,70 @@ export default {
         getTabName () {
             this.tabsItems = TABCAT;
         },
-        getGoods1 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getGoods1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.goods1 = resData.data
-            // }, error => {
+        getGoods3 (isfirst) {
+            let page = 1;
+            switch (this.tabKey) {
+                case 'hot':
+                    if (isfirst) {
+                        this.pageHot = 1
+                    }
+                    page = this.pageHot;
+                    if (this.pageHot > this.length) {
+                        return
+                    }
+                    break;
+                case 'new':
+                    if (isfirst) {
+                        this.pageNew = 1
+                    }
+                    page = this.pageNew;
+                    if (this.pageNew > this.length) {
+                        return
+                    }
+                    break;
+                case 'price':
+                    if (isfirst) {
+                        this.pagePrice = 1
+                    }
+                    page = this.pagePrice;
+                    if (this.pagePrice > this.length) {
+                        return
+                    }
+                    break;
+            }
+            this.$fetch({
+                method: 'GET',
+                name: 'product.selected.list',
+                data: {
+                    page,
+                    page_size: this.pageSize
+                }
+            }).then(data => {
+                switch (this.tabKey) {
+                    case 'hot':
+                        this.pageHot++;
+                        break;
+                    case 'new':
+                        this.pageNew++;
+                        break;
+                    case 'price':
+                        this.pagePrice++;
+                        break;
+                }
+                this.length = Math.ceil(data.count / this.pageSize)
+                if (isfirst) {
+                    this.goods3 = []
+                }
+                this.goods3.push(...data.results)
+            }, error => {
 
-            // })
-
-            this.goods1 = GOODS1
-        },
-        getGoods3 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getGoods3',
-            //     data: {}
-            // }).then(resData => {
-            //     this.goods3 = resData.data
-            // }, error => {
-
-            // })
-
-            this.goods3 = GOODS3
+            })
         },
         onTabTo (event) {
             this.goods3 = [];
             dom.scrollToElement(this.$refs['tab'], { animated: false })
             this.tabKey = event.data.key;
-            this.goods3 = GOODS3;
+            this.getGoods3(true);
         }
     }
 }

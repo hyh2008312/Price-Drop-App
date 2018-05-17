@@ -110,48 +110,55 @@ export const GOODS2 = [
 ];
 
 export const GOODS3 = [
-    { title: '日式和风敞口保温杯', mainImage: 'http://yanxuan.nosdn.127.net/3aa67fee1c7d046a09f4ce878f4485ac.png?imageView&quality=85&thumbnail=330x330', brandName: '真空隔热，保温保冷', saleUnitPrice: '32', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '切尔西牛皮女靴', mainImage: 'http://yanxuan.nosdn.127.net/0e9ddf1a0ed5af78e8ec12cb9489df17.png?imageView&quality=85&thumbnail=330x330', brandName: '经典牛皮切尔西，时尚帅气', saleUnitPrice: '289', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '小馒头 多色双肩包', mainImage: 'http://yanxuan.nosdn.127.net/455eee1712358dbcb2e33d54ab287808.png?imageView&quality=85&thumbnail=330x330', brandName: '奶油色泽，小巧减龄', saleUnitPrice: '79', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '全棉色织磨毛四件套', mainImage: 'http://yanxuan.nosdn.127.net/3e1c00ce7b49a78e645538a8c45cabcb.png?imageView&quality=85&thumbnail=330x330', brandName: '优雅色织，温暖磨毛', saleUnitPrice: '299', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '日式和风声波式电动牙刷', mainImage: 'http://yanxuan.nosdn.127.net/e5474a8f4fd5748079e2ba2ead806b51.png?imageView&quality=85&thumbnail=330x330', brandName: '进口刷毛，专利技术', saleUnitPrice: '119', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '多功能商务双肩包', mainImage: 'http://yanxuan.nosdn.127.net/795884dc6d995eca9a091a6358e3634d.png?imageView&quality=85&thumbnail=330x330', brandName: '17个功能分区，内置分层收纳', saleUnitPrice: '334', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '黑凤梨 20寸PC膜拉链登机箱', mainImage: 'http://yanxuan.nosdn.127.net/3108aaae80416b1cf27c3d7cc5661cea.png?imageView&quality=85&thumbnail=330x330', brandName: '热卖9万只，网易人手1只', saleUnitPrice: '185', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '日式蓬软太鼓抱枕', mainImage: 'http://yanxuan.nosdn.127.net/ad953e16ad8c33b714e7af941ce8cd56.png?imageView&quality=85&thumbnail=330x330', brandName: '萌趣太鼓造型 软糯轻柔回弹', saleUnitPrice: '29', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '可水洗抗菌防螨丝羽绒枕', mainImage: 'http://yanxuan.nosdn.127.net/a6c9e142fd008b3734c690a71a78ae5b.png?imageView&quality=85&thumbnail=330x330', brandName: '进口防螨布，热销50万件', saleUnitPrice: '99', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '双宫茧桑蚕丝被 空调被', mainImage: 'http://yanxuan.nosdn.127.net/6b341648f59d0c3eb48fa81e1d2de06e.png?imageView&quality=85&thumbnail=330x330', brandName: '一级桑蚕丝，吸湿透气柔软', saleUnitPrice: '479', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '怀抱休闲椅组合（皮款）', mainImage: 'http://yanxuan.nosdn.127.net/b5289125e9b55cf72e9a9623d006415e.png?imageView&quality=85&thumbnail=330x330', brandName: '葛优躺神器皮款', saleUnitPrice: '3999', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '欧式哑光餐具套装', mainImage: 'http://yanxuan.nosdn.127.net/431e86c88b4a6c9f065d1d8abea6b603.png?imageView&quality=85&thumbnail=330x330', brandName: '德化白瓷，坚实耐用', saleUnitPrice: '189', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '清新两用杯', mainImage: 'http://yanxuan.nosdn.127.net/431f5d142e3dd9946dc8e38c2aa3cd34.png?imageView&quality=85&thumbnail=330x330', brandName: '办公杯优选 轻松饮茶', saleUnitPrice: '52', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
-    { title: '两带式男/女款拖鞋', mainImage: 'http://yanxuan.nosdn.127.net/7d1c130c7d80edf824e4218c6829b7c8.png?imageView&quality=85&thumbnail=330x330', brandName: '鞋杯随脚型而变，舒适呵护', saleUnitPrice: '69.9', url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' }
+    { title: '日式和风敞口保温杯', mainImage: 'http://yanxuan.nosdn.127.net/3aa67fee1c7d046a09f4ce878f4485ac.png?imageView&quality=85&thumbnail=330x330', brandName: '真空隔热，保温保冷', saleUnitPrice: '32', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '切尔西牛皮女靴', mainImage: 'http://yanxuan.nosdn.127.net/0e9ddf1a0ed5af78e8ec12cb9489df17.png?imageView&quality=85&thumbnail=330x330', brandName: '经典牛皮切尔西，时尚帅气', saleUnitPrice: '289', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '小馒头 多色双肩包', mainImage: 'http://yanxuan.nosdn.127.net/455eee1712358dbcb2e33d54ab287808.png?imageView&quality=85&thumbnail=330x330', brandName: '奶油色泽，小巧减龄', saleUnitPrice: '79', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '全棉色织磨毛四件套', mainImage: 'http://yanxuan.nosdn.127.net/3e1c00ce7b49a78e645538a8c45cabcb.png?imageView&quality=85&thumbnail=330x330', brandName: '优雅色织，温暖磨毛', saleUnitPrice: '299', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '日式和风声波式电动牙刷', mainImage: 'http://yanxuan.nosdn.127.net/e5474a8f4fd5748079e2ba2ead806b51.png?imageView&quality=85&thumbnail=330x330', brandName: '进口刷毛，专利技术', saleUnitPrice: '119', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '多功能商务双肩包', mainImage: 'http://yanxuan.nosdn.127.net/795884dc6d995eca9a091a6358e3634d.png?imageView&quality=85&thumbnail=330x330', brandName: '17个功能分区，内置分层收纳', saleUnitPrice: '334', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '黑凤梨 20寸PC膜拉链登机箱', mainImage: 'http://yanxuan.nosdn.127.net/3108aaae80416b1cf27c3d7cc5661cea.png?imageView&quality=85&thumbnail=330x330', brandName: '热卖9万只，网易人手1只', saleUnitPrice: '185', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '日式蓬软太鼓抱枕', mainImage: 'http://yanxuan.nosdn.127.net/ad953e16ad8c33b714e7af941ce8cd56.png?imageView&quality=85&thumbnail=330x330', brandName: '萌趣太鼓造型 软糯轻柔回弹', saleUnitPrice: '29', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '可水洗抗菌防螨丝羽绒枕', mainImage: 'http://yanxuan.nosdn.127.net/a6c9e142fd008b3734c690a71a78ae5b.png?imageView&quality=85&thumbnail=330x330', brandName: '进口防螨布，热销50万件', saleUnitPrice: '99', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '双宫茧桑蚕丝被 空调被', mainImage: 'http://yanxuan.nosdn.127.net/6b341648f59d0c3eb48fa81e1d2de06e.png?imageView&quality=85&thumbnail=330x330', brandName: '一级桑蚕丝，吸湿透气柔软', saleUnitPrice: '479', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '怀抱休闲椅组合（皮款）', mainImage: 'http://yanxuan.nosdn.127.net/b5289125e9b55cf72e9a9623d006415e.png?imageView&quality=85&thumbnail=330x330', brandName: '葛优躺神器皮款', saleUnitPrice: '3999', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '欧式哑光餐具套装', mainImage: 'http://yanxuan.nosdn.127.net/431e86c88b4a6c9f065d1d8abea6b603.png?imageView&quality=85&thumbnail=330x330', brandName: '德化白瓷，坚实耐用', saleUnitPrice: '189', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '清新两用杯', mainImage: 'http://yanxuan.nosdn.127.net/431f5d142e3dd9946dc8e38c2aa3cd34.png?imageView&quality=85&thumbnail=330x330', brandName: '办公杯优选 轻松饮茶', saleUnitPrice: '52', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' },
+    { title: '两带式男/女款拖鞋', mainImage: 'http://yanxuan.nosdn.127.net/7d1c130c7d80edf824e4218c6829b7c8.png?imageView&quality=85&thumbnail=330x330', brandName: '鞋杯随脚型而变，舒适呵护', saleUnitPrice: '69.9', cutGet: 0, url: 'http://m.you.163.com/item/detail?id=1306026#/?_k=yruyka' }
 ];
 
 export const CHANNELLIST = [{
     name: '推荐',
     width: '56',
-    left: '0'
+    left: '0',
+    id: null
 }, {
     name: '美妆',
     width: '56',
-    left: '104'
+    left: '104',
+    id: null
 }, {
     name: 'T恤',
     width: '56',
-    left: '202'
+    left: '202',
+    id: null
 }, {
     name: '连衣裙',
     width: '84',
-    left: '300'
+    left: '300',
+    id: null
 }, {
     name: '针织衫',
     width: '84',
-    left: '432'
+    left: '432',
+    id: null
 }, {
     name: '高跟鞋',
     width: '84',
-    left: '564'
+    left: '564',
+    id: null
 }, {
     name: '高跟鞋',
     width: '84',
-    left: '696'
+    left: '696',
+    id: null
 }];

@@ -10,9 +10,8 @@
             <cell class="cell-button">
                 <block-4 v-if="block1.items.length > 0" :items="block1.items" @noticeFinished="noNoticeFinished"></block-4>
             </cell>
-            <cell class="cell-button">
-                <block-2 hasMore=true newGoods=true :head="head1" :goods="goods1"></block-2>
-                <block-2 hasMore=true hotGoods=true :head="head2" :goods="goods2"></block-2>
+            <cell v-for="(head, index) in activity" :key="index">
+                <block-2 :head="head" :class="[activity.length - 1 == index ? 'cell-margin-button': '']"></block-2>
             </cell>
             <cell class="cell-button">
                 <block-5 :logo="block5.items"></block-5>
@@ -80,6 +79,7 @@ export default {
                 tltBg: 'http://doc.zwwill.com/yanxuan/imgs/bg-hot.png',
                 url: 'http://m.you.163.com/item/recommend'
             },
+            activity: [],
             tabsItems: [],
             goods1: [],
             goods2: [],
@@ -90,7 +90,7 @@ export default {
             pageNew: 1,
             pageHot: 1,
             pageSize: 6,
-            lengthNew: 1
+            length: 2
         }
     },
     methods: {
@@ -107,34 +107,47 @@ export default {
             if(this.tabKey == 'new') {
                 this.getNewGoods()
             } else {
-                this.goods3.push(...this.goods3)
+                this.getHotGoods()
             }
         },
         loadingDown () {
             this.init();
         },
         init () {
-            this.getYXBanners();
-            this.getBlock1();
-            this.getTabName();
-            this.getBlock4();
-            this.getBlock5();
-            this.getGoods1();
-            this.getGoods2();
+            this.getYXBanners()
+            this.getActivity()
+            this.getBlock1()
+            this.getTabName()
+            this.getBlock4()
+            this.getBlock5()
+            this.getGoods1()
+            this.getGoods2()
             this.getGoods3()
         },
         getYXBanners () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getYXBanners',
-            //     data: {}
-            // }).then(resData => {
-            //     this.YXBanners = resData.data
-            // }, error => {
+            this.$fetch({
+                method: 'GET',
+                name: 'product.recommended.list',
+                data: {
+                    page: 1,
+                    page_size: 6
+                }
+            }).then(resData => {
+                this.YXBanners = [...resData.results]
+            }, error => {
 
-            // })
+            })
+        },
+        getActivity() {
+            this.$fetch({
+                method: 'GET',
+                name: 'product.topic.list',
+                data: {}
+            }).then(resData => {
+                this.activity = [...resData]
+            }, error => {
 
-            this.YXBanners = YXBANNERS
+            })
         },
         getBlock1 () {
             // this.$fetch({
@@ -172,19 +185,17 @@ export default {
             this.block4.items = BLOCK4.items
         },
         getBlock5 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getBlock1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.block1.title = resData.data.title
-            //     this.block1.url = resData.data.url
-            //     this.block1.items = resData.data.items
-            // }, error => {
-
-            // })
-
             this.block5.items = GOODS2
+            this.$fetch({
+                method: 'GET',
+                name: 'product.brand.list',
+                data: {}
+            }).then(resData => {
+                this.block5.items = [...resData.results]
+            }, error => {
+
+            })
+
         },
         getGoods1 () {
             // this.$fetch({
@@ -213,23 +224,27 @@ export default {
             this.goods2 = GOODS2
         },
         getGoods3 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getGoods3',
-            //     data: {}
-            // }).then(resData => {
-            //     this.goods3 = resData.data
-            // }, error => {
+            this.$fetch({
+                method: 'GET',
+                name: 'product.selected.list',
+                data: {
+                    page: this.pageHot,
+                    page_size: this.pageSize
+                }
+            }).then(data => {
+                this.length= Math.ceil(data.count / this.pageSize)
+                this.goods3 = []
+                this.pageHot++
+                this.goods3.push(...data.results)
+            }, error => {
 
-            // })
-
-            this.goods3 = [...GOODS3]
+            })
         },
         getNewGoods(isfirst) {
             if(isfirst) {
                 this.pageNew = 1
             }
-            if(this.pageNew > this.lengthNew) {
+            if(this.pageNew > this.length) {
                 return
             }
             this.$fetch({
@@ -240,7 +255,7 @@ export default {
                     page_size: this.pageSize
                 }
             }).then((data) => {
-                this.lengthNew = Math.ceil(data.count / this.pageSize)
+                this.length = Math.ceil(data.count / this.pageSize)
                 if(isfirst) {
                     this.goods3 = []
                 }
@@ -253,14 +268,41 @@ export default {
 
             })
         },
+        getHotGoods (isFirst) {
+            if(isfirst) {
+                this.pageHot = 1
+            }
+            if(this.pageHot > this.length) {
+                return
+            }
+            this.$fetch({
+                method: 'GET',
+                name: 'product.selected.list',
+                data: {
+                    page: this.pageHot,
+                    page_size: this.pageSize
+                }
+            }).then(data => {
+                this.length = Math.ceil(data.count / this.pageSize)
+                if(isfirst) {
+                    this.goods3 = []
+                }
+                this.pageHot++
+                this.goods3.push(...data.results)
+                this.$nextTick(() => {
+                    dom.scrollToElement(this.$refs['tab'], { animated: false })
+                })
+            }, error => {
+
+            })
+        },
         onTabTo (event) {
             this.tabKey = event.data.key;
             this.$notice.toast(event.data.key)
             if(event.data.key == 'new') {
                 this.getNewGoods(true)
             } else {
-                this.getGoods3()
-                dom.scrollToElement(this.$refs['tab'], { animated: false })
+                this.getHotGoods(true)
             }
 
         }

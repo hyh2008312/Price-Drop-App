@@ -3,12 +3,13 @@
         <div class="gb-box">
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="goods.mainImage ? goods.mainImage: 'http://yanxuan.nosdn.127.net/3aa67fee1c7d046a09f4ce878f4485ac.png?imageView&quality=85&thumbnail=330x330'"></image>
+                    <image class="gd-img" resize="cover" :src="goods.mainImage"
+                           placeholder="http://ww2.sinaimg.cn/large/006tKfTcgy1fez04i56w5j31hc0kuwhz.jpg"></image>
                 </div>
                 <div class="gd-bg-right">
                     <text class="gd-info">{{goods.brandName}}</text>
                     <text class="gd-tlt">{{goods.title}}</text>
-                    <text class="gd-sm">{{goods.brandName}}</text>
+                    <text class="gd-sm">{{goods.cutGet? goods.cutGet: 0}}人已砍到了1折</text>
                     <text class="gd-price">¥ {{goods.saleUnitPrice}}</text>
                     <text class="gd-button">砍价立减</text>
                 </div>
@@ -86,7 +87,7 @@ export default {
 
 .gd-info {
     display: block;
-    font-weight: 500;
+    font-weight: 600;
     margin-top: 16px;
     font-size: 28px;
     width: 398px;
@@ -114,7 +115,7 @@ export default {
     margin-top: 4px;
     font-size: 20px;
     line-height: 28px;
-    color: rgba(0,0,0, 0.54);
+    color: #AC0B0B;
     width: 398px;
     overflow: hidden;
     lines: 1;

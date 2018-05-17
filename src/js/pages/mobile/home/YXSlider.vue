@@ -1,12 +1,12 @@
 <template>
     <slider class="slider" auto-play="true" interval="5000">
-        <div class="frame" v-for="img in imageList">
-            <image class="image" resize="cover" :src="img.src"></image>
+        <div class="frame" v-for="img in imageList"  @click="jumpDetail(img.id)">
+            <image class="image" resize="cover" :src="img.mainImage"></image>
             <div class="slider-right">
-                <text class="slider-tlt">UOOYAA·乌丫</text>
-                <text class="slider-sub">印花木耳边雪纺拼接上衣T恤</text>
-                <text class="slider-info">1200人已0元拿</text>
-                <text class="slider-money">¥ 1299.00</text>
+                <text class="slider-tlt">{{img.brandName}}</text>
+                <text class="slider-sub">{{img.title}}</text>
+                <text class="slider-info">{{img.cutGet? img.cutGet: 0}}人已砍到了1折</text>
+                <text class="slider-money">¥ {{img.saleUnitPrice}}</text>
                 <text class="slider-button">砍价立减</text>
             </div>
         </div>
@@ -15,7 +15,17 @@
 </template>
 <script>
 export default {
-    props: ['imageList']
+    props: ['imageList'],
+    methods: {
+        jumpDetail (id) {
+            this.$router.open({
+                name: 'goods.details',
+                params: {
+                    id: id
+                }
+            })
+        }
+    }
 }
 </script>
 <style scoped>
@@ -49,7 +59,7 @@ export default {
     margin-top: 20px;
     font-size: 28px;
     line-height: 48px;
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(0,0,0, .87);
     lines: 1;
     white-space: nowrap;
@@ -70,7 +80,7 @@ export default {
     margin-top: 4px;
     font-size: 20px;
     line-height: 28px;
-    color: rgba(0,0,0, .54);
+    color: #AC0B0B;
     lines: 1;
     white-space: nowrap;
     text-overflow: ellipsis;

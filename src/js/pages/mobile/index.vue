@@ -19,6 +19,11 @@ export default {
             console.log('home-index-viewWillBackAppear');
         }
     },
+    eros: {
+        beforeAppear () {
+            this.getChannel()
+        }
+    },
     components: {
         'tab-bar': tabBar
     },
@@ -66,6 +71,18 @@ export default {
 
                 })
             })
+        },
+        getChannel () {
+            const result = this.$storage.getSync('channel')
+            if (!result) {
+                this.$fetch({
+                    method: 'GET', // 大写
+                    name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
+                    data: {}
+                }).then(data => {
+                    this.$storage.set('channel', data);
+                }, error => {})
+            }
         }
     }
 }
