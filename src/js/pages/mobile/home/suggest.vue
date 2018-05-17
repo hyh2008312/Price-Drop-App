@@ -21,7 +21,7 @@
             <header>
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
-            <cell v-for="item in goods3" >
+            <cell v-for="(item,index) in goods3">
                 <block-3 :goods="item"></block-3>
             </cell>
             <loading class="loading">
@@ -86,7 +86,11 @@ export default {
             goods3: [],
             showLoading: 'hide',
             tabKey: 'hot',
-            refresh: true
+            refresh: true,
+            pageNew: 1,
+            pageHot: 1,
+            pageSize: 6,
+            lengthNew: 1
         }
     },
     methods: {
@@ -100,7 +104,11 @@ export default {
             this.block1.items = [...BLOCK4.items];
         },
         onloading () {
-            this.goods3.push(...this.goods1);
+            if(this.tabKey == 'new') {
+                this.getNewGoods()
+            } else {
+                this.goods3.push(...this.goods3)
+            }
         },
         loadingDown () {
             this.init();
@@ -141,8 +149,8 @@ export default {
 
             // })
 
-            this.block1.title = BLOCK1.title;
-            this.block1.url = BLOCK1.url;
+            this.block1.title = BLOCK1.title
+            this.block1.url = BLOCK1.url
             this.block1.items = BLOCK1.items
         },
         getTabName () {
@@ -217,14 +225,27 @@ export default {
 
             this.goods3 = [...GOODS3]
         },
-        getNewGoods() {
+        getNewGoods(isfirst) {
+            if(isfirst) {
+                this.pageNew = 1
+            }
+            if(this.pageNew > this.lengthNew) {
+                return
+            }
             this.$fetch({
                 method: 'GET', // 大写
                 name: 'product.customer.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
-                data: {}
+                data: {
+                    page: this.pageNew,
+                    page_size: this.pageSize
+                }
             }).then((data) => {
-                this.goods3 = [...GOODS3]
-                this.$notice.toast(JSON.stringify(data))
+                this.lengthNew = Math.ceil(data.count / this.pageSize)
+                if(isfirst) {
+                    this.goods3 = []
+                }
+                this.pageNew++
+                this.goods3.push(...data.results)
                 this.$nextTick(() => {
                     dom.scrollToElement(this.$refs['tab'], { animated: false })
                 })
@@ -234,8 +255,9 @@ export default {
         },
         onTabTo (event) {
             this.tabKey = event.data.key;
-            if(event.data.key === 'new') {
-                this.getNewGoods()
+            this.$notice.toast(event.data.key)
+            if(event.data.key == 'new') {
+                this.getNewGoods(true)
             } else {
                 this.getGoods3()
                 dom.scrollToElement(this.$refs['tab'], { animated: false })

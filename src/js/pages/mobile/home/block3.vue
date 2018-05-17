@@ -3,13 +3,13 @@
         <div class="gb-box">
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="goods.img"></image>
+                    <image class="gd-img" resize="cover" :src="goods.mainImage ? goods.mainImage: 'http://yanxuan.nosdn.127.net/3aa67fee1c7d046a09f4ce878f4485ac.png?imageView&quality=85&thumbnail=330x330'"></image>
                 </div>
                 <div class="gd-bg-right">
-                    <text class="gd-info">{{goods.info}}</text>
-                    <text class="gd-tlt">{{goods.tlt}}</text>
-                    <text class="gd-sm">{{goods.info}}</text>
-                    <text class="gd-price">¥ {{goods.price}}</text>
+                    <text class="gd-info">{{goods.brandName}}</text>
+                    <text class="gd-tlt">{{goods.title}}</text>
+                    <text class="gd-sm">{{goods.brandName}}</text>
+                    <text class="gd-price">¥ {{goods.saleUnitPrice}}</text>
                     <text class="gd-button">砍价立减</text>
                 </div>
             </div>
@@ -36,8 +36,9 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    padding-top: 26px;
+    padding-top: 10px;
     width: 750px;
+    padding-bottom: 16px;
 }
 
 .gb-box {
@@ -47,7 +48,7 @@ export default {
 
 .i-gd {
     width: 718px;
-    height: 290px;
+    height: 288px;
     flex-direction: row;
 }
 
