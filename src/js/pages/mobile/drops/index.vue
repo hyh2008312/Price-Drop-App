@@ -28,12 +28,10 @@
 </template>
 <script>
     import refresher from '../common/refresh';
-
-    const dom = weex.requireModule('dom');
     import tabTitle from './tabTitle';
     import cutingItem from './cutingItem';
     import cutEndItem from './cutEndItem';
-    import {TAB} from './config'
+    import { TAB } from './config'
 
     export default {
         components: {
