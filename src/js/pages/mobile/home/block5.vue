@@ -1,9 +1,9 @@
 <template>
     <div class="wrapper">
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
-            <div class="i-good" v-for="i in logo" @click="jumpWeb(i.url)">
+            <div class="i-good" v-for="i in logo" @click="jumpActivity(i)">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="i.img"></image>
+                    <image class="gd-img" resize="cover" :src="i.logo"></image>
                 </div>
             </div>
         </scroller>
@@ -13,12 +13,16 @@
 export default {
     props: ['logo'],
     methods: {
-        jumpWeb (_url) {
-            if (!_url) return;
-            this.$router.toWebView({
-                url: _url,
-                title: '',
-                navShow: true
+        jumpActivity (item) {
+            this.$router.open({
+                name: 'mobile.activity',
+                type: 'PUSH',
+                params: {
+                    id: item.id,
+                    name: item.name,
+                    imageUrl: item.logo,
+                    type: 'brand'
+                }
             })
         }
     }

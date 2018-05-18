@@ -42,11 +42,12 @@
     export default {
         components: {
             'refresher': refresher
-
         },
-        eros: {},
-        created () {
-            this.getActivityParam();
+        created () {},
+        eros: {
+            beforeAppear (params, options) {
+                this.getActivityParam(params)
+            }
         },
         data () {
             return {
@@ -66,8 +67,9 @@
         },
         methods: {
             loadingDown () {
-                this.isLoading = true;
-                this.getActivityProduct(false)
+                this.$refs.refresh.refreshEnd()
+                this.isLoading = false
+                this.getActivityProduct(true)
             },
             onLoadingMore () {
                 this.getActivityProduct(false)
@@ -78,13 +80,12 @@
                     this.getActivityProduct(false)
                 }
             },
-            getActivityParam () {
-                this.$router.getParams().then(resData => {
-                    this.id = resData.id;
-                    this.name = resData.name;
-                    this.imageUrl = resData.imageUrl;
-                    this.getActivityProduct(true);
-                });
+            getActivityParam (resData) {
+                this.id = resData.id;
+                this.name = resData.name;
+                this.imageUrl = resData.imageUrl;
+                this.type = resData.type;
+                this.getActivityProduct(true);
             },
             getActivityProduct (isfirst) {
                 if (isfirst) {
@@ -97,30 +98,57 @@
                     })
                     return
                 }
-                this.$fetch({
-                    method: 'GET',
-                    name: 'product.topic.products',
-                    data: {
-                        id: this.id,
-                        page: this.page,
-                        page_size: this.pageSize
-                    }
-                }).then(data => {
-                    this.length = Math.ceil(data.count / this.pageSize)
-                    if (isfirst) {
-                        this.goods = []
-                    }
-                    this.page++
-                    this.goods.push(...data.results)
-                    if (!isfirst) {
-                        this.isLoading = false
-                    }
-                    this.refreshApiFinished()
-                }, error => {
-                    this.$notice.toast({
-                        message: JSON.stringify(error)
-                    });
-                })
+                if (this.type == 'activity') {
+                    this.$fetch({
+                        method: 'GET',
+                        name: 'product.topic.products',
+                        data: {
+                            id: this.id,
+                            page: this.page,
+                            page_size: this.pageSize
+                        }
+                    }).then(data => {
+                        this.length = Math.ceil(data.count / this.pageSize)
+                        if (isfirst) {
+                            this.goods = []
+                        }
+                        this.page++
+                        this.goods.push(...data.results)
+                        if (!isfirst) {
+                            this.isLoading = false
+                        }
+                        this.refreshApiFinished()
+                    }, error => {
+                        this.$notice.toast({
+                            message: JSON.stringify(error)
+                        });
+                    })
+                } else {
+                    this.$fetch({
+                        method: 'GET',
+                        name: 'product.customer.list',
+                        data: {
+                            brand: this.id,
+                            page: this.page,
+                            page_size: this.pageSize
+                        }
+                    }).then(data => {
+                        this.length = Math.ceil(data.count / this.pageSize)
+                        if (isfirst) {
+                            this.goods = []
+                        }
+                        this.page++
+                        this.goods.push(...data.results)
+                        if (!isfirst) {
+                            this.isLoading = false
+                        }
+                        this.refreshApiFinished()
+                    }, error => {
+                        this.$notice.toast({
+                            message: JSON.stringify(error)
+                        });
+                    })
+                }
             },
             jumpWeb (id) {
                 this.$router.open({

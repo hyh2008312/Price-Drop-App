@@ -209,7 +209,7 @@ export default {
                 name: 'product.brand.list',
                 data: {}
             }).then(resData => {
-                this.block5.items = [...resData.results]
+                this.block5.items = [...resData]
                 this.refreshApiFinished()
             }, error => {
 
@@ -309,14 +309,14 @@ export default {
         },
         onTabTo (event) {
             this.tabKey = event.data.key;
+            this.$nextTick(() => {
+                dom.scrollToElement(this.$refs['tab'], { animated: false })
+            })
             if(event.data.key == 'new') {
                 this.getNewGoods(true)
             } else {
                 this.getHotGoods(true)
             }
-            this.$nextTick(() => {
-                dom.scrollToElement(this.$refs['tab'], { animated: false })
-            })
         },
         refreshApiFinished() {
             this.countApi++

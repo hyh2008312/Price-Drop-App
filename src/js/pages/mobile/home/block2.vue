@@ -58,7 +58,8 @@ export default {
                 params: {
                     id: this.head.id,
                     name: this.head.name,
-                    imageUrl: this.head.image
+                    imageUrl: this.head.image,
+                    type: 'activity'
                 }
             })
         },
