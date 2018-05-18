@@ -53,7 +53,12 @@ export default {
         jumpActivity () {
             this.$router.open({
                 name: 'mobile.activity',
-                type: 'PUSH'
+                type: 'PUSH',
+                params: {
+                    id: this.head.id,
+                    name: this.head.name,
+                    imageUrl: this.head.image
+                }
             })
         },
         jumpWeb (id) {
