@@ -10,7 +10,7 @@
 <script>
     export default {
         methods: {
-            jumpWeb(_url) {
+            jumpWeb (_url) {
                 /* if (!_url) _url = 'http://m.you.163.com/search';
                  this.$router.toWebView({
                      url: _url,
@@ -31,10 +31,10 @@
     }
 
     .wrapper {
-        position: sticky;
+        margin-top: 40px;
+        width: 750px;
         height: 112px;
         padding-top: 8px;
-        display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
         justify-content: space-around;

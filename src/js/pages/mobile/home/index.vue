@@ -1,8 +1,8 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" ref="header">
+        <home-header></home-header>
         <div class="status-bar"></div>
-        <home-header v-if="headerShow"></home-header>
-        <top-channel class="channel" @change="onchange" ref="topChannel"
+        <top-channel @change="onchange" ref="topChannel"
                      :activeIndex="activeIndex" :channelList="channelList"></top-channel>
         <div :style="height" class="box" :class="[headerShow? '': 'wrapper-bottom']"
              @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend" >
@@ -20,6 +20,8 @@ import suggest from './suggest';
 import category from './category';
 import topChannel from './topChannel';
 import { Utils } from 'weex-ui';
+
+const animation = weex.requireModule('animation')
 
 export default {
     components: {
@@ -41,7 +43,8 @@ export default {
             positionX: 0,
             positionY: 0,
             deltaX: 0,
-            deltaY: 0
+            deltaY: 0,
+            headAni: false
         }
     },
     methods: {
@@ -56,9 +59,11 @@ export default {
             this.deltaY = moveY - this.positionY;
             if (this.deltaY > 0 && Math.abs(this.deltaY) > Math.abs(this.deltaX)) {
                 this.headerShow = true
+                this.changeHeader()
             }
             if (this.deltaY < 0 && Math.abs(this.deltaY) > Math.abs(this.deltaX)) {
-                this.headerShow = false;
+                this.headerShow = false
+                this.changeHeader()
             }
         },
         ontouchend (event) {
@@ -113,6 +118,35 @@ export default {
                 }
             }
             return realLength;
+        },
+        changeHeader () {
+            if (!this.headAni) {
+                if (this.headerShow) {
+                    this.headAni = true
+                    animation.transition(this.$refs.header, {
+                        styles: {
+                            transform: 'translateY(0px)'
+                        },
+                        duration: 300,
+                        timingFunction: 'ease',
+                        delay: 0
+                    }, () => {
+                        this.headAni = false
+                    });
+                } else {
+                    this.headAni = true
+                    animation.transition(this.$refs.header, {
+                        styles: {
+                            transform: 'translateY(-104px)'
+                        },
+                        duration: 300,
+                        timingFunction: 'ease',
+                        delay: 0
+                    }, () => {
+                        this.headAni = false
+                    });
+                }
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 <template>
     <slider class="slider" auto-play="true" interval="5000">
         <div class="frame" v-for="img in imageList"  @click="jumpDetail(img.id)">
-            <image class="image" resize="cover" :src="img.mainImage"></image>
+            <div class="image-bg">
+                <image class="image" resize="cover" :src="img.mainImage || src"></image>
+            </div>
             <div class="slider-right">
                 <text class="slider-tlt">{{img.brandName}}</text>
                 <text class="slider-sub">{{img.title}}</text>
@@ -16,6 +18,11 @@
 <script>
 export default {
     props: ['imageList'],
+    data () {
+        return {
+            src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
+        }
+    },
     methods: {
         jumpDetail (id) {
             this.$router.open({
@@ -33,10 +40,16 @@ export default {
 .image {
     width: 316px;
     height: 316px;
+}
+
+.image-bg {
+    width: 316px;
+    height: 316px;
     border-radius: 8px;
     border-width: 1px;
     border-style: solid;
     border-color: rgba(0,0,0,.12);
+    overflow: hidden;
 }
 
 .slider {

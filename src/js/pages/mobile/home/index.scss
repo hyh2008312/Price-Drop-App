@@ -5,6 +5,11 @@ body {
   background-color: #f4f4f4;
   color: #333;
 }
+.header{
+  width: 750px;
+  height: 112px;
+  overflow: hidden;
+}
 
 .mask {
   position: absolute;
@@ -32,6 +37,8 @@ body {
 }
 
 .status-bar{
+  position: fixed;
+  top: 0;
   height: 40px;
   background-color: #000;
   width: 750px;
@@ -123,7 +130,6 @@ body {
 }
 
 .box{
-  position: sticky;
   top: 0;
   left: 0;
   right: 0;
