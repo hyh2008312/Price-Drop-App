@@ -6,6 +6,7 @@
                 <text class="tlt tlt-new">{{head.name}}</text>
                 <text class="btn-all">查看全部</text>
             </div>
+            <text class="iconfont tlt-tri">&#xe6ff;</text>
         </div>
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
             <div class="i-good" v-for="i in goods" :key="i.id" @click="jumpWeb(i.productId)">
@@ -91,6 +92,7 @@ export default {
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
 }
 
 .tlt-bg{
@@ -113,8 +115,14 @@ export default {
     color: rgba(255,255, 255, 0.87);
 }
 
-.tlt-hot {
-    color: rgba(255,255,255, 0.87);
+.tlt-tri{
+    position: absolute;
+    left: 375px;
+    bottom: -1px;
+    transform: translateX(-17px) rotate(180deg);
+    width: 34px;
+    line-height: 17px;
+    color: #fff;
 }
 
 .btn-all {
@@ -127,7 +135,7 @@ export default {
     margin-top: 28px;
     color: rgba(255,255,255,0.87);
     border-style: solid;
-    border-width: 1px;
+    border-width: 2px;
     border-color: #fff;
 }
 

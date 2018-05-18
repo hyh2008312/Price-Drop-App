@@ -6,8 +6,8 @@
             <text class="title">{{name}}</text>
         </div>
         <waterfall class="main-list" column-count="2" column-gap="14" ref="list" loadmoreoffset="30"
-                   @loadmore="onloading">
-            <refresher @loadingDown="loadingDown"></refresher>
+                   @loadmore="onLoadingMore">
+            <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <header>
                 <div class="banner">
                     <image class="banner-image" :src="imageUrl" resize="cover"></image>
@@ -16,7 +16,7 @@
                 </div>
             </header>
             <cell v-for="(i ,index) in goods">
-                <div class="i-gd" :class="[index % 2 ==0 ? 'margin-left16':'magin-right16']" @click="jumpWeb(i.productId)"">
+                <div class="i-gd" :class="[index % 2 ==0 ? 'margin-left16':'magin-right16']" @click="jumpWeb(i.productId)">
                     <div class="gd-bg">
                         <image class="gd-img" resize="cover" :src="i.mainImage || src"></image>
                     </div>
@@ -29,18 +29,15 @@
 
                 </div>
             </cell>
-            <!--<loading class="loading">
+            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">加载中...</text>
-            </loading>-->
-
+            </loading>
         </waterfall>
     </div>
 </template>
 <script>
+    import { Utils } from 'weex-ui';
     import refresher from '../common/refresh';
-
-    const axios = weex.requireModule('bmAxios')
-    import util from '../utils/util';
 
     export default {
         components: {
@@ -48,11 +45,10 @@
 
         },
         eros: {},
-        created() {
+        created () {
             this.getActivityParam();
-
         },
-        data() {
+        data () {
             return {
                 that: this,
                 name: '',
@@ -60,21 +56,47 @@
                 imageUrl: '',
                 testImage: 'http://yanxuan.nosdn.127.net/5100f0176e27a167cc2aea08b1bd11d8.jpg',
                 goods: [],
+                length: 2,
                 page: 1,
                 pageSize: 6,
-                src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
+                src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png',
+                isLoading: false,
+                isPlatformAndroid: Utils.env.isAndroid()
             }
         },
         methods: {
-            getActivityParam() {
+            loadingDown () {
+                this.isLoading = true;
+                this.getActivityProduct(false)
+            },
+            onLoadingMore () {
+                this.getActivityProduct(false)
+            },
+            onloading () {
+                if (this.isPlatformAndroid) {
+                    this.isLoading = true
+                    this.getActivityProduct(false)
+                }
+            },
+            getActivityParam () {
                 this.$router.getParams().then(resData => {
                     this.id = resData.id;
                     this.name = resData.name;
                     this.imageUrl = resData.imageUrl;
-                    this.getActivityProduct();
+                    this.getActivityProduct(true);
                 });
             },
-            getActivityProduct () {
+            getActivityProduct (isfirst) {
+                if (isfirst) {
+                    this.page = 1
+                }
+                if (this.page > this.length) {
+                    this.$refs.refresh.refreshEnd();
+                    this.$nextTick(() => {
+                        this.isLoading = false
+                    })
+                    return
+                }
                 this.$fetch({
                     method: 'GET',
                     name: 'product.topic.products',
@@ -84,10 +106,19 @@
                         page_size: this.pageSize
                     }
                 }).then(data => {
-                    this.goods = [...data.results];
-                },error => {
-                    this.$notice.alert({
-                        message: 'error'
+                    this.length = Math.ceil(data.count / this.pageSize)
+                    if (isfirst) {
+                        this.goods = []
+                    }
+                    this.page++
+                    this.goods.push(...data.results)
+                    if (!isfirst) {
+                        this.isLoading = false
+                    }
+                    this.refreshApiFinished()
+                }, error => {
+                    this.$notice.toast({
+                        message: JSON.stringify(error)
                     });
                 })
             },
@@ -100,8 +131,11 @@
                     }
                 })
             },
-            homeBack() {
+            homeBack () {
                 this.$router.back();
+            },
+            refreshApiFinished () {
+                this.$refs.refresh.refreshEnd();
             }
         }
     }
@@ -110,13 +144,13 @@
 <style scoped>
     .main-list {
         width: 750px;
+        margin-top: -1px;
     }
 
     .banner {
         width: 750px;
         height: 360px;
         display: flex;
-        margin-top: -2px;
         margin-bottom: 18px;
         align-items: center;
         justify-content: center;
@@ -200,12 +234,14 @@
         border-color: rgba(0, 0, 0, 0.12);
         border-style: solid;
         border-radius: 8px;
+        width: 350px;
+        height: 350px;
         /* background-color: #f4f4f4;*/
     }
 
     .gd-img {
-        width: 350px;
-        height: 350px;
+        width: 348px;
+        height: 348px;
     }
 
     .gd-tip {
@@ -262,5 +298,13 @@
         text-align: center;
     }
 
+    .indicator {
+        width: 750px;
+        text-align: center;
+        color: #888888;
+        font-size: 28px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
 
 </style>
