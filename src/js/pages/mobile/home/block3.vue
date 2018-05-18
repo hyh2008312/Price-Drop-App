@@ -59,6 +59,11 @@ export default {
 .gd-bg {
     width: 288px;
     height: 288px;
+    border-radius: 8px;
+    overflow: hidden;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.12);
 }
 
 .gd-bg-right {
@@ -68,12 +73,8 @@ export default {
 }
 
 .gd-img {
-    width: 288px;
-    height: 288px;
-    border-radius: 8px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgba(0,0,0,.12);
+    width: 286px;
+    height: 286px;
 }
 
 .gd-tlt {

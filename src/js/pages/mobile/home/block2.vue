@@ -94,10 +94,16 @@ export default {
 }
 
 .tlt-bg{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     width: 750px;
-    height: 116px;
+    height: 375px;
     align-items: center;
     justify-content: center;
+    background-color: rgba(0,0,0,0.18);
 }
 
 .tlt {
@@ -139,8 +145,8 @@ export default {
     height: 532px;
     padding-top: 16px;
     padding-bottom: 32px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
     flex-direction: row;
 }
 
@@ -152,15 +158,18 @@ export default {
 }
 
 .gd-bg {
-}
-
-.gd-img {
     height: 288px;
     width: 288px;
     border-radius: 8px;
+    overflow: hidden;
     border-width: 1px;
     border-style: solid;
     border-color: rgba(0,0,0,.12);
+}
+
+.gd-img {
+    height: 286px;
+    width: 286px;
 }
 
 .gd-tlt {

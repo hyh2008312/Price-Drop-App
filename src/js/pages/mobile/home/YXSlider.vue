@@ -38,8 +38,8 @@ export default {
 <style scoped>
 
 .image {
-    width: 316px;
-    height: 316px;
+    width: 314px;
+    height: 314px;
 }
 
 .image-bg {
