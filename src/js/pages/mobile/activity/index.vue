@@ -3,41 +3,44 @@
         <div class="state"></div>
         <div class="navigation">
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
-            <text class="title">美妆</text>
+            <text class="title">{{name}}</text>
         </div>
         <waterfall class="main-list" column-count="2" column-gap="14" ref="list" loadmoreoffset="30"
                    @loadmore="onloading">
             <refresher @loadingDown="loadingDown"></refresher>
             <header>
                 <div class="banner">
-                    <image class="banner-image" :src="testImage" resize="cover"></image>
-                    <text class="banner-text">精品的美妆</text>
+                    <image class="banner-image" :src="imageUrl" resize="cover"></image>
+                    <div class="banner-mask"></div>
+                    <text class="banner-text">{{name}}</text>
                 </div>
             </header>
-            <cell v-for="(i, index) in goods3">
-                <div class="i-gd" :class="[index % 2 ==0 ? 'margin-left16':'magin-right16']" @click="jumpWeb(i.url)">
+            <cell v-for="(i ,index) in goods">
+                <div class="i-gd" :class="[index % 2 ==0 ? 'margin-left16':'magin-right16']" @click="jumpWeb(i.productId)"">
                     <div class="gd-bg">
-                        <image class="gd-img" resize="cover" :src="i.img"></image>
+                        <image class="gd-img" resize="cover" :src="i.mainImage || src"></image>
                     </div>
-                    <text class="gd-info">{{i.info}}</text>
-                    <text class="gd-tip">1122人已0元拿</text>
-                    <text class="gd-price">¥89.00</text>
+                    <text class="gd-info">{{i.title}}</text>
+                    <text class="gd-tip">{{i.cutGet ? i.cutGet : 0}}人已砍到了1折</text>
+                    <text class="gd-price">¥{{i.saleUnitPrice}}</text>
                     <div class="gd-bargain">
                         <text class="text-bargain">砍价立减</text>
                     </div>
 
                 </div>
             </cell>
-            <loading class="loading">
+            <!--<loading class="loading">
                 <text class="indicator">加载中...</text>
-            </loading>
+            </loading>-->
 
         </waterfall>
     </div>
 </template>
 <script>
-    import {GOODS1, GOODS2, GOODS3} from './config';
     import refresher from '../common/refresh';
+
+    const axios = weex.requireModule('bmAxios')
+    import util from '../utils/util';
 
     export default {
         components: {
@@ -46,79 +49,58 @@
         },
         eros: {},
         created() {
-            this.init()
+            this.getActivityParam();
+
         },
         data() {
             return {
+                that: this,
+                name: '',
+                id: -1,
+                imageUrl: '',
                 testImage: 'http://yanxuan.nosdn.127.net/5100f0176e27a167cc2aea08b1bd11d8.jpg',
-                goods1: [],
-                goods2: [],
-                goods3: [],
-                showLoading: 'hide',
+                goods: [],
+                page: 1,
+                pageSize: 6,
+                src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
             }
         },
         methods: {
-            jumpWeb(_url) {
-                this.$router.toWebView({
-                    url: _url,
-                    title: ''
+            getActivityParam() {
+                this.$router.getParams().then(resData => {
+                    this.id = resData.id;
+                    this.name = resData.name;
+                    this.imageUrl = resData.imageUrl;
+                    this.getActivityProduct();
+                });
+            },
+            getActivityProduct () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'product.topic.products',
+                    data: {
+                        id: this.id,
+                        page: this.page,
+                        page_size: this.pageSize
+                    }
+                }).then(data => {
+                    this.goods = [...data.results];
+                },error => {
+                    this.$notice.alert({
+                        message: 'error'
+                    });
                 })
             },
-            onloading() {
-                this.showLoading = 'show';
-                this.goods3.push(...this.goods1);
-                this.showLoading = 'hide';
+            jumpWeb (id) {
+                this.$router.open({
+                    name: 'goods.details',
+                    type: 'PUSH',
+                    params: {
+                        id: id
+                    }
+                })
             },
-            loadingDown() {
-                this.goods3 = [];
-                this.goods3.push(...this.goods2);
-                this.goods3.push(...this.goods1);
-            },
-            init() {
-                this.getGoods1()
-                this.getGoods2()
-                this.getGoods3()
-            },
-            getGoods1() {
-                // this.$fetch({
-                //     method: 'GET',
-                //     name: 'yanxuan_home_getGoods1',
-                //     data: {}
-                // }).then(resData => {
-                //     this.goods1 = resData.data
-                // }, error => {
-
-                // })
-
-                this.goods1 = GOODS1
-            },
-            getGoods2() {
-                // this.$fetch({
-                //     method: 'GET',
-                //     name: 'yanxuan_home_getGoods2',
-                //     data: {}
-                // }).then(resData => {
-                //     this.goods2 = resData.data
-                // }, error => {
-
-                // })
-
-                this.goods2 = GOODS2
-            },
-            getGoods3() {
-                // this.$fetch({
-                //     method: 'GET',
-                //     name: 'yanxuan_home_getGoods3',
-                //     data: {}
-                // }).then(resData => {
-                //     this.goods3 = resData.data
-                // }, error => {
-
-                // })
-
-                this.goods3 = GOODS3
-            },
-            homeBack () {
+            homeBack() {
                 this.$router.back();
             }
         }
@@ -134,6 +116,7 @@
         width: 750px;
         height: 360px;
         display: flex;
+        margin-top: -2px;
         margin-bottom: 18px;
         align-items: center;
         justify-content: center;
@@ -146,6 +129,15 @@
         left: 0;
         right: 0;
         bottom: 0;
+    }
+
+    .banner-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.18);
     }
 
     .banner-text {

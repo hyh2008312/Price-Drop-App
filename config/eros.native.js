@@ -24,8 +24,8 @@ module.exports = {
     },
     'getui': {
         'enabled': 'false',
-        'appId': '',
-        'appKey': '',
-        'appSecret': ''
+        'appId': 'C9ekVCzRSF8OHu2YQIXxG2',
+        'appKey': 'UlOzLeMded8pgj3BjGTfm1',
+        'appSecret': 'd9v10tH2A36hJwYM1gQKJ5'
     }
 }

@@ -11,20 +11,29 @@
 
     // 我们不建议在这里存储大量的数据 这里仅仅希望用作一个中介者 来提供给其他页面实例来通信 他无法替代storage 读取速度也远远慢与storage
     export default {
-        data () {
+        data() {
             return {
-
             }
         },
         methods: {
-            bindEvent () {
+            bindEvent() {
                 this.$event.on('refresh', resData => {
-                  this.$router.refresh()
+                    this.$router.refresh()
                 })
+            },
+            initPush() {
+                const bmPush = weex.requireModule('bmPush');
+                bmPush.initPush({
+                    appId: 'C9ekVCzRSF8OHu2YQIXxG2',
+                    appKey: 'UlOzLeMded8pgj3BjGTfm1',
+                    appSecret: 'd9v10tH2A36hJwYM1gQKJ5',
+                });
             }
         },
+
         created () {
-            this.bindEvent()
+            this.bindEvent();
+            this.initPush();
         }
     }
 </script>
