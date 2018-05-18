@@ -1,7 +1,7 @@
 <!--suppress ALL -->
 <template>
     <div class="wrapper">
-        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onloading" >
+        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button slider-wrap">
                 <div class="slider-bg"></div>
@@ -31,6 +31,7 @@
     </div>
 </template>
 <script>
+import { Utils } from 'weex-ui';
 import refresher from '../common/refresh';
 import YXSlider from './YXSlider';
 import tab from './tab';
@@ -83,7 +84,8 @@ export default {
             pageSize: 6,
             lengthHot: 2,
             lengthNew: 2,
-            countApi: 0
+            countApi: 0,
+            isPlatformAndroid: Utils.env.isAndroid()
         }
     },
     methods: {
@@ -96,13 +98,24 @@ export default {
         noNoticeFinished (e) {
             this.block1.items = [...BLOCK4.items];
         },
-        onloading () {
+        onLoadingMore () {
             this.countApi = 0;
             this.isLoading = true;
             if(this.tabKey == 'new') {
                 this.getNewGoods(false)
             } else {
                 this.getHotGoods(false)
+            }
+        },
+        onloading () {
+            if (this.isPlatformAndroid) {
+                this.countApi = 0;
+                this.isLoading = true;
+                if (this.tabKey == 'new') {
+                    this.getNewGoods(false)
+                } else {
+                    this.getHotGoods(false)
+                }
             }
         },
         loadingDown () {
@@ -295,13 +308,15 @@ export default {
             })
         },
         onTabTo (event) {
-            dom.scrollToElement(this.$refs['tab'], { animated: false })
             this.tabKey = event.data.key;
             if(event.data.key == 'new') {
                 this.getNewGoods(true)
             } else {
                 this.getHotGoods(true)
             }
+            this.$nextTick(() => {
+                dom.scrollToElement(this.$refs['tab'], { animated: false })
+            })
         },
         refreshApiFinished() {
             this.countApi++

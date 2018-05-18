@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <list ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onloading">
+        <list ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button cell-top" >
                 <block-4 :items="block1.items" @noticeFinished="noNoticeFinished"
@@ -22,6 +22,7 @@
     </div>
 </template>
 <script>
+import { Utils } from 'weex-ui';
 import refresher from '../common/refresh';
 import tab from './tabCategory';
 import block3 from './block3';
@@ -71,16 +72,22 @@ export default {
             lengthNew: 2,
             lengthHot: 2,
             lengthPrice: 2,
-            isLoading: false
+            isLoading: false,
+            isPlatformAndroid: Utils.env.isAndroid()
         }
     },
     methods: {
         noNoticeFinished (e) {
             this.block1.items = [...BLOCK1.items];
         },
-        onloading () {
-            this.isLoading = true
+        onLoadingMore () {
             this.getGoods3(false)
+        },
+        onloading () {
+            if (this.isPlatformAndroid) {
+                this.isLoading = true
+                this.getGoods3(false)
+            }
         },
         loadingDown () {
             this.$refs.refresh.refreshEnd()
@@ -110,9 +117,10 @@ export default {
                     page = this.pageHot;
                     if (this.pageHot > this.lengthHot) {
                         this.$refs.refresh.refreshEnd()
-                        this.$nextTick(() => {
+                        this.$notice.toast(111)
+                        setTimeout(() => {
                             this.isLoading = false
-                        })
+                        }, 100)
                         return
                     }
                     this.getSelectedList(isfirst, page)
@@ -124,9 +132,9 @@ export default {
                     page = this.pageNew;
                     if (this.pageNew > this.lengthNew) {
                         this.$refs.refresh.refreshEnd()
-                        this.$nextTick(() => {
+                        setTimeout(() => {
                             this.isLoading = false
-                        })
+                        }, 0)
                         return
                     }
                     this.getGoodsList(isfirst, page)
@@ -138,9 +146,9 @@ export default {
                     page = this.pagePrice;
                     if (this.pagePrice > this.lengthPrice) {
                         this.$refs.refresh.refreshEnd()
-                        this.$nextTick(() => {
+                        setTimeout(() => {
                             this.isLoading = false
-                        })
+                        }, 0)
                         return
                     }
                     this.getGoodsList(isfirst, page)
