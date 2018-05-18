@@ -5,7 +5,7 @@
         <top-channel class="channel" @change="onchange" ref="topChannel"
                      :activeIndex="activeIndex" :channelList="channelList"></top-channel>
         <div :style="height" class="box" :class="[headerShow? '': 'wrapper-bottom']"
-             @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend">
+             @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend" >
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
                 <category v-for="(i, index) in channelList" v-if="index > 0" :key="i.id"

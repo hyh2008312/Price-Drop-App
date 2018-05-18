@@ -1,8 +1,8 @@
 <!--suppress ALL -->
 <template>
-    <div class="wrapper" >
-        <list loadmoreoffset="100" @loadmore="onloading">
-            <refresher :refreshing="refreshing" @loadingDown="loadingDown"></refresher>
+    <div class="wrapper">
+        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onloading" >
+            <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button slider-wrap">
                 <div class="slider-bg"></div>
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
@@ -24,7 +24,7 @@
                 <block-3 :goods="item"></block-3>
             </cell>
             <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
-            <loading class="loading">
+            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">加载中...</text>
             </loading>
         </list>
@@ -77,7 +77,7 @@ export default {
             goods3: [],
             showLoading: 'hide',
             tabKey: 'hot',
-            refreshing: false,
+            isLoading: false,
             pageNew: 1,
             pageHot: 1,
             pageSize: 6,
@@ -98,6 +98,7 @@ export default {
         },
         onloading () {
             this.countApi = 0;
+            this.isLoading = true;
             if(this.tabKey == 'new') {
                 this.getNewGoods(false)
             } else {
@@ -105,8 +106,9 @@ export default {
             }
         },
         loadingDown () {
-            this.refreshing = true
-            this.countApi = 0;
+            this.countApi = 0
+            this.$refs.refresh.refreshEnd()
+            this.isLoading = false
             this.init();
         },
         init () {
@@ -231,6 +233,10 @@ export default {
                 this.pageNew = 1
             }
             if(this.pageNew > this.lengthNew) {
+                this.$refs.refresh.refreshEnd()
+                this.$nextTick(()=> {
+                    this.isLoading = false
+                })
                 return
             }
             this.$fetch({
@@ -247,7 +253,9 @@ export default {
                 }
                 this.pageNew++
                 this.goods3.push(...data.results)
-
+                if(!isfirst) {
+                    this.isLoading = false
+                }
                 this.refreshApiFinished()
             }, (error) => {
 
@@ -258,6 +266,10 @@ export default {
                 this.pageHot = 1
             }
             if(this.pageHot > this.lengthHot) {
+                this.$refs.refresh.refreshEnd();
+                this.$nextTick(()=> {
+                    this.isLoading = false
+                })
                 return
             }
             this.$fetch({
@@ -274,6 +286,9 @@ export default {
                 }
                 this.pageHot++
                 this.goods3.push(...data.results)
+                if(!isfirst) {
+                    this.isLoading = false
+                }
                 this.refreshApiFinished()
             }, error => {
 
@@ -290,10 +305,8 @@ export default {
         },
         refreshApiFinished() {
             this.countApi++
-            this.$notice.toast(this.countApi)
             if(this.countApi >= 3) {
-                this.refreshing = false;
-                //this.$notice.toast('refreshing success')
+                this.$refs.refresh.refreshEnd();
                 this.countApi = 0
             }
         }

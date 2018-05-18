@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
-        <list loadmoreoffset="100" @loadmore="onloading">
-            <refresher :refreshing="refreshing" @loadingDown="loadingDown"></refresher>
+        <list ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onloading">
+            <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button cell-top" >
                 <block-4 :items="block1.items" @noticeFinished="noNoticeFinished"
                          :activeIndex="activeIndex" :index="index"
@@ -15,7 +15,7 @@
                 <block-3 :goods="item"></block-3>
             </cell>
             <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
-            <loading class="loading" >
+            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">加载中...</text>
             </loading>
         </list>
@@ -62,17 +62,16 @@ export default {
             },
             tabsItems: [],
             goods3: [],
-            showLoading: 'hide',
             tabKey: 'hot',
             priceStatus: 0,
-            refreshing: false,
             pageNew: 1,
             pageHot: 1,
             pagePrice: 1,
             pageSize: 6,
             lengthNew: 2,
             lengthHot: 2,
-            lengthPrice: 2
+            lengthPrice: 2,
+            isLoading: false
         }
     },
     methods: {
@@ -80,10 +79,12 @@ export default {
             this.block1.items = [...BLOCK1.items];
         },
         onloading () {
-            this.getGoods3(false);
+            this.isLoading = true
+            this.getGoods3(false)
         },
         loadingDown () {
-            this.refreshing = true;
+            this.$refs.refresh.refreshEnd()
+            this.isLoading = false
             this.init();
         },
         init () {
@@ -97,7 +98,7 @@ export default {
             this.block1.items = BLOCK1.items
         },
         getTabName () {
-            this.tabsItems = TABCAT;
+            this.tabsItems = [...TABCAT];
         },
         getGoods3 (isfirst) {
             let page = 1;
@@ -108,6 +109,10 @@ export default {
                     }
                     page = this.pageHot;
                     if (this.pageHot > this.lengthHot) {
+                        this.$refs.refresh.refreshEnd()
+                        this.$nextTick(() => {
+                            this.isLoading = false
+                        })
                         return
                     }
                     this.getSelectedList(isfirst, page)
@@ -118,6 +123,10 @@ export default {
                     }
                     page = this.pageNew;
                     if (this.pageNew > this.lengthNew) {
+                        this.$refs.refresh.refreshEnd()
+                        this.$nextTick(() => {
+                            this.isLoading = false
+                        })
                         return
                     }
                     this.getGoodsList(isfirst, page)
@@ -128,6 +137,10 @@ export default {
                     }
                     page = this.pagePrice;
                     if (this.pagePrice > this.lengthPrice) {
+                        this.$refs.refresh.refreshEnd()
+                        this.$nextTick(() => {
+                            this.isLoading = false
+                        })
                         return
                     }
                     this.getGoodsList(isfirst, page)
@@ -168,7 +181,10 @@ export default {
                     this.goods3 = []
                 }
                 this.goods3.push(...data.results)
-                this.refreshing = false
+                if (!isfirst) {
+                    this.isLoading = false
+                }
+                this.refreshApiFinished()
             }, error => {
 
             })
@@ -190,8 +206,10 @@ export default {
                 } else {
                     this.goods3.push(...data.results)
                 }
-                this.refreshing = false
-                this.$notice.toast('refresh success')
+                if (!isfirst) {
+                    this.isLoading = false
+                }
+                this.refreshApiFinished()
             }, error => {
 
             })
@@ -201,6 +219,9 @@ export default {
             this.priceStatus = event.data.priceStatus
             this.getGoods3(true)
             dom.scrollToElement(this.$refs['tab'], { animated: false })
+        },
+        refreshApiFinished () {
+            this.$refs.refresh.refreshEnd();
         }
     }
 }
