@@ -111,7 +111,7 @@ export default {
                 if (charCode >= 0 && charCode <= 128) {
                     realLength += 1;
                     if (charCode >= 65 && charCode <= 90) {
-                        realLength += 0.05;
+                        realLength += 0.15;
                     }
                 } else {
                     realLength += 2;
