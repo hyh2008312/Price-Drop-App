@@ -117,7 +117,6 @@ export default {
                     page = this.pageHot;
                     if (this.pageHot > this.lengthHot) {
                         this.$refs.refresh.refreshEnd()
-                        this.$notice.toast(111)
                         setTimeout(() => {
                             this.isLoading = false
                         }, 100)
