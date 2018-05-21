@@ -55,6 +55,9 @@ export default {
         androidFinishApp () {
             const globalEvent = weex.requireModule('globalEvent');
             let self = this;
+            this.$notice.toast({
+                message: globalEvent
+            })
             globalEvent.addEventListener('homeBack', options => {
                 this.$notice.confirm({
                     title: '退出',

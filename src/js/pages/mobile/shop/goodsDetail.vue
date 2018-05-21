@@ -83,6 +83,7 @@
                    :show="isBottomShow"
                    @wxcPopupOverlayClicked="popupOverlayBottomClick"
                    pos="bottom"
+                   ref="wxcPopup"
                    height="718">
             <div class="popup-content">
                 <div class="popup-top">
@@ -95,7 +96,7 @@
                         <text class="popup-yet">已选：{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
                     </div>
 
-                    <text class="popup-close">&#xe632;</text>
+                    <text class="popup-close" @click="popupOverlayBottomClick">&#xe632;</text>
                 </div>
                 <scroller class="scroller">
 
@@ -113,9 +114,6 @@
                                     @click="clickColor(val1, val.value)">{{val1.value}}</text>
                             </div>
                         </div>
-
-                        <!--<input type="radio">-->
-
                     </div>
                 </scroller>
                 <div class="popup-btn">
@@ -138,6 +136,7 @@
     import { YXBANNERS, BLOCK1, TAB, BLOCK4, GOODS1, GOODS2, GOODS3 } from '../home/config';
     const animation = weex.requireModule('animation');
     const axios = weex.requireModule('bmAxios');
+    const globalEvent = weex.requireModule('globalEvent');
 
     // import block from './block';
     // import refresher from '../common/refresh';
@@ -158,8 +157,30 @@
         eros: {
           beforeAppear (a) {
               this.getGoodsDetail(a)
-          }
+          },
+            beforeBackAppear(params) {
+                this.$notice.toast({
+                                    message: 111111
+                                })
+            }
         },
+        // watch: {
+        //     isBottomShow: function (val, oval) {
+        //         if (val == true) {
+        //             let self  =this
+        //
+        //             globalEvent.addEventListener('homeBack', options => {
+        //                 self.$notice.toast({
+        //                     message: val
+        //                 })
+        //                 self.isBottomShow = false
+        //             })
+        //             this.$notice.toast({
+        //                 message: globalEvent
+        //             })
+        //         }
+        //     }
+        // },
         data () {
             return {
                 cellStyle: {
@@ -236,7 +257,8 @@
             }
         },
         created () {
-
+            // this.popupOverlayBottomClick()
+            this.androidFinishApp()
         },
         methods: {
             getGoodsDetail (id) {
@@ -286,10 +308,21 @@
             openBottomPopup () {
                 this.isBottomShow = true;
             },
+
             // 非状态组件，需要在这里关闭
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
             },
+            androidFinishApp () {
+                this.$event.on('goodDetail', (data) => {
+                    if (this.isBottomShow) {
+                        this.isBottomShow = false;
+                    } else {
+                        this.$router.finish()
+                    }
+                })
+            },
+
             operateData (data) {
                 for (let i = 0; i < data.length; i++) {
                     for (let j = 0; j < data[i].value.length; j++) {
@@ -354,9 +387,9 @@
                     }
                 }
                 this.changeDom(item, color)
-                this.$notice.toast({
-                    message: item
-                })
+                // this.$notice.toast({
+                //     message: item
+                // })
                 // this.cactiveId = id
             },
             changeDom (item, color) {
