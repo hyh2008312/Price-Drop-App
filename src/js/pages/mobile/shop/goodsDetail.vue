@@ -70,28 +70,60 @@
                     </text>
                 </div>
             </div>
-            <wxc-popup :have-overlay="isTrue"
-                       popup-color="rgb(255, 255, 255)"
-                       :show="isBottomShow"
-                       @wxcPopupOverlayClicked="popupOverlayBottomClick"
-                       pos="bottom"
-                       height="718">
-            <div class="popup-content">
-                <image src='http://doc.zwwill.com/yanxuan/imgs/banner-1.jpg'
-                       class="popup-image"></image>
-                <text class="popup-price">¥{{goods.price}}</text>
-                <text class="popup-yet">已选：粉色&nbsp;&nbsp;&nbsp;&nbsp;S</text>
-                <text class="popup-close">&#xe632;</text>
 
-
-                <text class="popup-color">颜色</text>
-                <text class="popup-size">尺寸</text>
-            </div>
-            </wxc-popup>
             <div class="bottom-btn">
-                <text class="button" @click="reload">砍价立减，最低0元拿</text>
+                <text class="button" @click="openBottomPopup">砍价立减，最低0元拿</text>
             </div>
         </scroller>
+
+
+
+        <wxc-popup :have-overlay="isTrue"
+                   popup-color="rgb(255, 255, 255)"
+                   :show="isBottomShow"
+                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
+                   pos="bottom"
+                   height="718">
+            <div class="popup-content">
+                <div class="popup-top">
+
+                    <image :src='selimgsrc'
+                           class="popup-image"></image>
+
+                    <div class="popup-py">
+                        <text class="popup-price">¥{{selsaleUnitPrice}}</text>
+                        <text class="popup-yet">已选：{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
+                    </div>
+
+                    <text class="popup-close">&#xe632;</text>
+                </div>
+                <scroller class="scroller">
+
+                    <div class="popup-bottom">
+                        <div v-for="(val, index) in goodsType" :key="index">
+                            <text class="popup-color">{{val.name}}</text>
+
+                            <div  class="popup-color-chd" >
+                                <text class="popup-color-chdname  "
+                                      v-for="(val1, key1) in val.value"
+                                      :key="key1"
+                                      :class="[val1.isActive ?'popup-color-chdname-active':'',
+                                      val1.seldisable ?'popup-color-chdname-disable':'']"
+
+                                    @click="clickColor(val1, val.value)">{{val1.value}}</text>
+                            </div>
+                        </div>
+
+                        <!--<input type="radio">-->
+
+                    </div>
+                </scroller>
+                <div class="popup-btn">
+                    <text class="button" @click="wxcCellClick">砍价立减，最低0元拿</text>
+                </div>
+
+            </div>
+        </wxc-popup>
     </div>
 
 </template>
@@ -104,8 +136,8 @@
     import tab from './tab';
     import block5 from '../home/block5';
     import { YXBANNERS, BLOCK1, TAB, BLOCK4, GOODS1, GOODS2, GOODS3 } from '../home/config';
-    const animation = weex.requireModule('animation')
-    const axios = weex.requireModule('bmAxios')
+    const animation = weex.requireModule('animation');
+    const axios = weex.requireModule('bmAxios');
 
     // import block from './block';
     // import refresher from '../common/refresh';
@@ -114,7 +146,7 @@
     export default {
         components: {
             'topic-header': header,
-            WxcCell, WxcButton,WxcPopup,
+            WxcCell, WxcButton, WxcPopup,
             'block-2': block2,
             'block-3': block3,
             'block-4': block4,
@@ -122,6 +154,11 @@
             'tab': tab
             // 'refresher': refresher,
             // 'block': block
+        },
+        eros: {
+          beforeAppear (a) {
+              this.getGoodsDetail(a)
+          }
         },
         data () {
             return {
@@ -162,13 +199,13 @@
                     brandLogo: ''
                 },
                 goodsImg: [
-                    'http://yanxuan.nosdn.127.net/630439320dae9f1ce3afef3c39721383.jpg',
-                    'http://yanxuan.nosdn.127.net/5100f0176e27a167cc2aea08b1bd11d8.jpg',
-                    'http://doc.zwwill.com/yanxuan/imgs/banner-1.jpg',
-                    'http://doc.zwwill.com/yanxuan/imgs/banner-2.jpg',
-                    'http://doc.zwwill.com/yanxuan/imgs/banner-4.jpg',
-                    'http://doc.zwwill.com/yanxuan/imgs/banner-5.jpg',
-                    'http://doc.zwwill.com/yanxuan/imgs/banner-6.jpg'
+                    // 'http://yanxuan.nosdn.127.net/630439320dae9f1ce3afef3c39721383.jpg',
+                    // 'http://yanxuan.nosdn.127.net/5100f0176e27a167cc2aea08b1bd11d8.jpg',
+                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-1.jpg',
+                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-2.jpg',
+                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-4.jpg',
+                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-5.jpg',
+                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-6.jpg'
                 ],
                 tabsItems: [{
                     name: '产品详情',
@@ -177,6 +214,15 @@
                     name: '砍价规则',
                     key: 'ruler'
                 }],
+                popup_color: ['粉色', '橙色', '黑色'],
+                goodsVariants: [],
+                goodsType: {},
+                selsize: '',
+                selcolor: '',
+                selimgsrc: '',
+                selsaleUnitPrice: '',
+                cactiveId: 1,
+                sactiveId: '',
                 isBottomShow: false,
                 height: 400,
                 tabKey: 'detail',
@@ -190,12 +236,12 @@
             }
         },
         created () {
-            this.getGoodsDetail()
+
         },
         methods: {
-            getGoodsDetail () {
-                this.$router.getParams().then(resData => {
-                    this.goodsId = resData.id
+            getGoodsDetail (id) {
+                // this.$router.getParams().then(resData => {
+                //     this.goodsId = resData.id;
                     axios.fetch({
                         method: 'GET',
                         // url: 'http://47.104.171.91/product/customer/detail/' + resData.id + '/',
@@ -204,18 +250,23 @@
                         data: {}
                     }, (res) => {
                         if (res.status == 200) {
-                            this.goods.title = res.data.title
-                            this.goods.price = res.data.saleUnitPrice
-                            this.goods.brandLogo = res.data.brandLogo
-                            this.goodsImg = res.data.images
+                            this.goods.title = res.data.title;
+                            this.goods.price = res.data.saleUnitPrice;
+                            this.selsaleUnitPrice = res.data.saleUnitPrice;
+                            this.goods.brandLogo = res.data.brandLogo;
+                            this.goodsImg = res.data.images;
                             if (res.data.cutGet == null) {
                                 this.goods.cut_get = 0
                             } else {
                                 this.goods.cut_get = res.data.cutGet
                             }
-                            this.$notice.toast({
-                                message: res.status
-                            })
+
+                            this.goodsVariants = res.data.variants;
+                            this.selimgsrc = res.data.images[0]
+                            this.goodsType = this.operateData(res.data.attributes);
+                            // this.$notice.toast({
+                            //     message: this.goodsType
+                            // })
                         } else {
                             this.$notice.toast({
                                 message: res.errorMsg
@@ -224,10 +275,10 @@
 
                         // this.goods = resData.data
                     })
-                })
+                // })
             },
             wxcCellClick () {
-                this.openBottomPopup()
+                this.openBottomPopup();
                 this.$notice.toast({
                     message: 3333
                 })
@@ -235,9 +286,97 @@
             openBottomPopup () {
                 this.isBottomShow = true;
             },
-            //非状态组件，需要在这里关闭
+            // 非状态组件，需要在这里关闭
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
+            },
+            operateData (data) {
+                for (let i = 0; i < data.length; i++) {
+                    for (let j = 0; j < data[i].value.length; j++) {
+                        data[i].value[j].isActive = false
+                        data[i].value[j].seldisable = false
+                    }
+                }
+                return data
+            },
+            clickColor (item, list) {
+                if (item.seldisable) return
+                item.isActive = !item.isActive
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].value != item.value) {
+                        list[i].isActive = false
+                    }
+                }
+                const color = []
+                const discolor = []
+                for (let j = 0; j < this.goodsVariants.length; j++) {
+                    for (let k = 0; k < this.goodsVariants[j].attributeValues.length; k++) {
+                        if (item.value == this.goodsVariants[j].attributeValues[k].value) {
+                            color.push({
+                                item: this.goodsVariants[j],
+                                index: k
+                            })
+                            break;
+                            // this.seldisable = true
+                        }
+                    }
+                }
+
+                if (item.isActive == true) {
+                    for (let n = 0; n < color.length; n++) {
+                        for (let m = 0; m < color[n].item.attributeValues.length; m++) {
+                            if (m == color[n].index) {
+                                continue
+                            }
+                            discolor.push(color[n].item.attributeValues[m].value)
+                        }
+                    }
+
+                    for (let p = 0; p < this.goodsType.length; p++) {
+                        if (item.id != this.goodsType[p].id) {
+                            for (let u = 0; u < this.goodsType[p].value.length; u++) {
+                                this.goodsType[p].value[u].seldisable = false
+                                for (let o = 0; o < discolor.length; o++) {
+                                    if (this.goodsType[p].value[u].value != discolor[o]) {
+                                        this.goodsType[p].value[u].seldisable = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    for (let p = 0; p < this.goodsType.length; p++) {
+                        if (item.id != this.goodsType[p].id) {
+                            for (let u = 0; u < this.goodsType[p].value.length; u++) {
+                                this.goodsType[p].value[u].seldisable = false
+                            }
+                        }
+                    }
+                }
+                this.changeDom(item, color)
+                this.$notice.toast({
+                    message: item
+                })
+                // this.cactiveId = id
+            },
+            changeDom (item, color) {
+                if (color[0].item.mainImage) {
+                    this.selimgsrc = color[0].item.mainImage
+                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
+                }
+                if (item.isActive == true) {
+                    if (item.id == 1) {
+                        this.selsize = item.value
+                    } else if (item.id == 2) {
+                        this.selcolor = item.value
+                    }
+                } else if (item.isActive == false) {
+                    if (item.id == 1) {
+                        this.selsize = ''
+                    } else if (item.id == 2) {
+                        this.selcolor = ''
+                    }
+                }
             },
             ontouchstart (event) {
                 this.positionX = event.changedTouches[0].screenX;
@@ -263,13 +402,13 @@
                 // })
             },
             ontouchend (event) {
-                this.positionX = 0
-                this.positionY = 0
-                this.deltaX = 0
+                this.positionX = 0;
+                this.positionY = 0;
+                this.deltaX = 0;
                 this.deltaY = 0
             },
             scrollHandler (e) { //  scroller 滚动函数 通过动画实现的
-                console.log(e.direction)
+                console.log(e.direction);
 
                if (e.contentOffset.y >= -10) {
                    animation.transition(this.$refs.ref1, {
@@ -278,11 +417,11 @@
                            height: '48px'
 
                        },
-                       duration: 1000, // ms
-                       timingFunction: 'ease',
+                       duration: 500, // ms
+                       timingFunction: 'linear',
                        needLayout: false,
                        delay: 0 // ms
-                   })
+                   });
                    this.topval = '1'
                } else {
                    animation.transition(this.$refs.ref1, {
@@ -290,17 +429,17 @@
                            opacity: '1',
                            height: '148px'
                        },
-                       duration: 1000, // ms
-                       timingFunction: 'ease',
+                       duration: 500, // ms
+                       timingFunction: 'linear',
                        needLayout: false,
                        delay: 0 // ms
-                   })
+                   });
                    this.topval = '2'
                }
                if (Math.abs(e.contentOffset.y) > 1200) {
                    this.$notice.toast({
                        message: '55555'
-                   })
+                   });
                     this.tabshow = true
                } else if (Math.abs(e.contentOffset.y) < 1100) {
                    this.tabshow = false
@@ -423,7 +562,7 @@
 
     }
     .mid{
-        margin-top: 80px;
+        margin-top: 14px;
         background-color: white;
     }
     .slogan{
@@ -487,26 +626,41 @@
         text-align: center;
         font-weight: 500;
     }
+    .scroller{
+        max-height: 500px;
 
+    }
+    .popup-content{
+        height: 718px;
+        width: 750px;
+        flex-direction: column;
+
+    }
     .popup-image {
         width: 200px;
         height: 200px;
-        margin-bottom: 40px;
+        margin-bottom: 27px;
         margin-top: 32px;
         margin-left: 32px;
+    }
+    .popup-top{
+        flex-direction: row;
+    }
+    .popup-py{
+        flex-direction: column;
+
     }
     .popup-price{
         font-size: 32px;
         font-weight: 600;
-        position: absolute;
-        left: 262px;
-        top: 134px;
+        margin-top: 134px;
+        margin-left: 32px;
+
     }
     .popup-yet{
-        font-size: 32px;
-        position: absolute;
-        left: 262px;
-        top: 200px;
+        font-size: 24px;
+        margin-left: 32px;
+        margin-top: 26px;
     }
     .popup-close{
         font-size: 32px;
@@ -514,11 +668,69 @@
         right: 32px;
         top: 32px;
     }
-    .popup-color{
-        position: ;
-    }
-    .popup-size{
+    .popup-bottom{
 
+    }
+    .popup-color{
+        font-size: 32px;
+        margin-top: 27px;
+        margin-left: 32px;
+
+    }
+    .popup-color-chd{
+        width: 750px;
+        margin-left: -16px;
+        margin-top: 26px;
+        flex-direction: row;
+        display: flex;
+    }
+    .popup-color-chdname{
+        font-size: 20px;
+        height:48px;
+        line-height: 45px;
+        text-align:center;
+        margin-left: 48px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,0.12);
+        border-radius: 4px;
+
+    }
+    .popup-color-chdname-active{
+        font-size: 20px;
+        height:48px ;
+        line-height: 45px;
+        text-align:center;
+        margin-left: 48px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #987D1A;
+        border-radius: 4px;
+
+    }
+    .popup-color-chdname-disable{
+        font-size: 20px;
+        background-color: #dcdcdc;
+        color: #fff;
+        height:48px ;
+        line-height: 45px;
+        text-align:center;
+        margin-left: 48px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,0.12);
+        border-radius: 4px;
+
+    }
+    .popup-btn{
+        position: relative;
+        bottom: 0;
     }
 
 
