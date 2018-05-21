@@ -48,7 +48,12 @@
                 </div>
             </div>
 
-                <div style="width: 750px; height: 910px;background-color: rosybrown"></div>
+                <div style="width: 750px; background-color: rosybrown">
+                    <text v-for="txt in dectxt">
+                        {{txt}}
+                    </text>
+                    <image v-for="i in decimg" :src="i" resize="cover" style="width:500px;height:500px"></image>
+                </div>
 
                 <div>
 
@@ -88,7 +93,7 @@
             <div class="popup-content">
                 <div class="popup-top">
 
-                    <image :src='selimgsrc'
+                    <image :src="selimgsrc"
                            class="popup-image"></image>
 
                     <div class="popup-py">
@@ -158,11 +163,11 @@
           beforeAppear (a) {
               this.getGoodsDetail(a)
           },
-            beforeBackAppear(params) {
+          beforeBackAppear (params) {
                 this.$notice.toast({
-                                    message: 111111
-                                })
-            }
+                  message: 111111
+              })
+          }
         },
         // watch: {
         //     isBottomShow: function (val, oval) {
@@ -242,6 +247,8 @@
                 selcolor: '',
                 selimgsrc: '',
                 selsaleUnitPrice: '',
+                decimg: [],
+                dectxt: [],
                 cactiveId: 1,
                 sactiveId: '',
                 isBottomShow: false,
@@ -262,11 +269,13 @@
         },
         methods: {
             getGoodsDetail (id) {
-                // this.$router.getParams().then(resData => {
-                //     this.goodsId = resData.id;
+                if (id) {
+                    this.$notice.toast({
+                        message: id.id
+                    })
                     axios.fetch({
                         method: 'GET',
-                        // url: 'http://47.104.171.91/product/customer/detail/' + resData.id + '/',
+                        // url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
                         url: 'http://47.104.171.91/product/customer/detail/' + 8 + '/',
                         // name: 'product.customer.list',
                         data: {}
@@ -286,6 +295,15 @@
                             this.goodsVariants = res.data.variants;
                             this.selimgsrc = res.data.images[0]
                             this.goodsType = this.operateData(res.data.attributes);
+                            this.decimg = []
+                            this.dectxt = []
+                            for (let i = 0; i < res.data.description.length; i++) {
+                                if (res.data.description[i].type == 'image') {
+                                    this.decimg.push(res.data.description[i].context)
+                                } else {
+                                    this.dectxt.push(res.data.description[i].context)
+                                }
+                            }
                             // this.$notice.toast({
                             //     message: this.goodsType
                             // })
@@ -297,7 +315,7 @@
 
                         // this.goods = resData.data
                     })
-                // })
+                }
             },
             wxcCellClick () {
                 this.openBottomPopup();
@@ -314,13 +332,13 @@
                 this.isBottomShow = false;
             },
             androidFinishApp () {
-                this.$event.on('goodDetail', (data) => {
-                    if (this.isBottomShow) {
-                        this.isBottomShow = false;
-                    } else {
-                        this.$router.finish()
-                    }
-                })
+                // this.$event.on('goodDetail', (data) => {
+                //     if (this.isBottomShow) {
+                //         this.isBottomShow = false;
+                //     } else {
+                //         this.$router.finish()
+                //     }
+                // })
             },
 
             operateData (data) {
@@ -393,10 +411,6 @@
                 // this.cactiveId = id
             },
             changeDom (item, color) {
-                if (color[0].item.mainImage) {
-                    this.selimgsrc = color[0].item.mainImage
-                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
-                }
                 if (item.isActive == true) {
                     if (item.id == 1) {
                         this.selsize = item.value
@@ -408,6 +422,15 @@
                         this.selsize = ''
                     } else if (item.id == 2) {
                         this.selcolor = ''
+                    }
+                }
+                let tmp = []
+                for (let i = 0; i < this.goodsType.length; i++) {
+                    tmp = this.goodsType[i].images
+                }
+                for (let j = 0; j < tmp.length; j++) {
+                    if (tmp[j].value == this.selcolor) {
+                        this.selimgsrc = tmp[j].image
                     }
                 }
             },
