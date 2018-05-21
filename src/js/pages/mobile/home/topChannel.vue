@@ -2,8 +2,10 @@
     <div class="wrapper">
         <scroller class="scroller" scroll-direction="horizontal" flex-direction="row" loadmoreoffset="0" show-scrollbar=false>
             <div class="j-uline" ref="jcLine" v-if="channelList.length > 0"></div>
-            <text class="i-c" v-for="(item,index) in channelList" :class="[ activeIndex == index ? 'c-act' : '']"
-                  @click="chooseChannel(index,item)" :ref="'channel_' + index">{{item.name}}</text>
+            <text class="i-c" v-for="(item,index) in channelList"
+                  :class="[ activeIndex == index ? 'c-act' : '']"
+                  @click="chooseChannel(index,item)" :ref="'channel_' + index"
+                :style="{width: (item.width + 48) + 'px'}">{{item.name}}</text>
         </scroller>
     </div>
 </template>

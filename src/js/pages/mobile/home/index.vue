@@ -91,33 +91,15 @@ export default {
             })
             left += 48 + firstCat.length * 28;
             for (const item of data) {
-                const width = this.getLength(item.fullName) * 14
+                const width = item.fullName.length * 28
                 this.channelList.push({
                     name: item.fullName,
                     width: width,
                     left: left,
                     id: item.id
                 })
-                left += 48 + this.getLength(item.fullName) * 14
+                left += 48 + item.fullName.length * 28
             }
-        },
-        getLength (str) {
-            let realLength = 0;
-            let charCode = -1;
-            const len = str.length;
-
-            for (let i = 0; i < len; i++) {
-                charCode = str.charCodeAt(i);
-                if (charCode >= 0 && charCode <= 128) {
-                    realLength += 1;
-                    if (charCode >= 65 && charCode <= 90) {
-                        realLength += 0.15;
-                    }
-                } else {
-                    realLength += 2;
-                }
-            }
-            return realLength;
         },
         changeHeader () {
             if (!this.headAni) {

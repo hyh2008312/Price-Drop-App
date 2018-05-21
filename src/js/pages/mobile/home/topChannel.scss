@@ -13,17 +13,20 @@
 .scroller {
     width: 750px;
     height: 68px;
+    padding-left: 8px;
+    padding-right: 8px;
     flex-direction: row;
     flex-wrap: nowrap;
 }
 
 .i-c {
     padding-top: 10px;
-    padding-left: 32px;
-    padding-right: 16px;
+    padding-left: 24px;
+    padding-right: 24px;
     padding-bottom: 10px;
     font-size: 28px;
     color: #fff;
+    text-align: center;
 }
 
 .c-act {
