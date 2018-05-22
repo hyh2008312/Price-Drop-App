@@ -5,27 +5,27 @@
                 <div class="i-gd" @click="jumpWeb()">
                     <div class="gd-bg">
                         <image class="gd-img" resize="cover"
-                               :src="'http://yanxuan.nosdn.127.net/0e9ddf1a0ed5af78e8ec12cb9489df17.png?imageView&quality=85&thumbnail=330x330'"></image>
+                               :src="goods.mainImage"></image>
                     </div>
                     <div class="gd-bg-right">
-                        <text class="gd-info">UOOYAA.乌Y</text>
-                        <text class="gd-tlt">9.5新百达翡丽运动系列5712/1A-001(鹦鹉螺)精钢手表自动机械男表</text>
+                        <text class="gd-info">{{goods.brandName}}</text>
+                        <text class="gd-tlt">{{goods.title}}</text>
                         <div class="gd-cut">
                             <text class="gd-cut-price-tip">已砍</text>
-                            <text class="gd-cut-price">¥299.00</text>
+                            <text class="gd-cut-price">¥{{goods.salePrice - goods.currentPrice }}</text>
                         </div>
                         <div class="gb-price">
-                            <text class="gd-price-sale">¥1000.00</text>
-                            <text class="gd-price-original">¥1200.00</text>
+                            <text class="gd-price-sale">¥{{goods.currentPrice}}</text>
+                            <text class="gd-price-original">¥{{goods.salePrice}}</text>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="gb-line"></div>
             <!--正在砍价-->
-            <div class="gd-handle" v-if="true">
+            <div class="gd-handle" v-if="flag">
                 <wxc-countdown tpl="{h}:{m}:{s}"
-                               :time="TIME"
+                               :time="goods.endTimestamp *1000"
                                :timeBoxStyle="{backgroundColor: '#000000', height: '36px', width: '36px','border-radius': '4px'}"
                                :timeTextStyle="{fontSize: '24px', color: '#FFFFFF'}"
                                :dotTextStyle="{color: '#000000', fontSize: '24px'}"
@@ -33,7 +33,7 @@
                                :style="{justifyContent: 'center'}">
                 </wxc-countdown>
                 <text class="gd-handle-tip">后结束砍价</text>
-                <text class="gd-handle-cut">继续砍价</text>
+                <text class="gd-handle-cut" @click="goingCutPrice">继续砍价</text>
             </div>
             <!--砍价结束-->
             <div class="gd-end-handle" v-else>
@@ -59,21 +59,26 @@
 
 
 <script>
-    import {WxcCountdown} from 'weex-ui'
+    import { WxcCountdown } from 'weex-ui'
 
     export default {
-        components: {WxcCountdown},
+        components: { WxcCountdown },
         props: ['goods', 'flag'],
-        data() {
+        data () {
             return {
                 TIME: new Date().getTime() + 86400000 + ''
             }
         },
         methods: {
-            jumpWeb() {
+            jumpWeb () {
                 this.$router.open({
                     name: 'goods.details'
                 })
+            },
+            goingCutPrice () {
+                this.$notice.alert({
+                    message: this.TIME
+                });
             }
         }
     }
