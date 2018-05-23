@@ -1,0 +1,41 @@
+.iconfont {
+    font-family: iconfont;
+}
+
+.wrapper {
+    position: sticky;
+    margin-top: 2px;
+    width: 750px;
+    height: 96px;
+    background-color: #FFF;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0,0,0, .12);
+    border-bottom-style: solid;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.i-c {
+    font-size: 24px;
+    margin-left: 32px;
+    margin-right: 32px;
+    line-height: 96px;
+    color: rgba(0,0,0, .87);
+}
+
+.c-act {
+    font-weight: 500;
+    color: #EF8A31;
+}
+
+.j-uline {
+    position: absolute;
+    left: 24px;
+    bottom: 20px;
+    width: 46px;
+    height: 6px;
+    background-color: #EF8A31;
+    border-radius: 4px;
+}
+

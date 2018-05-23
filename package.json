@@ -8,11 +8,15 @@
   ],
   "author": "Heyh<hyh2017312@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "eros dev",
+    "pack": "eros pack"
+  },
   "dependencies": {
     "bui-weex": "^0.2.5",
+    "eros-cli": "^2.0.8-beta.1",
     "eros-widget": "^1.0.2-beta.1",
     "fsevents": "^1.2.3",
-    "node-sass": "^4.5.0",
     "weex-ui": "^0.6.0beta-2"
   },
   "devDependencies": {

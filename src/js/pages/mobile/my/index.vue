@@ -17,7 +17,7 @@
                 <text class="i-box-in iconfont">&#xe600;</text>
             </div>
             <div class="box-line">
-                <div class="i-box-l">
+                <div class="i-box-l" @click="jumpWeb">
                     <text class="i-box-icon iconfont">&#xe673;</text>
                     <text class="i-box-tlt">待付款</text>
                 </div>
@@ -68,30 +68,31 @@
 import he from '../utils/he';
 import { SERVICES } from './config'
 
-Vue.filter('myFilter', function(value) {
+Vue.filter('myFilter', function (value) {
     return he.decode(value);
 })
 
 export default {
-    mounted() {
+    mounted () {
         this.getService()
     },
-    data() {
+    data () {
         return {
             services: [],
             serviceLength: 0
         }
     },
     methods: {
-        jumpWeb(_url) {
-            this.$router.toWebView({
-                url: _url,
-                title: '',
-                navShow: true,
+        jumpWeb (id) {
+            // if (!url) return;
+            // let self = this;
+            this.$router.open({
+                name: 'order',
+                type: 'PUSH'
             })
         },
-        getService() {
-        	// this.$fetch({
+        getService () {
+            // this.$fetch({
          //        method: 'GET',
          //        name: 'yanxuan_my_getService',
          //        data: {}
@@ -105,7 +106,7 @@ export default {
          this.services = SERVICES
          this.getLength()
         },
-        getLength() {
+        getLength () {
             this.serviceLength = Math.ceil(this.services.length / 4)
         }
     }

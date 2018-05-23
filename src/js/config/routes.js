@@ -98,5 +98,8 @@ export default {
     },
     'goods.details': {
         url: '/pages/mobile/shop/goodsDetail.js'
+    },
+    'order': {
+        url: '/pages/mobile/order/index.js'
     }
 }

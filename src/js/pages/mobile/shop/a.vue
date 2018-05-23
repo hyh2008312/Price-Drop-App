@@ -1,51 +1,36 @@
 <template>
     <div class="wrapper">
-        <text>1234567</text>
+        <div class="btn yellow  btn-margin" @click="openBottomPopup">
+            <text class="btn-txt">Click</text>
+        </div>
+        <wxc-popup popup-color="rgb(92, 184, 92)"
+                   :show="isBottomShow"
+                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
+                   pos="bottom"
+                   height="400">
+            <div class="demo-content">
+                <image src="https://img.alicdn.com/tfs/TB1ojYvOXXXXXaOXFXXXXXXXXXX-180-41.png" class="demo-image"></image>
+                <text>Different from a "web app", "HTML5 app", or "hybrid app", you can use Weex to build a real mobile app. The code that you write is relatively simple, because you can build native applications just using HTML, CSS, Javascript.</text>
+            </div>
+        </wxc-popup>
     </div>
 </template>
+
 <script>
-import header from './header';
-import block from './block';
-import refresher from '../common/refresh';
-import { GOODS } from './config'
-
-export default {
-    components: {
-        'shop-header': header,
-        'refresher': refresher,
-        'block': block,
-    },
-    created() {
-        this.getGoods()
-    },
-    data() {
-        return {
-            rightBtn: {
-                name: "编辑"
+    import { WxcPopup } from 'weex-ui';
+    export default {
+        components: { WxcPopup },
+        data: () => ({
+            isBottomShow: false,
+            height: 400
+        }),
+        methods: {
+            openBottomPopup () {
+                this.isBottomShow = true;
             },
-            goods: [],
-            goodList: []
+            popupOverlayBottomClick () {
+                this.isBottomShow = false;
+            }
         }
-    },
-    methods: {
-        getGoods() {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_shop_getGoods',
-            //     data: {}
-            // }).then(resData => {
-            //     this.goods = resData.data
-            // }, error => {
-
-            // })
-
-            this.goods = GOODS
-        },
-        jump2() {
-
-        }
-
-    }
-}
+    };
 </script>
-<style lang="sass" src="./index.scss"></style>
