@@ -1,12 +1,18 @@
 <template>
     <div class="wrapper">
-        <text class="back iconfont" @click="back()">&#xe6f6;</text>
-        <text class="title">{{title}}</text>
+        <text class="back iconfont" @click="back()" v-if="isBack">&#xe6f6;</text>
+        <text class="title" :class="[isBack? '':'title-width']">{{title}}</text>
     </div>
 </template>
 <script>
     export default {
-        props: ['title'],
+        props: {
+            title: String,
+            isBack: {
+                type: Boolean,
+                default: true
+            }
+        },
         methods: {
             back () {
                 this.$router.finish()
@@ -51,5 +57,9 @@
         lines: 1;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+
+    .title-width{
+        width: 750px;
     }
 </style>

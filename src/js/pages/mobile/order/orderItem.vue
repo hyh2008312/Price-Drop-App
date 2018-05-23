@@ -22,7 +22,7 @@
             </div>
             <div class="gb-center">
                 <text class="gd-text">Dropped:  </text>
-                <text class="gb-price-1">Rs.{{order.droppedPrice}}</text>
+                <text class="gb-price-1">-Rs.{{order.droppedPrice}}</text>
                 <text class="gd-text">Final:  </text>
                 <text class="gb-price-2">Rs.{{order.saleUnitPrice}}</text>
             </div>
@@ -60,7 +60,7 @@
             jumpWeb () {
                 // if (!url) return;
                 this.$router.open({
-                    name: 'goods.details'
+                    name: 'order.detail'
                 })
             },
             openBottomPopup () {
@@ -124,7 +124,7 @@
 
     .gb-box {
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-        border-radius: 4px;
+        border-radius: 8px;
     }
 
     .i-gd {
@@ -142,11 +142,6 @@
     .gd-bg {
         width: 160px;
         height: 160px;
-        border-radius: 8px;
-        overflow: hidden;
-        border-width: 1px;
-        border-style: solid;
-        border-color: rgba(0,0,0,.12);
     }
 
     .gd-bg-right {
@@ -160,6 +155,8 @@
     .gd-img {
         width: 158px;
         height: 158px;
+        border-radius: 8px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
 
     .gd-tlt {

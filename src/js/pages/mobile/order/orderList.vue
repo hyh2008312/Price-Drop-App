@@ -27,7 +27,7 @@
                 <div class="popup-content-bottom">
                     <text class="popup-content-text">Total:  </text>
                     <text class="popup-content-price">Rs.{{selectedOrder.saleUnitPrice}}</text>
-                    <text class="popup-content-button">Pay Now</text>
+                    <text class="popup-content-button" @click="payResult">Pay Now</text>
                 </div>
             </div>
         </wxc-popup>
@@ -50,9 +50,6 @@
         props: ['index', 'activeIndex'],
         created () {
             this.resetPayList()
-            this.$notice.toast({
-                message: this.payList
-            })
             if (this.index == 0 && this.activeIndex == 0) {
                 this.init()
             }
@@ -144,6 +141,15 @@
             },
             resetPayList () {
                 this.payList = [...PAYLIST]
+            },
+            payResult () {
+                this.$router.open({
+                    name: 'order.result',
+                    type: 'PUSH',
+                    params: {
+                        result: true
+                    }
+                })
             }
         }
     }

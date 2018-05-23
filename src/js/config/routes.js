@@ -101,5 +101,11 @@ export default {
     },
     'order': {
         url: '/pages/mobile/order/index.js'
+    },
+    'order.result': {
+        url: '/pages/mobile/order/payResult.js'
+    },
+    'order.detail': {
+        url: '/pages/mobile/order/payDetail.js'
     }
 }
