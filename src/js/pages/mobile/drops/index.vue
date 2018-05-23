@@ -7,22 +7,14 @@
         <div>
             <cutTab :items="tabsItems" @tabTo="onTabTo"></cutTab>
         </div>
-        <list class="main-list" ref="list" v-if="isCuting">
-            <!-- <refresher @loadingDown="loadingDown"></refresher>-->
-            <cell v-for="(i ,index) in goods3">
-                <cutingItem :goods=i :key="index"></cutingItem>
+        <list class="main-list" ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
+            <refresher ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
+            <cell v-for="(i ,index) in goods">
+                <cutingItem :goods=i :key="index" :flag="isCuting"></cutingItem>
             </cell>
-            <!-- <loading class="loading">
-                 <text class="indicator">加载中...</text>
-             </loading>-->
-        </list>
-        <list class="main-list" ref="list" v-else>
-            <cell v-for="(i ,index) in ['2','3','5']">
-                <cutEndItem :goods=i :key="index"></cutEndItem>
-            </cell>
-            <!--<loading class="loading">
+            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">加载中...</text>
-            </loading>-->
+            </loading>
         </list>
     </div>
 </template>
@@ -32,6 +24,7 @@
     import cutingItem from './cutingItem';
     import cutEndItem from './cutEndItem';
     import { TAB } from './config'
+    import { Utils } from 'weex-ui';
 
     export default {
         components: {
@@ -40,33 +33,125 @@
             cutingItem,
             cutEndItem
         },
-        created() {
-            this.init();
-            this.goods3 = ['1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3']
+        eros: {
+            beforeAppear (params, options) {
+            }
         },
-        data() {
+        created () {
+            this.init();
+        },
+        data () {
             return {
+                first: true,
                 tabsItems: [],
-                isCuting: true
+                isCuting: true,
+                goods: [],
+                page: 1,
+                length: 2,
+                pageSize: 12,
+                isLoading: false,
+                isPlatformAndroid: Utils.env.isAndroid()
             }
         },
         methods: {
-            init() {
-                this.getTabName()
+            init () {
+                this.getTabName();
+                this.requestProduct(true);
             },
-            getTabName() {
+            loadingDown () {
+                this.$refs.refresh.refreshEnd();
+                this.isLoading = false;
+                this.requestProduct(true);
+            },
+            onLoadingMore () {
+                this.requestProduct(false)
+            },
+            onloading () {
+                if (this.isPlatformAndroid) {
+                    this.isLoading = true
+                    this.requestProduct(false)
+                }
+            },
+            getTabName () {
                 this.tabsItems = TAB;
             },
-            onTabTo(event) {
-                this.tabKey = event.data.key;
-                if (this.tabKey === 'cutEnd') {
-                    this.isCuting = false;
-                } else {
-                    this.isCuting = true;
+            requestProduct (isFirst) {
+                if (isFirst) {
+                    this.page = 1;
                 }
-                /* this.$nextTick(() => {
-                    dom.scrollToElement(this.$refs['tab'], {animated: false})
-                }) */
+                if (this.page > this.length) {
+                    this.$refs.refresh.refreshEnd();
+                    this.$nextTick(() => {
+                        this.isLoading = false
+                    })
+                    return
+                }
+                if (this.isCuting) {
+                    this.getcutingProduct(isFirst);
+                } else {
+                    this.getcutendProduct(isFirst);
+                }
+            },
+            getcutingProduct (isFirst) {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'promotion.cut.list',
+                    data: {
+                        page: this.page,
+                        page_size: 6,
+                        status: 'progressing'
+                    },
+                    header: {
+                        Authorization: 'Bearer 4EFvbiCbPYWYDnChUqyYMhIf0SXrBq'
+                    }
+
+                }).then(data => {
+                    this.length = Math.ceil(data.count / this.pageSize);
+                    if (isFirst) {
+                        this.goods = [];
+                    }
+                    this.page++;
+                    this.goods.push(...data.results);
+                    if (!isFirst) {
+                        this.isLoading = false;
+                    }
+                    this.refreshApiFinished();
+                }, error => {
+
+                })
+            },
+            getcutendProduct (isFirst) {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'promotion.cut.list',
+                    data: {
+                        page: this.page,
+                        page_size: 6,
+                        status: 'end'
+                    },
+                    header: {
+                        Authorization: 'Bearer 4EFvbiCbPYWYDnChUqyYMhIf0SXrBq'
+                    }
+
+                }).then(data => {
+                    this.length = Math.ceil(data.count / this.pageSize);
+                    if (isFirst) {
+                        this.goods = [];
+                    }
+                    this.page++;
+                    this.goods.push(...data.results);
+                    if (!isFirst) {
+                        this.isLoading = false;
+                    }
+                    this.refreshApiFinished();
+                }, error => {
+
+                })
+            },
+            onTabTo (event) {
+                this.tabKey = event.data.key;
+                this.isCuting = !(this.tabKey === 'cutEnd');
+                this.requestProduct(true);
             }
         }
     }
@@ -74,7 +159,8 @@
 <style scoped>
     .main-list {
         width: 750px;
-        margin-bottom: 114px;
+        background-color: #F1F1F1;
+        padding-bottom: 114px;
     }
 
     .banner {
@@ -216,6 +302,12 @@
         border-width: 2px;
         text-align: center;
     }
-
-
+    .indicator {
+        width: 750px;
+        text-align: center;
+        color: #888888;
+        font-size: 28px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
 </style>
