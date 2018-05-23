@@ -107,5 +107,8 @@ export default {
     },
     'order.detail': {
         url: '/pages/mobile/order/payDetail.js'
+    },
+    'drops.cutDetail': {
+        url: '/pages/mobile/drops/cutDetail.js'
     }
 }
