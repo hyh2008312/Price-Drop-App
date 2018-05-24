@@ -108,7 +108,6 @@ export default {
     'order.detail': {
         url: '/pages/mobile/order/payDetail.js'
     },
-<<<<<<< HEAD
     'order.confirm': {
         url: '/pages/mobile/order/orderConfirm.js'
     },
@@ -117,9 +116,8 @@ export default {
     },
     'order.address.edit': {
         url: '/pages/mobile/order/editAddress.js'
-=======
+    },
     'drops.cutDetail': {
         url: '/pages/mobile/drops/cutDetail.js'
->>>>>>> e61217713ef4731aa2afb04f1d72a80dae33f3a6
     }
 }
