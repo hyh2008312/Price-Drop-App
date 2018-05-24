@@ -8,15 +8,15 @@
                                :src="goods.mainImage"></image>
                     </div>
                     <div class="gd-bg-right">
-                        <text class="gd-info">{{goods.brandName}}</text>
                         <text class="gd-tlt">{{goods.title}}</text>
-                        <div class="gd-cut">
-                            <text class="gd-cut-price-tip">已砍</text>
-                            <text class="gd-cut-price">¥{{goods.salePrice - goods.currentPrice }}</text>
-                        </div>
                         <div class="gb-price">
-                            <text class="gd-price-sale">¥{{goods.currentPrice}}</text>
-                            <text class="gd-price-original">¥{{goods.salePrice}}</text>
+                            <text class="gd-price-sale">Rs.{{goods.currentPrice}}</text>
+                            <text class="gd-price-original">Rs.{{goods.salePrice}}</text>
+                        </div>
+                        <text class="gd-price-show">Rs.{{goods.salePrice - goods.currentPrice }} price cut by {{goods.cutTimes}} people</text>
+                        <div class="gd-cut">
+                            <text class="gd-cut-price">Rs.150.59</text>
+                            <text class="gd-cut-price-tip"> left to unlock lowest price</text>
                         </div>
                     </div>
                 </div>
@@ -76,9 +76,9 @@
                 })
             },
             goingCutPrice () {
-                this.$notice.alert({
-                    message: this.TIME
-                });
+                this.$router.open({
+                    name: 'drops.cutDetail'
+                })
             }
         }
     }
@@ -148,26 +148,28 @@
     }
 
     .gd-tlt {
-        line-height: 40px;
+        line-height: 36px;
         font-size: 24px;
         font-weight: 300;
         width: 446px;
         overflow: hidden;
-        lines: 1;
+        height: 72px;
+        lines: 2;
         white-space: nowrap;
         text-overflow: ellipsis;
     }
 
     .gd-cut {
         display: flex;
+        margin-top: 10px;
         flex-direction: row;
-        margin-top: 52px;
         justify-content: flex-start;
     }
 
     .gd-cut-price-tip {
         font-size: 20px;
         height: 28px;
+        font-weight: 400;
         line-height: 28px;
         color: #000000;
     }
@@ -176,8 +178,8 @@
         font-size: 24px;
         line-height: 28px;
         height: 28px;
-        color: #AC0B0B;
-
+        color: #EF8A31;
+        font-weight: bold;
     }
 
     .gb-price {
@@ -185,6 +187,12 @@
         flex-direction: row;
         margin-top: 16px;
         justify-content: flex-start;
+    }
+    .gd-price-show{
+        font-size: 24px;
+        color: black;
+        font-weight: bold;
+        margin-top: 46px;
     }
 
     .gd-price-sale {
@@ -198,7 +206,7 @@
     .gd-price-original {
         font-size: 20px;
         font-weight: 400;
-        color: black;
+        color: rgba(0,0,0,0.55);
         margin-left: 16px;
         text-decoration: line-through;
         line-height: 36px;
