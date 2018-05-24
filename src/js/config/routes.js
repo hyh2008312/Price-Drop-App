@@ -107,5 +107,14 @@ export default {
     },
     'order.detail': {
         url: '/pages/mobile/order/payDetail.js'
+    },
+    'order.confirm': {
+        url: '/pages/mobile/order/orderConfirm.js'
+    },
+    'order.address': {
+        url: '/pages/mobile/order/chooseAddress.js'
+    },
+    'order.address.edit': {
+        url: '/pages/mobile/order/editAddress.js'
     }
 }

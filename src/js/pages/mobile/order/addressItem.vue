@@ -1,8 +1,6 @@
 <template>
     <div class="wrapper">
-        <order-line v-if="!isOrderConfirm"></order-line>
-        <div class="gb-box" v-if="!isOrderConfirm">
-            <text class="gb-title">Shipping To</text>
+        <div class="gb-box">
             <div class="gb-bg">
                 <text class="gb-icon iconfont">&#xe707;</text>
                 <text class="gb-text">Steven Huang</text>
@@ -19,28 +17,19 @@
                 </div>
             </div>
         </div>
-        <div class="gb-box-1" v-if="isOrderConfirm">
-            <div>
-                <text class="gb-title">Shipping To</text>
-                <div class="gb-bg">
-                    <text class="gb-icon iconfont">&#xe707;</text>
-                    <text class="gb-text">Steven Huang</text>
-                </div>
-                <div class="gb-bg-1">
-                    <text class="gb-icon iconfont">&#xe706;</text>
-                    <text class="gb-text">+1 805-497-3701</text>
-                </div>
-                <div class="gb-bg-1">
-                    <text class="gb-icon iconfont">&#xe705;</text>
-                    <div>
-                        <text class="gb-text-1">House, Street, Landmark</text>
-                        <text class="gb-text-1 gb-mt">75 W Thousand Oaks Blvd, Thousand Oaks, CA 91360</text>
-                    </div>
-                </div>
+        <div class="gb-bottom">
+            <div class="gb-bottom-bg">
+                <text class="iconfont item-checked">&#xe6fb;</text>
+                <text class="item-no-checked"></text>
+                <text class="gb-text-3">Select</text>
             </div>
-            <text class="gb-icon-1 iconfont">&#xe626;</text>
+            <div class="gb-bottom-bg">
+                <text class="iconfont gb-icon-1">&#xe70b;</text>
+                <text class="gb-text-2">Edit</text>
+                <text class="iconfont gb-icon-2 gb-ml">&#xe70c;</text>
+                <text class="gb-text-2">Delete</text>
+            </div>
         </div>
-        <order-line></order-line>
     </div>
 </template>
 <script>
@@ -80,29 +69,10 @@
         padding: 32px;
     }
 
-    .gb-box-1{
-        padding: 32px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .gb-title{
-        font-size: 28px;
-        line-height: 34px;
-        font-weight: bold;
-    }
-
     .gb-icon{
         font-size: 24px;
         line-height: 24px;
         margin-right: 16px;
-        color: rgba(0,0,0,0.54);
-    }
-
-    .gb-icon-1{
-        font-size: 28px;
-        line-height: 28px;
         color: rgba(0,0,0,0.54);
     }
 
@@ -120,7 +90,6 @@
     }
 
     .gb-bg{
-        margin-top: 32px;
         flex-direction: row;
         align-items: center;
     }
@@ -131,8 +100,69 @@
         align-items: start;
     }
 
+    .gb-bottom{
+        padding: 16px 32px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-top-width: 2px;
+        border-top-style: solid;
+        border-top-color: rgba(0,0,0,0.08);
+    }
+
     .gb-mt{
         margin-top: 16px;
+    }
+
+    .item-checked{
+        font-size: 32px;
+        line-height: 32px;
+        margin-right: 16px;
+        color: #4AB406;
+    }
+
+    .item-no-checked{
+        width: 32px;
+        height: 32px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgba(0,0,0,0.54);
+        border-radius: 16px;
+        margin-right: 16px;
+    }
+
+    .gb-icon-1{
+        font-size: 32px;
+        line-height: 32px;
+        margin-right: 8px;
+        color: #F09F58;
+    }
+
+    .gb-icon-2{
+        font-size: 28px;
+        line-height: 28px;
+        margin-right: 8px;
+        color: #F09F58;
+    }
+
+    .gb-text-2{
+        font-size: 24px;
+        line-height: 28px;
+        color: #F09F58;
+    }
+
+    .gb-text-3{
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .gb-ml{
+        margin-left: 48px;
+    }
+
+    .gb-bottom-bg{
+        flex-direction: row;
+        align-items: center;
     }
 
 </style>

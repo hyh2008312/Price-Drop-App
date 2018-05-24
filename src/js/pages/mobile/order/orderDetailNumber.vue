@@ -1,10 +1,12 @@
 <template>
     <div class="wrapper">
-        <div>
-            <text class="gb-txt">Order Number:  68778989078678586898</text>
-            <text class="gb-txt gb-mt">Order Time: May 6th,2018</text>
+        <div class="wrapper-inner">
+            <div>
+                <text class="gb-txt">Order Number:  68778989078678586898</text>
+                <text class="gb-txt gb-mt">Order Time: May 6th,2018</text>
+            </div>
+            <text class="cy iconfont">&#xe708;</text>
         </div>
-        <text class="cy iconfont">&#xe708;</text>
     </div>
 </template>
 <script>
@@ -24,12 +26,15 @@
     .wrapper {
         background-color: #fff;
         width: 750px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+        border-radius: 8px;
+    }
+
+    .wrapper-inner{
         padding: 32px;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-        border-radius: 8px;
     }
 
     .cy{
