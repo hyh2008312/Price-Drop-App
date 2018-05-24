@@ -1,7 +1,7 @@
 export const TAB = [{
-    name: '正在砍价',
+    name: 'Ongoing',
     key: 'cutIng'
 }, {
-    name: '砍价结束',
+    name: 'Ended',
     key: 'cutEnd'
 }];
