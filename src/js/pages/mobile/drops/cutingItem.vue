@@ -111,7 +111,10 @@
                 this.$notice.toast('订单详情');
                 this.$router.open({
                     name: 'order.detail',
-                    params: this.goods
+                    params: {
+                        orderId: this.goods.orderId,
+                        type: 'drop'
+                    }
                 })
             },
             jumpCutDetail () {

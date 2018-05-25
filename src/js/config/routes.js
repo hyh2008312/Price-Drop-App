@@ -125,5 +125,8 @@ export default {
     },
     'drops.cutDetail': {
         url: '/pages/mobile/drops/cutDetail.js'
+    },
+    'login': {
+        url: '/pages/mobile/login/index.js'
     }
 }

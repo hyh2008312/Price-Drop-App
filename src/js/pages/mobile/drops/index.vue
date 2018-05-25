@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="state"></div>
         <div class="navigation">
-            <text class="title">Drops</text>
+            <text class="title" @click="test">Drops</text>
         </div>
         <div>
             <cutTab :items="tabsItems" @tabTo="onTabTo"></cutTab>
@@ -54,6 +54,11 @@
             }
         },
         methods: {
+            test () {
+               this.$router.open({
+                   name: 'login'
+               })
+            },
             init () {
                 this.getTabName();
                 this.requestProduct(true);

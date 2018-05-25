@@ -31,7 +31,7 @@
             <!--正在进行-->
             <div v-if="goodsDetail.cutStatus=='progressing' && goodsDetail.operationStatus=='pending'">
                 <div class="wrapper-progress">
-                    <div class="current-price" :style="{'margin-left': percentage * 606 - 30+'px'}">
+                    <div class="current-price" :style="{'margin-left': distance+'px'}">
                         <text class="current-price-1">Current Price</text>
                         <text class="current-price-2">Rs.{{goodsDetail.currentPrice}}</text>
                     </div>
@@ -73,18 +73,10 @@
                     <text class="cut-end-total-price-word">Final Price:</text>
                     <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
                 </div>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">
-                    Create a Price-cut Item Again
-                </text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">
-                    Buy it at Current Price
-                </text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">
-                    Buy it at Current Price
-                </text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">
-                    Create a Price-cut Item Again
-                </text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Create a Price-cut Item Again</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy it at Current Price</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy it at Current Price</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Create a Price-cut Item Again</text>
                 <div class="cut-end-item"
                      v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
                     <text class="cut-end-item-icon-1">&#xe6fa;</text>
@@ -168,7 +160,7 @@
 
             </div>
         </wxc-popup>
-        <WxcMask height="800"
+        <WxcMask height="900"
                  width="666"
                  border-radius="8"
                  duration="200"
@@ -179,6 +171,7 @@
                  :show="isRuleShow"
                  @wxcMaskSetHidden="wxcMaskSetHidden">
             <div class="rule-content">
+                <scroller>
                 <div class="rule-content-title">
                     <text class="rule-title">How to Cut Price</text>
                 </div>
@@ -186,6 +179,14 @@
                 <text class="rule-text">Step2:  Share the campaign with your friends or family on Facebook & WhatsApp.</text>
                 <text class="rule-text">Step3:  If anyone clicks the “Drop Price” button on the page you share, the price will drop automatically.</text>
                 <text class="rule-text">Step4:  Your drop will expire after 24 hours. The more people you engage, you lower price you unlock.</text>
+                <div class="rule-content-title">
+                    <text class="rule-title">Rules to Know</text>
+                </div>
+                <text class="rule-text">1. The duration for each price-drop is 24 hours. Once your drop reaches the lowest price within 24 hours, the campaign will end automatically! </text>
+                <text class="rule-text">2. Once your price-drop ends, you can purchase the item at the final price you have reached. Please complete the payment within 24 hours after the campaign ends.</text>
+                <text class="rule-text">3. If you do not complete the payment in time, you’re deemed to waived your purchase right, and the price drop of the item will expire as well. </text>
+                <text class="rule-text">4. Due to the limited stocks of each item, so they will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the drop will fail.</text>
+                </scroller>
             </div>
         </WxcMask>
 
@@ -193,7 +194,7 @@
     </div>
 </template>
 <script>
-    import {WxcCountdown, WxcPopup, WxcMask} from 'weex-ui'
+    import { WxcCountdown, WxcPopup, WxcMask } from 'weex-ui'
 
     const shareModule = weex.requireModule('ShareModule');
 
@@ -204,16 +205,16 @@
             WxcMask
         },
         eros: {
-            appeared(params, options) {
+            appeared (params, options) {
                 console.log('beforeAppear');
                 this.isShow = params.isShowSharePanel;
                 this.id = params.id;
                 this.requestCutDetail();
             }
         },
-        created() {
+        created () {
         },
-        data() {
+        data () {
             return {
                 percentage: 0.34,
                 TIME: new Date().getTime() + 86400000 + '',
@@ -221,17 +222,18 @@
                 isShow: false,
                 id: -1,
                 goodsDetail: {},
-                isRuleShow: false
+                isRuleShow: false,
+                distance: 1,
             }
         },
         methods: {
-            showSharePanel() {
+            showSharePanel () {
                 this.isShowShare = true;
             },
-            popupOverlayAutoClick() {
+            popupOverlayAutoClick () {
                 this.isShowShare = false;
             },
-            shareFacebook() {
+            shareFacebook () {
                 const that = this;
                 shareModule.shareFacebook(
                     'this is a facebook title',
@@ -247,7 +249,7 @@
                     }
                 );
             },
-            shareWhatsApp() {
+            shareWhatsApp () {
                 const that = this;
                 const detail = 'Hey! I just found this item and need your help to drop the price before it sells out:  \n' +
                     'https://www.socialcommer.com/store/maryamhampton/6/detail/44168\n\n' +
@@ -262,37 +264,42 @@
                     }
                 )
             },
-            requestCutDetail() {
+            requestCutDetail () {
                 this.$fetch({
                     method: 'GET',
                     url: 'http://47.104.171.91/promotion/cut/detail/' + this.id + '/'
                 }).then(data => {
                     this.goodsDetail = data;
                     this.percentage = (data.salePrice - data.currentPrice) / data.salePrice;
+                    this.distance = this.percentage * 606 - 30;
+                    if (this.distance > 450) {
+                        this.distance = 450 ;
+                    }
+                    this.$notice.toast(this.distance);
                     this.isShowShare = this.isShow;
                 }, error => {
                     this.$notice.toast('network is error');
                 })
             },
-            jumpProductDetail() {
+            jumpProductDetail () {
                 this.$router.open({
                     name: 'goods.details',
                     id: this.goodsDetail.productId
                 })
             },
-            jumpConfirmOrder() {
+            jumpConfirmOrder () {
                 this.$notice.toast('confirm order');
             },
-            jumpOrderDetail() {
+            jumpOrderDetail () {
                 this.$notice.toast('order detail');
             },
-            back() {
+            back () {
                 this.$router.back();
             },
-            showCutRule() {
+            showCutRule () {
                 this.isRuleShow = true;
             },
-            wxcMaskSetHidden() {
+            wxcMaskSetHidden () {
                 this.isRuleShow = false;
             }
 
@@ -315,6 +322,7 @@
     .rule-content {
         padding-left: 36px;
         padding-right: 36px;
+        height: 850px;
     }
 
     .cut-end-item-2 {
@@ -756,6 +764,13 @@
         border-radius: 24px;
         padding-left: 16px;
         padding-right: 16px;
+    }
+
+    .rule-text{
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 40px;
+        color: black;
     }
 
     .cut-rule-text {
