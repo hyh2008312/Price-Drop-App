@@ -3,14 +3,8 @@
         <top-header :title="title"></top-header>
         <div class="status-bar"></div>
         <list class="container" :style="height">
-            <cell class="cell-bottom">
-                <address-item></address-item>
-            </cell>
-            <cell class="cell-bottom">
-                <address-item></address-item>
-            </cell>
-            <cell class="cell-bottom">
-                <address-item></address-item>
+            <cell class="cell-bottom" v-for="(e, i) in addressList">
+                <address-item :address="e" :index="i" @delete="deleteShipping"></address-item>
             </cell>
         </list>
         <address-bottom></address-bottom>
@@ -30,18 +24,60 @@ export default {
         'order-detail-item': orderDetailItem,
         'address-bottom': addressBottom
     },
+    eros: {
+        backAppeared (params, options) {
+            this.getAddress()
+        }
+    },
     created () {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 44 - 2) + 'px' }
+        this.getAddress()
     },
     data () {
         return {
-            title: 'Choose Address'
+            title: 'Choose Address',
+            addressList: []
         }
     },
     methods: {
+        getAddress () {
+            this.$fetch({
+                method: 'GET',
+                name: 'address.shipping.list',
+                data: {},
+                header: {
+                    Authorization: 'Bearer NI72gAIIVWHUtArykmCdOgqDyiJv1b'
+                }
+            }).then(data => {
+                this.addressList = [...data];
+            }, error => {
+                // 错误回调
+                this.$notice.toast({
+                    message: error
+                })
+            })
+        },
         back () {
             this.$router.finish()
+        },
+        deleteShipping (event) {
+            this.$fetch({
+                method: 'DELETE', // 大写
+                url: `http://47.104.171.91/address/shipping/detail/${event.data.id}/`,
+                header: {
+                    Authorization: 'Bearer NI72gAIIVWHUtArykmCdOgqDyiJv1b'
+                }
+            }).then(resData => {
+                this.$notice.toast({
+                    message: resData
+                })
+            }, error => {
+                this.$notice.toast({
+                    message: error
+                })
+                this.addressList.splice(event.data.index, 1)
+            })
         }
     }
 }

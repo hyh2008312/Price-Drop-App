@@ -22,6 +22,7 @@ export default {
     eros: {
         beforeAppear () {
             this.getChannel()
+            this.getState()
         }
     },
     components: {
@@ -86,6 +87,15 @@ export default {
                     this.$storage.set('channel', data);
                 }, error => {})
             }
+        },
+        getState () {
+            this.$fetch({
+                method: 'GET', // 大写
+                name: 'address.state.list',
+                data: {}
+            }).then(data => {
+                this.$storage.set('state', data);
+            }, error => {})
         }
     }
 }
@@ -95,7 +105,7 @@ export default {
 body {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f1f1f1;
     color: #333;
 }
 
@@ -117,7 +127,7 @@ body {
 }
 
 .app-wrapper {
-    background-color: #F1F1F1;
+    background-color: #f1f1f1;
 }
 
 .r-box {

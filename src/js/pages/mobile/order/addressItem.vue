@@ -3,17 +3,16 @@
         <div class="gb-box">
             <div class="gb-bg">
                 <text class="gb-icon iconfont">&#xe707;</text>
-                <text class="gb-text">Steven Huang</text>
+                <text class="gb-text">{{address.firstName}} {{address.lastName}}</text>
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe706;</text>
-                <text class="gb-text">+1 805-497-3701</text>
+                <text class="gb-text">+19 {{address.phoneNumber}}</text>
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe705;</text>
                 <div>
-                    <text class="gb-text-1">House, Street, Landmark</text>
-                    <text class="gb-text-1 gb-mt">75 W Thousand Oaks Blvd, Thousand Oaks, CA 91360</text>
+                    <text class="gb-text-1">{{address.line1}}, {{address.line2}}, {{address.line3}}, {{address.city}}, {{address.stateName}}</text>
                 </div>
             </div>
         </div>
@@ -24,10 +23,14 @@
                 <text class="gb-text-3">Select</text>
             </div>
             <div class="gb-bottom-bg">
-                <text class="iconfont gb-icon-1">&#xe70b;</text>
-                <text class="gb-text-2">Edit</text>
-                <text class="iconfont gb-icon-2 gb-ml">&#xe70c;</text>
-                <text class="gb-text-2">Delete</text>
+                <div class="gb-bottom-bg" @click="editAddress">
+                    <text class="iconfont gb-icon-1">&#xe70b;</text>
+                    <text class="gb-text-2">Edit</text>
+                </div>
+                <div class="gb-bottom-bg" @click="deleteAddress">
+                    <text class="iconfont gb-icon-2 gb-ml">&#xe70c;</text>
+                    <text class="gb-text-2">Delete</text>
+                </div>
             </div>
         </div>
     </div>
@@ -40,7 +43,8 @@
             'order-line': line
         },
         props: {
-            shipping: {},
+            address: {},
+            index: {},
             isOrderConfirm: {
                 default: false
             }
@@ -50,7 +54,26 @@
                 src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
             }
         },
-        methods: {}
+        methods: {
+            editAddress () {
+                this.$router.open({
+                    name: 'order.address.edit',
+                    type: 'PUSH',
+                    params: {
+                        id: this.address.id
+                    }
+                })
+            },
+            deleteAddress () {
+                this.$emit('delete', {
+                    status: 'delete',
+                    data: {
+                        index: this.index,
+                        id: this.address.id
+                    }
+                })
+            }
+        }
     }
 </script>
 <style scoped>

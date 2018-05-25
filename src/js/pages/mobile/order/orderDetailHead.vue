@@ -11,8 +11,8 @@
                 <wxc-countdown tpl="{h}:{m}:{s}"
                                :time="time"
                                :timeBoxStyle="{backgroundColor: 'transparent', height: '28px', width: '28px','border-radius': '4px'}"
-                               :timeTextStyle="{fontSize: '24px', color: '#AC0B0B'}"
-                               :dotTextStyle="{color: '#AC0B0B', fontSize: '24px'}"
+                               :timeTextStyle="{fontSize: '24px', color: '#EF8A31'}"
+                               :dotTextStyle="{color: '#EF8A31', fontSize: '24px'}"
                                :dotBoxStyle="{width: '6px'}"
                                :style="{justifyContent: 'center'}">
                 </wxc-countdown>
@@ -87,7 +87,7 @@
     }
 
     .gd-text-color{
-        color: #AC0B0B;
+        color: #EF8A31;
     }
 
 </style>

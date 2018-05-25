@@ -190,6 +190,6 @@
     }
 
     .gb-text-color{
-        color: #B93232;
+        color: #EF8A31;
     }
 </style>

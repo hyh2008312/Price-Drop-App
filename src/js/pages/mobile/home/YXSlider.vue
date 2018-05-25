@@ -57,6 +57,7 @@ export default {
     height: 438px;
     border-radius: 8px;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+    overflow: hidden;
 }
 
 .slider-right{

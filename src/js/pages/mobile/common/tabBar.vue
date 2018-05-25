@@ -75,18 +75,18 @@ export default {
 }
 
 .bar-active {
-    color: #000;
+    color: #F09F58;
 }
 
 .bar-ic {
     padding-top: 20px;
     font-size: 48px;
-    color: rgba(0,0,0,.54);
+    color: rgba(0,0,0,.38);
 }
 
 .bar-txt {
     font-size: 24px;
     padding-top: 4px;
-    color: rgba(0,0,0,.54);
+    color: rgba(0,0,0,.38);
 }
 </style>

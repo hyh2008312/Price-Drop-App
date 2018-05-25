@@ -13,7 +13,7 @@
             <cell v-for="(head, index) in activity" :key="index">
                 <block-2 :head="head" :class="[activity.length - 1 == index ? 'cell-margin-button': '']"></block-2>
             </cell>
-            <cell class="cell-button">
+            <cell class="cell-button" v-if="false">
                 <block-5 :logo="block5.items"></block-5>
             </cell>
             <cell ref="tab"></cell>
@@ -203,17 +203,19 @@ export default {
             this.block4.items = BLOCK4.items
         },
         getBlock5 () {
-            this.block5.items = GOODS2
-            this.$fetch({
-                method: 'GET',
-                name: 'product.brand.list',
-                data: {}
-            }).then(resData => {
-                this.block5.items = [...resData]
-                this.refreshApiFinished()
-            }, error => {
+            // this.block5.items = GOODS2
+            // this.$fetch({
+            //     method: 'GET',
+            //     name: 'product.brand.list',
+            //     data: {}
+            // }).then(resData => {
+            //     this.block5.items = [...resData]
+            //
+            // }, error => {
+            //
+            // })
 
-            })
+            this.refreshApiFinished()
         },
         getGoods1 () {
             // this.$fetch({

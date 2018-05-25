@@ -8,5 +8,7 @@ export default {
     'product.brand.list': '/product/brand/list/',
     'product.topic.list': '/product/topic/list/',
     'promotion.cut.list': '/promotion/cut/list/',
-    'product.topic.products': '/product/topic/products/'
+    'product.topic.products': '/product/topic/products/',
+    'address.state.list': '/address/state/list/',
+    'address.shipping.list': '/address/shipping/list/'
 }
