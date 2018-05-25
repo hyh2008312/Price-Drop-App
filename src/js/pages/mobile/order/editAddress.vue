@@ -67,6 +67,7 @@ import addressItem from './addressItem';
 import orderDetailItem from './orderDetailItem';
 import editAddressBottom from './editAddressBottom';
 import { Utils } from 'weex-ui';
+import { TOKEN } from './config';
 
 export default {
     components: {
@@ -151,7 +152,7 @@ export default {
                 method: 'GET', // 大写
                 url: `http://47.104.171.91/address/shipping/detail/${id}/`,
                 header: {
-                    Authorization: 'Bearer NI72gAIIVWHUtArykmCdOgqDyiJv1b'
+                    Authorization: 'Bearer ' + TOKEN
                 }
             }).then(resData => {
                 // 成功回调

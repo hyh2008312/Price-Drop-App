@@ -6,6 +6,8 @@
     </div>
 </template>
 <script>
+    import { TOKEN } from './config';
+
     export default {
         props: ['address', 'id'],
         methods: {
@@ -15,13 +17,13 @@
                         message: 'Please fill in all the required fields.'
                     })
                 }
-                if (!this.isEdit) {
+                if (!this.id) {
                     this.$fetch({
                         method: 'POST', // 大写
                         name: 'address.shipping.list',
                         data: this.address,
                         header: {
-                            Authorization: 'Bearer NI72gAIIVWHUtArykmCdOgqDyiJv1b'
+                            Authorization: 'Bearer ' + TOKEN
                         }
                     }).then(resData => {
                         // 成功回调
@@ -39,8 +41,9 @@
                     this.$fetch({
                         method: 'PUT', // 大写
                         url: `http://47.104.171.91/address/shipping/detail/${this.id}/`,
+                        data: this.address,
                         header: {
-                            Authorization: 'Bearer NI72gAIIVWHUtArykmCdOgqDyiJv1b'
+                            Authorization: 'Bearer ' + TOKEN
                         }
                     }).then(resData => {
                         // 成功回调

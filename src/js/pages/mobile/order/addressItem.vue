@@ -11,15 +11,13 @@
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe705;</text>
-                <div>
-                    <text class="gb-text-1">{{address.line1}}, {{address.line2}}, {{address.line3}}, {{address.city}}, {{address.stateName}}</text>
-                </div>
+                <text class="gb-text-1">{{address.line1}}, {{address.line2}}, {{address.line3}}, {{address.city}}, {{address.stateName}}</text>
             </div>
         </div>
         <div class="gb-bottom">
-            <div class="gb-bottom-bg">
-                <text class="iconfont item-checked">&#xe6fb;</text>
-                <text class="item-no-checked"></text>
+            <div class="gb-bottom-bg" @click="chooseAddress">
+                <text class="iconfont item-checked" v-if="address.isDefault">&#xe6fb;</text>
+                <text class="item-no-checked" v-if="!address.isDefault"></text>
                 <text class="gb-text-3">Select</text>
             </div>
             <div class="gb-bottom-bg">
@@ -37,6 +35,7 @@
 </template>
 <script>
     import line from './orderDetailLine';
+    import { TOKEN } from './config';
 
     export default {
         components: {
@@ -71,6 +70,21 @@
                         index: this.index,
                         id: this.address.id
                     }
+                })
+            },
+            chooseAddress () {
+                this.$fetch({
+                    method: 'GET', // 大写
+                    url: `http://47.104.171.91/address/set/default/${this.address.id}/`,
+                    header: {
+                        Authorization: 'Bearer ' + TOKEN
+                    }
+                }).then(resData => {
+                    this.$router.finish()
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    })
                 })
             }
         }
@@ -108,8 +122,9 @@
 
     .gb-text-1{
         font-size: 24px;
-        line-height: 28px;
+        line-height: 30px;
         color: rgba(0,0,0, 0.87);
+        width: 646px;
     }
 
     .gb-bg{

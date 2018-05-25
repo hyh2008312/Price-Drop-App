@@ -62,11 +62,6 @@ export default {
         },
         resetPayList () {
             this.payList = [...PAYLIST]
-        },
-        jumpAddress () {
-            this.$router.open({
-                name: 'order.address'
-            })
         }
     }
 }

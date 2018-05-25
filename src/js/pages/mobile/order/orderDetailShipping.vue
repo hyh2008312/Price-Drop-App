@@ -61,7 +61,13 @@
                 src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
             }
         },
-        methods: {}
+        methods: {
+            jumpAddress () {
+                this.$router.open({
+                    name: 'order.address'
+                })
+            }
+        }
     }
 </script>
 <style scoped>
