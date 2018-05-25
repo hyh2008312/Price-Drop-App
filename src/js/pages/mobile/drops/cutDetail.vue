@@ -4,8 +4,8 @@
         <scroller>
             <div class="wrapper-head">
                 <div class="navigation">
-                    <text class="homeBack">&#xe6f6;</text>
-                    <div class="cut-rule">
+                    <text class="homeBack" @click="back">&#xe6f6;</text>
+                    <div class="cut-rule" @click="showCutRule">
                         <text class="cut-rule-icon">&#xe709;</text>
                         <text class="cut-rule-text">How to Cut Price</text>
                     </div>
@@ -73,11 +73,20 @@
                     <text class="cut-end-total-price-word">Final Price:</text>
                     <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
                 </div>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'">Create a Price-cut Item Again</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'">Buy it at Current Price</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'">Buy it at Current Price</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'">Create a Price-cut Item Again</text>
-                <div class="cut-end-item" v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'" >
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">
+                    Create a Price-cut Item Again
+                </text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">
+                    Buy it at Current Price
+                </text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">
+                    Buy it at Current Price
+                </text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">
+                    Create a Price-cut Item Again
+                </text>
+                <div class="cut-end-item"
+                     v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
                     <text class="cut-end-item-icon-1">&#xe6fa;</text>
                     <text class="cut-end-item-2"> The current price will expire in:</text>
                     <wxc-countdown tpl="{h}:{m}:{s}"
@@ -98,10 +107,6 @@
                     <text class="cut-end-item-2"> Paid Successfully!</text>
                 </div>
             </div>
-
-
-
-
             <div class="contributors">
                 <text class="contributors-people">Price Cut Contributors</text>
                 <div :style="{'margin-bottom':'60px'}">
@@ -115,7 +120,7 @@
                                 <text class="contributors-content-left-name">Luzhenqiang</text>
                             </div>
                             <div class="contributors-content-right">
-                                <text class="contributors-content-right-1" >Cut  </text>
+                                <text class="contributors-content-right-1">Cut  </text>
                                 <text class="contributors-content-right-2">Rs.{{i.cutAmount}}</text>
                             </div>
 
@@ -123,11 +128,9 @@
                     </div>
                 </div>
             </div>
-
-
         </scroller>
         <wxc-popup
-            v-if="false"
+            v-if="goodsDetail.operationStatus=='pending'"
             popup-color="rgba(255, 255, 255, 255)"
             :show="isShowShare"
             @wxcPopupOverlayClicked="popupOverlayAutoClick"
@@ -143,8 +146,7 @@
                             <text class="share-content-text-1"> Off the price!</text>
                         </div>
                         <text class="share-content-text-1">Share this item and invite more friends to
-                            cut price for you!
-                        </text>
+                            cut price for you!</text>
                     </div>
                     <div class="share-content-bottom">
                         <div class="share-content-icon">
@@ -166,47 +168,70 @@
 
             </div>
         </wxc-popup>
+        <WxcMask height="800"
+                 width="666"
+                 border-radius="8"
+                 duration="200"
+                 mask-bg-color="#FFFFFF"
+                 :has-animation="hasAnimation"
+                 :has-overlay="true"
+                 :show-close="false"
+                 :show="isRuleShow"
+                 @wxcMaskSetHidden="wxcMaskSetHidden">
+            <div class="rule-content">
+                <div class="rule-content-title">
+                    <text class="rule-title">How to Cut Price</text>
+                </div>
+                <text class="rule-text">Step1:  Click the “Share to Drop Price” button to get started.</text>
+                <text class="rule-text">Step2:  Share the campaign with your friends or family on Facebook & WhatsApp.</text>
+                <text class="rule-text">Step3:  If anyone clicks the “Drop Price” button on the page you share, the price will drop automatically.</text>
+                <text class="rule-text">Step4:  Your drop will expire after 24 hours. The more people you engage, you lower price you unlock.</text>
+            </div>
+        </WxcMask>
+
 
     </div>
 </template>
 <script>
-    import { WxcCountdown, WxcPopup } from 'weex-ui'
+    import {WxcCountdown, WxcPopup, WxcMask} from 'weex-ui'
 
     const shareModule = weex.requireModule('ShareModule');
 
     export default {
         components: {
             WxcCountdown,
-            WxcPopup
+            WxcPopup,
+            WxcMask
         },
         eros: {
-            appeared (params, options) {
+            appeared(params, options) {
                 console.log('beforeAppear');
                 this.isShow = params.isShowSharePanel;
                 this.id = params.id;
                 this.requestCutDetail();
             }
         },
-        created () {
+        created() {
         },
-        data () {
+        data() {
             return {
                 percentage: 0.34,
                 TIME: new Date().getTime() + 86400000 + '',
                 isShowShare: false,
                 isShow: false,
                 id: -1,
-                goodsDetail: {}
+                goodsDetail: {},
+                isRuleShow: false
             }
         },
         methods: {
-            showSharePanel () {
+            showSharePanel() {
                 this.isShowShare = true;
             },
-            popupOverlayAutoClick () {
+            popupOverlayAutoClick() {
                 this.isShowShare = false;
             },
-            shareFacebook () {
+            shareFacebook() {
                 const that = this;
                 shareModule.shareFacebook(
                     'this is a facebook title',
@@ -222,7 +247,7 @@
                     }
                 );
             },
-            shareWhatsApp () {
+            shareWhatsApp() {
                 const that = this;
                 const detail = 'Hey! I just found this item and need your help to drop the price before it sells out:  \n' +
                     'https://www.socialcommer.com/store/maryamhampton/6/detail/44168\n\n' +
@@ -237,7 +262,7 @@
                     }
                 )
             },
-            requestCutDetail () {
+            requestCutDetail() {
                 this.$fetch({
                     method: 'GET',
                     url: 'http://47.104.171.91/promotion/cut/detail/' + this.id + '/'
@@ -248,78 +273,126 @@
                 }, error => {
                     this.$notice.toast('network is error');
                 })
+            },
+            jumpProductDetail() {
+                this.$router.open({
+                    name: 'goods.details',
+                    id: this.goodsDetail.productId
+                })
+            },
+            jumpConfirmOrder() {
+                this.$notice.toast('confirm order');
+            },
+            jumpOrderDetail() {
+                this.$notice.toast('order detail');
+            },
+            back() {
+                this.$router.back();
+            },
+            showCutRule() {
+                this.isRuleShow = true;
+            },
+            wxcMaskSetHidden() {
+                this.isRuleShow = false;
             }
+
         }
     }
 </script>
 <style scoped>
+    .rule-title {
+        font-size: 32px;
+        margin-top: 48px;
+        margin-bottom: 32px;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    .rule-content-title {
+
+    }
+
+    .rule-content {
+        padding-left: 36px;
+        padding-right: 36px;
+    }
+
     .cut-end-item-2 {
         font-size: 24px;
         color: #000000;
         font-weight: 400;
     }
-    .cut-end-item-icon-1{
+
+    .cut-end-item-icon-1 {
         font-family: iconfont;
         color: #EF8A31;
         font-size: 28px;
     }
-    .cut-end-item-icon-2{
+
+    .cut-end-item-icon-2 {
         font-family: iconfont;
         color: #E93131;
         font-size: 28px;
     }
-    .cut-end-item-icon-3{
+
+    .cut-end-item-icon-3 {
         font-family: iconfont;
         color: #26CB03;
         font-size: 28px;
     }
-    .cut-end-item{
+
+    .cut-end-item {
         margin-top: 24px;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
     }
-    .cut-end-total-price-2{
+
+    .cut-end-total-price-2 {
         font-size: 32px;
         font-weight: bold;
         color: #000000;
         line-height: 28px;
     }
-    .cut-end-total-price-1{
+
+    .cut-end-total-price-1 {
         font-size: 28px;
         font-weight: bold;
         color: #FD7900;
         line-height: 28px;
     }
-    .cut-end-total-price-word{
+
+    .cut-end-total-price-word {
         font-size: 24px;
         line-height: 28px;
         font-weight: 400;
         color: #000000;
     }
 
-
-    .cut-end-total-price{
+    .cut-end-total-price {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
         margin-top: 54px;
     }
-    .cut-end-total-price-final{
+
+    .cut-end-total-price-final {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
         margin-top: 24px;
     }
-    .cut-end{
+
+    .cut-end {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
     }
+
     .share-cancel {
         height: 110px;
         display: flex;

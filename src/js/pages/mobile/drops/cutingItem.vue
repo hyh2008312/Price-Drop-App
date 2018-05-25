@@ -102,9 +102,17 @@
             },
             jumpConfirmOrder () {
                 this.$notice.toast('确认订单')
+                this.$router.open({
+                    name: 'order.confirm',
+                    params: this.goods
+                })
             },
             jumpOrderDetail () {
                 this.$notice.toast('订单详情');
+                this.$router.open({
+                    name: 'order.detail',
+                    params: this.goods
+                })
             },
             jumpCutDetail () {
                 this.$router.open({

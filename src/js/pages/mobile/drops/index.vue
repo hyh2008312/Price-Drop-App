@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="state"></div>
         <div class="navigation">
-            <text class="title">我的砍价</text>
+            <text class="title">Drops</text>
         </div>
         <div>
             <cutTab :items="tabsItems" @tabTo="onTabTo"></cutTab>
@@ -188,7 +188,7 @@
 
     .state {
         width: 750px;
-        height: 24px;
+        height: 48px;
         background-color: black;
     }
 
@@ -196,17 +196,22 @@
         display: flex;
         width: 750px;
         height: 112px;
-        background-color: black;
+        background-color: #FFFFFF;
         flex-direction: row;
         justify-content: flex-start;
+        border-bottom-style: solid;
+        border-bottom-color: rgba(0,0,0,0.12);
+        border-bottom-width: 1px;
     }
 
     .title {
-        font-size: 40px;
+        font-size: 32px;
         height: 112px;
+        font-weight: bold;
+        width: 750px;
         line-height: 112px;
-        margin-left: 36px;
-        color: rgba(255, 255, 255, .87);
+        text-align: center;
+        color: rgba(0,0,0,0.87);
     }
 
     .homeBack {
