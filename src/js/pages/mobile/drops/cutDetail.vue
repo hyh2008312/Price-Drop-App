@@ -73,18 +73,10 @@
                     <text class="cut-end-total-price-word">Final Price:</text>
                     <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
                 </div>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">
-                    Create a Price-cut Item Again
-                </text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">
-                    Buy it at Current Price
-                </text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">
-                    Buy it at Current Price
-                </text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">
-                    Create a Price-cut Item Again
-                </text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Create a Price-cut Item Again</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy it at Current Price</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy it at Current Price</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Create a Price-cut Item Again</text>
                 <div class="cut-end-item"
                      v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
                     <text class="cut-end-item-icon-1">&#xe6fa;</text>
@@ -168,7 +160,7 @@
 
             </div>
         </wxc-popup>
-        <WxcMask height="800"
+        <WxcMask height="900"
                  width="666"
                  border-radius="8"
                  duration="200"
@@ -179,6 +171,7 @@
                  :show="isRuleShow"
                  @wxcMaskSetHidden="wxcMaskSetHidden">
             <div class="rule-content">
+                <scroller>
                 <div class="rule-content-title">
                     <text class="rule-title">How to Cut Price</text>
                 </div>
@@ -186,6 +179,14 @@
                 <text class="rule-text">Step2:  Share the campaign with your friends or family on Facebook & WhatsApp.</text>
                 <text class="rule-text">Step3:  If anyone clicks the “Drop Price” button on the page you share, the price will drop automatically.</text>
                 <text class="rule-text">Step4:  Your drop will expire after 24 hours. The more people you engage, you lower price you unlock.</text>
+                <div class="rule-content-title">
+                    <text class="rule-title">Rules to Know</text>
+                </div>
+                <text class="rule-text">1. The duration for each price-drop is 24 hours. Once your drop reaches the lowest price within 24 hours, the campaign will end automatically! </text>
+                <text class="rule-text">2. Once your price-drop ends, you can purchase the item at the final price you have reached. Please complete the payment within 24 hours after the campaign ends.</text>
+                <text class="rule-text">3. If you do not complete the payment in time, you’re deemed to waived your purchase right, and the price drop of the item will expire as well. </text>
+                <text class="rule-text">4. Due to the limited stocks of each item, so they will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the drop will fail.</text>
+                </scroller>
             </div>
         </WxcMask>
 
@@ -756,6 +757,13 @@
         border-radius: 24px;
         padding-left: 16px;
         padding-right: 16px;
+    }
+
+    .rule-text{
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 40px;
+        color: black;
     }
 
     .cut-rule-text {
