@@ -764,5 +764,7 @@ export const STATE = {
             pinYin: 'zhangye',
             py: 'zy'
         }
-    ],
+    ]
 };
+
+export const TOKEN = 'yxtjkMiKbApuBe9KpeBgjya2X5GnPu';

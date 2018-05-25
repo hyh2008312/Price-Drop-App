@@ -16,6 +16,7 @@ import addressItem from './addressItem';
 import orderDetailItem from './orderDetailItem';
 import addressBottom from './addressBottom';
 import { Utils } from 'weex-ui';
+import { TOKEN } from './config';
 
 export default {
     components: {
@@ -47,7 +48,7 @@ export default {
                 name: 'address.shipping.list',
                 data: {},
                 header: {
-                    Authorization: 'Bearer NI72gAIIVWHUtArykmCdOgqDyiJv1b'
+                    Authorization: 'Bearer ' + TOKEN
                 }
             }).then(data => {
                 this.addressList = [...data];
@@ -66,17 +67,17 @@ export default {
                 method: 'DELETE', // 大写
                 url: `http://47.104.171.91/address/shipping/detail/${event.data.id}/`,
                 header: {
-                    Authorization: 'Bearer NI72gAIIVWHUtArykmCdOgqDyiJv1b'
+                    Authorization: 'Bearer ' + TOKEN
                 }
             }).then(resData => {
                 this.$notice.toast({
-                    message: resData
+                    message: 'Delete address success!'
                 })
+                this.addressList.splice(event.data.index, 1)
             }, error => {
                 this.$notice.toast({
                     message: error
                 })
-                this.addressList.splice(event.data.index, 1)
             })
         }
     }
