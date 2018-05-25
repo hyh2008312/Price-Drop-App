@@ -102,7 +102,7 @@
                         status: 'progressing'
                     },
                     header: {
-                        Authorization: 'Bearer 9El0bCn1KqaUcQZgQVi5et5YcPLTWo'
+                        Authorization: 'Bearer 6mLScyYgcK99aLBH1nnHvcHVCz0Nrv'
                     }
 
                 }).then(data => {
@@ -130,7 +130,7 @@
                         status: 'end'
                     },
                     header: {
-                        Authorization: 'Bearer 9El0bCn1KqaUcQZgQVi5et5YcPLTWo'
+                        Authorization: 'Bearer 6mLScyYgcK99aLBH1nnHvcHVCz0Nrv'
                     }
 
                 }).then(data => {

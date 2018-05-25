@@ -160,9 +160,7 @@
                 })
             },
             homeBack () {
-                // this.$router.back();
-                const testShare = weex.requireModule('lzqTestModule');
-                testShare.shareToWhatsApp('', '');
+                 this.$router.back();
             },
             refreshApiFinished () {
                 this.$refs.refresh.refreshEnd();

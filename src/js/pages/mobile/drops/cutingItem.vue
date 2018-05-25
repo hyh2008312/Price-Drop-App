@@ -2,7 +2,7 @@
     <div class="item">
         <div class="wrapper">
             <div class="gb-box">
-                <div class="i-gd" @click="jumpWeb()">
+                <div class="i-gd" @click="jumpCutDetail">
                     <div class="gd-bg">
                         <image class="gd-img" resize="cover"
                                :src="goods.mainImage"></image>
@@ -13,10 +13,14 @@
                             <text class="gd-price-sale">Rs.{{goods.currentPrice}}</text>
                             <text class="gd-price-original">Rs.{{goods.salePrice}}</text>
                         </div>
-                        <text class="gd-price-show">Rs.{{goods.salePrice - goods.currentPrice }} price cut by {{goods.cutTimes}} people</text>
-                        <div class="gd-cut">
-                            <text class="gd-cut-price">Rs.150.59</text>
+                        <text class="gd-price-show" v-if="flag">Rs.{{goods.salePrice - goods.currentPrice }} price cut by {{goods.cutTimes}} people</text>
+                        <div class="gd-cut" v-if="flag">
+                            <text class="gd-cut-price">Rs.{{goods.lowestPrice}}</text>
                             <text class="gd-cut-price-tip"> left to unlock lowest price</text>
+                        </div>
+                        <div class="gd-cut-end"v-if="!flag">
+                            <text class="gd-cut-price">Rs.{{goods.salePrice - goods.currentPrice }}</text>
+                            <text class="gd-price-show-end"> price cut by {{goods.cutTimes}} people</text>
                         </div>
                     </div>
                 </div>
@@ -24,6 +28,7 @@
             <div class="gb-line"></div>
             <!--正在砍价-->
             <div class="gd-handle" v-if="flag">
+                <text class="gd-handle-tip">Ends in </text>
                 <wxc-countdown tpl="{h}:{m}:{s}"
                                :time="goods.endTimestamp *1000"
                                :timeBoxStyle="{backgroundColor: '#000000', height: '36px', width: '36px','border-radius': '4px'}"
@@ -32,25 +37,36 @@
                                :dotBoxStyle="{width: '10px'}"
                                :style="{justifyContent: 'center'}">
                 </wxc-countdown>
-                <text class="gd-handle-tip">后结束砍价</text>
-                <text class="gd-handle-cut" @click="goingCutPrice">继续砍价</text>
+                <text class="gd-handle-cut" @click="goingCutPrice">Cut Price</text>
             </div>
             <!--砍价结束-->
             <div class="gd-end-handle" v-else>
-                <div class="gd-end-handle-state">
-                    <text class="gd-end-handle-state-text">付款倒计时</text>
+                <div class="gd-end-handle-state" v-if="goods.operationStatus =='pending' || goods.operationStatus =='unpaid'">
+                    <text class="icon-timer">&#xe6fa;</text>
+                    <text class="gd-end-handle-state-text">Time Left</text>
                     <wxc-countdown tpl="{h}:{m}:{s}"
-                                   :time="TIME"
+                                   :time="goods.cancelTimestamp * 1000"
                                    :timeBoxStyle="{backgroundColor: 'transparent', height: '36px', width: '36px','border-radius': '4px'}"
-                                   :timeTextStyle="{fontSize: '24px', color: '#987D1A'}"
-                                   :dotTextStyle="{color: '#987D1A', fontSize: '24px'}"
+                                   :timeTextStyle="{fontSize: '24px', color: '#EF8A31'}"
+                                   :dotTextStyle="{color: '#EF8A31', fontSize: '24px'}"
                                    :dotBoxStyle="{width: '10px'}"
                                    :style="{justifyContent: 'center'}">
                     </wxc-countdown>
                 </div>
-                <text class="gd-handle-cut">立刻购买</text>
-                <text class="gd-handle-cut" v-if="false">查看订单</text>
-                <text class="gd-handle-cut" v-if="false">再砍一次</text>
+                <div class="gd-end-handle-state" v-if="goods.operationStatus =='paid'">
+                    <text class="icon-paid">&#xe6fb;</text>
+                    <text class="gd-end-handle-state-text">Paid</text>
+                </div>
+                <div class="gd-end-handle-state" v-if="goods.operationStatus =='overdue'">
+                    <text class="icon-expired">&#xe6fe;</text>
+                    <text class="gd-end-handle-state-text">Expired</text>
+                </div>
+                <!--pending-->
+                <text class="gd-handle-cut"v-if="goods.operationStatus =='pending'" @click="jumpConfirmOrder">Pay Now</text>
+                <!--unpaid-->
+                <text class="gd-handle-cut" v-else-if="goods.operationStatus =='unpaid'" @click="jumpOrderDetail">Pay Now</text>
+                <!---->
+                <text class="gd-handle-cut" v-else @click="jumpProductDetail" >Buy Again </text>
             </div>
 
         </div>
@@ -70,24 +86,59 @@
             }
         },
         methods: {
-            jumpWeb () {
+            jumpProductDetail () {
                 this.$router.open({
                     name: 'goods.details'
                 })
             },
             goingCutPrice () {
                 this.$router.open({
-                    name: 'drops.cutDetail'
-                })
+                    name: 'drops.cutDetail',
+                    params: {
+                        isShowSharePanel: true,
+                        id: this.goods.id
+                    }
+                });
+            },
+            jumpConfirmOrder () {
+                this.$notice.toast('确认订单')
+            },
+            jumpOrderDetail () {
+                this.$notice.toast('订单详情');
+            },
+            jumpCutDetail () {
+                this.$router.open({
+                    name: 'drops.cutDetail',
+                    params: {
+                        isShowSharePanel: false,
+                        id: this.goods.id
+                    }
+                });
             }
         }
     }
 </script>
 <style scoped>
-    .iconfont {
-        font-family: iconfont;
-    }
 
+    .icon-expired {
+        font-family: iconfont;
+        font-size: 24px;
+        margin-left: 16px;
+        color: #E93131;
+    }
+    .icon-paid{
+        font-family: iconfont;
+        font-size: 24px;
+        margin-left: 16px;
+        color: #26CB03;
+    }
+    .icon-timer{
+        font-family: iconfont;
+        font-size: 24px;
+        margin-left: 16px;
+        color: #EF8A31;
+
+    }
     .item {
         display: flex;
         background-color: #F1F1F1;
@@ -165,6 +216,12 @@
         flex-direction: row;
         justify-content: flex-start;
     }
+    .gd-cut-end {
+        display: flex;
+        margin-top: 78px;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
 
     .gd-cut-price-tip {
         font-size: 20px;
@@ -193,6 +250,11 @@
         color: black;
         font-weight: bold;
         margin-top: 46px;
+    }
+    .gd-price-show-end{
+        font-size: 24px;
+        color: black;
+        font-weight: bold;
     }
 
     .gd-price-sale {
@@ -238,16 +300,14 @@
     .gd-handle-cut {
         width: 144px;
         text-align: center;
-        color: #000000;
+        color: white;
         font-weight: 400;
         font-size: 24px;
         line-height: 56px;
-        border-style: solid;
+        background-color: #EF8A31;
         margin-right: 28px;
         margin-left: 28px;
         border-radius: 4px;
-        border-width: 2px;
-        border-color: #000;
     }
 
     .gd-end-handle {
@@ -269,7 +329,7 @@
         font-size: 20px;
         color: #000000;
         font-weight: 400;
-        margin-left: 16px;
+        margin-left: 8px;
     }
 
 </style>
