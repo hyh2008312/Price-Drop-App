@@ -13,14 +13,14 @@
                 <order-confirm-pay-method :list="payList" @radioChecked="radioChecked"></order-confirm-pay-method>
             </cell>
         </list>
-        <order-detail-bottom :order="order"></order-detail-bottom>
+        <order-confirm-bottom :order="order"></order-confirm-bottom>
     </div>
 </template>
 <script>
 import header from './header';
 import orderDetailShipping from './orderDetailShipping';
 import orderDetailItem from './orderDetailItem';
-import orderDetailBottom from './orderDetailBottom';
+import orderConfirmBottom from './orderConfirmBottom';
 import orderDetailNumber from './orderDetailNumber';
 import orderConfirmPayMethod from './orderConfirmPayMethod'
 import { Utils } from 'weex-ui';
@@ -31,7 +31,7 @@ export default {
         'top-header': header,
         'order-detail-shipping': orderDetailShipping,
         'order-detail-item': orderDetailItem,
-        'order-detail-bottom': orderDetailBottom,
+        'order-confirm-bottom': orderConfirmBottom,
         'order-detail-number': orderDetailNumber,
         'order-confirm-pay-method': orderConfirmPayMethod
     },
