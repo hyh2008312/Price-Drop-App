@@ -5,7 +5,10 @@
         <text class="od-button" @click="confirm">Pay Now</text>
     </div>
     <div class="wrapper" v-else-if="order.orderStatus == 'Canceled'">
-        <text class="od-button-1" @click="jumpHome">Buy Again</text>
+        <text class="od-button" @click="jumpHome">Buy Again</text>
+    </div>
+    <div class="wrapper" v-else-if="order.orderStatus == 'Packing'">
+        <text class="od-button-1">Cancel Order</text>
     </div>
 </template>
 <script>
@@ -62,12 +65,15 @@
     .od-button-1{
         margin-right: 16px;
         font-size: 28px;
-        line-height: 80px;
+        line-height: 76px;
         text-align: center;
         padding: 0 24px;
-        background-color: #EF8A31;
+        background-color: #fff;
         border-radius: 4px;
-        color: #fff;
+        color: #EF8A31;
+        border-color: #EF8A31;
+        border-style: solid;
+        border-width: 2px;
     }
 
     .od-text{
