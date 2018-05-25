@@ -767,4 +767,6 @@ export const STATE = {
     ]
 };
 
-export const TOKEN = 'yxtjkMiKbApuBe9KpeBgjya2X5GnPu';
+export const TOKEN = 'BXb7zvsDoWSOWLWzaZTPw6gw2ZcBZk';
+
+export const ORDERSTATUS = [null, 'Unpaid', 'Packing', 'Shipped', 'Completed']

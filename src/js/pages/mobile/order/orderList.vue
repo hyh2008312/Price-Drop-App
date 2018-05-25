@@ -38,7 +38,7 @@
     import refresher from '../common/refresh';
     import orderItem from './orderItem';
     import payRadio from './radio';
-    import { ORDERS, PAYLIST } from './config';
+    import { TOKEN, PAYLIST, ORDERSTATUS } from './config';
 
     export default {
         components: {
@@ -111,15 +111,47 @@
             },
             getOrder (isfirst) {
                 if (isfirst) {
-                    this.order = []
+                    this.page = 1
                 }
-                this.order.push(...ORDERS)
-                if (!isfirst) {
+                if (this.page > this.length) {
+                    this.$refs.refresh.refreshEnd()
                     this.$nextTick(() => {
                         this.isLoading = false
                     })
+                    return
                 }
-                this.refreshApiFinished()
+                this.$fetch({
+                    method: 'GET',
+                    name: 'order.customer.list',
+                    data: {
+                        page: this.page,
+                        pageSize: this.pageSize,
+                        status: ORDERSTATUS[this.index]
+                    },
+                    header: {
+                        Authorization: 'Bearer ' + TOKEN
+                    }
+                }).then(data => {
+                    this.$notice.toast({
+                        message: data
+                    })
+                    this.length = Math.ceil(data.count / this.pageSize)
+                    if (isfirst) {
+                        this.order = []
+                    }
+                    this.order.push(...data.results)
+                    if (!isfirst) {
+                        this.$nextTick(() => {
+                            this.isLoading = false
+                        })
+                    }
+                    this.refreshApiFinished()
+                }, error => {
+                    // 错误回调
+                    this.$notice.toast({
+                        message: error
+                    })
+                })
             },
             refreshApiFinished () {
                 this.$refs.refresh.refreshEnd();

@@ -1,44 +1,20 @@
 <template>
     <div class="wrapper">
-        <order-line v-if="!isOrderConfirm"></order-line>
-        <div class="gb-box" v-if="!isOrderConfirm">
+        <order-line></order-line>
+        <div class="gb-box">
             <text class="gb-title">Shipping To</text>
             <div class="gb-bg">
                 <text class="gb-icon iconfont">&#xe707;</text>
-                <text class="gb-text">Steven Huang</text>
+                <text class="gb-text">{{order.username}}</text>
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe706;</text>
-                <text class="gb-text">+1 805-497-3701</text>
+                <text class="gb-text">+19 {{order.phoneNumber}}</text>
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe705;</text>
-                <div>
-                    <text class="gb-text-1">House, Street, Landmark</text>
-                    <text class="gb-text-1 gb-mt">75 W Thousand Oaks Blvd, Thousand Oaks, CA 91360</text>
-                </div>
+                <text class="gb-text-1">{{order.address}}</text>
             </div>
-        </div>
-        <div class="gb-box-1" v-if="isOrderConfirm">
-            <div>
-                <text class="gb-title">Shipping To</text>
-                <div class="gb-bg">
-                    <text class="gb-icon iconfont">&#xe707;</text>
-                    <text class="gb-text">Steven Huang</text>
-                </div>
-                <div class="gb-bg-1">
-                    <text class="gb-icon iconfont">&#xe706;</text>
-                    <text class="gb-text">+1 805-497-3701</text>
-                </div>
-                <div class="gb-bg-1">
-                    <text class="gb-icon iconfont">&#xe705;</text>
-                    <div>
-                        <text class="gb-text-1">House, Street, Landmark</text>
-                        <text class="gb-text-1 gb-mt">75 W Thousand Oaks Blvd, Thousand Oaks, CA 91360</text>
-                    </div>
-                </div>
-            </div>
-            <text class="gb-icon-1 iconfont">&#xe626;</text>
         </div>
         <order-line></order-line>
     </div>
@@ -50,24 +26,7 @@
         components: {
             'order-line': line
         },
-        props: {
-            shipping: {},
-            isOrderConfirm: {
-                default: false
-            }
-        },
-        data () {
-            return {
-                src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
-            }
-        },
-        methods: {
-            jumpAddress () {
-                this.$router.open({
-                    name: 'order.address'
-                })
-            }
-        }
+        props: ['order']
     }
 </script>
 <style scoped>
@@ -84,13 +43,6 @@
 
     .gb-box {
         padding: 32px;
-    }
-
-    .gb-box-1{
-        padding: 32px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
     }
 
     .gb-title{
@@ -123,6 +75,7 @@
         font-size: 24px;
         line-height: 28px;
         color: rgba(0,0,0, 0.87);
+        width: 646px;
     }
 
     .gb-bg{
@@ -135,10 +88,6 @@
         margin-top: 16px;
         flex-direction: row;
         align-items: start;
-    }
-
-    .gb-mt{
-        margin-top: 16px;
     }
 
 </style>

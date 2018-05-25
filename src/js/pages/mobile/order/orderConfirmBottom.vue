@@ -1,18 +1,43 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">Rs.1000.00</text>
+        <text class="od-text-1">Rs.{{order.currentPrice}}</text>
         <text class="od-button" @click="confirm">Pay Now</text>
     </div>
 </template>
 <script>
+    import { TOKEN } from './config';
+
     export default {
-        props: ['order'],
+        props: ['order', 'address'],
         methods: {
             confirm () {
-                this.$router.open({
-                    name: 'order.detail',
-                    type: 'PUSH'
+                if (!this.address.id) {
+                    this.$notice.toast('Please add address first!')
+                    return
+                }
+                this.$fetch({
+                    method: 'POST', // 大写
+                    name: 'order.cut.create',
+                    data: {
+                        cutId: this.order.id
+                    },
+                    header: {
+                        Authorization: 'Bearer ' + TOKEN
+                    }
+                }).then(resData => {
+                    this.$router.finish()
+                    this.$router.open({
+                        name: 'order.detail',
+                        type: 'PUSH',
+                        params: {
+                            id: resData.orderId
+                        }
+                    })
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    })
                 })
             }
         }

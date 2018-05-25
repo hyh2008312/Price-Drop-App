@@ -4,64 +4,104 @@
         <div class="status-bar"></div>
         <list class="container" :style="height">
             <cell class="cell-bottom" @click="jumpAddress">
-                <order-detail-shipping :isOrderConfirm="isOrderConfirm"></order-detail-shipping>
+                <order-confirm-shipping :address="address"></order-confirm-shipping>
             </cell>
             <cell class="cell-bottom">
-                <order-detail-item :order="order"></order-detail-item>
+                <order-confirm-item :order="order"></order-confirm-item>
             </cell>
             <cell class="cell-bottom">
                 <order-confirm-pay-method :list="payList" @radioChecked="radioChecked"></order-confirm-pay-method>
             </cell>
         </list>
-        <order-confirm-bottom :order="order"></order-confirm-bottom>
+        <order-confirm-bottom :order="order" :address="address"></order-confirm-bottom>
     </div>
 </template>
 <script>
 import header from './header';
-import orderDetailShipping from './orderDetailShipping';
-import orderDetailItem from './orderDetailItem';
+import orderConfirmShipping from './orderConfirmShipping';
+import orderConfirmItem from './orderConfirmItem';
 import orderConfirmBottom from './orderConfirmBottom';
 import orderDetailNumber from './orderDetailNumber';
 import orderConfirmPayMethod from './orderConfirmPayMethod'
 import { Utils } from 'weex-ui';
-import { ORDER, PAYLIST } from './config';
+import { PAYLIST } from './config';
 
 export default {
     components: {
         'top-header': header,
-        'order-detail-shipping': orderDetailShipping,
-        'order-detail-item': orderDetailItem,
+        'order-confirm-shipping': orderConfirmShipping,
+        'order-confirm-item': orderConfirmItem,
         'order-confirm-bottom': orderConfirmBottom,
         'order-detail-number': orderDetailNumber,
         'order-confirm-pay-method': orderConfirmPayMethod
     },
+    eros: {
+        backAppeared (params, options) {
+            this.getAddress()
+        },
+        beforeAppear (params, options) {
+            this.getAddress()
+        },
+        appeared (params, option) {
+            this.order = params
+        }
+    },
     created () {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 44 - 2) + 'px' }
-        this.getOrder()
         this.resetPayList()
     },
     data () {
         return {
             title: 'Confirm Order',
-            order: {},
+            order: {
+                'title': '',
+                'mainImage': '',
+                'salePrice': '',
+                'currentPrice': '',
+                'attributes': '',
+                'quantity': 1,
+                'id': -1,
+                'shippingPrice': null
+            },
             isOrderConfirm: true,
             payList: [],
-            checkedInfo: { src: null, value: 1 }
+            checkedInfo: { src: null, value: 1 },
+            address: {
+                'id': null,
+                'firstName': '',
+                'lastName': '',
+                'postcode': '',
+                'line1': '',
+                'line2': '',
+                'line3': '',
+                'city': '',
+                'stateName': '',
+                'countryName': '',
+                'isDefault': false,
+                'phoneNumber': '',
+                'stateId': 5
+            }
         }
     },
     methods: {
         back () {
             this.$router.finish()
         },
-        getOrder () {
-            this.order = ORDER
-        },
         radioChecked (e) {
             this.checkedInfo = e.data.pay
         },
         resetPayList () {
             this.payList = [...PAYLIST]
+        },
+        getAddress () {
+            this.$storage.get('user').then((params) => {
+                if (params.defaultAddress) {
+                    this.address = params.defaultAddress
+                } else {
+                    this.address.id = null
+                }
+            })
         }
     }
 }

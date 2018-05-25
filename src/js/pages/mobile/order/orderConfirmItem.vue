@@ -3,14 +3,14 @@
         <div class="gb-box">
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="order.lines[0].mainImage || src"></image>
+                    <image class="gd-img" resize="cover" :src="order.mainImage || src"></image>
                 </div>
                 <div class="gd-bg-right">
-                    <text class="gd-tlt">{{order.lines[0].title}}</text>
+                    <text class="gd-tlt">{{order.title}}</text>
                     <div class="gd-bg-bottom">
-                        <text class="gd-info">{{order.lines[0].attributes}}</text>
+                        <text class="gd-info">{{order.attributes}}</text>
                         <div class="gd-bg-bottom-right">
-                            <text class="gd-count"> x {{order.lines[0].quantity}}</text>
+                            <text class="gd-count"> x {{order.quantity}}</text>
                         </div>
                     </div>
                 </div>
@@ -24,11 +24,11 @@
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
-                    <text class="gb-text">Rs.{{order.totalExclTax}}</text>
-                    <text class="gb-text">Rs.{{order.shippingExclTax}}</text>
+                    <text class="gb-text">Rs.{{order.salePrice}}</text>
+                    <text class="gb-text">Rs.{{order.shippingPrice||'0.00'}}</text>
                     <text class="gb-text">Rs.0.00</text>
-                    <text class="gb-text gb-text-color">-Rs.{{order.totalExclTax - order.paymentAmount}}</text>
-                    <text class="gb-text-1">Rs.{{order.paymentAmount}}</text>
+                    <text class="gb-text gb-text-color">-Rs.{{order.salePrice - order.currentPrice}}</text>
+                    <text class="gb-text-1">Rs.{{order.currentPrice}}</text>
                 </div>
             </div>
         </div>

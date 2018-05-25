@@ -1,8 +1,11 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" v-if="order.orderStatus == 'Unpaid'">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">Rs.1000.00</text>
+        <text class="od-text-1">Rs.{{order.paymentAmount}}</text>
         <text class="od-button" @click="confirm">Pay Now</text>
+    </div>
+    <div class="wrapper" v-else-if="order.orderStatus == 'Canceled'">
+        <text class="od-button-1" @click="jumpHome">Buy Again</text>
     </div>
 </template>
 <script>
@@ -11,8 +14,17 @@
         methods: {
             confirm () {
                 this.$router.open({
-                    name: 'order.confirm',
+                    name: 'order.result',
                     type: 'PUSH'
+                })
+            },
+            jumpHome () {
+                this.$router.open({
+                    name: 'goods.details',
+                    type: 'PUSH',
+                    params: {
+                        id: this.order.lines[0].productId
+                    }
                 })
             }
         }
@@ -37,6 +49,17 @@
 
     .od-button{
         margin-left: 24px;
+        margin-right: 16px;
+        font-size: 28px;
+        line-height: 80px;
+        text-align: center;
+        padding: 0 24px;
+        background-color: #EF8A31;
+        border-radius: 4px;
+        color: #fff;
+    }
+
+    .od-button-1{
         margin-right: 16px;
         font-size: 28px;
         line-height: 80px;

@@ -7,24 +7,21 @@
             </div>
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="order.src || src"></image>
+                    <image class="gd-img" resize="cover" :src="order.lines[0].mainImage || src"></image>
                 </div>
                 <div class="gd-bg-right">
-                    <text class="gd-tlt">{{order.title}}</text>
+                    <text class="gd-tlt">{{order.lines[0].title}}</text>
                     <div class="gd-bg-bottom">
-                        <text class="gd-info">{{order.attribute}}</text>
+                        <text class="gd-info">{{order.lines[0].attributes}}</text>
                         <div class="gd-bg-bottom-right">
-                            <text class="gd-price">Rs.{{order.originalPrice}}</text>
-                            <text class="gd-count"> x {{order.number}}</text>
+                            <text class="gd-count"> x {{order.lines[0].quantity}}</text>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="gb-center">
-                <text class="gd-text">Dropped:  </text>
-                <text class="gb-price-1">-Rs.{{order.droppedPrice}}</text>
-                <text class="gd-text">Final:  </text>
-                <text class="gb-price-2">Rs.{{order.saleUnitPrice}}</text>
+                <text class="gd-text">Total: </text>
+                <text class="gb-price-2">Rs.{{order.lines[0].paymentPrice}}</text>
             </div>
             <div class="gb-bottom">
                 <div class="gb-bottom-left">
@@ -60,7 +57,10 @@
             jumpWeb () {
                 // if (!url) return;
                 this.$router.open({
-                    name: 'order.detail'
+                    name: 'order.detail',
+                    params: {
+                        id: this.order.id
+                    }
                 })
             },
             openBottomPopup () {

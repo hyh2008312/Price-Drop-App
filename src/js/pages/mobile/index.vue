@@ -23,6 +23,7 @@ export default {
         beforeAppear () {
             this.getChannel()
             this.getState()
+            this.getUser()
         }
     },
     components: {
@@ -56,9 +57,6 @@ export default {
         androidFinishApp () {
             const globalEvent = weex.requireModule('globalEvent');
             let self = this;
-            this.$notice.toast({
-                message: globalEvent
-            })
             globalEvent.addEventListener('homeBack', options => {
                 this.$notice.confirm({
                     title: '退出',
@@ -95,6 +93,18 @@ export default {
                 data: {}
             }).then(data => {
                 this.$storage.set('state', data);
+            }, error => {})
+        },
+        getUser () {
+            this.$fetch({
+                method: 'GET', // 大写
+                name: 'user.user',
+                data: {},
+                header: {
+                    Authorization: 'Bearer ' + 'yxtjkMiKbApuBe9KpeBgjya2X5GnPu'
+                }
+            }).then(data => {
+                this.$storage.set('user', data);
             }, error => {})
         }
     }

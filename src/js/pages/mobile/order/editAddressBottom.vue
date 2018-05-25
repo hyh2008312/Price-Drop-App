@@ -61,11 +61,13 @@
             },
             isChecked () {
                 for (const k in this.address) {
-                    if (this.address[k] == '' || this.address[k] == null) {
-                        this.$notice.toast({
-                            message: this.address[k]
-                        })
-                        return true
+                    if (k != 'line3') {
+                        if (this.address[k] == '' || this.address[k] == null) {
+                            this.$notice.toast({
+                                message: this.address[k]
+                            })
+                            return true
+                        }
                     }
                 }
                 return false

@@ -92,7 +92,7 @@ export default {
         return {
             title: 'Edit Address',
             inputIndex: -1,
-            id: -1,
+            id: null,
             address: {
                 firstName: '',
                 postcode: '',
@@ -156,7 +156,7 @@ export default {
                 }
             }).then(resData => {
                 // 成功回调
-                this.$notice.toast({
+                this.$notice.alert({
                     message: resData
                 })
                 for (const k in this.address) {

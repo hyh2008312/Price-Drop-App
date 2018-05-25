@@ -2,11 +2,17 @@
     <div class="wrapper">
         <top-header :title="title"></top-header>
         <div class="status-bar"></div>
-        <list class="container" :style="height">
+        <list class="container" :style="height" v-if="addressList.length > 0">
             <cell class="cell-bottom" v-for="(e, i) in addressList">
                 <address-item :address="e" :index="i" @delete="deleteShipping"></address-item>
             </cell>
         </list>
+        <div class="container-1" :style="height" v-if="addressList.length == 0">
+            <div class="container-2">
+                <image class="pay-image" src="bmlocal://assets/empty.png"></image>
+            </div>
+            <text class="address-title">You have no shipping address information.</text>
+        </div>
         <address-bottom></address-bottom>
     </div>
 </template>
@@ -38,7 +44,7 @@ export default {
     data () {
         return {
             title: 'Choose Address',
-            addressList: []
+            addressList: null
         }
     },
     methods: {
@@ -73,6 +79,14 @@ export default {
                 this.$notice.toast({
                     message: 'Delete address success!'
                 })
+                const address = this.addressList[event.data.index]
+                if (address.isDefault) {
+                    this.$storage.get('user').then((data) => {
+                        let user = data
+                        user.defaultAddress = null
+                        this.$storage.set('user', user)
+                    })
+                }
                 this.addressList.splice(event.data.index, 1)
             }, error => {
                 this.$notice.toast({
@@ -86,13 +100,16 @@ export default {
 </script>
 <style scoped>
 
+    .iconfont{
+        font-family: iconfont;
+    }
+
     .wrapper{
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
-        background-color: #f1f1f1;
     }
 
     .status-bar{
@@ -109,8 +126,33 @@ export default {
         background-color: #f1f1f1;
     }
 
+    .container-1{
+        margin-top: 2px;
+        width: 750px;
+        background-color: #fff;
+    }
+
     .cell-bottom{
         padding-bottom: 16px;
     }
+
+    .container-2{
+        margin-top: 86px;
+        width: 750px;
+        align-items: center;
+    }
+
+    .pay-image{
+        width: 202px;
+        height: 202px;
+    }
+
+    .address-title{
+        margin-top: 32px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
+    }
+
 
 </style>

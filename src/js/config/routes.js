@@ -93,6 +93,9 @@ export default {
         title: '路由测试页',
         url: '/pages/mobile/shop/a.js'
     },
+    'mobile': {
+        url: '/pages/mobile/index.js'
+    },
     'mobile.activity': {
         url: '/pages/mobile/activity/index.js'
     },

@@ -46,7 +46,8 @@
             index: {},
             isOrderConfirm: {
                 default: false
-            }
+            },
+            user: {}
         },
         data () {
             return {
@@ -72,6 +73,9 @@
                     }
                 })
             },
+            getUser () {
+
+            },
             chooseAddress () {
                 this.$fetch({
                     method: 'GET', // 大写
@@ -80,7 +84,12 @@
                         Authorization: 'Bearer ' + TOKEN
                     }
                 }).then(resData => {
-                    this.$router.finish()
+                    this.$storage.get('user').then((data) => {
+                        let user = data
+                        user.defaultAddress = resData
+                        this.$storage.set('user', user)
+                        this.$router.finish()
+                    })
                 }, error => {
                     this.$notice.toast({
                         message: error

@@ -4,16 +4,16 @@
         <div class="status-bar"></div>
         <list class="container" :style="height">
             <cell class="cell-bottom">
-                <order-detail-head ></order-detail-head>
+                <order-detail-head :order="order"></order-detail-head>
             </cell>
             <cell class="cell-bottom">
-                <order-detail-shipping></order-detail-shipping>
+                <order-detail-shipping :order="order"></order-detail-shipping>
             </cell>
             <cell class="cell-bottom">
                 <order-detail-item :order="order"></order-detail-item>
             </cell>
             <cell class="cell-bottom">
-                <order-detail-number></order-detail-number>
+                <order-detail-number :order="order"></order-detail-number>
             </cell>
         </list>
         <order-detail-bottom :order="order"></order-detail-bottom>
@@ -27,7 +27,7 @@ import orderDetailItem from './orderDetailItem';
 import orderDetailBottom from './orderDetailBottom';
 import orderDetailNumber from './orderDetailNumber';
 import { Utils } from 'weex-ui';
-import { ORDER } from './config';
+import { TOKEN } from './config';
 
 export default {
     components: {
@@ -38,10 +38,14 @@ export default {
         'order-detail-bottom': orderDetailBottom,
         'order-detail-number': orderDetailNumber
     },
+    eros: {
+        appeared (params) {
+            this.getOrder(params.id)
+        }
+    },
     created () {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 44 - 2) + 'px' }
-        this.getOrder()
     },
     data () {
         return {
@@ -53,8 +57,25 @@ export default {
         back () {
             this.$router.finish()
         },
-        getOrder () {
-            this.order = ORDER
+        getOrder (id) {
+            this.$fetch({
+                method: 'GET',
+                url: `http://47.104.171.91/order/customer/detail/${id}/`,
+                data: {},
+                header: {
+                    Authorization: 'Bearer ' + TOKEN
+                }
+            }).then(data => {
+                this.$notice.toast({
+                    message: data
+                })
+                this.order = data
+            }, error => {
+                // 错误回调
+                this.$notice.toast({
+                    message: error
+                })
+            })
         }
     }
 }

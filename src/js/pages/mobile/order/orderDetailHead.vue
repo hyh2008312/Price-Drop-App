@@ -2,14 +2,17 @@
     <div class="wrapper">
         <div class="gb-box">
             <div class="gb-bg">
-                <text class="gb-icon iconfont">&#xe702;</text>
-                <text class="gb-text">Unpaid</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Unpaid'">&#xe702;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Packing'">&#xe70d;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Shipped'">&#xe712;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Completed'">&#xe6ed;</text>
+                <text class="gb-text">{{order.orderStatus}}</text>
             </div>
-            <div class="gb-bg-1">
+            <div class="gb-bg-1" v-if="order.orderStatus == 'Unpaid'">
                 <text class="gb-icon iconfont gd-text-color">&#xe703;</text>
                 <text class="gd-text gd-text-color">Ends in</text>
                 <wxc-countdown tpl="{h}:{m}:{s}"
-                               :time="time"
+                               :time="order.cancelTimestamp * 1000"
                                :timeBoxStyle="{backgroundColor: 'transparent', height: '28px', width: '28px','border-radius': '4px'}"
                                :timeTextStyle="{fontSize: '24px', color: '#EF8A31'}"
                                :dotTextStyle="{color: '#EF8A31', fontSize: '24px'}"
@@ -29,7 +32,7 @@
             'order-line': line,
             WxcCountdown
         },
-        props: ['shipping'],
+        props: ['order'],
         data () {
             return {
                 src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png',

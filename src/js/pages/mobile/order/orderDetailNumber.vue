@@ -2,9 +2,8 @@
     <div class="wrapper">
         <div class="wrapper-inner">
             <div>
-                <text class="gb-txt">Order Number: 68778989078678586898</text>
-                <text class="gb-txt gb-mt">Transaction Number: 5867796875674654768</text>
-                <text class="gb-txt gb-mt">Payment Method: PayU</text>
+                <text class="gb-txt">Order Number: {{order.number}}</text>
+                <text class="gb-txt gb-mt" v-if="order.paymentType">Payment Method: PayTM</text>
                 <text class="gb-txt gb-mt">Order Time: May 6th,2018</text>
             </div>
             <text class="cy iconfont">&#xe708;</text>
@@ -13,6 +12,7 @@
 </template>
 <script>
     export default {
+        props: ['order'],
         data () {
             return {
                 list: [1, 2, 3, 4, 5, 6, 7]
