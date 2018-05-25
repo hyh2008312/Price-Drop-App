@@ -31,7 +31,7 @@
             <!--正在进行-->
             <div v-if="goodsDetail.cutStatus=='progressing' && goodsDetail.operationStatus=='pending'">
                 <div class="wrapper-progress">
-                    <div class="current-price" :style="{'margin-left': percentage * 606 - 30+'px'}">
+                    <div class="current-price" :style="{'margin-left': distance+'px'}">
                         <text class="current-price-1">Current Price</text>
                         <text class="current-price-2">Rs.{{goodsDetail.currentPrice}}</text>
                     </div>
@@ -194,7 +194,7 @@
     </div>
 </template>
 <script>
-    import {WxcCountdown, WxcPopup, WxcMask} from 'weex-ui'
+    import { WxcCountdown, WxcPopup, WxcMask } from 'weex-ui'
 
     const shareModule = weex.requireModule('ShareModule');
 
@@ -205,16 +205,16 @@
             WxcMask
         },
         eros: {
-            appeared(params, options) {
+            appeared (params, options) {
                 console.log('beforeAppear');
                 this.isShow = params.isShowSharePanel;
                 this.id = params.id;
                 this.requestCutDetail();
             }
         },
-        created() {
+        created () {
         },
-        data() {
+        data () {
             return {
                 percentage: 0.34,
                 TIME: new Date().getTime() + 86400000 + '',
@@ -222,17 +222,18 @@
                 isShow: false,
                 id: -1,
                 goodsDetail: {},
-                isRuleShow: false
+                isRuleShow: false,
+                distance: 1,
             }
         },
         methods: {
-            showSharePanel() {
+            showSharePanel () {
                 this.isShowShare = true;
             },
-            popupOverlayAutoClick() {
+            popupOverlayAutoClick () {
                 this.isShowShare = false;
             },
-            shareFacebook() {
+            shareFacebook () {
                 const that = this;
                 shareModule.shareFacebook(
                     'this is a facebook title',
@@ -248,7 +249,7 @@
                     }
                 );
             },
-            shareWhatsApp() {
+            shareWhatsApp () {
                 const that = this;
                 const detail = 'Hey! I just found this item and need your help to drop the price before it sells out:  \n' +
                     'https://www.socialcommer.com/store/maryamhampton/6/detail/44168\n\n' +
@@ -263,37 +264,42 @@
                     }
                 )
             },
-            requestCutDetail() {
+            requestCutDetail () {
                 this.$fetch({
                     method: 'GET',
                     url: 'http://47.104.171.91/promotion/cut/detail/' + this.id + '/'
                 }).then(data => {
                     this.goodsDetail = data;
                     this.percentage = (data.salePrice - data.currentPrice) / data.salePrice;
+                    this.distance = this.percentage * 606 - 30;
+                    if (this.distance > 450) {
+                        this.distance = 450 ;
+                    }
+                    this.$notice.toast(this.distance);
                     this.isShowShare = this.isShow;
                 }, error => {
                     this.$notice.toast('network is error');
                 })
             },
-            jumpProductDetail() {
+            jumpProductDetail () {
                 this.$router.open({
                     name: 'goods.details',
                     id: this.goodsDetail.productId
                 })
             },
-            jumpConfirmOrder() {
+            jumpConfirmOrder () {
                 this.$notice.toast('confirm order');
             },
-            jumpOrderDetail() {
+            jumpOrderDetail () {
                 this.$notice.toast('order detail');
             },
-            back() {
+            back () {
                 this.$router.back();
             },
-            showCutRule() {
+            showCutRule () {
                 this.isRuleShow = true;
             },
-            wxcMaskSetHidden() {
+            wxcMaskSetHidden () {
                 this.isRuleShow = false;
             }
 
@@ -316,6 +322,7 @@
     .rule-content {
         padding-left: 36px;
         padding-right: 36px;
+        height: 850px;
     }
 
     .cut-end-item-2 {
