@@ -4,7 +4,7 @@
             <div>
                 <text class="gb-txt">Order Number: {{order.number}}</text>
                 <text class="gb-txt gb-mt" v-if="order.paymentType">Payment Method: PayTM</text>
-                <text class="gb-txt gb-mt">Order Time: May 6th,2018</text>
+                <text class="gb-txt gb-mt">Order Time: {{order.created}}</text>
             </div>
             <text class="cy iconfont">&#xe708;</text>
         </div>

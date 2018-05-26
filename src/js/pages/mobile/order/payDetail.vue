@@ -2,7 +2,7 @@
     <div class="wrapper">
         <top-header :title="title"></top-header>
         <div class="status-bar"></div>
-        <list class="container" :style="height">
+        <list class="container" :style="height" v-if="order.id > 0">
             <cell class="cell-bottom">
                 <order-detail-head :order="order"></order-detail-head>
             </cell>
@@ -13,10 +13,31 @@
                 <order-detail-item :order="order"></order-detail-item>
             </cell>
             <cell class="cell-bottom">
-                <order-detail-number :order="order"></order-detail-number>
+                <order-detail-number :order="order"ß></order-detail-number>
             </cell>
         </list>
-        <order-detail-bottom :order="order"></order-detail-bottom>
+        <order-detail-bottom :order="order" @cancel="cancel"></order-detail-bottom>
+        <wxc-popup :have-overlay="isTrue"
+                   popup-color="rgb(255, 255, 255, 255)"
+                   :show="isBottomShow"
+                   @wxcPopupOverlayClicked="popupOverlayAutoClick"
+                   ref="wxcPopup"
+                   pos="bottom"
+                   height="583">
+            <div class="popup-content">
+                <div class="popup-content-top">
+                    <text class="popup-content-title">Select a Cancelled Reason</text>
+                    <div class="popup-content-mt">
+                        <text class="popup-content-title-1" :class="[reasonActive == index ? 'popup-content-active': '']"
+                              v-for="(item, index) in reason" @click="changeReason(index)">{{item}}</text>
+                    </div>
+                </div>
+                <div class="popup-content-bottom">
+                    <text class="popup-content-button" @click="closeBottomPop">Cancel</text>
+                    <text class="popup-content-button-1" @click="cancelOrder">OK</text>
+                </div>
+            </div>
+        </wxc-popup>
     </div>
 </template>
 <script>
@@ -26,8 +47,8 @@ import orderDetailShipping from './orderDetailShipping';
 import orderDetailItem from './orderDetailItem';
 import orderDetailBottom from './orderDetailBottom';
 import orderDetailNumber from './orderDetailNumber';
-import { Utils } from 'weex-ui';
-import { TOKEN } from './config';
+import { Utils, WxcPopup } from 'weex-ui';
+import { TOKEN, ORDERDETAIL, CANCELREASON } from './config';
 
 export default {
     components: {
@@ -36,7 +57,8 @@ export default {
         'order-detail-shipping': orderDetailShipping,
         'order-detail-item': orderDetailItem,
         'order-detail-bottom': orderDetailBottom,
-        'order-detail-number': orderDetailNumber
+        'order-detail-number': orderDetailNumber,
+        WxcPopup
     },
     eros: {
         appeared (params) {
@@ -50,7 +72,11 @@ export default {
     data () {
         return {
             title: 'Order Detail',
-            order: {}
+            order: ORDERDETAIL,
+            isTrue: true,
+            isBottomShow: false,
+            reason: CANCELREASON,
+            reasonActive: 0
         }
     },
     methods: {
@@ -66,12 +92,41 @@ export default {
                     Authorization: 'Bearer ' + TOKEN
                 }
             }).then(data => {
-                this.$notice.toast({
-                    message: data
-                })
                 this.order = data
             }, error => {
                 // 错误回调
+                this.$notice.toast({
+                    message: error
+                })
+            })
+        },
+        popupOverlayAutoClick () {
+            this.isBottomShow = false
+        },
+        closeBottomPop () {
+            this.$refs.wxcPopup.hide()
+        },
+        changeReason (index) {
+            this.reasonActive = index
+        },
+        cancel () {
+            this.isBottomShow = true
+        },
+        cancelOrder () {
+            this.$refs.wxcPopup.hide()
+            this.$fetch({
+                method: 'PUT', // 大写
+                url: `http://47.104.171.91/order/customer/cancel/${this.order.id}/`,
+                data: {
+                    reason: this.reason[this.reasonActive]
+                },
+                header: {
+                    Authorization: 'Bearer ' + TOKEN
+                }
+            }).then(resData => {
+                this.$notice.toast('Your order cancellation request has been submitted for review.')
+                this.order = resData
+            }, error => {
                 this.$notice.toast({
                     message: error
                 })
@@ -108,6 +163,78 @@ export default {
 
     .cell-bottom{
         padding-bottom: 16px;
+    }
+
+
+    .popup-content {
+        height: 583px;
+        width: 750px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        background-color: #fff;
+        overflow: hidden;
+    }
+
+    .popup-content-top{
+        height: 463px;
+        width: 750px;
+        padding: 48px 32px;
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        border-bottom-color: rgba(0,0,0,0.08);
+        align-items: center;
+    }
+
+    .popup-content-title{
+        font-size: 28px;
+        line-height: 34px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .popup-content-title-1{
+        font-size: 24px;
+        line-height: 28px;
+        margin-top: 32px;
+        text-align: center;
+        width: 686px;
+    }
+
+    .popup-content-active{
+        color: #EF8A31;
+    }
+
+    .popup-content-mt{
+        margin-top: 32px;
+        width: 686px;
+    }
+
+    .popup-content-bottom{
+        height: 120px;
+        width: 750px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .popup-content-button{
+        font-size: 28px;
+        line-height: 120px;
+        font-weight: bold;
+        width: 375px;
+        border-right-color: rgba(0,0,0, 0.08);
+        border-right-width: 1px;
+        border-right-style: solid;
+        text-align: center;
+        color: rgba(0,0,0,0.38);
+    }
+
+    .popup-content-button-1{
+        font-size: 28px;
+        line-height: 120px;
+        font-weight: bold;
+        width: 375px;
+        text-align: center;
+        color: #EF8A31;
     }
 
 </style>

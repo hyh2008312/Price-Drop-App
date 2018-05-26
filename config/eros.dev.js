@@ -24,6 +24,7 @@ module.exports = {
         'js/pages/mobile/order/chooseAddress.vue',
         'js/pages/mobile/order/editAddress.vue',
         'js/pages/mobile/order/state.vue',
+        'js/pages/mobile/order/trackingPackage.vue',
         'js/pages/mobile/login/index.vue',
         'js/pages/demo/index.vue',
         'js/pages/demo/lifecycle/index.vue',

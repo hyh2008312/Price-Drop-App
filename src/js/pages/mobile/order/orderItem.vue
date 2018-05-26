@@ -2,8 +2,10 @@
     <div class="wrapper">
         <div class="gb-box">
             <div class="gb-top">
-                <text class="gb-date">{{order.date}}</text>
-                <text class="gb-status">{{order.status}}</text>
+                <text class="gb-date">{{order.created}}</text>
+                <text class="gb-status" v-if="order.orderStatus != 'Canceled' && order.orderStatus != 'Completed'">{{order.orderStatus == 'Audit canceled'? 'Packing':order.orderStatus}}</text>
+                <text class="gb-status" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
+                <text class="gb-status" v-if="order.orderStatus == 'Completed'">Delivered</text>
             </div>
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
@@ -23,12 +25,12 @@
                 <text class="gd-text">Total: </text>
                 <text class="gb-price-2">Rs.{{order.lines[0].paymentPrice}}</text>
             </div>
-            <div class="gb-bottom">
+            <div class="gb-bottom" v-if="order.orderStatus == 'Unpaid'">
                 <div class="gb-bottom-left">
                     <text class="iconfont gb-time">&#xe6fa;</text>
                     <text class="gd-text">  Ends in</text>
                     <wxc-countdown tpl="{h}:{m}:{s}"
-                                   :time="time"
+                                   :time="order.cancelTimestamp * 1000"
                                    :timeBoxStyle="{backgroundColor: 'transparent', height: '36px', width: '36px','border-radius': '4px'}"
                                    :timeTextStyle="{fontSize: '24px', color: '#EF8A31'}"
                                    :dotTextStyle="{color: '#EF8A31', fontSize: '24px'}"
@@ -38,6 +40,24 @@
                 </div>
                 <text class="gd-button" @click="openBottomPopup">Pay Now</text>
             </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Packing'">
+                <text class="od-button-1" @click="cancel">Cancel Order</text>
+            </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Audit canceled'">
+                <text class="od-text-2">Order cancellation pending</text>
+            </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Shipped'">
+                <text class="gd-button" @click="tracking">Track Package</text>
+            </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Canceled'">
+                <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
+                <text class="gd-button" @click="buyProduct">Buy Again</text>
+            </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Completed'">
+                <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
+                <text class="od-button-1 gt-mr" @click="buyProduct">Buy Again</text>
+                <text class="gd-button" @click="tracking">Track Package</text>
+            </div>
         </div>
     </div>
 </template>
@@ -46,7 +66,7 @@
 
     export default {
         components: { WxcCountdown, WxcPopup },
-        props: ['order'],
+        props: ['order', 'index'],
         data () {
             return {
                 src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png',
@@ -68,6 +88,39 @@
                     status: 'pay',
                     data: {
                         item: this.order
+                    }
+                })
+            },
+            cancel () {
+                this.$emit('cancel', {
+                    status: 'cancel',
+                    data: {
+                        index: this.order,
+                        id: this.order.id
+                    }
+                })
+            },
+            tracking () {
+                this.$router.open({
+                    name: 'order.address.tracking',
+                    type: 'PUSH'
+                })
+            },
+            buyProduct () {
+                this.$router.open({
+                    name: 'goods.details',
+                    type: 'PUSH',
+                    params: {
+                        id: this.order.lines[0].productId
+                    }
+                })
+            },
+            deleteOrder () {
+                this.$emit('deleteOrder', {
+                    status: 'deleteOrder',
+                    data: {
+                        index: this.order,
+                        id: this.order.id
                     }
                 })
             }
@@ -99,10 +152,23 @@
         border-top-style: solid;
         width: 750px;
         height: 98px;
-        padding-left: 32px;
-        padding-right: 32px;
+        padding-left: 16px;
+        padding-right: 16px;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
+    }
+
+    .gb-bottom-1{
+        border-top-width: 1px;
+        border-top-color: rgba(0,0,0,0.08);
+        border-top-style: solid;
+        width: 750px;
+        height: 98px;
+        padding-left: 16px;
+        padding-right: 16px;
+        flex-direction: row;
+        justify-content: flex-end;
         align-items: center;
     }
 
@@ -248,5 +314,28 @@
     .gb-time{
         font-size: 24px;
         line-height: 24px;
+    }
+
+    .od-button-1{
+        font-size: 24px;
+        line-height: 52px;
+        text-align: center;
+        padding: 0 24px;
+        background-color: #fff;
+        border-radius: 4px;
+        color: #EF8A31;
+        border-color: #EF8A31;
+        border-style: solid;
+        border-width: 2px;
+    }
+
+    .od-text-2{
+        font-size: 24px;
+        line-height: 28px;
+        color: rgba(0,0,0,0.54);
+    }
+
+    .gt-mr{
+        margin-right: 16px;
     }
 </style>

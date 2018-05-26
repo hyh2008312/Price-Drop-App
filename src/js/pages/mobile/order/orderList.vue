@@ -2,15 +2,16 @@
     <div class="wrapper">
         <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
-            <cell class="cell-button" v-for="item in order">
-                <order-item :order="item" @pay="pay"></order-item>
+            <cell class="cell-button" v-for="(item, i) in order" :key="item.id">
+                <order-item :order="item" :index="i" @pay="pay"
+                            @cancel="cancel" @deleteOrder="deleteOrder"></order-item>
             </cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">加载中...</text>
             </loading>
         </list>
         <wxc-popup :have-overlay="isTrue"
-                   popup-color="rgb(255, 255, 255, 255)"
+                   popup-color="rgba(255, 255, 255, 0)"
                    :show="isBottomShow"
                    @wxcPopupOverlayClicked="popupOverlayAutoClick"
                    ref="wxcPopup"
@@ -31,6 +32,45 @@
                 </div>
             </div>
         </wxc-popup>
+        <wxc-popup :have-overlay="isTrue"
+                   popup-color="rgba(255, 255, 255, 0)"
+                   :show="isCancelBottomShow"
+                   @wxcPopupOverlayClicked="popupCancelAutoClick"
+                   ref="wxcCancelPopup"
+                   pos="bottom"
+                   height="583">
+            <div class="popup-cancel">
+                <div class="popup-cancel-top">
+                    <text class="popup-cancel-title">Select a Cancelled Reason</text>
+                    <div class="popup-cancel-mt">
+                        <text class="popup-cancel-title-1"
+                              :class="[reasonActive == i ? 'popup-cancel-active': '']"
+                              v-for="(item, i) in reason" @click="changeReason(i)">{{item}}</text>
+                    </div>
+                </div>
+                <div class="popup-cancel-bottom">
+                    <text class="popup-cancel-button" @click="closeBottomPop">Cancel</text>
+                    <text class="popup-cancel-button-1" @click="cancelOrder">OK</text>
+                </div>
+            </div>
+        </wxc-popup>
+        <wxc-popup :have-overlay="isTrue"
+                   popup-color="rgba(255, 255, 255, 0)"
+                   :show="isDeleteShow"
+                   @wxcPopupOverlayClicked="popupDeleteClick"
+                   ref="wxcDeletePopup"
+                   pos="top"
+                   height="640">
+            <div class="popup-delete">
+                <div class="popup-delete-container">
+                    <text class="popup-delete-title">Are you sure you want to delete this order？</text>
+                    <div class="popup-cancel-bottom">
+                        <text class="popup-delete-button" @click="deleteOrderConfirm">DELETE</text>
+                        <text class="popup-delete-button-1" @click="closeDeletePop">CANCEL</text>
+                    </div>
+                </div>
+            </div>
+        </wxc-popup>
     </div>
 </template>
 <script>
@@ -38,7 +78,7 @@
     import refresher from '../common/refresh';
     import orderItem from './orderItem';
     import payRadio from './radio';
-    import { TOKEN, PAYLIST, ORDERSTATUS } from './config';
+    import { TOKEN, PAYLIST, ORDERSTATUS, CANCELREASON } from './config';
 
     export default {
         components: {
@@ -87,8 +127,15 @@
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid(),
                 isBottomShow: false,
-                isTrue: true
-
+                isTrue: true,
+                reason: CANCELREASON,
+                reasonActive: 0,
+                isCancelBottomShow: false,
+                cancelId: -1,
+                cancelIndex: 0,
+                isDeleteShow: false,
+                deleteId: -1,
+                deleteIndex: 0
             }
         },
         methods: {
@@ -132,10 +179,8 @@
                         Authorization: 'Bearer ' + TOKEN
                     }
                 }).then(data => {
-                    this.$notice.toast({
-                        message: data
-                    })
                     this.length = Math.ceil(data.count / this.pageSize)
+                    this.page++
                     if (isfirst) {
                         this.order = []
                     }
@@ -182,6 +227,70 @@
                         result: true
                     }
                 })
+            },
+            popupCancelAutoClick () {
+                this.isCancelBottomShow = false
+            },
+            closeBottomPop () {
+                this.$refs.wxcCancelPopup.hide()
+            },
+            changeReason (index) {
+                this.reasonActive = index
+            },
+            cancel (event) {
+                this.isCancelBottomShow = true
+                this.cancelId = event.data.id
+                this.cancelIndex = event.data.index
+            },
+            cancelOrder () {
+                this.$refs.wxcCancelPopup.hide()
+                this.$fetch({
+                    method: 'PUT', // 大写
+                    url: `http://47.104.171.91/order/customer/cancel/${this.cancelId}/`,
+                    data: {
+                        reason: this.reason[this.reasonActive]
+                    },
+                    header: {
+                        Authorization: 'Bearer ' + TOKEN
+                    }
+                }).then(resData => {
+                    this.$notice.toast('Your order cancellation request has been submitted for review.')
+                    this.order[this.cancelIndex] = resData
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    })
+                })
+            },
+            deleteOrder (event) {
+                this.isDeleteShow = true
+                this.deleteIndex = event.data.index
+                this.deleteId = event.data.id
+            },
+            popupDeleteClick () {
+                this.isDeleteShow = false
+            },
+            deleteOrderConfirm () {
+                this.closeDeletePop()
+                this.$fetch({
+                    method: 'DELETE', // 大写
+                    url: `http://47.104.171.91/order/customer/cancel/${this.deleteId}/`,
+                    data: {
+                        reason: this.reason[this.reasonActive]
+                    },
+                    header: {
+                        Authorization: 'Bearer ' + TOKEN
+                    }
+                }).then(resData => {
+                    this.order.splice(this.deleteIndex, 1)
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    })
+                })
+            },
+            closeDeletePop () {
+                this.$refs.wxcDeletePopup.hide()
             }
         }
     }

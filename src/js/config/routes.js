@@ -123,6 +123,9 @@ export default {
     'order.address.state': {
         url: '/pages/mobile/order/state.js'
     },
+    'order.address.tracking': {
+        url: '/pages/mobile/order/trackingPackage.js'
+    },
     'drops.cutDetail': {
         url: '/pages/mobile/drops/cutDetail.js'
     },

@@ -2,11 +2,12 @@
     <div class="wrapper">
         <div class="gb-box">
             <div class="gb-bg">
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Canceled'">&#xe711;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Unpaid'">&#xe702;</text>
-                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Packing'">&#xe70d;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Packing' || order.orderStatus == 'Audit canceled'">&#xe70d;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Shipped'">&#xe712;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Completed'">&#xe6ed;</text>
-                <text class="gb-text">{{order.orderStatus}}</text>
+                <text class="gb-text">{{order.orderStatus == 'Audit canceled' ? 'Packing': order.orderStatus}}</text>
             </div>
             <div class="gb-bg-1" v-if="order.orderStatus == 'Unpaid'">
                 <text class="gb-icon iconfont gd-text-color">&#xe703;</text>
@@ -25,7 +26,7 @@
 </template>
 <script>
     import line from './orderDetailLine';
-    import { WxcCountdown } from 'weex-ui'
+    import { WxcCountdown } from 'weex-ui';
 
     export default {
         components: {

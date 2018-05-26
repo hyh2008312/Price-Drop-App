@@ -1,14 +1,27 @@
 <template>
-    <div class="wrapper" v-if="order.orderStatus == 'Unpaid'">
-        <text class="od-text">Total:  </text>
-        <text class="od-text-1">Rs.{{order.paymentAmount}}</text>
-        <text class="od-button" @click="confirm">Pay Now</text>
-    </div>
-    <div class="wrapper" v-else-if="order.orderStatus == 'Canceled'">
-        <text class="od-button" @click="jumpHome">Buy Again</text>
-    </div>
-    <div class="wrapper" v-else-if="order.orderStatus == 'Packing'">
-        <text class="od-button-1">Cancel Order</text>
+    <div>
+        <div class="wrapper" v-if="order.orderStatus == 'Unpaid'">
+            <text class="od-text">Total:  </text>
+            <text class="od-text-1">Rs.{{order.paymentAmount}}</text>
+            <text class="od-button" @click="confirm">Pay Now</text>
+        </div>
+        <div class="wrapper" v-if="order.orderStatus == 'Canceled'">
+            <text class="od-button" @click="jumpHome">Buy Again</text>
+        </div>
+        <div class="wrapper" v-if="order.orderStatus == 'Packing'">
+            <text class="od-button-1" @click="cancel">Cancel Order</text>
+        </div>
+        <div class="wrapper" v-if="order.orderStatus == 'Audit canceled'">
+            <text class="od-text-2">Order cancellation pending </text>
+        </div>
+        <div class="wrapper" v-if="order.orderStatus == 'Shipped'">
+            <text class="od-button" @click="tracking">Track Package</text>
+        </div>
+        <div class="wrapper" v-if="order.orderStatus == 'Completed'">
+            <text class="od-button-1">Delete</text>
+            <text class="od-button-1" @click="jumpHome">Buy Again</text>
+            <text class="od-button" @click="tracking">Track Package</text>
+        </div>
     </div>
 </template>
 <script>
@@ -28,6 +41,17 @@
                     params: {
                         id: this.order.lines[0].productId
                     }
+                })
+            },
+            cancel () {
+                this.$emit('cancel', {
+                    status: 'cancel'
+                })
+            },
+            tracking () {
+                this.$router.open({
+                    name: 'order.address.tracking',
+                    type: 'PUSH'
                 })
             }
         }
@@ -51,7 +75,6 @@
     }
 
     .od-button{
-        margin-left: 24px;
         margin-right: 16px;
         font-size: 28px;
         line-height: 80px;
@@ -85,6 +108,14 @@
         font-size: 28px;
         line-height: 34px;
         font-weight: bold;
+        margin-right: 24px;
+    }
+
+    .od-text-2{
+        font-size: 28px;
+        line-height: 34px;
+        color: rgba(0,0,0,0.54);
+        margin-right: 32px;
     }
 
 </style>

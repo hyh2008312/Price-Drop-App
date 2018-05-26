@@ -20,14 +20,14 @@
                     <text class="gd-text">Subtotal</text>
                     <text class="gd-text">Shipping</text>
                     <text class="gd-text">Tax</text>
-                    <text class="gd-text">Price Drops</text>
+                    <text class="gd-text">Price Drop</text>
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
                     <text class="gb-text">Rs.{{order.totalExclTax}}</text>
                     <text class="gb-text">Rs.{{order.shippingExclTax}}</text>
                     <text class="gb-text">Rs.0.00</text>
-                    <text class="gb-text gb-text-color">-Rs.{{order.totalExclTax - order.paymentAmount}}</text>
+                    <text class="gb-text gb-text-color">- Rs.{{order.totalExclTax - order.paymentAmount}}</text>
                     <text class="gb-text-1">Rs.{{order.paymentAmount}}</text>
                 </div>
             </div>
