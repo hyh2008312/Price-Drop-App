@@ -13,18 +13,13 @@
                         <text style="right:20px;bottom:20px;color:black;position:absolute">{{idx+1}}/{{goodsImg.length}}</text>
                     </div>
                 </slider>
-                <text class="iiileft">&#xe6f6;</text>
-                <text class="iiiright">&#xe6f1;</text>
+                <text class="iiileft"  @click="$router.back">&#xe6f6;</text>
+                <text class="iiiright" @click="openLink">&#xe700;</text>
                 <text class="onetitle">{{goods.title}}</text>
-                <text class="price">¥{{goods.price}}</text>
-                <text class="count">{{goods.cut_get}}人已经砍到白菜价</text>
-                <div  class="rightlogo" @click="getGoodsDetail()">
-                    <image class="logoimg" :src="goods.brandLogo" alt="logo"></image>
-                </div>
+                <text class="price">Rs.{{goods.price}}</text>
+                <text class="count">You can get it at Rs.{{goods.cut_get}} by inviting friends!  </text>
+                <text class="countbtn" @click="openCard">Learn how to drop price > </text>
 
-                <div class="guncell">
-                    <block-4  :items="block1.items" @noticeFinished="noNoticeFinished"></block-4>
-                </div>
             </div>
                 <div v-if="tabshow==true" style="position: sticky">
                     <tab   @tabTo="onTabTo" :items="tabsItems"></tab>
@@ -32,7 +27,7 @@
 
             <div class="mid">
                 <wxc-cell :has-arrow="true"
-                          title="按规格数量选择"
+                          title="Size/Color"
                           :cell-style="cellStyle"
                           :has-top-border="true"
                           :has-bottom-border="true"
@@ -41,13 +36,17 @@
                 </wxc-cell>
 
                 <div class="slogan">
-                    <text class="i-slg iconfont">&#xe63a; 免费包邮</text>
-                    <text class="i-slg iconfont">&#xe63a; 48小时发货</text>
-                    <text class="i-slg iconfont">&#xe63a; 7天退换</text>
-                    <text class="i-slg iconfont">&#xe63a; 假货必赔</text>
+                    <text class="i-slg iconfont">&#xe714; Quality Guarantee</text>
+                    <text class="i-slg iconfont">&#xe715; 9 Days Return</text>
+                    <text class="i-slg iconfont">&#xe713; Secured Payments</text>
                 </div>
-            </div>
 
+
+            </div>
+            <div class="dec-word" >
+                <text class="">Description</text>
+
+            </div>
                 <div style="width: 750px; background-color: rosybrown">
                     <text v-for="txt in dectxt">
                         {{txt}}
@@ -62,22 +61,43 @@
                     <!--<div >-->
                         <!--<text class="leftline"></text>-->
                     <!--</div>-->
-                    <text class="bottom-head">砍价规则说明</text>
+                    <text class="bottom-head">Return Policy</text>
                     <!--<div class="rightline">-->
                         <!--<text style="letter-spacing: -10px">———————————</text>-->
                     <!--</div>-->
 
-                    <text class="bottom-text">1.很多正在参与拼多多免费拿活动的小伙伴经常会问这样一个 问题就是 ：拼多多砍价商品如果砍不到零是不是可以剩余的 金额买下来？对于这个问题 小编遗憾的告诉大家：答案是否定的
+                    <text class="bottom-text">You may return all items sold by PriceDrop within 9 days of delivery for a refund, as long as it is unused and in a good condition.
                     </text>
-                    <text class="bottom-text">1.很多正在参与拼多多免费拿活动的小伙伴经常会问这样一个 问题就是 ：拼多多砍价商品如果砍不到零是不是可以剩余的 金额买下来？对于这个问题 小编遗憾的告诉大家：答案是否定的
+                    <text class="bottom-text">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
                     </text>
-                    <text class="bottom-text">1.很多正在参与拼多多免费拿活动的小伙伴经常会问这样一个 问题就是 ：拼多多砍价商品如果砍不到零是不是可以剩余的 金额买下来？对于这个问题 小编遗憾的告诉大家：答案是否定的
+                    <text class="bottom-text">To learn more about our return policy, please visit our FAQ page.
+                    </text>
+
+                    <text>
+                        Step1:  Click the “Share to Drop Price” button to get started.
+
+                        Step2:  Share the campaign with your friends or family on Facebook & WhatsApp.
+
+                        Step3:  If anyone clicks the “Drop Price” button on the page you share, the price will drop automatically.
+
+                        Step4:  Your drop will expire after 24 hours. The more people you engage, you lower price you unlock.
+
+
+                        Rules to Know  具体的砍价规则说明
+
+                        1. The duration for each price-drop is 24 hours. Once your drop reaches the lowest price within 24 hours, the campaign will end automatically!
+
+                        2. Once your price-drop ends, you can purchase the item at the final price you have reached. Please complete the payment within 24 hours after the campaign ends.
+
+                        3. If you do not complete the payment in time, you’re deemed to waived your purchase right, and the price drop of the item will expire as well.
+
+                        4. Due to the limited stocks of each item, so they will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the drop will fail.
                     </text>
                 </div>
             </div>
 
             <div class="bottom-btn">
-                <text class="button" @click="openBottomPopup">砍价立减，最低0元拿</text>
+                <text class="button" @click="openBottomPopup">Share to Cut the Price</text>
             </div>
         </scroller>
 
@@ -97,8 +117,10 @@
                            class="popup-image"></image>
 
                     <div class="popup-py">
-                        <text class="popup-price">¥{{selsaleUnitPrice}}</text>
-                        <text class="popup-yet">已选：{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
+                        <text class="popup-price">Rs{{selsaleUnitPrice}}</text>
+                        <text class="popup-lowprice-word">The lowest price that cut can get </text>
+                        <text class="popup-lowprice">Rs.{{selsaleUnitPrice}}</text>
+                        <text class="popup-yet">Chose：{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
                     </div>
 
                     <text class="popup-close" @click="popupOverlayBottomClick">&#xe632;</text>
@@ -122,8 +144,21 @@
                     </div>
                 </scroller>
                 <div class="popup-btn">
-                    <text class="button" @click="wxcCellClick">砍价立减，最低0元拿</text>
+                    <text class="button" @click="wxcCellClick">Share to Cut the Price</text>
                 </div>
+
+            </div>
+        </wxc-popup>
+
+        <wxc-popup :have-overlay="isTrue"
+                   popup-color="rgb(255, 255, 255)"
+                   :show="isCardShow"
+                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
+                   pos="top"
+                   ref="dropcard"
+                   height="718">
+            <div class="popup-content">
+                <text>111111111111111</text>
 
             </div>
         </wxc-popup>
@@ -169,23 +204,6 @@
               })
           }
         },
-        // watch: {
-        //     isBottomShow: function (val, oval) {
-        //         if (val == true) {
-        //             let self  =this
-        //
-        //             globalEvent.addEventListener('homeBack', options => {
-        //                 self.$notice.toast({
-        //                     message: val
-        //                 })
-        //                 self.isBottomShow = false
-        //             })
-        //             this.$notice.toast({
-        //                 message: globalEvent
-        //             })
-        //         }
-        //     }
-        // },
         data () {
             return {
                 cellStyle: {
@@ -234,10 +252,10 @@
                     // 'http://doc.zwwill.com/yanxuan/imgs/banner-6.jpg'
                 ],
                 tabsItems: [{
-                    name: '产品详情',
-                    key: 'detail'
+                    name: 'Description',
+                    key: 'dec'
                 }, {
-                    name: '砍价规则',
+                    name: 'Return Policy',
                     key: 'ruler'
                 }],
                 popup_color: ['粉色', '橙色', '黑色'],
@@ -246,12 +264,14 @@
                 selsize: '',
                 selcolor: '',
                 selimgsrc: '',
+                variantsId: '',
                 selsaleUnitPrice: '',
                 decimg: [],
                 dectxt: [],
                 cactiveId: 1,
                 sactiveId: '',
                 isBottomShow: false,
+                isCardShow: false,
                 height: 400,
                 tabKey: 'detail',
                 tabshow: false,
@@ -266,6 +286,8 @@
         created () {
             // this.popupOverlayBottomClick()
             this.androidFinishApp()
+            // this.$refs.dropcard.hide();
+            // this.$refs.['dropcard']
         },
         methods: {
             getGoodsDetail (id) {
@@ -318,10 +340,32 @@
                 }
             },
             wxcCellClick () {
-                this.openBottomPopup();
-                this.$notice.toast({
-                    message: 3333
-                })
+                this.isBottomShow = true;
+                if (this.selsize != '' && this.selcolor != '' && this.variantsId != '') {
+                    axios.fetch({
+                        method: 'POST',
+                        // url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
+                        url: 'http://47.104.171.91/promotion/cut/create/',
+                        // name: 'product.customer.list',
+                        data: { variant_id: this.variantsId }
+                    }, (res) => {
+                        this.$router.open({
+                        name: 'cut.goods',
+                        type: 'PUSH',
+                        params: {
+                            data: res.data
+                        }
+                    })
+
+                        if (res.status == 200) {
+
+                        } else {
+                            this.$notice.toast({
+                                message: res
+                            })
+                        }
+                    })
+                }
             },
             openBottomPopup () {
                 this.isBottomShow = true;
@@ -330,6 +374,7 @@
             // 非状态组件，需要在这里关闭
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
+                this.isCardShow = false;
             },
             androidFinishApp () {
                 // this.$event.on('goodDetail', (data) => {
@@ -411,6 +456,14 @@
                 // this.cactiveId = id
             },
             changeDom (item, color) {
+                if (color.length !== 0) {
+                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
+                    this.variantsId = color[0].item.id
+                } else {
+                    this.$notice.toast({
+                        message: 'this size/color is none'
+                    })
+                }
                 if (item.isActive == true) {
                     if (item.id == 1) {
                         this.selsize = item.value
@@ -433,6 +486,21 @@
                         this.selimgsrc = tmp[j].image
                     }
                 }
+            },
+
+            openCard () {
+                // this.confirm('111111')
+                this.$notice
+                this.isCardShow = true
+            },
+            openLink () {
+                this.$router.open({
+                    name: 'mobile',
+                    type: 'PUSH',
+                    params: {
+                        tab: 'drops'
+                    }
+                })
             },
             ontouchstart (event) {
                 this.positionX = event.changedTouches[0].screenX;
@@ -473,7 +541,7 @@
                            height: '48px'
 
                        },
-                       duration: 500, // ms
+                       duration: 200, // ms
                        timingFunction: 'linear',
                        needLayout: false,
                        delay: 0 // ms
@@ -485,7 +553,7 @@
                            opacity: '1',
                            height: '148px'
                        },
-                       duration: 500, // ms
+                       duration: 200, // ms
                        timingFunction: 'linear',
                        needLayout: false,
                        delay: 0 // ms
@@ -607,8 +675,21 @@
         color: rgba(172,11,11,0.87);
         margin-top: 24px;
         margin-left: 32px;
+        margin-bottom: 26px;
+        font-size:24px;
+    }
+    .countbtn{
+        color: #EF8A31;
+        padding: 2px;
+        letter-spacing:6px;
+        margin-left: 32px;
         margin-bottom: 44px;
         font-size:24px;
+        width: 300px;
+        border-radius: 4px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #EF8A31;
     }
     .leftline {
         width: 126px;
@@ -621,6 +702,7 @@
         margin-top: 14px;
         background-color: white;
     }
+
     .slogan{
         display: flex;
         flex-direction: row;
@@ -636,6 +718,14 @@
         flex: 1;
         text-align: center;
         color: black;
+    }
+    .dec-word{
+        width: 750px;
+        height: 110px;
+        padding-top: 40px;
+        padding-left: 30px;
+        margin-top: 16px;
+        background-color: white;
     }
     .bottom-head{
         text-align: center;
@@ -659,7 +749,7 @@
         text-align: left;
     }
     .bottom-btn{
-        background-color: white;
+        background-color: #fff;
         box-shadow: 0 -1px 1px 0;
         width: 750px;
         position: fixed;
@@ -669,7 +759,7 @@
     }
     .button{
         color: #fff;
-        background-color: #000;
+        background-color: #EF8A31;
         border-color: #2e6da4;
         border-radius: 12px;
         padding-top: 20px;
@@ -709,14 +799,27 @@
     .popup-price{
         font-size: 32px;
         font-weight: 600;
-        margin-top: 134px;
+        margin-top: 75px;
+        margin-left: 32px;
+
+    }
+    .popup-lowprice-word{
+        font-size: 28px;
+        margin-top: 15px;
+        margin-left: 32px;
+
+    }
+    .popup-lowprice{
+        font-size: 28px;
+        font-weight: 600;
+        color: #EF8A31;
         margin-left: 32px;
 
     }
     .popup-yet{
         font-size: 24px;
         margin-left: 32px;
-        margin-top: 26px;
+        margin-top: 16px;
     }
     .popup-close{
         font-size: 32px;
@@ -764,7 +867,8 @@
         padding-right: 20px;
         border-width: 1px;
         border-style: solid;
-        border-color: #987D1A;
+        color: white;
+        background-color: #EF8A31;
         border-radius: 4px;
 
     }

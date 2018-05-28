@@ -1,11 +1,11 @@
 <template>
-    <div class="wrappertop">
+    <div class="wrapper">
         <div class="left">
-            <text class="leftTxt" @click="$router.back">&#xe6f6;</text>
+            <text class="leftTxt" @click="$router.back">me</text>
         </div>
         <!--<text class="tlt">{{title}}</text>-->
         <div class="right">
-            <text class="rightTxt" >&#xe700;</text>
+            <text class="rightTxt" >&#xe6f1;</text>
         </div>
     </div>
 </template>
@@ -36,7 +36,7 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 112px;
+    height: 160px;
     padding-top: 44px;
     z-index: 101;
     flex-wrap: nowrap;
@@ -54,7 +54,7 @@ export default {
     width: 120px;
     position: absolute;
     left: 50px;
-    top:50px;
+    top:88px;
     padding-top: 10px;
 
 }
@@ -65,7 +65,7 @@ export default {
     width: 120px;
     position: absolute;
     right: 5px;
-    top:50px;
+    top:88px;
     padding-top: 10px;
 
 }

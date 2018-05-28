@@ -1,21 +1,31 @@
 <template>
+
     <div class="wrapper">
-        <div class="header" @click="jumpWeb('http://m.you.163.com/ucenter')">
-            <image class="header-bg" resize="cover" src="http://yanxuan.nosdn.127.net/6ae93353e95b3450a2710bb43f925a63.jpg"></image>
-            <image class="i-photo" resize="cover" src="http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg"></image>
-            <text class="i-name">zwwill7</text>
+        <topic-header ref="ref1" ></topic-header>
+
+
+        <div class="header" @click="jumpWeb()">
+            <!--<image class="header-bg" resize="cover" src="http://yanxuan.nosdn.127.net/6ae93353e95b3450a2710bb43f925a63.jpg"></image>-->
+            <div class="i-photo-div">
+                <image  class="i-photo" resize="cover" src="http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg"></image>
+            </div>
             <div class="b-tlt">
-                <image class="i-tag tag-e" resize="contain" src="http://yanxuan.nosdn.127.net/3dc6e876620bb84a5dac3deb6ecd4916.png"></image>
-                <text class="i-tag tag-v8 iconfont">&#xe6cc;</text>
-                <text class="txt-tag">品质生活家</text>
+                <text class="i-name">nickname</text>
+
+                <text class="txt-tag">google.gmail.com</text>
             </div>
-            <text class="b-qrcode iconfont">&#xe60e;</text>
+            <text class="b-qrcode iconfont">  >  </text>
         </div>
-        <div class="s-box cell-button">
-            <div class="box-tlt border-bottom">
+
+        <div class="s-box ">
+
+            <div class="box-tlt ">
                 <text class="box-txt">我的订单</text>
-                <text class="i-box-in iconfont">&#xe600;</text>
+
+                <text class="i-box">all order&nbsp;&nbsp;></text>
+
             </div>
+
             <div class="box-line">
                 <div class="i-box-l" @click="jumpWeb">
                     <text class="i-box-icon iconfont">&#xe673;</text>
@@ -39,33 +49,36 @@
                 </div>
             </div>
         </div>
-        <div class="s-box">
-            <div class="box-tlt border-bottom">
-                <text class="box-txt">我的服务</text>
+
+
+        <div class="mid-cell">
+            <div class="box-tlt ">
+                <div>
+                    <text class="box-txt"> 《》 </text>
+                    <text class="">我的消息</text>
+                </div>
+                <text class="i-box">all order&nbsp;&nbsp;></text>
+
             </div>
-            <div class="box-line line-serve" :class="[index < (serviceLength - 1) ? 'border-bottom' : '']" v-for="(item,index) in serviceLength">
-                <div class="i-box-l">
-                    <text class="i-box-icon iconfont" :class="['i-c-'+services[index*4 + 0].color]">{{services[index*4 + 0].icon | myFilter}}</text>
-                    <text class="i-box-tlt">{{services[index*4 + 0].name}}</text>
+
+            <div class="box-tlt ">
+                <div>
+                    <text class="box-txt"> 《》 </text>
+                    <text class="box-txt">联系客服</text>
                 </div>
-                <div class="i-box-l">
-                    <text class="i-box-icon iconfont" :class="['i-c-'+services[index*4 + 1].color]">{{services[index*4 + 1].icon | myFilter}}</text>
-                    <text class="i-box-tlt">{{services[index*4 + 1].name}}</text>
-                </div>
-                <div class="i-box-l">
-                    <text class="i-box-icon iconfont" :class="['i-c-'+services[index*4 + 2].color]">{{services[index*4 + 2].icon | myFilter}}</text>
-                    <text class="i-box-tlt">{{services[index*4 + 2].name}}</text>
-                </div>
-                <div class="i-box-l">
-                    <text class="i-box-icon iconfont" :class="['i-c-'+services[index*4 + 3].color]">{{services[index*4 + 3].icon | myFilter}}</text>
-                    <text class="i-box-tlt">{{services[index*4 + 3].name}}</text>
-                </div>
+
+
+                <text class="i-box">all order&nbsp;&nbsp;></text>
+
             </div>
+
         </div>
+
     </div>
 </template>
 <script>
 import he from '../utils/he';
+import header from './header';
 import { SERVICES } from './config'
 
 Vue.filter('myFilter', function (value) {
@@ -73,6 +86,9 @@ Vue.filter('myFilter', function (value) {
 })
 
 export default {
+    components: {
+        'topic-header': header,
+    },
     mounted () {
         this.getService()
     },

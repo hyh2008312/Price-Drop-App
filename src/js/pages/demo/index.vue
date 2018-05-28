@@ -19,6 +19,7 @@
             <eros-advanced></eros-advanced>
         </waterfall>
         <div class="touch-bar" :style="{'height': touchBarHeight}"></div>
+
         <bmmask class="mask" animation="transition" position="top" :duration="300" ref="bmmask">
             <bmpop class="modal-top">
                 <image class="image" src="bmlocal://assets/demo.jpg"></image>
