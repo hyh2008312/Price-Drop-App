@@ -20,18 +20,20 @@ export default {
         }
     },
     eros: {
-        beforeAppear () {
+        beforeAppear (params) {
+            if (params && params.tab) {
+                this.selectedTab = params.tab
+                this.items.forEach((val) => {
+                    if (val.key === this.selectedTab) {
+                        val.visibility = 'visible'
+                        return
+                    }
+                    val.visibility = 'hidden'
+                })
+            }
             this.getChannel()
             this.getState()
             this.getUser()
-        },
-        appeared (params) {
-            this.$notice.toast({
-                message: params
-            })
-            if (params.tab) {
-                this.selectedTab = params.tab
-            }
         }
     },
     components: {

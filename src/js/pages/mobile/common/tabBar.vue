@@ -27,11 +27,12 @@ export default {
             pIndexKey: 'home'
         }
     },
-    mounted () {
-        this.pIndexKey = this.indexKey
-        this.$notice.toast({
-            message: this.pIndexKey
-        })
+    watch: {
+        indexKey: function (newVal, oldVal) {
+            if (newVal) {
+                this.pIndexKey = newVal
+            }
+        }
     },
     methods: {
         tabTo (_key) {
