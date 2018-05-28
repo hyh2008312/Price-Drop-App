@@ -14,14 +14,10 @@
 Vue.filter('myFilter', value => he.decode(value))
 export default {
     props: {
-        // indexKey: {
-        //     type: String,
-        //     default: 'home'
-        // },
-        // reClick: {
-        //     type: Boolean,
-        //     default: false
-        // },
+        indexKey: {
+            type: String,
+            default: 'home'
+        },
         items: {
             type: Array
         }
@@ -30,6 +26,9 @@ export default {
         return {
             pIndexKey: 'home'
         }
+    },
+    mounted () {
+        this.pIndexKey = this.indexKey
     },
     methods: {
         tabTo (_key) {

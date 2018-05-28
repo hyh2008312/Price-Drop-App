@@ -1,7 +1,7 @@
 <template>
     <div class="app-wrapper">
         <embed v-for="(item,index) in items" :src="item.src" type="weex" class="content" :style="{ visibility: item.visibility }"></embed>
-        <tab-bar @tabTo="onTabTo" :items="items"></tab-bar>
+        <tab-bar @tabTo="onTabTo" :items="items" :indexKey="selectedTab"></tab-bar>
         <div class="touch-bar"></div>
     </div>
 </template>
@@ -24,6 +24,11 @@ export default {
             this.getChannel()
             this.getState()
             this.getUser()
+        },
+        appeared (params) {
+            if (params.tab) {
+                this.selectedTab = params.tab
+            }
         }
     },
     components: {
@@ -40,7 +45,8 @@ export default {
     },
     data () {
         return {
-            items: tabConfig
+            items: tabConfig,
+            selectedTab: 'home'
         }
     },
     methods: {
