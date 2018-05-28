@@ -5,13 +5,25 @@
         </div>
         <!--<text class="tlt">{{title}}</text>-->
         <div class="right">
-            <text class="rightTxt" >&#xe700;</text>
+            <text class="rightTxt" @click="openLink" >&#xe700;</text>
         </div>
     </div>
 </template>
 <script>
 export default {
     props: ['title', 'leftBtn', 'rightBtn'],
+    methods: {
+        openLink () {
+            this.$router.finished
+            this.$router.open({
+                name: 'mobile',
+                type: 'PUSH',
+                params: {
+                    tab: 'drops'
+                }
+            })
+        }
+    }
 }
 </script>
 <style scoped>

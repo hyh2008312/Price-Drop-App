@@ -4,14 +4,21 @@
 .wrapper {
     background-color: #f4f4f4;
 }
-
+.blackheader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 750px;
+  height: 48px;
+  background-color: black;
+}
 .cell-button {
     //margin-bottom: 18px;
 }
 
 .header {
     margin-top: 160px;
-    height: 280px;
+    height: 226px;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
     //border-bottom-style: solid;
     //border-bottom-color: black;
@@ -25,7 +32,7 @@
   background-color: #1da1f2;
   width: 128px;
   height: 128px;
-  margin-top: 85px;
+  margin-top: 45px;
   margin-left: 30px;
   border-radius: 64px;
 }
@@ -35,7 +42,7 @@
 
 }
 .b-tlt {
-  margin-top: 110px;
+  margin-top: 70px;
   margin-left: -90px;
   width: 350px;
   flex-direction: column;
@@ -56,7 +63,7 @@
 }
 
 .b-qrcode {
-  margin-top: 140px;
+  margin-top: 100px;
 }
 
 .s-box {
@@ -68,7 +75,7 @@
 }
 
 .box-tlt {
-    height: 120px;
+    height: 96px;
     border-bottom-width: 3px;
     border-bottom-style: solid;
     border-bottom-color: rgba(0,0,0,0.08);
@@ -76,52 +83,64 @@
     justify-content: space-between;
 }
 
+.box-txt-icon {
+    font-family: iconfont;
+    font-size: 40px;
+    padding-top: 34px;
+    padding-left: 32px;
+    color: #ef8a31;
+}
 .box-txt {
+    font-family: iconfont;
     font-size: 30px;
-    font-weight: 700 ;
-    padding-top: 46px;
+    padding-top: 34px;
     padding-left: 32px;
     color: #333;
-
 }
 
 .i-box {
-  padding-top: 46px;
+  font-size: 20px;
+  padding-top: 34px;
   padding-right: 32px;
-  color: #333;
+  color: rgba(0,0,0,0.87);
 }
 .mid-cell{
-
+  margin-top: 16px;
+  background-color: #fff;
 }
 .box-line {
-    height: 132px;
+    height: 192px;
     display: flex;
-    padding-right: 30px;
     flex-wrap: nowrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .i-box-l {
     width: 130px;
-    height: 132px;
+    //height: 132px;
 }
 
 .i-box-icon {
     font-size: 50px;
     text-align: center;
-    padding-top: 15px;
+    margin: 10px;
+    padding-top:30px;
     height: 79px;
     padding-bottom: 10px;
-    color: #666;
+    color: #EF8A31;
 }
 
 .i-box-tlt {
     font-size: 26px;
     text-align: center;
     color: #666;
+    padding-top: 20px;
 }
-
+.box-left{
+  flex-direction: row;
+  justify-content: space-between;
+}
 .line-serve {
     padding-top: 20px;
     height: 150px;

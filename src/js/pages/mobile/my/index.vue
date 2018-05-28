@@ -1,11 +1,13 @@
 <template>
 
     <div class="wrapper">
-        <topic-header ref="ref1" ></topic-header>
+        <topic-header title="Account" ref="ref1" ></topic-header>
 
+        <div class="blackheader">
+
+        </div>
 
         <div class="header" @click="jumpWeb()">
-            <!--<image class="header-bg" resize="cover" src="http://yanxuan.nosdn.127.net/6ae93353e95b3450a2710bb43f925a63.jpg"></image>-->
             <div class="i-photo-div">
                 <image  class="i-photo" resize="cover" src="http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg"></image>
             </div>
@@ -14,38 +16,34 @@
 
                 <text class="txt-tag">google.gmail.com</text>
             </div>
-            <text class="b-qrcode iconfont">  >  </text>
+            <text class="b-qrcode iconfont">  &#xe626;  </text>
         </div>
 
         <div class="s-box ">
 
-            <div class="box-tlt ">
-                <text class="box-txt">我的订单</text>
+            <div class="box-tlt "  @click="jumpWeb(0)">
+                <text class="box-txt">My Orders</text>
 
-                <text class="i-box">all order&nbsp;&nbsp;></text>
+                <text class="i-box iconfont">SEE MORE&nbsp;&nbsp;&#xe626;</text>
 
             </div>
 
             <div class="box-line">
-                <div class="i-box-l" @click="jumpWeb">
-                    <text class="i-box-icon iconfont">&#xe673;</text>
-                    <text class="i-box-tlt">待付款</text>
+                <div class="i-box-l" @click="jumpWeb(1)">
+                    <text class="i-box-icon iconfont">&#xe717;</text>
+                    <text class="i-box-tlt">Unpaid</text>
                 </div>
-                <div class="i-box-l">
-                    <text class="i-box-icon iconfont">&#xe675;</text>
-                    <text class="i-box-tlt">待发货</text>
+                <div class="i-box-l" @click="jumpWeb(2)">
+                    <text class="i-box-icon iconfont">&#xe718;</text>
+                    <text class="i-box-tlt">Packing</text>
                 </div>
-                <div class="i-box-l">
-                    <text class="i-box-icon iconfont">&#xe671;</text>
-                    <text class="i-box-tlt">已发货</text>
+                <div class="i-box-l" @click="jumpWeb(3)">
+                    <text class="i-box-icon iconfont">&#xe719;</text>
+                    <text class="i-box-tlt">Shipped</text>
                 </div>
-                <div class="i-box-l">
-                    <text class="i-box-icon iconfont">&#xe672;</text>
-                    <text class="i-box-tlt">待评价</text>
-                </div>
-                <div class="i-box-l">
-                    <text class="i-box-icon iconfont">&#xe6ac;</text>
-                    <text class="i-box-tlt">退换/售后</text>
+                <div class="i-box-l" @click="jumpWeb(4)">
+                    <text class="i-box-icon iconfont">&#xe71a;</text>
+                    <text class="i-box-tlt">Delivered</text>
                 </div>
             </div>
         </div>
@@ -53,23 +51,38 @@
 
         <div class="mid-cell">
             <div class="box-tlt ">
-                <div>
-                    <text class="box-txt"> 《》 </text>
-                    <text class="">我的消息</text>
+                <div class="box-left">
+                    <text class="box-txt-icon">&#xe71b;</text>
+                    <text class="box-txt">Customer Support</text>
                 </div>
-                <text class="i-box">all order&nbsp;&nbsp;></text>
+                <text class="i-box iconfont">&#xe626;</text>
 
             </div>
 
             <div class="box-tlt ">
-                <div>
-                    <text class="box-txt"> 《》 </text>
-                    <text class="box-txt">联系客服</text>
+                <div class="box-left">
+                    <text class="box-txt-icon">&#xe705;</text>
+                    <text class="box-txt">My Address</text>
                 </div>
+                <text class="i-box iconfont">&#xe626;</text>
+            </div>
+        </div>
+        <div class="mid-cell">
+            <div class="box-tlt ">
+                <div class="box-left">
+                    <text class="box-txt-icon">&#xe71c;</text>
+                    <text class="box-txt">About Us</text>
+                </div>
+                <text class="i-box iconfont">&#xe626;</text>
 
+            </div>
 
-                <text class="i-box">all order&nbsp;&nbsp;></text>
-
+            <div class="box-tlt ">
+                <div class="box-left">
+                    <text class="box-txt-icon">&#xe71d;</text>
+                    <text class="box-txt">FAQ</text>
+                </div>
+                <text class="i-box iconfont">&#xe626;</text>
             </div>
 
         </div>
@@ -104,7 +117,10 @@ export default {
             // let self = this;
             this.$router.open({
                 name: 'order',
-                type: 'PUSH'
+                type: 'PUSH',
+                params: {
+                    tab: id
+                }
             })
         },
         getService () {

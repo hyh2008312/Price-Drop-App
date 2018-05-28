@@ -35,33 +35,44 @@
                           :auto-accessible="false">
                 </wxc-cell>
 
-                <div class="slogan">
-                    <text class="i-slg iconfont">&#xe714; Quality Guarantee</text>
-                    <text class="i-slg iconfont">&#xe715; 9 Days Return</text>
-                    <text class="i-slg iconfont">&#xe713; Secured Payments</text>
+                <div class="slogan" >
+                    <div class="slg">
+                        <text class="i-slg-icon">&#xe714;</text>
+                        <text class="i-slg"> Quality Guarantee </text>
+                    </div>
+
+                    <div class="slg">
+                        <text class="i-slg-icon">&#xe715;</text>
+                        <text class="i-slg"> 9 Days Return </text>
+                    </div>
+
+                    <div class="slg">
+                        <text class="i-slg-icon">&#xe713;</text>
+                        <text class="i-slg"> Secured Payments </text>
+                    </div>
                 </div>
 
 
             </div>
-            <div class="dec-word" >
+            <div class="dec-word" ref="dec" >
                 <text class="">Description</text>
 
             </div>
                 <div style="width: 750px; background-color: rosybrown">
-                    <text v-for="txt in dectxt">
+                    <text v-for="txt in dectxt" class="bottom-text" >
                         {{txt}}
                     </text>
-                    <image v-for="i in decimg" :src="i" resize="cover" style="width:500px;height:500px"></image>
+                    <image v-for="i in decimg" :src="i" resize="cover" style="width:750px;height:700px"></image>
                 </div>
 
                 <div>
 
 
-                <div class="bottom-div">
+                <div class="bottom-div" >
                     <!--<div >-->
                         <!--<text class="leftline"></text>-->
                     <!--</div>-->
-                    <text class="bottom-head">Return Policy</text>
+                    <text class="bottom-head" >Return Policy</text>
                     <!--<div class="rightline">-->
                         <!--<text style="letter-spacing: -10px">———————————</text>-->
                     <!--</div>-->
@@ -70,33 +81,13 @@
                     </text>
                     <text class="bottom-text">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
                     </text>
-                    <text class="bottom-text">To learn more about our return policy, please visit our FAQ page.
+                    <text class="bottom-text" >To learn more about our return policy, please visit our FAQ page.
                     </text>
 
-                    <text>
-                        Step1:  Click the “Share to Drop Price” button to get started.
-
-                        Step2:  Share the campaign with your friends or family on Facebook & WhatsApp.
-
-                        Step3:  If anyone clicks the “Drop Price” button on the page you share, the price will drop automatically.
-
-                        Step4:  Your drop will expire after 24 hours. The more people you engage, you lower price you unlock.
-
-
-                        Rules to Know  具体的砍价规则说明
-
-                        1. The duration for each price-drop is 24 hours. Once your drop reaches the lowest price within 24 hours, the campaign will end automatically!
-
-                        2. Once your price-drop ends, you can purchase the item at the final price you have reached. Please complete the payment within 24 hours after the campaign ends.
-
-                        3. If you do not complete the payment in time, you’re deemed to waived your purchase right, and the price drop of the item will expire as well.
-
-                        4. Due to the limited stocks of each item, so they will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the drop will fail.
-                    </text>
                 </div>
             </div>
-
-            <div class="bottom-btn">
+            <div style="display: none" ref="policy"></div>
+            <div class="bottom-btn" >
                 <text class="button" @click="openBottomPopup">Share to Cut the Price</text>
             </div>
         </scroller>
@@ -150,33 +141,45 @@
             </div>
         </wxc-popup>
 
-        <wxc-popup :have-overlay="isTrue"
-                   popup-color="rgb(255, 255, 255)"
-                   :show="isCardShow"
-                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
-                   pos="top"
-                   ref="dropcard"
-                   height="718">
-            <div class="popup-content">
-                <text>111111111111111</text>
-
+        <wxc-mask height="800"
+                  width="702"
+                  border-radius="0"
+                  duration="200"
+                  mask-bg-color="#FFFFFF"
+                  :has-animation="hasCardAnimation"
+                  :has-overlay="true"
+                  :show-close="true"
+                  :show="isCardShow"
+                  @wxcMaskSetHidden="wxcMaskSetHidden">
+            <div class="mask-content">
+                <div class="mask-head">
+                    <text class="mask-title">How To Drop Price</text>
+                </div>
+                <text class="mask-text">Step1:  Click the “Share to Drop Price” button to start your price-drop campaign.
+                </text>
+                <text class="mask-text">Step2:  Share the campaign with your friends or family on Facebook & WhatsApp.
+                </text>
+                <text class="mask-text">Step3:  If anyone clicks the “Drop Price” button on the page you share, the price will drop automatically.
+                </text>
+                <text class="mask-text">Step4:  You have 24 hours to purchase the item at the final price you have reached after the campaign ends.
+                </text>
             </div>
-        </wxc-popup>
+        </wxc-mask>
     </div>
 
 </template>
 <script>
     import header from './header';
-    import { WxcCell, WxcButton, WxcPopup } from 'weex-ui'
+    import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
     import block2 from '../home/block2';
     import block3 from '../home/block3';
     import block4 from './block4';
     import tab from './tab';
     import block5 from '../home/block5';
-    import { YXBANNERS, BLOCK1, TAB, BLOCK4, GOODS1, GOODS2, GOODS3 } from '../home/config';
     const animation = weex.requireModule('animation');
     const axios = weex.requireModule('bmAxios');
     const globalEvent = weex.requireModule('globalEvent');
+    const dom = weex.requireModule('dom');
 
     // import block from './block';
     // import refresher from '../common/refresh';
@@ -185,7 +188,7 @@
     export default {
         components: {
             'topic-header': header,
-            WxcCell, WxcButton, WxcPopup,
+            WxcCell, WxcButton, WxcPopup, WxcMask,
             'block-2': block2,
             'block-3': block3,
             'block-4': block4,
@@ -256,7 +259,7 @@
                     key: 'dec'
                 }, {
                     name: 'Return Policy',
-                    key: 'ruler'
+                    key: 'policy'
                 }],
                 popup_color: ['粉色', '橙色', '黑色'],
                 goodsVariants: [],
@@ -272,8 +275,10 @@
                 sactiveId: '',
                 isBottomShow: false,
                 isCardShow: false,
+                overlayCardCanClose: true,
+                isCardFalse: false,
+                hasCardAnimation: true,
                 height: 400,
-                tabKey: 'detail',
                 tabshow: false,
                 headerShow: true,
                 positionX: 0,
@@ -488,12 +493,15 @@
                 }
             },
 
-            openCard () {
-                // this.confirm('111111')
-                this.$notice
-                this.isCardShow = true
+            openCard (e) {
+                this.isCardShow = true;
+                this.hasCardAnimation = true;
+            },
+            wxcMaskSetHidden () {
+                this.isCardShow = false;
             },
             openLink () {
+                this.$router.finished
                 this.$router.open({
                     name: 'mobile',
                     type: 'PUSH',
@@ -569,16 +577,20 @@
                    this.tabshow = false
                }
             },
-            onTabTo (event) {
-                this.tabKey = event.data.key;
-                this.goods3 = [];
-                this.goods3 = GOODS3;
-                this.$nextTick(() => {
-                    dom.scrollToElement(this.$refs['tab'], { animated: false })
-                })
-            },
-            noNoticeFinished (e) {
-                this.block1.items = [...BLOCK4.items];
+            onTabTo (key) {
+                if (key.data.key == 'dec') {
+                    const el = this.$refs.dec
+                    dom.scrollToElement(el, { offset: -140 })
+                    this.$nextTick(() => {
+                        dom.scrollToElement(this.$refs['tab'], { animated: false })
+                    })
+                } else {
+                    const el = this.$refs.policy
+                    dom.scrollToElement(el, { offset: 2 })
+                    this.$nextTick(() => {
+                        dom.scrollToElement(this.$refs['tab'], { animated: false })
+                    })
+                }
             },
             jump2 () {
 
@@ -704,12 +716,20 @@
     }
 
     .slogan{
-        display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
+        justify-content: space-around;
         background-color: #fff;
         border-bottom: 2px solid black;
         margin-bottom: 16px;
+    }
+    .slg{
+        align-items:center ;
+    }
+    .i-slg-icon{
+        font-family: iconfont;
+        text-align: center;
+        font-size: 50px;
+        margin: 25px 0;
     }
     .i-slg{
         height: 66px;
@@ -893,5 +913,21 @@
         bottom: 0;
     }
 
-
+    .mask-content {
+        padding: 30px;
+    }
+    .mask-head {
+        align-items: center;
+        margin-bottom: 20px;
+        margin-top: 40px;
+    }
+    .mask-title {
+        color: #333333;
+        font-size: 40px;
+    }
+    .mask-text {
+        color: #333333;
+        font-size: 30px;
+        margin-top: 20px;
+    }
 </style>

@@ -1,11 +1,11 @@
 <template>
     <div class="wrapper">
         <div class="left">
-            <text class="leftTxt" @click="$router.back">me</text>
+            <text class="leftTxt"></text>
         </div>
-        <!--<text class="tlt">{{title}}</text>-->
+        <text class="tlt">{{title}}</text>
         <div class="right">
-            <text class="rightTxt" >&#xe6f1;</text>
+            <text class="rightTxt" >&#xe71e;</text>
         </div>
     </div>
 </template>
@@ -33,17 +33,18 @@ export default {
 }
 .wrapper {
     position: fixed;
-    top: 0;
+    top: 48px;
     left: 0;
     right: 0;
-    height: 160px;
-    padding-top: 44px;
+    height: 112px;
+    align-items: center;
     z-index: 101;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-around;
-    background-color: #000;
-    opacity: 1;
+    background-color: white;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.19);
+    /*box-shadow: 0 0 4px 0 rgba(0,0,7,0.12);*/
     /*border-bottom-width: 1px;*/
     /*border-bottom-color: #d9d9d9;*/
 }
@@ -58,6 +59,9 @@ export default {
     padding-top: 10px;
 
 }
+.tlt{
+    color: black;
+}
 .right {
     font-family: iconfont;
     color: #FFFFFF;
@@ -65,7 +69,7 @@ export default {
     width: 120px;
     position: absolute;
     right: 5px;
-    top:88px;
+    top:28px;
     padding-top: 10px;
 
 }
@@ -79,7 +83,7 @@ export default {
 
 .rightTxt {
     font-family: iconfont;
-    color: #FFFFFF;
+    color: black;
     font-size: 32px;
     text-align: center;
 }
