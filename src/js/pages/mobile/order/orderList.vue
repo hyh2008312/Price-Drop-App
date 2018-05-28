@@ -54,27 +54,28 @@
                 </div>
             </div>
         </wxc-popup>
-        <wxc-popup :have-overlay="isTrue"
-                   popup-color="rgba(255, 255, 255, 0)"
-                   :show="isDeleteShow"
-                   @wxcPopupOverlayClicked="popupDeleteClick"
-                   ref="wxcDeletePopup"
-                   pos="top"
-                   height="640">
-            <div class="popup-delete">
-                <div class="popup-delete-container">
-                    <text class="popup-delete-title">Are you sure you want to delete this order？</text>
-                    <div class="popup-cancel-bottom">
-                        <text class="popup-delete-button" @click="deleteOrderConfirm">DELETE</text>
-                        <text class="popup-delete-button-1" @click="closeDeletePop">CANCEL</text>
-                    </div>
+        <wxc-mask height="258"
+                  width="514"
+                  border-radius="0"
+                  duration="200"
+                  mask-bg-color="rgba(0,0,0,0)"
+                  :has-animation="hasAnimation"
+                  :has-overlay="true"
+                  :show-close="false"
+                  :show="isDeleteShow"
+                  @wxcMaskSetHidden="popupDeleteClick">
+            <div class="popup-delete-container">
+                <text class="popup-delete-title">Are you sure you want to delete this order？</text>
+                <div class="popup-delete-bottom">
+                    <text class="popup-delete-button" @click="deleteOrderConfirm">DELETE</text>
+                    <text class="popup-delete-button-1" @click="closeDeletePop">CANCEL</text>
                 </div>
             </div>
-        </wxc-popup>
+        </wxc-mask>
     </div>
 </template>
 <script>
-    import { Utils, WxcPopup } from 'weex-ui';
+    import { Utils, WxcPopup, WxcMask } from 'weex-ui';
     import refresher from '../common/refresh';
     import orderItem from './orderItem';
     import payRadio from './radio';
@@ -85,13 +86,23 @@
             'refresher': refresher,
             'order-item': orderItem,
             'pay-radio': payRadio,
-            WxcPopup
+            WxcPopup,
+            WxcMask
         },
         props: ['index', 'activeIndex'],
         created () {
             this.resetPayList()
             if (this.index == 0 && this.activeIndex == 0) {
                 this.init()
+            }
+        },
+        eros: {
+            backAppeared (params) {
+                if (params.status == 'delete') {
+                    if (this.index == this.activeIndex) {
+                        this.init()
+                    }
+                }
             }
         },
         watch: {
@@ -135,7 +146,8 @@
                 cancelIndex: 0,
                 isDeleteShow: false,
                 deleteId: -1,
-                deleteIndex: 0
+                deleteIndex: 0,
+                hasAnimation: true
             }
         },
         methods: {
@@ -275,13 +287,12 @@
                 this.$fetch({
                     method: 'DELETE', // 大写
                     url: `http://47.104.171.91/order/customer/cancel/${this.deleteId}/`,
-                    data: {
-                        reason: this.reason[this.reasonActive]
-                    },
+                    data: {},
                     header: {
                         Authorization: 'Bearer ' + TOKEN
                     }
                 }).then(resData => {
+                    this.$notice.toast(this.deleteIndex)
                     this.order.splice(this.deleteIndex, 1)
                 }, error => {
                     this.$notice.toast({
@@ -290,7 +301,7 @@
                 })
             },
             closeDeletePop () {
-                this.$refs.wxcDeletePopup.hide()
+                this.isDeleteShow = false
             }
         }
     }

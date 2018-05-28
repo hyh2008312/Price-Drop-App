@@ -26,6 +26,9 @@ export default {
             this.getUser()
         },
         appeared (params) {
+            this.$notice.toast({
+                message: params
+            })
             if (params.tab) {
                 this.selectedTab = params.tab
             }

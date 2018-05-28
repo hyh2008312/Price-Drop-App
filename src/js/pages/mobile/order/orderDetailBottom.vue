@@ -18,7 +18,7 @@
             <text class="od-button" @click="tracking">Track Package</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Completed'">
-            <text class="od-button-1">Delete</text>
+            <text class="od-button-1" @click="deleteOrder">Delete</text>
             <text class="od-button-1" @click="jumpHome">Buy Again</text>
             <text class="od-button" @click="tracking">Track Package</text>
         </div>
@@ -52,6 +52,11 @@
                 this.$router.open({
                     name: 'order.address.tracking',
                     type: 'PUSH'
+                })
+            },
+            deleteOrder () {
+                this.$emit('deleteOrder', {
+                    status: 'deleteOrder'
                 })
             }
         }

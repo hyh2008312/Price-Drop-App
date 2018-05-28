@@ -16,7 +16,7 @@
                 <order-detail-number :order="order"ß></order-detail-number>
             </cell>
         </list>
-        <order-detail-bottom :order="order" @cancel="cancel"></order-detail-bottom>
+        <order-detail-bottom :order="order" @cancel="cancel" @deleteOrder="deleteOrder"></order-detail-bottom>
         <wxc-popup :have-overlay="isTrue"
                    popup-color="rgb(255, 255, 255, 255)"
                    :show="isBottomShow"
@@ -38,6 +38,24 @@
                 </div>
             </div>
         </wxc-popup>
+        <wxc-mask height="258"
+                  width="514"
+                  border-radius="0"
+                  duration="200"
+                  mask-bg-color="rgba(0,0,0,0)"
+                  :has-animation="hasAnimation"
+                  :has-overlay="true"
+                  :show-close="false"
+                  :show="isDeleteShow"
+                  @wxcMaskSetHidden="popupDeleteClick">
+            <div class="popup-delete-container">
+                <text class="popup-delete-title">Are you sure you want to delete this order？</text>
+                <div class="popup-delete-bottom">
+                    <text class="popup-delete-button" @click="deleteOrderConfirm">DELETE</text>
+                    <text class="popup-delete-button-1" @click="closeDeletePop">CANCEL</text>
+                </div>
+            </div>
+        </wxc-mask>
     </div>
 </template>
 <script>
@@ -47,7 +65,7 @@ import orderDetailShipping from './orderDetailShipping';
 import orderDetailItem from './orderDetailItem';
 import orderDetailBottom from './orderDetailBottom';
 import orderDetailNumber from './orderDetailNumber';
-import { Utils, WxcPopup } from 'weex-ui';
+import { Utils, WxcPopup, WxcMask } from 'weex-ui';
 import { TOKEN, ORDERDETAIL, CANCELREASON } from './config';
 
 export default {
@@ -58,7 +76,8 @@ export default {
         'order-detail-item': orderDetailItem,
         'order-detail-bottom': orderDetailBottom,
         'order-detail-number': orderDetailNumber,
-        WxcPopup
+        WxcPopup,
+        WxcMask
     },
     eros: {
         appeared (params) {
@@ -76,7 +95,9 @@ export default {
             isTrue: true,
             isBottomShow: false,
             reason: CANCELREASON,
-            reasonActive: 0
+            reasonActive: 0,
+            isDeleteShow: false,
+            hasAnimation: true
         }
     },
     methods: {
@@ -131,6 +152,35 @@ export default {
                     message: error
                 })
             })
+        },
+        deleteOrder (event) {
+            this.isDeleteShow = true
+        },
+        popupDeleteClick () {
+            this.isDeleteShow = false
+        },
+        deleteOrderConfirm () {
+            this.closeDeletePop()
+            this.$fetch({
+                method: 'DELETE', // 大写
+                url: `http://47.104.171.91/order/customer/cancel/${this.order.id}/`,
+                data: {},
+                header: {
+                    Authorization: 'Bearer ' + TOKEN
+                }
+            }).then(resData => {
+                this.$router.setBackParams({
+                    status: 'delete'
+                })
+                this.$router.finish()
+            }, error => {
+                this.$notice.toast({
+                    message: error
+                })
+            })
+        },
+        closeDeletePop () {
+            this.isDeleteShow = false
         }
     }
 }
@@ -235,6 +285,40 @@ export default {
         width: 375px;
         text-align: center;
         color: #EF8A31;
+    }
+
+    .popup-delete-container{
+        width: 514px;
+        height: 258px;
+        border-radius: 8px;
+        background-color: #fff;
+        padding: 32px;
+    }
+
+    .popup-delete-title{
+        font-size: 28px;
+        line-height: 48px;
+    }
+
+    .popup-delete-bottom{
+        margin-top: 48px;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .popup-delete-button{
+        font-size: 28px;
+        line-height: 34px;
+        margin-right: 48px;
+        font-weight: bold;
+        color: #EF8A31;
+    }
+
+    .popup-delete-button-1{
+        font-size: 28px;
+        line-height: 34px;
+        color: rgba(0,0,0,0.54);
     }
 
 </style>

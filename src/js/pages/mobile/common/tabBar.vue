@@ -29,6 +29,9 @@ export default {
     },
     mounted () {
         this.pIndexKey = this.indexKey
+        this.$notice.toast({
+            message: this.pIndexKey
+        })
     },
     methods: {
         tabTo (_key) {

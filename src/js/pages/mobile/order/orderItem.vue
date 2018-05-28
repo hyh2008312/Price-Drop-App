@@ -95,7 +95,7 @@
                 this.$emit('cancel', {
                     status: 'cancel',
                     data: {
-                        index: this.order,
+                        index: this.index,
                         id: this.order.id
                     }
                 })
@@ -119,7 +119,7 @@
                 this.$emit('deleteOrder', {
                     status: 'deleteOrder',
                     data: {
-                        index: this.order,
+                        index: this.index,
                         id: this.order.id
                     }
                 })
