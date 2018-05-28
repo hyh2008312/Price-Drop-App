@@ -5,3 +5,4 @@ export const TAB = [{
     name: 'Ended',
     key: 'cutEnd'
 }];
+export const TOKEN = 'KGtKku1CXjncUU7aOhGTwv1IZhrYjb';

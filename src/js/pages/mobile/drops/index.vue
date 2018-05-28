@@ -23,7 +23,7 @@
     import tabTitle from './tabTitle';
     import cutingItem from './cutingItem';
     import cutEndItem from './cutEndItem';
-    import { TAB } from './config'
+    import { TAB ,TOKEN } from './config'
     import { Utils } from 'weex-ui';
 
     export default {
@@ -107,11 +107,14 @@
                         status: 'progressing'
                     },
                     header: {
-                        Authorization: 'Bearer 6mLScyYgcK99aLBH1nnHvcHVCz0Nrv'
+                        Authorization: 'Bearer ' + TOKEN
+            }}
+            ).then(data => {
+                    if (data.count == 0) {
+                        this.length = 2;
+                    } else {
+                        this.length = Math.ceil(data.count / this.pageSize);
                     }
-
-                }).then(data => {
-                    this.length = Math.ceil(data.count / this.pageSize);
                     if (isFirst) {
                         this.goods = [];
                     }
@@ -135,11 +138,15 @@
                         status: 'end'
                     },
                     header: {
-                        Authorization: 'Bearer 6mLScyYgcK99aLBH1nnHvcHVCz0Nrv'
+                        Authorization: 'Bearer ' + TOKEN
                     }
 
                 }).then(data => {
-                    this.length = Math.ceil(data.count / this.pageSize);
+                    if (data.count == 0) {
+                        this.length = 2;
+                    } else {
+                        this.length = Math.ceil(data.count / this.pageSize);
+                    }
                     if (isFirst) {
                         this.goods = [];
                     }
