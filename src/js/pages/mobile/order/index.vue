@@ -28,6 +28,11 @@ export default {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 96 - 44) + 'px' }
         this.getChannel()
+        this.$router.getParams().then(params => {
+            if (params && params.tab) {
+                this.activeIndex = params.tab
+            }
+        })
     },
     data () {
         return {

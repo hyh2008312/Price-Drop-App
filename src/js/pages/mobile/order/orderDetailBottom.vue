@@ -6,6 +6,7 @@
             <text class="od-button" @click="confirm">Pay Now</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Canceled'">
+            <text class="od-button-1" @click="deleteOrder">Delete</text>
             <text class="od-button" @click="jumpHome">Buy Again</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Packing'">

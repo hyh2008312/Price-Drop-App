@@ -8,10 +8,11 @@
             </div>
             <div class="pay-failure-bg">
                 <text class="iconfont pay-failure-icon">&#xe632;</text>
-                <text class="pay-failure-title">Payment Failed</text>
+                <text class="pay-failure-title">Your payment failed.</text>
             </div>
-            <text class="pay-failure-title-1">Your payment could not be processed</text>
-            <text class="pay-failure-button" @click="back">Back</text>
+            <text class="pay-failure-title-1">Please try again or change your payment method. Thanks!</text>
+            <text class="pay-failure-button" @click="back">Retry Paymen</text>
+            <text class="pay-failure-button-1" @click="jumpHome">Back to Home Page</text>
         </div>
         <div class="wrapper-inner" :style="height" v-if="result">
             <div class="container">
@@ -19,10 +20,11 @@
             </div>
             <div class="pay-failure-bg">
                 <text class="iconfont pay-success-icon">&#xe6e7;</text>
-                <text class="pay-failure-title">Transaction Successful</text>
+                <text class="pay-failure-title">Payment successfully completed!</text>
             </div>
-            <text class="pay-failure-title-1">You have Paid Rs.1000.00</text>
-            <text class="pay-failure-button" @click="back">Back</text>
+            <text class="pay-failure-title-1">Thank you for your order. Your item will be shipped in 3-5 days!</text>
+            <text class="pay-failure-button" @click="back">View Order</text>
+            <text class="pay-failure-button-1" @click="jumpHome">Back to Home Page</text>
         </div>
     </div>
 </template>
@@ -56,6 +58,17 @@ export default {
     methods: {
         back () {
             this.$router.finish()
+            this.$router.open({
+                mobile: 'order',
+                type: 'PUSH'
+            })
+        },
+        jumpHome () {
+            this.$router.finish()
+            this.$router.open({
+                mobile: 'mobile',
+                type: 'PUSH'
+            })
         }
     }
 }
@@ -143,6 +156,22 @@ export default {
         border-radius: 4px;
         color: #fff;
         font-weight: bold;
+    }
+
+    .pay-failure-button-1{
+        margin-left: 100px;
+        margin-top: 16px;
+        width: 550px;
+        font-size: 28px;
+        line-height: 76px;
+        text-align: center;
+        background-color: #fff;
+        border-radius: 4px;
+        color: #EF8A31;
+        font-weight: bold;
+        border-style: solid;
+        border-color: #EF8A31;
+        border-width: 2px;
     }
 
 
