@@ -2,19 +2,7 @@
     <div class="wrapper">
         <top-header :title="title" :isBack="isBack"></top-header>
         <div class="status-bar"></div>
-        <div class="wrapper-inner" :style="height" v-if="!result">
-            <div class="container">
-                <image class="pay-image" src="bmlocal://assets/pay-failure.png"></image>
-            </div>
-            <div class="pay-failure-bg">
-                <text class="iconfont pay-failure-icon">&#xe632;</text>
-                <text class="pay-failure-title">Your payment failed.</text>
-            </div>
-            <text class="pay-failure-title-1">Please try again or change your payment method. Thanks!</text>
-            <text class="pay-failure-button" @click="back">Retry Paymen</text>
-            <text class="pay-failure-button-1" @click="jumpHome">Back to Home Page</text>
-        </div>
-        <div class="wrapper-inner" :style="height" v-if="result">
+        <div class="wrapper-inner" :style="height">
             <div class="container">
                 <image class="pay-image" src="bmlocal://assets/pay-success.png"></image>
             </div>
@@ -38,10 +26,9 @@ export default {
     },
     eros: {
         appeared (params, options) {
-            this.result = params.result;
-            this.$notice.toast({
-                message: this.result
-            })
+            if (params && params.source) {
+                this.source = params.source
+            }
         }
     },
     created () {
@@ -52,21 +39,28 @@ export default {
         return {
             title: 'Pay',
             isBack: false,
-            result: false
+            source: false
         }
     },
     methods: {
         back () {
             this.$router.finish()
-            this.$router.open({
-                name: 'order',
-                type: 'PUSH'
-            })
+            if (this.source == 'confirm') {
+                this.$router.open({
+                    name: 'order',
+                    type: 'PUSH'
+                })
+            } else {
+                this.$router.back({
+                    length: 1,
+                    type: 'PUSH'
+                })
+            }
         },
         jumpHome () {
-            this.$router.finish()
-            this.$router.open({
-                name: 'mobile',
+            this.$router.setBackParams({ tab: 'home' })
+            this.$router.back({
+                length: 9999,
                 type: 'PUSH'
             })
         }

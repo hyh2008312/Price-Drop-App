@@ -16,7 +16,7 @@ export default {
     props: {
         indexKey: {
             type: String,
-            default: 'home'
+            default: ''
         },
         items: {
             type: Array
@@ -28,10 +28,13 @@ export default {
         }
     },
     watch: {
-        indexKey: function (newVal, oldVal) {
-            if (newVal) {
-                this.pIndexKey = newVal
-            }
+        indexKey: {
+            handler: function (newVal, oldVal) {
+                if (newVal) {
+                    this.pIndexKey = newVal
+                }
+            },
+            deep: true
         }
     },
     methods: {

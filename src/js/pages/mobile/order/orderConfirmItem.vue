@@ -48,13 +48,6 @@
                 this.$router.open({
                     name: 'goods.details'
                 })
-            },
-            openBottomPopup () {
-                this.$router.finish()
-                this.$router.back({
-                    length: 9999,
-                    type: 'PUSH'
-                })
             }
         }
     }

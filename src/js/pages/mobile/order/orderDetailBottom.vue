@@ -31,7 +31,7 @@
         methods: {
             confirm () {
                 this.$router.open({
-                    name: 'order.result',
+                    name: 'order.success',
                     type: 'PUSH'
                 })
             },

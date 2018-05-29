@@ -20,7 +20,12 @@ export default {
         }
     },
     eros: {
-        beforeAppear (params) {
+        beforeAppear () {
+            this.getChannel()
+            this.getState()
+            this.getUser()
+        },
+        backAppeared (params) {
             if (params && params.tab) {
                 this.selectedTab = params.tab
                 this.items.forEach((val) => {
@@ -31,9 +36,6 @@ export default {
                     val.visibility = 'hidden'
                 })
             }
-            this.getChannel()
-            this.getState()
-            this.getUser()
         }
     },
     components: {
@@ -57,6 +59,7 @@ export default {
     methods: {
         onTabTo (_result) {
             const _key = _result.data.key || '';
+            this.selectedTab = _key
             this.items.forEach((val) => {
                 if (val.key === _key) {
                     val.visibility = 'visible'

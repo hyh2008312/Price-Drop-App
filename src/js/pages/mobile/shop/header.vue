@@ -14,13 +14,10 @@ export default {
     props: ['title', 'leftBtn', 'rightBtn'],
     methods: {
         openLink () {
-            this.$router.finished
-            this.$router.open({
-                name: 'mobile',
-                type: 'PUSH',
-                params: {
-                    tab: 'drops'
-                }
+            this.$router.setBackParams({ tab: 'drops' })
+            this.$router.back({
+                length: 9999,
+                type: 'PUSH'
             })
         }
     }

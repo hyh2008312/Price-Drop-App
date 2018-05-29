@@ -239,11 +239,8 @@
             },
             payResult () {
                 this.$router.open({
-                    name: 'order.result',
-                    type: 'PUSH',
-                    params: {
-                        result: true
-                    }
+                    name: 'order.failure',
+                    type: 'PUSH'
                 })
             },
             popupCancelAutoClick () {

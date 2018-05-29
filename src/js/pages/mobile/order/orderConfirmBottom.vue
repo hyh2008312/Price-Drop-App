@@ -28,10 +28,10 @@
                 }).then(resData => {
                     this.$router.finish()
                     this.$router.open({
-                        name: 'order.detail',
+                        name: 'order.failure',
                         type: 'PUSH',
                         params: {
-                            id: resData.orderId
+                            source: 'confirm'
                         }
                     })
                 }, error => {

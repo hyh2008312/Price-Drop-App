@@ -108,8 +108,11 @@ export default {
     'order': {
         url: '/pages/mobile/order/index.js'
     },
-    'order.result': {
-        url: '/pages/mobile/order/payResult.js'
+    'order.success': {
+        url: '/pages/mobile/order/paySuccess.js'
+    },
+    'order.failure': {
+        url: '/pages/mobile/order/payFailure.js'
     },
     'order.detail': {
         url: '/pages/mobile/order/payDetail.js'
