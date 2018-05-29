@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
-            <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
+            <refresher ref="refresh" @loadingDown="loadingDown" v-if="order.length > 0"></refresher>
             <cell class="cell-button" v-for="(item, i) in order" :key="item.id">
                 <order-item :order="item" :index="i" @pay="pay"
                             @cancel="cancel" @deleteOrder="deleteOrder"></order-item>
@@ -10,6 +10,12 @@
                 <text class="indicator">加载中...</text>
             </loading>
         </list>
+        <div class="container-1" v-if="order.length == 0">
+            <div class="container-2">
+                <image class="pay-image" src="bmlocal://assets/empty.png"></image>
+            </div>
+            <text class="address-title">You have no order information.</text>
+        </div>
         <wxc-popup :have-overlay="isTrue"
                    popup-color="rgba(255, 255, 255, 0)"
                    :show="isBottomShow"
@@ -117,7 +123,7 @@
         },
         data () {
             return {
-                order: [],
+                order: null,
                 selectedOrder: {
                     title: 'Toyota’s Latest is an Entire Mobility Service Platform',
                     src: 'http://yanxuan.nosdn.127.net/630439320dae9f1ce3afef3c39721383.jpg',

@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="gb-box">
             <div class="gb-top">
-                <text class="gb-date">{{order.created}}</text>
+                <text class="gb-date">{{order.created | formatDate('yyyy-MM-dd hh:mm')}}</text>
                 <text class="gb-status" v-if="order.orderStatus != 'Canceled' && order.orderStatus != 'Completed'">{{order.orderStatus == 'Audit canceled'? 'Packing':order.orderStatus}}</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Completed'">Delivered</text>
@@ -62,7 +62,11 @@
     </div>
 </template>
 <script>
-    import { WxcCountdown, WxcPopup } from 'weex-ui'
+    import { WxcCountdown, WxcPopup } from 'weex-ui';
+    import utilFunc from '../utils/util';
+    Vue.filter('formatDate', function (str, hmr) {
+        return utilFunc.formatDate(str, hmr)
+    })
 
     export default {
         components: { WxcCountdown, WxcPopup },

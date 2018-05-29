@@ -43,6 +43,33 @@ body{
   right: 0;
 }
 
+.container-1{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+}
+
+.container-2{
+  margin-top: 86px;
+  width: 750px;
+  align-items: center;
+}
+
+.pay-image{
+  width: 202px;
+  height: 202px;
+}
+
+.address-title{
+  margin-top: 32px;
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+}
+
 .indicator {
   width: 750px;
   text-align: center;
