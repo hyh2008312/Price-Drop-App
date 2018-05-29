@@ -12,7 +12,7 @@
                 </div>
                 <div class="box-right">
                     <div class="i-photo-div">
-                        <image  class="i-photo" resize="cover" src="http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg"></image>
+                        <image  class="i-photo" resize="cover" :src="src"></image>
                     </div>
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
@@ -55,21 +55,28 @@
             'topic-header': header
         },
         name: 'myDetail',
+        data () {
+           return {
+               src: 'http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg'
+           }
+        },
         methods: {
             pickAndUpload () {
-                this.$image.pickAndUpload({
-                        url: '',
-                        maxCount: 3,
-                        imageWidth: 1000,
-                        allowCrop: true,
-                        params: {},
-                        header: {}
-                    }).then(
+                this.$image.pick({
+                    maxCount: 8,
+                    imageWidth: '180',
+                    allowCrop: true
+                }).then(
                         resData => {
-                            this.$notice.toast({
-                                message: '上传成功'
-                            });
-                            console.log(resData);
+                            const pics = resData[0].split('/');
+                            const name = pics[pics.length - 1];
+                            const params = {
+                                type: 'avatar',
+                                fileName: name,
+                                width: 180,
+                                height: 180
+                            }
+                            this.getPolicy(params, resData)
                         },
                         error => {
                             this.$notice.toast({
@@ -77,6 +84,37 @@
                             });
                         }
                     );
+            },
+            getPolicy (params, source) {
+                this.$fetch({
+                    method: 'POST',
+                    name: 'image.qiniu',
+                    data: params,
+                    header: {
+                        Authorization: 'Bearer EmTm3ZEb7s3oO9kA9OwV75aGPd16ZG'
+                    }
+                }).then(data => {
+                    this.$image.upload({
+                        url: data.domain, // 自定义图片上传地址，默认上传地址是 eros.native.js 中的 image 地址
+                        params: {
+                            token: data.token,
+                            key: data.name
+                        }, // 传递的参数
+                        header: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        source: source // 图片路径
+                    }).then(resData => {
+                            this.src = data.url + '/' + data.name
+                        }, error => {
+                            console.log(error)
+                        })
+                }, error => {
+                    // 错误回调
+                    this.$notice.toast({
+                        message: error
+                    })
+                })
             }
         }
     }

@@ -13,5 +13,6 @@ export default {
     'address.state.list': '/address/state/list/',
     'address.shipping.list': '/address/shipping/list/',
     'order.cut.create': '/order/cut/create/',
-    'order.customer.list': '/order/customer/list/'
+    'order.customer.list': '/order/customer/list/',
+    'image.qiniu': '/image/qiniu/'
 }
