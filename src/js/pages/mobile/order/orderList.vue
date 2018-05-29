@@ -179,7 +179,9 @@
                     this.page = 1
                 }
                 if (this.page > this.length) {
-                    this.$refs.refresh.refreshEnd()
+                    if (this.order.length > 0) {
+                        this.$refs.refresh.refreshEnd()
+                    }
                     this.$nextTick(() => {
                         this.isLoading = false
                     })
