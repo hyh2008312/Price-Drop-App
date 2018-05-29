@@ -66,14 +66,9 @@ export default {
             })
         },
         jumpWeb (id) {
-            // if (!url) return;
-            // let self = this;
             this.$router.open({
                 name: 'goods.details',
                 type: 'PUSH',
-                // backCallback: function (data) {
-                //     self.$event.emit('goodDetail')
-                // },
                 params: {
                     id: id
                 }

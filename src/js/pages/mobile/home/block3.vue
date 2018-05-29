@@ -30,7 +30,11 @@ export default {
         jumpWeb () {
             // if (!url) return;
             this.$router.open({
-                name: 'goods.details'
+                name: 'goods.details',
+                type: 'PUSH',
+                params: {
+                    id: this.goods.id
+                }
             })
         },
         countOff (s, o) {
