@@ -1,17 +1,35 @@
 <template>
     <div class="wrapper">
         <div class="left">
-            <text class="leftTxt"></text>
+            <text class="leftTxt">{{leftBtn}}</text>
         </div>
         <text class="tlt">{{title}}</text>
         <div class="right">
-            <text class="rightTxt" >&#xe71e;</text>
+            <text class="rightTxt" v-if="iconSign==true" >&#xe71e;</text>
+            <text class="rightTxt" v-else >{{rightBtn}}</text>
         </div>
     </div>
 </template>
 <script>
 export default {
     props: ['title', 'leftBtn', 'rightBtn'],
+    data () {
+      return {
+          iconSign: ''
+      }
+    },
+    created () {
+        this.editRight()
+    },
+    methods: {
+        editRight () {
+            if (this.rightBtn == 'icon') {
+                this.iconSign = true
+            } else {
+                this.iconSign = false
+            }
+        }
+    }
 }
 </script>
 <style scoped>
@@ -83,7 +101,7 @@ export default {
 
 .rightTxt {
     font-family: iconfont;
-    color: black;
+    color: #EF8A31;
     font-size: 32px;
     text-align: center;
 }

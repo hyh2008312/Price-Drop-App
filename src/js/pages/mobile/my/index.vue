@@ -1,13 +1,13 @@
 <template>
 
     <div class="wrapper">
-        <topic-header title="Account" ref="ref1" ></topic-header>
+        <topic-header title="Account" rightBtn="icon" ref="ref1" ></topic-header>
 
         <div class="blackheader">
 
         </div>
 
-        <div class="header" @click="jumpWeb()">
+        <div class="header" @click="openMydetail()">
             <div class="i-photo-div">
                 <image  class="i-photo" resize="cover" src="http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg"></image>
             </div>
@@ -123,6 +123,15 @@ export default {
                 }
             })
         },
+        openMydetail () {
+            this.$router.open({
+                name: 'my.details',
+                type: 'PUSH',
+                // params: {
+                //     tab: id
+                // }
+            })
+        },
         getService () {
             // this.$fetch({
          //        method: 'GET',
@@ -144,4 +153,4 @@ export default {
     }
 }
 </script>
-<style lang="sass" src="./index.scss"></style>
+    <style lang="sass" src="./index.scss"></style>
