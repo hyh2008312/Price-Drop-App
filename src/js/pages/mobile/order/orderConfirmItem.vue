@@ -50,11 +50,10 @@
                 })
             },
             openBottomPopup () {
-                this.$emit('pay', {
-                    status: 'pay',
-                    data: {
-                        item: this.order
-                    }
+                this.$router.finish()
+                this.$router.back({
+                    length: 9999,
+                    type: 'PUSH'
                 })
             }
         }

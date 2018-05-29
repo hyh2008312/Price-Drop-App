@@ -104,7 +104,7 @@
         },
         eros: {
             backAppeared (params) {
-                if (params.status == 'delete') {
+                if (params && params.status == 'delete') {
                     if (this.index == this.activeIndex) {
                         this.init()
                     }
@@ -123,7 +123,7 @@
         },
         data () {
             return {
-                order: null,
+                order: false,
                 selectedOrder: {
                     title: 'Toyota’s Latest is an Entire Mobility Service Platform',
                     src: 'http://yanxuan.nosdn.127.net/630439320dae9f1ce3afef3c39721383.jpg',

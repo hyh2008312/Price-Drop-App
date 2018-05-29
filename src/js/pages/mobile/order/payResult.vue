@@ -59,14 +59,14 @@ export default {
         back () {
             this.$router.finish()
             this.$router.open({
-                mobile: 'order',
+                name: 'order',
                 type: 'PUSH'
             })
         },
         jumpHome () {
             this.$router.finish()
             this.$router.open({
-                mobile: 'mobile',
+                name: 'mobile',
                 type: 'PUSH'
             })
         }

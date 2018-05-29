@@ -4,13 +4,17 @@
             <div>
                 <text class="gb-txt">Order Number: {{order.number}}</text>
                 <text class="gb-txt gb-mt" v-if="order.paymentType">Payment Method: PayTM</text>
-                <text class="gb-txt gb-mt">Order Time: {{order.created}}</text>
+                <text class="gb-txt gb-mt">Order Time: {{order.created | formatDate('MMMM Do, YYYY hh:mm:ss')}}</text>
             </div>
             <text class="cy iconfont">&#xe708;</text>
         </div>
     </div>
 </template>
 <script>
+    import moment from 'moment'
+    Vue.filter('formatDate', function (str, hmr) {
+        return moment(new Date(str)).format(hmr)
+    })
     export default {
         props: ['order'],
         data () {

@@ -17,6 +17,7 @@
     "eros-cli": "^2.0.8-beta.1",
     "eros-widget": "^1.0.2-beta.1",
     "fsevents": "^1.2.3",
+    "moment": "^2.22.1",
     "weex-ui": "^0.6.0beta-2"
   },
   "devDependencies": {
