@@ -4,7 +4,6 @@
         <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button slider-wrap">
-                <div class="slider-bg"></div>
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
             </cell>
             <cell class="cell-button">
@@ -142,13 +141,10 @@ export default {
         getYXBanners () {
             this.$fetch({
                 method: 'GET',
-                name: 'product.recommended.list',
-                data: {
-                    page: 1,
-                    page_size: 6
-                }
+                name: 'promotion.banner.list',
+                data: {}
             }).then(resData => {
-                this.YXBanners = [...resData.results]
+                this.YXBanners = [...resData]
                 this.refreshing = false
                 this.refreshApiFinished()
             }, error => {

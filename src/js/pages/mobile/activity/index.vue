@@ -20,13 +20,12 @@
                     <div class="gd-bg">
                         <image class="gd-img" resize="cover" :src="i.mainImage || src"></image>
                     </div>
-                    <text class="gd-info">{{i.title}}</text>
-                    <text class="gd-tip">{{i.cutGet ? i.cutGet : 0}}人已砍到了1折</text>
-                    <text class="gd-price">¥{{i.saleUnitPrice}}</text>
-                    <div class="gd-bargain">
-                        <text class="text-bargain">砍价立减</text>
+                    <div class="gd-tlt-bg">
+                        <text class="gd-tlt">Rs.{{i.lowestPrice}}</text>
+                        <text class="gd-info">{{countOff(i.lowestPrice, i.saleUnitPrice)}}</text>
                     </div>
-
+                    <text class="gd-price">Rs.{{i.saleUnitPrice}}</text>
+                    <text class="gd-button">Drop Price</text>
                 </div>
             </cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
@@ -164,6 +163,13 @@
             },
             refreshApiFinished () {
                 this.$refs.refresh.refreshEnd();
+            },
+            countOff (s, o) {
+                if (o > 0) {
+                    return Math.floor((o - s) / o * 100) + '%off'
+                } else {
+                    return ''
+                }
             }
         }
     }
@@ -253,8 +259,9 @@
 
     .i-gd {
         width: 350px;
-        height: 600px;
+        height: 520px;
         margin-bottom: 20px;
+        align-items: center;
     }
 
     .gd-bg {
@@ -271,59 +278,55 @@
         width: 348px;
         height: 348px;
     }
-
-    .gd-tip {
-        font-size: 20px;
-        color: rgba(172, 11, 11, 0.87);
-        text-align: center;
-        width: 350px;
-        margin-top: 10px;
-        overflow: hidden;
-        lines: 1;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .gd-price {
+    .gd-tlt {
         font-size: 28px;
-        width: 350px;
-        margin-top: 4px;
-        color: #000000;
-        text-align: center;
-        overflow: hidden;
-        lines: 1;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        font-weight: bold;
+        color: rgba(0,0,0,0.87);
+        line-height: 34px;
     }
 
-    .gd-info {
-        margin-top: 18px;
-        text-align: center;
-        lines: 1;
-        font-size: 24px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .gd-bargain {
+    .gd-tlt-bg{
+        margin-top: 16px;
         width: 350px;
-        margin-top: 14px;
-        display: flex;
         flex-direction: row;
+        align-items: center;
         justify-content: center;
     }
 
-    .text-bargain {
-        width: 120px;
-        height: 50px;
-        line-height: 50px;
-        color: black;
-        font-size: 24px;
-        border-style: solid;
-        border-color: black;
-        border-width: 2px;
+    .gd-info{
+        margin-left: 8px;
+        font-size: 20px;
+        line-height: 24px;
+        color: #EF8A31;
+    }
+
+    .gd-price {
+        font-size: 20px;
+        font-weight: 500;
+        width: 350px;
+        line-height: 24px;
+        overflow: hidden;
+        lines: 1;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         text-align: center;
+        text-decoration: line-through;
+    }
+
+    .gd-button{
+        margin-top: 16px;
+        font-size: 24px;
+        font-weight: bold;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #EF8A31;
+        color: #EF8A31;
+        border-radius: 4px;
+        line-height: 44px;
+        width: 144px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
     }
 
     .indicator {

@@ -46,9 +46,6 @@
                     timingFunction: 'ease',
                     delay: 0
                 }, function () {});
-            },
-            openBottomPopup () {
-                this.isBottomShow = !this.isBottomShow;
             }
         }
     }

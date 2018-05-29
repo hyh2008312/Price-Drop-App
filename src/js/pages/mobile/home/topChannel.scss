@@ -1,43 +1,40 @@
 .iconfont {
-    font-family: iconfont;
+  font-family: iconfont;
 }
 
 .wrapper {
-    width: 750px;
-    height: 84px;
-    z-index: 100;
-    background-color: #000;
-}
-
-.scroller {
-    width: 750px;
-    height: 68px;
-    padding-left: 8px;
-    padding-right: 8px;
-    flex-direction: row;
-    flex-wrap: nowrap;
+  position: sticky;
+  margin-top: 48px;
+  width: 750px;
+  height: 112px;
+  background-color: #FFF;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0,0,0, .12);
+  border-bottom-style: solid;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .i-c {
-    padding-top: 10px;
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-bottom: 10px;
-    font-size: 28px;
-    color: #fff;
-    text-align: center;
+  font-size: 24px;
+  margin-left: 32px;
+  margin-right: 32px;
+  line-height: 112px;
+  color: rgba(0,0,0, .87);
 }
 
 .c-act {
-    font-weight: 500;
+  font-weight: 500;
+  color: #EF8A31;
 }
 
 .j-uline {
-    position: absolute;
-    left: 32px;
-    bottom: 0;
-    width: 56px;
-    height: 4px;
-    background-color: #fff;
-    border-radius: 4px;
+  position: absolute;
+  left: 48px;
+  bottom: 24px;
+  width: 66px;
+  height: 6px;
+  background-color: #EF8A31;
+  border-radius: 4px;
 }

@@ -85,7 +85,7 @@ export default {
 }
 
 .tab-txt-active {
-    color: #987D1A;
+    color: #EF8A31;
 }
 
 .tab-tri{

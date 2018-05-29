@@ -1,12 +1,9 @@
 <template>
     <div class="wrapper">
-        <scroller class="scroller" scroll-direction="horizontal" flex-direction="row" loadmoreoffset="0" show-scrollbar=false>
-            <div class="j-uline" ref="jcLine" v-if="channelList.length > 0"></div>
-            <text class="i-c" v-for="(item,index) in channelList"
-                  :class="[ activeIndex == index ? 'c-act' : '']"
-                  @click="chooseChannel(index,item)" :ref="'channel_' + index"
-                  :style="{width: (item.width + 48) + 'px'}">{{item.name}}</text>
-        </scroller>
+        <text class="i-c" v-for="(item,index) in channelList"
+              :class="[ activeIndex == index ? 'c-act' : '']"
+              @click="chooseChannel(index,item)">{{item.name}}</text>
+        <div ref="jcLine" class="j-uline"></div>
     </div>
 </template>
 <script>
@@ -25,9 +22,7 @@
         },
         watch: {
             activeIndex (newVal, oldVal) {
-                const scrollIndex = newVal < 4 ? 0 : newVal - 4;
                 this.changeRect(newVal)
-                this.scrollToMenu(scrollIndex)
             }
         },
         created () {},
@@ -45,16 +40,12 @@
                 const item = this.channelList[index]
                 animation.transition(this.$refs.jcLine, {
                     styles: {
-                        width: item.width + 'px',
                         transform: 'translateX(' + (item.left) + 'px)'
                     },
                     duration: 100,
                     timingFunction: 'ease',
                     delay: 0
                 }, function () {});
-            },
-            scrollToMenu (index) {
-                dom.scrollToElement(this.$refs[`channel_${index}`][0])
             }
         }
     }

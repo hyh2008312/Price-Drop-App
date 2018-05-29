@@ -38,7 +38,7 @@ export default {
     },
     created () {
         const pageHeight = Utils.env.getScreenHeight()
-        this.height = { height: (pageHeight - 112 - 112 - 44 - 2) + 'px' }
+        this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' }
         this.getAddress()
     },
     data () {
@@ -115,7 +115,7 @@ export default {
     .status-bar{
         position: fixed;
         top: 0;
-        height: 44px;
+        height: 48px;
         background-color: #000;
         width: 750px;
     }

@@ -42,10 +42,10 @@ export const BLOCK1 = {
 };
 
 export const TAB = [{
-    name: '精选',
+    name: 'Hot',
     key: 'hot'
 }, {
-    name: '最新',
+    name: 'Latest',
     key: 'new'
 }];
 
@@ -127,38 +127,15 @@ export const GOODS3 = [
 ];
 
 export const CHANNELLIST = [{
-    name: '推荐',
-    width: '56',
-    left: '0',
-    id: null
+    name: 'Featured',
+    left: '0'
 }, {
-    name: '美妆',
-    width: '56',
-    left: '104',
-    id: null
+    name: 'Electronics',
+    left: '212'
 }, {
-    name: 'T恤',
-    width: '56',
-    left: '202',
-    id: null
+    name: 'Home',
+    left: '408'
 }, {
-    name: '连衣裙',
-    width: '84',
-    left: '300',
-    id: null
-}, {
-    name: '针织衫',
-    width: '84',
-    left: '432',
-    id: null
-}, {
-    name: '高跟鞋',
-    width: '84',
-    left: '564',
-    id: null
-}, {
-    name: '高跟鞋',
-    width: '84',
-    left: '696',
-    id: null
+    name: 'Lifestyle',
+    left: '592'
 }];

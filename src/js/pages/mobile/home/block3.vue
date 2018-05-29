@@ -6,11 +6,13 @@
                     <image class="gd-img" resize="cover" :src="goods.mainImage || src"></image>
                 </div>
                 <div class="gd-bg-right">
-                    <text class="gd-info">{{goods.brandName}}</text>
                     <text class="gd-tlt">{{goods.title}}</text>
-                    <text class="gd-sm">{{goods.cutGet? goods.cutGet: 0}}人已砍到了1折</text>
-                    <text class="gd-price">¥ {{goods.saleUnitPrice}}</text>
-                    <text class="gd-button">砍价立减</text>
+                    <div class="gd-sm">
+                        <text class="gd-price">Rs.{{goods.lowestPrice}}</text>
+                        <text class="gd-price-1">{{countOff(goods.lowestPrice, goods.saleUnitPrice)}}</text>
+                    </div>
+                    <text class="gd-info">Rs.{{goods.saleUnitPrice}}</text>
+                    <text class="gd-button">Price Drop</text>
                 </div>
             </div>
         </div>
@@ -30,6 +32,13 @@ export default {
             this.$router.open({
                 name: 'goods.details'
             })
+        },
+        countOff (s, o) {
+            if (o > 0) {
+                return Math.ceil((o - s) / o * 100) + '%off'
+            } else {
+                return ''
+            }
         }
     }
 }
@@ -81,22 +90,22 @@ export default {
     margin-top: 16px;
     font-size: 24px;
     font-weight: 300;
-    line-height: 40px;
+    line-height: 36px;
     width: 398px;
     overflow: hidden;
-    lines: 1;
+    lines: 2;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .gd-info {
     display: block;
-    font-weight: 600;
-    margin-top: 16px;
-    font-size: 28px;
+    margin-top: 4px;
+    font-size: 20px;
     width: 398px;
-    line-height: 40px;
+    line-height: 24px;
     color: rgba(0,0,0,0.87);
+    text-decoration: line-through;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
@@ -105,37 +114,35 @@ export default {
 
 .gd-price {
     font-size: 28px;
-    width: 398px;
-    margin-top: 32px;
-    font-weight: 500;
-    color: #987D1A;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    line-height: 34px;
+    font-weight: bold;
+    color: #000;
+}
+
+.gd-price-1{
+    font-size: 20px;
+    line-height: 24px;
+    margin-left: 8px;
+    color: #EF8A31;
 }
 
 .gd-sm {
     margin-top: 4px;
-    font-size: 20px;
-    line-height: 28px;
-    color: #AC0B0B;
-    width: 398px;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
 }
 
 .gd-button {
-    margin-top: 8px;
+    margin-top: 62px;
     width: 144px;
     text-align: center;
     font-size: 24px;
-    line-height: 56px;
+    line-height: 44px;
     border-style: solid;
     border-radius: 4px;
     border-width: 2px;
-    border-color: #000;
+    border-color: #EF8A31;
+    color: #EF8A31;
 }
 </style>

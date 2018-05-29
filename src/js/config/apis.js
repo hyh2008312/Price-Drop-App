@@ -14,5 +14,6 @@ export default {
     'address.shipping.list': '/address/shipping/list/',
     'order.cut.create': '/order/cut/create/',
     'order.customer.list': '/order/customer/list/',
-    'image.qiniu': '/image/qiniu/'
+    'image.qiniu': '/image/qiniu/',
+    'promotion.banner.list': '/promotion/banner/list/'
 }

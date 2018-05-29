@@ -4,7 +4,7 @@
             <image class="tlt-image" resize="cover" :src="head.image"></image>
             <div class="tlt-bg">
                 <text class="tlt tlt-new">{{head.name}}</text>
-                <text class="btn-all">查看全部</text>
+                <text class="btn-all">See More</text>
             </div>
             <text class="iconfont tlt-tri">&#xe6ff;</text>
         </div>
@@ -13,10 +13,12 @@
                 <div class="gd-bg">
                     <image class="gd-img" resize="cover" :src="i.mainImage || src"></image>
                 </div>
-                <text class="gd-tlt">{{i.title}}</text>
-                <text class="gd-info">{{i.cutGet? i.cutGet: 0}}人已砍到了1折</text>
-                <text class="gd-price">¥{{i.saleUnitPrice}}</text>
-                <text class="gd-button">砍价立减</text>
+                <div class="gd-tlt-bg">
+                    <text class="gd-tlt">Rs.{{i.lowestPrice}}</text>
+                    <text class="gd-info">{{countOff(i.lowestPrice, i.saleUnitPrice)}}</text>
+                </div>
+                <text class="gd-price">Rs.{{i.saleUnitPrice}}</text>
+                <text class="gd-button">Drop Price</text>
             </div>
         </scroller>
     </div>
@@ -76,6 +78,13 @@ export default {
                     id: id
                 }
             })
+        },
+        countOff (s, o) {
+            if (o > 0) {
+                return Math.floor((o - s) / o * 100) + '%off'
+            } else {
+                return ''
+            }
         }
     }
 }
@@ -116,6 +125,7 @@ export default {
 .tlt {
     text-align: center;
     font-size: 32px;
+    line-height: 38px;
     font-weight: 700;
     color: rgba(255,255, 255, 0.87);
 }
@@ -133,11 +143,11 @@ export default {
 .btn-all {
     text-align: center;
     font-size: 24px;
-    width: 114px;
+    width: 128px;
     line-height: 44px;
     justify-content: center;
     align-items: center;
-    margin-top: 28px;
+    margin-top: 24px;
     color: rgba(255,255,255,0.87);
     border-style: solid;
     border-width: 2px;
@@ -155,7 +165,7 @@ export default {
 
 .box {
     width: 750px;
-    height: 532px;
+    height: 474px;
     padding-top: 16px;
     padding-bottom: 32px;
     padding-left: 8px;
@@ -186,55 +196,51 @@ export default {
 }
 
 .gd-tlt {
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 28px;
+    font-weight: bold;
     color: rgba(0,0,0,0.87);
-    width: 288px;
-    margin-top: 16px;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: center;
     line-height: 34px;
 }
 
-.gd-info {
+.gd-tlt-bg{
+    margin-top: 16px;
+    width: 288px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.gd-info{
+    margin-left: 8px;
     font-size: 20px;
-    width: 286px;
-    margin-top: 8px;
-    color: #AC0B0B;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: center;
-    line-height: 28px;
+    line-height: 24px;
+    color: #EF8A31;
 }
 
 .gd-price {
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 500;
     width: 288px;
-    line-height: 40px;
-    margin-top: 6px;
-    color: #957914;
+    line-height: 24px;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
     text-align: center;
+    text-decoration: line-through;
 }
 
 .gd-button{
-    margin-top: 14px;
+    margin-top: 16px;
     font-size: 24px;
+    font-weight: bold;
     border-style: solid;
     border-width: 2px;
-    border-color: #000;
+    border-color: #EF8A31;
+    color: #EF8A31;
     border-radius: 4px;
-    line-height: 46px;
-    width: 120px;
+    line-height: 44px;
+    width: 144px;
     text-align: center;
     justify-content: center;
     align-items: center;

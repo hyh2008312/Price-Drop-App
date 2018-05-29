@@ -1,11 +1,10 @@
 <template>
     <div class="wrapper" ref="header">
-        <home-header></home-header>
+        <!--<home-header></home-header>-->
         <div class="status-bar"></div>
         <top-channel @change="onchange" ref="topChannel"
                      :activeIndex="activeIndex" :channelList="channelList"></top-channel>
-        <div :style="height" class="box" :class="[headerShow? '': 'wrapper-bottom']"
-             @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend" >
+        <div :style="height" class="box">
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
                 <category v-for="(i, index) in channelList" v-if="index > 0" :key="i.id"
@@ -20,6 +19,7 @@ import suggest from './suggest';
 import category from './category';
 import topChannel from './topChannel';
 import { Utils } from 'weex-ui';
+import { CHANNELLIST } from './config'
 
 const animation = weex.requireModule('animation')
 
@@ -32,7 +32,7 @@ export default {
     },
     created () {
         const pageHeight = Utils.env.getScreenHeight()
-        this.height = { height: (pageHeight - 112 - 44) + 'px' }
+        this.height = { height: (pageHeight - 112 - 112 - 48) + 'px' }
         this.getChannel()
     },
     data () {
@@ -79,27 +79,28 @@ export default {
             this.activeIndex = event.index
         },
         getChannel () {
-            const data = this.$storage.getSync('channel');
-            this.channelList = [];
-            let left = 0;
-            const firstCat = '推荐';
-            this.channelList.push({
-                name: firstCat,
-                width: 56,
-                left: 0,
-                id: '0'
-            })
-            left += 48 + firstCat.length * 28;
-            for (const item of data) {
-                const width = item.fullName.length * 28
-                this.channelList.push({
-                    name: item.fullName,
-                    width: width,
-                    left: left,
-                    id: item.id
-                })
-                left += 48 + item.fullName.length * 28
-            }
+            // const data = this.$storage.getSync('channel');
+            // this.channelList = [];
+            // let left = 0;
+            // const firstCat = '推荐';
+            // this.channelList.push({
+            //     name: firstCat,
+            //     width: 56,
+            //     left: 0,
+            //     id: '0'
+            // })
+            // left += 48 + firstCat.length * 28;
+            // for (const item of data) {
+            //     const width = item.fullName.length * 28
+            //     this.channelList.push({
+            //         name: item.fullName,
+            //         width: width,
+            //         left: left,
+            //         id: item.id
+            //     })
+            //     left += 48 + item.fullName.length * 28
+            // }
+            this.channelList = CHANNELLIST
         },
         changeHeader () {
             if (!this.headAni) {

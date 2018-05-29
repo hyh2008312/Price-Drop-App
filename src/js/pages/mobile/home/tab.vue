@@ -60,17 +60,17 @@ export default {
     padding-bottom: 8px;
 }
 .tab-txt-active{
-    color: #987D1A;
+    color: #EF8A31;
 }
 .tab-underline{
-    width: 80px;
+    width: 56px;
     height: 6px;
     background-color: #fff;
 }
 
 .tab-underline-active {
-    background-color: #987D1A;
-    width: 80px;
+    background-color: #EF8A31;
+    width: 56px;
     height: 6px;
 }
 

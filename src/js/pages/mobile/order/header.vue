@@ -27,7 +27,7 @@
 
     .wrapper {
         position: sticky;
-        margin-top: 44px;
+        margin-top: 48px;
         width: 750px;
         height: 112px;
         flex-direction: row;
