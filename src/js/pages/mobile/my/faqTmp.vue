@@ -7,14 +7,14 @@
             <text class="header"></text>
             <div v-if="settingPage==0" class="" v-for="(i,index) in QAArr ">
                 <text class="question">{{index+1}}.{{i.question}}</text>
-                <text class="answer">&nbsp;&nbsp;{{i.answer}}</text>
+                <text class="answer">{{i.answer}}</text>
             </div>
 
             <div v-if="settingPage==1" class="content">     <!--term & conditions-->
                 <div>
-                    <text class="h1">&nbsp;&nbsp;By using this app and/or placing an order, you agree to be bound by the terms and conditions set out below. You must read, agree with and accept all of the terms and conditions contained in this agreement including our privacy policy before you may become our registered user or place an order.
+                    <text class="h1">By using this app and/or placing an order, you agree to be bound by the terms and conditions set out below. You must read, agree with and accept all of the terms and conditions contained in this agreement including our privacy policy before you may become our registered user or place an order.
                     </text>
-                    <text class="h1">&nbsp;&nbsp;We reserve the right to update and change the Terms & Conditions by posting updates and changes to the PriceDrop App. You are advised to check the Terms & Conditions from time to time for any updates or changes that may impact you.
+                    <text class="h1">We reserve the right to update and change the Terms & Conditions by posting updates and changes to the PriceDrop App. You are advised to check the Terms & Conditions from time to time for any updates or changes that may impact you.
                     </text>
                 </div>
                 <div class="question" v-for="(item,index) in term" >
@@ -29,7 +29,7 @@
                 </div>
                 <div v-for="(i,index) in QAArr ">
                     <text class="question">{{index+1}}.{{i.question}}</text>
-                    <text class="answer">&nbsp;&nbsp;{{i.answer}}</text>
+                    <text class="answer">{{i.answer}}</text>
                 </div>
 
                 <div>
