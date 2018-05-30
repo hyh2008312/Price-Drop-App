@@ -16,6 +16,12 @@
                 <text class="indicator">加载中...</text>
             </loading>
         </list>
+        <div class="container-1" :style="height" v-if="goods.length == 0">
+            <div class="container-2">
+                <image class="pay-image" src="bmlocal://assets/empty.png"></image>
+            </div>
+            <text class="address-title">You have no drops information.</text>
+        </div>
     </div>
 </template>
 <script>
@@ -23,7 +29,7 @@
     import tabTitle from './tabTitle';
     import cutingItem from './cutingItem';
     import cutEndItem from './cutEndItem';
-    import { TAB ,TOKEN } from './config'
+    import { TAB, TOKEN } from './config'
     import { Utils } from 'weex-ui';
 
     export default {
@@ -38,6 +44,8 @@
             }
         },
         created () {
+            const pageHeight = Utils.env.getScreenHeight()
+            this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' }
             this.init();
         },
         data () {
@@ -326,5 +334,26 @@
         font-size: 28px;
         padding-top: 16px;
         padding-bottom: 16px;
+    }
+    .container-1{
+        width: 750px;
+        background-color: #F1F1F1;
+    }
+    .container-2{
+        margin-top: 86px;
+        width: 750px;
+        align-items: center;
+    }
+
+    .pay-image{
+        width: 202px;
+        height: 202px;
+    }
+
+    .address-title{
+        margin-top: 32px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
     }
 </style>

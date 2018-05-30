@@ -70,22 +70,21 @@ export default {
         },
         androidFinishApp () {
             const globalEvent = weex.requireModule('globalEvent');
-            let self = this;
+            const self = this;
             globalEvent.addEventListener('homeBack', options => {
-                this.$notice.confirm({
+                self.$router.finish();
+                /* this.$notice.confirm({
                     title: '退出',
-                    message: '确定退出SocialCommer吗？',
+                    message: '确定退出Price Drop吗？',
                     okTitle: '确认',
                     cancelTitle: '取消',
                     okCallback () {
-                        self.$router.finish();
                         // 点击确认按钮的回调
                     },
                     cancelCallback () {
                        // 点击取消按钮的回调
                     }
-
-                })
+                }) */
             })
         },
         getChannel () {

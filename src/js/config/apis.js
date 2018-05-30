@@ -17,4 +17,7 @@ export default {
     'image.qiniu': '/image/qiniu/',
     'promotion.banner.list': '/promotion/banner/list/',
     'user.userprofile': '/user/userprofile/',
+    'user.google.sign': '/user/google_sign/'
 }
+export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';
+export const baseUrl = 'http://149.129.135.114';
