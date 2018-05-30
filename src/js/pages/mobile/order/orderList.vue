@@ -14,7 +14,7 @@
             <div class="container-2">
                 <image class="pay-image" src="bmlocal://assets/empty.png"></image>
             </div>
-            <text class="address-title">You have no order information.</text>
+            <text class="address-title">There is no order to show.</text>
         </div>
         <wxc-popup :have-overlay="isTrue"
                    popup-color="rgba(255, 255, 255, 0)"
