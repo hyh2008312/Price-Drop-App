@@ -1,10 +1,8 @@
 <template>
     <div class="wrapper">
-        <topic-header title="Me" leftBtn="⬅️" rightBtn="SAVE" ref="ref1" ></topic-header>
+        <topic-header title="Me" leftBtn="icon" rightBtn="SAVE" @onsave="saveData" ref="ref1" ></topic-header>
 
-        <div class="blackheader">
-
-        </div>
+        <div class="blackheader"></div>
         <div class="mid-cell" @click="pickAndUpload">
             <div class="box-tlt ">
                 <div class="box-left">
@@ -23,7 +21,7 @@
                 <div class="box-left">
                     <text class="box-txt">Name</text>
                 </div>
-                <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Click to Edit..." value="" />
+                <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Click to Edit..." @input="oninput" />
 
                 <div class="box-right">
                     <text class="i-box iconfont">&#xe626;</text>
@@ -34,7 +32,7 @@
 
             </div>
 
-            <div class="box-tlt ">
+            <div class="box-tlt " @click="openGender">
                 <div class="box-left">
                     <text class="box-txt">Gender</text>
                 </div>
@@ -55,11 +53,22 @@
             'topic-header': header
         },
         name: 'myDetail',
+        eros: {
+            backAppeared (params, options) {
+                this.gender = params.id
+            }
+        },
+        created () {
+            this.getUserData()
+        },
         data () {
            return {
-               src: 'http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg'
+               src: 'http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg',
+               name: '',
+               gender: ''
            }
         },
+        // gender
         methods: {
             pickAndUpload () {
                 this.$image.pick({
@@ -114,6 +123,37 @@
                     this.$notice.toast({
                         message: error
                     })
+                })
+            },
+
+            oninput (event) {
+                this.name = event.value;
+            },
+            saveData () {
+                const params = {
+                    avatar: this.src,
+                    firstName: this.name,
+                    gender: this.gender
+                }
+                this.$fetch({
+                    method: 'PUT',
+                    name: 'user.userprofile',
+                    data: params
+                }).then((res) => {
+                    this.$notice.toast({
+                        message: 'save success'
+                    })
+                    this.$router.finish()
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: res
+                    })
+                })
+            },
+            openGender () {
+                this.$router.open({
+                    name: 'my.gender',
+                    type: 'PUSH'
                 })
             }
         }

@@ -1,7 +1,7 @@
 <template>
 
     <div class="wrapper">
-        <topic-header title="Account" rightBtn="icon" ref="ref1" ></topic-header>
+        <topic-header title="Account" rightBtn="icon" leftBtn='' @setting="openCell(0)"  ref="ref1" ></topic-header>
 
         <div class="blackheader">
 
@@ -9,12 +9,12 @@
 
         <div class="header" @click="openMydetail()">
             <div class="i-photo-div">
-                <image  class="i-photo" resize="cover" src="http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg"></image>
+                <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
             </div>
             <div class="b-tlt">
-                <text class="i-name">nickname</text>
+                <text class="i-name">{{nickname}}</text>
 
-                <text class="txt-tag">google.gmail.com</text>
+                <text class="txt-tag">{{email}}</text>
             </div>
             <text class="b-qrcode iconfont">  &#xe626;  </text>
         </div>
@@ -50,7 +50,7 @@
 
 
         <div class="mid-cell">
-            <div class="box-tlt ">
+            <div class="box-tlt " @click="openCell(1)">
                 <div class="box-left">
                     <text class="box-txt-icon">&#xe71b;</text>
                     <text class="box-txt">Customer Support</text>
@@ -59,7 +59,7 @@
 
             </div>
 
-            <div class="box-tlt ">
+            <div class="box-tlt " @click="openCell(2)">
                 <div class="box-left">
                     <text class="box-txt-icon">&#xe705;</text>
                     <text class="box-txt">My Address</text>
@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="mid-cell">
-            <div class="box-tlt ">
+            <div class="box-tlt " @click="openCell(3)">
                 <div class="box-left">
                     <text class="box-txt-icon">&#xe71c;</text>
                     <text class="box-txt">About Us</text>
@@ -77,7 +77,7 @@
 
             </div>
 
-            <div class="box-tlt ">
+            <div class="box-tlt " @click="openCell(4)">
                 <div class="box-left">
                     <text class="box-txt-icon">&#xe71d;</text>
                     <text class="box-txt">FAQ</text>
@@ -100,15 +100,19 @@ Vue.filter('myFilter', function (value) {
 
 export default {
     components: {
-        'topic-header': header,
+        'topic-header': header
     },
-    mounted () {
-        this.getService()
+    created () {
+        this.getUserData()
     },
+    // mounted () {
+    //     this.getUserData()
+    // },
     data () {
         return {
-            services: [],
-            serviceLength: 0
+            nickname: 'set nickname',
+            email: 'google.gmail.com',
+            img: 'bmlocal://assets/empty.png'
         }
     },
     methods: {
@@ -127,30 +131,91 @@ export default {
             this.$router.open({
                 name: 'my.details',
                 type: 'PUSH',
-                // params: {
-                //     tab: id
-                // }
+                params: {
+                    tab: id
+                }
             })
         },
-        getService () {
-            // this.$fetch({
-         //        method: 'GET',
-         //        name: 'yanxuan_my_getService',
-         //        data: {}
-         //    }).then(resData => {
-         //        this.services = resData.data
-         //        this.getLength()
-         //    }, error => {
+        openCell (type) {
+            if (type == 0) {
+                this.$router.open({
+                    name: 'my.setting',
+                    type: 'PUSH'
+                    // params: {
+                    //     tab: id
+                    // }
+                })
+            } else if (type == 1) {
+               this.$router.open({
+                   name: 'my.support',
+                   type: 'PUSH'
+                   // params: {
+                   //     tab: id
+                   // }
+               })
+           } else if (type == 2) {
+               this.$router.open({
+                   name: 'order.address',
+                   type: 'PUSH'
 
-         //    })
-
-         this.services = SERVICES
-         this.getLength()
+               })
+           } else if (type == 3) {
+               this.$router.open({
+                   name: 'my.about',
+                   type: 'PUSH'
+                   // params: {
+                   //     tab: id
+                   // }
+               })
+           } else if (type == 4) {
+               this.$router.open({
+                   name: 'my.faq',
+                   type: 'PUSH'
+                   // params: {
+                   //     tab: id
+                   // }
+               })
+           }
         },
-        getLength () {
-            this.serviceLength = Math.ceil(this.services.length / 4)
+        getUserData () {
+            // this.$notice.toast({
+            //     message: 111
+            // })
+            this.$fetch({
+                method: 'GET',
+                name: 'user.userprofile',
+                header: {
+                    Authorization: 'Bearer ' + 'EmTm3ZEb7s3oO9kA9OwV75aGPd16ZG'
+                }
+            }).then((res) => {
+                this.$notice.toast({
+                    message: res
+                })
+            }).catch((res) => {
+                this.$notice.toast({
+                    message: res
+                })
+            })
         }
+        // getService () {
+        //     this.$fetch({
+        //         method: 'GET',
+        //         name: 'yanxuan_my_getService',
+        //         data: {}
+        //     }).then(resData => {
+        //         this.services = resData.data
+        //         this.getLength()
+        //     }, error => {
+        //
+        //     })
+        //
+        //  this.services = SERVICES
+        //  this.getLength()
+        // },
+        // getLength () {
+        //     this.serviceLength = Math.ceil(this.services.length / 4)
+        // }
     }
 }
 </script>
-    <style lang="sass" src="./index.scss"></style>
+<style lang="sass" src="./index.scss"></style>

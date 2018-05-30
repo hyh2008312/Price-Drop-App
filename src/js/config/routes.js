@@ -105,6 +105,24 @@ export default {
     'my.details': {
         url: '/pages/mobile/my/myDetail.js'
     },
+    'my.faq': {
+        url: '/pages/mobile/my/myFaq.js'
+    },
+    'my.faqTmp': {
+        url: '/pages/mobile/my/faqTmp.js'
+    },
+    'my.about': {
+        url: '/pages/mobile/my/myAboutUs.js'
+    },
+    'my.gender': {
+        url: '/pages/mobile/my/myGender.js'
+    },
+    'my.support': {
+        url: '/pages/mobile/my/mySupport.js'
+    },
+    'my.setting': {
+        url: '/pages/mobile/my/mySetting.js'
+    },
     'order': {
         url: '/pages/mobile/order/index.js'
     },

@@ -1,12 +1,14 @@
 <template>
     <div class="wrapper">
         <div class="left">
-            <text class="leftTxt">{{leftBtn}}</text>
+            <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe6f6;</text>
+            <text class="leftTxt" v-else>{{leftBtn}}</text>
+
         </div>
         <text class="tlt">{{title}}</text>
         <div class="right">
-            <text class="rightTxt" v-if="iconSign==true" >&#xe71e;</text>
-            <text class="rightTxt" v-else >{{rightBtn}}</text>
+            <text class="rightTxt" v-if="iconSign==true" @click="setting" >&#xe71e;</text>
+            <text class="rightTxt" v-else @click="savedata">{{rightBtn}}</text>
         </div>
     </div>
 </template>
@@ -15,6 +17,7 @@ export default {
     props: ['title', 'leftBtn', 'rightBtn'],
     data () {
       return {
+          leftSign: '',
           iconSign: ''
       }
     },
@@ -28,6 +31,20 @@ export default {
             } else {
                 this.iconSign = false
             }
+
+            // this.$notice.toast({message: this.leftBtn})
+
+            if (this.leftBtn == 'icon') {
+                this.leftSign = true
+            } else {
+                this.leftSign = false
+            }
+        },
+        savedata () {
+           this.$emit('onsave',1)
+        },
+        setting () {
+           this.$emit('setting',1)
         }
     }
 }
@@ -73,7 +90,7 @@ export default {
     width: 120px;
     position: absolute;
     left: 50px;
-    top:88px;
+    top:30px;
     padding-top: 10px;
 
 }
@@ -94,7 +111,7 @@ export default {
 
 .leftTxt{
     font-family: iconfont;
-    color: #FFFFFF;
+    color: black;
     font-size: 32px;
     text-align: left;
 }

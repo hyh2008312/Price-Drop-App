@@ -15,5 +15,6 @@ export default {
     'order.cut.create': '/order/cut/create/',
     'order.customer.list': '/order/customer/list/',
     'image.qiniu': '/image/qiniu/',
-    'promotion.banner.list': '/promotion/banner/list/'
+    'promotion.banner.list': '/promotion/banner/list/',
+    'user.userprofile': '/user/userprofile/',
 }

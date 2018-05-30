@@ -312,13 +312,13 @@
         methods: {
             getGoodsDetail (id) {
                 if (id) {
-                    this.$notice.toast({
-                        message: id.id
-                    })
+                    // this.$notice.toast({
+                    //     message: id.id
+                    // })
                     axios.fetch({
                         method: 'GET',
-                        // url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
-                        url: 'http://47.104.171.91/product/customer/detail/' + 8 + '/',
+                        url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
+                        // url: 'http://47.104.171.91/product/customer/detail/' + 8 + '/',
                         // name: 'product.customer.list',
                         data: {}
                     }, (res) => {
@@ -854,6 +854,7 @@
         margin-top: 16px;
     }
     .popup-close{
+        font-family: iconfont;
         font-size: 32px;
         position: absolute;
         right: 32px;
