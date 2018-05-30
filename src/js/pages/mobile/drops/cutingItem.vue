@@ -66,7 +66,7 @@
                 <!--unpaid-->
                 <text class="gd-handle-cut" v-else-if="goods.operationStatus =='unpaid'" @click="jumpOrderDetail">Pay Now</text>
                 <!---->
-                <text class="gd-handle-cut" v-else @click="jumpProductDetail" >Buy Again </text>
+                <text class="gd-handle-cut-again" v-else @click="jumpProductDetail" >Buy Again </text>
             </div>
 
         </div>
@@ -316,6 +316,20 @@
         font-size: 24px;
         line-height: 56px;
         background-color: #EF8A31;
+        margin-right: 28px;
+        margin-left: 28px;
+        border-radius: 4px;
+    }
+    .gd-handle-cut-again {
+        width: 144px;
+        text-align: center;
+        color: #EF8A31;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 56px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #EF8A31;
         margin-right: 28px;
         margin-left: 28px;
         border-radius: 4px;

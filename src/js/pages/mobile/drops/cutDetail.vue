@@ -14,9 +14,10 @@
                     <image class="in-head" resize="cover"
                            :src="'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'"></image>
                 </div>
-                <text class="wrapper-tip">The more friends cut price for you,
-                    the lower price you get.
-                </text>
+                <div class="share-content-top">
+                    <text class="wrapper-tip">You just cut Rs.{{goodsDetail.salePrice - goodsDetail.currentPrice}} Off the price!</text>
+                    <text class="wrapper-tip">Share this item and invite more friends to cut price for you!</text>
+                </div>
             </div>
             <div class="wrapper-product">
                 <div class="product-image">
@@ -128,18 +129,9 @@
             @wxcPopupOverlayClicked="popupOverlayAutoClick"
             ref="wxcPopup"
             pos="bottom"
-            height="560">
+            height="384">
             <div class="share-content">
                 <div>
-                    <div class="share-content-top">
-                        <div class="share-content-text">
-                            <text class="share-content-text-1">You just cut </text>
-                            <text class="share-content-text-2">{{goodsDetail.salePrice - goodsDetail.currentPrice}}</text>
-                            <text class="share-content-text-1"> Off the price!</text>
-                        </div>
-                        <text class="share-content-text-1">Share this item and invite more friends to
-                            cut price for you!</text>
-                    </div>
                     <div class="share-content-bottom">
                         <div class="share-content-icon">
                             <div class="facebook" @click="shareFacebook">
@@ -172,29 +164,35 @@
                  @wxcMaskSetHidden="wxcMaskSetHidden">
             <div class="rule-content">
                 <scroller>
+                    <text class="rule-faq">FAQ</text>
                 <div class="rule-content-title">
-                    <text class="rule-title">How to Cut Price</text>
+                    <text class="rule-title">What is a Price Drop campaign?</text>
                 </div>
-                <text class="rule-text">Step1:  Click the “Share to Drop Price” button to get started.</text>
-                <text class="rule-text">Step2:  Share the campaign with your friends or family on Facebook & WhatsApp.</text>
-                <text class="rule-text">Step3:  If anyone clicks the “Drop Price” button on the page you share, the price will drop automatically.</text>
-                <text class="rule-text">Step4:  Your drop will expire after 24 hours. The more people you engage, you lower price you unlock.</text>
+                <text class="rule-text">The Price Drop campaign is a fun and money-saving way that helps people shop their favorite products at the lowest price by teaming up with their friends!  We believe this model can not only help our customers save bigger, but also create a more engaging social selling channel for brands and manufacturers! </text>
                 <div class="rule-content-title">
-                    <text class="rule-title">Rules to Know</text>
+                    <text class="rule-title">How to reach the lowest price? </text>
                 </div>
-                <text class="rule-text">1. The duration for each price-drop is 24 hours. Once your drop reaches the lowest price within 24 hours, the campaign will end automatically! </text>
-                <text class="rule-text">2. Once your price-drop ends, you can purchase the item at the final price you have reached. Please complete the payment within 24 hours after the campaign ends.</text>
-                <text class="rule-text">3. If you do not complete the payment in time, you’re deemed to waived your purchase right, and the price drop of the item will expire as well. </text>
-                <text class="rule-text">4. Due to the limited stocks of each item, so they will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the drop will fail.</text>
+                <text class="rule-text">Share it with more friends and invite them to drop the price together. Each time when a user clicks the “Drop” button on this page, the price will drop automatically. Once it hits a certain number of clicks, the lowest price will be unlocked!  </text>
+                 <div class="rule-content-title">
+                        <text class="rule-title">Is there a time frame for a Price Drop?</text>
+                 </div>
+                    <text class="rule-text">A Price Drop campaign only lasts for 24 hours. Once the item reaches the lowest price, the campaign will end automatically. </text>
+                    <div class="rule-content-title">
+                        <text class="rule-title">How many times can a user help drop the price? </text>
+                    </div>
+                    <text class="rule-text">Each user can only help others drop the price up to 10 times a day for different products. </text>
+                    <div class="rule-content-title">
+                        <text class="rule-title">How to start my own Price Drop campaign?</text>
+                    </div>
+                    <text class="rule-text">Please download our app “PriceDrop”, in which you can start a DROP for any items you love. </text>
                 </scroller>
             </div>
         </WxcMask>
-
-
     </div>
 </template>
 <script>
     import { WxcCountdown, WxcPopup, WxcMask } from 'weex-ui'
+    import ShareUrlUtil from '../utils/ShareUtil'
 
     const shareModule = weex.requireModule('ShareModule');
 
@@ -207,12 +205,14 @@
         eros: {
             appeared (params, options) {
                 console.log('beforeAppear');
-                this.isShow = params.isShowSharePanel;
+               // this.isShow = params.isShowSharePanel;
+                this.isShow = false;
                 this.id = params.id;
                 this.requestCutDetail();
             }
         },
         created () {
+            this.userId = 1
         },
         data () {
             return {
@@ -221,9 +221,10 @@
                 isShowShare: false,
                 isShow: false,
                 id: -1,
+                userId: 1,
                 goodsDetail: {},
                 isRuleShow: false,
-                distance: 1,
+                distance: 1
             }
         },
         methods: {
@@ -235,31 +236,25 @@
             },
             shareFacebook () {
                 const that = this;
+                const detail = that.goodsDetail.cutGet === null ? 0 : that.goodsDetail.cutGet + ' bought their favorites at the lowest price';
+                const url = ShareUrlUtil.getShareUrl(that.userId, that.id);
+                const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
-                    'this is a facebook title',
-                    'this is a facebook detail',
-                    'https://www.socialcommer.com/store/maryamhampton/6/detail/44168',
-                    'https://media.socialcommer.com/cdn/product/cc/25c0ecd8-38e4-4e35-8763-1e22a05a52ab.jpg',
+                    'Come help me drop the price together!', detail, url, imageUrl,
                     function (param) {
-                        that.$notice.toast('success:' + JSON.stringify(param));
                         that.popupOverlayAutoClick();
                     }, function (param) {
-                        that.$notice.toast('failed:' + JSON.stringify(param));
                         that.popupOverlayAutoClick();
                     }
                 );
             },
             shareWhatsApp () {
                 const that = this;
-                const detail = 'Hey! I just found this item and need your help to drop the price before it sells out:  \n' +
-                    'https://www.socialcommer.com/store/maryamhampton/6/detail/44168\n\n' +
-                    '13520 people have got their favorite items at the lowest price on PriceDrop! Join me and save big together.'
+                const detail = ShareUrlUtil.getWhatsAppParams(that.userId, that.id, that.goodsDetail.cutGet === null ? 0 : that.goodsDetail.cutGet);
                 shareModule.shareWhatsapp(detail, '',
                     function (param) {
-                        that.$notice.toast('success:' + JSON.stringify(param));
                         that.popupOverlayAutoClick();
                     }, function (param) {
-                        that.$notice.toast('failed:' + JSON.stringify(param));
                         that.popupOverlayAutoClick();
                     }
                 )
@@ -273,9 +268,8 @@
                     this.percentage = (data.salePrice - data.currentPrice) / data.salePrice;
                     this.distance = this.percentage * 606 - 30;
                     if (this.distance > 450) {
-                        this.distance = 450 ;
+                        this.distance = 450;
                     }
-                    this.$notice.toast(this.distance);
                     this.isShowShare = this.isShow;
                 }, error => {
                     this.$notice.toast('network is error');
@@ -307,6 +301,14 @@
     }
 </script>
 <style scoped>
+    .rule-faq{
+        width: 594px;
+        font-size: 40px;
+        text-align: center;
+        margin-top: 48px;
+        font-weight: bold;
+        color: #000000;
+    }
     .rule-title {
         font-size: 32px;
         margin-top: 48px;
@@ -465,7 +467,6 @@
 
     .share-content-bottom {
         height: 384px;
-        margin-top: 32px;
         background-color: white;
     }
 
