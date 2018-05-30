@@ -2,6 +2,7 @@
 
     <div class="wrapper" @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend"  >
         <topic-header ref="ref1" ></topic-header>
+        <div class="blackheader"></div>
 
         <scroller class="main-list" @scroll="scrollHandler"   offset-accuracy="300px">
 
@@ -55,10 +56,10 @@
 
             </div>
             <div class="dec-word" ref="dec" >
-                <text class="">Description</text>
+                <text class="dec">Description</text>
 
             </div>
-                <div style="width: 750px; background-color: rosybrown">
+                <div style="width: 750px; background-color: white">
                     <text v-for="txt in dectxt" class="bottom-text" >
                         {{txt}}
                     </text>
@@ -369,7 +370,7 @@
                         data: { variant_id: this.variantsId }
                     }, (res) => {
                         this.$router.open({
-                        name: 'cut.goods',
+                        name: 'drops.cutDetail',
                         type: 'PUSH',
                         params: {
                             data: res.data
@@ -556,8 +557,8 @@
                if (e.contentOffset.y >= -10) {
                    animation.transition(this.$refs.ref1, {
                        styles: {
-                           opacity: '1',
-                           height: '48px'
+                           opacity: '0',
+                           height: '148px'
 
                        },
                        duration: 200, // ms
@@ -580,9 +581,9 @@
                    this.topval = '2'
                }
                if (Math.abs(e.contentOffset.y) > 1200) {
-                   this.$notice.toast({
-                       message: '55555'
-                   });
+                   // this.$notice.toast({
+                   //     message: '55555'
+                   // });
                     this.tabshow = true
                } else if (Math.abs(e.contentOffset.y) < 1100) {
                    this.tabshow = false
@@ -714,12 +715,13 @@
         border-style: solid;
         border-color: #EF8A31;
     }
-    .leftline {
-        width: 126px;
-        height: 3px;
-        margin-left: 50px;
-        background-color: red;
-
+    .blackheader{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 750px;
+        height: 48px;
+        background-color: black;
     }
     .mid{
         margin-top: 14px;
@@ -756,6 +758,9 @@
         padding-top: 40px;
         padding-left: 30px;
         margin-top: 16px;
+        border-bottom-color: rgba(0,0,0,0.12) ;
+        border-bottom-width: 2px ;
+        border-bottom-style: solid ;
         background-color: white;
     }
     .bottom-head{
@@ -774,8 +779,8 @@
         margin-bottom: 100px;
     }
     .bottom-text{
-        margin-left: 50px;
-        margin-right: 50px;
+        margin-left: 32px;
+        margin-right: 32px;
         padding-top: 24px;
         text-align: left;
     }
