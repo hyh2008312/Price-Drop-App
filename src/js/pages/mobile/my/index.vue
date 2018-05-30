@@ -7,7 +7,7 @@
 
         </div>
 
-        <div class="header" v-if="user!=''" @click="openMydetail(1)">
+        <div class="header" v-if="user!=null" @click="openMydetail(1)">
             <div class="i-photo-div">
                 <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
             </div>
@@ -19,7 +19,7 @@
             <text class="b-qrcode iconfont">  &#xe626;  </text>
         </div>
 
-        <div class="header" v-if="user==''" @click="openMydetail(2)">
+        <div class="header" v-if="user==null" @click="openMydetail(2)">
             <div style="width: 200px; height: 200px; border-radius: 50%;">
                 <text> login </text>
             </div>
@@ -119,7 +119,7 @@ export default {
             nickname: 'set nickname',
             email: 'google.gmail.com',
             img: 'bmlocal://assets/empty.png',
-            user: ''
+            user: null
         }
     },
     methods: {
@@ -197,31 +197,34 @@ export default {
             // })
             this.$storage.get('user').then(resData => {
                 this.user = resData
+                this.$notice.alert({
+                    message: resData
+                })
+                if (this.user !== null) {
+                    this.$fetch({
+                        method: 'GET',
+                        name: 'user.userprofile',
+                        header: {
+                            Authorization: 'Bearer ' + this.token.accessToken
+                        }
+                    }).then((res) => {
+                        this.$notice.toast({
+                            message: res
+                        })
+                    }).catch((res) => {
+                        this.$notice.toast({
+                            message: res
+                        })
+                    })
+                } else {
+                    this.$notice.toast({
+                        message: 'please login'
+                    })
+                }
             })
             this.$storage.get('token').then(resData => {
                 this.token = resData
             })
-            if (this.user != '') {
-                this.$fetch({
-                    method: 'GET',
-                    name: 'user.userprofile',
-                    header: {
-                        Authorization: 'Bearer ' + this.token.accessToken
-                    }
-                }).then((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
-                }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
-                })
-            } else {
-                this.$notice.toast({
-                    message: 'please login'
-                })
-            }
         }
         // getService () {
         //     this.$fetch({

@@ -13,14 +13,14 @@
                 <cutingItem :goods=i :key="index" :flag="isCuting"></cutingItem>
             </cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
-                <text class="indicator">加载中...</text>
+                <text class="indicator">Loading...</text>
             </loading>
         </list>
         <div class="container-1" :style="height" v-if="goods.length == 0">
             <div class="container-2">
                 <image class="pay-image" src="bmlocal://assets/empty.png"></image>
             </div>
-            <text class="address-title">You have no drops information.</text>
+            <text class="address-title">There is no drop to show.</text>
         </div>
     </div>
 </template>
