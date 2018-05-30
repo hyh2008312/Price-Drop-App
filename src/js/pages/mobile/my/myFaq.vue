@@ -2,9 +2,7 @@
     <div class="wrapper">
         <topic-header title="FAQ" leftBtn="icon"  ref="ref1" ></topic-header>
 
-        <div class="blackheader">
-
-        </div>
+        <div class="blackheader"></div>
         <div class="mid-cell" >
             <div class="box-tlt " @click="openNew(1)">
                 <div class="box-left">

@@ -29,14 +29,14 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 48px;
+    height: 148px;
     padding-top: 44px;
     z-index: 101;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-around;
     background-color: #000;
-    opacity: 1;
+    opacity: 0;
     /*border-bottom-width: 1px;*/
     /*border-bottom-color: #d9d9d9;*/
 }
@@ -62,8 +62,8 @@ export default {
     height: 80px;
     width: 120px;
     position: absolute;
-    left: 50px;
-    top:50px;
+    left: 47.5px;
+    top:77.5x;
     padding-top: 10px;
 
 }
@@ -74,7 +74,7 @@ export default {
     width: 120px;
     position: absolute;
     right: 5px;
-    top:50px;
+    top:77.5px;
     padding-top: 10px;
 
 }

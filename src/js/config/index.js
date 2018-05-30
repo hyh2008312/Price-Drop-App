@@ -11,8 +11,8 @@ new Widget({
         routes
     },
     ajax: {
-       // baseUrl: 'http://47.104.171.91',
-          baseUrl: 'http://149.129.135.114',
+        // baseUrl: 'http://47.104.171.91',
+           baseUrl: 'http://149.129.135.114',
         /**
          * 接口别名
          */
