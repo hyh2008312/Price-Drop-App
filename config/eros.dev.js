@@ -12,7 +12,7 @@ module.exports = {
         'js/pages/mobile/home/index.vue',
         'js/pages/mobile/drops/index.vue',
         'js/pages/mobile/drops/cutDetail.vue',
-        'js/pages/mobile/shop/index.vue',
+        // 'js/pages/mobile/shop/index.vue',
         'js/pages/mobile/my/index.vue',
         'js/pages/mobile/my/myDetail.vue',
         'js/pages/mobile/my/myFaq.vue',

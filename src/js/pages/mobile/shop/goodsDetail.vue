@@ -186,11 +186,7 @@
 <script>
     import header from './header';
     import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
-    import block2 from '../home/block2';
-    import block3 from '../home/block3';
-    import block4 from './block4';
     import tab from './tab';
-    import block5 from '../home/block5';
     const animation = weex.requireModule('animation');
     const axios = weex.requireModule('bmAxios');
     const globalEvent = weex.requireModule('globalEvent');
@@ -204,10 +200,6 @@
         components: {
             'topic-header': header,
             WxcCell, WxcButton, WxcPopup, WxcMask,
-            'block-2': block2,
-            'block-3': block3,
-            'block-4': block4,
-            'block-5': block5,
             'tab': tab
             // 'refresher': refresher,
             // 'block': block
@@ -217,9 +209,9 @@
               this.getGoodsDetail(a)
           },
           beforeBackAppear (params) {
-                this.$notice.toast({
-                  message: 111111
-              })
+              //   this.$notice.toast({
+              //     message: 111111
+              // })
           }
         },
         data () {
@@ -312,9 +304,9 @@
         methods: {
             getGoodsDetail (id) {
                 if (id) {
-                    this.$notice.toast({
-                        message: id.id
-                    })
+                    // this.$notice.toast({
+                    //     message: id.id
+                    // })
                     axios.fetch({
                         method: 'GET',
                         url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
