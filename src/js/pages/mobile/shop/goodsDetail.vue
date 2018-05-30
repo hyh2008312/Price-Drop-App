@@ -312,9 +312,9 @@
         methods: {
             getGoodsDetail (id) {
                 if (id) {
-                    // this.$notice.toast({
-                    //     message: id.id
-                    // })
+                    this.$notice.toast({
+                        message: id.id
+                    })
                     axios.fetch({
                         method: 'GET',
                         url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
@@ -335,20 +335,27 @@
                             }
 
                             this.goodsVariants = res.data.variants;
-                            this.selimgsrc = res.data.images[0]
-                            this.goodsType = this.operateData(res.data.attributes);
+                            if (res.data.images != null) {
+                                this.selimgsrc = res.data.images[0]
+                            } else {
+                                this.selimgsrc = ''
+                            }
+                            if (res.data.attributes != null) {
+                                this.goodsType = this.operateData(res.data.attributes);
+                            } else {
+                                this.goodsType = this.operateData([]);
+                            }
                             this.decimg = []
                             this.dectxt = []
-                            for (let i = 0; i < res.data.description.length; i++) {
-                                if (res.data.description[i].type == 'image') {
-                                    this.decimg.push(res.data.description[i].context)
-                                } else {
-                                    this.dectxt.push(res.data.description[i].context)
+                            if (res.data.description != null) {
+                                for (let i = 0; i < res.data.description.length; i++) {
+                                    if (res.data.description[i].type == 'image') {
+                                        this.decimg.push(res.data.description[i].context)
+                                    } else {
+                                        this.dectxt.push(res.data.description[i].context)
+                                    }
                                 }
                             }
-                            // this.$notice.toast({
-                            //     message: this.goodsType
-                            // })
                         } else {
                             this.$notice.toast({
                                 message: res.errorMsg
