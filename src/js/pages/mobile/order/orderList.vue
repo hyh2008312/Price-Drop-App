@@ -127,7 +127,7 @@
                 order: false,
                 selectedOrder: {
                     title: 'Toyota’s Latest is an Entire Mobility Service Platform',
-                    src: 'http://yanxuan.nosdn.127.net/630439320dae9f1ce3afef3c39721383.jpg',
+                    src: 'bmlocal://assets/occupy.png',
                     date: 'May 16th，2018',
                     status: 'Unpaid',
                     attribute: 'Pink L',

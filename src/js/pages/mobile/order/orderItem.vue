@@ -73,7 +73,7 @@
         props: ['order', 'index'],
         data () {
             return {
-                src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
+                src: 'bmlocal://assets/occupy.png'
             }
         },
         methods: {
