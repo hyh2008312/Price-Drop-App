@@ -20,9 +20,10 @@
         </div>
 
         <div class="header" v-if="user==null" @click="openMydetail(2)">
-            <div style="width: 200px; height: 200px; border-radius: 50%;">
-                <text> login </text>
-            </div>
+                <div class="no-login">
+                    <text class="">Welcome!</text>
+                    <text class="no-login-text"> Log in </text>
+                </div>
         </div>
 
         <div class="s-box ">
@@ -107,6 +108,13 @@ Vue.filter('myFilter', function (value) {
 export default {
     components: {
         'topic-header': header
+    },
+    eros: {
+        beforeAppear (a) {
+        },
+        beforeBackAppear (params) {
+            this.getUserData()
+        }
     },
     created () {
         this.getUserData()
@@ -195,8 +203,14 @@ export default {
             // this.$notice.toast({
             //     message: 111
             // })
+            this.$storage.get('token').then(resData => {
+                this.token = resData
+            })
             this.$storage.get('user').then(resData => {
                 this.user = resData
+                this.nickname = this.user.firstName + this.user.lastName
+                this.email = this.user.email
+                this.img = this.user.avatar
                 this.$notice.alert({
                     message: resData
                 })
@@ -221,9 +235,6 @@ export default {
                         message: 'please login'
                     })
                 }
-            })
-            this.$storage.get('token').then(resData => {
-                this.token = resData
             })
         }
         // getService () {

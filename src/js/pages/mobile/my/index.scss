@@ -142,6 +142,19 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.no-login{
+  width: 750px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.no-login-text{
+    background-color: #ef8a31;
+    margin-top: 24px;
+    padding: 10px 100px;
+    border-radius: 50%;
+    color: white;
+}
 .line-serve {
     padding-top: 20px;
     height: 150px;

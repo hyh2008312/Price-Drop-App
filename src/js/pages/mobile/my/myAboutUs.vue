@@ -4,7 +4,7 @@
 
         <div class="blackheader"></div>
         <div class="mid-cell" >
-            <text class="header">About Us</text>
+            <!--<text class="header">About Us</text>-->
             <div class="content">
                 <text>&nbsp;&nbsp;PriceDrop is a fun, social and money-saving shopping app that lets you shop your favorite products at the lowest price by teaming up with your friends on Facebook & WhatsApp. 
                 </text>
