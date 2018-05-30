@@ -7,7 +7,7 @@
 
         </div>
 
-        <div class="header" @click="openMydetail()">
+        <div class="header" v-if="user!=''" @click="openMydetail(1)">
             <div class="i-photo-div">
                 <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
             </div>
@@ -17,6 +17,12 @@
                 <text class="txt-tag">{{email}}</text>
             </div>
             <text class="b-qrcode iconfont">  &#xe626;  </text>
+        </div>
+
+        <div class="header" v-if="user==''" @click="openMydetail(2)">
+            <div style="width: 200px; height: 200px; border-radius: 50%;">
+                <text> login </text>
+            </div>
         </div>
 
         <div class="s-box ">
@@ -112,7 +118,8 @@ export default {
         return {
             nickname: 'set nickname',
             email: 'google.gmail.com',
-            img: 'bmlocal://assets/empty.png'
+            img: 'bmlocal://assets/empty.png',
+            user: ''
         }
     },
     methods: {
@@ -127,14 +134,21 @@ export default {
                 }
             })
         },
-        openMydetail () {
-            this.$router.open({
-                name: 'my.details',
-                type: 'PUSH',
-                params: {
-                    tab: id
-                }
-            })
+        openMydetail (type) {
+            if (type == 1) {
+                this.$router.open({
+                    name: 'my.details',
+                    type: 'PUSH',
+                    params: {
+                        tab: id
+                    }
+                })
+            } else if (type == 2) {
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            }
         },
         openCell (type) {
             if (type == 0) {
@@ -181,21 +195,33 @@ export default {
             // this.$notice.toast({
             //     message: 111
             // })
-            this.$fetch({
-                method: 'GET',
-                name: 'user.userprofile',
-                header: {
-                    Authorization: 'Bearer ' + 'EmTm3ZEb7s3oO9kA9OwV75aGPd16ZG'
-                }
-            }).then((res) => {
-                this.$notice.toast({
-                    message: res
-                })
-            }).catch((res) => {
-                this.$notice.toast({
-                    message: res
-                })
+            this.$storage.get('user').then(resData => {
+                this.user = resData
             })
+            this.$storage.get('token').then(resData => {
+                this.token = resData
+            })
+            if (this.user != '') {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'user.userprofile',
+                    header: {
+                        Authorization: 'Bearer ' + this.token.accessToken
+                    }
+                }).then((res) => {
+                    this.$notice.toast({
+                        message: res
+                    })
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: res
+                    })
+                })
+            } else {
+                this.$notice.toast({
+                    message: 'please login'
+                })
+            }
         }
         // getService () {
         //     this.$fetch({
