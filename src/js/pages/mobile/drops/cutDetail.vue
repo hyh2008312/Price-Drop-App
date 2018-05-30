@@ -12,10 +12,10 @@
                 </div>
                 <div class="out-head">
                     <image class="in-head" resize="cover"
-                           :src="'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'"></image>
+                           :src="goodsDetail.ownerAvatar"></image>
                 </div>
                 <div class="share-content-top">
-                    <text class="wrapper-tip">You just cut Rs.{{goodsDetail.salePrice - goodsDetail.currentPrice}} Off the price!</text>
+                    <text class="wrapper-tip">You just cut Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
                     <text class="wrapper-tip">Share this item and invite more friends to cut price for you!</text>
                 </div>
             </div>
@@ -108,9 +108,9 @@
                             <div class="contributors-content-left">
                                 <div class="contributors-content-left-image">
                                     <image class="contributors-content-left-image-in" resize="cover"
-                                           :src="'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'"></image>
+                                           :src="i.avatar"></image>
                                 </div>
-                                <text class="contributors-content-left-name">Luzhenqiang</text>
+                                <text class="contributors-content-left-name">{{i.firstName}} {{i.lastName}}</text>
                             </div>
                             <div class="contributors-content-right">
                                 <text class="contributors-content-right-1">Cut  </text>
@@ -195,7 +195,7 @@
     import ShareUrlUtil from '../utils/ShareUtil'
 
     const shareModule = weex.requireModule('ShareModule');
-
+    import { baseUrl } from '../../../config/apis'
     export default {
         components: {
             WxcCountdown,
@@ -212,7 +212,6 @@
             }
         },
         created () {
-            this.userId = 1
         },
         data () {
             return {
@@ -221,7 +220,6 @@
                 isShowShare: false,
                 isShow: false,
                 id: -1,
-                userId: 1,
                 goodsDetail: {},
                 isRuleShow: false,
                 distance: 1
@@ -236,8 +234,8 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = that.goodsDetail.cutGet === null ? 0 : that.goodsDetail.cutGet + ' bought their favorites at the lowest price';
-                const url = ShareUrlUtil.getShareUrl(that.userId, that.id);
+                const detail = that.goodsDetail.cutGet == null ? 0 : that.goodsDetail.cutGet + ' bought their favorites at the lowest price';
+                const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
                     'Come help me drop the price together!', detail, url, imageUrl,
@@ -250,7 +248,7 @@
             },
             shareWhatsApp () {
                 const that = this;
-                const detail = ShareUrlUtil.getWhatsAppParams(that.userId, that.id, that.goodsDetail.cutGet === null ? 0 : that.goodsDetail.cutGet);
+                const detail = ShareUrlUtil.getWhatsAppParams(that.id, that.goodsDetail.cutGet == null ? 0 : that.goodsDetail.cutGet);
                 shareModule.shareWhatsapp(detail, '',
                     function (param) {
                         that.popupOverlayAutoClick();
@@ -260,12 +258,13 @@
                 )
             },
             requestCutDetail () {
+                this.$notice.toast(this.id);
                 this.$fetch({
                     method: 'GET',
-                    url: 'http://47.104.171.91/promotion/cut/detail/' + this.id + '/'
+                    url: baseUrl + '/promotion/cut/detail/' + this.id + '/'
                 }).then(data => {
                     this.goodsDetail = data;
-                    this.percentage = (data.salePrice - data.currentPrice) / data.salePrice;
+                    this.percentage = (data.salePrice - data.currentPrice) / (data.salePrice - data.lowestPrice);
                     this.distance = this.percentage * 606 - 30;
                     if (this.distance > 450) {
                         this.distance = 450;
@@ -282,10 +281,19 @@
                 })
             },
             jumpConfirmOrder () {
-                this.$notice.toast('confirm order');
+                this.$router.open({
+                    name: 'order.confirm',
+                    params: this.goods
+                })
             },
             jumpOrderDetail () {
-                this.$notice.toast('order detail');
+                this.$router.open({
+                    name: 'order.detail',
+                    params: {
+                        orderId: this.goods.orderId,
+                        type: 'drop'
+                    }
+                })
             },
             back () {
                 this.$router.back();

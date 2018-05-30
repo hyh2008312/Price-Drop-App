@@ -44,8 +44,9 @@
             }
         },
         created () {
-            const pageHeight = Utils.env.getScreenHeight()
-            this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' }
+            const pageHeight = Utils.env.getScreenHeight();
+            this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' };
+            this.getToken();
             this.init();
         },
         data () {
@@ -53,15 +54,19 @@
                 first: true,
                 tabsItems: [],
                 isCuting: true,
-                goods: [],
+                goods: false,
                 page: 1,
                 length: 2,
                 pageSize: 12,
                 isLoading: false,
-                isPlatformAndroid: Utils.env.isAndroid()
+                isPlatformAndroid: Utils.env.isAndroid(),
+                token: null
             }
         },
         methods: {
+            getToken () {
+                this.token = this.$storage.getSync('token');
+            },
             test () {
                this.$router.open({
                    name: 'login'
@@ -115,7 +120,7 @@
                         status: 'progressing'
                     },
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        Authorization: 'Bearer ' + this.token.accessToken
             }}
             ).then(data => {
                     if (data.count == 0) {
@@ -146,7 +151,7 @@
                         status: 'end'
                     },
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        Authorization: 'Bearer ' + this.token.accessToken
                     }
 
                 }).then(data => {
