@@ -24,7 +24,7 @@
             </cell>
             <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
-                <text class="indicator">加载中...</text>
+                <text class="indicator">loading...</text>
             </loading>
         </list>
     </div>
@@ -239,7 +239,7 @@ export default {
 
             this.goods2 = GOODS2
         },
-        getNewGoods(isfirst) {
+        getNewGoods(isfirst, scroll) {
             if(isfirst) {
                 this.pageNew = 1
             }
@@ -248,7 +248,6 @@ export default {
                 this.$nextTick(()=> {
                     this.isLoading = false
                 })
-                return
             }
             this.$fetch({
                 method: 'GET', // 大写
@@ -268,11 +267,16 @@ export default {
                     this.isLoading = false
                 }
                 this.refreshApiFinished()
+                if(scroll) {
+                    this.$nextTick(() => {
+                        dom.scrollToElement(this.$refs['tab'], { animated: false })
+                    })
+                }
             }, (error) => {
 
             })
         },
-        getHotGoods (isfirst) {
+        getHotGoods (isfirst, scroll) {
             if(isfirst) {
                 this.pageHot = 1
             }
@@ -281,7 +285,6 @@ export default {
                 this.$nextTick(()=> {
                     this.isLoading = false
                 })
-                return
             }
             this.$fetch({
                 method: 'GET',
@@ -301,19 +304,21 @@ export default {
                     this.isLoading = false
                 }
                 this.refreshApiFinished()
+                if(scroll) {
+                    this.$nextTick(() => {
+                        dom.scrollToElement(this.$refs['tab'], { animated: false })
+                    })
+                }
             }, error => {
 
             })
         },
         onTabTo (event) {
             this.tabKey = event.data.key;
-            this.$nextTick(() => {
-                dom.scrollToElement(this.$refs['tab'], { animated: false })
-            })
             if(event.data.key == 'new') {
-                this.getNewGoods(true)
+                this.getNewGoods(true, true)
             } else {
-                this.getHotGoods(true)
+                this.getHotGoods(true, true)
             }
         },
         refreshApiFinished() {

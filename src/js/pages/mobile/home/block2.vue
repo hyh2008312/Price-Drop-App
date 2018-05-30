@@ -34,7 +34,7 @@ export default {
             goods: [],
             page: 1,
             pageSize: 6,
-            src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
+            src: 'bmlocal://assets/empty.png'
         }
     },
     methods: {
@@ -76,7 +76,7 @@ export default {
         },
         countOff (s, o) {
             if (o > 0) {
-                return Math.floor((o - s) / o * 100) + '%off'
+                return Math.floor((o - s) / o * 100) + '% OFF'
             } else {
                 return ''
             }
@@ -180,14 +180,23 @@ export default {
     width: 288px;
     border-radius: 8px;
     overflow: hidden;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgba(0,0,0,.12);
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgba(0,0,0,.08);
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgba(0,0,0,.08);
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgba(0,0,0,.08);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(0,0,0,.08);
 }
 
 .gd-img {
-    height: 286px;
-    width: 286px;
+    height: 284px;
+    width: 284px;
 }
 
 .gd-tlt {

@@ -53,25 +53,29 @@ export default {
 }
 
 .tab-txt {
+    margin-top: 10px;
     width: 80px;
     text-align: center;
     font-size: 24px;
     line-height: 34px;
-    padding-bottom: 8px;
+    padding-bottom: 4px;
 }
 .tab-txt-active{
     color: #EF8A31;
+    font-weight: bold;
 }
 .tab-underline{
     width: 56px;
     height: 6px;
     background-color: #fff;
+    border-radius: 4px;
 }
 
 .tab-underline-active {
     background-color: #EF8A31;
     width: 56px;
     height: 6px;
+    border-radius: 4px;
 }
 
 </style>

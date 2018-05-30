@@ -23,15 +23,15 @@ export default {
             refreshing: false,
             stopAnimation: false,
             loadingAR: [
-                { ref: 'lTxt1', p: [-77, -45], delay: 0 },
-                { ref: 'lTxt2', p: [-47, -51], delay: 50 },
-                { ref: 'lTxt3', p: [-15, -58], delay: 100 },
-                { ref: 'lTxt4', p: [12, -60], delay: 150 },
-                { ref: 'lTxt5', p: [42, -62], delay: 200 },
-                { ref: 'lTxt6', p: [-5, -19], delay: 250 },
-                { ref: 'lTxt7', p: [25, -25], delay: 300 },
-                { ref: 'lTxt8', p: [55, -31], delay: 350 },
-                { ref: 'lTxt9', p: [85, -31], delay: 400 }
+                { ref: 'lTxt1', p: [-70, -45], delay: 0 },
+                { ref: 'lTxt2', p: [-50, -52], delay: 50 },
+                { ref: 'lTxt3', p: [-28, -57], delay: 100 },
+                { ref: 'lTxt4', p: [-16, -60], delay: 150 },
+                { ref: 'lTxt5', p: [4, -62], delay: 200 },
+                { ref: 'lTxt6', p: [-5, -29], delay: 250 },
+                { ref: 'lTxt7', p: [15, -35], delay: 300 },
+                { ref: 'lTxt8', p: [35, -41], delay: 350 },
+                { ref: 'lTxt9', p: [55, -41], delay: 400 }
             ]
         }
     },

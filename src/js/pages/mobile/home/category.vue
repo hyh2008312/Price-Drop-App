@@ -16,7 +16,7 @@
             </cell>
             <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
-                <text class="indicator">加载中...</text>
+                <text class="indicator">loading...</text>
             </loading>
         </list>
     </div>
@@ -29,7 +29,6 @@ import block3 from './block3';
 import block4 from './block4';
 import { BLOCK1, TABCAT } from './config';
 
-const SCROLL_FULL_WIDTH = 750
 const dom = weex.requireModule('dom');
 
 export default {
@@ -119,8 +118,7 @@ export default {
                         this.$refs.refresh.refreshEnd()
                         setTimeout(() => {
                             this.isLoading = false
-                        }, 100)
-                        return
+                        }, 0)
                     }
                     this.getSelectedList(isfirst, page)
                     break;
@@ -134,7 +132,6 @@ export default {
                         setTimeout(() => {
                             this.isLoading = false
                         }, 0)
-                        return
                     }
                     this.getGoodsList(isfirst, page)
                     break;
@@ -148,7 +145,6 @@ export default {
                         setTimeout(() => {
                             this.isLoading = false
                         }, 0)
-                        return
                     }
                     this.getGoodsList(isfirst, page)
                     break;

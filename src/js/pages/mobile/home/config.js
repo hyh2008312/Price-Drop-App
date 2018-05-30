@@ -42,7 +42,7 @@ export const BLOCK1 = {
 };
 
 export const TAB = [{
-    name: 'Hot',
+    name: 'Hottest',
     key: 'hot'
 }, {
     name: 'Latest',
@@ -50,15 +50,15 @@ export const TAB = [{
 }];
 
 export const TABCAT = [{
-    name: '精选',
+    name: 'Hottest',
     key: 'hot',
     tri: false
 }, {
-    name: '最新',
+    name: 'Latest',
     key: 'new',
     tri: false
 }, {
-    name: '价格',
+    name: 'Price',
     key: 'price',
     tri: true
 }];
