@@ -60,10 +60,15 @@
 
             </div>
                 <div style="width: 750px; background-color: white">
-                    <text v-for="txt in dectxt" class="bottom-text" >
-                        {{txt}}
-                    </text>
-                    <image v-for="i in decimg" :src="i" resize="cover" style="width:750px;height:700px"></image>
+                    <div v-for="i in newDescription ">
+                        <div v-if="i.type=='text'">
+                            <text class="bottom-text">{{i.context}}</text>
+                        </div>
+                        <div v-if="i.type=='image'">
+                            <cimg :imgsrc="i.context"></cimg>
+                            <!--<image :src="i.context" resize="stretch" style="width:750px;height:700px"></image>-->
+                        </div>
+                    </div>
                 </div>
 
                 <div>
@@ -111,7 +116,7 @@
                     <div class="popup-py">
                         <text class="popup-price">Rs{{selsaleUnitPrice}}</text>
                         <text class="popup-lowprice-word">The lowest price that cut can get </text>
-                        <text class="popup-lowprice">Rs.{{selsaleUnitPrice}}</text>
+                        <text class="popup-lowprice">Rs.{{lowestPrice}}</text>
                         <text class="popup-yet">Chose：{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
                     </div>
 
@@ -186,6 +191,7 @@
 </template>
 <script>
     import header from './header';
+    import cimg from './customImg';
     import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
     import tab from './tab';
     const animation = weex.requireModule('animation');
@@ -201,7 +207,8 @@
         components: {
             'topic-header': header,
             WxcCell, WxcButton, WxcPopup, WxcMask,
-            'tab': tab
+            'tab': tab,
+            'cimg': cimg
             // 'refresher': refresher,
             // 'block': block
         },
@@ -277,6 +284,8 @@
                 selimgsrc: '',
                 variantsId: '',
                 selsaleUnitPrice: '',
+                lowestPrice: '',
+                newDescription: [],
                 decimg: [],
                 dectxt: [],
                 cactiveId: 1,
@@ -305,85 +314,79 @@
         methods: {
             getGoodsDetail (id) {
                 if (id) {
-                    // this.$notice.toast({
-                    //     message: id.id
-                    // })
-                    axios.fetch({
+                    this.$fetch({
                         method: 'GET',
-                        url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
-                        // url: 'http://47.104.171.91/product/customer/detail/' + 8 + '/',
+                        // url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
+                        // url: 'http://149.129.135.114/product/customer/detail/' + id.id + '/',
+                        url: 'http://149.129.135.114/product/customer/detail/75/',
                         // name: 'product.customer.list',
                         data: {}
-                    }, (res) => {
-                        if (res.status == 200) {
-                            this.goods.title = res.data.title;
-                            this.goods.price = res.data.saleUnitPrice;
-                            this.selsaleUnitPrice = res.data.saleUnitPrice;
-                            this.goods.brandLogo = res.data.brandLogo;
-                            this.goodsImg = res.data.images;
-                            if (res.data.cutGet == null) {
+                    }).then((res) => {
+                            this.goods.title = res.title;
+                            this.goods.price = res.saleUnitPrice;
+                            this.selsaleUnitPrice = res.saleUnitPrice;
+                            this.lowestPrice = res.lowestPrice;
+                            this.goods.brandLogo = res.brandLogo;
+                            this.goodsImg = res.images;
+                            if (res.cutGet == null) {
                                 this.goods.cut_get = 0
                             } else {
-                                this.goods.cut_get = res.data.cutGet
+                                this.goods.cut_get = res.cutGet
                             }
 
-                            this.goodsVariants = res.data.variants;
-                            if (res.data.images != null) {
-                                this.selimgsrc = res.data.images[0]
+                            this.goodsVariants = res.variants;
+                            if (res.images != null) {
+                                this.selimgsrc = res.images[0]
                             } else {
                                 this.selimgsrc = ''
                             }
-                            if (res.data.attributes != null) {
-                                this.goodsType = this.operateData(res.data.attributes);
+                            if (res.attributes != null && res.attributes.length > 0) {
+                                this.goodsType = this.operateData(res.attributes);
                             } else {
-                                this.goodsType = this.operateData([]);
+                                this.goodsType = []
+                                this.variantsId = res.variants[0].id
                             }
                             this.decimg = []
                             this.dectxt = []
-                            if (res.data.description != null) {
-                                for (let i = 0; i < res.data.description.length; i++) {
-                                    if (res.data.description[i].type == 'image') {
-                                        this.decimg.push(res.data.description[i].context)
-                                    } else {
-                                        this.dectxt.push(res.data.description[i].context)
-                                    }
-                                }
+                            // this.$notice.toast({
+                            //     message: res.newDescription
+                            // })
+                            if (res.newDescription != null) {
+                                this.newDescription = res.newDescription
+                                // for (let i = 0; i < res.description.length; i++) {
+                                //     if (res.description[i].type == 'image') {
+                                //         this.decimg.push(res.description[i].context)
+                                //     } else {
+                                //         this.dectxt.push(res.description[i].context)
+                                //     }
+                                // }
                             }
-                        } else {
-                            this.$notice.toast({
-                                message: res.errorMsg
-                            })
-                        }
-
-                        // this.goods = resData.data
+                    }).catch((res) => {
+                        // this.$notice.toast({
+                        //     message: res
+                        // })
                     })
                 }
             },
-            wxcCellClick () {
+            wxcCellClick: function () {
                 this.isBottomShow = true;
-                if (this.selsize != '' && this.selcolor != '' && this.variantsId != '') {
-                    axios.fetch({
+                if (this.variantsId != '') {
+                    this.$fetch({
                         method: 'POST',
-                        // url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
-                        url: 'http://47.104.171.91/promotion/cut/create/',
-                        // name: 'product.customer.list',
+                        url: 'http://149.129.135.114/promotion/cut/create/',
                         data: { variant_id: this.variantsId }
-                    }, (res) => {
+                    }).then((res) => {
                         this.$router.open({
-                        name: 'drops.cutDetail',
-                        type: 'PUSH',
-                        params: {
-                            data: res.data
-                        }
-                    })
-
-                        if (res.status == 200) {
-
-                        } else {
-                            this.$notice.toast({
-                                message: res
-                            })
-                        }
+                            name: 'drops.cutDetail',
+                            type: 'PUSH',
+                            params: {
+                                data: res.data
+                            }
+                        })
+                    }).catch((res) => {
+                        this.$notice.toast({
+                            message: res
+                        })
                     })
                 }
             },
