@@ -23,6 +23,7 @@ import orderDetailItem from './orderDetailItem';
 import addressBottom from './addressBottom';
 import { Utils } from 'weex-ui';
 import { TOKEN } from './config';
+import { baseUrl } from '../../../config/apis';
 
 export default {
     components: {
@@ -71,7 +72,7 @@ export default {
         deleteShipping (event) {
             this.$fetch({
                 method: 'DELETE', // 大写
-                url: `http://47.104.171.91/address/shipping/detail/${event.data.id}/`,
+                url: `${baseUrl}/address/shipping/detail/${event.data.id}/`,
                 header: {
                     Authorization: 'Bearer ' + TOKEN
                 }

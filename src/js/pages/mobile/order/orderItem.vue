@@ -73,8 +73,7 @@
         props: ['order', 'index'],
         data () {
             return {
-                src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png',
-                time: new Date().getTime() + 86400000 + ''
+                src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
             }
         },
         methods: {

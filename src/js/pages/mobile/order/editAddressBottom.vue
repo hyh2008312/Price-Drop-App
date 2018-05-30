@@ -7,6 +7,7 @@
 </template>
 <script>
     import { TOKEN } from './config';
+    import { baseUrl } from '../../../config/apis';
 
     export default {
         props: ['address', 'id'],
@@ -40,7 +41,7 @@
                 } else {
                     this.$fetch({
                         method: 'PUT', // 大写
-                        url: `http://47.104.171.91/address/shipping/detail/${this.id}/`,
+                        url: `${baseUrl}/address/shipping/detail/${this.id}/`,
                         data: this.address,
                         header: {
                             Authorization: 'Bearer ' + TOKEN

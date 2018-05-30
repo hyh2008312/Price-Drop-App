@@ -86,6 +86,7 @@
     import orderItem from './orderItem';
     import payRadio from './radio';
     import { TOKEN, PAYLIST, ORDERSTATUS, CANCELREASON } from './config';
+    import { baseUrl } from '../../../config/apis';
 
     export default {
         components: {
@@ -263,7 +264,7 @@
                 this.$refs.wxcCancelPopup.hide()
                 this.$fetch({
                     method: 'PUT', // 大写
-                    url: `http://47.104.171.91/order/customer/cancel/${this.cancelId}/`,
+                    url: `${baseUrl}/order/customer/cancel/${this.cancelId}/`,
                     data: {
                         reason: this.reason[this.reasonActive]
                     },
@@ -291,7 +292,7 @@
                 this.closeDeletePop()
                 this.$fetch({
                     method: 'DELETE', // 大写
-                    url: `http://47.104.171.91/order/customer/cancel/${this.deleteId}/`,
+                    url: `${baseUrl}/order/customer/cancel/${this.deleteId}/`,
                     data: {},
                     header: {
                         Authorization: 'Bearer ' + TOKEN

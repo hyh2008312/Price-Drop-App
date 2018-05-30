@@ -36,6 +36,7 @@
 <script>
     import line from './orderDetailLine';
     import { TOKEN } from './config';
+    import { baseUrl } from '../../../config/apis';
 
     export default {
         components: {
@@ -79,7 +80,7 @@
             chooseAddress () {
                 this.$fetch({
                     method: 'GET', // 大写
-                    url: `http://47.104.171.91/address/set/default/${this.address.id}/`,
+                    url: `${baseUrl}/address/set/default/${this.address.id}/`,
                     header: {
                         Authorization: 'Bearer ' + TOKEN
                     }

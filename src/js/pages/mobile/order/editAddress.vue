@@ -68,6 +68,7 @@ import orderDetailItem from './orderDetailItem';
 import editAddressBottom from './editAddressBottom';
 import { Utils } from 'weex-ui';
 import { TOKEN } from './config';
+import { baseUrl } from '../../../config/apis';
 
 export default {
     components: {
@@ -150,7 +151,7 @@ export default {
         getAddress (id) {
             this.$fetch({
                 method: 'GET', // 大写
-                url: `http://47.104.171.91/address/shipping/detail/${id}/`,
+                url: `${baseUrl}/address/shipping/detail/${id}/`,
                 header: {
                     Authorization: 'Bearer ' + TOKEN
                 }

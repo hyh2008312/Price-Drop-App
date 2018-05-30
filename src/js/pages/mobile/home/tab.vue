@@ -54,7 +54,7 @@ export default {
 
 .tab-txt {
     margin-top: 10px;
-    width: 80px;
+    width: 100px;
     text-align: center;
     font-size: 24px;
     line-height: 34px;

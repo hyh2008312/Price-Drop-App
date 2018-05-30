@@ -67,6 +67,7 @@ import orderDetailBottom from './orderDetailBottom';
 import orderDetailNumber from './orderDetailNumber';
 import { Utils, WxcPopup, WxcMask } from 'weex-ui';
 import { TOKEN, ORDERDETAIL, CANCELREASON } from './config';
+import { baseUrl } from '../../../config/apis';
 
 export default {
     components: {
@@ -107,7 +108,7 @@ export default {
         getOrder (id) {
             this.$fetch({
                 method: 'GET',
-                url: `http://47.104.171.91/order/customer/detail/${id}/`,
+                url: `${baseUrl}/order/customer/detail/${id}/`,
                 data: {},
                 header: {
                     Authorization: 'Bearer ' + TOKEN
