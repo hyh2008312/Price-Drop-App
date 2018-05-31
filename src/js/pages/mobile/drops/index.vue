@@ -43,7 +43,7 @@
             beforeAppear (params, options) {
             }
         },
-        created () {
+        mounted () {
             const pageHeight = Utils.env.getScreenHeight();
             this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' };
             this.getToken();
