@@ -30,7 +30,16 @@ new Widget({
             //     message: options
             // })
             console.log('request-opts', options)
-            next()
+            if (options.header.needAuth == true) {
+                this.$storage.get('token').then((data) => {
+                    if (data) {
+                        options.header.Authorization = 'Bearer ' + data.accessToken
+                        next()
+                    }
+                })
+            } else {
+                next()
+            }
         },
         /**
          * 请求返回统一拦截器 （可选）

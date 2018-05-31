@@ -197,7 +197,7 @@
                         status: ORDERSTATUS[this.index]
                     },
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        needAuth: true
                     }
                 }).then(data => {
                     this.length = Math.ceil(data.count / this.pageSize)
@@ -269,7 +269,7 @@
                         reason: this.reason[this.reasonActive]
                     },
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        needAuth: true
                     }
                 }).then(resData => {
                     this.$notice.toast('Your order cancellation request has been submitted for review.')
@@ -295,7 +295,7 @@
                     url: `${baseUrl}/order/customer/cancel/${this.deleteId}/`,
                     data: {},
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        needAuth: true
                     }
                 }).then(resData => {
                     this.$notice.toast(this.deleteIndex)

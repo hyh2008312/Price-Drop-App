@@ -49,6 +49,11 @@ export default {
         });
         util.initIconFont()
         this.androidFinishApp()
+        this.$storage.get('token').then((data) => {
+            this.$notice.toast({
+                message: data
+            })
+        })
     },
     data () {
         return {
