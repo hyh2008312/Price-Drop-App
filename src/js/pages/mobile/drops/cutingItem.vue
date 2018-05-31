@@ -13,7 +13,7 @@
                             <text class="gd-price-sale">Rs.{{goods.currentPrice}}</text>
                             <text class="gd-price-original">Rs.{{goods.salePrice}}</text>
                         </div>
-                        <text class="gd-price-show" v-if="flag">Rs.{{goods.salePrice - goods.currentPrice }} price cut by {{goods.cutTimes}} people</text>
+                        <text class="gd-price-show" v-if="flag">Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }} price cut by {{goods.cutTimes}} people</text>
                         <div class="gd-cut" v-if="flag">
                             <text class="gd-cut-price">Rs.{{goods.lowestPrice}}</text>
                             <text class="gd-cut-price-tip"> left to unlock lowest price</text>
