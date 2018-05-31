@@ -1,4 +1,4 @@
-export default {
+export const apis = {
     'user.user': '/user/user/',
     'oauth2.token': '/oauth2/token/',
     'product.customer.list': '/product/customer/list/',
