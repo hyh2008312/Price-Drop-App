@@ -68,9 +68,17 @@
                 this.token = this.$storage.getSync('token');
             },
             test () {
-               this.$router.open({
-                   name: 'login'
-               })
+                /* const that = this
+                const pay = weex.requireModule('PayModule');
+                pay.startPayRequest('name', 'description', '//res.cloudinary.com/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/v1/1128882/logo-02_2_cegiu2.png',
+                    '2222', 'luzhenqiang123@gmail.com', '18232593291', function (param) {
+                        that.$notice.toast('success')
+                    }, function (param) {
+                        that.$notice.toast('failed')
+                    }); */
+                this.$router.open({
+                    name: 'login'
+                })
             },
             init () {
                 this.getTabName();
@@ -120,7 +128,7 @@
                         status: 'progressing'
                     },
                     header: {
-                        Authorization: 'Bearer ' + this.token.accessToken
+                            needAuth: true
             }}
             ).then(data => {
                     if (data.count == 0) {
@@ -151,7 +159,7 @@
                         status: 'end'
                     },
                     header: {
-                        Authorization: 'Bearer ' + this.token.accessToken
+                        needAuth: true
                     }
 
                 }).then(data => {
