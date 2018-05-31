@@ -119,7 +119,7 @@ export default {
                 name: 'user.user',
                 data: {},
                 header: {
-                    Authorization: 'Bearer ' + 'NNuJ3K7Z37c0LzJkdjO3kHU3MO0BBr'
+                    needAuth: true
                 }
             }).then(data => {
                 this.$storage.set('user', data);
@@ -132,11 +132,12 @@ export default {
                         method: 'POST', // 大写
                         name: 'oauth2.token',
                         data: {
-                            refresh_token: data.refresh_token,
+                            refresh_token: data.refreshToken,
                             grant_type: 'refresh_token',
                             client_id: cliendId
                         }
                     }).then(data => {
+                        this.$storage.delete('token').then(() => {});
                         this.$storage.set('token', data);
                     }, error => {})
                 }
