@@ -41,6 +41,18 @@
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
             </div>
+
+            <div class="box-tlt " @click="opentest">
+                <div class="box-left">
+                    <text class="box-txt">Gender</text>
+                </div>
+                <div class="box-right">
+                    <text class="box-txt-left">Select Gender</text>
+                    <text class="i-box iconfont">&#xe626;</text>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </template>
@@ -56,7 +68,7 @@
         eros: {
             backAppeared (params, options) {
                 this.gender = params.id
-            }
+            },
         },
         created () {
             this.getUserData()
@@ -128,6 +140,10 @@
 
             oninput (event) {
                 this.name = event.value;
+            },
+            opentest (event) {
+                this.$router.setBackParams('key', '111')
+                this.$router.back()
             },
             saveData () {
                 const params = {

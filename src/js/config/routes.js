@@ -18,6 +18,9 @@ export default {
     'goods.details': {
         url: '/pages/mobile/shop/goodsDetail.js'
     },
+    'cut.goods': {
+        url: '/pages/mobile/shop/cutGoods.js'
+    },
     'my.details': {
         url: '/pages/mobile/my/myDetail.js'
     },

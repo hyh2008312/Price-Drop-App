@@ -7,23 +7,23 @@
 
         </div>
 
-        <div class="header" v-if="user!=null" @click="openMydetail(1)">
-            <div class="i-photo-div">
-                <image  class="i-photo" resize="cover" :src="img"></image>
-            </div>
-            <div class="b-tlt">
-                <text class="i-name">{{nickname}}</text>
+        <!--<div class="header" v-if="user!=null" @click="openMydetail(1)">-->
+            <!--<div class="i-photo-div">-->
+                <!--<image  class="i-photo" resize="cover" v-if="" :src="img"></image>-->
+            <!--</div>-->
+            <!--<div class="b-tlt">-->
+                <!--<text class="i-name">{{nickname}}</text>-->
 
-                <text class="txt-tag">{{email}}</text>
-            </div>
-            <text class="b-qrcode iconfont">  &#xe626;  </text>
-        </div>
+                <!--<text class="txt-tag">{{email}}</text>-->
+            <!--</div>-->
+            <!--<text class="b-qrcode iconfont">  &#xe626;  </text>-->
+        <!--</div>  v-if="user==null"  -->
 
-        <div class="header" v-if="user==null" @click="openMydetail(2)">
-                <div class="no-login">
-                    <text class="">Welcome!</text>
-                    <text class="no-login-text"> Log in </text>
-                </div>
+        <div class="header"  @click="openMydetail(3)">
+            <div class="no-login">
+                <text class="">Welcome!</text>
+                <text class="no-login-text"> Log in </text>
+            </div>
         </div>
 
         <div class="s-box ">
@@ -213,12 +213,15 @@ export default {
                 this.nickname = this.user.firstName + this.user.lastName
                 this.email = this.user.email
                 this.img = this.user.avatar
-                if (this.user) {
+                this.$notice.alert({
+                    message: resData
+                })
+                if (this.user !== null) {
                     this.$fetch({
                         method: 'GET',
                         name: 'user.userprofile',
                         header: {
-                            needAuth: true
+                            Authorization: 'Bearer ' + this.token.accessToken
                         }
                     }).then((res) => {
                         this.$notice.toast({

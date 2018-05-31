@@ -129,18 +129,12 @@ export default {
                         method: 'POST', // 大写
                         name: 'oauth2.token',
                         data: {
-                            refresh_token: data.refreshToken,
+                            refresh_token: data.refresh_token,
                             grant_type: 'refresh_token',
                             client_id: cliendId
                         }
                     }).then(data => {
-                        this.$storage.set('token', {
-                            tokenType: data.token_type,
-                            scope: data.scope,
-                            accessToken: data.access_token,
-                            refreshToken: data.refresh_token,
-                            expiresIn: data.expires_in
-                        });
+                        this.$storage.set('token', data);
                     }, error => {})
                 }
             })
