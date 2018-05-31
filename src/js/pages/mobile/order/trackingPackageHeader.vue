@@ -42,7 +42,7 @@
     .logo{
         width: 80px;
         line-height: 80px;
-        margin-right: 16px;
+        margin-right: 32px;
         text-align: center;
         border-radius: 40px;
         background-color: #EF8A31;
@@ -56,7 +56,7 @@
     }
 
     .gb-box-center{
-        width: 590px;
+        width: 574px;
         border-right-width: 2px;
         border-bottom-style: solid;
         border-right-color: rgba(0,0,0,0.08);

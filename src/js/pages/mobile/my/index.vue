@@ -9,7 +9,7 @@
 
         <div class="header" v-if="user!=null" @click="openMydetail(1)">
             <div class="i-photo-div">
-                <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
+                <image  class="i-photo" resize="cover" :src="img"></image>
             </div>
             <div class="b-tlt">
                 <text class="i-name">{{nickname}}</text>
@@ -213,15 +213,12 @@ export default {
                 this.nickname = this.user.firstName + this.user.lastName
                 this.email = this.user.email
                 this.img = this.user.avatar
-                this.$notice.alert({
-                    message: resData
-                })
-                if (this.user !== null) {
+                if (this.user) {
                     this.$fetch({
                         method: 'GET',
                         name: 'user.userprofile',
                         header: {
-                            Authorization: 'Bearer ' + this.token.accessToken
+                            needAuth: true
                         }
                     }).then((res) => {
                         this.$notice.toast({

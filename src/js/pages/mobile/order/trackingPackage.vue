@@ -7,15 +7,18 @@
                 <tracking-package-header :order="order"></tracking-package-header>
             </cell>
             <cell class="cell-line"></cell>
-            <cell v-for="item in order.data.trackinfo">
-                <tracking-package-item></tracking-package-item>
+            <!--<cell>-->
+                <!--<tracking-package-item></tracking-package-item>-->
+            <!--</cell>-->
+            <cell v-for="item in trackingInfo">
+                <tracking-package-item :order="item"></tracking-package-item>
             </cell>
-            <cell>
-                <tracking-package-item></tracking-package-item>
-            </cell>
-            <cell>
-                <tracking-package-item></tracking-package-item>
-            </cell>
+            <!--<cell>-->
+                <!--<tracking-package-item></tracking-package-item>-->
+            <!--</cell>-->
+            <!--<cell>-->
+                <!--<tracking-package-item></tracking-package-item>-->
+            <!--</cell>-->
         </list>
     </div>
 </template>
@@ -56,85 +59,56 @@ export default {
                     'message': 'Success'
                 },
                 'data': {
-                    'id': 'ec3710e75880fd1e9e44e3ac20de6f73',
                     'tracking_number': '413767243',
-                    'carrier_code': 'gati-kwe',
-                    'status': 'delivered',
-                    'created_at': '2018-05-26T14:23:25+08:00',
-                    'updated_at': '2018-05-26T14:23:45+08:00',
-                    'order_create_time': null,
-                    'customer_email': '',
-                    'title': '',
-                    'order_id': null,
-                    'comment': null,
-                    'customer_name': null,
-                    'original_country': 'Ratangarh',
-                    'destination_country': 'Manipal',
-                    'itemTimeLength': 7,
-                    'stayTimeLength': 1591,
-                    'origin_info': {
-                        'ItemReceived': '2014-01-10 01:51',
-                        'ItemDispatched': null,
-                        'DepartfromAirport': null,
-                        'ArrivalfromAbroad': null,
-                        'CustomsClearance': null,
-                        'DestinationArrived': null,
-                        'weblink': null,
-                        'phone': null,
-                        'carrier_code': 'gati-kwe',
-                        'trackinfo': [{
-                            'Date': '2014-01-16 19:23',
-                            'StatusDescription': 'Delivered at destination city',
-                            'Details': 'Manipal',
-                            'checkpoint_status': 'delivered'
-                        }, {
-                            'Date': '2014-01-16 11:20',
-                            'StatusDescription': 'Arrived',
-                            'Details': 'Manipal',
-                            'checkpoint_status': 'transit'
-                        }, {
-                            'Date': '2014-01-15 17:57',
-                            'StatusDescription': 'Out for next station',
-                            'Details': 'Bangalore',
-                            'checkpoint_status': 'transit'
-                        }, {
-                            'Date': '2014-01-14 05:11',
-                            'StatusDescription': 'Arrived',
-                            'Details': 'Bangalore',
-                            'checkpoint_status': 'transit'
-                        }, {
-                            'Date': '2014-01-12 02:52',
-                            'StatusDescription': 'Out for next station',
-                            'Details': 'Indore 247',
-                            'checkpoint_status': 'transit'
-                        }, {
-                            'Date': '2014-01-11 20:38',
-                            'StatusDescription': 'Arrived',
-                            'Details': 'Indore 247',
-                            'checkpoint_status': 'transit'
-                        }, {
-                            'Date': '2014-01-11 01:27',
-                            'StatusDescription': 'Out for next station',
-                            'Details': 'Jaipur',
-                            'checkpoint_status': 'transit'
-                        }, {
-                            'Date': '2014-01-10 10:52',
-                            'StatusDescription': 'Arrived',
-                            'Details': 'Jaipur',
-                            'checkpoint_status': 'transit'
-                        }, {
-                            'Date': '2014-01-10 01:51',
-                            'StatusDescription': 'Out for next station',
-                            'Details': 'Ratangarh',
-                            'checkpoint_status': 'transit'
-                        }]
-                    },
-                    'service_code': '',
-                    'substatus': null,
-                    'lastEvent': 'Delivered at destination city,Manipal,2014-01-16 19:23',
-                    'lastUpdateTime': '2014-01-16 19:23'
+                    'carrier_code': 'gati-kwe'
                 }
-            }
+            },
+            trackingInfo: [{
+                'Date': '2014-01-16 19:23',
+                'StatusDescription': 'Delivered at destination city',
+                'Details': 'Manipal',
+                'checkpoint_status': 'delivered'
+            }, {
+                'Date': '2014-01-16 11:20',
+                'StatusDescription': 'Arrived',
+                'Details': 'Manipal',
+                'checkpoint_status': 'transit'
+            }, {
+                'Date': '2014-01-15 17:57',
+                'StatusDescription': 'Out for next station',
+                'Details': 'Bangalore',
+                'checkpoint_status': 'transit'
+            }, {
+                'Date': '2014-01-14 05:11',
+                'StatusDescription': 'Arrived',
+                'Details': 'Bangalore',
+                'checkpoint_status': 'transit'
+            }, {
+                'Date': '2014-01-12 02:52',
+                'StatusDescription': 'Out for next station',
+                'Details': 'Indore 247',
+                'checkpoint_status': 'transit'
+            }, {
+                'Date': '2014-01-11 20:38',
+                'StatusDescription': 'Arrived',
+                'Details': 'Indore 247',
+                'checkpoint_status': 'transit'
+            }, {
+                'Date': '2014-01-11 01:27',
+                'StatusDescription': 'Out for next station',
+                'Details': 'Jaipur',
+                'checkpoint_status': 'transit'
+            }, {
+                'Date': '2014-01-10 10:52',
+                'StatusDescription': 'Arrived',
+                'Details': 'Jaipur',
+                'checkpoint_status': 'transit'
+            }, {
+                'Date': '2014-01-10 01:51',
+                'StatusDescription': 'Out for next station',
+                'Details': 'Ratangarh',
+                'checkpoint_status': 'transit'
+            }]
         }
     },
     methods: {

@@ -153,7 +153,7 @@ export default {
                 method: 'GET', // 大写
                 url: `${baseUrl}/address/shipping/detail/${id}/`,
                 header: {
-                    Authorization: 'Bearer ' + TOKEN
+                    needAuth: true
                 }
             }).then(resData => {
                 // 成功回调

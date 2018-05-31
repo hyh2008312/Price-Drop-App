@@ -19,7 +19,7 @@ export default {
     'user.userprofile': '/user/userprofile/',
     'user.google.sign': '/user/google_sign/'
 }
-export const clientId = 'DwxjQEhITops8cWU6OcWmCY963XyKuQgkgjdTWRM';
-// export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';
-export const baseUrl = 'http://47.104.171.91';
-// export const baseUrl = 'http://149.129.135.114';
+// export const clientId = 'DwxjQEhITops8cWU6OcWmCY963XyKuQgkgjdTWRM';
+export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';
+// export const baseUrl = 'http://47.104.171.91';
+export const baseUrl = 'http://149.129.135.114';

@@ -61,7 +61,7 @@ export default {
                 name: 'address.shipping.list',
                 data: {},
                 header: {
-                    Authorization: 'Bearer ' + TOKEN
+                    needAuth: true
                 }
             }).then(data => {
                 this.addressList = [...data];
@@ -80,7 +80,7 @@ export default {
                 method: 'DELETE', // 大写
                 url: `${baseUrl}/address/shipping/detail/${event.data.id}/`,
                 header: {
-                    Authorization: 'Bearer ' + TOKEN
+                    needAuth: true
                 }
             }).then(resData => {
                 this.$notice.toast({

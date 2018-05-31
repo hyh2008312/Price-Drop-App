@@ -51,11 +51,6 @@ export default {
         });
         util.initIconFont()
         this.androidFinishApp()
-        this.$storage.get('token').then((data) => {
-            this.$notice.toast({
-                message: data
-            })
-        })
     },
     data () {
         return {
@@ -134,7 +129,7 @@ export default {
                         method: 'POST', // 大写
                         name: 'oauth2.token',
                         data: {
-                            refresh_token: data.refresh_token,
+                            refresh_token: data.refreshToken,
                             grant_type: 'refresh_token',
                             client_id: cliendId
                         }

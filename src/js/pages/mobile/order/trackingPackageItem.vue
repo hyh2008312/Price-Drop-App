@@ -2,30 +2,45 @@
     <div class="wrapper">
         <div class="gb-box">
             <div class="gb-box-left">
-                <text class="gb-text-2">2018</text>
-                <text class="gb-text-2">04-18</text>
-                <text class="gb-text-3">20:34</text>
+                <text class="gb-text-2">{{getYear(order.Date)}}</text>
+                <text class="gb-text-2">{{getMonth(order.Date)}}</text>
+                <text class="gb-text-3">{{getHour(order.Date)}}</text>
             </div>
             <div class="gb-box-center">
-                <text class="iconfont gb-box-icon">&#xe716;</text>
+                <text class="iconfont gb-box-icon" v-if="order.checkpoint_status == 'delivered'">&#xe6fb;</text>
+                <div class="gb-icon" v-if="order.checkpoint_status == 'transit'"></div>
             </div>
             <div class="gb-box-line"></div>
             <div class="gb-box-right">
-                <text class="gb-text">Delivered</text>
-                <text class="gb-text-1">[Address] 75 W Thousand Oaks Blvd, Thousand Oaks, CA 91360</text>
+                <text class="gb-text" :class="[order.checkpoint_status == 'transit'? 'gb-text-color': '']">{{order.StatusDescription}}</text>
+                <text class="gb-text-1" :class="[order.checkpoint_status == 'transit'? 'gb-text-color': '']">{{order.Details}}</text>
             </div>
         </div>
     </div>
 </template>
 <script>
     export default {
-        props: ['order'],
+        props: {
+            order: {
+                default: {}
+            }
+        },
         data () {
             return {
                 src: 'bmlocal://assets/occupy.png'
             }
         },
-        methods: {}
+        methods: {
+            getYear (str) {
+                return str.split(' ')[0].split('-')[0]
+            },
+            getMonth (str) {
+                return str.split(' ')[0].split('-')[1] + '-' + str.split(' ')[0].split('-')[2]
+            },
+            getHour (str) {
+                return str.split(' ')[1]
+            }
+        }
     }
 </script>
 <style scoped>
@@ -44,8 +59,8 @@
     }
 
     .gb-text{
-        font-size: 28px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 28px;
         margin-bottom: 6px;
     }
 
@@ -67,6 +82,10 @@
         color: rgba(0,0,0,0.38);
     }
 
+    .gb-text-color{
+        color: rgba(0,0,0,0.38);
+    }
+
     .gb-box-left{
         width: 126px;
         padding-right: 26px;
@@ -82,9 +101,9 @@
         position: absolute;
         width: 2px;
         background-color: rgba(0,0,0,0.08);
-        top: 32px;
+        top: 0;
         bottom: 0;
-        left: 142px;
+        left: 140px;
     }
 
     .gb-box-right{
@@ -97,6 +116,14 @@
         font-size: 32px;
         line-height: 32px;
         color: #EF8A31;
+    }
+
+    .gb-icon{
+        width: 16px;
+        height: 16px;
+        background-color: #D8D8D8;
+        border-radius: 8px;
+        margin-top: 10px;
     }
 
 </style>

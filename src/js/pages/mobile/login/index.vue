@@ -51,7 +51,7 @@
                     that.$storage.set('token', null);
                 })
             },
-            requestUserInfo (id_token,that) {
+            requestUserInfo (id_token, that) {
                 that.$fetch({
                     method: 'POST',
                     name: 'user.google.sign',
@@ -60,8 +60,12 @@
                         idToken: id_token
                     }
                 }).then(data => {
+                    this.$notice.toast({
+                        message: data
+                    })
                     that.$storage.set('user', data.user);
                     that.$storage.set('token', data.token);
+                    that.$router.setBackParams('type', 'login');
                     that.$router.finish();
                 }, error => {
                     that.$notice.toast(JSON.stringify(error));

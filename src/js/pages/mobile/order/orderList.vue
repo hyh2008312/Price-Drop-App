@@ -197,7 +197,7 @@
                         status: ORDERSTATUS[this.index]
                     },
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        needAuth: true
                     }
                 }).then(data => {
                     this.length = Math.ceil(data.count / this.pageSize)

@@ -3,6 +3,7 @@ import apis from './apis'
 import routes from './routes'
 import './push'
 
+
 new Widget({
     router: {
         /**
@@ -11,8 +12,8 @@ new Widget({
         routes
     },
     ajax: {
-        baseUrl: 'http://47.104.171.91',
-           // baseUrl: 'http://149.129.135.114',
+        // baseUrl: 'http://47.104.171.91',
+           baseUrl: 'http://149.129.135.114',
         /**
          * 接口别名
          */
@@ -26,14 +27,15 @@ new Widget({
          * next
          */
         requestHandler (options, next) {
-            // this.$notice.toast({
-            //     message: options
-            // })
-            console.log('request-opts', options)
             if (options.header && options.header.needAuth == true) {
-                this.$storage.get('token').then((data) => {
-                    if (data) {
-                        options.header.Authorization = 'Bearer ' + data.accessToken
+                const storage = weex.requireModule('bmStorage');
+                const modal = weex.requireModule('bmModal');
+                storage.getData('token', (res) => {
+                    if (res) {
+                        modal.alert({
+                            message: res.data // 展示内容
+                        })
+                        options.header.Authorization = 'Bearer ' + res.data.accessToken
                         next()
                     }
                 })
