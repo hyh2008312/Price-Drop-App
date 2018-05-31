@@ -4,7 +4,7 @@
         <div class="status-bar"></div>
         <list class="container" :style="height" v-if="addressList.length > 0">
             <cell class="cell-bottom" v-for="(e, i) in addressList">
-                <address-item :address="e" :index="i" @delete="deleteShipping"></address-item>
+                <address-item :address="e" :index="i" @delete="deleteShipping" @chooseAddress="chooseAddress" :source="source"></address-item>
             </cell>
         </list>
         <div class="container-1" :style="height" v-if="addressList.length == 0">
@@ -35,6 +35,11 @@ export default {
     eros: {
         backAppeared (params, options) {
             this.getAddress()
+        },
+        appeared (params, options) {
+            if (params) {
+                this.source = params.source
+            }
         }
     },
     created () {
@@ -45,7 +50,8 @@ export default {
     data () {
         return {
             title: 'Choose Address',
-            addressList: null
+            addressList: false,
+            source: false
         }
     },
     methods: {
@@ -83,8 +89,8 @@ export default {
                 const address = this.addressList[event.data.index]
                 if (address.isDefault) {
                     this.$storage.get('user').then((data) => {
-                        let user = data
-                        user.defaultAddress = null
+                        const user = data
+                        user.defaultAddress = false
                         this.$storage.set('user', user)
                     })
                 }
@@ -93,6 +99,15 @@ export default {
                 this.$notice.toast({
                     message: error
                 })
+            })
+        },
+        chooseAddress (event) {
+            this.addressList.forEach((e, i) => {
+                if (i == event.data.index) {
+                    e.isDefault = true
+                } else {
+                    e.isDefault = false
+                }
             })
         }
     }

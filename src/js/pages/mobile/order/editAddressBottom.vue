@@ -17,6 +17,7 @@
                     this.$notice.toast({
                         message: 'Please fill in all the required fields.'
                     })
+                    return
                 }
                 if (!this.id) {
                     this.$fetch({
@@ -28,9 +29,6 @@
                         }
                     }).then(resData => {
                         // 成功回调
-                        this.$notice.toast({
-                            message: resData
-                        })
                         this.$router.finish()
                     }, error => {
                         // 错误回调
@@ -48,9 +46,6 @@
                         }
                     }).then(resData => {
                         // 成功回调
-                        this.$notice.toast({
-                            message: resData
-                        })
                         this.$router.finish()
                     }, error => {
                         // 错误回调

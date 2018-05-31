@@ -62,13 +62,13 @@ export default {
                 'attributes': '',
                 'quantity': 1,
                 'id': -1,
-                'shippingPrice': null
+                'shippingPrice': false
             },
             isOrderConfirm: true,
             payList: [],
-            checkedInfo: { src: null, value: 1 },
+            checkedInfo: { src: false, value: 1 },
             address: {
-                'id': null,
+                'id': false,
                 'firstName': '',
                 'lastName': '',
                 'postcode': '',

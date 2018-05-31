@@ -9,7 +9,8 @@
 
 import util from './utils/util';
 import tabBar from './common/tabBar';
-import { tabConfig } from './config'
+import { tabConfig } from './config';
+import { cliendId } from '../../config/apis';
 export default {
     bmRouter: {
         viewWillAppear () {
@@ -21,6 +22,7 @@ export default {
     },
     eros: {
         beforeAppear () {
+            this.refreshToken()
             this.getChannel()
             this.getState()
             this.getUser()
@@ -119,11 +121,28 @@ export default {
                 name: 'user.user',
                 data: {},
                 header: {
-                    Authorization: 'Bearer ' + 'yxtjkMiKbApuBe9KpeBgjya2X5GnPu'
+                    Authorization: 'Bearer ' + 'NNuJ3K7Z37c0LzJkdjO3kHU3MO0BBr'
                 }
             }).then(data => {
                 this.$storage.set('user', data);
             }, error => {})
+        },
+        refreshToken () {
+            this.$storage.get('token').then((data) => {
+                if (data) {
+                    this.$fetch({
+                        method: 'POST', // 大写
+                        name: 'oauth2.token',
+                        data: {
+                            refresh_token: data.refresh_token,
+                            grant_type: 'refresh_token',
+                            client_id: cliendId
+                        }
+                    }).then(data => {
+                        this.$storage.set('token', data);
+                    }, error => {})
+                }
+            })
         }
     }
 }

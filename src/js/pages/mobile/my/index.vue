@@ -178,8 +178,10 @@ export default {
            } else if (type == 2) {
                this.$router.open({
                    name: 'order.address',
-                   type: 'PUSH'
-
+                   type: 'PUSH',
+                   params: {
+                       source: 'account'
+                   }
                })
            } else if (type == 3) {
                this.$router.open({

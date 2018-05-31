@@ -11,8 +11,8 @@ new Widget({
         routes
     },
     ajax: {
-        // baseUrl: 'http://47.104.171.91',
-           baseUrl: 'http://149.129.135.114',
+        baseUrl: 'http://47.104.171.91',
+           // baseUrl: 'http://149.129.135.114',
         /**
          * 接口别名
          */
@@ -30,7 +30,7 @@ new Widget({
             //     message: options
             // })
             console.log('request-opts', options)
-            if (options.header.needAuth == true) {
+            if (options.header && options.header.needAuth == true) {
                 this.$storage.get('token').then((data) => {
                     if (data) {
                         options.header.Authorization = 'Bearer ' + data.accessToken

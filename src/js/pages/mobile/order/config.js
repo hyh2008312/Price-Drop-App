@@ -93,7 +93,7 @@ export const PAYLIST = [{
     value: 2
 }];
 
-export const TOKEN = 'EmTm3ZEb7s3oO9kA9OwV75aGPd16ZG';
+export const TOKEN = 'aF5KtZe1h4pvSPKi3Mc4mPLxTg0apA';
 
 export const ORDERSTATUS = [null, 'Unpaid', 'Packing', 'Shipped', 'Completed']
 

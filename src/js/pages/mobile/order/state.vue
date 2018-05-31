@@ -51,9 +51,6 @@
                 this.$router.finish()
             },
             wxcIndexlistItemClicked (e) {
-                this.$notice.toast({
-                    message: e.item
-                })
                 this.$event.emit('state', e.item)
                 this.$router.finish()
             },

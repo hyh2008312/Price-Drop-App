@@ -48,7 +48,10 @@
             isOrderConfirm: {
                 default: false
             },
-            user: {}
+            user: {},
+            source: {
+                default: false
+            }
         },
         data () {
             return {
@@ -78,24 +81,51 @@
 
             },
             chooseAddress () {
-                this.$fetch({
-                    method: 'GET', // 大写
-                    url: `${baseUrl}/address/set/default/${this.address.id}/`,
-                    header: {
-                        Authorization: 'Bearer ' + TOKEN
-                    }
-                }).then(resData => {
-                    this.$storage.get('user').then((data) => {
-                        let user = data
-                        user.defaultAddress = resData
-                        this.$storage.set('user', user)
-                        this.$router.finish()
+                if (!this.source) {
+                    this.$fetch({
+                        method: 'GET', // 大写
+                        url: `${baseUrl}/address/set/default/${this.address.id}/`,
+                        header: {
+                            Authorization: 'Bearer ' + TOKEN
+                        }
+                    }).then(resData => {
+                        this.address = resData
+                        this.$storage.get('user').then((data) => {
+                            let user = data
+                            user.defaultAddress = resData
+                            this.$storage.set('user', user)
+                            this.$router.finish()
+                        })
+                    }, error => {
+                        this.$notice.toast({
+                            message: error
+                        })
                     })
-                }, error => {
-                    this.$notice.toast({
-                        message: error
+                } else {
+                    this.$fetch({
+                        method: 'GET', // 大写
+                        url: `${baseUrl}/address/set/default/${this.address.id}/`,
+                        header: {
+                            Authorization: 'Bearer ' + TOKEN
+                        }
+                    }).then(resData => {
+                        this.$emit('chooseAddress', {
+                            status: 'chooseAddress',
+                            data: {
+                                index: this.index
+                            }
+                        })
+                        this.$storage.get('user').then((data) => {
+                            let user = data
+                            user.defaultAddress = resData
+                            this.$storage.set('user', user)
+                        })
+                    }, error => {
+                        this.$notice.toast({
+                            message: error
+                        })
                     })
-                })
+                }
             }
         }
     }

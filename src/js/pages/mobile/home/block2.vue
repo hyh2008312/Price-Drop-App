@@ -34,7 +34,7 @@ export default {
             goods: [],
             page: 1,
             pageSize: 6,
-            src: 'bmlocal://assets/empty.png'
+            src: 'bmlocal://assets/occupy.png'
         }
     },
     methods: {
