@@ -29,13 +29,9 @@ new Widget({
         requestHandler (options, next) {
             if (options.header && options.header.needAuth == true) {
                 const storage = weex.requireModule('bmStorage');
-                const modal = weex.requireModule('bmModal');
                 storage.getData('token', (res) => {
                     if (res) {
-                        modal.alert({
-                            message: res.data // 展示内容
-                        })
-                        options.header.Authorization = 'Bearer ' + res.data.accessToken
+                        options.header.Authorization = 'Bearer ' + JSON.parse(res.data).accessToken
                         next()
                     }
                 })

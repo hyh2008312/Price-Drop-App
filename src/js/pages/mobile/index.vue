@@ -134,7 +134,13 @@ export default {
                             client_id: cliendId
                         }
                     }).then(data => {
-                        this.$storage.set('token', data);
+                        this.$storage.set('token', {
+                            tokenType: data.token_type,
+                            scope: data.scope,
+                            accessToken: data.access_token,
+                            refreshToken: data.refresh_token,
+                            expiresIn: data.expires_in
+                        });
                     }, error => {})
                 }
             })
