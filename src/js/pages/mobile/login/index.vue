@@ -40,7 +40,7 @@
                const that = this;
                googleLogin.startGoogleLogin(function (param) {
                    that.requestUserInfo(param.tokenId, that);
-               },function (param) {
+               }, function (param) {
                    that.$notice.toast('google login failed')
                })
            },
@@ -60,12 +60,9 @@
                         idToken: id_token
                     }
                 }).then(data => {
-                    this.$notice.toast({
-                        message: data
-                    })
                     that.$storage.set('user', data.user);
                     that.$storage.set('token', data.token);
-                    that.$router.setBackParams('type', 'login');
+                    that.$router.setBackParams({ type: 'login' });
                     that.$router.finish();
                 }, error => {
                     that.$notice.toast(JSON.stringify(error));

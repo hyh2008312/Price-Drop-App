@@ -21,13 +21,16 @@ export default {
         }
     },
     eros: {
-        beforeAppear () {
+        beforeAppear (params) {
             this.refreshToken()
             this.getChannel()
             this.getState()
             this.getUser()
         },
         backAppeared (params) {
+            this.$notice.toast({
+                message: params.type
+            })
             if (params && params.tab) {
                 this.selectedTab = params.tab
                 this.items.forEach((val) => {
