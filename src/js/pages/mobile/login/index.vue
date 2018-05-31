@@ -38,11 +38,41 @@
             },
            startGoogleLogin () {
                const that = this;
-               googleLogin.startGoogleLogin(function (param) {
-                   that.requestUserInfo(param.tokenId, that);
-               }, function (param) {
-                   that.$notice.toast('google login failed')
-               })
+               const data = {
+                   'user': {
+                       'id': 2,
+                       'firstName': '贞强',
+                       'lastName': '鹿',
+                       'email': 'luzhenqiang123@gmail.com',
+                       'isStaff': false,
+                       'avatar': 'https://lh4.googleusercontent.com/-1lQ2RGSR_IE/AAAAAAAAAAI/AAAAAAAAAAA/AIcfdXDPkrdgpvL78oPpOCrUb7Vopc7qow/s96-c/photo.jpg',
+                       'isEmailVerified': false,
+                       'country': '',
+                       'isSuperuser': false,
+                       'status': 'Pending',
+                       'defaultAddress': null,
+                       'unpaidNumber': 0,
+                       'packingNumber': 0,
+                       'shippedNumber': 0,
+                       'firstLogin': false
+                   },
+                   'token': {
+                       'tokenType': 'Bearer',
+                       'accessToken': 'o3CveSZUyB55666cDkSHRnNaiRn345',
+                       'scope': 'read write',
+                       'expiresIn': 36000,
+                       'refreshToken': '0xPn7xpVxYpT7PXstOe9mOmrOi7VU2'
+                   }
+               }
+               that.$storage.set('user', data.user);
+               that.$storage.set('token', data.token);
+               that.$router.setBackParams({ type: 'login' });
+               that.$router.finish();
+               // googleLogin.startGoogleLogin(function (param) {
+               //     that.requestUserInfo(param.tokenId, that);
+               // }, function (param) {
+               //     that.$notice.toast('google login failed')
+               // })
            },
             startGoogleSignOut () {
                 const that = this;
@@ -52,21 +82,51 @@
                 })
             },
             requestUserInfo (id_token, that) {
-                that.$fetch({
-                    method: 'POST',
-                    name: 'user.google.sign',
-                    data: {
-                        client_id: cliendId,
-                        idToken: id_token
+                const data = {
+                    'user': {
+                    'id': 2,
+                        'firstName': '贞强',
+                        'lastName': '鹿',
+                        'email': 'luzhenqiang123@gmail.com',
+                        'isStaff': false,
+                        'avatar': 'https://lh4.googleusercontent.com/-1lQ2RGSR_IE/AAAAAAAAAAI/AAAAAAAAAAA/AIcfdXDPkrdgpvL78oPpOCrUb7Vopc7qow/s96-c/photo.jpg',
+                        'isEmailVerified': false,
+                        'country': '',
+                        'isSuperuser': false,
+                        'status': 'Pending',
+                        'defaultAddress': null,
+                        'unpaidNumber': 0,
+                        'packingNumber': 0,
+                        'shippedNumber': 0,
+                        'firstLogin': false
+                    },
+                    'token': {
+                    'tokenType': 'Bearer',
+                        'accessToken': 'o3CveSZUyB55666cDkSHRnNaiRn345',
+                        'scope': 'read write',
+                        'expiresIn': 36000,
+                        'refreshToken': '0xPn7xpVxYpT7PXstOe9mOmrOi7VU2'
                     }
-                }).then(data => {
-                    that.$storage.set('user', data.user);
-                    that.$storage.set('token', data.token);
-                    that.$router.setBackParams({ type: 'login' });
-                    that.$router.finish();
-                }, error => {
-                    that.$notice.toast(JSON.stringify(error));
-                })
+                }
+                that.$storage.set('user', data.user);
+                that.$storage.set('token', data.token);
+                that.$router.setBackParams({ type: 'login' });
+                that.$router.finish();
+                // that.$fetch({
+                //     method: 'POST',
+                //     name: 'user.google.sign',
+                //     data: {
+                //         client_id: cliendId,
+                //         idToken: id_token
+                //     }
+                // }).then(data => {
+                //     that.$storage.set('user', data.user);
+                //     that.$storage.set('token', data.token);
+                //     that.$router.setBackParams({ type: 'login' });
+                //     that.$router.finish();
+                // }, error => {
+                //     that.$notice.toast(JSON.stringify(error));
+                // })
             }
         }
     }

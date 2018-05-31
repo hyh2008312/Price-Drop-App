@@ -39,14 +39,7 @@ export default {
                 })
             }
             if (params && params.type == 'login') {
-                this.items.forEach((val) => {
-                    val.visibility = 'hidden'
-                    if (val.key == this.selectedTab) {
-                        this.$nextTick(() => {
-                            val.visibility = 'visible'
-                        })
-                    }
-                })
+                this.$router.refresh()
             }
         }
     },
@@ -135,6 +128,9 @@ export default {
         refreshToken () {
             this.$storage.get('token').then((data) => {
                 if (data) {
+                    this.$notice.toast({
+                        message: data
+                    })
                     this.$fetch({
                         method: 'POST', // 大写
                         name: 'oauth2.token',

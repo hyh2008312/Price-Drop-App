@@ -28,7 +28,7 @@ new Widget({
             if (options.header && options.header.needAuth == true) {
                 const storage = weex.requireModule('bmStorage');
                 storage.getData('token', (res) => {
-                    if (res) {
+                    if (res && res.data && JSON.parse(res.data)) {
                         options.header.Authorization = 'Bearer ' + JSON.parse(res.data).accessToken
                         next()
                     }
