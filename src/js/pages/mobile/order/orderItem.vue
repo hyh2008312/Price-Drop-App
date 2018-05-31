@@ -106,7 +106,10 @@
             tracking () {
                 this.$router.open({
                     name: 'order.address.tracking',
-                    type: 'PUSH'
+                    type: 'PUSH',
+                    data: {
+                        id: this.order.id
+                    }
                 })
             },
             buyProduct () {

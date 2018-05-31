@@ -1,18 +1,18 @@
 <template>
     <div class="wrapper">
         <div class="gb-box">
-            <image class="logo" :src="src"></image>
+            <text class="logo iconfont">&#xe720;</text>
             <div class="gb-box-center">
                 <div class="gb-box-bg">
                     <text class="gb-text">Carrier: </text>
-                    <text class="gb-text-color">Fedex</text>
+                    <text class="gb-text-color">{{order.data.carrier_code}}</text>
                 </div>
                 <div class="gb-box-bg gb-mt">
-                    <text class="gb-text">Tracking Number: 68778989078678</text>
+                    <text class="gb-text">Tracking Number: {{order.data.tracking_number}}</text>
                     <text class="gb-icon iconfont">&#xe708;</text>
                 </div>
             </div>
-            <text class="gb-icon-1 iconfont">&#xe70e;</text>
+            <text class="gb-icon-1 iconfont" v-if="false">&#xe70e;</text>
         </div>
     </div>
 </template>
@@ -41,8 +41,12 @@
 
     .logo{
         width: 80px;
-        height: 80px;
+        line-height: 80px;
         margin-right: 16px;
+        text-align: center;
+        border-radius: 40px;
+        background-color: #EF8A31;
+        color: #fff;
     }
 
     .gb-box{
@@ -52,7 +56,7 @@
     }
 
     .gb-box-center{
-        width: 526px;
+        width: 590px;
         border-right-width: 2px;
         border-bottom-style: solid;
         border-right-color: rgba(0,0,0,0.08);
