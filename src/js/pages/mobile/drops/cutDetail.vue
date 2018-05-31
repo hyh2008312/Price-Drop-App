@@ -7,7 +7,7 @@
                     <text class="homeBack" @click="back">&#xe6f6;</text>
                     <div class="cut-rule" @click="showCutRule">
                         <text class="cut-rule-icon">&#xe709;</text>
-                        <text class="cut-rule-text">How to Cut Price</text>
+                        <text class="cut-rule-text">Price Drop FAQ</text>
                     </div>
                 </div>
                 <div class="out-head">
@@ -15,8 +15,8 @@
                            :src="goodsDetail.ownerAvatar"></image>
                 </div>
                 <div class="share-content-top">
-                    <text class="wrapper-tip">You just cut Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
-                    <text class="wrapper-tip">Share this item and invite more friends to cut price for you!</text>
+                    <text class="wrapper-tip">You just dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
+                    <text class="wrapper-tip">Share this item and invite more friends to drop price for you!</text>
                 </div>
             </div>
             <div class="wrapper-product">
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <text class="wrapper-share" @click="showSharePanel">Share to Cut the Price Further</text>
+                <text class="wrapper-share" @click="showSharePanel">Share to Drop the Price Further</text>
                 <div class="wrapper-timer">
                     <wxc-countdown tpl="{h}:{m}:{s}"
                                    :time="goodsDetail.endTimestamp * 1000"
@@ -67,17 +67,17 @@
             </div>
             <div class="cut-end" v-else>
                 <div class="cut-end-total-price">
-                    <text class="cut-end-total-price-word">Total Price Cut:</text>
+                    <text class="cut-end-total-price-word">Total Price Dropped:</text>
                     <text class="cut-end-total-price-1"> Rs.{{goodsDetail.salePrice - goodsDetail.currentPrice }}</text>
                 </div>
                 <div class="cut-end-total-price-final">
                     <text class="cut-end-total-price-word">Final Price:</text>
                     <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
                 </div>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Create a Price-cut Item Again</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Drop It Again</text>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy it at Current Price</text>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy it at Current Price</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Create a Price-cut Item Again</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Drop It Again</text>
                 <div class="cut-end-item"
                      v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
                     <text class="cut-end-item-icon-1">&#xe6fa;</text>
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <div class="contributors">
-                <text class="contributors-people">Price Cut Contributors</text>
+                <text class="contributors-people">Price Drop Contributors</text>
                 <div :style="{'margin-bottom':'60px'}">
                     <div class="contributors-info" v-for="(i ,index) in goodsDetail.friendCuts">
                         <div class="contributors-content">
@@ -113,7 +113,7 @@
                                 <text class="contributors-content-left-name">{{i.firstName}} {{i.lastName}}</text>
                             </div>
                             <div class="contributors-content-right">
-                                <text class="contributors-content-right-1">Cut  </text>
+                                <text class="contributors-content-right-1">Dropped  </text>
                                 <text class="contributors-content-right-2">Rs.{{i.cutAmount}}</text>
                             </div>
 
@@ -136,11 +136,11 @@
                         <div class="share-content-icon">
                             <div class="facebook" @click="shareFacebook">
                                 <text class="facebook-icon">&#xe70f;</text>
-                                <text class="facebook-text">facebook</text>
+                                <text class="facebook-text">Facebook</text>
                             </div>
                             <div class="whatsapp" @click="shareWhatsApp">
                                 <text class="whatsapp-icon">&#xe710;</text>
-                                <text class="whatsapp-text">whatsApp</text>
+                                <text class="whatsapp-text">WhatsApp</text>
                             </div>
                         </div>
                         <div class="share-line"></div>
