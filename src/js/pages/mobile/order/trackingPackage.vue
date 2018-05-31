@@ -7,18 +7,18 @@
                 <tracking-package-header :order="order"></tracking-package-header>
             </cell>
             <cell class="cell-line"></cell>
-            <!--<cell>-->
-                <!--<tracking-package-item></tracking-package-item>-->
-            <!--</cell>-->
+            <cell>
+                <tracking-package-item :address="order.address"></tracking-package-item>
+            </cell>
             <cell v-for="item in trackingInfo">
                 <tracking-package-item :order="item"></tracking-package-item>
             </cell>
-            <!--<cell>-->
-                <!--<tracking-package-item></tracking-package-item>-->
-            <!--</cell>-->
-            <!--<cell>-->
-                <!--<tracking-package-item></tracking-package-item>-->
-            <!--</cell>-->
+            <cell>
+                <tracking-package-item :shippedTime="order.shipped_time"></tracking-package-item>
+            </cell>
+            <cell>
+                <tracking-package-item :paidTime="order.paid_time"></tracking-package-item>
+            </cell>
         </list>
     </div>
 </template>
@@ -53,11 +53,11 @@ export default {
             title: 'Tracking Package',
             id: false,
             order: {
-                'meta': {
-                    'code': 200,
-                    'type': 'Success',
-                    'message': 'Success'
-                },
+                'paid_time': '',
+                'shipped_time': '',
+                'address': '',
+                'phone_number': '',
+                'username': '',
                 'data': {
                     'tracking_number': '413767243',
                     'carrier_code': 'gati-kwe'
