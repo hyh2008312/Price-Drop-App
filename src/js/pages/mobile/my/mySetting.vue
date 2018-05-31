@@ -33,7 +33,7 @@
         </div>
 
 
-        <div class="bottom-btn">
+        <div class="bottom-btn" @click="logOut">
             <text class="bottom-btn-txt">Logout</text>
         </div>
     </div>
@@ -41,10 +41,24 @@
 
 <script>
     import header from './header';
+    import { clientId } from '../../../config/apis';
 
     export default {
         components: {
             'topic-header': header
+        },
+        eros: {
+            appeared (params, options) {
+                if (params) {
+                    this.token = params.token
+                }
+            }
+        },
+        data () {
+            return {
+                token: '',
+                client_id: clientId
+            }
         },
         name: 'myDetail',
         methods: {
@@ -56,6 +70,32 @@
                         type: head
                     }
                 })
+            },
+            logOut () {
+                this.$notice.toast({
+                    message: 'fffff'
+                })
+
+                // this.$fetch({
+                //     methods: 'POST',
+                //     name: 'user.logout',
+                //     data: {
+                //         token: this.token,
+                //         client_id: this.client_id
+                //     }
+                // }).then((res) => {
+                //     this.$notice.toast({
+                //         message: 'logout success!!'
+                //     })
+                //     this.$router.open({
+                //         name: 'login',
+                //         type: 'PUSH'
+                //     })
+                // }).catch((res) => {
+                //     this.$notice.toast({
+                //         message: 'logout failed!!'
+                //     })
+                // })
             }
         }
     }

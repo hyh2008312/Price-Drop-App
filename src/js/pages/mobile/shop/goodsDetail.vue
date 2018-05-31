@@ -194,6 +194,7 @@
     import cimg from './customImg';
     import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
     import tab from './tab';
+    import { baseUrl } from '../../../config/apis';
     const animation = weex.requireModule('animation');
     const axios = weex.requireModule('bmAxios');
     const globalEvent = weex.requireModule('globalEvent');
@@ -231,27 +232,6 @@
                 block1: {
                     title: '',
                     url: '',
-                    items: [{
-                        name: 'mali 已经0元拿到此产品了',
-                        bg: 'http://doc.zwwill.com/yanxuan/imgs/ppbg-1.jpg',
-                        url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
-                    },
-                        {
-                            name: 'MUJI制造商',
-                            bg: 'http://doc.zwwill.com/yanxuan/imgs/ppbg-2.jpg',
-                            url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
-                        },
-                        {
-                            name: 'CK制造商',
-                            bg: 'http://doc.zwwill.com/yanxuan/imgs/ppbg-3.jpg',
-                            url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
-                        },
-                        {
-                            name: 'Adidas制造商',
-                            bg: 'http://yanxuan.nosdn.127.net/75523d4274d85825ece16370cdb1693f.jpg',
-                            url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
-                        }
-                    ]
                 },
                 goodsId: '',
                 goods: {
@@ -316,9 +296,9 @@
                 if (id) {
                     this.$fetch({
                         method: 'GET',
-                        // url: 'http://47.104.171.91/product/customer/detail/' + id.id + '/',
+                        // url: 'http://47.104.171.91/product/customer/detail/135/',
                         // url: 'http://149.129.135.114/product/customer/detail/' + id.id + '/',
-                        url: 'http://149.129.135.114/product/customer/detail/75/',
+                        url: 'http://149.129.135.114/product/customer/detail/134/',
                         // name: 'product.customer.list',
                         data: {}
                     }).then((res) => {
@@ -371,22 +351,32 @@
             wxcCellClick: function () {
                 this.isBottomShow = true;
                 if (this.variantsId != '') {
+                    this.$notice.alert({
+                        message: this.variantsId
+                    })
                     this.$fetch({
                         method: 'POST',
                         url: 'http://149.129.135.114/promotion/cut/create/',
-                        data: { variant_id: this.variantsId }
+                        data: { variant_id: this.variantsId },
+                        header: {
+                            Authorization: 'Bearer ' + 'IMSFn72n3aEZrIf7E0uvlphWnEEIut'
+                        }
                     }).then((res) => {
                         this.$router.open({
                             name: 'drops.cutDetail',
                             type: 'PUSH',
                             params: {
-                                data: res.data
+                                isShowSharePanel: false,
+                                id: res.id
                             }
                         })
                     }).catch((res) => {
-                        this.$notice.toast({
+                        this.$notice.alert({
                             message: res
                         })
+                        // this.$notice.toast({
+                        //     message: res
+                        // })
                     })
                 }
             },
