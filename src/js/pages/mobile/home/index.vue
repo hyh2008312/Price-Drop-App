@@ -79,28 +79,23 @@ export default {
             this.activeIndex = event.index
         },
         getChannel () {
-            // const data = this.$storage.getSync('channel');
-            // this.channelList = [];
-            // let left = 0;
-            // const firstCat = '推荐';
-            // this.channelList.push({
-            //     name: firstCat,
-            //     width: 56,
-            //     left: 0,
-            //     id: '0'
-            // })
-            // left += 48 + firstCat.length * 28;
-            // for (const item of data) {
-            //     const width = item.fullName.length * 28
-            //     this.channelList.push({
-            //         name: item.fullName,
-            //         width: width,
-            //         left: left,
-            //         id: item.id
-            //     })
-            //     left += 48 + item.fullName.length * 28
-            // }
-            this.channelList = CHANNELLIST
+            const data = this.$storage.getSync('channel');
+            this.channelList = [];
+            let index = 0;
+            this.channelList.push({
+                name: 'Featured',
+                width: 56,
+                left: 0,
+                id: '0'
+            })
+            for (const item of data) {
+                index++
+                this.channelList.push({
+                    name: item.fullName,
+                    left: CHANNELLIST[index].left,
+                    id: item.id
+                })
+            }
         },
         changeHeader () {
             if (!this.headAni) {
