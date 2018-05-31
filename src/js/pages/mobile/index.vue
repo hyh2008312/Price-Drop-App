@@ -28,9 +28,6 @@ export default {
             this.getUser()
         },
         backAppeared (params) {
-            this.$notice.toast({
-                message: params.type
-            })
             if (params && params.tab) {
                 this.selectedTab = params.tab
                 this.items.forEach((val) => {
@@ -39,6 +36,16 @@ export default {
                         return
                     }
                     val.visibility = 'hidden'
+                })
+            }
+            if (params && params.type == 'login') {
+                this.items.forEach((val) => {
+                    val.visibility = 'hidden'
+                    if (val.key == this.selectedTab) {
+                        this.$nextTick(() => {
+                            val.visibility = 'visible'
+                        })
+                    }
                 })
             }
         }
