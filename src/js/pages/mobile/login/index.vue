@@ -47,8 +47,8 @@
             startGoogleSignOut () {
                 const that = this;
                 googleLogin.startGoogleLSignOut(function (param) {
-                    that.$storage.set('user', null);
-                    that.$storage.set('token', null);
+                    that.$storage.setSync('user', null);
+                    that.$storage.setSync('token', null);
                 })
             },
             requestUserInfo (id_token, that) {
@@ -60,9 +60,11 @@
                         idToken: id_token
                     }
                 }).then(data => {
-                    that.$storage.set('user', data.user);
-                    that.$storage.set('token', data.token);
-                    that.$router.setBackParams('type', 'login');
+                    that.$storage.deleteSync('user');
+                    that.$storage.deleteSync('token');
+                    that.$storage.setSync('user', data.user);
+                    that.$storage.setSync('token', data.token);
+                    that.$router.setBackParams({ type: 'login' });
                     that.$router.finish();
                 }, error => {
                     that.$notice.toast(JSON.stringify(error));
