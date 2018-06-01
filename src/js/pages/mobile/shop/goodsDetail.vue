@@ -21,8 +21,8 @@
                 <text class="count">You can get it at Rs.{{goods.cut_get}} by inviting friends!  </text>
             </div>
                  <div class="learn-drop">
-                    <div  class="learn-div" @click="openCard"><text class="learn-picon iconfont">&#xe723;</text><text class="learn-price" >How to Drop Price</text></div>
-                    <div  class="learn-div" @click="openShip"><text class="learn-sicon iconfont">&#xe722;</text><text class="learn-ship">Shipping & Delivery</text></div>
+                    <div  class="learn-div" @click="openShip(1)"><text class="learn-picon iconfont">&#xe723;</text><text class="learn-price" >How to Drop Price</text></div>
+                    <div  class="learn-div" @click="openShip(2)"><text class="learn-sicon iconfont">&#xe722;</text><text class="learn-ship">Shipping & Delivery</text></div>
                  </div>
 
 
@@ -69,7 +69,7 @@
                         <div v-if="i.type=='text'">
                             <text class="bottom-text">{{i.context}}</text>
                         </div>
-                        <cimg class="bgRed" v-if="i.type=='image'" :imgsrc="i.context" :index="index" :ref="'images' + index" @resize="resize"></cimg>
+                        <cimg v-if="i.type=='image'" :imgsrc="i.context" :index="index" :ref="'images' + index" @resize="resize"></cimg>
                     </div>
                 </div>
 
@@ -260,7 +260,7 @@
                 lowestPrice: '',
                 newDescription: [],
                 proId: '',
-                dectxt: [],
+                shipObj: '',
                 cactiveId: 1,
                 sactiveId: '',
                 isBottomShow: false,
@@ -316,7 +316,12 @@
                                 this.goodsType = []
                                 this.variantsId = res.variants[0].id
                             }
-                            this.decimg = []
+                            this.shipObj = {
+                                expectedDeliveryDateMax: res.expectedDeliveryDateMax,
+                                expectedDeliveryDateMin: res.expectedDeliveryDateMin,
+                                expectedShipDateMax: res.expectedShipDateMax,
+                                expectedShipDateMin: res.expectedShipDateMin,
+                            }
                             this.dectxt = []
                             // this.$notice.toast({
                             //     message: res.newDescription
@@ -503,10 +508,20 @@
                 this.hasCardAnimation = true;
             },
             openShip (e) {
-                this.$router.open({
-                    name: 'goods.ship',
-                    type: 'PUSH'
-                })
+                if ( e == 1) {
+                    this.$router.open({
+                        name: 'goods.ship',
+                        type: 'PUSH',
+                    })
+                } else {
+                    this.$router.open({
+                        name: 'goods.ship',
+                        type: 'PUSH',
+                        params: {
+                            time: this.shipObj
+                        }
+                    })
+                }
             },
 
             wxcCardSetHidden () {
@@ -951,7 +966,6 @@
         position: relative;
         bottom: 0;
     }
-
     .mask-content {
         padding: 30px;
     }
@@ -968,9 +982,5 @@
         color: #333333;
         font-size: 30px;
         margin-top: 20px;
-    }
-
-    .bgRed{
-        background-color: red;
     }
 </style>
