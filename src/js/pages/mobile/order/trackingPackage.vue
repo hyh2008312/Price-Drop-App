@@ -41,8 +41,14 @@ export default {
             if (params) {
                 this.id = params.id
                 this.getOrderTracking()
+                this.$event.once('login', params => {
+                    this.getOrderTracking()
+                })
             }
         }
+    },
+    destory () {
+        this.$event.off('login')
     },
     created () {
         const pageHeight = Utils.env.getScreenHeight()

@@ -67,7 +67,6 @@ import addressItem from './addressItem';
 import orderDetailItem from './orderDetailItem';
 import editAddressBottom from './editAddressBottom';
 import { Utils } from 'weex-ui';
-import { TOKEN } from './config';
 import { baseUrl } from '../../../config/apis';
 
 export default {
@@ -82,8 +81,14 @@ export default {
             if (params.id) {
                 this.id = params.id
                 this.getAddress(params.id)
+                this.$event.on('login', params => {
+                    this.getAddress(params.id)
+                })
             }
         }
+    },
+    destory () {
+        this.$event.off('login')
     },
     created () {
         const pageHeight = Utils.env.getScreenHeight()

@@ -102,6 +102,12 @@
             if (this.index == 0 && this.activeIndex == 0) {
                 this.init()
             }
+            this.$event.on('login', params => {
+                this.init()
+            })
+        },
+        destory () {
+            this.$event.off('login')
         },
         eros: {
             backAppeared (params) {

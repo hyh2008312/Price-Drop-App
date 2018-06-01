@@ -46,6 +46,12 @@ export default {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' }
         this.getAddress()
+        this.$event.on('login', params => {
+            this.getAddress()
+        })
+    },
+    destory () {
+        this.$event.off('login')
     },
     data () {
         return {

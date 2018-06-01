@@ -82,12 +82,20 @@ export default {
     },
     eros: {
         appeared (params) {
-            this.getOrder(params.id)
+            if (params && params.id) {
+                this.getOrder(params.id)
+                this.$event.on('login', params => {
+                    this.getOrder(params.id)
+                })
+            }
         }
     },
     created () {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' }
+    },
+    destory () {
+        this.$event.off('login')
     },
     data () {
         return {
