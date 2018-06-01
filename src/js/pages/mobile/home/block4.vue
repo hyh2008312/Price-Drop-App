@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper">
-        <div class="container">
-            <div v-if="activeIndex == index" ref="notice">
+        <list class="container">
+            <cell v-if="activeIndex == index" ref="notice">
                 <div class="inner-container" v-for="message in items">
                     <image class="header" :src="message.bg" resize="contain"></image>
                     <text class="tlt">{{message.name}}</text>
                 </div>
-            </div>
-        </div>
+            </cell>
+        </list>
     </div>
 </template>
 <script>
