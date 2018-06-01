@@ -91,12 +91,12 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
     .container{
         width: 718px;
         height: 96px;
         background-color: #FFFFFF;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
         border-radius: 8px;
         overflow: hidden;
     }
