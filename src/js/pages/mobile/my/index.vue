@@ -7,19 +7,19 @@
 
         </div>
 
-        <!--<div class="header" v-if="user!=null" @click="openMydetail(1)">-->
-            <!--<div class="i-photo-div">-->
-                <!--<image  class="i-photo" resize="cover" v-if="" :src="img"></image>-->
-            <!--</div>-->
-            <!--<div class="b-tlt">-->
-                <!--<text class="i-name">{{nickname}}</text>-->
+        <div class="header" v-if="user!=null" @click="openMydetail(1)">
+            <div class="i-photo-div">
+                <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
+            </div>
+            <div class="b-tlt">
+                <text class="i-name">{{nickname}}</text>
 
-                <!--<text class="txt-tag">{{email}}</text>-->
-            <!--</div>-->
-            <!--<text class="b-qrcode iconfont">  &#xe626;  </text>-->
-        <!--</div>  v-if="user==null"  -->
+                <text class="txt-tag">{{email}}</text>
+            </div>
+            <text class="b-qrcode iconfont">  &#xe626;  </text>
+        </div>
 
-        <div class="header"  @click="openMydetail(3)">
+        <div class="header"  v-if="user==null" @click="openMydetail(2)">
             <div class="no-login">
                 <text class="">Welcome!</text>
                 <text class="no-login-text"> Log in </text>
@@ -113,6 +113,9 @@ export default {
         beforeAppear (a) {
         },
         beforeBackAppear (params) {
+            this.$notice.toast({
+                message: '111111'
+            })
             this.getUserData()
         }
     },
@@ -144,17 +147,28 @@ export default {
         },
         openMydetail (type) {
             if (type == 1) {
+                this.$notice.toast({
+                    message: 111
+                })
                 this.$router.open({
                     name: 'my.details',
                     type: 'PUSH',
-                    params: {
-                        tab: id
-                    }
+                    // params: {
+                    //     tab: id
+                    // }
                 })
             } else if (type == 2) {
                 this.$router.open({
                     name: 'login',
                     type: 'PUSH'
+                })
+            } else {
+                this.$router.open({
+                    name: 'my.details',
+                    type: 'PUSH',
+                    // params: {
+                    //     tab: id
+                    // }
                 })
             }
         },
@@ -221,7 +235,7 @@ export default {
                         method: 'GET',
                         name: 'user.userprofile',
                         header: {
-                            Authorization: 'Bearer ' + this.token.accessToken
+                            needAuth: true
                         }
                     }).then((res) => {
                         this.$notice.toast({
