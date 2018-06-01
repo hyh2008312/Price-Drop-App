@@ -71,31 +71,35 @@
                     }
                 })
             },
-            logOut () {
+            logOut (){
                 this.$notice.toast({
                     message: 'fffff'
                 })
 
-                // this.$fetch({
-                //     methods: 'POST',
-                //     name: 'user.logout',
-                //     data: {
-                //         token: this.token,
-                //         client_id: this.client_id
-                //     }
-                // }).then((res) => {
-                //     this.$notice.toast({
-                //         message: 'logout success!!'
-                //     })
-                //     this.$router.open({
-                //         name: 'login',
-                //         type: 'PUSH'
-                //     })
-                // }).catch((res) => {
-                //     this.$notice.toast({
-                //         message: 'logout failed!!'
-                //     })
-                // })
+                this.$fetch({
+                    methods: 'POST',
+                    name: 'user.logout',
+                    data: {
+                        token: this.token,
+                        client_id: this.client_id
+                    }
+                }).then((res) => {
+                    this.$notice.toast({
+                        message: 'logout success!!'
+                    })
+                    this.$router.back({
+                        length: 1,
+                        type: 'PUSH',
+                        callback () {
+                            // 返回成功回调
+                            this.$event.emit('loginout')
+                        }
+                    })
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: 'logout failed!!'
+                    })
+                })
             }
         }
     }

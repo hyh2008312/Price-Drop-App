@@ -23,6 +23,7 @@ module.exports = {
         'js/pages/mobile/my/mySetting.vue',
         'js/pages/mobile/shop/a.vue',
         'js/pages/mobile/shop/goodsDetail.vue',
+        'js/pages/mobile/shop/ship.vue',
         'js/pages/mobile/shop/cutGoods.vue',
         'js/pages/mobile/activity/index.vue',
         'js/pages/mobile/order/index.vue',

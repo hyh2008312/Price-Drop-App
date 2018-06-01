@@ -10,7 +10,7 @@
                 </div>
                 <div class="box-right">
                     <div class="i-photo-div">
-                        <image  class="i-photo" resize="cover" :src="src"></image>
+                        <image  class="i-photo"  :src="src"></image>
                     </div>
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
@@ -71,7 +71,9 @@
             }
         },
         created () {
-            this.getUserData()
+            this.$storage.get('user').then(resData => {
+                this.src = resData.avatar
+            })
         },
         data () {
            return {

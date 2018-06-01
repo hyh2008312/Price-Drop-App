@@ -1,6 +1,7 @@
 <template>
     <div>
         <topic-header ref="ref1" :leftBtn="" ></topic-header>
+
         <div>
             <text>Shipping Cost</text>       <text>Rs.11.00</text>
             <text>Shipping Carrier</text>    <text>Rs.11.00</text>

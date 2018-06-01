@@ -35,7 +35,7 @@
                 <div>
                     <text class="h1">CHANGES TO THE PRIVACY POLICY
                     </text>
-                    <text>PriceDrop hereby reserves the right to modify/amend or otherwise change this privacy policy, as it deems necessary or appropriate, due to legal compliance requirements or changes to our business practices. If you have provided us with an email address we will endeavor to notify you, by email to that address, of any material change to how we will use personally identifiable information.</text>
+                    <text class="h2">PriceDrop hereby reserves the right to modify/amend or otherwise change this privacy policy, as it deems necessary or appropriate, due to legal compliance requirements or changes to our business practices. If you have provided us with an email address we will endeavor to notify you, by email to that address, of any material change to how we will use personally identifiable information.</text>
                 </div>
             </div>
 
@@ -126,6 +126,11 @@
         padding-right:30px ;
         padding-left:30px ;
         font-weight: 700;
+        line-height: 50px;
+    }
+    .h2{
+        padding-right:30px ;
+        padding-left:30px ;
         line-height: 50px;
     }
     .header{

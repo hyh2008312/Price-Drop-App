@@ -2,6 +2,7 @@
     <div class="wrappertop">
         <div class="left">
             <text class="leftTxt" @click="$router.back">&#xe6f6;</text>
+            <text class="leftTxt" @click="$router.back">&#xe6f6;</text>
         </div>
         <!--<text class="tlt">{{title}}</text>-->
         <div class="right">

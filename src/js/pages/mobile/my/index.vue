@@ -77,7 +77,7 @@
         <div class="mid-cell">
             <div class="box-tlt " @click="openCell(3)">
                 <div class="box-left">
-                    <text class="box-txt-icon">&#xe71c;</text>
+                    <text class="box-txt-icon">&#xe721;</text>
                     <text class="box-txt">About Us</text>
                 </div>
                 <text class="i-box iconfont">&#xe626;</text>
@@ -138,15 +138,23 @@ export default {
     },
     methods: {
         jumpWeb (id) {
-            // if (!url) return;
-            // let self = this;
-            this.$router.open({
-                name: 'order',
-                type: 'PUSH',
-                params: {
-                    tab: id
-                }
-            })
+            if (this.user == null) {
+                this.$event.once('login', params => {
+                    this.getUserData()
+                })
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            } else {
+                this.$router.open({
+                    name: 'order',
+                    type: 'PUSH',
+                    params: {
+                        tab: id
+                    }
+                })
+            }
         },
         openMydetail (type) {
             if (type == 1) {
@@ -155,7 +163,7 @@ export default {
                 })
                 this.$router.open({
                     name: 'my.details',
-                    type: 'PUSH',
+                    type: 'PUSH'
                     // params: {
                     //     tab: id
                     // }
@@ -171,7 +179,7 @@ export default {
             } else {
                 this.$router.open({
                     name: 'my.details',
-                    type: 'PUSH',
+                    type: 'PUSH'
                     // params: {
                     //     tab: id
                     // }

@@ -19,8 +19,6 @@
                 <text class="onetitle">{{goods.title}}</text>
                 <text class="price">Rs.{{goods.price}}</text>
                 <text class="count">You can get it at Rs.{{goods.cut_get}} by inviting friends!  </text>
-                <!--<text class="countbtn" @click="openCard">Learn how to drop price > </text>-->
-
             </div>
                  <div class="learn-drop">
                     <div  class="learn-div" @click="openCard"><text class="learn-picon iconfont">&#xe723;</text><text class="learn-price" >How to Drop Price</text></div>
@@ -122,7 +120,7 @@
 
                     <div class="popup-py">
                         <text class="popup-price">Rs{{selsaleUnitPrice}}</text>
-                        <text class="popup-lowprice-word">The lowest price that cut can get </text>
+                        <text class="popup-lowprice-word">The lowest price that drop can get </text>
                         <text class="popup-lowprice">Rs.{{lowestPrice}}</text>
                         <text class="popup-yet">Chose：{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
                     </div>
@@ -147,7 +145,7 @@
                     </div>
                 </scroller>
                 <div class="popup-btn">
-                    <text class="button" @click="wxcCellClick">Share to Cut the Price</text>
+                    <text class="button" @click="wxcCellClick">Share to Drop the Price</text>
                 </div>
 
             </div>
@@ -221,6 +219,7 @@
         },
         eros: {
           beforeAppear (a) {
+              this.proId = a
               this.getGoodsDetail(a)
           },
           beforeBackAppear (params) {
@@ -264,7 +263,7 @@
                 selsaleUnitPrice: '',
                 lowestPrice: '',
                 newDescription: [],
-                decimg: [],
+                proId: '',
                 dectxt: [],
                 cactiveId: 1,
                 sactiveId: '',
@@ -280,14 +279,11 @@
                 positionY: 0,
                 deltaX: 0,
                 deltaY: 0,
-                aay: 0
+                user: null
             }
         },
         created () {
-            // this.popupOverlayBottomClick()
-            this.androidFinishApp()
-            // this.$refs.dropcard.hide();
-            // this.$refs.['dropcard']
+
         },
         methods: {
             getGoodsDetail (id) {
@@ -296,7 +292,7 @@
                         method: 'GET',
                         // url: 'http://47.104.171.91/product/customer/detail/135/',
                         // url: 'http://149.129.135.114/product/customer/detail/' + id.id + '/',
-                        url: 'http://149.129.135.114/product/customer/detail/125/',
+                        url: `${baseUrl}/product/customer/detail/${id.id}/`,
                         // name: 'product.customer.list',
                         data: {}
                     }).then((res) => {
@@ -378,23 +374,30 @@
                     })
                 }
             },
+            redirectLogin () {
+                this.$event.once('login', params => {
+                    this.getGoodsDetail(this.proId)
+                    this.$storage.get('user').then(resData => {
+                        this.user = resData
+                    })
+                })
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            },
             openBottomPopup () {
-                this.isBottomShow = true;
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    this.isBottomShow = true;
+                }
             },
 
             // 非状态组件，需要在这里关闭
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
                 this.isCardShow = false;
-            },
-            androidFinishApp () {
-                // this.$event.on('goodDetail', (data) => {
-                //     if (this.isBottomShow) {
-                //         this.isBottomShow = false;
-                //     } else {
-                //         this.$router.finish()
-                //     }
-                // })
             },
 
             operateData (data) {
@@ -505,12 +508,8 @@
             },
             openShip (e) {
                 this.$router.open({
-                    name: 'drops.cutDetail',
+                    name: 'goods.ship',
                     type: 'PUSH',
-                    params: {
-                        isShowSharePanel: false,
-                        id: res.id
-                    }
                 })
             },
 
@@ -606,10 +605,6 @@
                     })
                 }
             },
-            jump2 () {
-
-            }
-
         }
     }
 </script>

@@ -58,6 +58,7 @@
         margin-top: 30px;
         margin-left: 20px;
         padding-right: 20px;
+        padding-left: 32px;
     }
     .haveline{
         color: #000;
