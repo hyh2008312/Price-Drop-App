@@ -253,7 +253,6 @@
                     name: 'Return Policy',
                     key: 'policy'
                 }],
-                popup_color: ['粉色', '橙色', '黑色'],
                 goodsVariants: [],
                 goodsType: {},
                 selsize: '',
@@ -509,7 +508,7 @@
             openShip (e) {
                 this.$router.open({
                     name: 'goods.ship',
-                    type: 'PUSH',
+                    type: 'PUSH'
                 })
             },
 
