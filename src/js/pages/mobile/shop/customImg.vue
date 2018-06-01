@@ -1,35 +1,37 @@
 <template>
     <div>
-        <image :src="imgsrc" :style="styObj" @load="onload" ></image>
+        <image class="images" :src="imgsrc" ref="images" @load="onload" ></image>
     </div>
 </template>
 
 <script>
+    const animation = weex.requireModule('animation')
     export default {
         name: 'customImg',
         data () {
-            return {
-                styObj: {
-                    'width': '750px',
-                    'height': '750px'
-                }
-            }
+            return {}
         },
         props: ['imgsrc'],
         created () {},
         methods: {
             onload (e) {
                 // JSON.stringify(e)
-                this.styObj.height = Math.floor(e.size.naturalHeight / e.size.naturalWidth * 750) + 'px'
-                this.size = e.size.naturalWidth + ',' + e.size.naturalHeight;
-                // this.$notice.alert({
-                //     message: this.styObj.height
-                // })
+                animation.transition(this.$refs.images, {
+                    styles: {
+                        height: Math.floor(e.size.naturalHeight / e.size.naturalWidth * 750) + 'px'
+                    },
+                    duration: 50,
+                    timingFunction: 'ease',
+                    delay: 0
+                }, function () {});
             }
         }
     }
 </script>
 
 <style scoped>
-
+    .images{
+        height: 750px;
+        width: 750px;
+    }
 </style>
