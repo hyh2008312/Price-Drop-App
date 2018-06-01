@@ -116,6 +116,9 @@ export default {
             this.$notice.toast({
                 message: '111111'
             })
+            this.$event.once('logout', parmas => {
+                this.getUserData()
+            })
             this.getUserData()
         }
     },
