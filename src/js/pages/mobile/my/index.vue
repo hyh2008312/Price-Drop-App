@@ -122,6 +122,9 @@ export default {
     created () {
         this.getUserData()
     },
+    destory () {
+        this.$event.off('login')
+    },
     // mounted () {
     //     this.getUserData()
     // },
@@ -158,6 +161,9 @@ export default {
                     // }
                 })
             } else if (type == 2) {
+                this.$event.once('login', params => {
+                    this.getUserData()
+                })
                 this.$router.open({
                     name: 'login',
                     type: 'PUSH'
@@ -227,9 +233,6 @@ export default {
                 this.nickname = this.user.firstName + this.user.lastName
                 this.email = this.user.email
                 this.img = this.user.avatar
-                this.$notice.alert({
-                    message: resData
-                })
                 if (this.user !== null) {
                     this.$fetch({
                         method: 'GET',
