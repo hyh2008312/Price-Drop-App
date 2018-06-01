@@ -29,7 +29,7 @@
     import tabTitle from './tabTitle';
     import cutingItem from './cutingItem';
     import cutEndItem from './cutEndItem';
-    import { TAB, TOKEN } from './config'
+    import { TAB } from './config'
     import { Utils } from 'weex-ui';
 
     export default {
@@ -43,11 +43,14 @@
             beforeAppear (params, options) {
             }
         },
-        mounted () {
+        created () {
             const pageHeight = Utils.env.getScreenHeight();
             this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' };
             this.getToken();
             this.init();
+        },
+        destory () {
+            this.$event.off('login')
         },
         data () {
             return {
@@ -76,6 +79,10 @@
                     }, function (param) {
                         that.$notice.toast('failed')
                     }); */
+                this.$event.once('login', params => {
+                    this.getToken();
+                    this.init();
+                })
                 this.$router.open({
                     name: 'login'
                 })

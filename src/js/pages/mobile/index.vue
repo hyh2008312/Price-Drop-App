@@ -1,6 +1,6 @@
 <template>
     <div class="app-wrapper">
-        <embed v-for="(item,index) in items" :src="item.src" type="weex" class="content" :style="{ visibility: item.visibility }"></embed>
+        <embed v-for="(item, index) in items" :src="item.src" type="weex" class="content" :style="{ visibility: item.visibility }"></embed>
         <tab-bar @tabTo="onTabTo" :items="items" :indexKey="selectedTab"></tab-bar>
         <div class="touch-bar"></div>
     </div>
@@ -98,9 +98,6 @@ export default {
                 name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
                 data: {}
             }).then(data => {
-                this.$notice.alert({
-                    message: data
-                })
                 this.$storage.set('channel', data);
             }, error => {})
         },
@@ -128,9 +125,6 @@ export default {
         refreshToken () {
             this.$storage.get('token').then((data) => {
                 if (data) {
-                    this.$notice.toast({
-                        message: data
-                    })
                     this.$fetch({
                         method: 'POST', // 大写
                         name: 'oauth2.token',

@@ -4,20 +4,20 @@
         <div class="status-bar"></div>
         <list class="container" :style="height">
             <cell class="cell-bottom" @click="jumpAddress">
-                <tracking-package-header :order="order"></tracking-package-header>
+                <tracking-package-header :order="order.data"></tracking-package-header>
             </cell>
             <cell class="cell-line"></cell>
             <cell>
-                <tracking-package-item :address="order.address"></tracking-package-item>
+                <tracking-package-item :address="order.order_data.address"></tracking-package-item>
             </cell>
-            <cell v-for="item in trackingInfo">
+            <cell v-for="item in order.data.origin_info.trackinfo">
                 <tracking-package-item :order="item"></tracking-package-item>
             </cell>
             <cell>
-                <tracking-package-item :shippedTime="order.shipped_time"></tracking-package-item>
+                <tracking-package-item :shippedTime="order.order_data.shipped_time"></tracking-package-item>
             </cell>
             <cell>
-                <tracking-package-item :paidTime="order.paid_time"></tracking-package-item>
+                <tracking-package-item :paidTime="order.order_data.paid_time"></tracking-package-item>
             </cell>
         </list>
     </div>
@@ -40,7 +40,7 @@ export default {
         appeared (params, option) {
             if (params) {
                 this.id = params.id
-                // this.getOrderTracking()
+                this.getOrderTracking()
             }
         }
     },
@@ -53,62 +53,15 @@ export default {
             title: 'Tracking Package',
             id: false,
             order: {
-                'paid_time': '',
-                'shipped_time': '',
-                'address': '',
-                'phone_number': '',
-                'username': '',
+                'order_data': {},
                 'data': {
-                    'tracking_number': '413767243',
-                    'carrier_code': 'gati-kwe'
+                    'tracking_number': ' ',
+                    'carrier_code': ' ',
+                    'origin_info': {
+                        trackinfo: []
+                    }
                 }
-            },
-            trackingInfo: [{
-                'Date': '2014-01-16 19:23',
-                'StatusDescription': 'Delivered at destination city',
-                'Details': 'Manipal',
-                'checkpoint_status': 'delivered'
-            }, {
-                'Date': '2014-01-16 11:20',
-                'StatusDescription': 'Arrived',
-                'Details': 'Manipal',
-                'checkpoint_status': 'transit'
-            }, {
-                'Date': '2014-01-15 17:57',
-                'StatusDescription': 'Out for next station',
-                'Details': 'Bangalore',
-                'checkpoint_status': 'transit'
-            }, {
-                'Date': '2014-01-14 05:11',
-                'StatusDescription': 'Arrived',
-                'Details': 'Bangalore',
-                'checkpoint_status': 'transit'
-            }, {
-                'Date': '2014-01-12 02:52',
-                'StatusDescription': 'Out for next station',
-                'Details': 'Indore 247',
-                'checkpoint_status': 'transit'
-            }, {
-                'Date': '2014-01-11 20:38',
-                'StatusDescription': 'Arrived',
-                'Details': 'Indore 247',
-                'checkpoint_status': 'transit'
-            }, {
-                'Date': '2014-01-11 01:27',
-                'StatusDescription': 'Out for next station',
-                'Details': 'Jaipur',
-                'checkpoint_status': 'transit'
-            }, {
-                'Date': '2014-01-10 10:52',
-                'StatusDescription': 'Arrived',
-                'Details': 'Jaipur',
-                'checkpoint_status': 'transit'
-            }, {
-                'Date': '2014-01-10 01:51',
-                'StatusDescription': 'Out for next station',
-                'Details': 'Ratangarh',
-                'checkpoint_status': 'transit'
-            }]
+            }
         }
     },
     methods: {
