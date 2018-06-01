@@ -116,7 +116,8 @@ export default {
                 name: 'user.user',
                 data: {},
                 header: {
-                    needAuth: true
+                    needAuth: true,
+                    isLoginPop: true
                 }
             }).then(data => {
                 this.$storage.set('user', data);
@@ -154,12 +155,10 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f1f1f1;
-    color: #333;
 }
 
 </style>
-<style lang="sass" scoped>
-@import "src/js/css/core/base.scss";
+<style scoped>
 .iconfont {
     font-family: iconfont;
 }
@@ -171,6 +170,7 @@ body {
     right: 0;
     bottom: 0;
     margin-top: 0;
+    background-color: #f1f1f1;
     /*margin-bottom: 100;*/
 }
 

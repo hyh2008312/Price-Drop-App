@@ -64,6 +64,7 @@ export default {
 
 .tab-txt-active {
     color: #EF8A31;
+    font-weight: bold;
     border-bottom-color: #EF8A31;
 }
 

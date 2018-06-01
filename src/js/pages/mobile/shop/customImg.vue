@@ -5,25 +5,23 @@
 </template>
 
 <script>
-    const animation = weex.requireModule('animation')
     export default {
         name: 'customImg',
         data () {
             return {}
         },
-        props: ['imgsrc'],
+        props: ['imgsrc', 'index'],
         created () {},
         methods: {
             onload (e) {
-                // JSON.stringify(e)
-                animation.transition(this.$refs.images, {
-                    styles: {
-                        height: Math.floor(e.size.naturalHeight / e.size.naturalWidth * 750) + 'px'
-                    },
-                    duration: 50,
-                    timingFunction: 'ease',
-                    delay: 0
-                }, function () {});
+                this.$refs.images.height = Math.floor(e.size.naturalHeight / e.size.naturalWidth * 750) + 'px'
+                this.$emit('resize', {
+                    status: 'resize',
+                    data: {
+                        height: Math.floor(e.size.naturalHeight / e.size.naturalWidth * 750) + 'px',
+                        index: this.index
+                    }
+                })
             }
         }
     }
@@ -31,7 +29,8 @@
 
 <style scoped>
     .images{
-        height: 750px;
         width: 750px;
+        height: 750px;
+        overflow: hidden;
     }
 </style>

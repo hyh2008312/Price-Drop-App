@@ -215,7 +215,7 @@
 
     .state {
         width: 750px;
-        height: 24px;
+        height: 48px;
         background-color: black;
     }
 
@@ -223,22 +223,26 @@
         display: flex;
         width: 750px;
         height: 112px;
-        background-color: black;
+        background-color: #fff;
         flex-direction: row;
         justify-content: flex-start;
     }
 
     .title {
-        font-size: 40px;
+        font-size: 32px;
+        font-weight: bold;
         height: 112px;
         line-height: 112px;
         margin-left: 32px;
-        color: rgba(255, 255, 255, .87);
+        width: 558px;
+        text-align: center;
+        line: 1;
+        text-overflow: ellipsis;
+        color: rgba(0,0,0,0.87);
     }
 
     .homeBack {
         font-family: iconfont;
-        color: white;
         font-size: 32px;
         height: 112px;
         margin-left: 32px;

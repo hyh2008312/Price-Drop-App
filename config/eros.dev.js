@@ -35,7 +35,7 @@ module.exports = {
         'js/pages/mobile/order/editAddress.vue',
         'js/pages/mobile/order/state.vue',
         'js/pages/mobile/order/trackingPackage.vue',
-        'js/pages/mobile/login/index.vue',
+        'js/pages/mobile/login/index.vue'
     ],
     'alias': {
         'Components': 'js/components',

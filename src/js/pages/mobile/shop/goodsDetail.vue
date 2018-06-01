@@ -65,14 +65,11 @@
 
             </div>
                 <div style="width: 750px; background-color: white">
-                    <div v-for="i in newDescription ">
+                    <div v-for="(i, index) in newDescription ">
                         <div v-if="i.type=='text'">
                             <text class="bottom-text">{{i.context}}</text>
                         </div>
-                        <div v-if="i.type=='image'">
-                            <cimg :imgsrc="i.context"></cimg>
-                            <!--<image :src="i.context" resize="stretch" style="width:750px;height:700px"></image>-->
-                        </div>
+                        <cimg class="bgRed" v-if="i.type=='image'" :imgsrc="i.context" :index="index" :ref="'images' + index" @resize="resize"></cimg>
                     </div>
                 </div>
 
@@ -236,7 +233,7 @@
                 },
                 block1: {
                     title: '',
-                    url: '',
+                    url: ''
                 },
                 goodsId: '',
                 goods: {
@@ -604,6 +601,12 @@
                     })
                 }
             },
+            resize (event) {
+                this.$notice.toast({
+                    message: this.$refs
+                })
+                this.$refs['images' + event.data.index].height = event.data.height
+            }
         }
     }
 </script>
@@ -965,5 +968,9 @@
         color: #333333;
         font-size: 30px;
         margin-top: 20px;
+    }
+
+    .bgRed{
+        background-color: red;
     }
 </style>
