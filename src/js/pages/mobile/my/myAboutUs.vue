@@ -6,11 +6,11 @@
         <div class="mid-cell" >
             <!--<text class="header">About Us</text>-->
             <div class="content">
-                <text>&nbsp;&nbsp;PriceDrop is a fun, social and money-saving shopping app that lets you shop your favorite products at the lowest price by teaming up with your friends on Facebook & WhatsApp. 
+                <text>PriceDrop is a fun, social and money-saving shopping app that lets you shop your favorite products at the lowest price by teaming up with your friends on Facebook & WhatsApp. 
                 </text>
-                <text>&nbsp;&nbsp;Our mission is to help our customers save bigger, and create a more engaging social selling channel for brands and manufacturers from around the world! 
+                <text>Our mission is to help our customers save bigger, and create a more engaging social selling channel for brands and manufacturers from around the world! 
                 </text>
-                <text>&nbsp;&nbsp;PriceDrop is a venture-backed company founded by two Y Combinator alumnus and former executives from Amazon, Google and Alibaba Group. If you are passionate about transforming the way people shop online, come join us by sending your resume to: career@getpricedrop.com.
+                <text>PriceDrop is a venture-backed company founded by two Y Combinator alumnus and former executives from Amazon, Google and Alibaba Group. If you are passionate about transforming the way people shop online, come join us by sending your resume to: career@getpricedrop.com.
                 </text>
             </div>
 
@@ -56,6 +56,7 @@
         width: 750px;
         text-align: center;
         margin-top: 30px;
-        margin-left: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 </style>

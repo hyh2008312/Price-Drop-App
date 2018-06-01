@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-
+            <text class="answer">&nbsp;&nbsp;&nbsp;</text>
         </scroller>
     </div>
 </template>
@@ -149,7 +149,7 @@
         line-height: 50px;
     }
     .answer{
-        margin: 20px;
+        margin: 30px;
         line-height: 40px;
 
     }

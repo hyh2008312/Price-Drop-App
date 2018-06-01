@@ -68,7 +68,7 @@
         eros: {
             backAppeared (params, options) {
                 this.gender = params.id
-            },
+            }
         },
         created () {
             this.getUserData()
@@ -112,7 +112,7 @@
                     name: 'image.qiniu',
                     data: params,
                     header: {
-                        Authorization: 'Bearer EmTm3ZEb7s3oO9kA9OwV75aGPd16ZG'
+                        needAuth: true
                     }
                 }).then(data => {
                     this.$image.upload({
@@ -142,8 +142,6 @@
                 this.name = event.value;
             },
             opentest (event) {
-                this.$router.setBackParams('key', '111')
-                this.$router.back()
             },
             saveData () {
                 const params = {
@@ -154,6 +152,9 @@
                 this.$fetch({
                     method: 'PUT',
                     name: 'user.userprofile',
+                    header: {
+                       needAuth: true
+                    },
                     data: params
                 }).then((res) => {
                     this.$notice.toast({

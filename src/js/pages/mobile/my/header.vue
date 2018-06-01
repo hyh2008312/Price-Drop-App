@@ -96,6 +96,7 @@ export default {
 }
 .tlt{
     color: black;
+    font-weight: 700;
 }
 .right {
     font-family: iconfont;

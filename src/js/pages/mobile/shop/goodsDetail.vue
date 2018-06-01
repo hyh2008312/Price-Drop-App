@@ -19,9 +19,16 @@
                 <text class="onetitle">{{goods.title}}</text>
                 <text class="price">Rs.{{goods.price}}</text>
                 <text class="count">You can get it at Rs.{{goods.cut_get}} by inviting friends!  </text>
-                <text class="countbtn" @click="openCard">Learn how to drop price > </text>
+                <!--<text class="countbtn" @click="openCard">Learn how to drop price > </text>-->
 
             </div>
+                 <div class="learn-drop">
+                    <div  class="learn-div" @click="openCard"><text class="learn-picon iconfont">&#xe723;</text><text class="learn-price" >How to Drop Price</text></div>
+                    <div  class="learn-div" @click="openShip"><text class="learn-sicon iconfont">&#xe722;</text><text class="learn-ship">Shipping & Delivery</text></div>
+                 </div>
+
+
+
                 <div v-if="tabshow==true" style="position: sticky">
                     <tab   @tabTo="onTabTo" :items="tabsItems"></tab>
                 </div>
@@ -94,7 +101,7 @@
             </div>
             <div style="display: none" ref="policy"></div>
             <div class="bottom-btn" >
-                <text class="button" @click="openBottomPopup">Share to Cut the Price</text>
+                <text class="button" @click="openBottomPopup">Drop The Price Now</text>
             </div>
         </scroller>
 
@@ -134,8 +141,7 @@
                                       :key="key1"
                                       :class="[val1.isActive ?'popup-color-chdname-active':'',
                                       val1.seldisable ?'popup-color-chdname-disable':'']"
-
-                                    @click="clickColor(val1, val.value)">{{val1.value}}</text>
+                                      @click="clickColor(val1, val.value)">{{val1.value}}</text>
                             </div>
                         </div>
                     </div>
@@ -156,7 +162,7 @@
                   :has-overlay="true"
                   :show-close="true"
                   :show="isCardShow"
-                  @wxcMaskSetHidden="wxcMaskSetHidden">
+                  @wxcMaskSetHidden="wxcCardSetHidden">
             <scroller >
 
             <div class="mask-content">
@@ -240,15 +246,7 @@
                     cut_get: '',
                     brandLogo: ''
                 },
-                goodsImg: [
-                    // 'http://yanxuan.nosdn.127.net/630439320dae9f1ce3afef3c39721383.jpg',
-                    // 'http://yanxuan.nosdn.127.net/5100f0176e27a167cc2aea08b1bd11d8.jpg',
-                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-1.jpg',
-                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-2.jpg',
-                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-4.jpg',
-                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-5.jpg',
-                    // 'http://doc.zwwill.com/yanxuan/imgs/banner-6.jpg'
-                ],
+                goodsImg: [],
                 tabsItems: [{
                     name: 'Description',
                     key: 'dec'
@@ -298,7 +296,7 @@
                         method: 'GET',
                         // url: 'http://47.104.171.91/product/customer/detail/135/',
                         // url: 'http://149.129.135.114/product/customer/detail/' + id.id + '/',
-                        url: 'http://149.129.135.114/product/customer/detail/134/',
+                        url: 'http://149.129.135.114/product/customer/detail/125/',
                         // name: 'product.customer.list',
                         data: {}
                     }).then((res) => {
@@ -505,7 +503,18 @@
                 this.isCardShow = true;
                 this.hasCardAnimation = true;
             },
-            wxcMaskSetHidden () {
+            openShip (e) {
+                this.$router.open({
+                    name: 'drops.cutDetail',
+                    type: 'PUSH',
+                    params: {
+                        isShowSharePanel: false,
+                        id: res.id
+                    }
+                })
+            },
+
+            wxcCardSetHidden () {
                 this.isCardShow = false;
             },
             openLink () {
@@ -684,9 +693,8 @@
         width: 128px;
         height: 128px;
     }
-    .logoimg{
-        width: 128px;
-        height: 128px;
+    .iconfont{
+        font-family: iconfont;
     }
     .count{
         color: rgba(172,11,11,0.87);
@@ -694,19 +702,6 @@
         margin-left: 32px;
         margin-bottom: 26px;
         font-size:24px;
-    }
-    .countbtn{
-        color: #EF8A31;
-        padding: 2px;
-        letter-spacing:6px;
-        margin-left: 32px;
-        margin-bottom: 44px;
-        font-size:24px;
-        width: 300px;
-        border-radius: 4px;
-        border-width: 2px;
-        border-style: solid;
-        border-color: #EF8A31;
     }
     .blackheader{
         position: fixed;
@@ -744,6 +739,43 @@
         flex: 1;
         text-align: center;
         color: black;
+    }
+    .learn-drop{
+        width: 750px;
+        height: 96px;
+        border-top-style:solid ;
+        border-top-width:2px ;
+        border-top-color:rgba(0,0,0,0.08) ;
+        background-color: #fff;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .learn-div{
+        width: 375px;
+        padding-top: 32px;
+        border-right-color:rgba(0,0,0,0.08) ;
+        border-right-width:1px ;
+        border-right-style:solid ;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .learn-picon{
+        color: #1abdcd;
+        font-size: 28px;
+        margin-right: 8px;
+    }
+    .learn-sicon{
+        color: #ffde00;
+        font-size: 28px;
+        margin-right: 8px;
+    }
+    .learn-price{
+        font-weight: 700;
+        font-size: 24px;
+    }
+    .learn-ship{
+        font-weight: 700;
+        font-size: 24px;
     }
     .dec-word{
         width: 750px;

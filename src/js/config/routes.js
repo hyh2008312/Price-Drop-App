@@ -21,6 +21,9 @@ export default {
     'cut.goods': {
         url: '/pages/mobile/shop/cutGoods.js'
     },
+    'my': {
+        url: '/pages/mobile/my/index.js'
+    },
     'my.details': {
         url: '/pages/mobile/my/myDetail.js'
     },

@@ -4,13 +4,13 @@
 
         <div class="blackheader"></div>
         <div class="mid-cell" >
-            <text class="header">Customer Support</text>
+            <!--<text class="header">Customer Support</text>-->
             <div class="content">
                 <text>Welcome to PriceDrop and we would like to hear from you! </text>
 
-                <div><text>&nbsp;&nbsp;If you have any questions about drops, orders, shipping or return policy, we recommend you to check our FAQ first. If you still can’t find an answer, please send your questions to: </text> <text class="haveline" style="font-weight: 700">support@getpricedrop.com.</text>
+                <div><text>If you have any questions about drops, orders, shipping or return policy, we recommend you to check our FAQ first. If you still can’t find an answer, please send your questions to: </text> <text class="haveline" style="font-weight: 700">support@getpricedrop.com.</text>
                 </div>
-                <div><text>&nbsp;&nbsp;If you want to return an item for a full refund, please send your return request to</text><text class="haveline">support@getpricedrop.com</text> along with your order number and the name of the item you want to return.
+                <div><text>If you want to return an item for a full refund, please send your return request to</text><text class="haveline">support@getpricedrop.com</text> along with your order number and the name of the item you want to return.
                 </div>
             </div>
 
