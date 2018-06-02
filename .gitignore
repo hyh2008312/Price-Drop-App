@@ -54,6 +54,7 @@ sign.properties
 # Android Studio
 .idea/
 .gradle
+.apk
 /*/local.properties
 /*/outd
 build/
@@ -100,4 +101,5 @@ Podfile.lock
 # END IOS
 
 ip.txt
-/platforms
+/platforms/ios
+/src/js/config/apis.js

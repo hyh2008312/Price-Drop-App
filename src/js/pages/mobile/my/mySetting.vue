@@ -41,7 +41,7 @@
 
 <script>
     import header from './header';
-    import { clientId } from '../../../config/apis';
+    import { clientId, baseUrl } from '../../../config/apis';
 
     export default {
         components: {
@@ -78,26 +78,31 @@
 
                 this.$fetch({
                     methods: 'POST',
-                    name: 'user.logout',
+                    url: `${baseUrl}/oauth2/revoke_token/`,
                     data: {
                         token: this.token,
                         client_id: this.client_id
+                    },
+                    header: {
+                      needAuth:true
                     }
                 }).then((res) => {
                     this.$notice.toast({
                         message: 'logout success!!'
                     })
+                    this.$storage.set('user', null);
+                    this.$storage.set('token', null);
                     this.$router.back({
                         length: 1,
                         type: 'PUSH',
                         callback () {
                             // 返回成功回调
-                            this.$event.emit('loginout')
+                            this.$event.emit('logout')
                         }
                     })
                 }).catch((res) => {
                     this.$notice.toast({
-                        message: 'logout failed!!'
+                        message: res
                     })
                 })
             }
