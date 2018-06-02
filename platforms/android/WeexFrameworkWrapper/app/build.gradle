@@ -12,10 +12,9 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
         ndk {
-            abiFilters "x86"
+           /* abiFilters "x86"*/
             abiFilters "armeabi"
         }
     }
@@ -33,7 +32,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            //shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.sociaclCommer
             manifestPlaceholders = [
@@ -106,12 +106,12 @@ dependencies {
     compile 'com.github.bmfe:eros-nexus:0.0.3'
     compile 'com.github.bmfe:WeexErosFramework:0.0.4'
     //eros plugin
-    compile 'com.github.bmfe:eros-plugin-android-amap:0.0.1'
     compile 'com.github.bmfe:eros-plugin-android-getui:0.0.1'
     compile 'com.github.bmfe:eros-plugin-android-wxpay:0.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.android.gms:play-services-auth:15.0.1'
     compile('com.razorpay:checkout:1.4.7')
-    testCompile 'junit:junit:4.12'
     compile project(':sharesdk')
 }
+// ADD THIS AT THE BOTTOM
+apply plugin: 'com.google.gms.google-services'

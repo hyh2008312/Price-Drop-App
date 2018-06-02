@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "722406876752",
+    "firebase_url": "https://socialcommer-1527235646942.firebaseio.com",
+    "project_id": "socialcommer-1527235646942",
+    "storage_bucket": "socialcommer-1527235646942.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722406876752:android:0d23f38f4692c669",
+        "android_client_info": {
+          "package_name": "com.socialcommer.wx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722406876752-n5dl9tuuijh9tkoq8poao2tdo7vqgori.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "722406876752-eq5ji222v8h982nm0bgkgk48g2jrr7jl.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "722406876752-ui8tkbg0dej149k96n5q0msf13odmjpo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.socialcommer.wx",
+            "certificate_hash": "7427e6860a3d3331ac913f4e29bca38a4b3c3ac6"
+          }
+        },
+        {
+          "client_id": "722406876752-n5dl9tuuijh9tkoq8poao2tdo7vqgori.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdccKa5eOoMmcvMHVY-NjR2Y6-w_m8o-E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722406876752-n5dl9tuuijh9tkoq8poao2tdo7vqgori.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
