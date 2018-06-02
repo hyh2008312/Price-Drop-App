@@ -51,7 +51,7 @@ new Widget({
             if (status !== 200) {
                 console.log(`invoke error status: ${status}`)
                 console.log(`invoke error message: ${errorMsg}`)
-                if (status == 401 && !options.isLoginPop && !ISAUTHLOGIN) {
+                if (status == 401 && !options.header.isLoginPop && !ISAUTHLOGIN) {
                     ISAUTHLOGIN = true
                     const router = weex.requireModule('bmRouter')
                     router.open({

@@ -25,7 +25,6 @@ export default {
             this.refreshToken()
             this.getChannel()
             this.getState()
-            this.getUser()
         },
         backAppeared (params) {
             if (params && params.tab) {
@@ -145,6 +144,7 @@ export default {
                             refreshToken: data.refresh_token,
                             expiresIn: data.expires_in
                         });
+                        this.getUser()
                     }, error => {})
                 }
             })
