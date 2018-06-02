@@ -113,9 +113,9 @@ export default {
         beforeAppear (a) {
         },
         beforeBackAppear (params) {
-            this.$notice.toast({
-                message: '111111'
-            })
+            // this.$notice.toast({
+            //     message: '111111'
+            // })
             this.$event.once('logout', parmas => {
                 this.getUserData()
             })
@@ -161,9 +161,9 @@ export default {
         },
         openMydetail (type) {
             if (type == 1) {
-                this.$notice.toast({
-                    message: 111
-                })
+                // this.$notice.toast({
+                //     message: 111
+                // })
                 this.$router.open({
                     name: 'my.details',
                     type: 'PUSH'
@@ -255,13 +255,13 @@ export default {
                             needAuth: true
                         }
                     }).then((res) => {
-                        this.$notice.toast({
-                            message: res
-                        })
+                        // this.$notice.toast({
+                        //     message: res
+                        // })
                     }).catch((res) => {
-                        this.$notice.toast({
-                            message: res
-                        })
+                        // this.$notice.toast({
+                        //     message: res
+                        // })
                     })
                 } else {
                     this.$notice.toast({

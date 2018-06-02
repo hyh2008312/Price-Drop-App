@@ -150,7 +150,7 @@
                     </div>
                 </scroller>
                 <div class="popup-btn">
-                    <text class="button" @click="wxcCellClick">Share to Drop the Price</text>
+                    <text class="button" @click="wxcCellClick">Invite Friends to Drop Price</text>
                 </div>
 
             </div>
