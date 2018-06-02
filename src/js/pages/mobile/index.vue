@@ -133,6 +133,9 @@ export default {
                             refresh_token: data.refreshToken,
                             grant_type: 'refresh_token',
                             client_id: cliendId
+                        },
+                        header: {
+                            isLoginPop: true
                         }
                     }).then(data => {
                         this.$storage.set('token', {
