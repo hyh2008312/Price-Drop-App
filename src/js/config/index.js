@@ -29,12 +29,12 @@ new Widget({
         requestHandler (options, next) {
             if (options.header && options.header.needAuth == true) {
                 const storage = weex.requireModule('bmStorage');
-                const modal = weex.requireModule('bmModal')
                 storage.getData('token', (res) => {
                     // modal.alert({
                     //     message: res
                     // })
                     if (res && res.data && JSON.parse(res.data)) {
+                        options.header = {}
                         options.header.Authorization = 'Bearer ' + JSON.parse(res.data).accessToken
                         next()
                     }
