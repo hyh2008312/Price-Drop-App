@@ -8,7 +8,7 @@
             </div>
             <div class="pay-failure-bg">
                 <text class="iconfont pay-success-icon">&#xe6e7;</text>
-                <text class="pay-failure-title">Payment successfully completed!</text>
+                <text class="pay-failure-title">Payment Successfully Completed!</text>
             </div>
             <text class="pay-failure-title-1">Thank you for your order. Your item will be shipped in 3-5 days!</text>
             <text class="pay-failure-button" @click="back">View Order</text>
@@ -37,7 +37,7 @@ export default {
     },
     data () {
         return {
-            title: 'Pay',
+            title: 'Payment Result',
             isBack: false,
             source: false
         }

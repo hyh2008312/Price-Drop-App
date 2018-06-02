@@ -15,8 +15,8 @@
                            :src="goodsDetail.ownerAvatar"></image>
                 </div>
                 <div class="share-content-top">
-                    <text class="wrapper-tip">You just dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
-                    <text class="wrapper-tip">Share this item and invite more friends to drop price for you!</text>
+                    <text class="wrapper-tip">You have dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
+                    <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Share this item and invite more friends to drop price for you!</text>
                 </div>
             </div>
             <div class="wrapper-product">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="product-content">
                     <text class="product-content-name">{{goodsDetail.title}}</text>
-                    <text class="product-content-people">{{goodsDetail.cutGet == null ? 0 : goodsDetail.cutGet}} people bought this item at the lowest price</text>
+                    <text class="product-content-people">{{goodsDetail.cutGet == null ? 10 + "+" : goodsDetail.cutGet + 10}} people bought this item at the lowest price</text>
                 </div>
             </div>
             <!--正在进行-->
@@ -75,13 +75,13 @@
                     <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
                 </div>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Drop It Again</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy it at Current Price</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy it at Current Price</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy It at Final Price</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy It at Final Price</text>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Drop It Again</text>
                 <div class="cut-end-item"
                      v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
                     <text class="cut-end-item-icon-1">&#xe6fa;</text>
-                    <text class="cut-end-item-2"> The current price will expire in:</text>
+                    <text class="cut-end-item-2"> The final price will expire in:</text>
                     <wxc-countdown tpl="{h}:{m}:{s}"
                                    :time="goodsDetail.cancelTimestamp * 1000"
                                    :timeBoxStyle="{backgroundColor: 'transparent', height: '36px', width: '36px','border-radius': '4px'}"
@@ -769,10 +769,10 @@
         align-items: center;
         margin-right: 30px;
         background-color: rgba(0, 0, 0, 0.34);
-        height: 36px;
+        height: 60px;
         border-radius: 24px;
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 24px;
+        padding-right: 24px;
     }
 
     .rule-text{

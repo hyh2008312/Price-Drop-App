@@ -13,14 +13,15 @@
                             <text class="gd-price-sale">Rs.{{goods.currentPrice}}</text>
                             <text class="gd-price-original">Rs.{{goods.salePrice}}</text>
                         </div>
-                        <text class="gd-price-show" v-if="flag">Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }} price cut by {{goods.cutTimes}} people</text>
+                        <text class="gd-price-show" v-if="flag">Dropped Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }} by {{goods.cutTimes}} people</text>
                         <div class="gd-cut" v-if="flag">
                             <text class="gd-cut-price">Rs.{{goods.lowestPrice}}</text>
-                            <text class="gd-cut-price-tip"> left to unlock lowest price</text>
+                            <text class="gd-cut-price-tip"> left to reach the lowest price</text>
                         </div>
                         <div class="gd-cut-end"v-if="!flag">
+                            <text class="gd-price-show-end">Dropped </text>
                             <text class="gd-cut-price">Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }}</text>
-                            <text class="gd-price-show-end"> price cut by {{goods.cutTimes}} people</text>
+                            <text class="gd-price-show-end"> by {{goods.cutTimes}} people</text>
                         </div>
                     </div>
                 </div>
@@ -37,7 +38,7 @@
                                :dotBoxStyle="{width: '10px'}"
                                :style="{justifyContent: 'center'}">
                 </wxc-countdown>
-                <text class="gd-handle-cut" @click="goingCutPrice">Cut Price</text>
+                <text class="gd-handle-cut" @click="goingCutPrice">Drop Price</text>
             </div>
             <!--砍价结束-->
             <div class="gd-end-handle" v-else>

@@ -20,7 +20,7 @@
                 <text class="price">Rs.{{goods.price}}</text>
 
                 <div class="count-div">
-                    <text class=" count" >You can get it at </text> <text class="count-bold"> Rs.{{goods.cut_get}} </text>  <text class="count">by inviting friends!</text>
+                    <text class=" count" >Get it at </text> <text class="count-bold"> Rs.{{goods.cut_get}} </text>  <text class="count">by inviting friends!</text>
 
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <div class="slogan" >
                     <div class="slg">
                         <text class="i-slg-icon">&#xe714;</text>
-                        <text class="i-slg"> Quality Guarantee </text>
+                        <text class="i-slg"> Quality Guaranteed </text>
                     </div>
 
                     <div class="slg">
@@ -71,9 +71,8 @@
             </div>
             <div class="dec-word" ref="dec" >
                 <text class="dec">Description</text>
-
             </div>
-                <div style="width: 750px; background-color: white">
+                <div style="width: 750px; background-color: white ; padding-top: 20px">
                     <div v-for="(i, index) in newDescription ">
                         <div v-if="i.type=='text'">
                             <text class="bottom-text">{{i.context}}</text>
@@ -105,7 +104,7 @@
             </div>
             <div style="display: none" ref="policy"></div>
             <div class="bottom-btn" >
-                <text class="button" @click="openBottomPopup">Drop The Price Now</text>
+                <text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>
             </div>
         </scroller>
 
