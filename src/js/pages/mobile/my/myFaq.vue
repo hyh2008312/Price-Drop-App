@@ -98,30 +98,16 @@
     }
     .box-tlt {
         height: 96px;
-        border-bottom-width: 3px;
+        border-bottom-width: 1px;
         border-bottom-style: solid;
         border-bottom-color: rgba(0,0,0,0.08);
         flex-direction: row;
         justify-content: space-between;
     }
 
-    .box-txt-icon {
-        font-family: iconfont;
-        font-size: 40px;
-        padding-top: 34px;
-        padding-left: 32px;
-        color: #ef8a31;
-    }
-    .box-txt-left{
-        font-family: ProximaNova-Regular;
-        padding-top: 30px;
-        opacity: 0.54;
-        font-size: 24px;
-        color: rgba(0,0,0,0.87);
-    }
     .box-txt {
         font-family: iconfont;
-        font-size: 30px;
+        font-size: 28px;
         padding-top: 34px;
         padding-left: 32px;
         color: #333;

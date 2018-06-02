@@ -240,9 +240,9 @@ export default {
                 this.token = resData
             })
             this.$storage.get('user').then(resData => {
-                this.$notice.alert({
-                    message: resData
-                })
+                // this.$notice.alert({
+                //     message: resData
+                // })
                 this.user = resData
                 this.nickname = this.user.firstName + this.user.lastName
                 this.email = this.user.email

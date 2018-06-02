@@ -1,17 +1,14 @@
 <template>
     <div class="wrapper">
-        <topic-header title="AboutUs" leftBtn="icon"  ref="ref1" ></topic-header>
+        <topic-header title="About Us" leftBtn="icon"  ref="ref1" ></topic-header>
 
         <div class="blackheader"></div>
         <div class="mid-cell" >
             <!--<text class="header">About Us</text>-->
             <div class="content">
-                <text>PriceDrop is a fun, social and money-saving shopping app that lets you shop your favorite products at the lowest price by teaming up with your friends on Facebook & WhatsApp. 
-                </text>
-                <text>Our mission is to help our customers save bigger, and create a more engaging social selling channel for brands and manufacturers from around the world! 
-                </text>
-                <text>PriceDrop is a venture-backed company founded by two Y Combinator alumnus and former executives from Amazon, Google and Alibaba Group. If you are passionate about transforming the way people shop online, come join us by sending your resume to: career@getpricedrop.com.
-                </text>
+                <text class="text-word">PriceDrop is a fun, social and money-saving shopping app that lets you shop your favorite products at the lowest price by teaming up with your friends on Facebook & WhatsApp. </text>
+                <text class="text-word">Our mission is to help our customers save bigger, and create a more engaging social selling channel for brands and manufacturers from around the world! </text>
+                <text class="text-word">PriceDrop is a venture-backed company founded by two Y Combinator alumnus and former executives from Amazon, Google and Alibaba Group. If you are passionate about transforming the way people shop online, come join us by sending your resume to: career@getpricedrop.com.</text>
             </div>
 
         </div>
@@ -46,17 +43,17 @@
         border-radius: 4px;
         background-color: #fff;
     }
-    .header{
-        width: 750px;
-        font-size: 35px;
-        font-weight: 700;
-        text-align: center;
+    .text-word{
+        font-size: 28px;
+        line-height: 48px;
+        margin-bottom: 16px;
     }
     .content{
         width: 750px;
         text-align: center;
-        margin-top: 30px;
-        padding-left: 30px;
-        padding-right: 30px;
+        margin-top: 48px;
+        margin-bottom: 48px;
+        padding-left: 32px;
+        padding-right: 32px;
     }
 </style>

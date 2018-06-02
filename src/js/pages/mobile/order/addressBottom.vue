@@ -61,6 +61,7 @@
 
     .od-text{
         font-size: 28px;
+        font-weight: 700;
         line-height: 34px;
         color: #fff;
     }

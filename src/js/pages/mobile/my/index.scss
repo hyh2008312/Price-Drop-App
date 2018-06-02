@@ -50,13 +50,14 @@
 }
 .i-name {
     margin-bottom: 16px;
-    font-size: 38px;
+    font-size: 32px;
+    font-weight: 600;
 }
 .txt-tag {
-    color: #b4a078;
+    color: #000;
     flex: 1;
     height: 40px;
-    font-size: 28px;
+    font-size: 24px;
     overflow: hidden;
     lines: 1;
     text-overflow: ellipsis;
@@ -64,6 +65,8 @@
 
 .b-qrcode {
   margin-top: 100px;
+
+  opacity: 0.54;
 }
 
 .s-box {
@@ -76,7 +79,7 @@
 
 .box-tlt {
     height: 96px;
-    border-bottom-width: 3px;
+    border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgba(0,0,0,0.08);
     flex-direction: row;
@@ -92,8 +95,8 @@
     color: #ef8a31;
 }
 .box-txt {
-    font-family: iconfont;
-    font-size: 30px;
+    font-size: 28px;
+    font-weight: 600;
     padding-top: 34px;
     padding-left: 32px;
     color: #333;
@@ -101,9 +104,9 @@
 
 .i-box {
   font-size: 20px;
-  padding-top: 34px;
+  padding-top: 40px;
   padding-right: 32px;
-  color: rgba(0,0,0,0.87);
+  color: rgba(0,0,0,0.54);
 }
 .mid-cell{
   margin-top: 16px;
@@ -120,24 +123,25 @@
 
 .i-box-l {
     width: 130px;
-    //height: 132px;
 }
 
 .i-box-icon {
     font-size: 50px;
     text-align: center;
-    margin: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top:20px;
     padding-top:30px;
-    height: 79px;
-    padding-bottom: 10px;
+    height: 85px;
+    //padding-bottom: 10px;
     color: #EF8A31;
 }
 
 .i-box-tlt {
-    font-size: 26px;
+    font-size: 20px;
     text-align: center;
     color: #666;
-    padding-top: 20px;
+    padding-top: 16px;
 }
 .box-left{
   flex-direction: row;

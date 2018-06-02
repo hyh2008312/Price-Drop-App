@@ -4,15 +4,15 @@
 
         <div class="blackheader"></div>
         <div class="mid-cell" @click="pickAndUpload">
-            <div class="box-tlt ">
-                <div class="box-left">
+            <div class="box-tlt-fir ">
+                <div class="box-left-fir">
                     <text class="box-txt">Photo</text>
                 </div>
                 <div class="box-right">
                     <div class="i-photo-div">
                         <image  class="i-photo"  :src="src"></image>
                     </div>
-                    <text class="i-box iconfont">&#xe626;</text>
+                    <text class="i-box-fir iconfont">&#xe626;</text>
                 </div>
 
             </div>
@@ -21,10 +21,10 @@
                 <div class="box-left">
                     <text class="box-txt">Name</text>
                 </div>
-                <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Click to Edit..." @input="oninput" />
+                <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Click to Edit" @input="oninput" />
 
                 <div class="box-right">
-                    <text class="i-box iconfont">&#xe626;</text>
+                    <text class="i-box-input iconfont">&#xe626;</text>
 
                     <!--<text class="box-txt-left">Click to Edit</text>-->
 
@@ -41,17 +41,6 @@
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
             </div>
-
-            <div class="box-tlt " @click="opentest">
-                <div class="box-left">
-                    <text class="box-txt">Gender</text>
-                </div>
-                <div class="box-right">
-                    <text class="box-txt-left">Select Gender</text>
-                    <text class="i-box iconfont">&#xe626;</text>
-                </div>
-            </div>
-
 
         </div>
     </div>
@@ -193,11 +182,29 @@
     }
     .box-tlt {
         height: 96px;
-        border-bottom-width: 3px;
+        border-bottom-width: 1px;
         border-bottom-style: solid;
         border-bottom-color: rgba(0,0,0,0.08);
         flex-direction: row;
         justify-content: space-between;
+    }
+    .box-tlt-fir {
+        height: 112px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: rgba(0,0,0,0.08);
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .box-left-fir{
+        padding-top: 10px;
+    }
+    .i-box-fir{
+        font-size: 20px;
+        padding-top: 44px;
+        padding-right: 32px;
+        padding-left: 16px;
+        color: rgba(0,0,0,0.87);
     }
 
     .box-txt-icon {
@@ -216,7 +223,7 @@
     }
     .box-txt {
         font-family: iconfont;
-        font-size: 30px;
+        font-size: 28px;
         padding-top: 34px;
         padding-left: 32px;
         color: #333;
@@ -226,6 +233,14 @@
         font-size: 20px;
         padding-top: 34px;
         padding-right: 32px;
+        padding-left: 16px;
+        color: rgba(0,0,0,0.87);
+    }
+    .i-box-input {
+        font-size: 20px;
+        padding-top: 40px;
+        padding-right: 32px;
+        padding-left: 16px;
         color: rgba(0,0,0,0.87);
     }
     .mid-cell{
@@ -242,16 +257,18 @@
         justify-content: space-between;
     }
     .input {
-        width: 550px;
+        width: 510px;
+        text-align: right;
+        font-size:24px;
         height: 100px;
         margin-left: 40px;
         color: #6a737d;
     }
     .i-photo-div{
         background-color: #1da1f2;
-        width: 58px;
-        height: 58px;
-        margin-top: 15px;
+        width: 68px;
+        height: 68px;
+        margin-top: 25px;
         margin-left: 30px;
         border-radius: 64px;
     }

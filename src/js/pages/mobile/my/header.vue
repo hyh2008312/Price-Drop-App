@@ -8,7 +8,7 @@
         <text class="tlt">{{title}}</text>
         <div class="right">
             <text class="rightTxt" v-if="iconSign==true" @click="setting" >&#xe71e;</text>
-            <text class="rightTxt" v-else @click="savedata">{{rightBtn}}</text>
+            <text class="rightword " v-else @click="savedata">{{rightBtn}}</text>
         </div>
     </div>
 </template>
@@ -87,25 +87,24 @@ export default {
     font-family: iconfont;
     color: #FFFFFF;
     height: 80px;
-    width: 120px;
     position: absolute;
-    left: 50px;
-    top:30px;
+    left: 32px;
+    top:32px;
     padding-top: 10px;
 
 }
 .tlt{
     color: black;
+    font-size: 32px;
     font-weight: 700;
 }
 .right {
     font-family: iconfont;
     color: #FFFFFF;
     height: 80px;
-    width: 120px;
     position: absolute;
-    right: 5px;
-    top:28px;
+    right: 32px;
+    top:32px;
     padding-top: 10px;
 
 }
@@ -121,6 +120,13 @@ export default {
     font-family: iconfont;
     color: #EF8A31;
     font-size: 32px;
+    text-align: center;
+}
+.rightword {
+    color: #EF8A31;
+    margin-top: 4px;
+    font-size: 24px;
+    /*line-height: 28px;*/
     text-align: center;
 }
 </style>

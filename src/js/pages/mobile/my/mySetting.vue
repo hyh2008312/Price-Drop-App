@@ -80,33 +80,33 @@
                 })
             },
             logOut () {
-                // this.$storage.deleteSync('user')
-                // this.$storage.deleteSync('token')
-                // this.$router.back({
-                //     length: 1,
-                //     type: 'PUSH',
-                //     callback () {
-                //         // 返回成功回调
-                //         this.$event.emit('logout')
-                //     }
-                // })
-                // TODO 请求接口没有返回body 无法走回调
-                this.token = this.params.params.accessToken
-                this.client_id = cliendId
-                this.$notice.alert({
-                    message: axios.fetch
-                })
-
-                axios.fetch({
-                    method: 'POST',
-                    url: `${baseUrl}/oauth2/revoke_token/`,
-                    data: {
-                        token: this.token,
-                        client_id: this.client_id
+                this.$storage.deleteSync('user')
+                this.$storage.deleteSync('token')
+                this.$router.back({
+                    length: 1,
+                    type: 'PUSH',
+                    callback () {
+                        // 返回成功回调
+                        this.$event.emit('logout')
                     }
-                }, res => {
-                   this.$notice.alert({ message: res })
                 })
+                // TODO 请求接口没有返回body 无法走回调
+                // this.token = this.params.params.accessToken
+                // this.client_id = cliendId
+                // this.$notice.alert({
+                //     message: axios.fetch
+                // })
+                //
+                // axios.fetch({
+                //     method: 'POST',
+                //     url: `${baseUrl}/oauth2/revoke_token/`,
+                //     data: {
+                //         token: this.token,
+                //         client_id: this.client_id
+                //     }
+                // }, res => {
+                //    this.$notice.alert({ message: res })
+                // })
                 //     .then((res) => {
                 //     // this.$storage.removeAll().then(resData => {
                 //     //     console.log('本地所有持久化存储的数据都已被清空。')

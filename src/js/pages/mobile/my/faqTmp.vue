@@ -4,12 +4,11 @@
 
         <div class="blackheader"></div>
         <scroller>
-            <text class="header"></text>
-            <div v-if="settingPage==0" class="" v-for="(i,index) in QAArr ">
-                <text class="question">{{index+1}}.{{i.question}}</text>
-                <text class="answer">{{i.answer}}</text>
-            </div>
-
+            <text class="header1">&nbsp;</text>
+                <div v-if="settingPage==0" class="content" v-for="(i,index) in QAArr ">
+                    <text class="question">{{index+1}}.{{i.question}}</text>
+                    <text class="answer">{{i.answer}}</text>
+                </div>
             <div v-if="settingPage==1" class="content">     <!--term & conditions-->
                 <div>
                     <text class="h1">By using this app and/or placing an order, you agree to be bound by the terms and conditions set out below. You must read, agree with and accept all of the terms and conditions contained in this agreement including our privacy policy before you may become our registered user or place an order.
@@ -117,23 +116,24 @@
         background-color: black;
     }
     .content{
-        padding-left: 30px ;
-        padding-right: 30px ;
-        padding-top: 50px;
+        padding-left: 32px ;
+        padding-right: 32px ;
+        padding-top: 48px;
 
     }
     .h1{
-        padding-right:30px ;
-        padding-left:30px ;
+        font-size: 28px;
+        padding-right:32px ;
+        padding-left:32px ;
         font-weight: 700;
-        line-height: 50px;
+        line-height: 40px;
     }
     .h2{
         padding-right:30px ;
         padding-left:30px ;
         line-height: 50px;
     }
-    .header{
+    .header1{
         margin-top: 160px;
         font-size: 24px;
         font-weight: 700;
@@ -143,19 +143,26 @@
         margin-top: 16px;
         padding-right:30px ;
         padding-left:30px ;
-        line-height: 50px;
+        line-height: 48px;
+        font-size: 28px;
     }
     .term{
-        line-height: 50px;
+        font-size: 24px;
+        line-height: 40px;
     }
     .policy{
-        padding-right:30px ;
-        padding-left:30px ;
-        line-height: 50px;
+        font-size: 28px;
+        padding-right:32px ;
+        padding-left:32px ;
+        line-height: 48px;
     }
     .answer{
-        margin: 30px;
+        margin-top: 4px;
+        margin-right: 32px;
+        margin-left: 32px;
+        margin-bottom: 12px;
         line-height: 40px;
+        font-size: 24px;
 
     }
 

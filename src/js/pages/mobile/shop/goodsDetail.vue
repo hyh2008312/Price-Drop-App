@@ -193,12 +193,6 @@
         },
         data () {
             return {
-                cellStyle: {
-                    'padding-top': '28px',
-                    'padding-bottom': '28px',
-                    'font-weight': '700',
-                    'font-size': '24px'
-                },
                 block1: {
                     title: '',
                     url: ''
@@ -872,9 +866,10 @@
 
     }
     .popup-lowprice-word{
-        font-size: 28px;
-        margin-top: 15px;
+        font-size: 24px;
+        margin-top: 16px;
         margin-left: 32px;
+        margin-bottom: 4px;
 
     }
     .popup-lowprice{
@@ -886,6 +881,7 @@
     }
     .popup-yet{
         font-size: 24px;
+        opacity: 0.54;
         margin-left: 32px;
         margin-top: 16px;
     }
@@ -900,15 +896,18 @@
 
     }
     .popup-color{
-        font-size: 32px;
+        font-size: 24px;
+        font-weight: 700;
         margin-top: 27px;
         margin-left: 32px;
 
     }
     .popup-color-chd{
         width: 750px;
+        font-weight: 700;
+        font-size: 24px;
         margin-left: -16px;
-        margin-top: 26px;
+        margin-top: 16px;
         flex-direction: row;
         display: flex;
     }
