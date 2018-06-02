@@ -46,7 +46,10 @@
             jumpWeb () {
                 // if (!url) return;
                 this.$router.open({
-                    name: 'goods.details'
+                    name: 'goods.details',
+                    params: {
+                        id: this.order.lines[0].productId
+                    }
                 })
             },
             openBottomPopup () {

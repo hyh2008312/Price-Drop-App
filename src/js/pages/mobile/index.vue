@@ -23,7 +23,6 @@ export default {
     eros: {
         beforeAppear (params) {
             this.refreshToken()
-            this.getChannel()
             this.getState()
         },
         backAppeared (params) {
@@ -90,15 +89,6 @@ export default {
                     }
                 }) */
             })
-        },
-        getChannel () {
-            this.$fetch({
-                method: 'GET', // 大写
-                name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
-                data: {}
-            }).then(data => {
-                this.$storage.setSync('channel', data);
-            }, error => {})
         },
         getState () {
             this.$fetch({

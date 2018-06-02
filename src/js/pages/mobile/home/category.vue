@@ -8,7 +8,7 @@
                          v-if="block1.items.length > 0" ></block-4>
             </cell>
             <cell ref="tab"></cell>
-            <header v-if="tabsItems.length > 0">
+            <header v-if="false && tabsItems.length > 0">
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
             <cell v-for="(item, index) in goods3">
@@ -62,7 +62,7 @@ export default {
             },
             tabsItems: [],
             goods3: [],
-            tabKey: 'hot',
+            tabKey: 'new',
             priceStatus: 0,
             pageNew: 1,
             pageHot: 1,

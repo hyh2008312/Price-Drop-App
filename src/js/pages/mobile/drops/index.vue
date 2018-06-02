@@ -46,7 +46,6 @@
         created () {
             const pageHeight = Utils.env.getScreenHeight();
             this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' };
-            this.getToken();
             this.init();
         },
         destory () {
@@ -62,17 +61,12 @@
                 length: 2,
                 pageSize: 12,
                 isLoading: false,
-                isPlatformAndroid: Utils.env.isAndroid(),
-                token: null
+                isPlatformAndroid: Utils.env.isAndroid()
             }
         },
         methods: {
-            getToken () {
-                this.token = this.$storage.getSync('token');
-            },
             test () {
                 this.$event.once('login', params => {
-                    this.getToken();
                     this.init();
                 })
                 this.$router.open({
@@ -144,9 +138,7 @@
                         this.isLoading = false;
                     }
                     this.refreshApiFinished();
-                }, error => {
-
-                })
+                }, error => {})
             },
             getcutendProduct (isFirst) {
                 this.$fetch({
@@ -162,6 +154,9 @@
                     }
 
                 }).then(data => {
+                    this.$notice.toast({
+                        message: data
+                    })
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
@@ -177,7 +172,9 @@
                     }
                     this.refreshApiFinished();
                 }, error => {
-
+                    this.$notice.toast({
+                        message: error
+                    })
                 })
             },
             onTabTo (event) {

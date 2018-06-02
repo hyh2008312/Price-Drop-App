@@ -29,7 +29,11 @@ new Widget({
         requestHandler (options, next) {
             if (options.header && options.header.needAuth == true) {
                 const storage = weex.requireModule('bmStorage');
+                const modal = weex.requireModule('bmModal')
                 storage.getData('token', (res) => {
+                    modal.alert({
+                        message: res
+                    })
                     if (res && res.data && JSON.parse(res.data)) {
                         options.header.Authorization = 'Bearer ' + JSON.parse(res.data).accessToken
                         next()
@@ -49,9 +53,7 @@ new Widget({
         responseHandler (options, resData, resolve, reject) {
             const { status, errorMsg, data } = resData
             if (status !== 200) {
-                console.log(`invoke error status: ${status}`)
-                console.log(`invoke error message: ${errorMsg}`)
-                if (status == 401 && !options.header.isLoginPop && !ISAUTHLOGIN) {
+                if (status == 401 && !ISAUTHLOGIN) {
                     ISAUTHLOGIN = true
                     const router = weex.requireModule('bmRouter')
                     router.open({
