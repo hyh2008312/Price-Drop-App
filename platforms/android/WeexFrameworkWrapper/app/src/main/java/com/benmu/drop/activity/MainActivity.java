@@ -8,12 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.benmu.drop.activity.bean.LoginDto;
-import com.benmu.drop.activity.utils.HttpServerConfig;
 import com.benmu.framework.activity.AbstractWeexActivity;
 import com.benmu.drop.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.razorpay.Checkout;
@@ -21,18 +19,10 @@ import com.razorpay.PaymentResultListener;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXException;
-import com.taobao.weex.devtools.common.LogUtil;
 import com.umeng.socialize.UMShareAPI;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class MainActivity extends AbstractWeexActivity implements PaymentResultListener {
     private JSCallback googleSuccessCallback;
@@ -58,6 +48,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             e.printStackTrace();
         }
     }
+
 
     private void initPayment() {
         Checkout.preload(getApplicationContext());

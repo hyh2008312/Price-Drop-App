@@ -10,7 +10,7 @@
                <text class="google-login-icon">&#xe71f;</text>
                <text class="google-login-text">Continue with Google</text>
             </div>
-            <div class="google-login" @click="startGoogleSignOut">
+            <div class="google-login" v-if="false" @click="startGoogleSignOut">
                <text class="google-login-icon">&#xe71f;</text>
                <text class="google-login-text">Logout with Google</text>
             </div>
