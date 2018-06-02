@@ -6,34 +6,39 @@
     </div>
 </template>
 <script>
-    import { TOKEN } from './config';
-
+    const pay = weex.requireModule('PayModule');
     export default {
         props: ['order', 'address'],
         methods: {
             confirm () {
-                if (!this.address.id) {
-                    this.$notice.toast('Please add address first!')
+                const that = this
+                if (!that.address.id) {
+                    that.$notice.toast('Please add address first!')
                     return
                 }
-                this.$fetch({
+                that.$fetch({
                     method: 'POST', // 大写
                     name: 'order.cut.create',
                     data: {
-                        cutId: this.order.id
+                        cutId: that.order.id
                     },
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        needAuth: true
                     }
                 }).then(resData => {
-                    this.$router.finish()
-                    this.$router.open({
-                        name: 'order.failure',
-                        type: 'PUSH',
-                        params: {
-                            source: 'confirm'
-                        }
-                    })
+                    pay.startPayRequest('goods title', 'description', '//res.cloudinary.com/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/v1/1128882/logo-02_2_cegiu2.png',
+                        '200', 'luzhenqiang123@gmail.com', '18232593291', function (param) {
+                            that.$notice.toast('success')
+                        }, function (param) {
+                            that.$router.finish()
+                            that.$router.open({
+                                name: 'order.failure',
+                                type: 'PUSH',
+                                params: {
+                                    source: 'confirm'
+                                }
+                            })
+                        });
                 }, error => {
                     this.$notice.toast({
                         message: error

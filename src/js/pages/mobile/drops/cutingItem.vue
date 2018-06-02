@@ -19,7 +19,7 @@
                             <text class="gd-cut-price-tip"> left to unlock lowest price</text>
                         </div>
                         <div class="gd-cut-end"v-if="!flag">
-                            <text class="gd-cut-price">Rs.{{goods.salePrice - goods.currentPrice }}</text>
+                            <text class="gd-cut-price">Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }}</text>
                             <text class="gd-price-show-end"> price cut by {{goods.cutTimes}} people</text>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                 this.$router.open({
                     name: 'order.detail',
                     params: {
-                        orderId: this.goods.orderId,
+                        id: this.goods.orderId,
                         type: 'drop'
                     }
                 })

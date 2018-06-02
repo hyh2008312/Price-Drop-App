@@ -68,7 +68,7 @@
             <div class="cut-end" v-else>
                 <div class="cut-end-total-price">
                     <text class="cut-end-total-price-word">Total Price Dropped:</text>
-                    <text class="cut-end-total-price-1"> Rs.{{goodsDetail.salePrice - goodsDetail.currentPrice }}</text>
+                    <text class="cut-end-total-price-1"> Rs.{{ Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice)*100)/100 }}</text>
                 </div>
                 <div class="cut-end-total-price-final">
                     <text class="cut-end-total-price-word">Final Price:</text>

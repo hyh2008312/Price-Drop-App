@@ -71,14 +71,6 @@
                 this.token = this.$storage.getSync('token');
             },
             test () {
-                /* const that = this
-                const pay = weex.requireModule('PayModule');
-                pay.startPayRequest('name', 'description', '//res.cloudinary.com/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/v1/1128882/logo-02_2_cegiu2.png',
-                    '2222', 'luzhenqiang123@gmail.com', '18232593291', function (param) {
-                        that.$notice.toast('success')
-                    }, function (param) {
-                        that.$notice.toast('failed')
-                    }); */
                 this.$event.once('login', params => {
                     this.getToken();
                     this.init();
@@ -191,6 +183,7 @@
             onTabTo (event) {
                 this.tabKey = event.data.key;
                 this.isCuting = !(this.tabKey === 'cutEnd');
+                this.goods = false;
                 this.requestProduct(true);
             }
         }

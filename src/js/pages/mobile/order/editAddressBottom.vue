@@ -25,7 +25,7 @@
                         name: 'address.shipping.list',
                         data: this.address,
                         header: {
-                            Authorization: 'Bearer ' + TOKEN
+                            needAuth: true
                         }
                     }).then(resData => {
                         // 成功回调
@@ -42,7 +42,7 @@
                         url: `${baseUrl}/address/shipping/detail/${this.id}/`,
                         data: this.address,
                         header: {
-                            Authorization: 'Bearer ' + TOKEN
+                            needAuth: true
                         }
                     }).then(resData => {
                         // 成功回调

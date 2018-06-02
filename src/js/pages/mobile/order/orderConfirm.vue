@@ -9,7 +9,7 @@
             <cell class="cell-bottom">
                 <order-confirm-item :order="order"></order-confirm-item>
             </cell>
-            <cell class="cell-bottom">
+            <cell class="cell-bottom" v-if="false">
                 <order-confirm-pay-method :list="payList" @radioChecked="radioChecked"></order-confirm-pay-method>
             </cell>
         </list>

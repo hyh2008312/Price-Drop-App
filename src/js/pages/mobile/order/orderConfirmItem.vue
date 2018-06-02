@@ -27,7 +27,7 @@
                     <text class="gb-text">Rs.{{order.salePrice}}</text>
                     <text class="gb-text">Rs.{{order.shippingPrice||'0.00'}}</text>
                     <text class="gb-text">Rs.0.00</text>
-                    <text class="gb-text gb-text-color">- Rs.{{order.salePrice - order.currentPrice}}</text>
+                    <text class="gb-text gb-text-color">- Rs.{{Math.floor((order.salePrice - order.currentPrice) * 100) / 100}}</text>
                     <text class="gb-text-1">Rs.{{order.currentPrice}}</text>
                 </div>
             </div>

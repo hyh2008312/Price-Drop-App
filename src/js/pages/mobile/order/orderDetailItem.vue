@@ -27,7 +27,7 @@
                     <text class="gb-text">Rs.{{order.totalExclTax}}</text>
                     <text class="gb-text">Rs.{{order.shippingExclTax}}</text>
                     <text class="gb-text">Rs.0.00</text>
-                    <text class="gb-text gb-text-color">- Rs.{{order.totalExclTax - order.paymentAmount}}</text>
+                    <text class="gb-text gb-text-color">- Rs.{{Math.floor((order.totalExclTax - order.paymentAmount) * 100) / 100}}</text>
                     <text class="gb-text-1">Rs.{{order.paymentAmount}}</text>
                 </div>
             </div>

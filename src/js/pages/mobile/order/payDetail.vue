@@ -13,7 +13,7 @@
                 <order-detail-item :order="order"></order-detail-item>
             </cell>
             <cell class="cell-bottom">
-                <order-detail-number :order="order"ß></order-detail-number>
+                <order-detail-number :order="order"></order-detail-number>
             </cell>
         </list>
         <order-detail-bottom :order="order" @cancel="cancel" @deleteOrder="deleteOrder"></order-detail-bottom>
@@ -119,7 +119,7 @@ export default {
                 url: `${baseUrl}/order/customer/detail/${id}/`,
                 data: {},
                 header: {
-                    Authorization: 'Bearer ' + TOKEN
+                    needAuth: true
                 }
             }).then(data => {
                 this.order = data
@@ -146,12 +146,12 @@ export default {
             this.$refs.wxcPopup.hide()
             this.$fetch({
                 method: 'PUT', // 大写
-                url: `http://47.104.171.91/order/customer/cancel/${this.order.id}/`,
+                url: `${baseUrl}/order/customer/cancel/${this.order.id}/`,
                 data: {
                     reason: this.reason[this.reasonActive]
                 },
                 header: {
-                    Authorization: 'Bearer ' + TOKEN
+                    needAuth: true
                 }
             }).then(resData => {
                 this.$notice.toast('Your order cancellation request has been submitted for review.')
@@ -172,7 +172,7 @@ export default {
             this.closeDeletePop()
             this.$fetch({
                 method: 'DELETE', // 大写
-                url: `http://47.104.171.91/order/customer/cancel/${this.order.id}/`,
+                url: `${baseUrl}/order/customer/cancel/${this.order.id}/`,
                 data: {},
                 header: {
                     Authorization: 'Bearer ' + TOKEN
