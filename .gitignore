@@ -102,8 +102,8 @@ Podfile.lock
 
 ip.txt
 platforms/ios
-platforms/android/WeexFrameworkWrapper/build.gradle
-platforms/android/WeexFrameworkWrapper/gradle.properties
-platforms/android/WeexFrameworkWrapper/app/build.gradle
-platforms/android/WeexFrameworkWrapper/app/build
+*platforms/android/WeexFrameworkWrapper/build.gradle
+*platforms/android/WeexFrameworkWrapper/gradle.properties
+*platforms/android/WeexFrameworkWrapper/app/build.gradle
+*platforms/android/WeexFrameworkWrapper/app/build
 /src/js/config/apis.js
