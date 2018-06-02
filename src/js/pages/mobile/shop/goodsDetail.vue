@@ -18,7 +18,11 @@
                 <text class="iiiright" @click="openLink">&#xe700;</text>
                 <text class="onetitle">{{goods.title}}</text>
                 <text class="price">Rs.{{goods.price}}</text>
-                <text class="count">You can get it at Rs.{{goods.cut_get}} by inviting friends!  </text>
+
+                <div class="count-div">
+                    <text class=" count" >You can get it at </text> <text class="count-bold"> Rs.{{goods.cut_get}} </text>  <text class="count">by inviting friends!</text>
+
+                </div>
             </div>
                  <div class="learn-drop">
                     <div  class="learn-div" @click="openShip(1)"><text class="learn-picon iconfont">&#xe723;</text><text class="learn-price" >How to Drop Price</text></div>
@@ -32,14 +36,19 @@
                 </div>
 
             <div class="mid">
-                <wxc-cell :has-arrow="true"
-                          title="Size/Color"
-                          :cell-style="cellStyle"
-                          :has-top-border="true"
-                          :has-bottom-border="true"
-                          @wxcCellClicked="wxcCellClick"
-                          :auto-accessible="false">
-                </wxc-cell>
+                <!--<wxc-cell :has-arrow="true"-->
+                          <!--title="Size/Color"-->
+                          <!--:cell-style="cellStyle"-->
+                          <!--:has-top-border="true"-->
+                          <!--:has-bottom-border="true"-->
+                          <!--@wxcCellClicked="wxcCellClick"-->
+                          <!--:auto-accessible="false">-->
+                <!--</wxc-cell>-->
+
+                <div class="dec-word" @click="wxcCellClick" >
+                    <text class="dec">Size/Color</text>
+
+                </div>
 
                 <div class="slogan" >
                     <div class="slg">
@@ -147,46 +156,6 @@
 
             </div>
         </wxc-popup>
-
-        <wxc-mask height="800"
-                  width="702"
-                  border-radius="0"
-                  duration="200"
-                  mask-bg-color="#FFFFFF"
-                  :has-animation="hasCardAnimation"
-                  :has-overlay="true"
-                  :show-close="true"
-                  :show="isCardShow"
-                  @wxcMaskSetHidden="wxcCardSetHidden">
-            <scroller >
-
-            <div class="mask-content">
-                    <div class="mask-head">
-                        <text class="mask-title">How To Drop Price</text>
-                    </div>
-                    <text class="mask-text">Step1:  Click the “Drop The Price” button to start your DROP campaign immediately.
-                    </text>
-                    <text class="mask-text">Step2:  Invite friends to join you by sharing your DROP campaign to Facebook & WhatsAPP.
-                    </text>
-                    <text class="mask-text">Step3:  When people click the “Drop Price” button for you on the page you share, the price will drop automatically.
-                    </text>
-                    <text class="mask-text">Step4:  After the DROP campaign ends, you can purchase the item at the final price you have reached!
-                    </text>
-
-                    <div class="mask-head">
-                        <text class="mask-title">Rules to Know</text>
-                    </div>
-                    <text class="mask-text">1. The duration of a Price Drop campaign is up to 24 hours. The campaign will end automatically once it reaches the lowest price.
-                    </text>
-                    <text class="mask-text">2. As soon as the DROP ends, you have 24 hours to make your purchase. If you do not complete the payment in time, you’re deemed to waive your purchase right, and the reduced price will also expire.
-                    </text>
-                    <text class="mask-text">3. Due to the limited stocks of each item, the products will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the DROP may fail as well.
-                    </text>
-
-            </div>
-            </scroller>
-
-        </wxc-mask>
     </div>
 
 </template>
@@ -228,8 +197,10 @@
         data () {
             return {
                 cellStyle: {
-                    'padding-top': '36px',
-                    'padding-bottom': '36px'
+                    'padding-top': '28px',
+                    'padding-bottom': '28px',
+                    'font-weight': '700',  // TODO 文字
+                    'font-size': '24px'
                 },
                 block1: {
                     title: '',
@@ -322,7 +293,7 @@
                                 expectedDeliveryDateMax: res.expectedDeliveryDateMax,
                                 expectedDeliveryDateMin: res.expectedDeliveryDateMin,
                                 expectedShipDateMax: res.expectedShipDateMax,
-                                expectedShipDateMin: res.expectedShipDateMin,
+                                expectedShipDateMin: res.expectedShipDateMin
 
                             }
                             this.dectxt = []
@@ -514,7 +485,7 @@
                 this.$notice.toast({
                     message: 'pppp'
                 })
-                if(e == 1) {
+                if (e == 1) {
                     this.$router.open({
                         name: 'goods.ship',
                         type: 'PUSH'
@@ -679,21 +650,21 @@
     }
     .onetitle{
         width:586px;
-        height: 96px;
+        height: 120px;
         margin-top: 32px;
         margin-left: 32px;
-        opacity: 0.435;
         font-family: PingFangSC-Light;
         font-size: 28px;
         color: #000;
-        line-height: 48px;
+        line-height: 40px;
         letter-spacing: 0;
     }
     .price{
         font-family: PingFangSC-Semibold;
-        margin-top: 24px;
+        font-weight: 700;
+        margin-top: 16px;
         margin-left: 32px;
-        font-size: 48px;
+        font-size: 32px;
         color: #000000;
         letter-spacing: 0;
         text-align: left;
@@ -711,12 +682,24 @@
     .iconfont{
         font-family: iconfont;
     }
+    .count-div{
+        flex-direction: row;
+        justify-content: flex-start;
+    }
     .count{
-        color: rgba(172,11,11,0.87);
-        margin-top: 24px;
+        color: rgba(0,0,0,1);
+        margin-top: 16px;
         margin-left: 32px;
         margin-bottom: 26px;
         font-size:24px;
+    }
+    .count-bold{
+        color: #EF8A31;
+        margin-top: 16px;
+        margin-left: 32px;
+        margin-bottom: 26px;
+        font-size:32px;
+        font-weight: 700;
     }
     .blackheader{
         position: fixed;
@@ -736,30 +719,31 @@
         justify-content: space-around;
         background-color: #fff;
         border-bottom: 2px solid black;
-        margin-bottom: 16px;
     }
     .slg{
+        margin-top: 48px;
         align-items:center ;
     }
     .i-slg-icon{
         font-family: iconfont;
+        opacity: 0.54;
         text-align: center;
         font-size: 50px;
-        margin: 25px 0;
+        margin-bottom:16px ;
     }
     .i-slg{
-        height: 66px;
-        font-size: 26px;
-        padding-top: 16px;
+        font-size: 20px;
+        opacity: 0.87;
         flex: 1;
         text-align: center;
         color: black;
+        margin-bottom: 48px;
     }
     .learn-drop{
         width: 750px;
         height: 96px;
         border-top-style:solid ;
-        border-top-width:2px ;
+        border-top-width:1px ;
         border-top-color:rgba(0,0,0,0.08) ;
         background-color: #fff;
         flex-direction: row;
@@ -794,40 +778,47 @@
     }
     .dec-word{
         width: 750px;
-        height: 110px;
-        padding-top: 40px;
+        height: 96px;
+        padding-top: 36px;
         padding-left: 30px;
         margin-top: 16px;
         border-bottom-color: rgba(0,0,0,0.12) ;
-        border-bottom-width: 2px ;
+        border-bottom-width: 1px ;
         border-bottom-style: solid ;
         background-color: white;
     }
+    .dec{
+        font-size: 24px;
+        font-weight:700;
+    }
     .bottom-head{
-        text-align: center;
+        text-align: left;
         font-family: PingFangSC-Semibold;
-        font-weight: 500;
-        font-size: 28px;
-        margin: 40px 0;
+        font-weight: 700;
+        padding-left: 32px;
+        font-size: 24px;
+        margin: 32px 0 24px 0;
         color: rgba(0,0,0,0.87);
     }
     .bottom-div{
         width: 750px;
         box-shadow: 0 1px 1px 0;
         background-color: #fff;
-        padding-top: 48px;
+        padding-top: 16px;
         margin-bottom: 100px;
     }
     .bottom-text{
         margin-left: 32px;
         margin-right: 32px;
-        padding-top: 24px;
+        font-size: 24px;
+        line-height: 36px;
         text-align: left;
     }
     .bottom-btn{
         background-color: #fff;
-        box-shadow: 0 -1px 1px 0;
+        box-shadow:  0 -2px 3px 0 rgba(0,0,0,0.24);
         width: 750px;
+        height: 112px;
         position: fixed;
         bottom: 0;
         right: 0;
@@ -835,18 +826,19 @@
     }
     .button{
         color: #fff;
+        height: 80px;
         background-color: #EF8A31;
         border-color: #2e6da4;
         border-radius: 12px;
-        padding-top: 20px;
+        padding-top: 22px;
+        padding-bottom: 10px;
         margin-top: 16px;
         margin-left: 12px;
-        padding-bottom: 20px;
         margin-right: 12px;
         margin-bottom: 16px;
-        font-size: 36px;
+        font-size: 28px;
         text-align: center;
-        font-weight: 500;
+        font-weight: 700;
     }
     .scroller{
         max-height: 500px;
