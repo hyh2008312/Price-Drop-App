@@ -3,7 +3,9 @@
         <div class="gb-box">
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="goods.mainImage || src"></image>
+                    <div class="gd-img">
+                        <image class="gd-img-image" resize="cover" :src="goods.mainImage || src"></image>
+                    </div>
                 </div>
                 <div class="gd-bg-right">
                     <text class="gd-tlt">{{goods.title}}</text>
@@ -97,6 +99,14 @@ export default {
 .gd-img {
     width: 284px;
     height: 284px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.gd-img-image {
+    width: 284px;
+    height: 284px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .gd-tlt {
