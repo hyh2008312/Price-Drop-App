@@ -258,7 +258,6 @@
                 )
             },
             requestCutDetail () {
-                this.$notice.toast(this.id);
                 this.$fetch({
                     method: 'GET',
                     url: baseUrl + '/promotion/cut/detail/' + this.id + '/'
@@ -277,20 +276,22 @@
             jumpProductDetail () {
                 this.$router.open({
                     name: 'goods.details',
-                    id: this.goodsDetail.productId
+                    params: {
+                        id: this.goodsDetail.productId
+                    }
                 })
             },
             jumpConfirmOrder () {
                 this.$router.open({
                     name: 'order.confirm',
-                    params: this.goods
+                    params: this.goodsDetail
                 })
             },
             jumpOrderDetail () {
                 this.$router.open({
                     name: 'order.detail',
                     params: {
-                        orderId: this.goods.orderId,
+                        id: this.goodsDetail.orderId,
                         type: 'drop'
                     }
                 })

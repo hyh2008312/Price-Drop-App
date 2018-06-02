@@ -150,7 +150,7 @@ export default {
 }
 
 .gd-sm {
-    margin-top: 14x;
+    margin-top: 14px;
     flex-direction: row;
     justify-content: start;
     align-items: center;

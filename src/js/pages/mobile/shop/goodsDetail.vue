@@ -20,7 +20,7 @@
                 <text class="price">Rs.{{goods.price}}</text>
 
                 <div class="count-div">
-                    <text class=" count" >Get it at </text> <text class="count-bold"> Rs.{{goods.cut_get}} </text>  <text class="count">by inviting friends!</text>
+                    <text class=" count" >Get it at</text><text class="count-bold">Rs.{{lowestPrice}}</text><text class="count-1">by inviting friends!</text>
 
                 </div>
             </div>
@@ -165,8 +165,6 @@
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
     const animation = weex.requireModule('animation');
-    const axios = weex.requireModule('bmAxios');
-    const globalEvent = weex.requireModule('globalEvent');
     const dom = weex.requireModule('dom');
 
     // import block from './block';
@@ -198,7 +196,7 @@
                 cellStyle: {
                     'padding-top': '28px',
                     'padding-bottom': '28px',
-                    'font-weight': '700',  // TODO 文字
+                    'font-weight': '700',
                     'font-size': '24px'
                 },
                 block1: {
@@ -319,12 +317,9 @@
             wxcCellClick: function () {
                 this.isBottomShow = true;
                 if (this.variantsId != '') {
-                    // this.$notice.alert({
-                    //     message: this.variantsId
-                    // })
                     this.$fetch({
                         method: 'POST',
-                        url: 'http://149.129.135.114/promotion/cut/create/',
+                        url: `${baseUrl}/promotion/cut/create/`,
                         data: { variant_id: this.variantsId },
                         header: {
                             needAuth: true
@@ -481,9 +476,6 @@
                 this.hasCardAnimation = true;
             },
             openShip (e) {
-                this.$notice.toast({
-                    message: 'pppp'
-                })
                 if (e == 1) {
                     this.$router.open({
                         name: 'goods.ship',
@@ -682,8 +674,10 @@
         font-family: iconfont;
     }
     .count-div{
+        display: flex;
         flex-direction: row;
         justify-content: flex-start;
+        align-items: center;
     }
     .count{
         color: rgba(0,0,0,1);
@@ -692,10 +686,17 @@
         margin-bottom: 26px;
         font-size:24px;
     }
+    .count-1{
+        color: #000000;
+        margin-left: 16px;
+        margin-top: 16px;
+        margin-bottom: 26px;
+        font-size:24px;
+    }
     .count-bold{
         color: #EF8A31;
         margin-top: 16px;
-        margin-left: 32px;
+        margin-left: 16px;
         margin-bottom: 26px;
         font-size:32px;
         font-weight: 700;

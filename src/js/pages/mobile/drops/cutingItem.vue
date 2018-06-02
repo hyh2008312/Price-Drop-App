@@ -89,7 +89,10 @@
         methods: {
             jumpProductDetail () {
                 this.$router.open({
-                    name: 'goods.details'
+                    name: 'goods.details',
+                    params: {
+                        id: this.goods.productId
+                    }
                 })
             },
             goingCutPrice () {
