@@ -316,15 +316,18 @@
                                 this.goodsType = []
                                 this.variantsId = res.variants[0].id
                             }
+
                             this.shipObj = {
+
                                 expectedDeliveryDateMax: res.expectedDeliveryDateMax,
                                 expectedDeliveryDateMin: res.expectedDeliveryDateMin,
                                 expectedShipDateMax: res.expectedShipDateMax,
                                 expectedShipDateMin: res.expectedShipDateMin,
+
                             }
                             this.dectxt = []
                             // this.$notice.toast({
-                            //     message: res.newDescription
+                            //     message: res.expectedDeliveryDateMax
                             // })
                             if (res.newDescription != null) {
                                 this.newDescription = res.newDescription
@@ -346,15 +349,15 @@
             wxcCellClick: function () {
                 this.isBottomShow = true;
                 if (this.variantsId != '') {
-                    this.$notice.alert({
-                        message: this.variantsId
-                    })
+                    // this.$notice.alert({
+                    //     message: this.variantsId
+                    // })
                     this.$fetch({
                         method: 'POST',
                         url: 'http://149.129.135.114/promotion/cut/create/',
                         data: { variant_id: this.variantsId },
                         header: {
-                            Authorization: 'Bearer ' + 'IMSFn72n3aEZrIf7E0uvlphWnEEIut'
+                            needAuth: true
                         }
                     }).then((res) => {
                         this.$router.open({
@@ -508,10 +511,13 @@
                 this.hasCardAnimation = true;
             },
             openShip (e) {
-                if ( e == 1) {
+                this.$notice.toast({
+                    message: 'pppp'
+                })
+                if(e == 1) {
                     this.$router.open({
                         name: 'goods.ship',
-                        type: 'PUSH',
+                        type: 'PUSH'
                     })
                 } else {
                     this.$router.open({
@@ -617,9 +623,6 @@
                 }
             },
             resize (event) {
-                this.$notice.toast({
-                    message: this.$refs
-                })
                 this.$refs['images' + event.data.index].height = event.data.height
             }
         }

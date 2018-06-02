@@ -193,10 +193,10 @@ export default {
             if (type == 0) {
                 this.$router.open({
                     name: 'my.setting',
-                    type: 'PUSH'
-                    // params: {
-                    //     tab: id
-                    // }
+                    type: 'PUSH',
+                    params: {
+                        params: this.token
+                    }
                 })
             } else if (type == 1) {
                this.$router.open({
@@ -240,6 +240,9 @@ export default {
                 this.token = resData
             })
             this.$storage.get('user').then(resData => {
+                this.$notice.alert({
+                    message: resData
+                })
                 this.user = resData
                 this.nickname = this.user.firstName + this.user.lastName
                 this.email = this.user.email

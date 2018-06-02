@@ -101,5 +101,5 @@ Podfile.lock
 # END IOS
 
 ip.txt
-/platforms/ios
+/platforms
 /src/js/config/apis.js

@@ -41,7 +41,9 @@
 
 <script>
     import header from './header';
-    import { clientId, baseUrl } from '../../../config/apis';
+    import { cliendId, baseUrl } from '../../../config/apis';
+    const axios = weex.requireModule('bmAxios');
+    const stream = weex.requireModule('stream');
 
     export default {
         components: {
@@ -49,15 +51,21 @@
         },
         eros: {
             appeared (params, options) {
+                // this.$notice.alert({
+                //     message: params
+                // })
                 if (params) {
-                    this.token = params.token
+                    this.params = params
                 }
             }
         },
+        created () {
+        },
         data () {
             return {
-                token: '',
-                client_id: clientId
+                params: '',
+                token: '', //
+                client_id: ''
             }
         },
         name: 'myDetail',
@@ -71,35 +79,49 @@
                     }
                 })
             },
-            logOut (){
-                this.$notice.toast({
-                    message: 'fffff'
-                })
+            logOut () {
+                // this.$storage.deleteSync('user')
+                // this.$storage.deleteSync('token')
+                // this.$router.back({
+                //     length: 1,
+                //     type: 'PUSH',
+                //     callback () {
+                //         // 返回成功回调
+                //         this.$event.emit('logout')
+                //     }
+                // })
+                // TODO 请求接口没有返回body 无法走回调
+                this.token = this.params.params.accessToken
+                this.client_id = cliendId
+                // this.$notice.alert({
+                //     message: this.client_id
+                // })
 
                 this.$fetch({
-                    methods: 'POST',
+                    method: 'POST',
                     url: `${baseUrl}/oauth2/revoke_token/`,
                     data: {
                         token: this.token,
                         client_id: this.client_id
-                    },
-                    header: {
-                      needAuth:true
                     }
                 }).then((res) => {
-                    this.$notice.toast({
-                        message: 'logout success!!'
-                    })
-                    this.$storage.set('user', null);
-                    this.$storage.set('token', null);
-                    this.$router.back({
-                        length: 1,
-                        type: 'PUSH',
-                        callback () {
-                            // 返回成功回调
-                            this.$event.emit('logout')
-                        }
-                    })
+                    // this.$storage.removeAll().then(resData => {
+                    //     console.log('本地所有持久化存储的数据都已被清空。')
+                    //     this.$notice.toast({
+                    //         message: 'logout success!!'
+                    //     })
+                        this.$notice.toast({
+                            message: res
+                        })
+                        // this.$router.back({
+                        //     length: 1,
+                        //     type: 'PUSH',
+                        //     callback() {
+                        //         // 返回成功回调
+                        //         this.$event.emit('logout')
+                        //     }
+                        // })
+                    // })
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res

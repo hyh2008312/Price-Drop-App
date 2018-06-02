@@ -21,25 +21,19 @@
                     <div class="mask-head">
                         <text class="mask-title">How To Drop Price</text>
                     </div>
-                    <text class="mask-text">Step1:  Click the “Drop The Price” button to start your DROP campaign immediately.
-                    </text>
-                    <text class="mask-text">Step2:  Invite friends to join you by sharing your DROP campaign to Facebook & WhatsAPP.
-                    </text>
-                    <text class="mask-text">Step3:  When people click the “Drop Price” button for you on the page you share, the price will drop automatically.
-                    </text>
-                    <text class="mask-text">Step4:  After the DROP campaign ends, you can purchase the item at the final price you have reached!
-                    </text>
+                    <text class="mask-text">Step1:  Click the “Drop The Price” button to start your DROP campaign immediately.</text>
+                    <text class="mask-text">Step2:  Invite friends to join you by sharing your DROP campaign to Facebook & WhatsAPP.</text>
+                    <text class="mask-text">Step3:  When people click the “Drop Price” button for you on the page you share, the price will drop automatically.</text>
+                    <text class="mask-text">Step4:  After the DROP campaign ends, you can purchase the item at the final price you have reached!</text>
 
                     <div class="mask-head">
                         <text class="mask-title">Rules to Know</text>
                     </div>
-                    <text class="mask-text">1. The duration of a Price Drop campaign is up to 24 hours. The campaign will end automatically once it reaches the lowest price.
-                    </text>
-                    <text class="mask-text">2. As soon as the DROP ends, you have 24 hours to make your purchase. If you do not complete the payment in time, you’re deemed to waive your purchase right, and the reduced price will also expire.
-                    </text>
-                    <text class="mask-text">3. Due to the limited stocks of each item, the products will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the DROP may fail as well.
-                    </text>
-
+                    <text class="mask-text">1. The duration of a Price Drop campaign is up to 24 hours. The campaign will end automatically once it reaches the lowest price.</text>
+                    <text class="mask-text">2. As soon as the DROP ends, you have 24 hours to make your purchase. If you do not complete the payment in time, you’re deemed to waive your purchase right, and the reduced price will also expire.</text>
+                    <text class="mask-text">3. Due to the limited stocks of each item, the products will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the DROP may fail as well.</text>
+                    <text>&nbsp;</text>
+                    <text>&nbsp;</text>
                 </div>
         </div>
         </scroller>
@@ -131,11 +125,13 @@
     }
     .mask-title {
         color: #333333;
+        font-weight: 700;
         font-size: 40px;
     }
     .mask-text {
         color: #333333;
-        font-size: 30px;
+        font-size: 28px;
+        line-height: 40px;
         margin-top: 20px;
         margin-left: 20px;
     }
