@@ -5,15 +5,11 @@
         <scroller >
 
         <div class="container-1" v-if="ship==true">
-            <div class="item"><text class="shipname">Shipping Cost</text>:&nbsp;       <text class="shipword">Rs.50.00</text>  </div>
-            <div class="item"><text class="shipname">Shipping Carrier</text>:&nbsp;    <text class="shipword">EMS</text>  </div>
-                <div>&nbsp;</div>
-                <div>&nbsp;</div>
-            <div class="item"><text class="shipname">Order Processing</text>:&nbsp;    <text class="shipword">2-4 days</text>  </div>
-            <div class="item"><text class="shipname">Shipping Time</text>:&nbsp;          </div>
-            <div class="item"><text class="shipword">{{formatDate(time.expectedShipDateMin)}} - {{formatDate(time.expectedShipDateMax)}}</text> </div>
-            <div class="item"><text class="shipname">Estimasted Arrival</text>:&nbsp;   </div>
-            <div class="item"><text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>
+            <div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.50.00</text>  </div>
+            <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">EMS</text>  </div>
+            <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">2-4 days</text>  </div>
+            <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedShipDateMin)}} - {{formatDate(time.expectedShipDateMax)}}</text> </div>
+            <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>
         </div>
         <div  v-if="ship==false">
 
@@ -83,23 +79,28 @@
     }
     .shipname {
         font-family: ProximaNova-Regular;
-        font-size: 30px;
+        font-size: 24px;
         color: #000000;
+        margin-bottom: 16px;
     }
 
 
     .shipword {
         font-family: ProximaNova-Bold;
-        font-size: 30px;
+        font-size: 24px;
         font-weight: 700;
+        line-height: 28px;
         color: #000000;
     }
     .container-1{
-        margin-top: 140px;
+        margin-top: 48px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: left;
+    }
+    .margin-btn{
+        margin-bottom: 48px;
     }
     .close{
         font-family: iconfont;
