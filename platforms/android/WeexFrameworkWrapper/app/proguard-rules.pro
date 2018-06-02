@@ -6,6 +6,8 @@
 ##--JAVASCRIPT--##
 -keepattributes *JavascriptInterface*
 -keep public class * extends android.support.v4.app.Fragment
+-keep class android.support.v4.**{*;}
+-keep class android.support.v7.**{*;}
 -keep public class com.benmu.drop.activity.bean.**{*;}
 -keep public class com.sun.**
 
