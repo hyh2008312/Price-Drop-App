@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="state"></div>
         <div class="navigation">
-            <text class="title" @click="test">Drops</text>
+            <text class="title">Drops</text>
         </div>
         <div>
             <cutTab :items="tabsItems" @tabTo="onTabTo"></cutTab>
@@ -154,9 +154,6 @@
                     }
 
                 }).then(data => {
-                    this.$notice.toast({
-                        message: data
-                    })
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
@@ -171,11 +168,7 @@
                         this.isLoading = false;
                     }
                     this.refreshApiFinished();
-                }, error => {
-                    this.$notice.toast({
-                        message: error
-                    })
-                })
+                }, error => {})
             },
             onTabTo (event) {
                 this.tabKey = event.data.key;
