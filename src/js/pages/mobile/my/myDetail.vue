@@ -21,7 +21,7 @@
                 <div class="box-left">
                     <text class="box-txt">Name</text>
                 </div>
-                <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Click to Edit" @input="oninput" />
+                <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Edit FirstName" :value="this.name" @input="oninput" />
 
                 <div class="box-right">
                     <text class="i-box-input iconfont">&#xe626;</text>
@@ -37,7 +37,7 @@
                     <text class="box-txt">Gender</text>
                 </div>
                 <div class="box-right">
-                    <text class="box-txt-left">Select Gender</text>
+                    <text class="box-txt-left" >{{selgender}}</text>
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
             </div>
@@ -56,19 +56,30 @@
         name: 'myDetail',
         eros: {
             backAppeared (params, options) {
-                this.gender = params.id
+                if (params) {
+                    this.gender = params.id
+                    this.selgender = params.id.title
+                }
             }
         },
         created () {
-            this.$storage.get('user').then(resData => {
-                this.src = resData.avatar
+            this.$router.getParams().then(resData => {
+                this.src = resData.useravatar
+                this.name = resData.username
+                if (resData.usergender == 'F') {
+                    this.selgender = 'Fale'
+                } else {
+                    this.selgender = 'Female'
+                }
             })
         },
         data () {
            return {
                src: 'http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg',
                name: '',
-               gender: ''
+               gender: '',
+               selgender: 'Select Gender',
+               defalutgender: ''
            }
         },
         // gender
@@ -135,10 +146,11 @@
             opentest (event) {
             },
             saveData () {
+                const self = this
                 const params = {
                     avatar: this.src,
                     firstName: this.name,
-                    gender: this.gender
+                    gender: this.gender.value
                 }
                 this.$fetch({
                     method: 'PUT',
@@ -151,7 +163,7 @@
                     this.$notice.toast({
                         message: 'save success'
                     })
-                    this.$router.finish()
+                    this.setback(params)
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res
@@ -162,6 +174,17 @@
                 this.$router.open({
                     name: 'my.gender',
                     type: 'PUSH'
+                })
+            },
+            setback (par) {
+                let self = this
+                this.$router.back({
+                    length: 1,
+                    type: 'PUSH',
+                    callback () {
+                        // 返回成功回调
+                        self.$event.emit('setdetail', par)
+                    }
                 })
             }
         }
