@@ -9,7 +9,7 @@
                 </div>
                 <div class="gb-box-bg gb-mt">
                     <text class="gb-text">Tracking Number: {{order.data.tracking_number}}</text>
-                    <text class="gb-icon iconfont">&#xe708;</text>
+                    <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
                 </div>
             </div>
             <text class="gb-icon-1 iconfont" v-if="false">&#xe70e;</text>
@@ -17,6 +17,8 @@
     </div>
 </template>
 <script>
+    const clipboard = weex.requireModule('clipboard');
+
     export default {
         props: ['order'],
         data () {
@@ -24,7 +26,11 @@
                 src: 'bmlocal://assets/occupy.png'
             }
         },
-        methods: {}
+        methods: {
+            setNumber () {
+                clipboard.setString(this.order.data.tracking_number)
+            }
+        }
     }
 </script>
 <style scoped>

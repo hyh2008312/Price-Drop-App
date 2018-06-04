@@ -77,7 +77,7 @@
                         <div v-if="i.type=='text'">
                             <text class="bottom-text">{{i.context}}</text>
                         </div>
-                        <cimg v-if="i.type=='image'" :imgsrc="i.context" :index="index" :ref="'images' + index" @resize="resize"></cimg>
+                        <cimg v-if="i.type=='image'" :imgsrc="i.context"></cimg>
                     </div>
                 </div>
 
@@ -569,9 +569,6 @@
                         dom.scrollToElement(this.$refs['tab'], { animated: false })
                     })
                 }
-            },
-            resize (event) {
-                this.$refs['images' + event.data.index].height = event.data.height
             }
         }
     }

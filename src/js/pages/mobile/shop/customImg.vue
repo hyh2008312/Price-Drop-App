@@ -1,36 +1,35 @@
 <template>
     <div>
-        <image class="images" :src="imgsrc" ref="images" @load="onload" ></image>
+        <image class="images" resize="cover" :src="imgsrc" ref="images" :style="style" ></image>
     </div>
 </template>
 
 <script>
+    import { mediaUrl } from '../../../config/apis'
     export default {
         name: 'customImg',
         data () {
             return {}
         },
-        props: ['imgsrc', 'index'],
-        created () {},
-        methods: {
-            onload (e) {
-                this.$refs.images.height = Math.floor(e.size.naturalHeight / e.size.naturalWidth * 750) + 'px'
-                this.$emit('resize', {
-                    status: 'resize',
-                    data: {
-                        height: Math.floor(e.size.naturalHeight / e.size.naturalWidth * 750) + 'px',
-                        index: this.index
-                    }
-                })
+        props: ['imgsrc'],
+        created () {
+            this.style = {
+                width: '750px',
+                height: '750px'
             }
-        }
+            if (this.imgsrc.includes(mediaUrl)) {
+                const imgs = this.imgsrc.split('/').reverse();
+                const rect = imgs[1].split('x');
+                this.style = {
+                    width: '750px',
+                    height: Math.floor(rect[1] / rect[0] * 750) + 'px'
+                }
+            }
+        },
+        methods: {}
     }
 </script>
 
 <style scoped>
-    .images{
-        width: 750px;
-        height: 750px;
-        overflow: hidden;
-    }
+    .images{}
 </style>

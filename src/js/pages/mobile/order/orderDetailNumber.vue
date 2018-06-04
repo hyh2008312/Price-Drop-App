@@ -6,12 +6,13 @@
                 <text class="gb-txt gb-mt" v-if="order.paymentType">Payment Method: PayTM</text>
                 <text class="gb-txt gb-mt">Order Time: {{formatDate(order.created, 'MMMM Do, YYYY hh:mm:ss')}}</text>
             </div>
-            <text class="cy iconfont">&#xe708;</text>
+            <text class="cy iconfont" @click="setNumber">&#xe708;</text>
         </div>
     </div>
 </template>
 <script>
-    import moment from 'moment'
+    import moment from 'moment';
+    const clipboard = weex.requireModule('clipboard');
 
     export default {
         props: ['order'],
@@ -23,6 +24,9 @@
         methods: {
             formatDate (str, hmr) {
                 return moment(new Date(str)).format(hmr)
+            },
+            setNumber () {
+                clipboard.setString(this.order.number)
             }
         }
     }
