@@ -38,7 +38,7 @@ import block2 from './block2';
 import block3 from './block3';
 import block4 from './block4';
 import block5 from './block5';
-import { YXBANNERS, BLOCK1, TAB, BLOCK4, GOODS1, GOODS2, GOODS3 } from './config';
+import { BLOCK1, TAB, BLOCK4 } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
@@ -72,8 +72,6 @@ export default {
             },
             activity: [],
             tabsItems: [],
-            goods1: [],
-            goods2: [],
             goods3: [],
             showLoading: 'hide',
             tabKey: 'hot',
@@ -95,7 +93,13 @@ export default {
             })
         },
         noNoticeFinished (e) {
-            this.block1.items = [...BLOCK4.items];
+            this.$fetch({
+                method: 'GET',
+                name: 'promotion.get.list',
+                data: {}
+            }).then(resData => {
+                this.block1.items = [...resData]
+            }, error => {})
         },
         onLoadingMore () {
             this.countApi = 0;
@@ -129,8 +133,6 @@ export default {
             this.getTabName()
             this.getBlock4()
             this.getBlock5()
-            this.getGoods1()
-            this.getGoods2()
             if(this.tabKey == 'new') {
                 this.getNewGoods(true)
             } else {
@@ -173,51 +175,10 @@ export default {
                 data: {}
             }).then(resData => {
                 this.block1.items = [...resData]
-            }, error => {
-
-            })
-
+            }, error => {})
         },
         getBlock5 () {
-            // this.block5.items = GOODS2
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'product.brand.list',
-            //     data: {}
-            // }).then(resData => {
-            //     this.block5.items = [...resData]
-            //
-            // }, error => {
-            //
-            // })
-
             this.refreshApiFinished()
-        },
-        getGoods1 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getGoods1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.goods1 = resData.data
-            // }, error => {
-
-            // })
-
-            this.goods1 = GOODS1
-        },
-        getGoods2 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getGoods2',
-            //     data: {}
-            // }).then(resData => {
-            //     this.goods2 = resData.data
-            // }, error => {
-
-            // })
-
-            this.goods2 = GOODS2
         },
         getNewGoods(isfirst, scroll) {
             if(isfirst) {

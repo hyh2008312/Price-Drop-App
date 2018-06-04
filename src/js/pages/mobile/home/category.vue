@@ -77,7 +77,13 @@ export default {
     },
     methods: {
         noNoticeFinished (e) {
-            this.block1.items = [...BLOCK1.items];
+            this.$fetch({
+                method: 'GET',
+                name: 'promotion.get.list',
+                data: {}
+            }).then(resData => {
+                this.block1.items = [...resData]
+            }, error => {})
         },
         onLoadingMore () {
             this.getGoods3(false)
@@ -106,9 +112,7 @@ export default {
                 data: {}
             }).then(resData => {
                 this.block1.items = [...resData]
-            }, error => {
-
-            })
+            }, error => {})
         },
         getTabName () {
             this.tabsItems = [...TABCAT];
