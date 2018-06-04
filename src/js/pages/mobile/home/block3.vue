@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-    props: ['goods'],
+    props: ['goods', 'tab'],
     data () {
         return {
             src: 'bmlocal://assets/occupy.png'
@@ -30,12 +30,18 @@ export default {
     },
     methods: {
         jumpWeb () {
+            let id = '';
+            if (this.tab == 'hot') {
+                id = this.goods.productId
+            } else {
+                id = this.goods.id
+            }
             // if (!url) return;
             this.$router.open({
                 name: 'goods.details',
                 type: 'PUSH',
                 params: {
-                    id: this.goods.id
+                    id
                 }
             })
         },

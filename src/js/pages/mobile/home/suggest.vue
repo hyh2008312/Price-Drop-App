@@ -20,7 +20,7 @@
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
             <cell v-for="(item,index) in goods3">
-                <block-3 :goods="item"></block-3>
+                <block-3 :goods="item" :tab="tabKey"></block-3>
             </cell>
             <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
