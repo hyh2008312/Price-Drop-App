@@ -24,8 +24,8 @@
         data () {
             return {
                 list: [
-                    { title: 'Fale', value: 1,  },
-                    { title: 'Female', value: 2  },
+                    { title: 'Fale', value: 'M'  },
+                    { title: 'Female', value: 'F'  }
                 ],
                 checkedInfo: { title: 'option2', value: 2 }
             }
@@ -35,9 +35,9 @@
             openNew (head) {
             },
             wxcRadioListChecked (e) {
-                this.$router.finish()
+                this.$router.back()
                 this.$router.setBackParams({
-                    id: e.title
+                    id: e
                 })
                 this.checkedInfo = e;
             }

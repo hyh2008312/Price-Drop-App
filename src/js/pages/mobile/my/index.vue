@@ -109,34 +109,22 @@ export default {
     components: {
         'topic-header': header
     },
-    eros: {
-        beforeAppear (a) {
-        },
-        beforeBackAppear (params) {
-            // this.$notice.toast({
-            //     message: '111111'
-            // })
-            this.$event.once('logout', parmas => {
-                this.getUserData()
-            })
-            this.getUserData()
-        }
-    },
     created () {
         this.getUserData()
     },
     destory () {
         this.$event.off('login')
+        this.$event.off('logout')
+        this.$event.off('setdetail')
     },
-    // mounted () {
-    //     this.getUserData()
-    // },
     data () {
         return {
             nickname: 'set nickname',
             email: 'google.gmail.com',
             img: 'bmlocal://assets/empty.png',
-            user: null
+            token: null,
+            user: null,
+            gender: ''
         }
     },
     methods: {
@@ -161,15 +149,14 @@ export default {
         },
         openMydetail (type) {
             if (type == 1) {
-                // this.$notice.toast({
-                //     message: 111
-                // })
                 this.$router.open({
                     name: 'my.details',
-                    type: 'PUSH'
-                    // params: {
-                    //     tab: id
-                    // }
+                    type: 'PUSH',
+                    params: {
+                        useravatar: this.img,
+                        usergender: this.gender,
+                        username: this.nickname
+                    }
                 })
             } else if (type == 2) {
                 this.$event.once('login', params => {
@@ -180,17 +167,19 @@ export default {
                     type: 'PUSH'
                 })
             } else {
+
                 this.$router.open({
                     name: 'my.details',
                     type: 'PUSH'
-                    // params: {
-                    //     tab: id
-                    // }
                 })
             }
         },
         openCell (type) {
             if (type == 0) {
+                this.$event.once('logout', parmas => {
+                    this.token = null
+                    this.user = null
+                })
                 this.$router.open({
                     name: 'my.setting',
                     type: 'PUSH',
@@ -233,21 +222,16 @@ export default {
            }
         },
         getUserData () {
-            // this.$notice.toast({
-            //     message: 111
-            // })
-            this.$storage.get('token').then(resData => {
-                this.token = resData
+            this.$event.on('setdetail', parmas => {
+                this.img = parmas.avatar
+                this.nickname = parmas.firstName
             })
-            this.$storage.get('user').then(resData => {
+            this.$storage.get('token').then(resData => {
                 // this.$notice.alert({
                 //     message: resData
                 // })
-                this.user = resData
-                this.nickname = this.user.firstName + this.user.lastName
-                this.email = this.user.email
-                this.img = this.user.avatar
-                if (this.user !== null) {
+                this.token = resData
+                if (this.token !== null) {
                     this.$fetch({
                         method: 'GET',
                         name: 'user.userprofile',
@@ -255,19 +239,30 @@ export default {
                             needAuth: true
                         }
                     }).then((res) => {
-                        // this.$notice.toast({
+                        // this.$notice.alert({
                         //     message: res
                         // })
+
+                        this.nickname = res.firstName + res.lastName
+                        this.img = res.avatar
+                        this.gender = res.gender
                     }).catch((res) => {
-                        // this.$notice.toast({
-                        //     message: res
-                        // })
+                        this.$notice.toast({
+                            message: res
+                        })
                     })
                 } else {
                     this.$notice.toast({
                         message: 'please login'
                     })
                 }
+            })
+            this.$storage.get('user').then(resData => {
+                // this.$notice.alert({
+                //     message: resData
+                // })
+                this.user = resData
+                this.email = this.user.email
             })
         }
         // getService () {

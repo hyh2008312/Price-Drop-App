@@ -240,7 +240,7 @@
             }
         },
         created () {
-
+            this.user = this.$storage.getSync('user');
         },
         methods: {
             getGoodsDetail (id) {
@@ -320,7 +320,7 @@
                             }
                         })
                     }).catch((res) => {
-                        this.$notice.alert({
+                        this.$notice.toast({
                             message: res
                         })
                         // this.$notice.toast({

@@ -80,6 +80,7 @@
                 })
             },
             logOut () {
+                let  self = this
                 this.$storage.deleteSync('user')
                 this.$storage.deleteSync('token')
                 this.$router.back({
@@ -87,7 +88,7 @@
                     type: 'PUSH',
                     callback () {
                         // 返回成功回调
-                        this.$event.emit('logout')
+                        self.$event.emit('logout')
                     }
                 })
                 // TODO 请求接口没有返回body 无法走回调
