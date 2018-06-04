@@ -126,7 +126,6 @@ export default {
         init () {
             this.getYXBanners()
             this.getActivity()
-            this.getBlock1()
             this.getTabName()
             this.getBlock4()
             this.getBlock5()
@@ -163,40 +162,21 @@ export default {
 
             })
         },
-        getBlock1 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getBlock1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.block1.title = resData.data.title
-            //     this.block1.url = resData.data.url
-            //     this.block1.items = resData.data.items
-            // }, error => {
-
-            // })
-
-            this.block1.title = BLOCK1.title
-            this.block1.url = BLOCK1.url
-            this.block1.items = BLOCK1.items
-        },
         getTabName () {
             this.tabsItems = TAB;
         },
         getBlock4 () {
-            // this.$fetch({
-            //     method: 'GET',
-            //     name: 'yanxuan_home_getBlock1',
-            //     data: {}
-            // }).then(resData => {
-            //     this.block1.title = resData.data.title
-            //     this.block1.url = resData.data.url
-            //     this.block1.items = resData.data.items
-            // }, error => {
+            this.block1.items = [...BLOCK1.items]
+            this.$fetch({
+                method: 'GET',
+                name: 'promotion.get.list',
+                data: {}
+            }).then(resData => {
+                this.block1.items = [...resData]
+            }, error => {
 
-            // })
+            })
 
-            this.block4.items = BLOCK4.items
         },
         getBlock5 () {
             // this.block5.items = GOODS2

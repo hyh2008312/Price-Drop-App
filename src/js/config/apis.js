@@ -19,7 +19,8 @@ export const apis = {
     'user.userprofile': '/user/userprofile/',
     'user.google.sign': '/user/google_sign/',
     'user.logout': '/oauth2/revoke_token/',
-    'promotion.cut.create': '/promotion/cut/create/'
+    'promotion.cut.create': '/promotion/cut/create/',
+    'promotion.get.list': '/promotion/get/list/'
 }
 // export const clientId = 'DwxjQEhITops8cWU6OcWmCY963XyKuQgkgjdTWRM';
 export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';

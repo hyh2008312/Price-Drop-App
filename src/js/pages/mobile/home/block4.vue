@@ -3,15 +3,19 @@
         <list class="container">
             <cell v-if="activeIndex == index" ref="notice">
                 <div class="inner-container" v-for="message in items">
-                    <image class="header" :src="message.bg" resize="contain"></image>
-                    <text class="tlt">{{message.name}}</text>
+                    <div class="header">
+                        <image class="header-image" :src="message.avatar" resize="contain"></image>
+                    </div>
+                    <text class="tlt">{{message.username}} unlocked the lowest price! {{formateDate(message.time)}} </text>
                 </div>
             </cell>
         </list>
     </div>
 </template>
 <script>
-    const animation = weex.requireModule('animation')
+    const animation = weex.requireModule('animation');
+    import moment from 'moment';
+
     export default {
         props: ['items', 'index', 'activeIndex'],
         data () {
@@ -76,6 +80,9 @@
                         that.init()
                     })
                 }
+            },
+            formateDate (time) {
+                return moment().startOf('hour').fromNow()
             }
         }
     }
@@ -114,6 +121,11 @@
         overflow: hidden;
         border-radius: 32px;
         margin-left: 32px;
+    }
+
+    .header-image{
+        width: 64px;
+        height: 64px;
     }
 
     .tlt {

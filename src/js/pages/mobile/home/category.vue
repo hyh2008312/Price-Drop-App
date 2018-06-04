@@ -99,9 +99,16 @@ export default {
             this.getGoods3(true)
         },
         getBlock1 () {
-            this.block1.title = BLOCK1.title
-            this.block1.url = BLOCK1.url
-            this.block1.items = BLOCK1.items
+            this.block1.items = [...BLOCK1.items]
+            this.$fetch({
+                method: 'GET',
+                name: 'promotion.get.list',
+                data: {}
+            }).then(resData => {
+                this.block1.items = [...resData]
+            }, error => {
+
+            })
         },
         getTabName () {
             this.tabsItems = [...TABCAT];
