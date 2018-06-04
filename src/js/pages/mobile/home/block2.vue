@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="tlt-box" @click="jumpActivity">
             <image class="tlt-image" resize="cover" :src="head.image"></image>
-            <div class="tlt-bg">
+            <div class="tlt-bg" v-if="false">
                 <text class="tlt tlt-new">{{head.name}}</text>
                 <text class="btn-all">See More</text>
             </div>
@@ -11,7 +11,9 @@
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
             <div class="i-good" v-for="i in goods" :key="i.id" @click="jumpWeb(i.productId)">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="i.mainImage || src"></image>
+                    <div class="gd-img">
+                        <image class="gd-img-image" resize="cover" :src="i.mainImage || src"></image>
+                    </div>
                 </div>
                 <div class="gd-tlt-bg">
                     <text class="gd-tlt">Rs.{{i.lowestPrice}}</text>
@@ -43,7 +45,7 @@ export default {
                 method: 'GET',
                 name: 'product.topic.products',
                 data: {
-                    id: this.head.id,
+                    topicId: this.head.id,
                     page: this.page,
                     page_size: this.pageSize
                 }
@@ -195,8 +197,16 @@ export default {
 }
 
 .gd-img {
-    height: 284px;
     width: 284px;
+    height: 284px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.gd-img-image {
+    width: 284px;
+    height: 284px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .gd-tlt {

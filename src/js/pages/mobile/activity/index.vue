@@ -11,8 +11,8 @@
             <header>
                 <div class="banner">
                     <image class="banner-image" :src="imageUrl" resize="cover"></image>
-                    <div class="banner-mask"></div>
-                    <text class="banner-text">{{name}}</text>
+                    <div class="banner-mask" v-if="false"></div>
+                    <text class="banner-text" v-if="false">{{name}}</text>
                 </div>
             </header>
             <cell v-for="(i ,index) in goods">
@@ -102,7 +102,7 @@
                         method: 'GET',
                         name: 'product.topic.products',
                         data: {
-                            id: this.id,
+                            topicId: this.id,
                             page: this.page,
                             page_size: this.pageSize
                         }
