@@ -156,7 +156,6 @@
             </div>
         </wxc-popup>
     </div>
-
 </template>
 <script>
     import header from './header';
@@ -279,14 +278,7 @@
                                 this.variantsId = res.variants[0].id
                             }
 
-                            this.shipObj = {
-
-                                expectedDeliveryDateMax: res.expectedDeliveryDateMax,
-                                expectedDeliveryDateMin: res.expectedDeliveryDateMin,
-                                expectedShipDateMax: res.expectedShipDateMax,
-                                expectedShipDateMin: res.expectedShipDateMin
-
-                            }
+                            this.shipObj = res.shipping
                             this.dectxt = []
                             // this.$notice.toast({
                             //     message: res.expectedDeliveryDateMax
