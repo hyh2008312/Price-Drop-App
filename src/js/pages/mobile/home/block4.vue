@@ -15,16 +15,14 @@
     import moment from 'moment';
 
     export default {
-        props: ['items', 'activeIndex', 'index'],
+        props: ['items', 'index', 'activeIndex'],
         data () {
             return {
                 isOnAni: false
             }
         },
-        created () {
-            this.$nextTick(() => {
-                this.init()
-            })
+        mounted () {
+            this.init()
         },
         watch: {
             items (newVal, oldVal) {

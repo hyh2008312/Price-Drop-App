@@ -8,7 +8,7 @@
             </cell>
             <cell class="notice-wrapper cell-button">
                 <div class="notice-bg">
-                    <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
+                    <block-4 :items="block1.items" @noticeFinished="noNoticeFinished"></block-4>
                 </div>
             </cell>
             <cell v-for="(head, index) in activity" :key="index">
