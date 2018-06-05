@@ -1,15 +1,13 @@
 <template>
-    <div class="wrapper">
-        <list class="container">
-            <cell v-if="activeIndex == index" ref="notice">
-                <div class="inner-container" v-for="message in items">
-                    <div class="header">
-                        <image class="header-image" :src="message.avatar" resize="contain"></image>
-                    </div>
-                    <text class="tlt">{{message.username}} unlocked the lowest price! {{formateDate(message.time)}} </text>
+    <div>
+        <div ref="notice" v-if="activeIndex == index">
+            <div class="inner-container" v-for="message in items">
+                <div class="header">
+                    <image class="header-image" :src="message.avatar" resize="contain"></image>
                 </div>
-            </cell>
-        </list>
+                <text class="tlt">{{message.username}} unlocked the lowest price! {{formateDate(message.time)}} </text>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -17,14 +15,16 @@
     import moment from 'moment';
 
     export default {
-        props: ['items', 'index', 'activeIndex'],
+        props: ['items', 'activeIndex', 'index'],
         data () {
             return {
                 isOnAni: false
             }
         },
-        mounted () {
-            this.init()
+        created () {
+            this.$nextTick(() => {
+                this.init()
+            })
         },
         watch: {
             items (newVal, oldVal) {
@@ -92,21 +92,6 @@
         font-family: iconfont;
     }
 
-    .wrapper {
-        width: 750px;
-        height: 96px;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-    .container{
-        width: 718px;
-        height: 96px;
-        background-color: #FFFFFF;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-        border-radius: 8px;
-        overflow: hidden;
-    }
     .inner-container{
         width: 718px;
         height: 96px;

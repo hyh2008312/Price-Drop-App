@@ -2,10 +2,13 @@
     <div class="wrapper">
         <list ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
-            <cell class="cell-button cell-top" >
-                <block-4 :items="block1.items" @noticeFinished="noNoticeFinished"
-                         :activeIndex="activeIndex" :index="index"
-                         v-if="block1.items.length > 0" ></block-4>
+            <cell class="cell-top" ></cell>
+            <cell class="notice-wrapper cell-button">
+                <div class="notice-bg">
+                    <block-4 :items="block1.items" v-if="block1.items.length > 0"
+                             :activeIndex="activeIndex" :index="index"
+                             @noticeFinished="noNoticeFinished"></block-4>
+                </div>
             </cell>
             <cell ref="tab"></cell>
             <header v-if="false && tabsItems.length > 0">
@@ -55,9 +58,8 @@ export default {
     data () {
         return {
             YXBanners: [],
+            backup: [],
             block1: {
-                title: '',
-                url: '',
                 items: []
             },
             tabsItems: [],
@@ -77,13 +79,20 @@ export default {
     },
     methods: {
         noNoticeFinished (e) {
-            this.$fetch({
-                method: 'GET',
-                name: 'promotion.get.list',
-                data: {}
-            }).then(resData => {
-                this.block1.items = [...resData]
-            }, error => {})
+            if (this.backup.length > 0) {
+                const newArr = this.backup.splice(0, 4);
+                this.block1.items = [...newArr];
+            } else {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'promotion.get.list',
+                    data: {}
+                }).then(resData => {
+                    this.block1.backup = [...resData];
+                    const newArr = this.backup.splice(0, 4);
+                    this.block1.items = [...newArr];
+                }, error => {})
+            }
         },
         onLoadingMore () {
             this.getGoods3(false)
@@ -105,13 +114,14 @@ export default {
             this.getGoods3(true)
         },
         getBlock1 () {
-            this.block1.items = [...BLOCK1.items]
             this.$fetch({
                 method: 'GET',
                 name: 'promotion.get.list',
                 data: {}
             }).then(resData => {
-                this.block1.items = [...resData]
+                this.backup = [...resData];
+                const newArr = this.backup.splice(0, 4);
+                this.block1.items = [...newArr];
             }, error => {})
         },
         getTabName () {
