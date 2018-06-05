@@ -86,7 +86,7 @@
         methods: {
             pickAndUpload () {
                 this.$image.pick({
-                    maxCount: 8,
+                    maxCount: 1,
                     imageWidth: '180',
                     allowCrop: true
                 }).then(
