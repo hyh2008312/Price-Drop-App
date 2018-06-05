@@ -10,7 +10,7 @@
                 </div>
                 <div class="box-right">
                     <div class="i-photo-div">
-                        <image  class="i-photo"  :src="src"></image>
+                        <image  class="i-photo" resize="cover"  :src="src"></image>
                     </div>
                     <text class="i-box-fir iconfont">&#xe626;</text>
                 </div>
@@ -296,8 +296,8 @@
         border-radius: 64px;
     }
     .i-photo {
-        width: 128px;
-        height: 128px;
+        width: 68px;
+        height: 68px;
 
     }
 </style>
