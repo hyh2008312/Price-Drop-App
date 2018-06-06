@@ -21,8 +21,8 @@ export default {
         }
     },
     eros: {
-        beforeAppear (params) {
-            this.refreshToken()
+        async beforeAppear (params) {
+            await this.refreshToken()
             this.getState()
         },
         backAppeared (params) {
@@ -113,7 +113,7 @@ export default {
             }, error => {})
         },
         refreshToken () {
-            this.$storage.get('token').then((data) => {
+            return this.$storage.get('token').then((data) => {
                 if (data) {
                     this.$fetch({
                         method: 'POST', // 大写

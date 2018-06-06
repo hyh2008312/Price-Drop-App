@@ -18,7 +18,7 @@
                 <block-5 :logo="block5.items"></block-5>
             </cell>
             <cell ref="tab"></cell>
-            <header>
+            <header v-if="tabsItems.length > 0">
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
             <cell v-for="(item,index) in goods3">
@@ -137,11 +137,11 @@ export default {
             this.isLoading = false
             this.init();
         },
-        init () {
+        async init () {
             this.getYXBanners()
             this.getActivity()
-            this.getTabName()
-            this.getBlock4()
+            await this.getBlock4()
+            await this.getTabName()
             this.getBlock5()
             if(this.tabKey == 'new') {
                 this.getNewGoods(true)
@@ -175,10 +175,10 @@ export default {
             })
         },
         getTabName () {
-            this.tabsItems = TAB;
+            return this.tabsItems = TAB;
         },
         getBlock4 () {
-            this.$fetch({
+            return this.$fetch({
                 method: 'GET',
                 name: 'promotion.get.list',
                 data: {}
@@ -191,7 +191,7 @@ export default {
         getBlock5 () {
             this.refreshApiFinished()
         },
-        getNewGoods(isfirst, scroll) {
+        getNewGoods(isfirst) {
             if(isfirst) {
                 this.pageNew = 1
             }
@@ -209,26 +209,21 @@ export default {
                     page_size: this.pageSize
                 }
             }).then((data) => {
-                this.lengthNew = Math.ceil(data.count / this.pageSize)
                 if(isfirst) {
                     this.goods3 = []
                 }
+                this.lengthNew = Math.ceil(data.count / this.pageSize)
                 this.pageNew++
                 this.goods3.push(...data.results)
                 if(!isfirst) {
                     this.isLoading = false
                 }
                 this.refreshApiFinished()
-                if(scroll) {
-                    this.$nextTick(() => {
-                        dom.scrollToElement(this.$refs['tab'], { animated: false })
-                    })
-                }
             }, (error) => {
 
             })
         },
-        getHotGoods (isfirst, scroll) {
+        getHotGoods (isfirst) {
             if(isfirst) {
                 this.pageHot = 1
             }
@@ -246,31 +241,32 @@ export default {
                     page_size: this.pageSize
                 }
             }).then(data => {
-                this.lengthHot = Math.ceil(data.count / this.pageSize)
                 if(isfirst) {
                     this.goods3 = []
                 }
+                this.lengthHot = Math.ceil(data.count / this.pageSize)
                 this.pageHot++
                 this.goods3.push(...data.results)
                 if(!isfirst) {
                     this.isLoading = false
                 }
                 this.refreshApiFinished()
-                if(scroll) {
-                    this.$nextTick(() => {
-                        dom.scrollToElement(this.$refs['tab'], { animated: false })
-                    })
-                }
             }, error => {
 
             })
         },
-        onTabTo (event) {
+        scrollToHeader() {
+            return this.$nextTick(() => {
+                dom.scrollToElement(this.$refs['tab'], { animated: false })
+            })
+        },
+        async onTabTo (event) {
             this.tabKey = event.data.key;
+            await this.scrollToHeader();
             if(event.data.key == 'new') {
-                this.getNewGoods(true, true)
+                this.getNewGoods(true);
             } else {
-                this.getHotGoods(true, true)
+                this.getHotGoods(true);
             }
         },
         refreshApiFinished() {
