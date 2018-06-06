@@ -45,7 +45,7 @@
                           <!--:auto-accessible="false">-->
                 <!--</wxc-cell>-->
 
-                <div class="dec-word" @click="wxcCellClick" >
+                <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >
                     <text class="dec">Size/Color</text>
 
                 </div>
@@ -127,12 +127,12 @@
                         <text class="popup-price">Rs{{selsaleUnitPrice}}</text>
                         <text class="popup-lowprice-word">The lowest price that drop can get </text>
                         <text class="popup-lowprice">Rs.{{lowestPrice}}</text>
-                        <text class="popup-yet">Chose：{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
+                        <text class="popup-yet" v-if="hasVariants==true">Chose：{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
                     </div>
 
                     <text class="popup-close" @click="popupOverlayBottomClick">&#xe632;</text>
                 </div>
-                <scroller class="scroller">
+                <scroller  class="scroller">
 
                     <div class="popup-bottom">
                         <div v-for="(val, index) in goodsType" :key="index">
@@ -222,6 +222,7 @@
                 newDescription: [],
                 proId: '',
                 shipObj: '',
+                hasVariants: true,
                 cactiveId: 1,
                 sactiveId: '',
                 isBottomShow: false,
@@ -240,9 +241,9 @@
             }
         },
         created () {
-            if(this.$storage.getSync('user')){
+            if (this.$storage.getSync('user')) {
                 this.user = this.$storage.getSync('user')
-            }else {
+            } else {
                 this.user = null
             }
         },
@@ -278,6 +279,7 @@
                             if (res.attributes != null && res.attributes.length > 0) {
                                 this.goodsType = this.operateData(res.attributes);
                             } else {
+                                this.hasVariants = false
                                 this.goodsType = []
                                 this.variantsId = res.variants[0].id
                             }
@@ -304,36 +306,41 @@
                     })
                 }
             },
+            createCut () {
+                this.$fetch({
+                    method: 'POST',
+                    url: `${baseUrl}/promotion/cut/create/`,
+                    data: { variant_id: this.variantsId },
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    this.$router.open({
+                        name: 'drops.cutDetail',
+                        type: 'PUSH',
+                        params: {
+                            isShowSharePanel: false,
+                            id: res.id
+                        }
+                    })
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: res
+                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
+                })
+            },
             wxcCellClick () {
-                this.isBottomShow = true;
                 if (this.user == null) {
                     this.redirectLogin()
-                }
-                if (this.variantsId != '') {
-                    this.$fetch({
-                        method: 'POST',
-                        url: `${baseUrl}/promotion/cut/create/`,
-                        data: { variant_id: this.variantsId },
-                        header: {
-                            needAuth: true
-                        }
-                    }).then((res) => {
-                        this.$router.open({
-                            name: 'drops.cutDetail',
-                            type: 'PUSH',
-                            params: {
-                                isShowSharePanel: false,
-                                id: res.id
-                            }
-                        })
-                    }).catch((res) => {
-                        this.$notice.toast({
-                            message: res
-                        })
-                        // this.$notice.toast({
-                        //     message: res
-                        // })
-                    })
+                } else {
+                    this.isBottomShow = true;
+
+                    if (this.variantsId != '') {
+                        this.createCut()
+                    }
                 }
             },
             redirectLogin () {
@@ -349,13 +356,14 @@
                 })
             },
             openBottomPopup () {
-                this.$notice.toast({
-                    message: this.user
-                })
-                if (this.user == null) {
-                    this.redirectLogin()
+                if (this.hasVariants === false) {
+                    this.createCut()
                 } else {
-                    this.isBottomShow = true;
+                    if (this.user == null) {
+                        this.redirectLogin()
+                    } else {
+                        this.isBottomShow = true;
+                    }
                 }
             },
 
