@@ -167,7 +167,6 @@ export default {
                     type: 'PUSH'
                 })
             } else {
-
                 this.$router.open({
                     name: 'my.details',
                     type: 'PUSH'
@@ -196,13 +195,20 @@ export default {
                    // }
                })
            } else if (type == 2) {
-               this.$router.open({
-                   name: 'order.address',
-                   type: 'PUSH',
-                   params: {
-                       source: 'account'
-                   }
-               })
+                if (this.user == null) {
+                    this.$router.open({
+                        name: 'login',
+                        type: 'PUSH'
+                    })
+                } else {
+                    this.$router.open({
+                        name: 'order.address',
+                        type: 'PUSH',
+                        params: {
+                            source: 'account'
+                        }
+                    })
+                }
            } else if (type == 3) {
                this.$router.open({
                    name: 'my.about',
@@ -265,24 +271,6 @@ export default {
                 this.email = this.user.email
             })
         }
-        // getService () {
-        //     this.$fetch({
-        //         method: 'GET',
-        //         name: 'yanxuan_my_getService',
-        //         data: {}
-        //     }).then(resData => {
-        //         this.services = resData.data
-        //         this.getLength()
-        //     }, error => {
-        //
-        //     })
-        //
-        //  this.services = SERVICES
-        //  this.getLength()
-        // },
-        // getLength () {
-        //     this.serviceLength = Math.ceil(this.services.length / 4)
-        // }
     }
 }
 </script>
