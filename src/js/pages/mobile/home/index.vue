@@ -38,7 +38,7 @@ export default {
     data () {
         return {
             channelList: [],
-            activeIndex: '',
+            activeIndex: '0',
             headerShow: true,
             positionX: 0,
             positionY: 0,
@@ -77,7 +77,7 @@ export default {
         },
         onchangeTab (event) {
             if (event.index == 0) {
-                this.activeIndex = ''
+                this.activeIndex = '0'
             } else {
                 this.activeIndex = event.index
             }
