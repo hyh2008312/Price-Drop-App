@@ -53,7 +53,7 @@ new Widget({
         responseHandler (options, resData, resolve, reject) {
             const { status, errorMsg, data } = resData
             if (status !== 200) {
-                if (status == 401 && !ISAUTHLOGIN) {
+                if (status == 401 && (!options || !options.isLoginPop) && !ISAUTHLOGIN) {
                     ISAUTHLOGIN = true
                     const router = weex.requireModule('bmRouter')
                     router.open({
