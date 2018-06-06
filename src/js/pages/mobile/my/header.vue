@@ -90,8 +90,6 @@ export default {
     position: absolute;
     left: 32px;
     top:32px;
-    padding-top: 10px;
-
 }
 .tlt{
     color: black;
@@ -105,8 +103,6 @@ export default {
     position: absolute;
     right: 32px;
     top:32px;
-    padding-top: 10px;
-
 }
 
 .leftTxt{
