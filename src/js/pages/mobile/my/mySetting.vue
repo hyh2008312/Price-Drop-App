@@ -26,7 +26,7 @@
                     <text class="box-txt">Version</text>
                 </div>
                 <div class="box-right">
-                    <text class="i-box iconfont" style="font-size: 24px">1.0.0</text>
+                    <text class="i-box iconfont" style="font-size: 24px">{{version}}</text>
                 </div>
 
             </div>
@@ -41,9 +41,8 @@
 
 <script>
     import header from './header';
-    import { cliendId, baseUrl } from '../../../config/apis';
-    const bmAxios = weex.requireModule('bmAxios')
-    const stream = weex.requireModule('stream');
+
+    const commonUtils = weex.requireModule('CommonUtils');
 
     export default {
         components: {
@@ -60,16 +59,26 @@
             }
         },
         created () {
+            this.startGetAppVersion();
         },
         data () {
             return {
                 params: '',
-                token: '', //
-                client_id: ''
+                token: '',
+                client_id: '',
+                version: '1.0'
             }
         },
         name: 'myDetail',
         methods: {
+            startGetAppVersion() {
+                const that = this
+                commonUtils.getAppVersionCode(function (params) {
+                    if (params.code === 200) {
+                        that.version = params.versionName
+                    }
+                })
+            },
             openNew (head) {
                 this.$router.open({
                     name: 'my.faqTmp',
@@ -80,7 +89,7 @@
                 })
             },
             logOut () {
-                let  self = this
+                const self = this
                 this.$storage.deleteSync('user')
                 this.$storage.deleteSync('token')
                 this.$router.back({

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.benmu.drop.activity.bean.LoginDto;
+import com.benmu.drop.utils.CommonUtils;
 import com.benmu.framework.activity.AbstractWeexActivity;
 import com.benmu.drop.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,6 +44,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             WXSDKEngine.registerModule("ShareModule", ShareModule.class);
             WXSDKEngine.registerModule("GoogleLoginModule", GoogleLoginModule.class);
             WXSDKEngine.registerModule("PayModule", PayModule.class);
+            WXSDKEngine.registerModule("CommonUtils", CommonUtils.class);
         } catch (WXException e) {
             e.printStackTrace();
         }
