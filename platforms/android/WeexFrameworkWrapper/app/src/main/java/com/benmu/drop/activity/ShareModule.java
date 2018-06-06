@@ -21,10 +21,14 @@ import com.umeng.socialize.media.UMWeb;
  */
 
 public class ShareModule extends WXModule {
-    public JSCallback facebookSuccessCallback;
-    public JSCallback facebookFailedCallback;
-    public JSCallback whatsappSuccessCallback;
-    public JSCallback WhatsappFailedCallback;
+    private JSCallback facebookSuccessCallback;
+    private JSCallback facebookFailedCallback;
+
+    private JSCallback facebookMessengerSuccessCallback;
+    private JSCallback facebookMessengerFailedCallback;
+
+    private JSCallback whatsappSuccessCallback;
+    private JSCallback WhatsappFailedCallback;
 
     @JSMethod
     public void shareFacebook(String title, String detail, String Url, String imageUrl,
@@ -84,7 +88,7 @@ public class ShareModule extends WXModule {
                 .setCallback(new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
-                        Toast.makeText(mWXSDKInstance.getContext(), "start", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mWXSDKInstance.getContext(), "waiting", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -93,7 +97,6 @@ public class ShareModule extends WXModule {
                         bean.setState(200);
                         bean.setType("facebook");
                         whatsappSuccessCallback.invoke(bean);
-                        Toast.makeText(mWXSDKInstance.getContext(), "success", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -102,7 +105,6 @@ public class ShareModule extends WXModule {
                         bean.setState(100);
                         bean.setType("facebook");
                         WhatsappFailedCallback.invoke(bean);
-                        Toast.makeText(mWXSDKInstance.getContext(), "error", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -115,5 +117,52 @@ public class ShareModule extends WXModule {
                     }
                 })//回调监听器
                 .share();
+    }
+
+    @JSMethod
+    public void shareFacebookMessenger(String title, String detail, String Url, String imageUrl,
+                              JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
+        this.facebookMessengerSuccessCallback = jsSuccessCallback;
+        this.facebookMessengerFailedCallback = jsFailedCallback;
+        UMWeb web = new UMWeb(Url);
+        web.setTitle(title);//标题
+        web.setThumb(new UMImage(mWXSDKInstance.getContext(),imageUrl));  //缩略图
+        web.setDescription(detail);//描述
+        new ShareAction((Activity) mWXSDKInstance.getContext())
+                .setPlatform(SHARE_MEDIA.FACEBOOK_MESSAGER)//传入平台
+                .withMedia(web)
+                .setCallback(new UMShareListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+                        Toast.makeText(mWXSDKInstance.getContext(), "waiting", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResult(SHARE_MEDIA share_media) {
+                        ShareBean bean = new ShareBean();
+                        bean.setState(200);
+                        bean.setType("facebookMessager");
+                        facebookMessengerSuccessCallback.invoke(bean);
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                        ShareBean bean = new ShareBean();
+                        bean.setState(100);
+                        bean.setType("facebookMessager");
+                        facebookMessengerFailedCallback.invoke(bean);
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media) {
+                        ShareBean bean = new ShareBean();
+                        bean.setState(100);
+                        bean.setType("facebookMessager");
+                        facebookMessengerFailedCallback.invoke(bean);
+                    }
+                })//回调监听器
+                .share();
+
+
     }
 }

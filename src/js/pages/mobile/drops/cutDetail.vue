@@ -138,6 +138,10 @@
                                 <text class="facebook-icon">&#xe70f;</text>
                                 <text class="facebook-text">Facebook</text>
                             </div>
+                            <div class="messager" v-if="false" @click="shareFacebookMessenger">
+                                <text class="messager-icon">&#xe727;</text>
+                                <text class="facebook-text">FBMessenger</text>
+                            </div>
                             <div class="whatsapp" @click="shareWhatsApp">
                                 <text class="whatsapp-icon">&#xe710;</text>
                                 <text class="whatsapp-text">WhatsApp</text>
@@ -222,7 +226,8 @@
                 id: -1,
                 goodsDetail: {},
                 isRuleShow: false,
-                distance: 1
+                distance: 1,
+                sendTitle: '发送验证码'
             }
         },
         methods: {
@@ -234,10 +239,24 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = that.goodsDetail.cutGet == null ? 0 : that.goodsDetail.cutGet + ' bought their favorites at the lowest price';
+                const detail = (that.goodsDetail.cutGet == null ? 0 : that.goodsDetail.cutGet) + ' got the lowest price here.';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
+                    'Come help me drop the price together!', detail, url, imageUrl,
+                    function (param) {
+                        that.popupOverlayAutoClick();
+                    }, function (param) {
+                        that.popupOverlayAutoClick();
+                    }
+                );
+            },
+            shareFacebookMessenger() {
+                const that = this;
+                const detail = (that.goodsDetail.cutGet == null ? 0 : that.goodsDetail.cutGet) + ' got the lowest price here.';
+                const url = ShareUrlUtil.getShareUrl(that.id);
+                const imageUrl = this.goodsDetail.mainImage;
+                shareModule.shareFacebookMessenger(
                     'Come help me drop the price together!', detail, url, imageUrl,
                     function (param) {
                         that.popupOverlayAutoClick();
@@ -447,6 +466,13 @@
         align-items: center;
     }
 
+    .messager {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
     .facebook {
         display: flex;
         flex-direction: column;
@@ -463,6 +489,12 @@
     .facebook-icon {
         font-family: iconfont;
         color: #3C5A99;
+        font-size: 96px;
+    }
+
+    .messager-icon {
+        font-family: iconfont;
+        color: #0084FF;
         font-size: 96px;
     }
 
