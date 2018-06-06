@@ -21,9 +21,8 @@ export default {
         }
     },
     eros: {
-        async beforeAppear (params) {
-            await this.refreshToken()
-            await this.getUser()
+         beforeAppear (params) {
+            this.refreshToken()
             this.getState()
         },
         backAppeared (params) {
@@ -114,30 +113,29 @@ export default {
             }, error => {})
         },
         refreshToken () {
-            return this.$storage.get('token').then((data) => {
-                if (data) {
-                    this.$fetch({
-                        method: 'POST', // 大写
-                        name: 'oauth2.token',
-                        data: {
-                            refresh_token: data.refreshToken,
-                            grant_type: 'refresh_token',
-                            client_id: cliendId
-                        },
-                        header: {
-                            isLoginPop: true
-                        }
-                    }).then(data => {
-                        this.$storage.set('token', {
-                            tokenType: data.token_type,
-                            scope: data.scope,
-                            accessToken: data.access_token,
-                            refreshToken: data.refresh_token,
-                            expiresIn: data.expires_in
-                        })
-                    }, error => {})
-                }
-            })
+            const token = this.$storage.getSync('token')
+            if (token) {
+                this.$fetch({
+                    method: 'POST', // 大写
+                    name: 'oauth2.token',
+                    data: {
+                        refresh_token: token.refreshToken,
+                        grant_type: 'refresh_token',
+                        client_id: cliendId
+                    },
+                    header: {
+                        isLoginPop: true
+                    }
+                }).then(data => {
+                    this.$storage.set('token', {
+                        tokenType: data.token_type,
+                        scope: data.scope,
+                        accessToken: data.access_token,
+                        refreshToken: data.refresh_token,
+                        expiresIn: data.expires_in
+                    })
+                }, error => {})
+            }
         }
     }
 }
