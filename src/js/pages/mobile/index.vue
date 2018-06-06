@@ -56,7 +56,8 @@ export default {
     data () {
         return {
             items: tabConfig,
-            selectedTab: 'home'
+            selectedTab: 'home',
+            isFirstLogin: false
         }
     },
     methods: {
@@ -114,7 +115,8 @@ export default {
         },
         refreshToken () {
             const token = this.$storage.getSync('token')
-            if (token) {
+            if (token && !this.isFirstLogin) {
+                this.isFirstLogin = true
                 this.$fetch({
                     method: 'POST', // 大写
                     name: 'oauth2.token',
@@ -127,6 +129,10 @@ export default {
                         isLoginPop: true
                     }
                 }).then(data => {
+                    this.$notice.toast({
+                        message: data
+                    })
+
                     this.$storage.set('token', {
                         tokenType: data.token_type,
                         scope: data.scope,
@@ -134,7 +140,11 @@ export default {
                         refreshToken: data.refresh_token,
                         expiresIn: data.expires_in
                     })
-                }, error => {})
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    })
+                })
             }
         }
     }

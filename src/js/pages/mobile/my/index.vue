@@ -110,6 +110,13 @@ export default {
         'topic-header': header
     },
     created () {
+        this.$event.on('login', params => {
+            this.getUserData()
+        })
+        this.$event.on('logout', parmas => {
+            this.token = null
+            this.user = null
+        })
         this.getUserData()
     },
     destory () {
@@ -130,9 +137,6 @@ export default {
     methods: {
         jumpWeb (id) {
             if (this.user == null) {
-                this.$event.once('login', params => {
-                    this.getUserData()
-                })
                 this.$router.open({
                     name: 'login',
                     type: 'PUSH'
@@ -159,9 +163,6 @@ export default {
                     }
                 })
             } else if (type == 2) {
-                this.$event.once('login', params => {
-                    this.getUserData()
-                })
                 this.$router.open({
                     name: 'login',
                     type: 'PUSH'
@@ -175,10 +176,6 @@ export default {
         },
         openCell (type) {
             if (type == 0) {
-                this.$event.once('logout', parmas => {
-                    this.token = null
-                    this.user = null
-                })
                 this.$router.open({
                     name: 'my.setting',
                     type: 'PUSH',
