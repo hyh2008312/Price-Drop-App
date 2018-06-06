@@ -38,7 +38,7 @@ export default {
     data () {
         return {
             channelList: [],
-            activeIndex: 0,
+            activeIndex: '',
             headerShow: true,
             positionX: 0,
             positionY: 0,
@@ -72,11 +72,15 @@ export default {
             this.deltaX = 0
             this.deltaY = 0
         },
-        onchange (index) {
-            this.activeIndex = index;
+        onchange (event) {
+            this.activeIndex = event.data.index
         },
         onchangeTab (event) {
-            this.activeIndex = event.index
+            if (event.index == 0) {
+                this.activeIndex = ''
+            } else {
+                this.activeIndex = event.index
+            }
         },
         getChannel () {
             this.channelList = [...CHANNELLIST];
