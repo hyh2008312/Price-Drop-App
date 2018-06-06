@@ -150,7 +150,7 @@
                     </div>
                 </scroller>
                 <div class="popup-btn">
-                    <text class="button" @click="wxcCellClick">Invite Friends to Drop Price</text>
+                    <text class="button" @click="wxcCellClick()">Invite Friends to Drop Price</text>
                 </div>
 
             </div>
@@ -240,7 +240,11 @@
             }
         },
         created () {
-            this.user = this.$storage.getSync('user');
+            if(this.$storage.getSync('user')){
+                this.user = this.$storage.getSync('user')
+            }else {
+                this.user = null
+            }
         },
         methods: {
             getGoodsDetail (id) {
@@ -300,8 +304,11 @@
                     })
                 }
             },
-            wxcCellClick: function () {
+            wxcCellClick () {
                 this.isBottomShow = true;
+                if (this.user == null) {
+                    this.redirectLogin()
+                }
                 if (this.variantsId != '') {
                     this.$fetch({
                         method: 'POST',
@@ -342,6 +349,9 @@
                 })
             },
             openBottomPopup () {
+                this.$notice.toast({
+                    message: this.user
+                })
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
