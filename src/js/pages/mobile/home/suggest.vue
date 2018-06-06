@@ -89,12 +89,6 @@ export default {
         }
     },
     methods: {
-        jumpWeb (_url) {
-            this.$router.toWebView({
-                url: _url,
-                title: ''
-            })
-        },
         noNoticeFinished (e) {
             if(this.backup.length > 0) {
                 const newArr = this.backup.splice(0, 4);

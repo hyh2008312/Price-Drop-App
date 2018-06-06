@@ -23,6 +23,7 @@ export default {
     eros: {
         async beforeAppear (params) {
             await this.refreshToken()
+            await this.getUser()
             this.getState()
         },
         backAppeared (params) {
@@ -100,7 +101,7 @@ export default {
             }, error => {})
         },
         getUser () {
-            this.$fetch({
+            return this.$fetch({
                 method: 'GET', // 大写
                 name: 'user.user',
                 data: {},
@@ -133,8 +134,7 @@ export default {
                             accessToken: data.access_token,
                             refreshToken: data.refresh_token,
                             expiresIn: data.expires_in
-                        });
-                        this.getUser()
+                        })
                     }, error => {})
                 }
             })
