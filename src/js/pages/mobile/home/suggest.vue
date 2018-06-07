@@ -83,7 +83,7 @@ export default {
             isLoading: false,
             pageNew: 1,
             pageHot: 1,
-            pageSize: 6,
+            pageSize: 24,
             lengthHot: 2,
             lengthNew: 2,
             countApi: 0,
@@ -109,13 +109,13 @@ export default {
             }
         },
         onLoadingMore () {
-            this.countApi = 0;
-            this.isLoading = true;
-            if(this.tabKey == 'new') {
-                this.getNewGoods(false)
-            } else {
-                this.getHotGoods(false)
-            }
+            // this.countApi = 0;
+            // this.isLoading = true;
+            // if(this.tabKey == 'new') {
+            //     this.getNewGoods(false)
+            // } else {
+            //     this.getHotGoods(false)
+            // }
         },
         onloading () {
             if (this.isPlatformAndroid) {

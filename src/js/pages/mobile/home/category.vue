@@ -69,7 +69,7 @@ export default {
             pageNew: 1,
             pageHot: 1,
             pagePrice: 1,
-            pageSize: 6,
+            pageSize: 24,
             lengthNew: 2,
             lengthHot: 2,
             lengthPrice: 2,
@@ -95,7 +95,7 @@ export default {
             }
         },
         onLoadingMore () {
-            this.getGoods3(false)
+            // this.getGoods3(false)
         },
         onloading () {
             if (this.isPlatformAndroid) {
@@ -137,9 +137,9 @@ export default {
                     page = this.pageHot;
                     if (this.pageHot > this.lengthHot) {
                         this.$refs.refresh.refreshEnd()
-                        setTimeout(() => {
+                        this.$nextTick(() => {
                             this.isLoading = false
-                        }, 0)
+                        })
                     }
                     this.getSelectedList(isfirst, page)
                     break;
@@ -150,9 +150,9 @@ export default {
                     page = this.pageNew;
                     if (this.pageNew > this.lengthNew) {
                         this.$refs.refresh.refreshEnd()
-                        setTimeout(() => {
+                        this.$nextTick(() => {
                             this.isLoading = false
-                        }, 0)
+                        })
                     }
                     this.getGoodsList(isfirst, page)
                     break;
