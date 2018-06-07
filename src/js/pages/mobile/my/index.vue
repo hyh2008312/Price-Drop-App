@@ -128,7 +128,7 @@ export default {
         return {
             nickname: 'set nickname',
             email: 'google.gmail.com',
-            img: 'bmlocal://assets/empty.png',
+            img: 'bmlocal://assets/default.png',
             token: null,
             user: null,
             gender: ''
