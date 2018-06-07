@@ -95,6 +95,7 @@ export default {
         noNoticeFinished (e) {
             if(this.backup.length > 0) {
                 const newArr = this.backup.splice(0, 4);
+                this.block1.items = [];
                 this.block1.items = [...newArr];
             } else {
                 this.$fetch({
@@ -104,18 +105,21 @@ export default {
                 }).then(resData => {
                     this.block1.backup = [...resData];
                     const newArr = this.backup.splice(0, 4);
+                    this.block1.items = [];
                     this.block1.items = [...newArr];
                 }, error => {})
             }
         },
         onLoadingMore () {
-            // this.countApi = 0;
-            // this.isLoading = true;
-            // if(this.tabKey == 'new') {
-            //     this.getNewGoods(false)
-            // } else {
-            //     this.getHotGoods(false)
-            // }
+            if (!this.isPlatformAndroid) {
+                this.countApi = 0;
+                this.isLoading = true;
+                if (this.tabKey == 'new') {
+                    this.getNewGoods(false)
+                } else {
+                    this.getHotGoods(false)
+                }
+            }
         },
         onloading () {
             if (this.isPlatformAndroid) {

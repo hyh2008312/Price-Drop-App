@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" @Appear="appear">
         <div ref="notice" v-if="activeIndex == index">
             <div class="inner-container" v-for="message in items">
                 <div class="header">
@@ -51,17 +51,19 @@
                         duration: 2500,
                         timingFunction: 'ease',
                         delay: 0
-                    }, function () {
+                    }, function (result) {
                         that.isOnAni = false
-                        if (e < that.items.length - 1) {
-                            e++;
-                            if (e == that.items.length - 1) {
-                                that.$emit('noticeFinished', {
-                                    status: 'finished'
-                                })
-                                return
+                        if (result.result == 'Fail') {} else {
+                            if (e < that.items.length - 1) {
+                                e++;
+                                if (e == that.items.length - 1) {
+                                    that.$emit('noticeFinished', {
+                                        status: 'finished'
+                                    })
+                                    return
+                                }
+                                that.aniNotice(e)
                             }
-                            that.aniNotice(e)
                         }
                     });
                 }
@@ -78,9 +80,11 @@
                         duration: 0,
                         timingFunction: 'ease',
                         delay: 0
-                    }, function () {
+                    }, function (result) {
                         that.isOnAni = false
-                        that.init()
+                        if (result.result == 'Fail') {} else {
+                            that.init()
+                        }
                     })
                 }
             },

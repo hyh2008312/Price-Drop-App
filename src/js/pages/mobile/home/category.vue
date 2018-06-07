@@ -5,7 +5,7 @@
             <cell class="cell-top" ></cell>
             <cell class="notice-wrapper cell-button">
                 <div class="notice-bg">
-                    <block-4 :items="block1.items" v-if="block1.items.length > 0"
+                    <block-4 :items="block1.items"
                              :activeIndex="activeIndex" :index="index"
                              @noticeFinished="noNoticeFinished"></block-4>
                 </div>
@@ -95,7 +95,10 @@ export default {
             }
         },
         onLoadingMore () {
-            // this.getGoods3(false)
+            if (!this.isPlatformAndroid) {
+                this.isLoading = true
+                this.getGoods3(false)
+            }
         },
         onloading () {
             if (this.isPlatformAndroid) {
