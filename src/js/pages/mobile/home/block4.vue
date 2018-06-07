@@ -3,7 +3,7 @@
         <div ref="notice" v-if="activeIndex == index">
             <div class="inner-container" v-for="message in items">
                 <div class="header">
-                    <image class="header-image" :src="message.avatar" resize="contain"></image>
+                    <preload class="header-image" :src="message.avatar"></preload>
                 </div>
                 <text class="tlt">{{message.username}} unlocked the lowest price! {{formateDate(message.time)}} </text>
             </div>
@@ -11,10 +11,15 @@
     </div>
 </template>
 <script>
+    import preload from '../common/preloadImg';
+
     const animation = weex.requireModule('animation');
     import moment from 'moment';
 
     export default {
+        components: {
+            preload
+        },
         props: ['items', 'index', 'activeIndex'],
         data () {
             return {

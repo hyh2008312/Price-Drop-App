@@ -12,7 +12,7 @@
             <div class="i-good" v-for="i in goods" :key="i.id" @click="jumpWeb(i.productId)">
                 <div class="gd-bg">
                     <div class="gd-img">
-                        <image class="gd-img-image" resize="cover" :src="i.mainImage || src"></image>
+                        <preload class="gd-img-image" :src="i.mainImage"></preload>
                     </div>
                 </div>
                 <div class="gd-tlt-bg">
@@ -26,7 +26,12 @@
     </div>
 </template>
 <script>
+import preload from '../common/preloadImg';
+
 export default {
+    components: {
+        preload
+    },
     props: ['head'],
     created () {
         this.getActivityProduct()
@@ -35,8 +40,7 @@ export default {
         return {
             goods: [],
             page: 1,
-            pageSize: 6,
-            src: 'bmlocal://assets/occupy.png'
+            pageSize: 6
         }
     },
     methods: {
@@ -207,6 +211,7 @@ export default {
     height: 284px;
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
 }
 
 .gd-tlt {

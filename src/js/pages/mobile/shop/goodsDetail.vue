@@ -10,7 +10,7 @@
 
                 <slider class="slider" interval="3000" auto-play="true" :index="2">
                     <div class="frame" v-for="(img, idx) in goodsImg">
-                        <image class="image" resize="cover" :src="img"></image>
+                        <preload class="image" :src="img"></preload>
                         <text style="right:20px;bottom:20px;color:black;position:absolute">{{idx+1}}/{{goodsImg.length}}</text>
                     </div>
                 </slider>
@@ -158,10 +158,10 @@
 <script>
     import header from './header';
     import cimg from './customImg';
+    import preload from '../common/preloadImg';
     import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
-    const animation = weex.requireModule('animation');
     const dom = weex.requireModule('dom');
 
     // import block from './block';
@@ -173,7 +173,8 @@
             'topic-header': header,
             WxcCell, WxcButton, WxcPopup, WxcMask,
             'tab': tab,
-            'cimg': cimg
+            'cimg': cimg,
+            preload
             // 'refresher': refresher,
             // 'block': block
         },
