@@ -554,6 +554,7 @@
                     message:e.contentOffset.y
                 });
 
+
                if (e.contentOffset.y >= -10) {
                    animation.transition(this.$refs.ref1, {
                        styles: {
