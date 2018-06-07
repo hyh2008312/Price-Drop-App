@@ -30,14 +30,15 @@
     import cutingItem from './cutingItem';
     import cutEndItem from './cutEndItem';
     import { TAB } from './config'
-    import { Utils } from 'weex-ui';
+    import { Utils, WxcLoading } from 'weex-ui';
 
     export default {
         components: {
             'refresher': refresher,
             'cutTab': tabTitle,
             cutingItem,
-            cutEndItem
+            cutEndItem,
+            WxcLoading
         },
         eros: {
             beforeAppear (params, options) {
@@ -61,7 +62,8 @@
                 length: 2,
                 pageSize: 12,
                 isLoading: false,
-                isPlatformAndroid: Utils.env.isAndroid()
+                isPlatformAndroid: Utils.env.isAndroid(),
+                isShow: false
             }
         },
         methods: {
@@ -174,6 +176,7 @@
                 this.tabKey = event.data.key;
                 this.isCuting = !(this.tabKey === 'cutEnd');
                 this.goods = false;
+                this.isShow = true;
                 this.requestProduct(true);
             }
         }

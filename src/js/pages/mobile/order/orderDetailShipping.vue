@@ -9,7 +9,7 @@
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe706;</text>
-                <text class="gb-text">+19 {{order.phoneNumber}}</text>
+                <text class="gb-text">+91 {{order.phoneNumber}}</text>
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe705;</text>

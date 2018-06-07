@@ -14,6 +14,24 @@
             <text class="address-title">You have no shipping address information.</text>
         </div>
         <address-bottom></address-bottom>
+        <wxc-mask height="258"
+                  width="514"
+                  border-radius="0"
+                  duration="200"
+                  mask-bg-color="rgba(0,0,0,0)"
+                  :has-animation="hasAnimation"
+                  :has-overlay="true"
+                  :show-close="false"
+                  :show="isDeleteShow"
+                  @wxcMaskSetHidden="popupDeleteClick">
+            <div class="popup-delete-container">
+                <text class="popup-delete-title">Do you want to delete this address? </text>
+                <div class="popup-delete-bottom">
+                    <text class="popup-delete-button" @click="deleteOrderConfirm">DELETE</text>
+                    <text class="popup-delete-button-1" @click="closeDeletePop">CANCEL</text>
+                </div>
+            </div>
+        </wxc-mask>
     </div>
 </template>
 <script>
@@ -21,8 +39,7 @@ import header from './header';
 import addressItem from './addressItem';
 import orderDetailItem from './orderDetailItem';
 import addressBottom from './addressBottom';
-import { Utils } from 'weex-ui';
-import { TOKEN } from './config';
+import { Utils, WxcMask } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
 
 export default {
@@ -30,7 +47,8 @@ export default {
         'top-header': header,
         'address-item': addressItem,
         'order-detail-item': orderDetailItem,
-        'address-bottom': addressBottom
+        'address-bottom': addressBottom,
+        WxcMask
     },
     eros: {
         backAppeared (params, options) {
@@ -55,9 +73,12 @@ export default {
     },
     data () {
         return {
-            title: 'Choose Address',
+            title: 'My Address',
             addressList: false,
-            source: false
+            source: false,
+            isDeleteShow: false,
+            deleteId: -1,
+            deleteIndex: 0
         }
     },
     methods: {
@@ -82,9 +103,27 @@ export default {
             this.$router.finish()
         },
         deleteShipping (event) {
+            this.isDeleteShow = true
+            this.deleteIndex = event.data.index
+            this.deleteId = event.data.id
+        },
+        chooseAddress (event) {
+            this.addressList.forEach((e, i) => {
+                if (i == event.data.index) {
+                    e.isDefault = true
+                } else {
+                    e.isDefault = false
+                }
+            })
+        },
+        popupDeleteClick () {
+            this.isDeleteShow = false
+        },
+        deleteOrderConfirm () {
+            this.closeDeletePop()
             this.$fetch({
                 method: 'DELETE', // 大写
-                url: `${baseUrl}/address/shipping/detail/${event.data.id}/`,
+                url: `${baseUrl}/address/shipping/detail/${this.deleteId}/`,
                 header: {
                     needAuth: true
                 }
@@ -92,7 +131,7 @@ export default {
                 this.$notice.toast({
                     message: 'Delete address success!'
                 })
-                const address = this.addressList[event.data.index]
+                const address = this.addressList[this.deleteId]
                 if (address.isDefault) {
                     this.$storage.get('user').then((data) => {
                         const user = data
@@ -107,14 +146,8 @@ export default {
                 })
             })
         },
-        chooseAddress (event) {
-            this.addressList.forEach((e, i) => {
-                if (i == event.data.index) {
-                    e.isDefault = true
-                } else {
-                    e.isDefault = false
-                }
-            })
+        closeDeletePop () {
+            this.isDeleteShow = false
         }
     }
 }
@@ -176,5 +209,39 @@ export default {
         text-align: center;
     }
 
+    .popup-delete-container{
+        width: 514px;
+        height: 258px;
+        border-radius: 8px;
+        background-color: #fff;
+        padding: 32px;
+        justify-content: space-between;
+    }
+
+    .popup-delete-title{
+        font-size: 28px;
+        line-height: 48px;
+    }
+
+    .popup-delete-bottom{
+        margin-top: 48px;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .popup-delete-button{
+        font-size: 28px;
+        line-height: 34px;
+        margin-right: 48px;
+        font-weight: bold;
+        color: #EF8A31;
+    }
+
+    .popup-delete-button-1{
+        font-size: 28px;
+        line-height: 34px;
+        color: rgba(0,0,0,0.54);
+    }
 
 </style>

@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper">
-        <div class="gb-box">
+        <div class="gb-box" @click="chooseAddress">
             <div class="gb-bg">
                 <text class="gb-icon iconfont">&#xe707;</text>
                 <text class="gb-text">{{address.firstName}} {{address.lastName}}</text>
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe706;</text>
-                <text class="gb-text">+19 {{address.phoneNumber}}</text>
+                <text class="gb-text">+91 {{address.phoneNumber}}</text>
             </div>
             <div class="gb-bg-1">
                 <text class="gb-icon iconfont">&#xe705;</text>
@@ -86,7 +86,7 @@
                         method: 'GET', // 大写
                         url: `${baseUrl}/address/set/default/${this.address.id}/`,
                         header: {
-                            Authorization: 'Bearer ' + TOKEN
+                            needAuth: true
                         }
                     }).then(resData => {
                         this.address = resData
@@ -102,19 +102,19 @@
                         })
                     })
                 } else {
+                    this.$emit('chooseAddress', {
+                        status: 'chooseAddress',
+                        data: {
+                            index: this.index
+                        }
+                    })
                     this.$fetch({
                         method: 'GET', // 大写
                         url: `${baseUrl}/address/set/default/${this.address.id}/`,
                         header: {
-                            Authorization: 'Bearer ' + TOKEN
+                            needAuth: true
                         }
                     }).then(resData => {
-                        this.$emit('chooseAddress', {
-                            status: 'chooseAddress',
-                            data: {
-                                index: this.index
-                            }
-                        })
                         this.$storage.get('user').then((data) => {
                             let user = data
                             user.defaultAddress = resData
@@ -241,6 +241,7 @@
     .gb-bottom-bg{
         flex-direction: row;
         align-items: center;
+        padding: 4px 0;
     }
 
 </style>

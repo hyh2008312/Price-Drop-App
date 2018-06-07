@@ -29,10 +29,11 @@
                 <text class="indicator">loading...</text>
             </loading>
         </list>
+        <wxc-loading :show="isShow"></wxc-loading>
     </div>
 </template>
 <script>
-import { Utils } from 'weex-ui';
+import { Utils, WxcLoading } from 'weex-ui';
 import refresher from '../common/refresh';
 import YXSlider from './YXSlider';
 import tab from './tab';
@@ -53,7 +54,8 @@ export default {
         'block-2': block2,
         'block-3': block3,
         'block-4': block4,
-        'block-5': block5
+        'block-5': block5,
+        WxcLoading
     },
     created () {
         this.init()
@@ -85,7 +87,8 @@ export default {
             lengthHot: 2,
             lengthNew: 2,
             countApi: 0,
-            isPlatformAndroid: Utils.env.isAndroid()
+            isPlatformAndroid: Utils.env.isAndroid(),
+            isShow: false
         }
     },
     methods: {
@@ -203,6 +206,7 @@ export default {
                     page_size: this.pageSize
                 }
             }).then((data) => {
+                this.isShow = false;
                 if(isfirst) {
                     this.goods3 = []
                 }
@@ -235,6 +239,7 @@ export default {
                     page_size: this.pageSize
                 }
             }).then(data => {
+                this.isShow = false;
                 if(isfirst) {
                     this.goods3 = []
                 }
@@ -257,6 +262,7 @@ export default {
         async onTabTo (event) {
             this.tabKey = event.data.key;
             await this.scrollToHeader();
+            this.isShow = true;
             if(event.data.key == 'new') {
                 this.getNewGoods(true);
             } else {
