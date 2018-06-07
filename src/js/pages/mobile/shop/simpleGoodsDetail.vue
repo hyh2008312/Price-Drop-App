@@ -1,21 +1,20 @@
 <template>
 
-    <div class="wrapper" >
-        <topic-header ref="ref1" :style="{opacity:opacity}" @open="openLink" :leftBtn="1" :rightBtn="1"></topic-header>
+    <div class="wrapper" @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend"  >
+        <topic-header ref="ref1" @open="openLink" :leftBtn="2" :rightBtn="2" ></topic-header>
         <div class="blackheader"></div>
 
-        <scroller class="main-list" @scroll="scrollHandler"  offset-accuracy="10px">
+        <scroller class="main-list" @scroll="scrollHandler"   offset-accuracy="300px">
 
             <div style="background-color: white" >
 
                 <slider class="slider" interval="3000" auto-play="true" :index="2">
                     <div class="frame" v-for="(img, idx) in goodsImg">
-                        <preload class="image" :src="img"></preload>
+                        <image class="image" resize="cover" :src="img"></image>
                         <text style="right:20px;bottom:20px;color:black;position:absolute">{{idx+1}}/{{goodsImg.length}}</text>
                     </div>
                 </slider>
-                <text class="iiileft"  @click="$router.back">&#xe6f6;</text>
-                <text class="iiiright" @click="openLink">&#xe700;</text>
+                <text class="iiileft"  @click="$router.back">&#xe632;</text>
                 <text class="onetitle">{{goods.title}}</text>
                 <text class="price">Rs.{{goods.price}}</text>
 
@@ -36,10 +35,6 @@
                 </div>
 
             <div class="mid">
-                <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >
-                    <text class="dec">Size/Color</text>
-
-                </div>
 
                 <div class="slogan" >
                     <div class="slg">
@@ -76,13 +71,8 @@
 
 
                 <div class="bottom-div" >
-                    <!--<div >-->
-                        <!--<text class="leftline"></text>-->
-                    <!--</div>-->
+
                     <text class="bottom-head" >Return Policy</text>
-                    <!--<div class="rightline">-->
-                        <!--<text style="letter-spacing: -10px">———————————</text>-->
-                    <!--</div>-->
 
                     <text class="bottom-text">You may return all items sold by PriceDrop within 9 days of delivery for a refund, as long as it is unused and in a good condition.
                     </text>
@@ -93,66 +83,17 @@
 
                 </div>
             </div>
-            <div style="display: none" ref="policy"></div>
-            <div class="bottom-btn" >
-                <text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>
-            </div>
+            <div style="background-color: white" ref="policy"></div>
         </scroller>
-
-        <wxc-popup :have-overlay="isTrue"
-                   popup-color="rgb(255, 255, 255)"
-                   :show="isBottomShow"
-                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
-                   pos="bottom"
-                   ref="wxcPopup"
-                   height="718">
-            <div class="popup-content">
-                <div class="popup-top">
-
-                    <image :src="selimgsrc"
-                           class="popup-image"></image>
-
-                    <div class="popup-py">
-                        <text class="popup-price">Rs.{{selsaleUnitPrice}}</text>
-                        <text class="popup-lowprice-word">Start a drop to get it at:  </text>
-                        <text class="popup-lowprice">Rs.{{lowestPrice}}</text>
-                        <text class="popup-yet" v-if="hasVariants==true">{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
-                    </div>
-
-                    <text class="popup-close" @click="popupOverlayBottomClick">&#xe632;</text>
-                </div>
-                <scroller  class="scroller">
-
-                    <div class="popup-bottom">
-                        <div v-for="(val, index) in goodsType" :key="index">
-                            <text class="popup-color">{{val.name}}</text>
-
-                            <div  class="popup-color-chd" >
-                                <text class="popup-color-chdname  "
-                                      v-for="(val1, key1) in val.value"
-                                      :key="key1"
-                                      :class="[val1.isActive ?'popup-color-chdname-active':'',
-                                      val1.seldisable ?'popup-color-chdname-disable':'']"
-                                      @click="clickColor(val1, val.value)">{{val1.value}}</text>
-                            </div>
-                        </div>
-                    </div>
-                </scroller>
-                <div class="popup-btn">
-                    <text class="button" @click="confirm()">Confirm</text>
-                </div>
-
-            </div>
-        </wxc-popup>
     </div>
 </template>
 <script>
     import header from './header';
     import cimg from './customImg';
-    import preload from '../common/preloadImg';
     import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
+    const animation = weex.requireModule('animation');
     const dom = weex.requireModule('dom');
 
     // import block from './block';
@@ -164,8 +105,7 @@
             'topic-header': header,
             WxcCell, WxcButton, WxcPopup, WxcMask,
             'tab': tab,
-            'cimg': cimg,
-            preload
+            'cimg': cimg
             // 'refresher': refresher,
             // 'block': block
         },
@@ -203,23 +143,10 @@
                 }],
                 goodsVariants: [],
                 goodsType: {},
-                selsize: '',
-                selcolor: '',
-                selimgsrc: '',
-                variantsId: '',
                 selsaleUnitPrice: '',
                 lowestPrice: '',
                 newDescription: [],
                 proId: '',
-                shipObj: '',
-                hasVariants: true,
-                cactiveId: 1,
-                sactiveId: '',
-                isBottomShow: false,
-                isCardShow: false,
-                overlayCardCanClose: true,
-                isCardFalse: false,
-                hasCardAnimation: true,
                 height: 400,
                 tabshow: false,
                 headerShow: true,
@@ -227,19 +154,7 @@
                 positionY: 0,
                 deltaX: 0,
                 deltaY: 0,
-                user: null,
-                opacity: 0
-            }
-        },
-        computed: {
-            opacity: {
-                get: function () {
-                    return this.opacity
-                },
-
-                set: function (v) {
-                    this.opacity = v
-                }
+                user: null
             }
         },
         created () {
@@ -308,61 +223,6 @@
                     })
                 }
             },
-            createCut () {
-                this.$fetch({
-                    method: 'POST',
-                    url: `${baseUrl}/promotion/cut/create/`,
-                    data: { variant_id: this.variantsId },
-                    header: {
-                        needAuth: true
-                    }
-                }).then((res) => {
-                    this.$router.open({
-                        name: 'drops.cutDetail',
-                        type: 'PUSH',
-                        params: {
-                            isShowSharePanel: false,
-                            id: res.id
-                        }
-                    })
-                }).catch((res) => {
-                    if (res.status == 409) {
-                        this.$notice.toast({
-                            message: 'You have already started a drop for this item.'
-                        })
-                    }
-
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
-                })
-            },
-            wxcCellClick () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                } else {
-                    this.isBottomShow = true;
-
-                    if (this.variantsId != '') {
-                        this.createCut()
-                    }
-                }
-            },
-            confirm () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                } else {
-                    this.isBottomShow = true;
-
-                    if (this.variantsId != '') {
-                        this.createCut()
-                    } else {
-                        this.$notice.toast({
-                            message: 'Please select an option first.'
-                        })
-                    }
-                }
-            },
             redirectLogin () {
                 this.$event.on('login', params => {
                     this.getGoodsDetail(this.proId)
@@ -375,176 +235,70 @@
                     type: 'PUSH'
                 })
             },
-            openBottomPopup () {
-                if (this.hasVariants === false) {
-                    this.createCut()
-                } else {
-                    if (this.user == null) {
-                        this.redirectLogin()
-                    } else {
-                        this.isBottomShow = true;
-                    }
-                }
+            ontouchstart (event) {
+                this.positionX = event.changedTouches[0].screenX;
+                this.positionY = event.changedTouches[0].screenY;
             },
-
-            // 非状态组件，需要在这里关闭
-            popupOverlayBottomClick () {
-                this.isBottomShow = false;
-                this.isCardShow = false;
-            },
-
-            operateData (data) {
-                for (let i = 0; i < data.length; i++) {
-                    for (let j = 0; j < data[i].value.length; j++) {
-                        data[i].value[j].isActive = false
-                        data[i].value[j].seldisable = false
-                    }
-                }
-                return data
-            },
-            clickColor (item, list) {
-                if (item.seldisable) return
-                item.isActive = !item.isActive
-                for (let i = 0; i < list.length; i++) {
-                    if (list[i].value != item.value) {
-                        list[i].isActive = false
-                    }
-                }
-                const color = []
-                const discolor = []
-                for (let j = 0; j < this.goodsVariants.length; j++) {
-                    for (let k = 0; k < this.goodsVariants[j].attributeValues.length; k++) {
-                        if (item.value == this.goodsVariants[j].attributeValues[k].value) {
-                            color.push({
-                                item: this.goodsVariants[j],
-                                index: k
-                            })
-                            break;
-                            // this.seldisable = true
-                        }
-                    }
-                }
-
-                if (item.isActive == true) {
-                    for (let n = 0; n < color.length; n++) {
-                        for (let m = 0; m < color[n].item.attributeValues.length; m++) {
-                            if (m == color[n].index) {
-                                continue
-                            }
-                            discolor.push(color[n].item.attributeValues[m].value)
-                        }
-                    }
-
-                    for (let p = 0; p < this.goodsType.length; p++) {
-                        if (item.id != this.goodsType[p].id) {
-                            for (let u = 0; u < this.goodsType[p].value.length; u++) {
-                                this.goodsType[p].value[u].seldisable = false
-                                for (let o = 0; o < discolor.length; o++) {
-                                    if (this.goodsType[p].value[u].value != discolor[o]) {
-                                        this.goodsType[p].value[u].seldisable = true
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    for (let p = 0; p < this.goodsType.length; p++) {
-                        if (item.id != this.goodsType[p].id) {
-                            for (let u = 0; u < this.goodsType[p].value.length; u++) {
-                                this.goodsType[p].value[u].seldisable = false
-                            }
-                        }
-                    }
-                }
-                this.changeDom(item, color)
+            ontouchmove (event) { //  touchmove 实现 判断上移 还是下移
+                const moveX = event.changedTouches[0].screenX;
+                const moveY = event.changedTouches[0].screenY;
+                this.deltaX = moveX - this.positionX;
+                this.deltaY = moveY - this.positionY;
                 // this.$notice.toast({
-                //     message: item
+                //     message: this.deltaY
                 // })
-                // this.cactiveId = id
-            },
-            changeDom (item, color) {
-                if (color.length !== 0) {
-                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
-                    this.variantsId = color[0].item.id
-                } else {
-                    this.$notice.toast({
-                        message: 'Please select an option first.'
-                    })
-                }
-                if (item.isActive == true) {
-                    if (item.id == 1) {
-                        this.selsize = item.value
-                    } else if (item.id == 2) {
-                        this.selcolor = item.value
-                    }
-                } else if (item.isActive == false) {
-                    if (item.id == 1) {
-                        this.selsize = ''
-                    } else if (item.id == 2) {
-                        this.selcolor = ''
-                    }
-                }
-                let tmp = []
-                for (let i = 0; i < this.goodsType.length; i++) {
-                    tmp = this.goodsType[i].images
-                }
-                for (let j = 0; j < tmp.length; j++) {
-                    if (tmp[j].value == this.selcolor) {
-                        this.selimgsrc = tmp[j].image
-                    }
-                }
-            },
+                if (this.deltaY > 0 && Math.abs(this.deltaY) > Math.abs(this.deltaX) && this.topval == '1') {
 
-            openCard (e) {
-                this.isCardShow = true;
-                this.hasCardAnimation = true;
-            },
-            openShip (e) {
-                if (e == 1) {
-                    this.$router.open({
-                        name: 'goods.ship',
-                        type: 'PUSH'
-                    })
-                } else {
-                    this.$router.open({
-                        name: 'goods.ship',
-                        type: 'PUSH',
-                        params: {
-                            time: this.shipObj
-                        }
-                    })
+                    // this.headerShow = true
                 }
-            },
-
-            wxcCardSetHidden () {
-                this.isCardShow = false;
-            },
-            openLink () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                    return
-                }
-                this.$router.setBackParams({ tab: 'drops' })
-                this.$router.back({
-                    length: 9999,
-                    type: 'PUSH'
-                })
-            },
-            scrollHandler (e) {
-                if (Math.abs(e.contentOffset.y) >= 112) {
-                   this.opacity = (Math.abs(e.contentOffset.y) - 112) / 200 > 1 ? 1 : (Math.abs(e.contentOffset.y) - 112) / 200
-                } else {
-                   this.opacity = 0
+                if (this.deltaY < -100 && Math.abs(this.deltaY) > Math.abs(this.deltaX)) {
+                    this.headerShow = false;
                 }
                 // this.$notice.toast({
                 //     message: event.changedTouches[0].screenY
                 // })
+            },
+            ontouchend (event) {
+                this.positionX = 0;
+                this.positionY = 0;
+                this.deltaX = 0;
+                this.deltaY = 0
+            },
+            scrollHandler (e) { //  scroller 滚动函数 通过动画实现的
+               if (e.contentOffset.y >= -10) {
+                   animation.transition(this.$refs.ref1, {
+                       styles: {
+                           opacity: '0',
+                           height: '148px'
 
-                if (Math.abs(e.contentOffset.y) > 1200) {
+                       },
+                       duration: 200, // ms
+                       timingFunction: 'linear',
+                       needLayout: false,
+                       delay: 0 // ms
+                   });
+                   this.topval = '1'
+               } else {
+                   animation.transition(this.$refs.ref1, {
+                       styles: {
+                           opacity: '1',
+                           height: '148px'
+                       },
+                       duration: 200, // ms
+                       timingFunction: 'linear',
+                       needLayout: false,
+                       delay: 0 // ms
+                   });
+                   this.topval = '2'
+               }
+               if (Math.abs(e.contentOffset.y) > 1200) {
+                   // this.$notice.toast({
+                   //     message: '55555'
+                   // });
                     this.tabshow = true
-                } else if (Math.abs(e.contentOffset.y) < 1100) {
-                    this.tabshow = false
-                }
+               } else if (Math.abs(e.contentOffset.y) < 1100) {
+                   this.tabshow = false
+               }
             },
             onTabTo (key) {
                 if (key.data.key == 'dec') {
@@ -780,7 +534,7 @@
         box-shadow: 0 1px 1px 0;
         background-color: #fff;
         padding-top: 16px;
-        margin-bottom: 100px;
+        /*margin-bottom: 100px;*/
     }
     .bottom-text{
         margin-left: 32px;
@@ -814,148 +568,5 @@
         font-size: 28px;
         text-align: center;
         font-weight: 700;
-    }
-    .scroller{
-        max-height: 500px;
-
-    }
-    .popup-content{
-        height: 718px;
-        width: 750px;
-        flex-direction: column;
-
-    }
-    .popup-image {
-        width: 200px;
-        height: 200px;
-        margin-bottom: 27px;
-        margin-top: 32px;
-        margin-left: 32px;
-    }
-    .popup-top{
-        flex-direction: row;
-    }
-    .popup-py{
-        flex-direction: column;
-
-    }
-    .popup-price{
-        font-size: 32px;
-        font-weight: 600;
-        margin-top: 75px;
-        margin-left: 32px;
-
-    }
-    .popup-lowprice-word{
-        font-size: 24px;
-        margin-top: 16px;
-        margin-left: 32px;
-        margin-bottom: 4px;
-
-    }
-    .popup-lowprice{
-        font-size: 28px;
-        font-weight: 600;
-        color: #EF8A31;
-        margin-left: 32px;
-
-    }
-    .popup-yet{
-        font-size: 24px;
-        opacity: 0.54;
-        margin-left: 32px;
-        margin-top: 16px;
-    }
-    .popup-close{
-        font-family: iconfont;
-        font-size: 32px;
-        position: absolute;
-        right: 32px;
-        top: 32px;
-    }
-    .popup-bottom{
-
-    }
-    .popup-color{
-        font-size: 24px;
-        font-weight: 700;
-        margin-top: 27px;
-        margin-left: 32px;
-
-    }
-    .popup-color-chd{
-        width: 750px;
-        font-weight: 700;
-        font-size: 24px;
-        margin-left: -16px;
-        margin-top: 16px;
-        flex-direction: row;
-        display: flex;
-    }
-    .popup-color-chdname{
-        font-size: 20px;
-        height:48px;
-        line-height: 45px;
-        text-align:center;
-        margin-left: 48px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: rgba(0,0,0,0.12);
-        border-radius: 4px;
-
-    }
-    .popup-color-chdname-active{
-        font-size: 20px;
-        height:48px ;
-        line-height: 45px;
-        text-align:center;
-        margin-left: 48px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-width: 1px;
-        border-style: solid;
-        color: white;
-        background-color: #EF8A31;
-        border-radius: 4px;
-
-    }
-    .popup-color-chdname-disable{
-        font-size: 20px;
-        background-color: #dcdcdc;
-        color: #fff;
-        height:48px ;
-        line-height: 45px;
-        text-align:center;
-        margin-left: 48px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: rgba(0,0,0,0.12);
-        border-radius: 4px;
-
-    }
-    .popup-btn{
-        position: relative;
-        bottom: 0;
-    }
-    .mask-content {
-        padding: 30px;
-    }
-    .mask-head {
-        align-items: center;
-        margin-bottom: 20px;
-        margin-top: 40px;
-    }
-    .mask-title {
-        color: #333333;
-        font-size: 40px;
-    }
-    .mask-text {
-        color: #333333;
-        font-size: 30px;
-        margin-top: 20px;
     }
 </style>
