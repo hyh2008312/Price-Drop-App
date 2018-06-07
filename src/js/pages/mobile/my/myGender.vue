@@ -24,7 +24,7 @@
         data () {
             return {
                 list: [
-                    { title: 'Fale', value: 'M'  },
+                    { title: 'Male', value: 'M'  },
                     { title: 'Female', value: 'F'  }
                 ],
                 checkedInfo: { title: 'option2', value: 2 }

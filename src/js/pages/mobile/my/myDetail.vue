@@ -21,7 +21,7 @@
                 <div class="box-left">
                     <text class="box-txt">Name</text>
                 </div>
-                <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Edit FirstName" :value="this.name" @input="oninput" />
+                <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Edit Name" :value="this.name" @input="oninput" />
 
                 <div class="box-right">
                     <text class="i-box-input iconfont">&#xe626;</text>

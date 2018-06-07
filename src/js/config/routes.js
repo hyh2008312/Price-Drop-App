@@ -18,6 +18,9 @@ export default {
     'goods.details': {
         url: '/pages/mobile/shop/goodsDetail.js'
     },
+    'simple.details': {
+        url: '/pages/mobile/shop/simpleGoodsDetail.js'
+    },
     'goods.ship': {
         url: '/pages/mobile/shop/ship.js'
     },

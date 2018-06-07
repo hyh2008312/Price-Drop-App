@@ -18,6 +18,9 @@ export default {
         }
     },
     methods: {
+        isTabActive (_c) {
+            return this.pIndexKey === _c ? 'bar-active' : ''
+        },
         tabTo (_key) {
             if (this.pIndexKey == _key) return;
             this.pIndexKey = _key;

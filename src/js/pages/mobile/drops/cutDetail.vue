@@ -19,7 +19,7 @@
                     <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Share this item and invite more friends to drop price for you!</text>
                 </div>
             </div>
-            <div class="wrapper-product">
+            <div class="wrapper-product" @click="openDetail()">
                 <div class="product-image">
                     <image class="product-image-in" resize="cover"
                            :src="goodsDetail.mainImage"></image>
@@ -323,6 +323,15 @@
             },
             wxcMaskSetHidden () {
                 this.isRuleShow = false;
+            },
+            openDetail() {
+                this.$router.open({
+                    name: 'simple.details',
+                    type: 'PUSH',
+                    params: {
+                        id: this.goodsDetail.productId
+                    }
+                })
             }
 
         }

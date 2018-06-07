@@ -1,24 +1,45 @@
 <template>
     <div class="wrappertop">
         <div class="left">
-            <text class="leftTxt" @click="$router.back">&#xe6f6;</text>
+            <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe6f6;</text>
+            <text class="leftTxt" v-else>&#xe632;</text>
         </div>
         <!--<text class="tlt">{{title}}</text>-->
         <div class="right">
-            <text class="rightTxt" @click="openLink" >&#xe700;</text>
+            <text class="rightTxt" v-if="iconSign==true" @click="openLink" >&#xe700;</text>
         </div>
     </div>
 </template>
 <script>
 export default {
     props: ['title', 'leftBtn', 'rightBtn'],
+    data () {
+        return {
+            leftSign: '',
+            iconSign: ''
+        }
+    },
+    created () {
+        this.editRight()
+    },
     methods: {
+        editRight () {
+            if (this.rightBtn == '1') {
+                this.iconSign = true
+            } else {
+                this.iconSign = false
+            }
+
+            this.$notice.toast({message: this.leftBtn})
+
+            if (this.leftBtn == '1') {
+                this.leftSign = true
+            } else {
+                this.leftSign = false
+            }
+        },
         openLink () {
-            this.$router.setBackParams({ tab: 'drops' })
-            this.$router.back({
-                length: 9999,
-                type: 'PUSH'
-            })
+            this.$emit('open')
         }
     }
 }

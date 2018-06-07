@@ -8,7 +8,7 @@
             <div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.{{time.priceItem}}</text>  </div>
             <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
             <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">2-4 days</text>  </div>
-            <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}}</text> </div>
+            <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}} days</text> </div>
             <!--<div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>-->
         </div>
         <div  v-if="ship==false">
@@ -17,10 +17,14 @@
                     <div class="mask-head">
                         <text class="mask-title">How To Drop Price</text>
                     </div>
-                    <text class="mask-text">Step1:  Click the “Drop The Price” button to start your DROP campaign immediately.</text>
-                    <text class="mask-text">Step2:  Invite friends to join you by sharing your DROP campaign to Facebook & WhatsAPP.</text>
-                    <text class="mask-text">Step3:  When people click the “Drop Price” button for you on the page you share, the price will drop automatically.</text>
-                    <text class="mask-text">Step4:  After the DROP campaign ends, you can purchase the item at the final price you have reached!</text>
+                    <text class="mask-text">Step1: </text>
+                    <text class="mask-text">Click the “Drop Price” button to start your DROP campaign immediately.</text>
+                    <text class="mask-text">Step2: </text>
+                    <text class="mask-text">Invite friends to support your DROP by sharing to Facebook & WhatsAPP. </text>
+                    <text class="mask-text">Step3: </text>
+                    <text class="mask-text">The more people click the “Drop Price” button for you, the lower price you can reach.</text>
+                    <text class="mask-text">Step4: </text>
+                    <text class="mask-text">After the DROP ends, you can purchase the item at the final discounted price!</text>
 
                     <div class="mask-head">
                         <text class="mask-title">Rules to Know</text>
