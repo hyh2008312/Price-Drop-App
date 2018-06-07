@@ -9,7 +9,7 @@
             </div>
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="order.lines[0].mainImage || src"></image>
+                    <preload class="gd-img" resize="cover" :src="order.lines[0].mainImage"></preload>
                 </div>
                 <div class="gd-bg-right">
                     <text class="gd-tlt">{{order.lines[0].title}}</text>
@@ -62,6 +62,7 @@
     </div>
 </template>
 <script>
+    import preload from '../common/preloadImg';
     import { WxcCountdown, WxcPopup } from 'weex-ui';
     import moment from 'moment'
     Vue.filter('formatDate', function (str, hmr) {
@@ -69,7 +70,7 @@
     })
 
     export default {
-        components: { WxcCountdown, WxcPopup },
+        components: { WxcCountdown, WxcPopup, preload },
         props: ['order', 'index'],
         data () {
             return {

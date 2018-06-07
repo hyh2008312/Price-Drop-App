@@ -18,7 +18,7 @@
                 <block-5 :logo="block5.items"></block-5>
             </cell>
             <cell ref="tab"></cell>
-            <header v-if="tabsItems.length > 0">
+            <header v-if="activity != false">
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
             <cell v-for="(item,index) in goods3">
@@ -73,7 +73,7 @@ export default {
             block5: {
                 items: []
             },
-            activity: [],
+            activity: false,
             tabsItems: [],
             goods3: [],
             showLoading: 'hide',
@@ -131,11 +131,11 @@ export default {
             this.isLoading = false
             this.init();
         },
-        async init () {
+        init () {
             this.getYXBanners()
             this.getActivity()
-            await this.getBlock4()
-            await this.getTabName()
+            this.getBlock4()
+            this.getTabName()
             this.getBlock5()
             if(this.tabKey == 'new') {
                 this.getNewGoods(true)
@@ -169,10 +169,10 @@ export default {
             })
         },
         getTabName () {
-            return this.tabsItems = TAB;
+            this.tabsItems = TAB;
         },
         getBlock4 () {
-            return this.$fetch({
+            this.$fetch({
                 method: 'GET',
                 name: 'promotion.get.list',
                 data: {}

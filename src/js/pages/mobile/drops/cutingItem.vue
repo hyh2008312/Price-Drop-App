@@ -4,8 +4,7 @@
             <div class="gb-box">
                 <div class="i-gd" @click="jumpCutDetail">
                     <div class="gd-bg">
-                        <image class="gd-img" resize="cover"
-                               :src="goods.mainImage"></image>
+                        <preload class="gd-img" :src="goods.mainImage"></preload>
                     </div>
                     <div class="gd-bg-right">
                         <text class="gd-tlt">{{goods.title}}</text>
@@ -76,10 +75,11 @@
 
 
 <script>
+    import preload from '../common/preloadImg';
     import { WxcCountdown } from 'weex-ui'
 
     export default {
-        components: { WxcCountdown },
+        components: { WxcCountdown, preload },
         props: ['goods', 'flag'],
         data () {
             return {
