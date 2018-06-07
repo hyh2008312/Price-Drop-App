@@ -30,7 +30,7 @@ export default {
                 this.iconSign = false
             }
 
-            this.$notice.toast({message: this.leftBtn})
+            // this.$notice.toast({message: this.leftBtn})
 
             if (this.leftBtn == '1') {
                 this.leftSign = true
