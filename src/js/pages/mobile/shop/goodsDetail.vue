@@ -1,10 +1,10 @@
 <template>
 
-    <div class="wrapper" @touchstart="ontouchstart" @touchmove="ontouchmove" @touchend="ontouchend"  >
-        <topic-header ref="ref1" ></topic-header>
+    <div class="wrapper" >
+        <topic-header ref="ref1" :style="{opacity:opacity}"></topic-header>
         <div class="blackheader"></div>
 
-        <scroller class="main-list" @scroll="scrollHandler"   offset-accuracy="300px">
+        <scroller class="main-list" @scroll="scrollHandler"  offset-accuracy="10px">
 
             <div style="background-color: white" >
 
@@ -107,8 +107,6 @@
                 <text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>
             </div>
         </scroller>
-
-
 
         <wxc-popup :have-overlay="isTrue"
                    popup-color="rgb(255, 255, 255)"
@@ -237,7 +235,19 @@
                 positionY: 0,
                 deltaX: 0,
                 deltaY: 0,
-                user: null
+                user: null,
+                opacity: 0
+            }
+        },
+        computed: {
+            opacity: {
+                get: function () {
+                    return this.opacity
+                },
+
+                set: function (v) {
+                    this.opacity = v
+                }
             }
         },
         created () {
@@ -506,72 +516,20 @@
                     type: 'PUSH'
                 })
             },
-            ontouchstart (event) {
-                this.positionX = event.changedTouches[0].screenX;
-                this.positionY = event.changedTouches[0].screenY;
-            },
-            ontouchmove (event) { //  touchmove 实现 判断上移 还是下移
-                const moveX = event.changedTouches[0].screenX;
-                const moveY = event.changedTouches[0].screenY;
-                this.deltaX = moveX - this.positionX;
-                this.deltaY = moveY - this.positionY;
-                // this.$notice.toast({
-                //     message: this.deltaY
-                // })
-                if (this.deltaY > 0 && Math.abs(this.deltaY) > Math.abs(this.deltaX) && this.topval == '1') {
-
-                    // this.headerShow = true
+            scrollHandler (e) {
+                if (Math.abs(e.contentOffset.y) >= 112) {
+                   this.opacity = (Math.abs(e.contentOffset.y) - 112) / 200 > 1 ? 1 : (Math.abs(e.contentOffset.y) - 112) / 200
+                } else {
+                   this.opacity = 0
                 }
-                if (this.deltaY < -100 && Math.abs(this.deltaY) > Math.abs(this.deltaX)) {
-                    this.headerShow = false;
-                }
-                // this.$notice.toast({
-                //     message: event.changedTouches[0].screenY
-                // })
-            },
-            ontouchend (event) {
-                this.positionX = 0;
-                this.positionY = 0;
-                this.deltaX = 0;
-                this.deltaY = 0
-            },
-            scrollHandler (e) { //  scroller 滚动函数 通过动画实现的
-                console.log(e.direction);
-
-               if (e.contentOffset.y >= -10) {
-                   animation.transition(this.$refs.ref1, {
-                       styles: {
-                           opacity: '0',
-                           height: '148px'
-
-                       },
-                       duration: 200, // ms
-                       timingFunction: 'linear',
-                       needLayout: false,
-                       delay: 0 // ms
-                   });
-                   this.topval = '1'
-               } else {
-                   animation.transition(this.$refs.ref1, {
-                       styles: {
-                           opacity: '1',
-                           height: '148px'
-                       },
-                       duration: 200, // ms
-                       timingFunction: 'linear',
-                       needLayout: false,
-                       delay: 0 // ms
-                   });
-                   this.topval = '2'
-               }
-               if (Math.abs(e.contentOffset.y) > 1200) {
-                   // this.$notice.toast({
-                   //     message: '55555'
-                   // });
+                if (Math.abs(e.contentOffset.y) > 1200) {
+                    // this.$notice.toast({
+                    //     message: '55555'
+                    // });
                     this.tabshow = true
-               } else if (Math.abs(e.contentOffset.y) < 1100) {
-                   this.tabshow = false
-               }
+                } else if (Math.abs(e.contentOffset.y) < 1100) {
+                    this.tabshow = false
+                }
             },
             onTabTo (key) {
                 if (key.data.key == 'dec') {
