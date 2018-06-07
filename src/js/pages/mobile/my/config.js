@@ -67,18 +67,18 @@ export const ReturnsQA = [{
 
 }, {
     question: 'How do I return an item?',
-    answer: 'Step 1: Send your return request to support@getpricedrop.com along with your order number and the name of the item you want to return.\n' +
-    'Step 2: Our customer service will send you a RAN (Return Authorization Number) within 24 hours.\n' +
-    'Step 3: Pack up the item you want to return and send it back to our warehouse (address in the email with RAN). \n' +
-    'Step 4: Once our warehouse receives the return package, we will issue the refund within 3 business days.\n' +
+    answer: 'Step 1:\nSend your return request to support@getpricedrop.com along with your order number and the name of the item you want to return.\n' +
+    'Step 2:\nOur customer service will send you a RAN (Return Authorization Number) within 24 hours.\n' +
+    'Step 3:\nPack up the item you want to return and send it back to our warehouse (address in the email with RAN). \n' +
+    'Step 4:\nOnce our warehouse receives the return package, we will issue the refund within 3 business days.' +
     '\n' +
     'Please note that any returned items must be in resalable condition. Item that arrived damaged will not be eligible for refund.'
 
 }, {
     question: 'Who is responsible for the return shipping? ',
-    answer: 'If the return is caused by PriceDrop’s error, we will refund return shipping costs up to a certain amount. You will need to pay the carrier at the time of shipping and ask for a payment receipt. The return shipping costs will be covered along with the refund. \n' +
-    'If the return is not caused by PriceDrop’s error, you will need to pay for the return shipping fee. \n' +
-    'We recommend that you choose a local carrier with a cheaper price for return shipping. \n'
+    answer: 'If the return is caused by PriceDrop’s error, we will refund return shipping costs up to a certain amount. You will need to pay the carrier at the time of shipping and ask for a payment receipt.\n' +
+    '\nThe return shipping costs will be covered along with the refund. \n' +
+    '\nIf the return is not caused by PriceDrop’s error, you will need to pay for the return shipping fee.We recommend that you choose a local carrier with a cheaper price for return shipping. \n'
 
 }, {
     question: 'How long does it take to receive the refund?',

@@ -22,7 +22,7 @@
         <div class="header"  v-if="user==null" @click="openMydetail(2)">
             <div class="no-login">
                 <text class="">Welcome!</text>
-                <text class="no-login-text"> Log in </text>
+                <text class="no-login-text">Log In / Sign Up</text>
             </div>
         </div>
 
@@ -176,13 +176,20 @@ export default {
         },
         openCell (type) {
             if (type == 0) {
-                this.$router.open({
-                    name: 'my.setting',
-                    type: 'PUSH',
-                    params: {
-                        params: this.token
-                    }
-                })
+                if (this.user == null) {
+                    this.$router.open({
+                        name: 'login',
+                        type: 'PUSH'
+                    })
+                } else {
+                    this.$router.open({
+                        name: 'my.setting',
+                        type: 'PUSH',
+                        params: {
+                            params: this.token
+                        }
+                    })
+                }
             } else if (type == 1) {
                this.$router.open({
                    name: 'my.support',

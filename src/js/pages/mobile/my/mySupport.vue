@@ -10,7 +10,9 @@
 
                 <div style="margin-bottom: 16px"><text class="text-word">If you have any questions about drops, orders, shipping or return policy, we recommend you to check our FAQ first. If you still can’t find an answer, please send your questions to: </text><text class="haveline text-word-no" style="font-weight: 700">support@getpricedrop.com.</text></div>
 
-                <div><text class="text-word">If you want to return an item for a full refund, please send your return request to</text><text class="haveline text-word-no">support@getpricedrop.com</text> <text class="text-word">along with your order number and the name of the item you want to return.</text></div>
+                <div>
+                    <text class="text-word">If you want to return an item for a full refund, please send your return request to</text></div>
+                    <div><text value="support@getpricedrop.com" class="haveline text-word-no"></text><text>along with your order number and the name of the item you want to return.</text> </div>
             </div>
 
         </div>

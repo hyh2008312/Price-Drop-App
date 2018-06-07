@@ -300,6 +300,22 @@
                    this.tabshow = false
                }
             },
+            openShip (e) {
+                if (e == 1) {
+                    this.$router.open({
+                        name: 'goods.ship',
+                        type: 'PUSH'
+                    })
+                } else {
+                    this.$router.open({
+                        name: 'goods.ship',
+                        type: 'PUSH',
+                        params: {
+                            time: this.shipObj
+                        }
+                    })
+                }
+            },
             onTabTo (key) {
                 if (key.data.key == 'dec') {
                     const el = this.$refs.dec
