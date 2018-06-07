@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrapper">
         <div ref="notice" v-if="activeIndex == index">
             <div class="inner-container" v-for="message in items">
                 <div class="header">
@@ -93,6 +93,12 @@
 <style scoped>
     .iconfont {
         font-family: iconfont;
+    }
+
+    .wrapper{
+        width: 718px;
+        height: 96px;
+        overflow: hidden;
     }
 
     .inner-container{
