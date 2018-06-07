@@ -166,7 +166,7 @@
             },
             countOff (s, o) {
                 if (o > 0) {
-                    return Math.floor((o - s) / o * 100) + '%off'
+                    return Math.floor((o - s) / o * 100) + '% OFF'
                 } else {
                     return ''
                 }

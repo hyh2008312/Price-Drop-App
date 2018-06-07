@@ -3,7 +3,7 @@
         <div class="gb-box">
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="order.lines[0].mainImage || src"></image>
+                    <preload class="gd-img" resize="cover" :src="order.lines[0].mainImage"></preload>
                 </div>
                 <div class="gd-bg-right">
                     <text class="gd-tlt">{{order.lines[0].title}}</text>
@@ -35,13 +35,12 @@
     </div>
 </template>
 <script>
+    import preload from '../common/preloadImg';
     export default {
-        props: ['order'],
-        data () {
-            return {
-                src: 'bmlocal://assets/occupy.png'
-            }
+        components: {
+            preload
         },
+        props: ['order'],
         methods: {
             jumpWeb () {
                 // if (!url) return;

@@ -21,8 +21,7 @@
             </div>
             <div class="wrapper-product" @click="openDetail()">
                 <div class="product-image">
-                    <image class="product-image-in" resize="cover"
-                           :src="goodsDetail.mainImage"></image>
+                    <preload class="product-image-in" :src="goodsDetail.mainImage"></preload>
                 </div>
                 <div class="product-content">
                     <text class="product-content-name">{{goodsDetail.title}}</text>
@@ -195,8 +194,9 @@
     </div>
 </template>
 <script>
-    import { WxcCountdown, WxcPopup, WxcMask } from 'weex-ui'
-    import ShareUrlUtil from '../utils/ShareUtil'
+    import { WxcCountdown, WxcPopup, WxcMask } from 'weex-ui';
+    import preload from '../common/preloadImg';
+    import ShareUrlUtil from '../utils/ShareUtil';
 
     const shareModule = weex.requireModule('ShareModule');
     import { baseUrl } from '../../../config/apis'
@@ -204,7 +204,8 @@
         components: {
             WxcCountdown,
             WxcPopup,
-            WxcMask
+            WxcMask,
+            preload
         },
         eros: {
             appeared (params, options) {

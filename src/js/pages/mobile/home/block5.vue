@@ -3,14 +3,18 @@
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
             <div class="i-good" v-for="i in logo" @click="jumpActivity(i)">
                 <div class="gd-bg">
-                    <image class="gd-img" resize="cover" :src="i.logo"></image>
+                    <preload class="gd-img" :src="i.logo"></preload>
                 </div>
             </div>
         </scroller>
     </div>
 </template>
 <script>
+import preload from '../common/preloadImg';
 export default {
+    components: {
+        preload
+    },
     props: ['logo'],
     methods: {
         jumpActivity (item) {

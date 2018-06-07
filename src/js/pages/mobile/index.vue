@@ -21,7 +21,7 @@ export default {
         }
     },
     eros: {
-         beforeAppear (params) {
+        beforeAppear (params) {
             this.refreshToken()
             this.getState()
         },
@@ -129,10 +129,6 @@ export default {
                         isLoginPop: true
                     }
                 }).then(data => {
-                    this.$notice.toast({
-                        message: data
-                    })
-
                     this.$storage.set('token', {
                         tokenType: data.token_type,
                         scope: data.scope,

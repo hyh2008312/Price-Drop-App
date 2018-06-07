@@ -1,8 +1,8 @@
 <template>
     <div class="wrapper">
-        <text class="i-c" v-for="(item,index) in channelList"
+        <text class="i-c" v-for="(item,index) in channelList" :key="item.id"
               :class="[ activeIndex == index ? 'c-act' : '']"
-              @click="chooseChannel(index,item)">{{item.name}}</text>
+              @click="chooseChannel(index, item)">{{item.name}}</text>
         <div ref="jcLine" class="j-uline"></div>
     </div>
 </template>
@@ -34,7 +34,11 @@
         methods: {
             chooseChannel (index, channel) {
                 this.activeIndex = index
-                this.$emit('change', index)
+                this.$emit('change', {
+                    data: {
+                        index: index
+                    }
+                })
             },
             changeRect (index) {
                 const item = this.channelList[index]

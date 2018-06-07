@@ -4,7 +4,7 @@
             <div class="i-gd"  @click="jumpWeb()">
                 <div class="gd-bg">
                     <div class="gd-img">
-                        <image class="gd-img-image" resize="cover" :src="goods.mainImage || src"></image>
+                        <preload class="gd-img-image" :src="goods.mainImage"></preload>
                     </div>
                 </div>
                 <div class="gd-bg-right">
@@ -21,7 +21,12 @@
     </div>
 </template>
 <script>
+import preload from '../common/preloadImg';
+
 export default {
+    components: {
+        preload
+    },
     props: ['goods', 'tab'],
     data () {
         return {
@@ -113,6 +118,7 @@ export default {
     height: 284px;
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
 }
 
 .gd-tlt {
