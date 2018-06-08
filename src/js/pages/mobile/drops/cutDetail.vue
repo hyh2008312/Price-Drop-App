@@ -240,11 +240,11 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = (that.goodsDetail.cutGet == null ? 0 : that.goodsDetail.cutGet) + ' got the lowest price here.';
+                const detail = '1,000+ got the lowest price here.';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
-                    'Come help me drop the price together!', detail, url, imageUrl,
+                    'Come help me drop the price before it sells out!', detail, url, imageUrl,
                     function (param) {
                         that.popupOverlayAutoClick();
                     }, function (param) {
@@ -254,11 +254,11 @@
             },
             shareFacebookMessenger() {
                 const that = this;
-                const detail = (that.goodsDetail.cutGet == null ? 0 : that.goodsDetail.cutGet) + ' got the lowest price here.';
+                const detail = '1,000+ got the lowest price here.';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebookMessenger(
-                    'Come help me drop the price together!', detail, url, imageUrl,
+                    'Come help me drop the price before it sells out!', detail, url, imageUrl,
                     function (param) {
                         that.popupOverlayAutoClick();
                     }, function (param) {
@@ -284,6 +284,9 @@
                 }).then(data => {
                     this.goodsDetail = data;
                     this.percentage = (data.salePrice - data.currentPrice) / (data.salePrice - data.lowestPrice);
+                    if (this.percentage < 0.05) {
+                        this.percentage = 0.05
+                    }
                     this.distance = this.percentage * 606 - 30;
                     if (this.distance > 450) {
                         this.distance = 450;

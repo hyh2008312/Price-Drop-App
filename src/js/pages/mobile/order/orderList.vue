@@ -7,7 +7,7 @@
                             @cancel="cancel" @deleteOrder="deleteOrder"></order-item>
             </cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
-                <text class="indicator">加载中...</text>
+                <text class="indicator">Loading...</text>
             </loading>
         </list>
         <div class="container-1" v-if="order.length == 0">
@@ -85,8 +85,10 @@
     import refresher from '../common/refresh';
     import orderItem from './orderItem';
     import payRadio from './radio';
-    import { TOKEN, PAYLIST, ORDERSTATUS, CANCELREASON } from './config';
+    import {PAYLIST, ORDERSTATUS, CANCELREASON} from './config';
     import { baseUrl } from '../../../config/apis';
+
+    const payTm = weex.requireModule('PayModule');
 
     export default {
         components: {
@@ -160,7 +162,8 @@
                 isDeleteShow: false,
                 deleteId: -1,
                 deleteIndex: 0,
-                hasAnimation: true
+                hasAnimation: true,
+                payOrder: {}
             }
         },
         methods: {
@@ -229,9 +232,7 @@
                 this.$refs.refresh.refreshEnd();
             },
             pay ($event) {
-                // this.$notice.toast({
-                //     message: $event
-                // })
+                this.payOrder = $event.data.item;
                 this.isBottomShow = true
             },
             popupOverlayAutoClick () {
@@ -247,10 +248,18 @@
                 this.payList = [...PAYLIST]
             },
             payResult () {
-                this.$router.open({
-                    name: 'order.failure',
-                    type: 'PUSH'
-                })
+                const that = this
+                payTm.startPayRequest(this.payOrder.title, '', this.payOrder.mainImage,
+                    that.payOrder.currentPrice * 100, '', '', function (param) {
+                        that.$notice.alert(JSON.stringify(param))
+                    }, function (param) {
+                        that.$notice.alert(JSON.stringify(param))
+                        that.$router.finish()
+                        that.$router.open({
+                            name: 'order.failure',
+                            type: 'PUSH',
+                        })
+                    });
             },
             popupCancelAutoClick () {
                 this.isCancelBottomShow = false
@@ -275,7 +284,7 @@
                         reason: this.reason[this.reasonActive]
                     },
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        needAuth: true
                     }
                 }).then(resData => {
                     this.$notice.toast('Your order cancellation request has been submitted for review.')
@@ -301,7 +310,7 @@
                     url: `${baseUrl}/order/customer/cancel/${this.deleteId}/`,
                     data: {},
                     header: {
-                        Authorization: 'Bearer ' + TOKEN
+                        needAuth: true
                     }
                 }).then(resData => {
                     this.$notice.toast(this.deleteIndex)

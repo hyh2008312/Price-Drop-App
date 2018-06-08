@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.benmu.drop.activity.bean.AppDto;
 import com.benmu.drop.activity.bean.LoginDto;
 import com.benmu.drop.utils.CommonUtils;
 import com.benmu.framework.activity.AbstractWeexActivity;
@@ -99,13 +100,18 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
     // 支付成功
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
-        paySuccessCallback.invoke(new Object());
+        AppDto add = new AppDto() ;
+        add.setVersionName(razorpayPaymentID);
+        paySuccessCallback.invoke(add);
     }
 
     // 支付失败
     @Override
     public void onPaymentError(int code, String response) {
-        payFailedCallback.invoke(new Object());
+        AppDto add = new AppDto() ;
+        add.setCode(code);
+        add.setVersionName(response);
+        payFailedCallback.invoke(add);
     }
 
     public void startPayment(String name, String description, String image, String amount, String email, String contact) {
@@ -123,7 +129,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             //You can omit the image option to fetch the image from dashboard
             options.put("image", image);
             options.put("currency", "INR");
-            options.put("amount", amount);
+            options.put("amount", 100);
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", email);
@@ -133,7 +139,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
 
             co.open(activity, options);
         } catch (Exception e) {
-            payFailedCallback.invoke(new Object());
+            payFailedCallback.invoke(e);
             Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
                     .show();
             e.printStackTrace();
