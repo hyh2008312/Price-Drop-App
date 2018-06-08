@@ -24,9 +24,6 @@ export const apis = {
 }
 // export const clientId = 'DwxjQEhITops8cWU6OcWmCY963XyKuQgkgjdTWRM';
 // export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';
-// export const baseUrl = 'http://47.104.171.91';
-// export const baseUrl = 'http://149.129.135.114';
-export const mediaUrl = 'http://p92s1j3q5.sabkt.gdipper.com/';
 
 // 正式
 export const baseUrl = 'https://app-api.getpricedrop.com';

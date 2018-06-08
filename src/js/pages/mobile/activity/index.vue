@@ -54,12 +54,12 @@
                 name: '',
                 id: -1,
                 imageUrl: '',
-                testImage: 'http://yanxuan.nosdn.127.net/5100f0176e27a167cc2aea08b1bd11d8.jpg',
+                testImage: '',
                 goods: [],
                 length: 2,
                 page: 1,
                 pageSize: 6,
-                src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png',
+                src: '',
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid()
             }

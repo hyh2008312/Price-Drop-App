@@ -40,14 +40,6 @@
             icon: { default: '' },
             backgroundColor: { default: '#ffffff' }
         },
-        beforeCreate: function () {
-            const domModule = weex.requireModule('dom');
-
-            domModule.addRule('fontFace', {
-                'fontFamily': 'iconfont-socialcommer',
-                'src': 'url(\'http://at.alicdn.com/t/font_568686_dxffcu5dfpy9o1or.ttf\')'
-            });
-        },
         methods: {
             onclickitem (e) {
                 const params = {

@@ -5,10 +5,6 @@
 //  dev.json 的 exports 需要打包的js地址，填入src的需要被打包成js bundle的地址   从src开始
 
 export default {
-    'a': {
-        title: '路由测试页',
-        url: '/pages/mobile/shop/a.js'
-    },
     'mobile': {
         url: '/pages/mobile/index.js'
     },

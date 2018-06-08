@@ -74,7 +74,7 @@
         },
         data () {
            return {
-               src: 'http://yanxuan.nosdn.127.net/885e3901d0a3501362530435d76bebb3.jpg',
+               src: 'bmlocal://assets/default.png',
                name: '',
                gender: '',
                selgender: 'Select Gender',

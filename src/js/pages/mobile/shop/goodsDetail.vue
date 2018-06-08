@@ -254,10 +254,7 @@
                 if (id) {
                     this.$fetch({
                         method: 'GET',
-                        // url: 'http://47.104.171.91/product/customer/detail/135/',
-                        // url: 'http://149.129.135.114/product/customer/detail/' + id.id + '/',
                         url: `${baseUrl}/product/customer/detail/${id.id}/`,
-                        // name: 'product.customer.list',
                         data: {}
                     }).then((res) => {
                             this.goods.title = res.title;

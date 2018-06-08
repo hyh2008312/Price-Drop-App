@@ -7,7 +7,7 @@ const utilFunc = {
         const domModule = weex.requireModule('dom');
         domModule.addRule('fontFace', {
             'fontFamily': 'iconfont',
-            'src': 'url(\'http://at.alicdn.com/t/font_568686_x83jj5wcy0fkzkt9.ttf\')'
+            'src': 'url(\'https://at.alicdn.com/t/font_568686_x83jj5wcy0fkzkt9.ttf\')'
         });
     },
     setBundleUrl (url, jsFile) {
@@ -32,7 +32,7 @@ const utilFunc = {
             if (matchFirstPath && matchFirstPath.length >= 2) {
                 path = matchFirstPath[1];
             }
-            nativeBase = 'http://' + host + '/';
+            nativeBase = 'https://' + host + '/';
         }
         const h5Base = './index.html?page=';
         // in Native

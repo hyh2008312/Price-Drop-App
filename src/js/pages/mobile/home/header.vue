@@ -11,12 +11,6 @@
     export default {
         methods: {
             jumpWeb (_url) {
-                /* if (!_url) _url = 'http://m.you.163.com/search';
-                 this.$router.toWebView({
-                     url: _url,
-                     title: '',
-                     navShow: true
-                 })*/
                 this.$router.open({
                     name: 'mobile.activity',
                     type: 'PUSH'

@@ -1,10 +1,10 @@
 export const BLOCK1 = {
     title: '品牌制造商直供',
-    url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100',
+    url: '',
     items: [{
             username: 'Sahana',
-            avatar: 'http://p92s1j3q5.sabkt.gdipper.com/144.jpeg',
-            url: 'http://m.you.163.com/item/manufacturer?tagId=1001003&page=1&size=100'
+            avatar: '',
+            url: ''
         }
     ]
 };
