@@ -30,7 +30,7 @@ import refresher from '../common/refresh';
 import tab from './tabCategory';
 import block3 from './block3';
 import block4 from './block4';
-import { BLOCK1, TABCAT } from './config';
+import { TABCAT } from './config';
 
 const dom = weex.requireModule('dom');
 

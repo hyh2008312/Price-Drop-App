@@ -28,7 +28,6 @@
     import refresher from '../common/refresh';
     import tabTitle from './tabTitle';
     import cutingItem from './cutingItem';
-    import cutEndItem from './cutEndItem';
     import { TAB } from './config'
     import { Utils, WxcLoading } from 'weex-ui';
 
@@ -37,7 +36,6 @@
             'refresher': refresher,
             'cutTab': tabTitle,
             cutingItem,
-            cutEndItem,
             WxcLoading
         },
         eros: {

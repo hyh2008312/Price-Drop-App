@@ -74,7 +74,7 @@
         },
         data () {
            return {
-               src: 'bmlocal://assets/default.png',
+               src: '',
                name: '',
                gender: '',
                selgender: 'Select Gender',
