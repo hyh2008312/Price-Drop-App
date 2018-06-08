@@ -176,20 +176,13 @@ export default {
         },
         openCell (type) {
             if (type == 0) {
-                if (this.user == null) {
-                    this.$router.open({
-                        name: 'login',
-                        type: 'PUSH'
-                    })
-                } else {
-                    this.$router.open({
-                        name: 'my.setting',
-                        type: 'PUSH',
-                        params: {
-                            params: this.token
-                        }
-                    })
-                }
+                this.$router.open({
+                    name: 'my.setting',
+                    type: 'PUSH',
+                    params: {
+                        params: this.token
+                    }
+                })
             } else if (type == 1) {
                this.$router.open({
                    name: 'my.support',
