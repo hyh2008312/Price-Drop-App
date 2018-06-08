@@ -132,7 +132,7 @@
             android:name="com.benmu.erosplugingt.GTPushReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
+                <action android:name="com.igexin.sdk.act6ion.${GETUI_APP_ID}"/>
             </intent-filter>
         </receiver>
         <!-- 个推SDK配置结束 -->
@@ -152,7 +152,7 @@
         <!--支付相关-->
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_HAkndqy63RZO4s"
+            android:value="rzp_live_S1L7BaoXwjfcux"
             />
 
     </application>

@@ -9,10 +9,10 @@ import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.UmengTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
-
 /**
  * @author luzhenqiang
  * @desc js与android 分享之间的交互
@@ -35,6 +35,7 @@ public class ShareModule extends WXModule {
                               JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
         this.facebookSuccessCallback = jsSuccessCallback;
         this.facebookFailedCallback = jsFailedCallback;
+       // UmengTool.getSignature(mWXSDKInstance.getContext());
         UMWeb web = new UMWeb(Url);
         web.setTitle(title);//标题
         web.setThumb(new UMImage(mWXSDKInstance.getContext(),imageUrl));  //缩略图
