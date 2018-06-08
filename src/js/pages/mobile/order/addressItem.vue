@@ -35,7 +35,6 @@
 </template>
 <script>
     import line from './orderDetailLine';
-    import { TOKEN } from './config';
     import { baseUrl } from '../../../config/apis';
 
     export default {

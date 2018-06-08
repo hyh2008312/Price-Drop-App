@@ -28,7 +28,6 @@ import trackingPackageHeader from './trackingPackageHeader';
 import trackingPackageItem from './trackingPackageItem';
 import { Utils } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
-import { TOKEN } from './config';
 
 export default {
     components: {
@@ -76,7 +75,7 @@ export default {
                 method: 'GET', // 大写
                 url: `${baseUrl}/order/tracking/${this.id}/`,
                 header: {
-                    Authorization: 'Bearer ' + TOKEN
+                    needAuth: true
                 }
             }).then(resData => {
                 // 成功回调

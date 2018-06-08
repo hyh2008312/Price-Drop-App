@@ -6,7 +6,6 @@
     </div>
 </template>
 <script>
-    import { TOKEN } from './config';
     import { baseUrl } from '../../../config/apis';
 
     export default {

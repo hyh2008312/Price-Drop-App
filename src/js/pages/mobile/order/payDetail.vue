@@ -66,7 +66,7 @@ import orderDetailItem from './orderDetailItem';
 import orderDetailBottom from './orderDetailBottom';
 import orderDetailNumber from './orderDetailNumber';
 import { Utils, WxcPopup, WxcMask } from 'weex-ui';
-import { TOKEN, ORDERDETAIL, CANCELREASON } from './config';
+import { ORDERDETAIL, CANCELREASON } from './config';
 import { baseUrl } from '../../../config/apis';
 
 export default {
@@ -175,7 +175,7 @@ export default {
                 url: `${baseUrl}/order/customer/cancel/${this.order.id}/`,
                 data: {},
                 header: {
-                    Authorization: 'Bearer ' + TOKEN
+                    needAuth: true
                 }
             }).then(resData => {
                 this.$router.setBackParams({
