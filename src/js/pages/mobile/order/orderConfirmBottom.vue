@@ -28,9 +28,13 @@
                 }).then(resData => {
                     pay.startPayRequest(this.order.title, '', this.order.mainImage,
                         this.order.currentPrice * 100, '', '', function (param) {
-                            that.$notice.alert(JSON.stringify(param))
+                            that.$notice.alert({
+                                message: JSON.stringify(param)
+                            })
                         }, function (param) {
-                            that.$notice.alert(JSON.stringify(param))
+                            that.$notice.alert({
+                                message: JSON.stringify(param)
+                            })
                             /* that.$router.finish()
                             that.$router.open({
                                 name: 'order.failure',
