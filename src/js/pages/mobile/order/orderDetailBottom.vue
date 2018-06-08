@@ -32,21 +32,21 @@
         methods: {
             confirm () {
                 const that = this
-                pay.startPayRequest('goods title', 'description', '//res.cloudinary.com/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/v1/1128882/logo-02_2_cegiu2.png',
-                    '200', 'luzhenqiang123@gmail.com', '18232593291', function (param) {
-                        this.$router.open({
-                            name: 'order.success',
-                            type: 'PUSH'
-                        })
+                pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
+                    this.order.paymentAmount * 100, '', '', function (param) {
+                        // that.$router.open({
+                        //     name: 'order.success',
+                        //     type: 'PUSH'
+                        // })
                     }, function (param) {
-                        that.$router.finish()
-                        that.$router.open({
-                            name: 'order.failure',
-                            type: 'PUSH',
-                            params: {
-                                source: 'confirm'
-                            }
-                        })
+                        // that.$router.finish()
+                        // that.$router.open({
+                        //     name: 'order.failure',
+                        //     type: 'PUSH',
+                        //     params: {
+                        //         source: 'confirm'
+                        //     }
+                        // })
                     });
             },
             jumpHome () {
