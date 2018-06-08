@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" @Appear="appear">
+    <div class="wrapper">
         <div ref="notice" v-if="activeIndex == index">
             <div class="inner-container" v-for="message in items">
                 <div class="header">
@@ -53,17 +53,15 @@
                         delay: 0
                     }, function (result) {
                         that.isOnAni = false
-                        if (result.result == 'Fail') {} else {
-                            if (e < that.items.length - 1) {
-                                e++;
-                                if (e == that.items.length - 1) {
-                                    that.$emit('noticeFinished', {
-                                        status: 'finished'
-                                    })
-                                    return
-                                }
-                                that.aniNotice(e)
+                        if (e < that.items.length - 1) {
+                            e++;
+                            if (e == that.items.length - 1) {
+                                that.$emit('noticeFinished', {
+                                    status: 'finished'
+                                })
+                                return
                             }
+                            that.aniNotice(e)
                         }
                     });
                 }
@@ -82,9 +80,7 @@
                         delay: 0
                     }, function (result) {
                         that.isOnAni = false
-                        if (result.result == 'Fail') {} else {
-                            that.init()
-                        }
+                        that.init()
                     })
                 }
             },
