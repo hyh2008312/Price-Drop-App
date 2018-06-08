@@ -22,6 +22,7 @@
             </div>
             <text class="address-title">There is no drop to show.</text>
         </div>
+        <wxc-loading :show="isShow"></wxc-loading>
     </div>
 </template>
 <script>
@@ -124,6 +125,7 @@
                             needAuth: true
             }}
             ).then(data => {
+                    this.isShow = false;
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
@@ -154,6 +156,7 @@
                     }
 
                 }).then(data => {
+                    this.isShow = false;
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
