@@ -41,7 +41,7 @@ import block2 from './block2';
 import block3 from './block3';
 import block4 from './block4';
 import block5 from './block5';
-import { BLOCK1, TAB, BLOCK4 } from './config';
+import { TAB } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
