@@ -34,19 +34,13 @@
                 const that = this
                 pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
                     this.order.paymentAmount * 100, '', '', function (param) {
-                        // that.$router.open({
-                        //     name: 'order.success',
-                        //     type: 'PUSH'
-                        // })
+                        that.$notice.alert({
+                            message: param
+                        })
                     }, function (param) {
-                        // that.$router.finish()
-                        // that.$router.open({
-                        //     name: 'order.failure',
-                        //     type: 'PUSH',
-                        //     params: {
-                        //         source: 'confirm'
-                        //     }
-                        // })
+                        that.$notice.alert({
+                            message: param
+                        })
                     });
             },
             jumpHome () {

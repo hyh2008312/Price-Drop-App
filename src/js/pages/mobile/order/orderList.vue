@@ -233,7 +233,18 @@
             },
             pay ($event) {
                 this.payOrder = $event.data.item;
-                this.isBottomShow = true
+                // this.isBottomShow = true
+                const that = this
+                payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
+                    this.payOrder.paymentAmount * 100, '', '', function (param) {
+                        that.$notice.alert({
+                            message: param
+                        })
+                    }, function (param) {
+                        that.$notice.alert({
+                            message: param
+                        })
+                    });
             },
             popupOverlayAutoClick () {
                 this.isBottomShow = false;
@@ -248,18 +259,6 @@
                 this.payList = [...PAYLIST]
             },
             payResult () {
-                const that = this
-                payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
-                    this.payOrder.paymentAmount * 100, '', '', function (param) {
-                        that.$notice.alert(JSON.stringify(param))
-                    }, function (param) {
-                        that.$notice.alert(JSON.stringify(param))
-                        that.$router.finish()
-                        that.$router.open({
-                            name: 'order.failure',
-                            type: 'PUSH'
-                        })
-                    });
             },
             popupCancelAutoClick () {
                 this.isCancelBottomShow = false
