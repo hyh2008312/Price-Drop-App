@@ -8,7 +8,7 @@
         <text class="tlt">{{title}}</text>
         <div class="right">
             <text class="rightTxt" v-if="iconSign==true" @click="setting" >&#xe71e;</text>
-            <text class="rightTxt " v-else >{{rightBtn}}</text>
+            <text class="rightword " v-else @click="savedata">{{rightBtn}}</text>
         </div>
     </div>
 </template>

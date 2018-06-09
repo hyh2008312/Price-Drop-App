@@ -33,7 +33,7 @@
         </div>
 
 
-        <div class="bottom-btn" @click="logOut">
+        <div class="bottom-btn" @click="logOut" v-if="logsign==true">
             <text class="bottom-btn-txt">Logout</text>
         </div>
     </div>
@@ -50,11 +50,11 @@
         },
         eros: {
             appeared (params, options) {
-                // this.$notice.alert({
-                //     message: params
-                // })
                 if (params) {
                     this.params = params
+                    if (params.setsign == '1') {
+                        this.logsign = false
+                    }
                 }
             }
         },
@@ -64,6 +64,7 @@
         data () {
             return {
                 params: '',
+                logsign: true,
                 token: '',
                 client_id: '',
                 version: '1.0'
@@ -71,7 +72,10 @@
         },
         name: 'myDetail',
         methods: {
-            startGetAppVersion() {
+            startGetAppVersion () {
+                this.$notice.toast({
+                    message: this.params
+                })
                 const that = this
                 commonUtils.getAppVersionCode(function (params) {
                     if (params.code === 200) {

@@ -3,8 +3,8 @@
         <topic-header title="Me" leftBtn="icon" rightBtn="SAVE" @onsave="saveData" ref="ref1" ></topic-header>
 
         <div class="blackheader"></div>
-        <div class="mid-cell" @click="pickAndUpload">
-            <div class="box-tlt-fir ">
+        <div class="mid-cell" >
+            <div class="box-tlt-fir " @click="pickAndUpload">
                 <div class="box-left-fir">
                     <text class="box-txt">Photo</text>
                 </div>
@@ -12,21 +12,21 @@
                     <div class="i-photo-div">
                         <image  class="i-photo" resize="cover"  :src="src"></image>
                     </div>
-                    <text class="i-box-fir iconfont">&#xe626;</text>
+                    <text class="i-box iconfont">&#xe626;</text>
                 </div>
 
             </div>
 
-            <div class="box-tlt ">
+            <div class="box-tlt " @click="openName">
                 <div class="box-left">
                     <text class="box-txt">Name</text>
                 </div>
                 <!--<input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Edit Name" :value="this.name" @input="oninput" />-->
 
                 <div class="box-right">
-                    <text class="box-txt-left">Click to Edit</text>
+                    <text class="box-txt-left">{{fname}}{{lname}}</text>
 
-                    <text class="i-box-input iconfont">&#xe626;</text>
+                    <text class="i-box iconfont">&#xe626;</text>
                 </div>
 
             </div>
@@ -55,16 +55,24 @@
         name: 'myDetail',
         eros: {
             backAppeared (params, options) {
-                if (params) {
+                // this.$notice.alert({
+                //     message: params
+                // })
+                if (params.id) {
                     this.gender = params.id
                     this.selgender = params.id.title
+                } else if (params.name) {
+                    this.fname = params.name.fname
+                    this.lname = params.name.lname
                 }
             }
         },
         created () {
             this.$router.getParams().then(resData => {
                 this.src = resData.useravatar
-                this.name = resData.username
+                this.fname = resData.fname
+                this.lname = resData.lname
+
                 if (resData.usergender == 'F') {
                     this.selgender = 'Fale'
                 } else {
@@ -75,7 +83,8 @@
         data () {
            return {
                src: '',
-               name: '',
+               fname: '',
+               lname: '',
                gender: '',
                selgender: 'Select Gender',
                defalutgender: ''
@@ -138,17 +147,12 @@
                     })
                 })
             },
-
-            oninput (event) {
-                this.name = event.value;
-            },
-            opentest (event) {
-            },
             saveData () {
                 const self = this
                 const params = {
                     avatar: this.src,
-                    firstName: this.name,
+                    firstName: this.fname,
+                    lastName: this.lname,
                     gender: this.gender.value
                 }
                 this.$fetch({
@@ -175,8 +179,18 @@
                     type: 'PUSH'
                 })
             },
+            openName () {
+                this.$router.open({
+                    name: 'my.name',
+                    type: 'PUSH',
+                    params: {
+                        fname: this.fname,
+                        lname: this.lname
+                    }
+                })
+            },
             setback (par) {
-                let self = this
+                const self = this
                 this.$router.back({
                     length: 1,
                     type: 'PUSH',
@@ -223,7 +237,7 @@
     }
     .i-box-fir{
         font-size: 20px;
-        padding-top: 44px;
+        padding-top: 25px;
         padding-right: 32px;
         padding-left: 16px;
         color: rgba(0,0,0,0.87);
@@ -238,7 +252,6 @@
     }
     .box-txt-left{
         font-family: ProximaNova-Regular;
-        padding-top: 30px;
         opacity: 0.54;
         font-size: 24px;
         color: rgba(0,0,0,0.87);
@@ -253,7 +266,6 @@
 
     .i-box {
         font-size: 20px;
-        padding-top: 34px;
         padding-right: 32px;
         padding-left: 16px;
         color: rgba(0,0,0,0.87);
@@ -277,6 +289,7 @@
     .box-right{
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
     }
     .input {
         width: 510px;
@@ -287,10 +300,8 @@
         color: #6a737d;
     }
     .i-photo-div{
-        background-color: #1da1f2;
         width: 68px;
         height: 68px;
-        margin-top: 25px;
         margin-left: 30px;
         border-radius: 64px;
     }

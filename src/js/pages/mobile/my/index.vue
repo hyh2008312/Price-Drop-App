@@ -12,7 +12,7 @@
                 <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
             </div>
             <div class="b-tlt">
-                <text class="i-name">{{nickname}}</text>
+                <text class="i-name">{{fname}}{{lname}}</text>
 
                 <text class="txt-tag">{{email}}</text>
             </div>
@@ -127,11 +127,14 @@ export default {
     data () {
         return {
             nickname: 'set nickname',
+            fname: '',
+            lname: '',
             email: 'google.gmail.com',
             img: 'bmlocal://assets/default.png',
             token: null,
             user: null,
-            gender: ''
+            gender: '',
+            setsign: ''
         }
     },
     methods: {
@@ -159,7 +162,8 @@ export default {
                     params: {
                         useravatar: this.img,
                         usergender: this.gender,
-                        username: this.nickname
+                        fname: this.fname,
+                        lname: this.lname
                     }
                 })
             } else if (type == 2) {
@@ -176,13 +180,25 @@ export default {
         },
         openCell (type) {
             if (type == 0) {
-                this.$router.open({
-                    name: 'my.setting',
-                    type: 'PUSH',
-                    params: {
-                        params: this.token
-                    }
-                })
+                if (this.user == null) {
+                    this.$router.open({
+                        name: 'my.setting',
+                        type: 'PUSH',
+                        params: {
+                            params: this.token,
+                            setsign: '1'
+                        }
+                    })
+                } else {
+                    this.$router.open({
+                        name: 'my.setting',
+                        type: 'PUSH',
+                        params: {
+                            params: this.token,
+                            setsign: '2'
+                        }
+                    })
+                }
             } else if (type == 1) {
                this.$router.open({
                    name: 'my.support',
@@ -227,12 +243,10 @@ export default {
         getUserData () {
             this.$event.on('setdetail', parmas => {
                 this.img = parmas.avatar
-                this.nickname = parmas.firstName
+                this.fname = parmas.firstName
+                this.lname = parmas.lastName
             })
             this.$storage.get('token').then(resData => {
-                // this.$notice.alert({
-                //     message: resData
-                // })
                 this.token = resData
                 if (this.token !== null) {
                     this.$fetch({
@@ -247,6 +261,8 @@ export default {
                         // })
 
                         this.nickname = res.firstName + res.lastName
+                        this.fname = res.firstName
+                        this.lname = res.lastName
                         this.img = res.avatar
                         this.gender = res.gender
                     }).catch((res) => {
