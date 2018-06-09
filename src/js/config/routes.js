@@ -44,6 +44,9 @@ export default {
     'my.setting': {
         url: '/pages/mobile/my/mySetting.js'
     },
+    'my.name': {
+        url: '/pages/mobile/my/myName.js'
+    },
     'order': {
         url: '/pages/mobile/order/index.js'
     },

@@ -58,7 +58,7 @@
         background-color: black;
     }
     .box-tlt {
-        height: 96px;
+        height: 100px;
         border-bottom-width: 3px;
         border-bottom-style: solid;
         border-bottom-color: rgba(0,0,0,0.08);
