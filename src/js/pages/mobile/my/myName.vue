@@ -76,9 +76,9 @@
             opentest (event) {
             },
             saveData () {
-                this.$notice.toast({
-                    message: 111
-                })
+                // this.$notice.toast({
+                //     message: 111
+                // })
                 const self = this
                 const params = {
                     fname: this.fname,
