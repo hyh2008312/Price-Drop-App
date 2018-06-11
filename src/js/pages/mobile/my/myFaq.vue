@@ -105,6 +105,7 @@
         justify-content: space-between;
     }
 
+
     .box-txt {
         font-family: iconfont;
         font-size: 28px;
