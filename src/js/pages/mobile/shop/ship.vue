@@ -41,7 +41,6 @@
     </div>
 </template>
 <script>
-    import moment from 'moment'
 
     export default {
         components: {
@@ -62,15 +61,15 @@
             return {
                 time: '',
                 aa: '',
-                ship: '',
+                ship: ''
             }
         },
         methods: {
             loginBack () {
                 this.$router.finish();
             },
-            formatDate (str) {
-                return moment(new Date(str)).format('MMMM Do YYYY')
+            formatDate () {
+                return ''
             }
         }
     }

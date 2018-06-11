@@ -47,7 +47,9 @@
                                 needAuth: true
                             }
                         }).then(resData => {
-                            that.$router.finish()
+                            that.$event.once('paysuccess', () => {
+                                that.init()
+                            });
                             that.$router.open({
                                 name: 'order.success',
                                 type: 'PUSH'
@@ -58,9 +60,12 @@
                             })
                         })
                     }, function (param) {
-                        that.$notice.alert({
-                            message: param
-                        })
+                        if (param.code != 0) {
+                            that.$router.open({
+                                name: 'order.failure',
+                                type: 'PUSH'
+                            })
+                        }
                     });
             },
             jumpHome () {

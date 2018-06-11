@@ -248,7 +248,9 @@
                                 needAuth: true
                             }
                         }).then(resData => {
-                            that.$router.finish()
+                            that.$event.once('paysuccess', () => {
+                                that.init()
+                            });
                             that.$router.open({
                                 name: 'order.success',
                                 type: 'PUSH'
@@ -258,7 +260,14 @@
                                 message: error
                             })
                         })
-                    }, function (param) {});
+                    }, function (param) {
+                        if (param.code != 0) {
+                            that.$router.open({
+                                name: 'order.failure',
+                                type: 'PUSH'
+                            })
+                        }
+                    });
             },
             popupOverlayAutoClick () {
                 this.isBottomShow = false;

@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "bui-weex": "^0.2.5",
+    "dayjs": "^1.6.7",
     "eros-cli": "^2.0.8-beta.1",
     "eros-widget": "^1.0.2-beta.1",
     "fsevents": "^1.2.3",
-    "moment": "^2.22.1",
     "weex-ui": "^0.6.3"
   },
   "devDependencies": {

@@ -27,4 +27,5 @@ export const apis = {
 
 // 正式
 export const baseUrl = 'https://app-api.getpricedrop.com';
+// export const baseUrl = 'http://149.129.135.114';
 export const cliendId = 'atAum5pHls5FGaGAeeIGcJ5p7ircWky8LKSRGOG9';

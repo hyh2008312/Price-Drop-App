@@ -62,6 +62,38 @@ const utilFunc = {
             }
         }
         return null;
+    },
+    formateDate (dateTimeStamp) {
+        const number = ['zero', 'a', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+        const now = new Date().getTime();
+        const diffValue = now - new Date(dateTimeStamp).getTime();
+        if (diffValue < 0) {
+            // 若日期不符则弹出窗口告之
+            // alert("结束日期不能小于开始日期！");
+            return 'now';
+        }
+        const minute = 1000 * 60;
+        const hour = minute * 60;
+        const day = hour * 24;
+        const month = day * 30;
+        const monthC = diffValue / month;
+        const weekC = diffValue / (7 * day);
+        const dayC = diffValue / day;
+        const hourC = diffValue / hour;
+        const minC = diffValue / minute;
+        let result = '';
+        if (monthC >= 1) {
+            result = number[parseInt(monthC)] + (parseInt(monthC) > 1 ? ' months' : ' month') + 'ago';
+        } else if (weekC >= 1) {
+            result = number[parseInt(weekC)] + (parseInt(weekC) > 1 ? ' weeks' : ' week') + ' ago';
+        } else if (dayC >= 1) {
+            result = number[parseInt(dayC)] + (parseInt(dayC) > 1 ? ' days' : ' day') + ' ago';
+        } else if (hourC >= 1) {
+            result = (parseInt(hourC) == 1 ? 'an' : (number[parseInt(hourC)] <= 10 ? number[parseInt(hourC)] : 'ten')) + (parseInt(hourC) > 1 ? ' hours' : ' hour') + ' ago';
+        } else if (minC >= 1) {
+            result = (parseInt(minC) <= 10 ? number[parseInt(minC)] : 'ten') + (parseInt(minC) > 1 ? ' minutes' : ' minute') + ' ago';
+        } else { result = 'just now'; }
+        return result;
     }
 };
 

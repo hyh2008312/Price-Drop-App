@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="gb-box">
             <div class="gb-top">
-                <text class="gb-date">{{order.created | formatDate('MMMM Do, YYYY hh:mm:ss')}}</text>
+                <text class="gb-date">{{order.created | formatDate('MMMM DD, YYYY hh:mm:ss')}}</text>
                 <text class="gb-status" v-if="order.orderStatus != 'Canceled' && order.orderStatus != 'Completed'">{{order.orderStatus == 'Audit canceled'? 'Packing':order.orderStatus}}</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Completed'">Delivered</text>
@@ -64,9 +64,9 @@
 <script>
     import preload from '../common/preloadImg';
     import { WxcCountdown, WxcPopup } from 'weex-ui';
-    import moment from 'moment'
+    import dayjs from 'dayjs'
     Vue.filter('formatDate', function (str, hmr) {
-        return moment(new Date(str)).format(hmr)
+        return dayjs(new Date(str)).format(hmr)
     })
 
     export default {

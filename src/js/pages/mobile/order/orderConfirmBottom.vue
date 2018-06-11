@@ -42,16 +42,32 @@
                                 }
                             }).then(resData => {
                                 that.$router.finish()
+                                that.$event.once('paySuccess', () => {
+                                    that.init()
+                                });
                                 that.$router.open({
                                     name: 'order.success',
-                                    type: 'PUSH'
+                                    type: 'PUSH',
+                                    params: {
+                                        source: 'confirm'
+                                    }
                                 })
                             }, error => {
                                 that.$notice.toast({
                                     message: error
                                 })
                             })
-                        }, function (param) {});
+                        }, function (param) {
+                            if (param.code != 0) {
+                                that.$router.open({
+                                    name: 'order.failure',
+                                    type: 'PUSH',
+                                    params: {
+                                        source: 'confirm'
+                                    }
+                                })
+                            }
+                        });
                 }, error => {
                     this.$notice.toast({
                         message: error

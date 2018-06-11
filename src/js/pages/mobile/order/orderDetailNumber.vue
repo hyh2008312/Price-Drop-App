@@ -4,14 +4,14 @@
             <div>
                 <text class="gb-txt">Order Number: {{order.number}}</text>
                 <text class="gb-txt gb-mt" v-if="order.paymentType">Payment Method: PayTM</text>
-                <text class="gb-txt gb-mt">Order Time: {{formatDate(order.created, 'MMMM Do, YYYY hh:mm:ss')}}</text>
+                <text class="gb-txt gb-mt">Order Time: {{formatDate(order.created, 'MMMM DD, YYYY hh:mm:ss')}}</text>
             </div>
             <text class="cy iconfont" @click="setNumber">&#xe708;</text>
         </div>
     </div>
 </template>
 <script>
-    import moment from 'moment';
+    import dayjs from 'dayjs';
     const clipboard = weex.requireModule('clipboard');
 
     export default {
@@ -23,10 +23,11 @@
         },
         methods: {
             formatDate (str, hmr) {
-                return moment(new Date(str)).format(hmr)
+                return dayjs(new Date(str)).format(hmr)
             },
             setNumber () {
                 clipboard.setString(this.order.number)
+                this.$notice.toast('Order number copied');
             }
         }
     }
