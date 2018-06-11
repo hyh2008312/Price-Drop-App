@@ -32,7 +32,7 @@
 
 
                 <div v-if="tabshow==true" style="position: sticky">
-                    <tab   @tabTo="onTabTo" :items="tabsItems"></tab>
+                    <tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>
                 </div>
 
             <div class="mid">
@@ -201,6 +201,7 @@
                     name: 'Return Policy',
                     key: 'policy'
                 }],
+                defaultTab: 'policy',
                 goodsVariants: [],
                 goodsType: {},
                 selsize: '',
@@ -542,6 +543,11 @@
                 } else if (Math.abs(e.contentOffset.y) < 1100) {
                     this.tabshow = false
                 }
+                if (e.contentSize.height + e.contentOffset.y < 1350) {
+                    this.defaultTab = 'policy'
+                } else {
+                    this.defaultTab = 'dec'
+                } // active tab
             },
             onTabTo (key) {
                 if (key.data.key == 'dec') {

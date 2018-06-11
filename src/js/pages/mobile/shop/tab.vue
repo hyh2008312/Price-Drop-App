@@ -1,29 +1,25 @@
 <template>
     <div class="wrapper">
         <div v-for="(i,index) in items" :key="index" class="tab-item" @click="tabTo(i.key)">
-            <text class="tab-txt" :class="[pIndexKey == i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
+            <text class="tab-txt" :class="[indexKey == i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
         </div>
     </div>
 </template>
 <script>
 export default {
     props: {
+        indexKey: {
+            type: String,
+            default: ''
+        },
         items: {
             type: Array
         }
     },
-    data () {
-        return {
-            pIndexKey: 'dec'
-        }
-    },
     methods: {
-        isTabActive (_c) {
-            return this.pIndexKey === _c ? 'bar-active' : ''
-        },
         tabTo (_key) {
-            if (this.pIndexKey == _key) return;
-            this.pIndexKey = _key;
+            if (this.indexKey == _key) return;
+            this.indexKey = _key;
             this.$emit('tabTo', {
                 status: 'tabTo',
                 data: {
