@@ -27,15 +27,35 @@
 </template>
 <script>
     const pay = weex.requireModule('PayModule');
+    import { baseUrl } from '../../../config/apis';
+
     export default {
         props: ['order'],
         methods: {
             confirm () {
                 const that = this
-                pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
+                pay.startPayRequest(this.order.id, this.order.lines[0].title, '', this.order.lines[0].mainImage,
                     this.order.paymentAmount * 100, '', '', function (param) {
-                        that.$notice.alert({
-                            message: param
+                        that.$fetch({
+                            method: 'PUT', // 大写
+                            url: `${baseUrl}/payment/razorpay/${that.order.id}/`,
+                            data: {
+                                paymentId: param.paymentId,
+                                paymentAmount: that.order.paymentAmount
+                            },
+                            header: {
+                                needAuth: true
+                            }
+                        }).then(resData => {
+                            that.$router.finish()
+                            that.$router.open({
+                                name: 'order.success',
+                                type: 'PUSH'
+                            })
+                        }, error => {
+                            that.$notice.toast({
+                                message: error
+                            })
                         })
                     }, function (param) {
                         that.$notice.alert({

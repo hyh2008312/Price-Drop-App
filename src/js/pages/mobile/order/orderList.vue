@@ -85,7 +85,7 @@
     import refresher from '../common/refresh';
     import orderItem from './orderItem';
     import payRadio from './radio';
-    import {PAYLIST, ORDERSTATUS, CANCELREASON} from './config';
+    import { PAYLIST, ORDERSTATUS, CANCELREASON } from './config';
     import { baseUrl } from '../../../config/apis';
 
     const payTm = weex.requireModule('PayModule');
@@ -235,16 +235,30 @@
                 this.payOrder = $event.data.item;
                 // this.isBottomShow = true
                 const that = this
-                payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
+                payTm.startPayRequest(this.payOrder.id, this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
                     this.payOrder.paymentAmount * 100, '', '', function (param) {
-                        that.$notice.alert({
-                            message: param
+                        that.$fetch({
+                            method: 'PUT', // 大写
+                            url: `${baseUrl}/payment/razorpay/${that.payOrder.id}/`,
+                            data: {
+                                paymentId: param.paymentId,
+                                paymentAmount: that.payOrder.paymentAmount
+                            },
+                            header: {
+                                needAuth: true
+                            }
+                        }).then(resData => {
+                            that.$router.finish()
+                            that.$router.open({
+                                name: 'order.success',
+                                type: 'PUSH'
+                            })
+                        }, error => {
+                            that.$notice.toast({
+                                message: error
+                            })
                         })
-                    }, function (param) {
-                        that.$notice.alert({
-                            message: param
-                        })
-                    });
+                    }, function (param) {});
             },
             popupOverlayAutoClick () {
                 this.isBottomShow = false;

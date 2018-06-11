@@ -7,6 +7,7 @@
 </template>
 <script>
     const pay = weex.requireModule('PayModule');
+    import { baseUrl } from '../../../config/apis';
     export default {
         props: ['order', 'address'],
         methods: {
@@ -26,24 +27,31 @@
                         needAuth: true
                     }
                 }).then(resData => {
-                    pay.startPayRequest(that.order.title, '', that.order.mainImage,
+                    const order = resData
+                    pay.startPayRequest(order.orderId, that.order.title, '', that.order.mainImage,
                         that.order.currentPrice * 100, '', '', function (param) {
-                            that.$notice.alert({
-                                message: JSON.stringify(param)
-                            })
-                        }, function (param) {
-                            that.$notice.alert({
-                                message: JSON.stringify(param)
-                            })
-                            /* that.$router.finish()
-                            that.$router.open({
-                                name: 'order.failure',
-                                type: 'PUSH',
-                                params: {
-                                    source: 'confirm'
+                            that.$fetch({
+                                method: 'PUT', // 大写
+                                url: `${baseUrl}/payment/razorpay/${order.orderId}/`,
+                                data: {
+                                    paymentId: param.paymentId,
+                                    paymentAmount: that.order.currentPrice
+                                },
+                                header: {
+                                    needAuth: true
                                 }
-                            }) */
-                        });
+                            }).then(resData => {
+                                that.$router.finish()
+                                that.$router.open({
+                                    name: 'order.success',
+                                    type: 'PUSH'
+                                })
+                            }, error => {
+                                that.$notice.toast({
+                                    message: error
+                                })
+                            })
+                        }, function (param) {});
                 }, error => {
                     this.$notice.toast({
                         message: error
