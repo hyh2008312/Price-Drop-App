@@ -36,6 +36,9 @@
 }
 #eros
 -keep class com.benmu.framework.**{*;}
+-keep class com.bumptech.glide.**{*;}
+-dontwarn com.bumptech.glide.**
+
 
 
 # 支付
@@ -56,6 +59,8 @@
 }
 # weex混淆
 -keep class com.taobao.weex.WXDebugTool{*;}
+-keep class com.taobao.weex.analyzer.**{*;}
+-dontwarn com.taobao.weex.analyzer.**
 
 
 -keep class com.taobao.weex.devtools.common.LogUtil{*;}

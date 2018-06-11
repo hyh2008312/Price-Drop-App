@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import com.benmu.drop.activity.bean.ShareBean;
+import com.benmu.drop.utils.PackageManagerUtils;
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.UmengTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -83,6 +85,11 @@ public class ShareModule extends WXModule {
                               JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
         this.whatsappSuccessCallback = jsSuccessCallback;
         this.WhatsappFailedCallback = jsFailedCallback;
+        boolean isHaveWhatsapp = PackageManagerUtils.isInstallApp(mWXSDKInstance.getContext(),"com.whatsapp");
+        if (!isHaveWhatsapp) {
+            Toast.makeText(mWXSDKInstance.getContext(), "To share to WhatsApp, you need to download its app first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         new ShareAction((Activity) mWXSDKInstance.getContext())
                 .setPlatform(SHARE_MEDIA.WHATSAPP)//传入平台
                 .withText(content)
@@ -96,7 +103,7 @@ public class ShareModule extends WXModule {
                     public void onResult(SHARE_MEDIA share_media) {
                         ShareBean bean = new ShareBean();
                         bean.setState(200);
-                        bean.setType("facebook");
+                        bean.setType("whatsapp");
                         whatsappSuccessCallback.invoke(bean);
                     }
 
@@ -104,7 +111,7 @@ public class ShareModule extends WXModule {
                     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
                         ShareBean bean = new ShareBean();
                         bean.setState(100);
-                        bean.setType("facebook");
+                        bean.setType("whatsapp");
                         WhatsappFailedCallback.invoke(bean);
                     }
 
@@ -112,7 +119,7 @@ public class ShareModule extends WXModule {
                     public void onCancel(SHARE_MEDIA share_media) {
                         ShareBean bean = new ShareBean();
                         bean.setState(100);
-                        bean.setType("facebook");
+                        bean.setType("whatsapp");
                         WhatsappFailedCallback.invoke(bean);
                         Toast.makeText(mWXSDKInstance.getContext(), "cancel", Toast.LENGTH_SHORT).show();
                     }

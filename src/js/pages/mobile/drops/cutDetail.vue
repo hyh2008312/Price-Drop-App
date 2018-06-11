@@ -145,6 +145,10 @@
                                 <text class="whatsapp-icon">&#xe710;</text>
                                 <text class="whatsapp-text">WhatsApp</text>
                             </div>
+                            <div class="copylink" @click="copyShareLink">
+                                <text class="copylink-icon">&#xe728;</text>
+                                <text class="whatsapp-text">Copy Link</text>
+                            </div>
                         </div>
                         <div class="share-line"></div>
                         <div class="share-cancel" @click="popupOverlayAutoClick">
@@ -198,6 +202,7 @@
     import preload from '../common/preloadImg';
     import ShareUrlUtil from '../utils/ShareUtil';
 
+    const clipboard = weex.requireModule('clipboard')
     const shareModule = weex.requireModule('ShareModule');
     import { baseUrl } from '../../../config/apis'
     export default {
@@ -227,8 +232,7 @@
                 id: -1,
                 goodsDetail: {},
                 isRuleShow: false,
-                distance: 1,
-                sendTitle: '发送验证码'
+                distance: 1
             }
         },
         methods: {
@@ -237,6 +241,12 @@
             },
             popupOverlayAutoClick () {
                 this.isShowShare = false;
+            },
+            copyShareLink() {
+                const url = ShareUrlUtil.getShareUrl(this.id);
+                clipboard.setString(url);
+                this.popupOverlayAutoClick();
+                this.$notice.toast('Copied successfully! You can share this link on your social media now.');
             },
             shareFacebook () {
                 const that = this;
@@ -472,6 +482,13 @@
         color: rgba(0, 0, 0, 0.87);
     }
 
+    .copylink {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
     .whatsapp {
         display: flex;
         flex-direction: column;
@@ -491,6 +508,12 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+    }
+
+    .copylink-icon {
+        font-family: iconfont;
+        color: rgba(0, 0, 0, 0.54);
+        font-size: 96px;
     }
 
     .whatsapp-icon {
