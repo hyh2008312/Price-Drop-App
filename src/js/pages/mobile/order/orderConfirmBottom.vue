@@ -28,7 +28,7 @@
                     }
                 }).then(resData => {
                     const order = resData
-                    pay.startPayRequest(order.orderId, that.order.title, '', that.order.mainImage,
+                    pay.startPayRequest(that.order.title, '', that.order.mainImage,
                         that.order.currentPrice * 100, '', '', function (param) {
                             that.$fetch({
                                 method: 'PUT', // 大写

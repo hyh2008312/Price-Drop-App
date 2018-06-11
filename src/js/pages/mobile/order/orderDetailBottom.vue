@@ -34,7 +34,7 @@
         methods: {
             confirm () {
                 const that = this
-                pay.startPayRequest(this.order.id, this.order.lines[0].title, '', this.order.lines[0].mainImage,
+                pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
                     this.order.paymentAmount * 100, '', '', function (param) {
                         that.$fetch({
                             method: 'PUT', // 大写

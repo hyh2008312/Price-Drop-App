@@ -235,7 +235,7 @@
                 this.payOrder = $event.data.item;
                 // this.isBottomShow = true
                 const that = this
-                payTm.startPayRequest(this.payOrder.id, this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
+                payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
                     this.payOrder.paymentAmount * 100, '', '', function (param) {
                         that.$fetch({
                             method: 'PUT', // 大写
