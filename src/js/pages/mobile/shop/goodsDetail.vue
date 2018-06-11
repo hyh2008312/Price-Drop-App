@@ -32,7 +32,7 @@
 
 
                 <div v-if="tabshow==true" style="position: sticky">
-                    <tab   @tabTo="onTabTo" :items="tabsItems"></tab>
+                    <tab   @tabTo="onTabTo" :items="tabsItems"  :indexKey="defaultTab"  ></tab>
                 </div>
 
             <div class="mid">
@@ -201,6 +201,7 @@
                     name: 'Return Policy',
                     key: 'policy'
                 }],
+                defaultTab: 'dec',
                 goodsVariants: [],
                 goodsType: {},
                 selsize: '',
@@ -533,15 +534,17 @@
                 } else {
                    this.opacity = 0
                 }
-                // this.$notice.toast({
-                //     message: event.changedTouches[0].screenY
-                // })
 
                 if (Math.abs(e.contentOffset.y) > 1200) {
                     this.tabshow = true
                 } else if (Math.abs(e.contentOffset.y) < 1100) {
                     this.tabshow = false
-                }
+                } // 控制tab显示
+                if (e.contentSize.height + e.contentOffset.y < 1350) {
+                    this.defaultTab = 'policy'
+                } else {
+                    this.defaultTab = 'dec'
+                } // active tab
             },
             onTabTo (key) {
                 if (key.data.key == 'dec') {
