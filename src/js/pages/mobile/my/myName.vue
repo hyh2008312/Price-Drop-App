@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper">
-        <topic-header title="Name" leftBtn="icon" rightBtn="Confirm" @onsave="saveData" ref="ref1" ></topic-header>
+        <topic-header title="Name" leftBtn="icon" rightBtn="SAVE" @onsave="saveData" ref="ref1" ></topic-header>
 
         <div class="blackheader"></div>
         <div class="mid-cell" >
 
             <div class="box-tlt ">
                 <div class="box-left">
-                    <text class="box-txt">FirstName</text>
+                    <text class="box-txt">First&nbsp;Name</text>
                 </div>
 
                 <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Edit FirstName" :value="this.fname" @input="oninput" />
@@ -20,7 +20,7 @@
 
             <div class="box-tlt ">
                 <div class="box-left">
-                    <text class="box-txt">LastName</text>
+                    <text class="box-txt">Last&nbsp;Name</text>
                 </div>
 
                 <input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Edit LastName" :value="this.lname" @input="oninputl" />
@@ -76,9 +76,9 @@
             opentest (event) {
             },
             saveData () {
-                this.$notice.toast({
-                    message: 111
-                })
+                // this.$notice.toast({
+                //     message: 111
+                // })
                 const self = this
                 const params = {
                     fname: this.fname,

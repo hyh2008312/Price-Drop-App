@@ -12,7 +12,7 @@
                 <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
             </div>
             <div class="b-tlt">
-                <text class="i-name">{{fname}}{{lname}}</text>
+                <text class="i-name">{{fname}}&nbsp;{{lname}}</text>
 
                 <text class="txt-tag">{{email}}</text>
             </div>
