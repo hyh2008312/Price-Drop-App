@@ -2,7 +2,6 @@
     <div class="app-wrapper">
         <embed v-for="(item, index) in items" :src="item.src" type="weex" class="content" :style="{ visibility: item.visibility }"></embed>
         <tab-bar @tabTo="onTabTo" :items="items" :indexKey="selectedTab"></tab-bar>
-        <div class="touch-bar"></div>
     </div>
 </template>
 <script>

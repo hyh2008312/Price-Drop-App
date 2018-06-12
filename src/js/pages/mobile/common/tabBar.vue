@@ -76,12 +76,17 @@ export default {
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-around;
-    box-shadow: 0 -3px 5px 0 rgba(0,0,0,0.19);
+    overflow: hidden;
+    width: 750px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: rgba(0,0,0, 0.19);
     background-color: #fff;
 }
 
 .bar-item {
     flex: 1;
+    background-color: #fff;
 }
 
 .bar-txt,
