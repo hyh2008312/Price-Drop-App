@@ -24,7 +24,7 @@
                 <!--<input class="input" style="tint-color: #ef8a31;" type="text" placeholder="Edit Name" :value="this.name" @input="oninput" />-->
 
                 <div class="box-right">
-                    <text class="box-txt-left">{{fname}}{{lname}}</text>
+                    <text class="box-txt-left">{{fname}}&nbsp;{{lname}}</text>
 
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
