@@ -66,7 +66,7 @@
                 <!--unpaid-->
                 <text class="gd-handle-cut" v-else-if="goods.operationStatus =='unpaid'" @click="jumpOrderDetail">Pay Now</text>
                 <!---->
-                <text class="gd-handle-cut-again" v-else @click="jumpProductDetail" >Buy Again </text>
+                <text class="gd-handle-cut-again" v-else @click="jumpProductDetail">Drop Again </text>
             </div>
 
         </div>

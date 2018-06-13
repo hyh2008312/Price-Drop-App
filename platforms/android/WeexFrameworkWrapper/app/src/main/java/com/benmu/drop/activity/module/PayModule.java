@@ -1,9 +1,10 @@
-package com.benmu.drop.activity;
+package com.benmu.drop.activity.module;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import com.benmu.drop.R;
+import com.benmu.drop.activity.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

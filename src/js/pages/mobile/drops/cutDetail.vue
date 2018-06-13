@@ -74,8 +74,12 @@
                     <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
                 </div>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Drop It Again</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy It at Final Price</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy It at Final Price</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">
+                    Buy It Now
+                </text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">
+                    Buy It Now
+                </text>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Drop It Again</text>
                 <div class="cut-end-item"
                      v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
@@ -92,7 +96,7 @@
                 </div>
                 <div class="cut-end-item" v-else-if="goodsDetail.operationStatus=='overdue'">
                     <text class="cut-end-item-icon-2">&#xe6fe;</text>
-                    <text class="cut-end-item-2"> The current price has expired</text>
+                    <text class="cut-end-item-2"> The final price has expired</text>
                 </div>
                 <div class="cut-end-item" v-else-if="goodsDetail.operationStatus=='paid'">
                     <text class="cut-end-item-icon-3">&#xe6fb;</text>
@@ -133,7 +137,7 @@
                 <div>
                     <div class="share-content-bottom">
                         <div class="share-content-icon">
-                            <div class="facebook" @click="shareFacebook">
+                            <div class="facebook" v-if="false" @click="shareFacebook">
                                 <text class="facebook-icon">&#xe70f;</text>
                                 <text class="facebook-text">Facebook</text>
                             </div>
