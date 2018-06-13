@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.benmu.drop.activity.bean.AppDto;
 import com.benmu.drop.activity.bean.LoginDto;
 import com.benmu.drop.activity.bean.PayDto;
+import com.benmu.drop.activity.module.GoogleLoginModule;
+import com.benmu.drop.activity.module.PayModule;
+import com.benmu.drop.activity.module.ShareModule;
 import com.benmu.drop.utils.CommonUtils;
 import com.benmu.framework.activity.AbstractWeexActivity;
 import com.benmu.drop.R;
@@ -51,7 +53,6 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             e.printStackTrace();
         }
     }
-
 
     private void initPayment() {
         Checkout.preload(getApplicationContext());
@@ -147,6 +148,5 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             e.printStackTrace();
         }
     }
-
 
 }

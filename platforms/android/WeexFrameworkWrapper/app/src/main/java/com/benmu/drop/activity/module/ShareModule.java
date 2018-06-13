@@ -1,4 +1,4 @@
-package com.benmu.drop.activity;
+package com.benmu.drop.activity.module;
 
 import android.app.Activity;
 import android.widget.Toast;
