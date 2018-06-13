@@ -35,7 +35,7 @@
             confirm () {
                 const that = this
                 pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
-                    this.order.paymentAmount * 100, '', '', function (param) {
+                    Math.ceil(this.order.paymentAmount * 100), '', '', function (param) {
                         that.$fetch({
                             method: 'PUT', // 大写
                             url: `${baseUrl}/payment/razorpay/${that.order.id}/`,

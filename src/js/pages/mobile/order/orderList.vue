@@ -56,7 +56,7 @@
                 </div>
                 <div class="popup-cancel-bottom">
                     <text class="popup-cancel-button" @click="closeBottomPop">Cancel</text>
-                    <text class="popup-cancel-button-1" @click="cancelOrder">OK</text>
+                    <text class="popup-cancel-button-1" @click="cancelOrder()">OK</text>
                 </div>
             </div>
         </wxc-popup>
@@ -236,7 +236,7 @@
                 // this.isBottomShow = true
                 const that = this
                 payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
-                    this.payOrder.paymentAmount * 100, '', '', function (param) {
+                    Math.ceil(this.order.paymentAmount * 100), '', '', function (param) {
                         that.$fetch({
                             method: 'PUT', // 大写
                             url: `${baseUrl}/payment/razorpay/${that.payOrder.id}/`,
@@ -309,8 +309,8 @@
                         needAuth: true
                     }
                 }).then(resData => {
+                    this.order[this.cancelIndex].orderStatus = 'Audit canceled'
                     this.$notice.toast('Your order cancellation request has been submitted for review.')
-                    this.order[this.cancelIndex] = resData
                 }, error => {
                     this.$notice.toast({
                         message: error

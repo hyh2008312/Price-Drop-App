@@ -29,7 +29,7 @@
                 }).then(resData => {
                     const order = resData
                     pay.startPayRequest(that.order.title, '', that.order.mainImage,
-                        that.order.currentPrice * 100, '', '', function (param) {
+                        Math.ceil(that.order.currentPrice * 100), '', '', function (param) {
                             that.$fetch({
                                 method: 'PUT', // 大写
                                 url: `${baseUrl}/payment/razorpay/${order.orderId}/`,
