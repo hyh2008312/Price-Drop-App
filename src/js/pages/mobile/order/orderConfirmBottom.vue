@@ -58,15 +58,14 @@
                                 })
                             })
                         }, function (param) {
-                            if (param.code != 0) {
-                                that.$router.open({
-                                    name: 'order.failure',
-                                    type: 'PUSH',
-                                    params: {
-                                        source: 'confirm'
-                                    }
-                                })
-                            }
+                            that.$router.finish()
+                            that.$router.open({
+                                name: 'order.failure',
+                                type: 'PUSH',
+                                params: {
+                                    source: 'confirm'
+                                }
+                            })
                         });
                 }, error => {
                     this.$notice.toast({
