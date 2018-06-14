@@ -1,99 +1,138 @@
 <template>
 
     <div class="wrapper">
-        <topic-header title="Account" rightBtn="icon" leftBtn='' @setting="openCell(0)"  ref="ref1" ></topic-header>
+        <div class="blackheader"></div>
 
-        <div class="blackheader">
+        <!--<scroller>-->
 
-        </div>
+            <div class="header" v-if="user!=null" @click="openMydetail(1)">
+                <div class="overflow-photo">
+                    <div class="i-photo-div">
+                        <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
+                    </div>
+                    <div class="b-tlt">
+                        <text class="i-name">{{fname}}{{lname}}</text>
+                        <div class="txt-tag ">
+                            <text class="txt-tag-txt" >{{email}}</text>&nbsp;&nbsp;<text class="txt-icon iconfont">&#xe626;</text>
 
-        <div class="header" v-if="user!=null" @click="openMydetail(1)">
-            <div class="i-photo-div">
-                <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
-            </div>
-            <div class="b-tlt">
-                <text class="i-name">{{fname}}{{lname}}</text>
-
-                <text class="txt-tag">{{email}}</text>
-            </div>
-            <text class="b-qrcode iconfont">  &#xe626;  </text>
-        </div>
-
-        <div class="header"  v-if="user==null" @click="openMydetail(2)">
-            <div class="no-login">
-                <text class="">Welcome!</text>
-                <text class="no-login-text">Log In / Sign Up</text>
-            </div>
-        </div>
-
-        <div class="s-box ">
-
-            <div class="box-tlt "  @click="jumpWeb(0)">
-                <text class="box-txt">My Orders</text>
-
-                <text class="i-box iconfont">SEE MORE&nbsp;&nbsp;&#xe626;</text>
-
-            </div>
-
-            <div class="box-line">
-                <div class="i-box-l" @click="jumpWeb(1)">
-                    <text class="i-box-icon iconfont">&#xe717;</text>
-                    <text class="i-box-tlt">Unpaid</text>
+                        </div>
+                    </div>
                 </div>
-                <div class="i-box-l" @click="jumpWeb(2)">
-                    <text class="i-box-icon iconfont">&#xe718;</text>
-                    <text class="i-box-tlt">Packing</text>
-                </div>
-                <div class="i-box-l" @click="jumpWeb(3)">
-                    <text class="i-box-icon iconfont">&#xe719;</text>
-                    <text class="i-box-tlt">Shipped</text>
-                </div>
-                <div class="i-box-l" @click="jumpWeb(4)">
-                    <text class="i-box-icon iconfont">&#xe71a;</text>
-                    <text class="i-box-tlt">Delivered</text>
+                <div class="overflow-setting-icon" @click="openCell(0)">
+                    <text class="iconfont setting-icon" style="">&#xe71e;</text>
                 </div>
             </div>
-        </div>
 
-
-        <div class="mid-cell">
-            <div class="box-tlt " @click="openCell(1)">
-                <div class="box-left">
-                    <text class="box-txt-icon">&#xe71b;</text>
-                    <text class="box-txt">Customer Support</text>
+            <div class="header"  v-if="user==null" @click="openMydetail(2)">
+                <div class="overflow-photo">
+                    <div class="no-login">
+                        <text class="">Welcome!</text>
+                        <text class="no-login-text">Log In / Sign Up</text>
+                    </div>
                 </div>
-                <text class="i-box iconfont">&#xe626;</text>
-
             </div>
+            <div class="overflow-point-card">
+                <div class="point-card">
+                    <div class="point" @click="openCell(5)">
+                        <text class="point-card-num">{{points}}</text>
+                        <text class="point-card-txt">My Points</text>
+                    </div>
+                    <text class="center-border"></text>
+                    <div class="card" @click="openCell(6)">
+                        <text class="point-card-num">{{cardNumber}}</text>
+                        <text class="point-card-txt">My Gift Card</text>
+                    </div>
 
-            <div class="box-tlt " @click="openCell(2)">
-                <div class="box-left">
-                    <text class="box-txt-icon">&#xe705;</text>
-                    <text class="box-txt">My Address</text>
                 </div>
-                <text class="i-box iconfont">&#xe626;</text>
             </div>
-        </div>
-        <div class="mid-cell">
-            <div class="box-tlt " @click="openCell(3)">
-                <div class="box-left">
-                    <text class="box-txt-icon">&#xe721;</text>
-                    <text class="box-txt">About Us</text>
-                </div>
-                <text class="i-box iconfont">&#xe626;</text>
+        <div class="overflow-box">
 
-            </div>
-
-            <div class="box-tlt " @click="openCell(4)">
-                <div class="box-left">
-                    <text class="box-txt-icon">&#xe71d;</text>
-                    <text class="box-txt">FAQ</text>
+            <div class="s-box ">
+                <div class="box-tlt "  @click="jumpWeb(0)">
+                    <text class="box-txt">My Orders</text>
+                    <text class="i-box iconfont">SEE MORE&nbsp;&nbsp;&#xe626;</text>
                 </div>
-                <text class="i-box iconfont">&#xe626;</text>
+
+                <div class="box-line">
+                    <div class="i-box-l" @click="jumpWeb(1)">
+                        <image class="i-box-icon" src="bmlocal://assets/ic-paid.png"></image>
+
+                        <!--<text class="i-box-icon iconfont">&#xe717;</text>-->
+                        <text class="i-box-tlt">Unpaid</text>
+                    </div>
+                    <div class="i-box-l" @click="jumpWeb(2)">
+                        <image class="i-box-icon" src="bmlocal://assets/ic-pack.png"></image>
+
+                        <!--<text class="i-box-icon iconfont">&#xe718;</text>-->
+                        <text class="i-box-tlt">Packing</text>
+                    </div>
+                    <div class="i-box-l" @click="jumpWeb(3)">
+                        <image class="i-box-icon" src="bmlocal://assets/ic-shipped.png"></image>
+
+                        <!--<text class="i-box-icon iconfont">&#xe719;</text>-->
+                        <text class="i-box-tlt">Shipped</text>
+                    </div>
+                    <div class="i-box-l" @click="jumpWeb(4)">
+                        <image class="i-box-icon" src="bmlocal://assets/ic-delivered.png"></image>
+
+                        <!--<text class="i-box-icon iconfont">&#xe71a;</text>-->
+                        <text class="i-box-tlt">Delivered</text>
+                    </div>
+                </div>
             </div>
 
         </div>
 
+        <div class="overflow-box">
+            <div class="mid-cell">
+                <div class="box-tlt " @click="openCell(1)">
+                    <div class="box-left">
+                        <image class="box-txt-icon" src="bmlocal://assets/pic-customer.png"></image>
+                        <!--<text class="box-txt-icon">&#xe71b;</text>-->
+                        <text class="box-txt">Customer Support</text>
+                    </div>
+                    <text class="i-box iconfont">&#xe626;</text>
+
+                </div>
+
+                <div class="box-tlt " @click="openCell(2)">
+                    <div class="box-left">
+                        <image class="box-txt-icon" src="bmlocal://assets/pic-address.png"></image>
+
+                        <!--<text class="box-txt-icon">&#xe705;</text>-->
+                        <text class="box-txt">My Address</text>
+                    </div>
+                    <text class="i-box iconfont">&#xe626;</text>
+                </div>
+            </div>
+
+        </div>
+        <div class="overflow-box">
+            <div class="mid-cell mid-cell-bottom ">
+                <div class="box-tlt " @click="openCell(3)">
+                    <div class="box-left">
+                        <image class="box-txt-icon" src="bmlocal://assets/pic-aboutus.png"></image>
+
+                        <!--<text class="box-txt-icon">&#xe721;</text>-->
+                        <text class="box-txt">About Us</text>
+                    </div>
+                    <text class="i-box iconfont">&#xe626;</text>
+
+                </div>
+
+                <div class="box-tlt " @click="openCell(4)">
+                    <div class="box-left">
+                        <image class="box-txt-icon" src="bmlocal://assets/pic-FAQ.png"></image>
+                        <!--<text class="box-txt-icon">&#xe71d;</text>-->
+                        <text class="box-txt">FAQ</text>
+                    </div>
+                    <text class="i-box iconfont">&#xe626;</text>
+                </div>
+            </div>
+
+        </div>
+
+        <!--</scroller>-->
     </div>
 </template>
 <script>
@@ -134,6 +173,8 @@ export default {
             token: null,
             user: null,
             gender: '',
+            points: '',
+            cardNumber: '',
             setsign: ''
         }
     },
@@ -226,18 +267,25 @@ export default {
                this.$router.open({
                    name: 'my.about',
                    type: 'PUSH'
-                   // params: {
-                   //     tab: id
-                   // }
                })
            } else if (type == 4) {
                this.$router.open({
                    name: 'my.faq',
                    type: 'PUSH'
-                   // params: {
-                   //     tab: id
-                   // }
                })
+           } else if (type == 5) {
+                this.$router.open({
+                    name: 'my.points',
+                    type: 'PUSH',
+                    params: {
+                        num: this.points
+                    }
+                })
+           } else {
+                this.$router.open({
+                    name: 'my.card',
+                    type: 'PUSH'
+                })
            }
         },
         getUserData () {
@@ -264,6 +312,8 @@ export default {
                         this.fname = res.firstName
                         this.lname = res.lastName
                         this.img = res.avatar
+                        this.points = res.points
+                        this.cardNumber = res.cardNumber
                         this.gender = res.gender
                     }).catch((res) => {
                         this.$notice.toast({
@@ -282,6 +332,8 @@ export default {
                 // })
                 this.user = resData
                 this.email = this.user.email
+                this.fname = resData.firstName
+                this.lname = resData.lastName
             })
         }
     }

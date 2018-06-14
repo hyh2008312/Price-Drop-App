@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.benmu.drop.activity.bean.AppDto;
 import com.benmu.drop.activity.bean.LoginDto;
+import com.benmu.drop.activity.bean.PayDto;
 import com.benmu.drop.utils.CommonUtils;
 import com.benmu.framework.activity.AbstractWeexActivity;
 import com.benmu.drop.R;
@@ -100,18 +101,19 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
     // 支付成功
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
-        AppDto add = new AppDto() ;
-        add.setVersionName(razorpayPaymentID);
-        paySuccessCallback.invoke(add);
+        PayDto pay = new PayDto();
+        pay.setCode(2000);
+        pay.setPaymentId(razorpayPaymentID);
+        paySuccessCallback.invoke(pay);
     }
 
     // 支付失败
     @Override
     public void onPaymentError(int code, String response) {
-        AppDto add = new AppDto() ;
-        add.setCode(code);
-        add.setVersionName(response);
-        payFailedCallback.invoke(add);
+        PayDto pay = new PayDto();
+        pay.setCode(code);
+        pay.setError(response);
+        payFailedCallback.invoke(pay);
     }
 
     public void startPayment(String name, String description, String image, String amount, String email, String contact) {
@@ -121,21 +123,21 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
         final Activity activity = this;
 
         final Checkout co = new Checkout();
-
+        co.setImage(R.mipmap.ic_launcher);
         try {
             JSONObject options = new JSONObject();
             options.put("name", name);
             options.put("description", description);
             //You can omit the image option to fetch the image from dashboard
-            options.put("image", image);
             options.put("currency", "INR");
-            options.put("amount", 100);
+            options.put("amount", amount);
+/*
 
             JSONObject preFill = new JSONObject();
-            preFill.put("email", email);
-            preFill.put("contact", contact);
-
+            preFill.put("email", "");
+            preFill.put("contact", "");
             options.put("prefill", preFill);
+*/
 
             co.open(activity, options);
         } catch (Exception e) {

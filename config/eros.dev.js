@@ -22,6 +22,8 @@ module.exports = {
         'js/pages/mobile/my/mySupport.vue',
         'js/pages/mobile/my/mySetting.vue',
         'js/pages/mobile/my/myName.vue',
+        'js/pages/mobile/my/myCard.vue',
+        'js/pages/mobile/my/myPoints.vue',
         'js/pages/mobile/shop/goodsDetail.vue',
         'js/pages/mobile/shop/simpleGoodsDetail.vue',
         'js/pages/mobile/shop/ship.vue',
@@ -35,6 +37,9 @@ module.exports = {
         'js/pages/mobile/order/editAddress.vue',
         'js/pages/mobile/order/state.vue',
         'js/pages/mobile/order/trackingPackage.vue',
+        'js/pages/mobile/perks/index.vue',
+        'js/pages/mobile/perks/redeemCard.vue',
+        'js/pages/mobile/perks/pointsCardDetail.vue',
         'js/pages/mobile/login/index.vue'
     ],
     'alias': {

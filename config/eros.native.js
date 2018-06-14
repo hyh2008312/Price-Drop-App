@@ -4,8 +4,7 @@ module.exports = {
     // android 监听全局事件homeBack 如果为true 安卓端需要自行调用router.finish方法来关闭应用
     'androidIsListenHomeBack': 'true',
     'version': {
-        'android': '1.0.0',
-        'iOS': '1.0.0'
+        'android': '1.0.0'
     },
     'page': {
         'homePage': '/pages/mobile/index.js',

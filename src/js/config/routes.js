@@ -47,6 +47,12 @@ export default {
     'my.name': {
         url: '/pages/mobile/my/myName.js'
     },
+    'my.card': {
+        url: '/pages/mobile/my/myCard.js'
+    },
+    'my.points': {
+        url: '/pages/mobile/my/myPoints.js'
+    },
     'order': {
         url: '/pages/mobile/order/index.js'
     },
@@ -76,6 +82,15 @@ export default {
     },
     'drops.cutDetail': {
         url: '/pages/mobile/drops/cutDetail.js'
+    },
+    'perks': {
+        url: '/pages/mobile/perks/index.js'
+    },
+    'redeem.card': {
+        url: '/pages/mobile/perks/redeemCard.js'
+    },
+    'card.detail': {
+        url: '/pages/mobile/perks/pointsCardDetail.js'
     },
     'login': {
         url: '/pages/mobile/login/index.js'

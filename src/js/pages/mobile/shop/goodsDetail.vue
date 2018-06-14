@@ -14,7 +14,10 @@
                         <text style="right:20px;bottom:20px;color:black;position:absolute">{{idx+1}}/{{goodsImg.length}}</text>
                     </div>
                 </slider>
-                <text class="iiileft"  @click="$router.back">&#xe6f6;</text>
+                <div class="iiileft-div" @click="$router.back">
+                    <text class="iiileft">&#xe6f6;</text>
+                </div>
+
                 <text class="iiiright" @click="openLink">&#xe700;</text>
                 <text class="onetitle">{{goods.title}}</text>
                 <text class="price">Rs.{{goods.price}}</text>
@@ -374,11 +377,11 @@
                 })
             },
             openBottomPopup () {
-                if (this.hasVariants === false) {
-                    this.createCut()
+                if (this.user == null) {
+                    this.redirectLogin()
                 } else {
-                    if (this.user == null) {
-                        this.redirectLogin()
+                    if (this.hasVariants === false) {
+                        this.createCut()
                     } else {
                         this.isBottomShow = true;
                     }
@@ -586,15 +589,19 @@
         height: 700px;
         position: relative;
     }
+    .iiileft-div{
+        padding: 50px;
+        overflow: hidden;
+        position: absolute;
+        top:30px;
+        left:-10px;
+    }
     .iiileft{
         font-family: iconfont;
         color: white;
         font-size: 32px;
         background-color: rgba(0,0,0,.38);
-        position: absolute;
         border-radius:24px ;
-        top:80px;
-        left:40px;
         width: 48px;
         line-height: 48px;
         text-align: center;
