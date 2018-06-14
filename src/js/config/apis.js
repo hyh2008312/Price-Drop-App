@@ -25,18 +25,10 @@ export const apis = {
     'point.exchange': '/point/exchange/voucher/',
     'point.detail': '/point/point/detail/'
 }
-// export const clientId = 'DwxjQEhITops8cWU6OcWmCY963XyKuQgkgjdTWRM';
 // export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';
-<<<<<<< HEAD
-
-// 149  测试
-export const baseUrl = 'http://149.129.135.114';
-export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';
-
-=======
 // export const baseUrl = 'http://149.129.135.114';
->>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
-// 正式
 
-// export const baseUrl = 'https://app-api.getpricedrop.com';
-// export const cliendId = 'atAum5pHls5FGaGAeeIGcJ5p7ircWky8LKSRGOG9';
+// 正式
+export const baseUrl = 'https://app-api.getpricedrop.com';
+export const cliendId = 'atAum5pHls5FGaGAeeIGcJ5p7ircWky8LKSRGOG9';
+
