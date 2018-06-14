@@ -25,7 +25,6 @@
 
 <script>
     import header from './header';
-    import moment from 'moment'
     export default {
         components: {
             'topic-header': header
