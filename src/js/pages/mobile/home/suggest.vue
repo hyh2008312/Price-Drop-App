@@ -105,7 +105,7 @@ export default {
                     name: 'promotion.get.list',
                     data: {}
                 }).then(resData => {
-                    this.block1.backup = [...resData];
+                    this.backup = [...resData];
                     const newArr = this.backup.splice(0, 4);
                     this.block1.items = [];
                     this.block1.items = [...newArr];
