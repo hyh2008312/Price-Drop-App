@@ -17,6 +17,7 @@
                 <text class="iiileft"  @click="$router.back">&#xe6f6;</text>
                 <text class="iiiright" @click="openLink">&#xe700;</text>
                 <text class="onetitle">{{goods.title}}</text>
+
                 <text class="price">Rs.{{goods.price}}</text>
 
                 <div class="count-div">
@@ -637,6 +638,7 @@
         color: #000000;
         letter-spacing: 0;
         text-align: left;
+        text-decoration: line-through;
     }
     .rightlogo{
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);

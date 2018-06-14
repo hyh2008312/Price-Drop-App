@@ -53,6 +53,8 @@
                     </div>
                 </div>
                 <text class="wrapper-share" @click="showSharePanel">Share to Drop the Price Further</text>
+                <text class="wrapper-buy-now" @click="showBuyNow">Buy It At Current Price</text>
+
                 <div class="wrapper-timer">
                     <wxc-countdown tpl="{h}:{m}:{s}"
                                    :time="goodsDetail.endTimestamp * 1000"
@@ -309,6 +311,9 @@
                 }, error => {
                     this.$notice.toast('network is error');
                 })
+            },
+            showBuyNow() {
+                this.jumpConfirmOrder();
             },
             jumpProductDetail () {
                 this.$router.open({
@@ -667,6 +672,23 @@
         margin-left: 72px;
         margin-right: 72px;
         color: white;
+        font-weight: bold;
+        margin-top: 24px;
+    }
+
+    .wrapper-buy-now {
+        width: 606px;
+        height: 80px;
+        font-size: 24px;
+        border-radius: 8px;
+        border-width: 1px;
+        border-color: #EF8A31;
+        border-style: solid;
+        line-height: 80px;
+        text-align: center;
+        margin-left: 72px;
+        margin-right: 72px;
+        color: #EF8A31;
         font-weight: bold;
         margin-top: 24px;
     }

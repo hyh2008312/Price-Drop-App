@@ -37,7 +37,7 @@ public class SocialCommerApplication extends BMWXApplication {
     }
 
     private void initUmengSDK() {
-        UMConfigure.init(this, HttpServerConfig.UMENG_KEY, "google", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.init(this, "5b03c2fca40fa3604400007f", "google", UMConfigure.DEVICE_TYPE_PHONE, "");
         UMConfigure.setLogEnabled(true);
     }
 

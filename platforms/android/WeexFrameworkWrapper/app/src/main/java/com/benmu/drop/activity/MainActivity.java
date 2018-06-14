@@ -117,7 +117,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
         payFailedCallback.invoke(pay);
     }
 
-    public void startPayment(String name, String description, String image, String amount, String email, String contact) {
+    public void startPayment(String name, String description, String image, String amount, String contact, String email ) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -132,13 +132,11 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             //You can omit the image option to fetch the image from dashboard
             options.put("currency", "INR");
             options.put("amount", amount);
-/*
 
             JSONObject preFill = new JSONObject();
-            preFill.put("email", "");
-            preFill.put("contact", "");
+            preFill.put("email", email);
+            preFill.put("contact", contact);
             options.put("prefill", preFill);
-*/
 
             co.open(activity, options);
         } catch (Exception e) {

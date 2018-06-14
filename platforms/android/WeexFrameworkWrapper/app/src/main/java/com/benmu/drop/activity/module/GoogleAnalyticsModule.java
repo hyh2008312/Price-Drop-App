@@ -15,18 +15,33 @@ import static android.R.attr.name;
  * Created by lzq on 2018/6/13.
  */
 
-public class GoogleAnalyticsModule extends WXModule{
-     /**
-     *
+public class GoogleAnalyticsModule extends WXModule {
+    /**
      * @desc 统计每个屏幕
      * @date 2018/6/13
-     *
      */
     @JSMethod
-    public void trackingScreen (String screenName) {
+    public void trackingScreen(String screenName) {
         SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
         Tracker sTracker = application.getDefaultTracker();
-        sTracker.setScreenName("Image~" + screenName);
+        sTracker.setScreenName(screenName);
         sTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+    /**
+    *
+    * @desc 事件打点
+    * @date 2018/6/14
+    *
+    */
+    @JSMethod
+    public void recordEvent(String Category, String Action, String Label, long Value) {
+        SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
+        Tracker sTracker = application.getDefaultTracker();
+        sTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(Category)
+                .setAction(Action)
+                .setLabel(Label)
+                .setValue(Value)
+                .build());
     }
 }
