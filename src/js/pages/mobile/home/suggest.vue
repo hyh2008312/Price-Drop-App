@@ -45,6 +45,7 @@ import { TAB } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -58,7 +59,8 @@ export default {
         WxcLoading
     },
     created () {
-        this.init()
+        this.init();
+        googleAnalytics.trackingScreen('home/featured');
     },
     data () {
         return {

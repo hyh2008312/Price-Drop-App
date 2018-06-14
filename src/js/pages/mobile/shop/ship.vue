@@ -41,7 +41,7 @@
     </div>
 </template>
 <script>
-
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
         components: {
         },
@@ -52,10 +52,7 @@
                     this.time = params.time
                 }
             })
-            this.$notice.toast({
-                message: this.time
-            })
-            // formatDate()
+            googleAnalytics.trackingScreen('Product Detail Ship');
         },
         data () {
             return {
@@ -67,9 +64,6 @@
         methods: {
             loginBack () {
                 this.$router.finish();
-            },
-            formatDate () {
-                return ''
             }
         }
     }

@@ -6,7 +6,7 @@
         <div :style="height" class="box">
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <order-list v-for="(i, index) in channelList" :key="index"
-                            :activeIndex="index" :index="activeIndex" ></order-list>
+                            :activeIndex="index" :index="activeIndex" :item="i" ></order-list>
             </slider>
         </div>
     </div>

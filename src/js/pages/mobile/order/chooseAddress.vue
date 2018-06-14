@@ -41,6 +41,7 @@ import orderDetailItem from './orderDetailItem';
 import addressBottom from './addressBottom';
 import { Utils, WxcMask } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -63,6 +64,7 @@ export default {
     created () {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' }
+        googleAnalytics.trackingScreen('My Address');
         this.getAddress()
         this.$event.on('login', params => {
             this.getAddress()

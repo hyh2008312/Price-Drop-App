@@ -88,6 +88,7 @@
     import { PAYLIST, ORDERSTATUS, CANCELREASON } from './config';
     import { baseUrl } from '../../../config/apis';
 
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const payTm = weex.requireModule('PayModule');
 
     export default {
@@ -98,7 +99,7 @@
             WxcPopup,
             WxcMask
         },
-        props: ['index', 'activeIndex'],
+        props: ['index', 'activeIndex', 'item'],
         created () {
             this.resetPayList()
             if (this.index == 0 && this.activeIndex == 0) {
@@ -124,7 +125,11 @@
             'index': {
                 handler: function (val, oldVal) {
                     if (this.activeIndex == val) {
-                        this.init()
+                        if (!this.isFirstLoad) {
+                            this.isFirstLoad = true
+                            googleAnalytics.trackingScreen(`${this.item.name}`);
+                            this.init()
+                        }
                     }
                 },
                 deep: true
@@ -163,7 +168,8 @@
                 deleteId: -1,
                 deleteIndex: 0,
                 hasAnimation: true,
-                payOrder: {}
+                payOrder: {},
+                isFirstLoad: false
             }
         },
         methods: {

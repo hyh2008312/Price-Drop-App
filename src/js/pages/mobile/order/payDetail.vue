@@ -68,6 +68,7 @@ import orderDetailNumber from './orderDetailNumber';
 import { Utils, WxcPopup, WxcMask } from 'weex-ui';
 import { ORDERDETAIL, CANCELREASON } from './config';
 import { baseUrl } from '../../../config/apis';
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -83,6 +84,7 @@ export default {
     eros: {
         appeared (params) {
             if (params && params.id) {
+                googleAnalytics.trackingScreen(`Order Detail/${params.id}`);
                 this.getOrder(params.id)
                 this.$event.on('login', params => {
                     this.getOrder(params.id)

@@ -95,6 +95,7 @@
     import { baseUrl } from '../../../config/apis';
     const animation = weex.requireModule('animation');
     const dom = weex.requireModule('dom');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     // import block from './block';
     // import refresher from '../common/refresh';
@@ -112,6 +113,7 @@
         eros: {
           beforeAppear (a) {
               this.proId = a
+              googleAnalytics.trackingScreen(`Cut Product Detail/${this.proId}`);
               this.getGoodsDetail(a)
           },
           beforeBackAppear (params) {

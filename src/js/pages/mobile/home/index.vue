@@ -8,7 +8,7 @@
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
                 <category v-for="(i, index) in channelList" v-if="index > 0" :key="i.id"
-                          :activeIndex="index" :index="activeIndex" :id="i.id"></category>
+                          :activeIndex="index" :index="activeIndex" :id="i.id" :item="i"></category>
             </slider>
         </div>
     </div>
@@ -50,7 +50,7 @@ export default {
         }
     },
     methods: {
-        initGoogleAnalytics() {
+        initGoogleAnalytics () {
             googleAnalytics.trackingScreen('home/home');
         },
         ontouchstart (event) {

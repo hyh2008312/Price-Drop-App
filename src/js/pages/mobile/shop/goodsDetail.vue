@@ -155,6 +155,7 @@
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
     const dom = weex.requireModule('dom');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     // import block from './block';
     // import refresher from '../common/refresh';
@@ -173,6 +174,7 @@
         eros: {
           beforeAppear (a) {
               this.proId = a
+              googleAnalytics.trackingScreen(`Product Detail/${this.proId}`);
               this.getGoodsDetail(a)
           },
           beforeBackAppear (params) {

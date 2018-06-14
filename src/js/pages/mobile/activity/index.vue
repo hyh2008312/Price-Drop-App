@@ -40,6 +40,7 @@
     import { Utils } from 'weex-ui';
     import refresher from '../common/refresh';
     import preload from '../common/preloadImg';
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
@@ -90,6 +91,7 @@
                 this.name = resData.name;
                 this.imageUrl = resData.imageUrl;
                 this.type = resData.type;
+                googleAnalytics.trackingScreen(`activity/${this.name}`);
                 this.getActivityProduct(true);
             },
             getActivityProduct (isfirst) {

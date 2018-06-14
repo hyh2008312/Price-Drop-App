@@ -28,6 +28,7 @@ import trackingPackageHeader from './trackingPackageHeader';
 import trackingPackageItem from './trackingPackageItem';
 import { Utils } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -39,6 +40,7 @@ export default {
         appeared (params, option) {
             if (params) {
                 this.id = params.id
+                googleAnalytics.trackingScreen(`Tracking Package/${this.id}`);
                 this.getOrderTracking()
                 this.$event.once('login', params => {
                     this.getOrderTracking()
