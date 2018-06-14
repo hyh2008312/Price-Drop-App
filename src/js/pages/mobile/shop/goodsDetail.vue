@@ -549,16 +549,12 @@
                     this.tabshow = true
                 } else if (Math.abs(e.contentOffset.y) < 1100) {
                     this.tabshow = false
-<<<<<<< HEAD
-                } // 控制tab显示
-=======
                 }
->>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
                 if (e.contentSize.height + e.contentOffset.y < 1350) {
                     this.defaultTab = 'policy'
                 } else {
                     this.defaultTab = 'dec'
-                } // active tab
+                }
             },
             onTabTo (key) {
                 if (key.data.key == 'dec') {
