@@ -337,7 +337,6 @@
                         needAuth: true
                     }
                 }).then(resData => {
-                    this.$notice.toast(this.deleteIndex)
                     this.order.splice(this.deleteIndex, 1)
                 }, error => {
                     this.$notice.toast({
