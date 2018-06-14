@@ -7,11 +7,7 @@ const utilFunc = {
         const domModule = weex.requireModule('dom');
         domModule.addRule('fontFace', {
             'fontFamily': 'iconfont',
-<<<<<<< HEAD
             'src': 'url(\'https://at.alicdn.com/t/font_568686_c88288xg0fu.ttf\')'
-=======
-            'src': 'url(\'https://at.alicdn.com/t/font_568686_lfx4wn7emqjjor.ttf\')'
->>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
         });
     },
     setBundleUrl (url, jsFile) {
@@ -86,19 +82,6 @@ const utilFunc = {
         const hourC = diffValue / hour;
         const minC = diffValue / minute;
         let result = '';
-<<<<<<< HEAD
-        // if (monthC >= 1) {
-        //     result = number[parseInt(monthC)] + (parseInt(monthC) > 1 ? ' months' : ' month') + 'ago';
-        // } else if (weekC >= 1) {
-        //     result = number[parseInt(weekC)] + (parseInt(weekC) > 1 ? ' weeks' : ' week') + ' ago';
-        // } else if (dayC >= 1) {
-        //     result = number[parseInt(dayC)] + (parseInt(dayC) > 1 ? ' days' : ' day') + ' ago';
-        // } else if (hourC >= 1) {
-        //     result = (parseInt(hourC) == 1 ? 'an' : (number[parseInt(hourC)] <= 10 ? number[parseInt(hourC)] : 'ten')) + (parseInt(hourC) > 1 ? ' hours' : ' hour') + ' ago';
-        // } else if (minC >= 1) {
-        //     result = (parseInt(minC) <= 10 ? number[parseInt(minC)] : 'ten') + (parseInt(minC) > 1 ? ' minutes' : ' minute') + ' ago';
-        // } else { result = 'just now'; }
-=======
         if (monthC >= 1) {
             result = number[parseInt(monthC)] + (parseInt(monthC) > 1 ? ' months' : ' month') + 'ago';
         } else if (weekC >= 1) {
@@ -110,7 +93,6 @@ const utilFunc = {
         } else if (minC >= 1) {
             result = (parseInt(minC) <= 10 ? number[parseInt(minC)] : 'ten') + (parseInt(minC) > 1 ? ' minutes' : ' minute') + ' ago';
         } else { result = 'just now'; }
->>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
         return result;
     }
 };
