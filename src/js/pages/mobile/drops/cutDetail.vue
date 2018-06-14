@@ -228,6 +228,7 @@
             }
         },
         created () {
+            this.registerEvent();
         },
         data () {
             return {
@@ -242,6 +243,11 @@
             }
         },
         methods: {
+            registerEvent() {
+                this.$event.on('cutDetial', params => {
+                    this.requestCutDetail();
+                })
+            },
             showSharePanel () {
                 this.isShowShare = true;
             },
