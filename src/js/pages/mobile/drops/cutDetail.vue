@@ -244,7 +244,7 @@
         },
         methods: {
             registerEvent() {
-                this.$event.on('cutDetial', params => {
+                this.$event.on('cutDetail', params => {
                     this.requestCutDetail();
                 })
             },
