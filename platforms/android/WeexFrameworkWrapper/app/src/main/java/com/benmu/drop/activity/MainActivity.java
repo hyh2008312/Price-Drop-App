@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.benmu.drop.activity.bean.LoginDto;
 import com.benmu.drop.activity.bean.PayDto;
+import com.benmu.drop.activity.module.GoogleAnalyticsModule;
 import com.benmu.drop.activity.module.GoogleLoginModule;
 import com.benmu.drop.activity.module.PayModule;
 import com.benmu.drop.activity.module.ShareModule;
@@ -47,6 +48,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             WXSDKEngine.registerModule("lzqTestModule", TestJsCallback.class);
             WXSDKEngine.registerModule("ShareModule", ShareModule.class);
             WXSDKEngine.registerModule("GoogleLoginModule", GoogleLoginModule.class);
+            WXSDKEngine.registerModule("GoogleAnalyticsModule", GoogleAnalyticsModule.class);
             WXSDKEngine.registerModule("PayModule", PayModule.class);
             WXSDKEngine.registerModule("CommonUtils", CommonUtils.class);
         } catch (WXException e) {

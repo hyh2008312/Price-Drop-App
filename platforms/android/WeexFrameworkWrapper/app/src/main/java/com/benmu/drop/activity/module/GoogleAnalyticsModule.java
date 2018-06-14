@@ -1,6 +1,7 @@
 package com.benmu.drop.activity.module;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import com.benmu.drop.SocialCommerApplication;
 import com.google.android.gms.analytics.HitBuilders;
@@ -26,13 +27,13 @@ public class GoogleAnalyticsModule extends WXModule {
         Tracker sTracker = application.getDefaultTracker();
         sTracker.setScreenName(screenName);
         sTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        Toast.makeText(mWXSDKInstance.getContext(), screenName, Toast.LENGTH_SHORT).show();
     }
+
     /**
-    *
-    * @desc 事件打点
-    * @date 2018/6/14
-    *
-    */
+     * @desc 事件打点
+     * @date 2018/6/14
+     */
     @JSMethod
     public void recordEvent(String Category, String Action, String Label, long Value) {
         SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
@@ -43,5 +44,6 @@ public class GoogleAnalyticsModule extends WXModule {
                 .setLabel(Label)
                 .setValue(Value)
                 .build());
+        Toast.makeText(mWXSDKInstance.getContext(), Category + Action, Toast.LENGTH_SHORT).show();
     }
 }
