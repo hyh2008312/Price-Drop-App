@@ -211,11 +211,7 @@
                     name: 'Return Policy',
                     key: 'policy'
                 }],
-<<<<<<< HEAD
                 defaultTab: 'dec',
-=======
-                defaultTab: 'policy',
->>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
                 goodsVariants: [],
                 goodsType: {},
                 selsize: '',
