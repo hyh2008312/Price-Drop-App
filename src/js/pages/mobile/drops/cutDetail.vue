@@ -206,6 +206,7 @@
 
     const clipboard = weex.requireModule('clipboard')
     const shareModule = weex.requireModule('ShareModule');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { baseUrl } from '../../../config/apis'
     export default {
         components: {
@@ -225,6 +226,10 @@
         },
         created () {
             this.registerEvent();
+            this.initGoogleAnalytics();
+        },
+        destory () {
+            this.$event.off('cutDetail')
         },
         data () {
             return {
@@ -239,7 +244,10 @@
             }
         },
         methods: {
-            registerEvent() {
+            initGoogleAnalytics () {
+                googleAnalytics.trackingScreen('dropDetail');
+            },
+            registerEvent () {
                 this.$event.on('cutDetail', params => {
                     this.requestCutDetail();
                 })
@@ -250,11 +258,12 @@
             popupOverlayAutoClick () {
                 this.isShowShare = false;
             },
-            copyShareLink() {
+            copyShareLink () {
                 const url = ShareUrlUtil.getShareUrl(this.id);
                 clipboard.setString(url);
                 this.popupOverlayAutoClick();
                 this.$notice.toast('Copied successfully! You can share this link on your social media now.');
+                googleAnalytics.recordEvent('share', 'copyLink', url, 0);
             },
             shareFacebook () {
                 const that = this;
