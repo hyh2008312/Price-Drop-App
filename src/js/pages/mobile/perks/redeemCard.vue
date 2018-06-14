@@ -99,6 +99,8 @@
                     this.$notice.toast({
                         message: 'redeem success'
                     })
+                    this.$event.emit('redeem')
+                    // this.setback()
                 }).catch((res) => {
                     this.$notice.toast({
                         message: 'Your Points balance is not enough to \n' +
@@ -114,6 +116,17 @@
             wxcDialogNoPromptClicked (e) {
                 // 此处必须设置，组件为无状态组件，自己管理
                 this.isChecked = e.isChecked;
+            },
+            setback () {
+                const self = this
+                this.$router.back({
+                    length: 1,
+                    type: 'PUSH',
+                    callback () {
+                        // 返回成功回调
+                        self.$event.emit('redeem')
+                    }
+                })
             }
         }
     }

@@ -157,6 +157,9 @@ export default {
             this.user = null
         })
         this.getUserData()
+        this.$event.on('redeem', parmas => {
+            this.getUserData()
+        })
     },
     destory () {
         this.$event.off('login')
@@ -294,6 +297,7 @@ export default {
                 this.fname = parmas.firstName
                 this.lname = parmas.lastName
             })
+
             this.$storage.get('token').then(resData => {
                 this.token = resData
                 if (this.token !== null) {

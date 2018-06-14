@@ -26,7 +26,6 @@
                         <text >+100</text>
                     </div>
 
-
                 </div>
             </div>
         </scroller>
