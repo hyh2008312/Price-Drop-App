@@ -19,6 +19,7 @@
 <script>
 import header from './header';
 import { Utils } from 'weex-ui';
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -32,8 +33,9 @@ export default {
         }
     },
     created () {
-        const pageHeight = Utils.env.getScreenHeight()
-        this.height = { height: (pageHeight - 112 - 48 - 4) + 'px' }
+        const pageHeight = Utils.env.getScreenHeight();
+        this.height = { height: (pageHeight - 112 - 48 - 4) + 'px' };
+        googleAnalytics.trackingScreen('Payment Result Success');
     },
     data () {
         return {
@@ -45,6 +47,7 @@ export default {
     methods: {
         back () {
             this.$router.finish()
+            this.$event.emit('paySuccess')
             if (this.source == 'confirm') {
                 this.$router.open({
                     name: 'order',

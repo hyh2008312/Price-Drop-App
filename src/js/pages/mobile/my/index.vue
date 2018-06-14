@@ -22,6 +22,11 @@
                     <text class="iconfont setting-icon" style="">&#xe71e;</text>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+            <div class="b-tlt">
+                <text class="i-name">{{fname}}&nbsp;{{lname}}</text>
+>>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
 
             <div class="header"  v-if="user==null" @click="openMydetail(2)">
                 <div class="overflow-photo">

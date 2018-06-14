@@ -29,6 +29,7 @@
         methods: {
             setNumber () {
                 clipboard.setString(this.order.data.tracking_number)
+                this.$notice.toast('Tracking number copied')
             }
         }
     }

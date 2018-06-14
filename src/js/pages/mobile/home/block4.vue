@@ -14,7 +14,7 @@
     import preload from '../common/preloadImg';
 
     const animation = weex.requireModule('animation');
-    import moment from 'moment';
+    import utilFunc from '../utils/util'
 
     export default {
         components: {
@@ -84,8 +84,8 @@
                     })
                 }
             },
-            formateDate (time) {
-                return moment().startOf('hour').fromNow()
+            formateDate (dateTimeStamp) {
+                return utilFunc.formateDate(dateTimeStamp);
             }
         }
     }

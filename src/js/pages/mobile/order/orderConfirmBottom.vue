@@ -7,6 +7,7 @@
 </template>
 <script>
     const pay = weex.requireModule('PayModule');
+    import { baseUrl } from '../../../config/apis';
     export default {
         props: ['order', 'address'],
         methods: {
@@ -26,23 +27,48 @@
                         needAuth: true
                     }
                 }).then(resData => {
-                    pay.startPayRequest(this.order.title, '', this.order.mainImage,
-                        this.order.currentPrice * 100, '', '', function (param) {
-                            that.$notice.alert({
-                                message: JSON.stringify(param)
+                    this.$event.emit('cutDetail');
+                    const order = resData;
+                    const user = that.$storage.getSync('user');
+                    pay.startPayRequest(that.order.title, '', that.order.mainImage,
+                        Math.ceil(that.order.currentPrice * 100), user.defaultAddress.phoneNumber, user.email,
+                        function (param) {
+                            that.$fetch({
+                                method: 'PUT', // 大写
+                                url: `${baseUrl}/payment/razorpay/${order.orderId}/`,
+                                data: {
+                                    paymentId: param.paymentId,
+                                    paymentAmount: that.order.currentPrice
+                                },
+                                header: {
+                                    needAuth: true
+                                }
+                            }).then(resData => {
+                                that.$router.finish()
+                                that.$event.once('paySuccess', () => {
+                                    that.init()
+                                });
+                                that.$router.open({
+                                    name: 'order.success',
+                                    type: 'PUSH',
+                                    params: {
+                                        source: 'confirm'
+                                    }
+                                })
+                            }, error => {
+                                that.$notice.toast({
+                                    message: error
+                                })
                             })
                         }, function (param) {
-                            that.$notice.alert({
-                                message: JSON.stringify(param)
-                            })
-                            /* that.$router.finish()
+                            that.$router.finish()
                             that.$router.open({
                                 name: 'order.failure',
                                 type: 'PUSH',
                                 params: {
                                     source: 'confirm'
                                 }
-                            }) */
+                            })
                         });
                 }, error => {
                     this.$notice.toast({

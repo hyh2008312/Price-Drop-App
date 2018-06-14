@@ -20,6 +20,7 @@
 
                 <text class="iiiright" @click="openLink">&#xe700;</text>
                 <text class="onetitle">{{goods.title}}</text>
+
                 <text class="price">Rs.{{goods.price}}</text>
 
                 <div class="count-div">
@@ -35,7 +36,11 @@
 
 
                 <div v-if="tabshow==true" style="position: sticky">
+<<<<<<< HEAD
                     <tab   @tabTo="onTabTo" :items="tabsItems"  :indexKey="defaultTab"  ></tab>
+=======
+                    <tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>
+>>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
                 </div>
 
             <div class="mid">
@@ -157,6 +162,7 @@
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
     const dom = weex.requireModule('dom');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     // import block from './block';
     // import refresher from '../common/refresh';
@@ -175,6 +181,7 @@
         eros: {
           beforeAppear (a) {
               this.proId = a
+              googleAnalytics.trackingScreen(`Product Detail/${this.proId}`);
               this.getGoodsDetail(a)
           },
           beforeBackAppear (params) {
@@ -204,7 +211,11 @@
                     name: 'Return Policy',
                     key: 'policy'
                 }],
+<<<<<<< HEAD
                 defaultTab: 'dec',
+=======
+                defaultTab: 'policy',
+>>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
                 goodsVariants: [],
                 goodsType: {},
                 selsize: '',
@@ -542,7 +553,11 @@
                     this.tabshow = true
                 } else if (Math.abs(e.contentOffset.y) < 1100) {
                     this.tabshow = false
+<<<<<<< HEAD
                 } // 控制tab显示
+=======
+                }
+>>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
                 if (e.contentSize.height + e.contentOffset.y < 1350) {
                     this.defaultTab = 'policy'
                 } else {
@@ -641,6 +656,7 @@
         color: #000000;
         letter-spacing: 0;
         text-align: left;
+        text-decoration: line-through;
     }
     .rightlogo{
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);

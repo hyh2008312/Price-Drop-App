@@ -6,9 +6,15 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.benmu.drop.activity.bean.AppDto;
 import com.benmu.drop.activity.bean.LoginDto;
 import com.benmu.drop.activity.bean.PayDto;
+<<<<<<< HEAD
+=======
+import com.benmu.drop.activity.module.GoogleAnalyticsModule;
+import com.benmu.drop.activity.module.GoogleLoginModule;
+import com.benmu.drop.activity.module.PayModule;
+import com.benmu.drop.activity.module.ShareModule;
+>>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
 import com.benmu.drop.utils.CommonUtils;
 import com.benmu.framework.activity.AbstractWeexActivity;
 import com.benmu.drop.R;
@@ -45,13 +51,13 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             WXSDKEngine.registerModule("lzqTestModule", TestJsCallback.class);
             WXSDKEngine.registerModule("ShareModule", ShareModule.class);
             WXSDKEngine.registerModule("GoogleLoginModule", GoogleLoginModule.class);
+            WXSDKEngine.registerModule("GoogleAnalyticsModule", GoogleAnalyticsModule.class);
             WXSDKEngine.registerModule("PayModule", PayModule.class);
             WXSDKEngine.registerModule("CommonUtils", CommonUtils.class);
         } catch (WXException e) {
             e.printStackTrace();
         }
     }
-
 
     private void initPayment() {
         Checkout.preload(getApplicationContext());
@@ -116,7 +122,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
         payFailedCallback.invoke(pay);
     }
 
-    public void startPayment(String name, String description, String image, String amount, String email, String contact) {
+    public void startPayment(String name, String description, String image, String amount, String contact, String email ) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -131,11 +137,18 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             //You can omit the image option to fetch the image from dashboard
             options.put("currency", "INR");
             options.put("amount", amount);
+<<<<<<< HEAD
 /*
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", "");
             preFill.put("contact", "");
+=======
+
+            JSONObject preFill = new JSONObject();
+            preFill.put("email", email);
+            preFill.put("contact", contact);
+>>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
             options.put("prefill", preFill);
 */
 
@@ -147,6 +160,5 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             e.printStackTrace();
         }
     }
-
 
 }

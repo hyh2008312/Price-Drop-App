@@ -8,7 +8,7 @@
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
                 <category v-for="(i, index) in channelList" v-if="index > 0" :key="i.id"
-                          :activeIndex="index" :index="activeIndex" :id="i.id"></category>
+                          :activeIndex="index" :index="activeIndex" :id="i.id" :item="i"></category>
             </slider>
         </div>
     </div>
@@ -22,6 +22,7 @@ import { Utils } from 'weex-ui';
 import { CHANNELLIST } from './config'
 
 const animation = weex.requireModule('animation')
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -34,6 +35,7 @@ export default {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 48) + 'px' }
         this.getChannel()
+        this.initGoogleAnalytics()
     },
     data () {
         return {
@@ -48,6 +50,9 @@ export default {
         }
     },
     methods: {
+        initGoogleAnalytics () {
+            googleAnalytics.trackingScreen('home/home');
+        },
         ontouchstart (event) {
             this.positionX = event.changedTouches[0].screenX;
             this.positionY = event.changedTouches[0].screenY;

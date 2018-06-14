@@ -1,10 +1,16 @@
-package com.benmu.drop.activity;
+package com.benmu.drop.activity.module;
 
 import android.app.Activity;
 import android.widget.Toast;
 
+import com.benmu.drop.SocialCommerApplication;
 import com.benmu.drop.activity.bean.ShareBean;
 import com.benmu.drop.utils.PackageManagerUtils;
+<<<<<<< HEAD:platforms/android/WeexFrameworkWrapper/app/src/main/java/com/benmu/drop/activity/ShareModule.java
+=======
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+>>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae:platforms/android/WeexFrameworkWrapper/app/src/main/java/com/benmu/drop/activity/module/ShareModule.java
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
@@ -15,6 +21,8 @@ import com.umeng.socialize.UmengTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+
+
 /**
  * @author luzhenqiang
  * @desc js与android 分享之间的交互
@@ -77,7 +85,14 @@ public class ShareModule extends WXModule {
                 })//回调监听器
                 .share();
 
-
+        SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
+        Tracker sTracker = application.getDefaultTracker();
+        sTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("share")
+                .setAction("facebook")
+                .setLabel(Url)
+                .build());
+        Toast.makeText(mWXSDKInstance.getContext(), "share+facebook", Toast.LENGTH_SHORT).show();
     }
 
     @JSMethod
@@ -125,6 +140,13 @@ public class ShareModule extends WXModule {
                     }
                 })//回调监听器
                 .share();
+        SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
+        Tracker sTracker = application.getDefaultTracker();
+        sTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("share")
+                .setAction("whatsapp")
+                .build());
+        Toast.makeText(mWXSDKInstance.getContext(), "share+whatsapp", Toast.LENGTH_SHORT).show();
     }
 
     @JSMethod
@@ -171,6 +193,13 @@ public class ShareModule extends WXModule {
                 })//回调监听器
                 .share();
 
+        SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
+        Tracker sTracker = application.getDefaultTracker();
+        sTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("share")
+                .setAction("facebookMessenger")
+                .build());
+        Toast.makeText(mWXSDKInstance.getContext(), "share+facebookMessenger", Toast.LENGTH_SHORT).show();
 
     }
 }

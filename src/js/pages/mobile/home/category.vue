@@ -33,6 +33,7 @@ import block4 from './block4';
 import { TABCAT } from './config';
 
 const dom = weex.requireModule('dom');
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -41,7 +42,7 @@ export default {
         'block-3': block3,
         'block-4': block4
     },
-    props: ['index', 'activeIndex', 'id'],
+    props: ['index', 'activeIndex', 'id', 'item'],
     created () {
         // this.init()
     },
@@ -49,7 +50,11 @@ export default {
         'index': {
             handler: function (val, oldVal) {
                 if (this.activeIndex == val) {
-                    this.init()
+                    if (!this.isFirstLoad) {
+                        this.init()
+                        googleAnalytics.trackingScreen(`home/${this.item.name}`);
+                        this.isFirstLoad = true
+                    }
                 }
             },
             deep: true
@@ -74,7 +79,8 @@ export default {
             lengthHot: 2,
             lengthPrice: 2,
             isLoading: false,
-            isPlatformAndroid: Utils.env.isAndroid()
+            isPlatformAndroid: Utils.env.isAndroid(),
+            isFirstLoad: false
         }
     },
     methods: {
@@ -107,14 +113,14 @@ export default {
             }
         },
         loadingDown () {
-            this.$refs.refresh.refreshEnd()
-            this.isLoading = false
+            this.$refs.refresh.refreshEnd();
+            this.isLoading = false;
             this.init();
         },
         init () {
-            this.getBlock1()
-            this.getTabName()
-            this.getGoods3(true)
+            this.getBlock1();
+            this.getTabName();
+            this.getGoods3(true);
         },
         getBlock1 () {
             this.$fetch({
@@ -166,9 +172,9 @@ export default {
                     page = this.pagePrice;
                     if (this.pagePrice > this.lengthPrice) {
                         this.$refs.refresh.refreshEnd()
-                        setTimeout(() => {
+                        this.$nextTick(() => {
                             this.isLoading = false
-                        }, 0)
+                        })
                     }
                     this.getGoodsList(isfirst, page)
                     break;

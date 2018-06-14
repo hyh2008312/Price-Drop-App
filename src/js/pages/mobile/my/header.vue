@@ -78,7 +78,7 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     background-color: white;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.19);
     /*box-shadow: 0 0 4px 0 rgba(0,0,7,0.12);*/
     /*border-bottom-width: 1px;*/
     /*border-bottom-color: #d9d9d9;*/

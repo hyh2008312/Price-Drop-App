@@ -18,7 +18,9 @@
             <cell v-for="(i ,index) in goods">
                 <div class="i-gd" :class="[index % 2 ==0 ? 'margin-left16':'magin-right16']" @click="jumpWeb(i.productId)">
                     <div class="gd-bg">
-                        <image class="gd-img" resize="cover" :src="i.mainImage || src"></image>
+                        <div class="gd-img">
+                            <preload class="gd-img-image" :src="i.mainImage"></preload>
+                        </div>
                     </div>
                     <div class="gd-tlt-bg">
                         <text class="gd-tlt">Rs.{{i.lowestPrice}}</text>
@@ -29,7 +31,7 @@
                 </div>
             </cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
-                <text class="indicator">加载中...</text>
+                <text class="indicator">loading...</text>
             </loading>
         </waterfall>
     </div>
@@ -37,10 +39,13 @@
 <script>
     import { Utils } from 'weex-ui';
     import refresher from '../common/refresh';
+    import preload from '../common/preloadImg';
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
-            'refresher': refresher
+            'refresher': refresher,
+            preload
         },
         created () {},
         eros: {
@@ -58,25 +63,27 @@
                 goods: [],
                 length: 2,
                 page: 1,
-                pageSize: 6,
-                src: '',
+                pageSize: 24,
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid()
             }
         },
         methods: {
             loadingDown () {
-                this.$refs.refresh.refreshEnd()
-                this.isLoading = false
-                this.getActivityProduct(true)
+                this.$refs.refresh.refreshEnd();
+                this.isLoading = false;
+                this.getActivityProduct(true);
             },
             onLoadingMore () {
-                this.getActivityProduct(false)
+                if (!this.isPlatformAndroid) {
+                    this.isLoading = true;
+                    this.getActivityProduct(false);
+                }
             },
             onloading () {
                 if (this.isPlatformAndroid) {
-                    this.isLoading = true
-                    this.getActivityProduct(false)
+                    this.isLoading = true;
+                    this.getActivityProduct(false);
                 }
             },
             getActivityParam (resData) {
@@ -84,6 +91,7 @@
                 this.name = resData.name;
                 this.imageUrl = resData.imageUrl;
                 this.type = resData.type;
+                googleAnalytics.trackingScreen(`activity/${this.name}`);
                 this.getActivityProduct(true);
             },
             getActivityProduct (isfirst) {
@@ -269,18 +277,39 @@
     }
 
     .gd-bg {
-        border-width: 1px;
-        border-color: rgba(0, 0, 0, 0.12);
-        border-style: solid;
         border-radius: 8px;
         width: 350px;
         height: 350px;
-        /* background-color: #f4f4f4;*/
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-top-color: rgba(0,0,0,.08);
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-left-color: rgba(0,0,0,.08);
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: rgba(0,0,0,.08);
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        border-bottom-color: rgba(0,0,0,.08);
     }
 
     .gd-img {
         width: 348px;
         height: 348px;
+    }
+    .gd-img {
+        width: 348px;
+        height: 348px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .gd-img-image {
+        width: 348px;
+        height: 348px;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
     }
     .gd-tlt {
         font-size: 28px;

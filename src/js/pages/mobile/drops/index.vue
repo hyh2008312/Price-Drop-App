@@ -31,6 +31,7 @@
     import cutingItem from './cutingItem';
     import { TAB } from './config'
     import { Utils, WxcLoading } from 'weex-ui';
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
@@ -47,6 +48,7 @@
             const pageHeight = Utils.env.getScreenHeight();
             this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' };
             this.init();
+            this.initGoogleAnalytics();
         },
         destory () {
             this.$event.off('login')
@@ -73,6 +75,9 @@
                 this.$router.open({
                     name: 'login'
                 })
+            },
+            initGoogleAnalytics () {
+                googleAnalytics.trackingScreen('drop');
             },
             init () {
                 this.getTabName();

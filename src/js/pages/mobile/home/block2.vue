@@ -33,12 +33,12 @@ export default {
         preload
     },
     props: ['head'],
-    created () {
+    mounted () {
         this.getActivityProduct()
     },
     data () {
         return {
-            goods: [],
+            goods: false,
             page: 1,
             pageSize: 6
         }

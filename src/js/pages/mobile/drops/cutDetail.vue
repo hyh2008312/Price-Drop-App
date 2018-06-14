@@ -53,6 +53,8 @@
                     </div>
                 </div>
                 <text class="wrapper-share" @click="showSharePanel">Share to Drop the Price Further</text>
+                <text class="wrapper-buy-now" @click="showBuyNow">Buy It At Current Price</text>
+
                 <div class="wrapper-timer">
                     <wxc-countdown tpl="{h}:{m}:{s}"
                                    :time="goodsDetail.endTimestamp * 1000"
@@ -74,8 +76,8 @@
                     <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
                 </div>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Drop It Again</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy It at Final Price</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy It at Final Price</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy It Now</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy It Now</text>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Drop It Again</text>
                 <div class="cut-end-item"
                      v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
@@ -92,7 +94,7 @@
                 </div>
                 <div class="cut-end-item" v-else-if="goodsDetail.operationStatus=='overdue'">
                     <text class="cut-end-item-icon-2">&#xe6fe;</text>
-                    <text class="cut-end-item-2"> The current price has expired</text>
+                    <text class="cut-end-item-2"> The final price has expired</text>
                 </div>
                 <div class="cut-end-item" v-else-if="goodsDetail.operationStatus=='paid'">
                     <text class="cut-end-item-icon-3">&#xe6fb;</text>
@@ -133,7 +135,7 @@
                 <div>
                     <div class="share-content-bottom">
                         <div class="share-content-icon">
-                            <div class="facebook" @click="shareFacebook">
+                            <div class="facebook" v-if="false" @click="shareFacebook">
                                 <text class="facebook-icon">&#xe70f;</text>
                                 <text class="facebook-text">Facebook</text>
                             </div>
@@ -144,6 +146,10 @@
                             <div class="whatsapp" @click="shareWhatsApp">
                                 <text class="whatsapp-icon">&#xe710;</text>
                                 <text class="whatsapp-text">WhatsApp</text>
+                            </div>
+                            <div class="copylink" @click="copyShareLink">
+                                <text class="copylink-icon">&#xe728;</text>
+                                <text class="whatsapp-text">Copy Link</text>
                             </div>
                         </div>
                         <div class="share-line"></div>
@@ -198,7 +204,9 @@
     import preload from '../common/preloadImg';
     import ShareUrlUtil from '../utils/ShareUtil';
 
+    const clipboard = weex.requireModule('clipboard')
     const shareModule = weex.requireModule('ShareModule');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { baseUrl } from '../../../config/apis'
     export default {
         components: {
@@ -217,6 +225,11 @@
             }
         },
         created () {
+            this.registerEvent();
+            this.initGoogleAnalytics();
+        },
+        destory () {
+            this.$event.off('cutDetail')
         },
         data () {
             return {
@@ -227,16 +240,30 @@
                 id: -1,
                 goodsDetail: {},
                 isRuleShow: false,
-                distance: 1,
-                sendTitle: '发送验证码'
+                distance: 1
             }
         },
         methods: {
+            initGoogleAnalytics () {
+                googleAnalytics.trackingScreen('dropDetail');
+            },
+            registerEvent () {
+                this.$event.on('cutDetail', params => {
+                    this.requestCutDetail();
+                })
+            },
             showSharePanel () {
                 this.isShowShare = true;
             },
             popupOverlayAutoClick () {
                 this.isShowShare = false;
+            },
+            copyShareLink () {
+                const url = ShareUrlUtil.getShareUrl(this.id);
+                clipboard.setString(url);
+                this.popupOverlayAutoClick();
+                this.$notice.toast('Copied successfully! You can share this link on your social media now.');
+                googleAnalytics.recordEvent('share', 'copyLink', url, 0);
             },
             shareFacebook () {
                 const that = this;
@@ -252,7 +279,7 @@
                     }
                 );
             },
-            shareFacebookMessenger() {
+            shareFacebookMessenger () {
                 const that = this;
                 const detail = '1,000+ got the lowest price here.';
                 const url = ShareUrlUtil.getShareUrl(that.id);
@@ -296,6 +323,9 @@
                     this.$notice.toast('network is error');
                 })
             },
+            showBuyNow () {
+                this.jumpConfirmOrder();
+            },
             jumpProductDetail () {
                 this.$router.open({
                     name: 'goods.details',
@@ -328,7 +358,7 @@
             wxcMaskSetHidden () {
                 this.isRuleShow = false;
             },
-            openDetail() {
+            openDetail () {
                 this.$router.open({
                     name: 'simple.details',
                     type: 'PUSH',
@@ -472,6 +502,13 @@
         color: rgba(0, 0, 0, 0.87);
     }
 
+    .copylink {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
     .whatsapp {
         display: flex;
         flex-direction: column;
@@ -491,6 +528,12 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+    }
+
+    .copylink-icon {
+        font-family: iconfont;
+        color: rgba(0, 0, 0, 0.54);
+        font-size: 96px;
     }
 
     .whatsapp-icon {
@@ -640,6 +683,23 @@
         margin-left: 72px;
         margin-right: 72px;
         color: white;
+        font-weight: bold;
+        margin-top: 24px;
+    }
+
+    .wrapper-buy-now {
+        width: 606px;
+        height: 80px;
+        font-size: 24px;
+        border-radius: 8px;
+        border-width: 1px;
+        border-color: #EF8A31;
+        border-style: solid;
+        line-height: 80px;
+        text-align: center;
+        margin-left: 72px;
+        margin-right: 72px;
+        color: #EF8A31;
         font-weight: bold;
         margin-top: 24px;
     }

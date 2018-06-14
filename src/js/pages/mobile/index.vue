@@ -2,7 +2,6 @@
     <div class="app-wrapper">
         <embed v-for="(item, index) in items" :src="item.src" type="weex" class="content" :style="{ visibility: item.visibility }"></embed>
         <tab-bar @tabTo="onTabTo" :items="items" :indexKey="selectedTab"></tab-bar>
-        <div class="touch-bar"></div>
     </div>
 </template>
 <script>
@@ -116,7 +115,7 @@ export default {
         refreshToken () {
             const token = this.$storage.getSync('token')
             if (token && !this.isFirstLogin) {
-                this.isFirstLogin = true
+                this.isFirstLogin = true;
                 this.$fetch({
                     method: 'POST', // 大写
                     name: 'oauth2.token',
@@ -136,10 +135,10 @@ export default {
                         refreshToken: data.refresh_token,
                         expiresIn: data.expires_in
                     })
+                    this.getUser();
                 }, error => {
-                    this.$notice.toast({
-                        message: error
-                    })
+                    this.$storage.deleteSync('token');
+                    this.$storage.deleteSync('user');
                 })
             }
         }

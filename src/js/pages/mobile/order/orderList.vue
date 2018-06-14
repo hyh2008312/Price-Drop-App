@@ -56,7 +56,7 @@
                 </div>
                 <div class="popup-cancel-bottom">
                     <text class="popup-cancel-button" @click="closeBottomPop">Cancel</text>
-                    <text class="popup-cancel-button-1" @click="cancelOrder">OK</text>
+                    <text class="popup-cancel-button-1" @click="cancelOrder()">OK</text>
                 </div>
             </div>
         </wxc-popup>
@@ -85,9 +85,10 @@
     import refresher from '../common/refresh';
     import orderItem from './orderItem';
     import payRadio from './radio';
-    import {PAYLIST, ORDERSTATUS, CANCELREASON} from './config';
+    import { PAYLIST, ORDERSTATUS, CANCELREASON } from './config';
     import { baseUrl } from '../../../config/apis';
 
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const payTm = weex.requireModule('PayModule');
 
     export default {
@@ -98,7 +99,7 @@
             WxcPopup,
             WxcMask
         },
-        props: ['index', 'activeIndex'],
+        props: ['index', 'activeIndex', 'item'],
         created () {
             this.resetPayList()
             if (this.index == 0 && this.activeIndex == 0) {
@@ -124,7 +125,11 @@
             'index': {
                 handler: function (val, oldVal) {
                     if (this.activeIndex == val) {
-                        this.init()
+                        if (!this.isFirstLoad) {
+                            this.isFirstLoad = true
+                            googleAnalytics.trackingScreen(`${this.item.name}`);
+                            this.init()
+                        }
                     }
                 },
                 deep: true
@@ -163,7 +168,8 @@
                 deleteId: -1,
                 deleteIndex: 0,
                 hasAnimation: true,
-                payOrder: {}
+                payOrder: {},
+                isFirstLoad: false
             }
         },
         methods: {
@@ -233,7 +239,43 @@
             },
             pay ($event) {
                 this.payOrder = $event.data.item;
-                this.isBottomShow = true
+                // this.isBottomShow = true
+                const that = this;
+                const user = that.$storage.getSync('user');
+                payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
+                    Math.ceil(this.order.paymentAmount * 100), user.defaultAddress.phoneNumber, user.email,
+                    function (param) {
+                        that.$fetch({
+                            method: 'PUT', // 大写
+                            url: `${baseUrl}/payment/razorpay/${that.payOrder.id}/`,
+                            data: {
+                                paymentId: param.paymentId,
+                                paymentAmount: that.payOrder.paymentAmount
+                            },
+                            header: {
+                                needAuth: true
+                            }
+                        }).then(resData => {
+                            that.$event.once('paysuccess', () => {
+                                that.init()
+                            });
+                            that.$router.open({
+                                name: 'order.success',
+                                type: 'PUSH'
+                            })
+                        }, error => {
+                            that.$notice.toast({
+                                message: error
+                            })
+                        })
+                    }, function (param) {
+                        if (param.code != 0) {
+                            that.$router.open({
+                                name: 'order.failure',
+                                type: 'PUSH'
+                            })
+                        }
+                    });
             },
             popupOverlayAutoClick () {
                 this.isBottomShow = false;
@@ -248,18 +290,6 @@
                 this.payList = [...PAYLIST]
             },
             payResult () {
-                const that = this
-                payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
-                    this.payOrder.paymentAmount * 100, '', '', function (param) {
-                        that.$notice.alert(JSON.stringify(param))
-                    }, function (param) {
-                        that.$notice.alert(JSON.stringify(param))
-                        that.$router.finish()
-                        that.$router.open({
-                            name: 'order.failure',
-                            type: 'PUSH'
-                        })
-                    });
             },
             popupCancelAutoClick () {
                 this.isCancelBottomShow = false
@@ -287,8 +317,8 @@
                         needAuth: true
                     }
                 }).then(resData => {
+                    this.order[this.cancelIndex].orderStatus = 'Audit canceled'
                     this.$notice.toast('Your order cancellation request has been submitted for review.')
-                    this.order[this.cancelIndex] = resData
                 }, error => {
                     this.$notice.toast({
                         message: error
@@ -313,7 +343,6 @@
                         needAuth: true
                     }
                 }).then(resData => {
-                    this.$notice.toast(this.deleteIndex)
                     this.order.splice(this.deleteIndex, 1)
                 }, error => {
                     this.$notice.toast({

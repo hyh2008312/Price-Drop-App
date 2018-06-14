@@ -19,11 +19,14 @@
 </template>
 <script>
     const googleLogin = weex.requireModule('GoogleLoginModule');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
      import { cliendId } from '../../../config/apis'
     export default {
         components: {
         },
-        created () {},
+        created () {
+            this.initGoogleAnalytics();
+        },
         eros: {
             beforeAppear (params, options) {
             }
@@ -33,6 +36,9 @@
             }
         },
         methods: {
+            initGoogleAnalytics () {
+                googleAnalytics.trackingScreen('login');
+            },
             loginBack () {
                 this.$router.finish();
             },
@@ -64,6 +70,7 @@
                     that.$storage.deleteSync('token');
                     that.$storage.setSync('user', data.user);
                     that.$storage.setSync('token', data.token);
+                    googleAnalytics.recordEvent('login', 'google', data.user, 0);
                     that.$router.back({
                         length: 1,
                         type: 'PUSH',

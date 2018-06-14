@@ -68,6 +68,7 @@ import orderDetailItem from './orderDetailItem';
 import editAddressBottom from './editAddressBottom';
 import { Utils } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -79,11 +80,14 @@ export default {
     eros: {
         appeared (params, options) {
             if (params.id) {
-                this.id = params.id
-                this.getAddress(params.id)
+                this.id = params.id;
+                googleAnalytics.trackingScreen(`Edit Address/${this.id}`);
+                this.getAddress(params.id);
                 this.$event.on('login', params => {
                     this.getAddress(params.id)
-                })
+                });
+            } else {
+                googleAnalytics.trackingScreen('Create Address');
             }
         }
     },

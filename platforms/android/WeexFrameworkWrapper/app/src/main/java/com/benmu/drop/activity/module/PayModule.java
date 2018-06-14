@@ -1,9 +1,10 @@
-package com.benmu.drop.activity;
+package com.benmu.drop.activity.module;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import com.benmu.drop.R;
+import com.benmu.drop.activity.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -25,10 +26,10 @@ public class PayModule extends WXModule {
 
     @JSMethod
     public void startPayRequest(
-            String name, String description, String image, String amount, String email, String contact,
+            String name, String description, String image, String amount, String contact, String email,
             JSCallback PaySuccessCallback, JSCallback PayFailedCallback) {
         ((MainActivity) mWXSDKInstance.getContext()).setPayCallBack(PaySuccessCallback, PayFailedCallback);
-        ((MainActivity) mWXSDKInstance.getContext()).startPayment(name, description, image, amount, email, contact);
+        ((MainActivity) mWXSDKInstance.getContext()).startPayment(name, description, image, amount, contact,email);
 
     }
 }
