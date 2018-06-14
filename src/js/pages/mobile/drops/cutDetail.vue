@@ -76,12 +76,8 @@
                     <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
                 </div>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Drop It Again</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">
-                    Buy It Now
-                </text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">
-                    Buy It Now
-                </text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy It Now</text>
+                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy It Now</text>
                 <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Drop It Again</text>
                 <div class="cut-end-item"
                      v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
@@ -274,7 +270,7 @@
                     }
                 );
             },
-            shareFacebookMessenger() {
+            shareFacebookMessenger () {
                 const that = this;
                 const detail = '1,000+ got the lowest price here.';
                 const url = ShareUrlUtil.getShareUrl(that.id);
@@ -318,7 +314,7 @@
                     this.$notice.toast('network is error');
                 })
             },
-            showBuyNow() {
+            showBuyNow () {
                 this.jumpConfirmOrder();
             },
             jumpProductDetail () {
@@ -353,7 +349,7 @@
             wxcMaskSetHidden () {
                 this.isRuleShow = false;
             },
-            openDetail() {
+            openDetail () {
                 this.$router.open({
                     name: 'simple.details',
                     type: 'PUSH',
