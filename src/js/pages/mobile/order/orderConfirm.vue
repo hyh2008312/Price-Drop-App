@@ -25,6 +25,7 @@ import orderDetailNumber from './orderDetailNumber';
 import orderConfirmPayMethod from './orderConfirmPayMethod'
 import { Utils } from 'weex-ui';
 import { PAYLIST } from './config';
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -50,6 +51,7 @@ export default {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' }
         this.resetPayList()
+        googleAnalytics.trackingScreen('Confirm Order');
     },
     data () {
         return {

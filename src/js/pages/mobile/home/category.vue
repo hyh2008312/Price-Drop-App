@@ -33,6 +33,7 @@ import block4 from './block4';
 import { TABCAT } from './config';
 
 const dom = weex.requireModule('dom');
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -41,7 +42,7 @@ export default {
         'block-3': block3,
         'block-4': block4
     },
-    props: ['index', 'activeIndex', 'id'],
+    props: ['index', 'activeIndex', 'id', 'item'],
     created () {
         // this.init()
     },
@@ -74,7 +75,8 @@ export default {
             lengthHot: 2,
             lengthPrice: 2,
             isLoading: false,
-            isPlatformAndroid: Utils.env.isAndroid()
+            isPlatformAndroid: Utils.env.isAndroid(),
+            isFirstLoad: false
         }
     },
     methods: {
@@ -112,9 +114,13 @@ export default {
             this.init();
         },
         init () {
-            this.getBlock1()
-            this.getTabName()
-            this.getGoods3(true)
+            if (!this.isFirstLoad) {
+                this.getBlock1()
+                this.getTabName()
+                this.getGoods3(true)
+                googleAnalytics.trackingScreen(`home/${this.item.name}`);
+                this.isFirstLoad = true
+            }
         },
         getBlock1 () {
             this.$fetch({

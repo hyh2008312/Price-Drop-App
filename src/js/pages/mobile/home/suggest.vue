@@ -45,6 +45,7 @@ import { TAB } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
     components: {
@@ -58,7 +59,8 @@ export default {
         WxcLoading
     },
     created () {
-        this.init()
+        this.init();
+        googleAnalytics.trackingScreen('home/featured');
     },
     data () {
         return {
@@ -103,7 +105,7 @@ export default {
                     name: 'promotion.get.list',
                     data: {}
                 }).then(resData => {
-                    this.block1.backup = [...resData];
+                    this.backup = [...resData];
                     const newArr = this.backup.splice(0, 4);
                     this.block1.items = [];
                     this.block1.items = [...newArr];
