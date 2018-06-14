@@ -247,8 +247,8 @@
             initGoogleAnalytics () {
                 googleAnalytics.trackingScreen('dropDetail');
             },
-            registerEvent () {
-                this.$event.on('cutDetial', params => {
+            registerEvent() {
+                this.$event.on('cutDetail', params => {
                     this.requestCutDetail();
                 })
             },

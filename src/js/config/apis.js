@@ -23,8 +23,8 @@ export const apis = {
     'promotion.get.list': '/promotion/get/list/'
 }
 // export const clientId = 'DwxjQEhITops8cWU6OcWmCY963XyKuQgkgjdTWRM';
-// export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';
-// export const baseUrl = 'http://149.129.135.114';
+export const cliendId = 'xx9SVg07JRGf0KEGNJf19Pq54ZcZsEvFEG1ZK9CS';
+export const baseUrl = 'http://149.129.135.114';
 // 正式
-export const baseUrl = 'https://app-api.getpricedrop.com';
-export const cliendId = 'atAum5pHls5FGaGAeeIGcJ5p7ircWky8LKSRGOG9';
+// export const baseUrl = 'https://app-api.getpricedrop.com';
+// export const cliendId = 'atAum5pHls5FGaGAeeIGcJ5p7ircWky8LKSRGOG9';

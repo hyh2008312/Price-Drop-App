@@ -27,6 +27,7 @@
                         needAuth: true
                     }
                 }).then(resData => {
+                    this.$event.emit('cutDetail');
                     const order = resData;
                     const user = that.$storage.getSync('user');
                     pay.startPayRequest(that.order.title, '', that.order.mainImage,
