@@ -33,9 +33,11 @@
         props: ['order'],
         methods: {
             confirm () {
-                const that = this
+                const that = this;
+                const user = that.$storage.getSync('user');
                 pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
-                    Math.ceil(this.order.paymentAmount * 100), '', '', function (param) {
+                    Math.ceil(this.order.paymentAmount * 100), user.defaultAddress.phoneNumber, user.email,
+                    function (param) {
                         that.$fetch({
                             method: 'PUT', // 大写
                             url: `${baseUrl}/payment/razorpay/${that.order.id}/`,

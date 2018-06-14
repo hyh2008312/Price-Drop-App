@@ -27,9 +27,11 @@
                         needAuth: true
                     }
                 }).then(resData => {
-                    const order = resData
+                    const order = resData;
+                    const user = that.$storage.getSync('user');
                     pay.startPayRequest(that.order.title, '', that.order.mainImage,
-                        Math.ceil(that.order.currentPrice * 100), '', '', function (param) {
+                        Math.ceil(that.order.currentPrice * 100), user.defaultAddress.phoneNumber, user.email,
+                        function (param) {
                             that.$fetch({
                                 method: 'PUT', // 大写
                                 url: `${baseUrl}/payment/razorpay/${order.orderId}/`,
