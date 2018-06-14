@@ -229,7 +229,7 @@
             this.initGoogleAnalytics();
         },
         destory () {
-            this.$event.off('login')
+            this.$event.off('cutDetail')
         },
         data () {
             return {
@@ -247,7 +247,7 @@
             initGoogleAnalytics () {
                 googleAnalytics.trackingScreen('dropDetail');
             },
-            registerEvent() {
+            registerEvent () {
                 this.$event.on('cutDetail', params => {
                     this.requestCutDetail();
                 })
