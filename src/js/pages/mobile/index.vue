@@ -115,7 +115,7 @@ export default {
         refreshToken () {
             const token = this.$storage.getSync('token')
             if (token && !this.isFirstLogin) {
-                this.isFirstLogin = true
+                this.isFirstLogin = true;
                 this.$fetch({
                     method: 'POST', // 大写
                     name: 'oauth2.token',
@@ -135,10 +135,10 @@ export default {
                         refreshToken: data.refresh_token,
                         expiresIn: data.expires_in
                     })
+                    this.getUser();
                 }, error => {
-                    this.$notice.toast({
-                        message: error
-                    })
+                    this.$storage.deleteSync('token');
+                    this.$storage.deleteSync('user');
                 })
             }
         }

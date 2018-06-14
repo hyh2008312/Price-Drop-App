@@ -50,7 +50,11 @@ export default {
         'index': {
             handler: function (val, oldVal) {
                 if (this.activeIndex == val) {
-                    this.init()
+                    if (!this.isFirstLoad) {
+                        this.init()
+                        googleAnalytics.trackingScreen(`home/${this.item.name}`);
+                        this.isFirstLoad = true
+                    }
                 }
             },
             deep: true
@@ -109,18 +113,14 @@ export default {
             }
         },
         loadingDown () {
-            this.$refs.refresh.refreshEnd()
-            this.isLoading = false
+            this.$refs.refresh.refreshEnd();
+            this.isLoading = false;
             this.init();
         },
         init () {
-            if (!this.isFirstLoad) {
-                this.getBlock1()
-                this.getTabName()
-                this.getGoods3(true)
-                googleAnalytics.trackingScreen(`home/${this.item.name}`);
-                this.isFirstLoad = true
-            }
+            this.getBlock1();
+            this.getTabName();
+            this.getGoods3(true);
         },
         getBlock1 () {
             this.$fetch({
