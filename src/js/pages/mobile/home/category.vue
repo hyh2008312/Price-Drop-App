@@ -172,9 +172,9 @@ export default {
                     page = this.pagePrice;
                     if (this.pagePrice > this.lengthPrice) {
                         this.$refs.refresh.refreshEnd()
-                        setTimeout(() => {
+                        this.$nextTick(() => {
                             this.isLoading = false
-                        }, 0)
+                        })
                     }
                     this.getGoodsList(isfirst, page)
                     break;
