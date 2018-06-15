@@ -229,11 +229,14 @@
   align-items: center;
 }
 .no-login-text{
-    background-color: #ef8a31;
+    background-color: white;
     margin-top: 24px;
     padding: 10px 100px;
     border-radius: 50%;
-    color: white;
+    color: #EF8A31;
+    font-size: 24px;
+    font-weight: 700;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.19);
 }
 .line-serve {
     padding-top: 20px;

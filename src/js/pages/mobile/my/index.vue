@@ -26,7 +26,7 @@
         <div class="header"  v-if="user==null" @click="openMydetail(2)">
             <div class="overflow-photo">
                 <div class="no-login">
-                    <text class="">Welcome!</text>
+                    <text class="" style="color: white">Welcome!</text>
                     <text class="no-login-text">Log In / Sign Up</text>
                 </div>
             </div>
@@ -155,6 +155,8 @@
             this.$event.on('logout', parmas => {
                 this.token = null
                 this.user = null
+                this.points = '0',
+                this.cardNumber = '0'
             })
             this.getUserData()
             this.$event.on('redeem', parmas => {
@@ -176,8 +178,8 @@
                 token: null,
                 user: null,
                 gender: '',
-                points: '',
-                cardNumber: '',
+                points: '0',
+                cardNumber: '0',
                 setsign: ''
             }
         },
@@ -277,18 +279,32 @@
                         type: 'PUSH'
                     })
                 } else if (type == 5) {
-                    this.$router.open({
-                        name: 'my.points',
-                        type: 'PUSH',
-                        params: {
-                            num: this.points
-                        }
-                    })
+                    if (this.user == null) {
+                        this.$router.open({
+                            name: 'login',
+                            type: 'PUSH'
+                        })
+                    } else {
+                        this.$router.open({
+                            name: 'my.points',
+                            type: 'PUSH',
+                            params: {
+                                num: this.points
+                            }
+                        })
+                    }
                 } else {
-                    this.$router.open({
-                        name: 'my.card',
-                        type: 'PUSH'
-                    })
+                    if (this.user == null) {
+                        this.$router.open({
+                            name: 'login',
+                            type: 'PUSH'
+                        })
+                    } else {
+                        this.$router.open({
+                            name: 'my.card',
+                            type: 'PUSH'
+                        })
+                    }
                 }
             },
             getUserData () {

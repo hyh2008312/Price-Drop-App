@@ -5,7 +5,13 @@
         <topic-header title="My Gift Cards" leftBtn="icon"  ref="ref1" ></topic-header>
         <div style="margin-top: 160px">
 
-            <div class="overflow-gift" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
+            <div v-if="cardArr.length===0" class="empty-div">
+                <image src="bmlocal://assets/empty.png" class="empty-img"></image>
+                <text class="empty-txt">You haven’t redeemed any gift cards yet.</text>
+            </div>
+
+
+            <div class="overflow-gift" v-if="cardArr.length!==0" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
                 <div class="gift-card">
                     <image class="gift-card-img"  :src="i.image"></image>
                     <div class="gift-card-txt">
@@ -47,10 +53,11 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    this.$notice.alert({
-                        message: res
-                    })
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
                     this.cardArr = res
+                    // this.cardArr = []
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res
@@ -125,5 +132,23 @@
         font-family: ProximaNova-Regular;
         font-size: 24px;
         color: #EF8A31;
+    }
+    .empty-div{
+        flex-direction: column;
+        justify-content:flex-start;
+        align-items: center;
+        height: 300px;
+        margin-top: 40px;
+        /*background-color: black;*/
+    }
+    .empty-img{
+        width: 200px;
+        height: 200px;
+    }
+    .empty-txt{
+        opacity: 0.54;
+        font-family: ProximaNova-Bold;
+        font-size: 24px;
+        color: #000000;
     }
 </style>
