@@ -21,10 +21,13 @@
                 <text class="iiiright" @click="openLink">&#xe700;</text>
                 <text class="onetitle">{{goods.title}}</text>
 
-                <text class="price">Rs.{{goods.price}}</text>
 
                 <div class="count-div">
                     <text class=" count" >Get it at</text><text class="count-bold">Rs.{{lowestPrice}}</text><text class="count-1">by inviting friends!</text>
+
+                </div>
+                <div class="count-div">
+                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text>
 
                 </div>
             </div>
@@ -36,11 +39,9 @@
 
 
                 <div v-if="tabshow==true" style="position: sticky">
-<<<<<<< HEAD
-                    <tab   @tabTo="onTabTo" :items="tabsItems"  :indexKey="defaultTab"  ></tab>
-=======
+
                     <tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>
->>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae
+
                 </div>
 
             <div class="mid">
@@ -639,13 +640,19 @@
         line-height: 40px;
         letter-spacing: 0;
     }
+    .price-name{
+        color: rgba(0,0,0,1);
+        margin-left: 32px;
+        margin-bottom: 26px;
+        font-size:24px;
+    }
     .price{
         font-family: PingFangSC-Semibold;
         font-weight: 700;
-        margin-top: 16px;
-        margin-left: 32px;
-        font-size: 32px;
-        color: #000000;
+        margin-left: 6px;
+        margin-bottom: 26px;
+        font-size: 24px;
+        color: rgba(0,0,0,0.54);
         letter-spacing: 0;
         text-align: left;
         text-decoration: line-through;
@@ -671,24 +678,21 @@
     }
     .count{
         color: rgba(0,0,0,1);
-        margin-top: 16px;
         margin-left: 32px;
-        margin-bottom: 26px;
+        margin-bottom: 20px;
         font-size:24px;
     }
     .count-1{
         color: #000000;
         margin-left: 16px;
-        margin-top: 16px;
         margin-bottom: 26px;
         font-size:24px;
     }
     .count-bold{
         color: #EF8A31;
-        margin-top: 16px;
         margin-left: 16px;
         margin-bottom: 26px;
-        font-size:32px;
+        font-size:40px;
         font-weight: 700;
     }
     .blackheader{

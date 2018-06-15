@@ -16,12 +16,15 @@
                 </slider>
                 <text class="iiileft"  @click="$router.back">&#xe632;</text>
                 <text class="onetitle">{{goods.title}}</text>
-                <text class="price">Rs.{{goods.price}}</text>
 
                 <div class="count-div">
                     <text class=" count" >Get it at</text><text class="count-bold">Rs.{{lowestPrice}}</text><text class="count-1">by inviting friends!</text>
+                </div>
+                <div class="count-div">
+                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text>
 
                 </div>
+
             </div>
                  <div class="learn-drop">
                     <div  class="learn-div" @click="openShip(1)"><text class="learn-picon iconfont">&#xe723;</text><text class="learn-price" >How to Drop Price</text></div>
@@ -394,15 +397,22 @@
         line-height: 40px;
         letter-spacing: 0;
     }
+    .price-name{
+        color: rgba(0,0,0,1);
+        margin-left: 32px;
+        margin-bottom: 26px;
+        font-size:24px;
+    }
     .price{
         font-family: PingFangSC-Semibold;
         font-weight: 700;
-        margin-top: 16px;
-        margin-left: 32px;
-        font-size: 32px;
-        color: #000000;
+        margin-left: 6px;
+        margin-bottom: 26px;
+        font-size: 24px;
+        color: rgba(0,0,0,0.54);
         letter-spacing: 0;
         text-align: left;
+        text-decoration: line-through;
     }
     .rightlogo{
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
@@ -425,24 +435,21 @@
     }
     .count{
         color: rgba(0,0,0,1);
-        margin-top: 16px;
         margin-left: 32px;
-        margin-bottom: 26px;
+        margin-bottom: 20px;
         font-size:24px;
     }
     .count-1{
         color: #000000;
         margin-left: 16px;
-        margin-top: 16px;
         margin-bottom: 26px;
         font-size:24px;
     }
     .count-bold{
         color: #EF8A31;
-        margin-top: 16px;
         margin-left: 16px;
         margin-bottom: 26px;
-        font-size:32px;
+        font-size:40px;
         font-weight: 700;
     }
     .blackheader{
