@@ -174,6 +174,7 @@ export default {
     text-align: center;
     font-size: 24px;
     line-height: 44px;
+    font-weight: bold;
     border-style: solid;
     border-radius: 4px;
     border-width: 2px;
