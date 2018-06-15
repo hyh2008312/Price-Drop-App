@@ -34,7 +34,7 @@
         <div class="overflow-point-card">
             <div class="point-card">
                 <div class="point" @click="openCell(5)">
-                    <text class="point-card-num">{{points}}</text>
+                    <text class="point-card-num">{{points || 0}}</text>
                     <text class="point-card-txt">My Points</text>
                 </div>
                 <text class="center-border"></text>
