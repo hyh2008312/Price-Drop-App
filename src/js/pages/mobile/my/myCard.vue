@@ -76,7 +76,7 @@
 
 <style scoped>
     .wrapper{
-        background-color: #f4f4f4;
+        background-color: #f1f1f1;
     }
     .blackheader{
         position: fixed;
@@ -138,7 +138,7 @@
         justify-content:flex-start;
         align-items: center;
         height: 300px;
-        margin-top: 40px;
+        margin-top: 140px;
         /*background-color: black;*/
     }
     .empty-img{
