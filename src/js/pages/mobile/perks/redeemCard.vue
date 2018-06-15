@@ -154,20 +154,19 @@
         margin-top: 161px;
     }
     .top-card{
-        width: 688px;
-        height: 616px;
+        width: 718px;
         background-color: white;
         overflow: hidden;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
         border-radius: 8px;
     }
     .top-card-imgdiv{
-        margin-top: 7px;
+        margin-top: 16px;
         align-items: center;
     }
     .top-card-img{
-        width: 636px;
-        height: 400px;
+        width: 686px;
+        height: 418px;
     }
     .top-card-txt{
         flex-direction: column;
@@ -199,7 +198,7 @@
     }
     .bottom-card{
         height: 424px;
-        width: 688px;
+        width: 718px;
         background-color: white;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
         border-radius: 8px;

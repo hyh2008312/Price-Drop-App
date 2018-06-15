@@ -109,7 +109,7 @@
         justify-content: center;
     }
     .points-head{
-        width: 688px;
+        width: 712px;
         height: 96px;
         margin-top: 178px;
         flex-direction: row;
@@ -131,7 +131,7 @@
         font-size: 28px;
     }
     .points-content{
-        width: 688px;
+        width: 712px;
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
         background-color: white;
         border-radius: 8px;

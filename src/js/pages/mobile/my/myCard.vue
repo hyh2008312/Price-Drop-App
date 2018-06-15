@@ -3,7 +3,7 @@
         <scroller >
         <div class="blackheader"></div>
         <topic-header title="My Gift Cards" leftBtn="icon"  ref="ref1" ></topic-header>
-        <div style="margin-top: 160px">
+        <div style="margin-top: 160px;margin-bottom: 32px">
 
             <div v-if="cardArr.length===0" class="empty-div">
                 <image src="bmlocal://assets/empty.png" class="empty-img"></image>
@@ -38,7 +38,7 @@
         name: 'myCard',
         data () {
             return {
-                cardArr: []
+                cardArr: false
             }
         },
         created () {
@@ -97,12 +97,12 @@
         border-radius: 24px;
     }
     .gift-card-img{
-        width: 656px;
-        height: 280px;
+        width: 686px;
+        height: 304px;
     }
 
     .gift-card-txt{
-        width: 656px;
+        width: 686px;
         flex-direction: row;
         justify-content: space-between;
         background-color: white;

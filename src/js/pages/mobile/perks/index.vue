@@ -146,7 +146,7 @@
         margin-bottom: 150px;
     }
     .mid-card{
-        width: 656px;
+        width: 686px;
         height: 420px;
         background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
@@ -207,8 +207,8 @@
         border-radius: 24px;
     }
     .gift-card-img{
-        width: 656px;
-        height: 280px;
+        width: 686px;
+        height: 292px;
     }
     .gift-card-txt{
         width: 656px;
