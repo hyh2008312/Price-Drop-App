@@ -6,18 +6,13 @@ import android.widget.Toast;
 import com.benmu.drop.SocialCommerApplication;
 import com.benmu.drop.activity.bean.ShareBean;
 import com.benmu.drop.utils.PackageManagerUtils;
-<<<<<<< HEAD:platforms/android/WeexFrameworkWrapper/app/src/main/java/com/benmu/drop/activity/ShareModule.java
-=======
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
->>>>>>> cb0a2534294e70b1a1ebffc133af81d35fc5b9ae:platforms/android/WeexFrameworkWrapper/app/src/main/java/com/benmu/drop/activity/module/ShareModule.java
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
 import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.UmengTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
