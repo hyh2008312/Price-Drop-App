@@ -87,7 +87,7 @@ public class ShareModule extends WXModule {
                 .setAction("facebook")
                 .setLabel(Url)
                 .build());
-        Toast.makeText(mWXSDKInstance.getContext(), "share+facebook", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(mWXSDKInstance.getContext(), "share+facebook", Toast.LENGTH_SHORT).show();
     }
 
     @JSMethod
@@ -141,7 +141,7 @@ public class ShareModule extends WXModule {
                 .setCategory("share")
                 .setAction("whatsapp")
                 .build());
-        Toast.makeText(mWXSDKInstance.getContext(), "share+whatsapp", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(mWXSDKInstance.getContext(), "share+whatsapp", Toast.LENGTH_SHORT).show();
     }
 
     @JSMethod
@@ -194,7 +194,6 @@ public class ShareModule extends WXModule {
                 .setCategory("share")
                 .setAction("facebookMessenger")
                 .build());
-        Toast.makeText(mWXSDKInstance.getContext(), "share+facebookMessenger", Toast.LENGTH_SHORT).show();
-
+       // Toast.makeText(mWXSDKInstance.getContext(), "share+facebookMessenger", Toast.LENGTH_SHORT).show();
     }
 }

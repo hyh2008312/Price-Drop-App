@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="state"></div>
-        <div class="navigation">
+        <div class="navigation" @click="test">
             <text class="title">Drops</text>
         </div>
         <div>
@@ -69,11 +69,8 @@
         },
         methods: {
             test () {
-                this.$event.once('login', params => {
-                    this.init();
-                })
                 this.$router.open({
-                    name: 'login'
+                    name: 'welcome'
                 })
             },
             initGoogleAnalytics () {

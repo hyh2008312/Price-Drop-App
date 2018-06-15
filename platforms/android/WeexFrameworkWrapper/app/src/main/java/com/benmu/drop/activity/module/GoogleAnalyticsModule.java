@@ -27,7 +27,7 @@ public class GoogleAnalyticsModule extends WXModule {
         Tracker sTracker = application.getDefaultTracker();
         sTracker.setScreenName(screenName);
         sTracker.send(new HitBuilders.ScreenViewBuilder().build());
-        Toast.makeText(mWXSDKInstance.getContext(), screenName, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(mWXSDKInstance.getContext(), screenName, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -44,6 +44,6 @@ public class GoogleAnalyticsModule extends WXModule {
                 .setLabel(Label)
                 .setValue(Value)
                 .build());
-        Toast.makeText(mWXSDKInstance.getContext(), Category + Action, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(mWXSDKInstance.getContext(), Category + Action, Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,7 +7,8 @@ module.exports = {
         'android': '1.0.0'
     },
     'page': {
-        'homePage': '/pages/mobile/index.js',
+        'homePage': '/pages/mobile/welcome/guide.js',
+       // 'homePage': '/pages/mobile/index.js',
         // 'homePage': '/pages/demo/index.js',
         'mediatorPage': '/mediator/index.js',
         'navBarColor': '#1DA1F2',

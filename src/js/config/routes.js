@@ -94,5 +94,8 @@ export default {
     },
     'login': {
         url: '/pages/mobile/login/index.js'
+    },
+    'welcome': {
+        url: '/pages/mobile/welcome/guide.js'
     }
 }
