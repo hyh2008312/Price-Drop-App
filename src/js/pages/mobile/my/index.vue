@@ -155,7 +155,7 @@
             this.$event.on('logout', parmas => {
                 this.token = null
                 this.user = null
-                this.points = '0',
+                this.points = '0'
                 this.cardNumber = '0'
             })
             this.getUserData()

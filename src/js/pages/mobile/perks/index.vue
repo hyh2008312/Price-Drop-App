@@ -66,10 +66,7 @@
             getCard () {
                 this.$fetch({
                     method: 'GET',
-                    name: 'get.card',
-                    header: {
-                        needAuth: true
-                    }
+                    name: 'get.card'
                 }).then((res) => {
                     this.cardArr = res
                     // this.$notice.alert({
