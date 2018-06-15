@@ -49,6 +49,7 @@
 <script>
     import header from './header';
     import NewDialog from './newPopup';
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
@@ -59,6 +60,7 @@
             appeared (params, options) {
                 if (params) {
                     this.card = params.card
+                    googleAnalytics.trackingScreen(`perks/redeemCard/${this.card.id}`);
                 }
             }
         },

@@ -13,7 +13,8 @@
     </div>
 </template>
 <script>
-export default {
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+    export default {
     props: ['title', 'leftBtn', 'rightBtn'],
     data () {
       return {
@@ -22,7 +23,17 @@ export default {
       }
     },
     created () {
+        if (this.title) {
+            googleAnalytics.trackingScreen(this.title);
+        }
         this.editRight()
+    },
+    watch:{
+        title (newVal, oldVal) {
+            if (newVal) {
+                googleAnalytics.trackingScreen(this.title);
+            }
+        }
     },
     methods: {
         editRight () {

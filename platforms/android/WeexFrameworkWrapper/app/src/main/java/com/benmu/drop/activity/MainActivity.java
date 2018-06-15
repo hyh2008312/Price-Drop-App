@@ -139,7 +139,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             preFill.put("email", email);
             preFill.put("contact", contact);
             options.put("prefill", preFill);
-            
+
             co.open(activity, options);
         } catch (Exception e) {
             payFailedCallback.invoke(e);

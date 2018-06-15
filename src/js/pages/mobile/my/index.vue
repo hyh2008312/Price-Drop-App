@@ -139,6 +139,7 @@
     import he from '../utils/he';
     import header from './header';
     import { SERVICES } from './config'
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     Vue.filter('myFilter', function (value) {
         return he.decode(value);
@@ -149,6 +150,7 @@
             'topic-header': header
         },
         created () {
+            googleAnalytics.trackingScreen('Account');
             this.$event.on('login', params => {
                 this.getUserData()
             })

@@ -63,6 +63,8 @@
 <script>
     import header from './header';
     import { QA } from './config'
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+
     export default {
         name: 'pointsCardDetail',
         components: {
@@ -74,6 +76,7 @@
             }
         },
         created () {
+            googleAnalytics.trackingScreen('perks/cardDetail');
             this.QAArr = QA
         }
     }

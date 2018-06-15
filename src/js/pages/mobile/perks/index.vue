@@ -51,6 +51,8 @@
 </template>
 
 <script>
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+
     export default {
         name: 'index',
         data () {
@@ -59,6 +61,7 @@
           }
         },
         created () {
+            googleAnalytics.trackingScreen('perks');
             this.getCard()
         },
         methods: {
