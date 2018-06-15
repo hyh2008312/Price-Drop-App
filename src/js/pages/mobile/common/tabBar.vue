@@ -41,7 +41,7 @@ export default {
         tabTo (_key) {
             if (_key == 'drops') {
                 const token = this.$storage.getSync('token')
-                if (!token || !token.accessToken) {
+                if (!token || (token && !token.accessToken)) {
                     this.$router.open({
                         name: 'login',
                         type: 'PUSH'

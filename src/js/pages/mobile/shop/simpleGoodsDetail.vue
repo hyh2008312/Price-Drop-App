@@ -116,7 +116,7 @@
         eros: {
           beforeAppear (a) {
               this.proId = a
-              googleAnalytics.trackingScreen(`Cut Product Detail/${this.proId}`);
+              googleAnalytics.trackingScreen(`Cut Product Detail/${this.proId.id}`);
               this.getGoodsDetail(a)
           },
           beforeBackAppear (params) {
