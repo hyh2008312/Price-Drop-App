@@ -1,0 +1,111 @@
+apply plugin: 'com.android.application'
+apply plugin: 'eros-revan'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '26.0.0'
+    defaultConfig {
+        applicationId APPLICATION_ID
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 125
+        versionName "1.2.5"
+        multiDexEnabled true
+        javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
+        ndk {
+            /*abiFilters "x86"*/
+            abiFilters "armeabi"
+        }
+    }
+
+    signingConfigs {
+        sociaclCommer {
+            keyAlias 'socialcommer'
+            keyPassword 'socialcommer123'
+            storeFile file('../SocialCommer.jks')
+            storePassword 'socialcommer123'
+            v2SigningEnabled false
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled true
+           /* shrinkResources true*/
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.sociaclCommer
+            manifestPlaceholders = [
+                    GETUI_APP_ID    : GETUI_APPID,
+                    GETUI_APP_KEY   : GETUI_APPKEY,
+                    GETUI_APP_SECRET: GETTUI_APPSECRET,
+                    APP_ID          : APPLICATION_ID
+            ]
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.sociaclCommer
+            manifestPlaceholders = [
+                    GETUI_APP_ID    : GETUI_APPID,
+                    GETUI_APP_KEY   : GETUI_APPKEY,
+                    GETUI_APP_SECRET: GETTUI_APPSECRET,
+                    APP_ID          : APPLICATION_ID
+            ]
+        }
+
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['../wxframework/libs']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+
+        dirs '../wxframework/libs', 'libs'
+
+    }
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "com.android.support:support-v4:${PROJECT_SUPPORTLIBVERSION}"
+    //eros base
+    //compile 'com.github.bmfe:eros-nexus:0.0.3'
+    //compile 'com.github.bmfe:WeexErosFramework:0.0.4'
+    //eros plugin
+    //compile 'com.github.bmfe:eros-plugin-android-getui:0.0.1'
+    //compile 'com.github.bmfe:eros-plugin-android-wxpay:0.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.android.gms:play-services-auth:15.0.1'
+    compile 'com.google.android.gms:play-services-analytics:15.0.2'
+    compile 'com.razorpay:checkout:1.4.8'
+    compile project(':sharesdk')
+    compile project(':eros-framework')
+}
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            // Skip multidex because it follows a different versioning pattern.
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.1'
+            }
+        }
+    }
+}
+// ADD THIS AT THE BOTTOM
+apply plugin: 'com.google.gms.google-services'
