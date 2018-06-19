@@ -75,7 +75,15 @@
                 img: '',
                 show: false,
                 isChecked: false,
-                points: ''
+                points: '',
+                user: null
+            }
+        },
+        created () {
+            if (this.$storage.getSync('user')) {
+                this.user = this.$storage.getSync('user')
+            } else {
+                this.user = null
             }
         },
         methods: {
@@ -87,33 +95,49 @@
                 // 此处必须设置，组件为无状态组件，自己管理
                 this.show = false;
             },
-            wxcDialogConfirmBtnClicked () {
-                this.$fetch({
-                    method: 'POST',
-                    name: 'point.exchange',
-                    header: {
-                        needAuth: true
-                    },
-                    data: {
-                        vid: this.card.id
-                    }
-                }).then((res) => {
-                    this.$notice.toast({
-                        message: 'redeem success'
+            redirectLogin () {
+                this.$event.on('login', params => {
+                    this.wxcDialogConfirmBtnClicked()
+                    this.$storage.get('user').then(resData => {
+                        this.user = resData
                     })
-                    this.$event.emit('redeem')
-                    // this.setback()
-                }).catch((res) => {
-                    this.$notice.toast({
-                        message: 'Your Points balance is not enough to \n' +
-                        'redeem this card.'
-                    })
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
                 })
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            },
+            wxcDialogConfirmBtnClicked () {
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    this.$fetch({
+                        method: 'POST',
+                        name: 'point.exchange',
+                        header: {
+                            needAuth: true
+                        },
+                        data: {
+                            vid: this.card.id
+                        }
+                    }).then((res) => {
+                        this.$notice.toast({
+                            message: 'redeem success'
+                        })
+                        this.$event.emit('redeem')
+                        // this.setback()
+                    }).catch((res) => {
+                        this.$notice.toast({
+                            message: 'Your Points balance is not enough to \n' +
+                            'redeem this card.'
+                        })
+                        // this.$notice.toast({
+                        //     message: res
+                        // })
+                    })
 
-                this.show = false;
+                    this.show = false;
+                }
             },
             wxcDialogNoPromptClicked (e) {
                 // 此处必须设置，组件为无状态组件，自己管理

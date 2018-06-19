@@ -326,6 +326,7 @@
                         needAuth: true
                     }
                 }).then((res) => {
+                    this.$event.emit('createCut');
                     this.$router.open({
                         name: 'drops.cutDetail',
                         type: 'PUSH',

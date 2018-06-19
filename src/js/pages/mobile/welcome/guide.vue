@@ -25,12 +25,17 @@
 </template>
 <script>
     import { Utils } from 'weex-ui';
+    const globalEvent = weex.requireModule('globalEvent');
 
     export default {
         components: {
         },
         created () {
             this.height = Utils.env.getScreenHeight();
+            const self = this;
+            globalEvent.addEventListener('homeBack', options => {
+                self.$router.finish();
+            })
         },
         eros: {
         },
@@ -44,10 +49,10 @@
             setHomePage () {
                 this.$router.setHomePage('/pages/mobile/index.js');
                 this.$router.finish();
-                this.$router.open({
+                /* this.$router.open({
                     name: 'mobile',
                     type: 'PUSH'
-                })
+                }) */
             }
         }
     }
@@ -58,8 +63,8 @@
         font-weight: bold;
         font-size: 28px;
         width: 260px;
-        height: 60px;
-        line-height: 60px;
+        height: 72px;
+        line-height: 72px;
         background-color: #EF8A31;
         color: rgba(255,255,255,0.87);
         border-radius: 8px;
@@ -69,7 +74,7 @@
         position: absolute;
         bottom: 180px;
         width: 750px;
-        height: 56px;
+        height: 72px;
         flex-direction: row;
         justify-content: center ;
         align-items: center;
@@ -100,9 +105,10 @@
     .guide-text-content{
         margin-left: 50px;
         margin-right: 50px;
-        font-weight: bold;
+        /*font-weight: bold;*/
         font-size: 32px;
         text-align: center;
+        font-family: ProximaNova-Bold;
         color: rgba(255,255,255,0.87);
         line-height: 48px;
     }

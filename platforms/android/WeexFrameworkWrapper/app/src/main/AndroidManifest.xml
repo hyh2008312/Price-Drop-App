@@ -94,7 +94,7 @@
             </intent-filter>
         </activity>
 
-        <!-- wxApi -->
+       <!-- &lt;!&ndash; wxApi &ndash;&gt;
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
@@ -111,7 +111,7 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop" />-->
         <!-- 个推 -->
         <!-- 自定义权限 -->
         <permission

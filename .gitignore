@@ -102,10 +102,19 @@ Podfile.lock
 
 ip.txt
 platforms/ios
+src/js/config/apis.js
 platforms/android/WeexFrameworkWrapper/build.gradle
 platforms/android/WeexFrameworkWrapper/gradle.properties
 platforms/android/WeexFrameworkWrapper/app/build.gradle
 platforms/android/WeexFrameworkWrapper/app/build
-platforms/android/WeexFrameworkWrapper/app/src/main/assets/
 platforms/android/WeexFrameworkWrapper/app/src/main/assets/*
-/src/js/config/apis.js
+platforms/android/WeexFrameworkWrapper/sharesdk/build
+platforms/android/WeexFrameworkWrapper/sharesdk/build.gradle
+platforms/android/WeexFrameworkWrapper/eros-framework/build
+platforms/android/WeexFrameworkWrapper/eros-framework/build.gradle
+platforms/android/WeexFrameworkWrapper/nexus/build
+platforms/android/WeexFrameworkWrapper/nexus/build.gradle
+platforms/android/WeexFrameworkWrapper/sdk/build
+platforms/android/WeexFrameworkWrapper/sdk/build.gradle
+
+
