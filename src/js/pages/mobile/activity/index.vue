@@ -91,7 +91,7 @@
                 this.name = resData.name;
                 this.imageUrl = resData.imageUrl;
                 this.type = resData.type;
-                googleAnalytics.trackingScreen(`activity/${this.name}`);
+                googleAnalytics.trackingScreen(`Activity/${this.name}`);
                 this.getActivityProduct(true);
             },
             getActivityProduct (isfirst) {

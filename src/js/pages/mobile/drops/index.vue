@@ -78,7 +78,7 @@
                 })
             },
             initGoogleAnalytics () {
-                googleAnalytics.trackingScreen('drop');
+                googleAnalytics.trackingScreen('Drop');
             },
             init () {
                 this.getTabName();

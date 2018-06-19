@@ -60,7 +60,7 @@ export default {
     },
     created () {
         this.init();
-        googleAnalytics.trackingScreen('home/featured');
+        googleAnalytics.trackingScreen('Home/Featured');
     },
     data () {
         return {

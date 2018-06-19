@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         initGoogleAnalytics () {
-            googleAnalytics.trackingScreen('home/home');
+            googleAnalytics.trackingScreen('Home/Home');
         },
         ontouchstart (event) {
             this.positionX = event.changedTouches[0].screenX;

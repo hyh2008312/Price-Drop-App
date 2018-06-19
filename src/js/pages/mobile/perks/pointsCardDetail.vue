@@ -73,7 +73,7 @@
             }
         },
         created () {
-            googleAnalytics.trackingScreen('perks/cardDetail');
+            googleAnalytics.trackingScreen('Perks/CardDetail');
             this.QAArr = QA
         }
     }

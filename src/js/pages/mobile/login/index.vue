@@ -37,7 +37,7 @@
         },
         methods: {
             initGoogleAnalytics () {
-                googleAnalytics.trackingScreen('login');
+                googleAnalytics.trackingScreen('Login');
             },
             loginBack () {
                 this.$router.finish();
