@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
             <div class="blackheader"></div>
-            <topic-header title="My Ponits" leftBtn="icon"  ref="ref1" ></topic-header>
+            <topic-header title="My Points" leftBtn="icon"  ref="ref1" ></topic-header>
             <div class="overflow-points-head">
                 <div class="points-head">
                     <text class="points-head-txt1">Points Balance</text>
