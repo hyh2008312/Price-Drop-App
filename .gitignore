@@ -108,4 +108,4 @@ platforms/android/WeexFrameworkWrapper/app/build.gradle
 platforms/android/WeexFrameworkWrapper/app/build
 platforms/android/WeexFrameworkWrapper/app/src/main/assets/
 platforms/android/WeexFrameworkWrapper/app/src/main/assets/*
-/src/js/config/apis.js
+src/js/config/apis.js
