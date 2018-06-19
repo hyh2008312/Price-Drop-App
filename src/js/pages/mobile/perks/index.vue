@@ -12,7 +12,7 @@
                     <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
                     <div class="mid-card-text">
                         <text class="mid-card-text1">Start Your Drop Campagin</text>
-                        <text class="mid-card-text2">Earn 5 point for every Rs.10 you spend</text>
+                        <text class="mid-card-text2">Earn 5 points for every Rs.10 you spend</text>
                     </div>
                 </div>
 
@@ -20,7 +20,7 @@
                     <div><image class="img-icon" src="bmlocal://assets/pic-gift.png"></image></div>
                     <div class="mid-card-text">
                         <text class="mid-card-text1">Help Your Friends Drop Price</text>
-                        <text class="mid-card-text2">Earn 1 point for every Rs.10 you friend spend</text>
+                        <text class="mid-card-text2">Earn 1 point for every Rs.10 your friends spend</text>
                     </div>
                 </div>
 

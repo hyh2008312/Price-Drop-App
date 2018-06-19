@@ -5,15 +5,12 @@
             <div class="blackheader"></div>
             <div class="overflow-top">
                 <div class="top-card">
-                    <!--<div>-->
-                        <!---->
-                    <!--</div>-->
                     <text class="top-head-txt head-txt">The Perks</text>
                     <div class="top-card-imgdiv">
                         <image class="top-card-img"  src="bmlocal://assets/pic-2.png"></image>
                     </div>
                     <div class="top-bottom-txtdiv">
-                        <text class="top-bottom-txt">The perks program is designed to reward our users for starting their DROP campaigns and helping their friends to drop the price on products they love. With all reward points you earn from your contribution, you can redeem for FREE gift cards!</text>
+                        <text class="top-bottom-txt">The perks program is designed to reward our users for starting their DROP campaigns and helping their friends to drop the price on products they love. With all reward points you earn from your participation, you can redeem for FREE gift cards!</text>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@
                         <text class="top-card-txt1" >{{card.name}} Gift Card</text>
 
                         <div class="top-card-txt2">
-                            <text style="line-height: 42px;">• Points Needed:{{card.pointNumber}}</text>
+                            <text style="line-height: 42px;">• Points needed: {{card.pointNumber}}</text>
                             <text >• Only vaild for order above Rs.{{card.lowestAmount}}</text>
                         </div>
                     </div>
@@ -24,8 +24,9 @@
 
                 <text class="bottom-card-txt1">Redeem Instruction</text>
                     <text class="bottom-card-txt2">1. To redeem this gift card, please check your balance to ensure you have enough points.</text>
-                    <text class="bottom-card-txt2">2. Once you confirm to redeem this gift card, you cannot be redeemed for cash ai any time.</text>
-                    <text class="bottom-card-txt2">3. Once you confirm to redeem this gift card, you cannot be redeemed for cash ai any time.</text>
+                    <text class="bottom-card-txt2">2. Once you confirm to redeem this gift card, you cannot cancel it any more.</text>
+                    <text class="bottom-card-txt2">3. The gift card cannot be redeemed for cash at any time.</text>
+                    <text class="bottom-card-txt2">3. The gift card can only be used for orders above the minimum price during checkout.</text>
 
             </div>
         </div>

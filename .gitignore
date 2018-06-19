@@ -31,7 +31,6 @@ pids
 *.apk
 *.ap_
 wxframework
-sdk
 bmwidget
 # files for the dex VM
 *.dex
