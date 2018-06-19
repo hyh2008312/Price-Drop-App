@@ -1,0 +1,3 @@
+<resources>
+    <string name="notification_error_ssl_cert_invalid">SSL error occurred. Would you like to proceed?</string>
+</resources>

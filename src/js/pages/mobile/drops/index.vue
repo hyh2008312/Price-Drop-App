@@ -49,9 +49,13 @@
             this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' };
             this.init();
             this.initGoogleAnalytics();
+            this.$event.on('createCut', params => {
+                this.requestProduct(true);
+            });
         },
         destory () {
             this.$event.off('login')
+            this.$event.off('createCut')
         },
         data () {
             return {
