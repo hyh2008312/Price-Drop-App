@@ -5,7 +5,7 @@
                 <div class="header">
                     <preload class="header-image" :src="message.avatar"></preload>
                 </div>
-                <text class="tlt">{{message.username}} unlocked the lowest price! {{formateDate(message.time)}} </text>
+                <text class="tlt">{{message.username}} unlocked the lowest price! </text>
             </div>
         </div>
     </div>

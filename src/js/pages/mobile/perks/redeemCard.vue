@@ -60,7 +60,7 @@
             appeared (params, options) {
                 if (params) {
                     this.card = params.card
-                    googleAnalytics.trackingScreen(`perks/redeemCard/${this.card.id}`);
+                    googleAnalytics.trackingScreen(`Perks/redeemCard/${this.card.id}`);
                 }
             }
         },

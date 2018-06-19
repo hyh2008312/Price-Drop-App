@@ -61,7 +61,7 @@
           }
         },
         created () {
-            googleAnalytics.trackingScreen('perks');
+            googleAnalytics.trackingScreen('Perks');
             this.getCard()
         },
         methods: {

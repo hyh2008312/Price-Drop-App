@@ -52,7 +52,7 @@ export default {
                 if (this.activeIndex == val) {
                     if (!this.isFirstLoad) {
                         this.init()
-                        googleAnalytics.trackingScreen(`home/${this.item.name}`);
+                        googleAnalytics.trackingScreen(`Home/${this.item.name}`);
                         this.isFirstLoad = true
                     }
                 }
