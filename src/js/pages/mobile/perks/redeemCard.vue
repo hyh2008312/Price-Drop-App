@@ -2,7 +2,7 @@
     <div class="wrapper">
         <topic-header title="Gift Card" leftBtn="icon"  ref="ref1" ></topic-header>
         <div class="blackheader"></div>
-        <!--<div>-->
+        <scroller class="main-list">
             <div class="overflow-top">
                 <div class="top-card">
                     <div class="top-card-imgdiv">
@@ -19,21 +19,21 @@
                 </div>
             </div>
 
-        <div class="overflow-bottom">
-            <div class="bottom-card">
+            <div class="overflow-bottom">
+                <div class="bottom-card">
 
-                <text class="bottom-card-txt1">Redeem Instruction</text>
+                    <text class="bottom-card-txt1">Redeem Instruction</text>
                     <text class="bottom-card-txt2">1. To redeem this gift card, please check your balance to ensure you have enough points.</text>
                     <text class="bottom-card-txt2">2. Once you confirm to redeem this gift card, you cannot cancel it any more.</text>
                     <text class="bottom-card-txt2">3. The gift card cannot be redeemed for cash at any time.</text>
-                    <text class="bottom-card-txt2">3. The gift card can only be used for orders above the minimum price during checkout.</text>
+                    <text class="bottom-card-txt2">4. The gift card can only be used for orders above the minimum price during checkout.</text>
 
+                </div>
             </div>
-        </div>
-        <div class="bottom-btn" >
-            <text class="button" @click="openDialog">Redeem Now</text>
-        </div>
-
+            <div class="bottom-btn" >
+                <text class="button" @click="openDialog">Redeem Now</text>
+            </div>
+        </scroller>
 
         <NewDialog class="wxdialog"
                     :content="'To redeem this gift card, you need to spend ' + card.pointNumber +' reward points'"
@@ -176,7 +176,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-top: 161px;
+        margin-top: 16px;
     }
     .top-card{
         width: 718px;
@@ -220,9 +220,9 @@
         align-items: center;
         justify-content: center;
         margin-top: 16px;
+        margin-bottom: 16px;
     }
     .bottom-card{
-        height: 424px;
         width: 718px;
         background-color: white;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
@@ -248,12 +248,6 @@
         line-height: 36px;
     }
 
-
-
-
-    /*.wxdialog{*/
-        /*border-radius: 8px;*/
-    /*}*/
     .bottom-btn{
         background-color: #fff;
         box-shadow:  0 -2px 3px 0 rgba(0,0,0,0.24);
@@ -279,5 +273,9 @@
         font-size: 28px;
         text-align: center;
         font-weight: 700;
+    }
+    .main-list {
+        margin-top: 160px;
+        margin-bottom: 112px;
     }
 </style>
