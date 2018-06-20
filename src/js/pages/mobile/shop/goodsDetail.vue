@@ -183,11 +183,9 @@
             // 'block': block
         },
         eros: {
-          appeared (a) {
-              this.proId = a
-              googleAnalytics.trackingScreen(`Product Detail/${this.proId.id}`);
-              this.getGoodsDetail(a)
-          },
+          // appeared (a) {
+          //     this.proId = a
+          // },
           beforeBackAppear (params) {
               //   this.$notice.toast({
               //     message: 111111
@@ -261,6 +259,11 @@
             }
         },
         created () {
+            this.$router.getParams().then(resData => {
+                this.proId = resData
+                this.getGoodsDetail(resData)
+                googleAnalytics.trackingScreen(`Product Detail/${this.proId.id}`);
+            })
             if (this.$storage.getSync('user')) {
                 this.user = this.$storage.getSync('user')
             } else {
