@@ -4,7 +4,7 @@
         <text class="close" @click="loginBack">&#xe632;</text>
         <div class="container-1">
             <image class="price-drop" src="bmlocal://assets/price-drop-logo.png"></image>
-            <text class="price-drop-text">PriceDrop</text>
+            <text class="price-drop-text">PriceDrop </text>
             <text class="price-drop-tip">A fun, social and money-saving way for online shopping.</text>
             <div class="google-login" @click="startGoogleLogin">
                <text class="google-login-icon">&#xe71f;</text>

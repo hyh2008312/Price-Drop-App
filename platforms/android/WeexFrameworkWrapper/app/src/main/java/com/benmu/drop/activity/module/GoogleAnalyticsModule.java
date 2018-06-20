@@ -60,13 +60,13 @@ public class GoogleAnalyticsModule extends WXModule {
         // 1,fb_mobile_content_view 2,fb_mobile_initiated_checkout 3,fb_mobile_purchase
         if (AppEventsConstants.EVENT_NAME_VIEWED_CONTENT.equals(recordType)){
             logger.logEvent(AppEventsConstants.EVENT_NAME_VIEWED_CONTENT, parameters);
-            Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_content_view", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_content_view", Toast.LENGTH_SHORT).show();
         }else if (AppEventsConstants.EVENT_NAME_INITIATED_CHECKOUT.equals(recordType)){
             logger.logEvent(AppEventsConstants.EVENT_NAME_INITIATED_CHECKOUT, parameters);
-            Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_initiated_checkout", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_initiated_checkout", Toast.LENGTH_SHORT).show();
         }else if (AppEventsConstants.EVENT_NAME_PURCHASED.equals(recordType)){
             logger.logEvent(AppEventsConstants.EVENT_NAME_PURCHASED, parameters);
-            Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_purchase", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_purchase", Toast.LENGTH_SHORT).show();
         }
     }
 }

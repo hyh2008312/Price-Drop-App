@@ -319,8 +319,8 @@
                             }
                         if (res.categories && res.categories.length > 0) {
                             this.category = res.categories[0].name;
-                            googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
                         }
+                        googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
                     }).catch((res) => {
                         // this.$notice.toast({
                         //     message: res
