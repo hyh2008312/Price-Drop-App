@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="state"></div>
-        <div class="navigation" @click="test">
+        <div class="navigation">
             <text class="title">Drops</text>
         </div>
         <div>
@@ -78,7 +78,7 @@
                 })
             },
             initGoogleAnalytics () {
-                googleAnalytics.trackingScreen('Drop');
+                googleAnalytics.trackingScreen('Drops');
             },
             init () {
                 this.getTabName();
@@ -182,6 +182,11 @@
             onTabTo (event) {
                 this.tabKey = event.data.key;
                 this.isCuting = !(this.tabKey === 'cutEnd');
+                if (this.isCuting) {
+                    googleAnalytics.trackingScreen('Drops/ongoing');
+                } else {
+                    googleAnalytics.trackingScreen('Drops/ended');
+                }
                 this.goods = false;
                 this.isShow = true;
                 this.requestProduct(true);

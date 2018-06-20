@@ -335,6 +335,7 @@
                             id: res.id
                         }
                     })
+                    googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.variantsId, 0);
                 }).catch((res) => {
                     if (res.status == 409) {
                         this.$notice.toast({

@@ -245,7 +245,7 @@
         },
         methods: {
             initGoogleAnalytics () {
-                googleAnalytics.trackingScreen('dropDetail');
+                googleAnalytics.trackingScreen('DropDetail');
             },
             registerEvent () {
                 this.$event.on('cutDetail', params => {
@@ -263,7 +263,7 @@
                 clipboard.setString(url);
                 this.popupOverlayAutoClick();
                 this.$notice.toast('Copied successfully! You can share this link on your social media now.');
-                googleAnalytics.recordEvent('share', 'copyLink', url, 0);
+                googleAnalytics.recordEvent('DropStart', 'Share to Drop the Price Further', 'CopyURL', 0);
             },
             shareFacebook () {
                 const that = this;
@@ -325,8 +325,10 @@
             },
             showBuyNow () {
                 this.jumpConfirmOrder();
+                googleAnalytics.recordEvent('DropStart', 'Buy at current price', '', 0);
             },
             jumpProductDetail () {
+                googleAnalytics.recordEvent('DropEnd', 'Drop It Again', '', 0);
                 this.$router.open({
                     name: 'goods.details',
                     params: {
@@ -335,12 +337,14 @@
                 })
             },
             jumpConfirmOrder () {
+                googleAnalytics.recordEvent('DropEnd', 'Buy it Now', '', 0);
                 this.$router.open({
                     name: 'order.confirm',
                     params: this.goodsDetail
                 })
             },
             jumpOrderDetail () {
+                googleAnalytics.recordEvent('DropEnd', 'Buy it Now', '', 0);
                 this.$router.open({
                     name: 'order.detail',
                     params: {
@@ -353,6 +357,7 @@
                 this.$router.back();
             },
             showCutRule () {
+                googleAnalytics.recordEvent('DropDetail', 'Price Drop FAQ', '', 0);
                 this.isRuleShow = true;
             },
             wxcMaskSetHidden () {

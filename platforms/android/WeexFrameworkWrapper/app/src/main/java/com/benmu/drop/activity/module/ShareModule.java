@@ -40,7 +40,6 @@ public class ShareModule extends WXModule {
                               JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
         this.facebookSuccessCallback = jsSuccessCallback;
         this.facebookFailedCallback = jsFailedCallback;
-       // UmengTool.getSignature(mWXSDKInstance.getContext());
         UMWeb web = new UMWeb(Url);
         web.setTitle(title);//标题
         web.setThumb(new UMImage(mWXSDKInstance.getContext(),imageUrl));  //缩略图
@@ -83,11 +82,10 @@ public class ShareModule extends WXModule {
         SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
         Tracker sTracker = application.getDefaultTracker();
         sTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("share")
-                .setAction("facebook")
-                .setLabel(Url)
+                .setCategory("DropStart")
+                .setAction("Share to Drop the Price Further")
+                .setLabel("Facebook")
                 .build());
-       // Toast.makeText(mWXSDKInstance.getContext(), "share+facebook", Toast.LENGTH_SHORT).show();
     }
 
     @JSMethod
@@ -138,10 +136,10 @@ public class ShareModule extends WXModule {
         SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
         Tracker sTracker = application.getDefaultTracker();
         sTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("share")
-                .setAction("whatsapp")
+                .setCategory("DropStart")
+                .setAction("Share to Drop the Price Further")
+                .setLabel("Whatsapp")
                 .build());
-       // Toast.makeText(mWXSDKInstance.getContext(), "share+whatsapp", Toast.LENGTH_SHORT).show();
     }
 
     @JSMethod
@@ -191,9 +189,9 @@ public class ShareModule extends WXModule {
         SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
         Tracker sTracker = application.getDefaultTracker();
         sTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("share")
-                .setAction("facebookMessenger")
+                .setCategory("DropStart")
+                .setAction("Share to Drop the Price Further")
+                .setLabel("FacebookMessenger")
                 .build());
-       // Toast.makeText(mWXSDKInstance.getContext(), "share+facebookMessenger", Toast.LENGTH_SHORT).show();
     }
 }
