@@ -211,9 +211,10 @@
         height: 292px;
     }
     .gift-card-txt{
-        width: 656px;
+        width: 686px;
         flex-direction: row;
         justify-content: space-between;
+        background-color: white;
         padding-top:26px ;
         padding-bottom:26px ;
         padding-left:24px ;
@@ -228,6 +229,7 @@
     .gift-card-txt2{
         font-family: ProximaNova-Regular;
         font-size: 24px;
+        padding-right: 28px;
         color: rgba(0,0,0,0.87);
     }
 </style>

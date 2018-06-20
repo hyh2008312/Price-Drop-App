@@ -7,7 +7,7 @@
         <div class="container-1" v-if="ship==true">
             <div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.{{time.priceItem}}</text>  </div>
             <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
-            <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">2-4 days</text>  </div>
+            <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">2 - 4 days</text>  </div>
             <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}} days</text> </div>
             <!--<div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>-->
         </div>
