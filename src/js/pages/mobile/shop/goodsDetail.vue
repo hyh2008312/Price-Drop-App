@@ -183,7 +183,7 @@
             // 'block': block
         },
         eros: {
-          beforeAppear (a) {
+          appeared (a) {
               this.proId = a
               googleAnalytics.trackingScreen(`Product Detail/${this.proId.id}`);
               this.getGoodsDetail(a)
