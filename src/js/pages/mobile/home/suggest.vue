@@ -12,7 +12,7 @@
                 </div>
             </cell>
             <cell v-for="(head, index) in activity" :key="index">
-                <block-2 :head="head" :class="[activity.length - 1 == index ? 'cell-margin-button': '']"></block-2>
+                <block-2 :head="head" :class="[activity.length - 1 == index ? 'cell-margin-button': '']" v-if="activity.length > 0"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
                 <block-5 :logo="block5.items"></block-5>

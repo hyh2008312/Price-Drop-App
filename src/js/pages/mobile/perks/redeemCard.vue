@@ -241,6 +241,7 @@
     }
     .bottom-card-txt2{
         margin-left: 32px;
+        margin-right: 32px;
         margin-bottom: 16px;
         font-family: ProximaNova-Regular;
         font-size: 24px;

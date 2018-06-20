@@ -6,6 +6,7 @@
     </div>
 </template>
 <script>
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const pay = weex.requireModule('PayModule');
     import { baseUrl } from '../../../config/apis';
     export default {
@@ -28,6 +29,7 @@
                     }
                 }).then(resData => {
                     this.$event.emit('cutDetail');
+                    googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                     const order = resData;
                     const user = that.$storage.getSync('user');
                     pay.startPayRequest(that.order.title, '', that.order.mainImage,

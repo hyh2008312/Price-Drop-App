@@ -36,6 +36,7 @@ export default {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 48 - 4) + 'px' }
         googleAnalytics.trackingScreen('Payment Result Failure');
+        googleAnalytics.recordEvent('PayEnd', 'Pay Failure', '', 0);
     },
     data () {
         return {

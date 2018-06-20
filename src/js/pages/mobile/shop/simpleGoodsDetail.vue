@@ -134,7 +134,7 @@
                 goodsId: '',
                 goods: {
                     title: '',
-                    price: '',
+                    price: '0.00',
                     cut_get: '',
                     brandLogo: ''
                 },
@@ -149,7 +149,7 @@
                 goodsVariants: [],
                 goodsType: {},
                 selsaleUnitPrice: '',
-                lowestPrice: '',
+                lowestPrice: '0.00',
                 newDescription: [],
                 proId: '',
                 height: 400,
