@@ -108,6 +108,7 @@
             <div class="bottom-btn" >
                 <text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>
             </div>
+            <wxc-loading :show="isShow"></wxc-loading>
         </scroller>
 
         <wxc-popup :have-overlay="isTrue"
@@ -161,7 +162,7 @@
     import header from './header';
     import cimg from './customImg';
     import preload from '../common/preloadImg';
-    import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
+    import { WxcCell, WxcButton, WxcPopup, WxcMask, WxcLoading } from 'weex-ui'
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
     const dom = weex.requireModule('dom');
@@ -174,7 +175,7 @@
     export default {
         components: {
             'topic-header': header,
-            WxcCell, WxcButton, WxcPopup, WxcMask,
+            WxcCell, WxcButton, WxcPopup, WxcMask, WxcLoading,
             'tab': tab,
             'cimg': cimg,
             preload
@@ -238,6 +239,7 @@
                 height: 400,
                 tabshow: false,
                 headerShow: true,
+                isShow: false,
                 positionX: 0,
                 positionY: 0,
                 deltaX: 0,
@@ -327,6 +329,7 @@
                 }
             },
             createCut () {
+                this.isShow = true;
                 this.$fetch({
                     method: 'POST',
                     url: `${baseUrl}/promotion/cut/create/`,
@@ -344,9 +347,11 @@
                             id: res.id
                         }
                     })
+                    this.isShow = false
                     googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.variantsId, 0);
                 }).catch((res) => {
                     if (res.status == 409) {
+                        this.isShow = false
                         this.$notice.toast({
                             message: 'You have already started a drop for this item.'
                         })
