@@ -28,7 +28,6 @@
                 </div>
                 <div class="count-div">
                     <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text>
-
                 </div>
             </div>
                  <div class="learn-drop">
@@ -200,7 +199,7 @@
                 goodsId: '',
                 goods: {
                     title: '',
-                    price: '',
+                    price: '0.00',
                     cut_get: '',
                     brandLogo: ''
                 },
@@ -220,7 +219,7 @@
                 selimgsrc: '',
                 variantsId: '',
                 selsaleUnitPrice: '',
-                lowestPrice: '',
+                lowestPrice: '0.00',
                 newDescription: [],
                 proId: '',
                 shipObj: '',
