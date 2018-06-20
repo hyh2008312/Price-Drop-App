@@ -30,6 +30,7 @@
                 }).then(resData => {
                     this.$event.emit('cutDetail');
                     googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
+                    googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                     const order = resData;
                     const user = that.$storage.getSync('user');
                     pay.startPayRequest(that.order.title, '', that.order.mainImage,
