@@ -357,7 +357,7 @@
                 this.$router.back();
             },
             showCutRule () {
-                googleAnalytics.recordEvent('DropDetail', 'Price Drop FAQ', '', 0);
+                googleAnalytics.trackingScreen('Price Drop FAQ');
                 this.isRuleShow = true;
             },
             wxcMaskSetHidden () {

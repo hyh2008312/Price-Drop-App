@@ -3,5 +3,6 @@
     <string name="umeng_socialize_female">女</string>
     <string name="umeng_socialize_male">男</string>
     <string name="facebook_app_id">797736937098738</string>
+    <string name="fb_login_protocol_scheme">fb797736937098738</string>
     <string name="server_client_id">722406876752-eq5ji222v8h982nm0bgkgk48g2jrr7jl.apps.googleusercontent.com</string>
 </resources>

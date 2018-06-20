@@ -239,7 +239,8 @@
                 deltaX: 0,
                 deltaY: 0,
                 user: null,
-                opacity: 0
+                opacity: 0,
+                category: ''
             }
         },
         computed: {
@@ -309,6 +310,10 @@
                                 //     }
                                 // }
                             }
+                        if (res.categories && res.categories.length > 0) {
+                            this.category = res.categories[0].name;
+                            googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
+                        }
                     }).catch((res) => {
                         // this.$notice.toast({
                         //     message: res
