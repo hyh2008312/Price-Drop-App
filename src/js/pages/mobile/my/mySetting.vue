@@ -5,7 +5,7 @@
         <div class="mid-cell" >
             <div class="box-tlt " @click="openNew(7)">
                 <div class="box-left">
-                    <text class="box-txt">Term & Conditions</text>
+                    <text class="box-txt">Terms & Conditions</text>
                 </div>
                 <div class="box-right">
                     <text class="i-box iconfont">&#xe626;</text>

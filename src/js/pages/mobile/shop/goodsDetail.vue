@@ -27,7 +27,10 @@
 
                 </div>
                 <div class="count-div">
-                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text>
+                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text><text class="price-name price-off">{{goods.priceoff}}% OFF</text>
+                </div>
+                <div class="count-div">
+                    <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
                 </div>
             </div>
                  <div class="learn-drop">
@@ -200,6 +203,7 @@
                 goods: {
                     title: '',
                     price: '0.00',
+                    priceoff: '0.00',
                     cut_get: '',
                     brandLogo: ''
                 },
@@ -273,6 +277,7 @@
                             this.goods.price = res.saleUnitPrice;
                             this.selsaleUnitPrice = res.saleUnitPrice;
                             this.lowestPrice = res.lowestPrice;
+                            this.goods.priceoff = parseInt((((this.goods.price - this.lowestPrice) / this.goods.price)) * 100)
                             this.goods.brandLogo = res.brandLogo;
                             this.goodsImg = res.images;
                             if (res.cutGet == null) {
@@ -298,7 +303,7 @@
                             this.shipObj = res.shipping
                             this.dectxt = []
                             // this.$notice.toast({
-                            //     message: res.expectedDeliveryDateMax
+                            //     message: (this.goods.price - this.lowestPrice) / this.goods.price
                             // })
                             if (res.newDescription != null) {
                                 this.newDescription = res.newDescription
@@ -637,13 +642,15 @@
     }
     .onetitle{
         width:586px;
-        height: 120px;
+        /*height: 120px;*/
+        font-weight: 700;
         margin-top: 32px;
+        margin-bottom: 32px;
         margin-left: 32px;
         font-family: PingFangSC-Light;
         font-size: 28px;
         color: #000;
-        line-height: 40px;
+        line-height: 48px;
         letter-spacing: 0;
     }
     .price-name{
@@ -651,6 +658,15 @@
         margin-left: 32px;
         margin-bottom: 26px;
         font-size:24px;
+    }
+    .price-off{
+        border-width: 1px;
+        border-style: solid ;
+        border-color: #EF8A31;
+        font-size: 20px;
+        border-radius: 8px;
+        padding: 4px 16px;
+        color: #EF8A31;
     }
     .price{
         font-family: PingFangSC-Semibold;
@@ -865,11 +881,11 @@
 
     }
     .popup-price{
-        font-size: 32px;
+        font-size: 28px;
         font-weight: 600;
         margin-top: 75px;
         margin-left: 32px;
-
+        text-decoration: line-through;
     }
     .popup-lowprice-word{
         font-size: 24px;
@@ -879,7 +895,7 @@
 
     }
     .popup-lowprice{
-        font-size: 28px;
+        font-size: 32px;
         font-weight: 600;
         color: #EF8A31;
         margin-left: 32px;

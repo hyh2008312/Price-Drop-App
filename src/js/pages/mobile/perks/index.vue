@@ -7,29 +7,30 @@
                 <text class="header-word">Redeem Your Points for Free Gift Cards</text>
             </div>
             <div class="overflow-mid">
-            <div class="mid-card">
-                <div class="mid-card-item1">
-                    <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
-                    <div class="mid-card-text">
-                        <text class="mid-card-text1">Start Your Drop Campagin</text>
-                        <text class="mid-card-text2">Earn 5 points for every Rs.10 you spend</text>
+                <div class="mid-card">
+                    <div class="mid-card-item1">
+                        <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
+                        <div class="mid-card-text">
+                            <text class="mid-card-text1">Start Your Drop Campagin</text>
+                            <text class="mid-card-text2">Earn 5 points for every Rs.10 you spend</text>
+                        </div>
                     </div>
-                </div>
 
-                <div class="mid-card-item2">
-                    <div><image class="img-icon" src="bmlocal://assets/pic-gift.png"></image></div>
-                    <div class="mid-card-text">
-                        <text class="mid-card-text1">Help Your Friends Drop Price</text>
-                        <text class="mid-card-text2">Earn 1 point for every Rs.10 your friends spend</text>
+                    <div class="mid-card-item2">
+                        <div><image class="img-icon" src="bmlocal://assets/pic-gift.png"></image></div>
+                        <div class="mid-card-text">
+                            <text class="mid-card-text1">Help Your Friends Drop Price</text>
+                            <text class="mid-card-text2">Earn 1 point for every Rs.10 your friends spend</text>
+                        </div>
                     </div>
-                </div>
 
-                <div class="bottom-btn" @click="openDetail">
-                    <text class="bottom-btn-txt">Learn More</text>
-                </div>
+                    <div class="bottom-btn" @click="openDetail">
+                        <text class="bottom-btn-txt">Learn More</text>
+                    </div>
 
-            </div></div>
-            <div class="overflow-gift" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
+                </div>
+            </div>
+            <div class="overflow-gift"  v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
                 <div class="gift-card" @click="redeemCard(i)">
                     <image class="gift-card-img"  :src="i.image"></image>
                     <div class="gift-card-txt">
@@ -46,6 +47,23 @@
                     <!--</div>-->
                 </div>
             </div>
+            <!--<div class="overflow-gift" v-if="loading">-->
+                <!--<image style="width: 100px;height: 100px" src="bmlocal://assets/loading.gif"></image>-->
+                <!--<div class="gift-card" @click="redeemCard(i)">-->
+                <!--<image class="gift-card-img"  :src="i.image"></image>-->
+                <!--<div class="gift-card-txt">-->
+                <!--<text class="gift-card-txt1">{{i.name}} Gift Card</text>-->
+                <!--<text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>-->
+                <!--</div>-->
+                <!--<div class="gift-card-txt" v-if="i.id==1">-->
+                <!--<text class="gift-card-txt1">Rs.150 Gift Card</text>-->
+                <!--<text class="gift-card-txt2">1,500 Points Needed</text>-->
+                <!--</div>-->
+                <!--<div class="gift-card-txt" v-if="i.id==2">-->
+                <!--<text class="gift-card-txt1">Rs.200 Gift Card</text>-->
+                <!--<text class="gift-card-txt2">2,000 Points Needed</text>-->
+                <!--</div>-->
+            <!--</div>-->
         </scroller>
     </div>
 </template>
@@ -57,7 +75,14 @@
         name: 'index',
         data () {
           return {
-              cardArr: []
+              cardArr: [
+                  {
+                      image: '',
+                      name: '',
+                      pointNumber: ''
+                  },
+              ],
+              loading: true
           }
         },
         created () {
@@ -75,6 +100,7 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
+                    this.loading = false
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res
@@ -122,8 +148,9 @@
     .header{
         background-color: #EF8A31;
         height: 302px;
-        border-bottom-left-radius: 50%   ;
-        border-bottom-right-radius: 50%;
+        border-radius: 50%;
+        /*border-bottom-left-radius: 50% 100%;*/
+        /*border-bottom-right-radius: 50% 100%;*/
         flex-direction: row;
         align-items: center;
         justify-content: center;
