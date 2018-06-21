@@ -17,7 +17,7 @@
                     <div v-if="pArr.length===0" class="empty-div">
 
                         <image src="bmlocal://assets/empty.png" class="empty-img"></image>
-                        <text class="empty-txt">You Haven’t enarned or spent any points yet.</text>
+                        <text class="empty-txt">You haven’t enarned or spent any points yet.</text>
                     </div>
                     <div style="height: 800px"  v-if="pArr.length!==0">
                         <scroller>

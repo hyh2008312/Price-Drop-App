@@ -3,14 +3,14 @@
     <div class="wrapper">
         <div class="blackheader"></div>
 
-        <!--<scroller>-->
+        <scroller>
 
-        <div class="header" v-if="user!=null" @click="openMydetail(1)">
-            <div class="overflow-photo">
-                <div class="i-photo-div">
+        <div class="header" v-if="user!=null" >
+            <div class="overflow-photo"   >
+                <div class="i-photo-div" @click="openMydetail(1)">
                     <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
                 </div>
-                <div class="b-tlt">
+                <div class="b-tlt" @click="openMydetail(1)">
                     <text class="i-name">{{fname}}{{lname}}</text>
                     <div class="txt-tag ">
                         <text class="txt-tag-txt" >{{email}}</text>&nbsp;&nbsp;<text class="txt-icon iconfont">&#xe626;</text>
@@ -49,7 +49,7 @@
 
             <div class="s-box ">
                 <div class="box-tlt "  @click="jumpWeb(0)">
-                    <text class="box-txt">My Orders</text>
+                    <text class="box-txt1">My Orders</text>
                     <text class="i-box iconfont">SEE MORE&nbsp;&nbsp;&#xe626;</text>
                 </div>
 
@@ -61,7 +61,7 @@
                         <text class="i-box-tlt">Unpaid</text>
                     </div>
                     <div class="i-box-l" @click="jumpWeb(2)">
-                        <image class="i-box-icon" src="bmlocal://assets/ic-pack.png"></image>
+                        <image class="i-box-icon" src="bmlocal://assets/ic-packed.png"></image>
 
                         <!--<text class="i-box-icon iconfont">&#xe718;</text>-->
                         <text class="i-box-tlt">Packing</text>
@@ -104,6 +104,17 @@
                     </div>
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
+
+                <!--<div class="box-tlt " @click="openCell(2)">-->
+                    <!--<div class="box-left">-->
+                        <!--<image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>-->
+
+                        <!--&lt;!&ndash;<text class="box-txt-icon">&#xe705;</text>&ndash;&gt;-->
+                        <!--<text class="box-txt">My Notification</text>-->
+                        <!--<text class=" box-dot">11</text>-->
+                    <!--</div>-->
+                    <!--<text class="i-box iconfont">&#xe626;</text>-->
+                <!--</div>-->
             </div>
 
         </div>
@@ -111,7 +122,7 @@
             <div class="mid-cell mid-cell-bottom ">
                 <div class="box-tlt " @click="openCell(3)">
                     <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/pic-aboutus.png"></image>
+                        <image class="box-txt-icon" src="bmlocal://assets/pic-about.png"></image>
 
                         <!--<text class="box-txt-icon">&#xe721;</text>-->
                         <text class="box-txt">About Us</text>
@@ -132,7 +143,7 @@
 
         </div>
 
-        <!--</scroller>-->
+        </scroller>
     </div>
 </template>
 <script>

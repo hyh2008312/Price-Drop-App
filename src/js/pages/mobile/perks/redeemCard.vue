@@ -90,7 +90,11 @@
         methods: {
 
             openDialog () {
-                this.show = true;
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    this.show = true;
+                }
             },
             wxcDialogCancelBtnClicked () {
                 // 此处必须设置，组件为无状态组件，自己管理
@@ -109,36 +113,31 @@
                 })
             },
             wxcDialogConfirmBtnClicked () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                } else {
-                    this.$fetch({
-                        method: 'POST',
-                        name: 'point.exchange',
-                        header: {
-                            needAuth: true
-                        },
-                        data: {
-                            vid: this.card.id
-                        }
-                    }).then((res) => {
-                        this.$notice.toast({
-                            message: 'redeem success'
-                        })
-                        this.$event.emit('redeem')
-                        // this.setback()
-                    }).catch((res) => {
-                        this.$notice.toast({
-                            message: 'Your Points balance is not enough to \n' +
-                            'redeem this card.'
-                        })
-                        // this.$notice.toast({
-                        //     message: res
-                        // })
+                this.$fetch({
+                    method: 'POST',
+                    name: 'point.exchange',
+                    header: {
+                        needAuth: true
+                    },
+                    data: {
+                        vid: this.card.id
+                    }
+                }).then((res) => {
+                    this.$notice.toast({
+                        message: 'redeem success'
                     })
-
-                    this.show = false;
-                }
+                    this.$event.emit('redeem')
+                    // this.setback()
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: 'Your Points balance is not enough to \n' +
+                        'redeem this card.'
+                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
+                })
+                this.show = false;
             },
             wxcDialogNoPromptClicked (e) {
                 // 此处必须设置，组件为无状态组件，自己管理

@@ -12,7 +12,10 @@
                         <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Start Your Drop Campagin</text>
-                            <text class="mid-card-text2">Earn 5 points for every Rs.10 you spend</text>
+                            <div class="count-div">
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 5 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> you spend</text>
+                            </div>
+
                         </div>
                     </div>
 
@@ -20,7 +23,10 @@
                         <div><image class="img-icon" src="bmlocal://assets/pic-gift.png"></image></div>
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Help Your Friends Drop Price</text>
-                            <text class="mid-card-text2">Earn 1 point for every Rs.10 your friends spend</text>
+                            <div class="count-div">
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 1 point</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> your friends spend</text>
+                            </div>
+
                         </div>
                     </div>
 
@@ -149,8 +155,8 @@
         background-color: #EF8A31;
         height: 302px;
         border-radius: 50%;
-        /*border-bottom-left-radius: 50% 100%;*/
-        /*border-bottom-right-radius: 50% 100%;*/
+        /*border-bottom-left-radius: 225%;*/
+        /*border-bottom-right-radius: 225%;*/
         flex-direction: row;
         align-items: center;
         justify-content: center;
@@ -205,8 +211,14 @@
         color: rgba(0, 0, 0, 0.87);
     }
     .mid-card-text2{
-        color: rgba(0, 0, 0, 0.54);
+        color: black;
         font-size: 24px;
+        font-family: ProximaNova-Regular;
+    }
+    .mid-card-text2b{
+        color: #EF8A31;
+        font-size: 24px;
+        font-weight: 700;
         font-family: ProximaNova-Regular;
     }
     .bottom-btn{
@@ -258,5 +270,12 @@
         font-size: 24px;
         padding-right: 28px;
         color: rgba(0,0,0,0.87);
+    }
+
+    .count-div{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
     }
 </style>

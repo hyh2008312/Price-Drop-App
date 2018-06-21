@@ -23,7 +23,7 @@
 
 
                 <div class="count-div">
-                    <text class=" count" >Get it at</text><text class="count-bold">Rs.{{lowestPrice}}</text><text class="count-1">by inviting friends!</text>
+                    <text class=" count" >Get it at</text><text class="count-bold">Rs.{{lowestPrice}}</text><text class="count-1">by inviting {{goods.price >= 1000 ? 6 : 3 }} friends!</text>
 
                 </div>
                 <div class="count-div">

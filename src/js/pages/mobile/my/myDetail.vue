@@ -111,7 +111,7 @@
                         },
                         error => {
                             this.$notice.toast({
-                                message: '上传失败:' + error.errorMsg
+                                message: 'Failed to save. Please try again.:' + error.errorMsg
                             });
                         }
                     );
@@ -164,7 +164,7 @@
                     data: params
                 }).then((res) => {
                     this.$notice.toast({
-                        message: 'save success'
+                        message: 'Successfully Saved!'
                     })
                     this.setback(params)
                 }).catch((res) => {
