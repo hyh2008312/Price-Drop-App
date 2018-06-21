@@ -51,9 +51,6 @@ export default {
             handler: function (val, oldVal) {
                 if (this.activeIndex == val) {
                     if (!this.isFirstLoad) {
-                        this.$notice.alert({
-                            message: 111
-                        })
                         this.isFirstLoad = true
                         googleAnalytics.trackingScreen(`Home/${this.item.name}`);
                         this.init()
