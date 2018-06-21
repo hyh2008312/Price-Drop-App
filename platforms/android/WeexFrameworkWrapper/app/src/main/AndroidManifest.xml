@@ -145,7 +145,18 @@
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_S1L7BaoXwjfcux"
             />
-
+        <!--google play -->
+            <!-- Used for Google Play Store Campaign Measurement-->
+            <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+                android:enabled="true"
+                android:exported="true">
+                <intent-filter>
+                    <action android:name="com.android.vending.INSTALL_REFERRER" />
+                </intent-filter>
+            </receiver>
+            <service android:name="com.google.android.gms.analytics.CampaignTrackingService"
+                android:enabled="true"
+                android:exported="false" />
     </application>
 
 </manifest>
