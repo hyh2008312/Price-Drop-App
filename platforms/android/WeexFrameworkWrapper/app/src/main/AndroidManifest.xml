@@ -94,7 +94,7 @@
             </intent-filter>
         </activity>
 
-       <!-- &lt;!&ndash; 自定义权限 &ndash;&gt;
+        <!-- 个推SDK配置开始 -->
         <permission
             android:name="getui.permission.GetuiService.${APP_ID}"
             android:protectionLevel="normal" />
@@ -115,7 +115,7 @@
             <intent-filter>
                 <action android:name="com.igexin.sdk.act6ion.${GETUI_APP_ID}"/>
             </intent-filter>
-        </receiver>-->
+        </receiver>
         <!-- 个推SDK配置结束 -->
 
         <activity android:name=".activity.TestActivity"></activity>
@@ -145,7 +145,18 @@
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_S1L7BaoXwjfcux"
             />
-
+        <!--google play -->
+            <!-- Used for Google Play Store Campaign Measurement-->
+            <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+                android:enabled="true"
+                android:exported="true">
+                <intent-filter>
+                    <action android:name="com.android.vending.INSTALL_REFERRER" />
+                </intent-filter>
+            </receiver>
+            <service android:name="com.google.android.gms.analytics.CampaignTrackingService"
+                android:enabled="true"
+                android:exported="false" />
     </application>
 
 </manifest>

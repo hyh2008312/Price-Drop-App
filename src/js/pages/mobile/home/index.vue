@@ -7,8 +7,8 @@
         <div :style="height" class="box">
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
                 <suggest></suggest>
-                <category v-for="(i, index) in channelList" v-if="index > 0" :key="i.id"
-                          :activeIndex="index" :index="activeIndex" :id="i.id" :item="i"></category>
+                <category v-for="(i, _index) in channelList" v-if="_index > 0" :key="i.id"
+                          :activeIndex="_index" :index="activeIndex" :id="i.id" :item="i"></category>
             </slider>
         </div>
     </div>

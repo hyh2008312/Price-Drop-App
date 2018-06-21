@@ -3,12 +3,13 @@
     <div class="wrapper">
         <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
-            <cell class="cell-button slider-wrap">
+            <cell class="cell-button slider-wrap" v-if="false">
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
             </cell>
+            <cell class="cell-top" ></cell>
             <cell class="notice-wrapper cell-button">
                 <div class="notice-bg">
-                    <block-4 :items="block1.items" @noticeFinished="noNoticeFinished"></block-4>
+                    <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
                 </div>
             </cell>
             <cell v-for="(head, index) in activity" :key="index">

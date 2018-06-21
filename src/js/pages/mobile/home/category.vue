@@ -5,7 +5,7 @@
             <cell class="cell-top" ></cell>
             <cell class="notice-wrapper cell-button">
                 <div class="notice-bg">
-                    <block-4 :items="block1.items"
+                    <block-4 :items="block1.items" v-if="block1.items.length > 0"
                              :activeIndex="activeIndex" :index="index"
                              @noticeFinished="noNoticeFinished"></block-4>
                 </div>
@@ -51,9 +51,12 @@ export default {
             handler: function (val, oldVal) {
                 if (this.activeIndex == val) {
                     if (!this.isFirstLoad) {
-                        this.init()
-                        googleAnalytics.trackingScreen(`Home/${this.item.name}`);
+                        this.$notice.alert({
+                            message: 111
+                        })
                         this.isFirstLoad = true
+                        googleAnalytics.trackingScreen(`Home/${this.item.name}`);
+                        this.init()
                     }
                 }
             },
@@ -94,7 +97,7 @@ export default {
                     name: 'promotion.get.list',
                     data: {}
                 }).then(resData => {
-                    this.block1.backup = [...resData];
+                    this.backup = [...resData];
                     const newArr = this.backup.splice(0, 4);
                     this.block1.items = [...newArr];
                 }, error => {})

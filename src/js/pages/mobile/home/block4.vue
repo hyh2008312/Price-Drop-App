@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <div ref="notice" v-if="activeIndex == index">
+        <div ref="notice">
             <div class="inner-container" v-for="message in items">
                 <div class="header">
                     <preload class="header-image" :src="message.avatar"></preload>
@@ -34,6 +34,9 @@
                 this.resetAni()
             }
         },
+        destroy () {
+            this.isOnAni = true
+        },
         methods: {
             init () {
                 const index = -1;
@@ -51,7 +54,7 @@
                         duration: 2500,
                         timingFunction: 'ease',
                         delay: 0
-                    }, function (result) {
+                    }, function () {
                         that.isOnAni = false
                         if (e < that.items.length - 1) {
                             e++;
@@ -68,21 +71,18 @@
             },
             resetAni (e) {
                 const that = this;
-                if (!this.isOnAni) {
-                    this.isOnAni = true
-                    animation.transition(this.$refs.notice, {
-                        styles: {
-                            opacity: 0,
-                            transform: 'translateY(0px)'
-                        },
-                        duration: 0,
-                        timingFunction: 'ease',
-                        delay: 0
-                    }, function (result) {
-                        that.isOnAni = false
-                        that.init()
-                    })
-                }
+                animation.transition(this.$refs.notice, {
+                    styles: {
+                        opacity: 0,
+                        transform: 'translateY(0px)'
+                    },
+                    duration: 0,
+                    timingFunction: 'ease',
+                    delay: 0
+                }, function () {
+                    that.isOnAni = false
+                    that.init()
+                })
             },
             formateDate (dateTimeStamp) {
                 return utilFunc.formateDate(dateTimeStamp);

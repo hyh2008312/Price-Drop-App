@@ -18,7 +18,8 @@
             <div class="gb-bottom-bg" @click="chooseAddress">
                 <text class="iconfont item-checked" v-if="address.isDefault">&#xe6fb;</text>
                 <text class="item-no-checked" v-if="!address.isDefault"></text>
-                <text class="gb-text-3">Select</text>
+                <text class="gb-text-3" v-if="!address.isDefault">Select</text>
+                <text class="gb-text-3" v-if="address.isDefault">Default</text>
             </div>
             <div class="gb-bottom-bg">
                 <div class="gb-bottom-bg" @click="editAddress">
