@@ -51,10 +51,10 @@ export default {
             handler: function (val, oldVal) {
                 if (this.activeIndex == val) {
                     if (!this.isFirstLoad) {
-                        this.init()
                         googleAnalytics.trackingScreen(`Home/${this.item.name}`);
                         this.isFirstLoad = true
                     }
+                    this.init()
                 }
             },
             deep: true
@@ -94,7 +94,7 @@ export default {
                     name: 'promotion.get.list',
                     data: {}
                 }).then(resData => {
-                    this.block1.backup = [...resData];
+                    this.backup = [...resData];
                     const newArr = this.backup.splice(0, 4);
                     this.block1.items = [...newArr];
                 }, error => {})
@@ -130,6 +130,9 @@ export default {
             }).then(resData => {
                 this.backup = [...resData];
                 const newArr = this.backup.splice(0, 4);
+                this.$notice.alert({
+                    message: newArr
+                })
                 this.block1.items = [...newArr];
             }, error => {})
         },

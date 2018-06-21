@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper">
         <div class="gb-box">
-            <div class="gb-top">
+            <div class="gb-top" @click="jumpWeb()">
                 <text class="gb-date">{{order.created | formatDate('MMMM DD, YYYY hh:mm:ss')}}</text>
                 <text class="gb-status" v-if="order.orderStatus != 'Canceled' && order.orderStatus != 'Completed'">{{order.orderStatus == 'Audit canceled'? 'Packing':order.orderStatus}}</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Completed'">Delivered</text>
             </div>
-            <div class="i-gd"  @click="jumpWeb()">
+            <div class="i-gd" @click="jumpWeb()">
                 <div class="gd-bg">
                     <preload class="gd-img" resize="cover" :src="order.lines[0].mainImage"></preload>
                 </div>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="gb-center">
+            <div class="gb-center" @click="jumpWeb()">
                 <text class="gd-text">Total: </text>
                 <text class="gb-price-2">Rs.{{order.lines[0].paymentPrice}}</text>
             </div>
