@@ -98,7 +98,6 @@ export default {
         noNoticeFinished (e) {
             if(this.backup.length > 0) {
                 const newArr = this.backup.splice(0, 4);
-                this.block1.items = [];
                 this.block1.items = [...newArr];
             } else {
                 this.$fetch({
