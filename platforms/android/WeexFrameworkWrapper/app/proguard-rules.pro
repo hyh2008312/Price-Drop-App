@@ -201,4 +201,9 @@
 -keep class com.google.zxing.** { *; }
 -dontwarn com.google.zxing.**
 
+# 个推的混淆
+-dontwarn com.igexin.**
+-keep class com.igexin.** { *; }
+-keep class org.json.** { *; }
+
 

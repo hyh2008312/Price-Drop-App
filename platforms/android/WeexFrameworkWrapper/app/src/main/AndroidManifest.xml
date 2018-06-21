@@ -94,7 +94,7 @@
             </intent-filter>
         </activity>
 
-       <!-- &lt;!&ndash; 自定义权限 &ndash;&gt;
+        <!-- 个推SDK配置开始 -->
         <permission
             android:name="getui.permission.GetuiService.${APP_ID}"
             android:protectionLevel="normal" />
@@ -115,7 +115,7 @@
             <intent-filter>
                 <action android:name="com.igexin.sdk.act6ion.${GETUI_APP_ID}"/>
             </intent-filter>
-        </receiver>-->
+        </receiver>
         <!-- 个推SDK配置结束 -->
 
         <activity android:name=".activity.TestActivity"></activity>
