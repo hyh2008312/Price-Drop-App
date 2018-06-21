@@ -197,3 +197,8 @@
 
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
+
+-keep class com.google.zxing.** { *; }
+-dontwarn com.google.zxing.**
+
+
