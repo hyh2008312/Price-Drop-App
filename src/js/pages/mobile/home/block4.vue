@@ -34,9 +34,6 @@
                 this.resetAni()
             }
         },
-        destroy () {
-            this.isOnAni = true
-        },
         methods: {
             init () {
                 const index = -1;

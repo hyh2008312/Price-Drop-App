@@ -123,6 +123,7 @@ export default {
             this.getGoods3(true);
         },
         getBlock1 () {
+            this.block1.items = [];
             this.$fetch({
                 method: 'GET',
                 name: 'promotion.get.list',

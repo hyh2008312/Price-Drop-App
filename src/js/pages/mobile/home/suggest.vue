@@ -181,6 +181,7 @@ export default {
             this.tabsItems = TAB;
         },
         getBlock4 () {
+            this.block1.items = [];
             this.$fetch({
                 method: 'GET',
                 name: 'promotion.get.list',
