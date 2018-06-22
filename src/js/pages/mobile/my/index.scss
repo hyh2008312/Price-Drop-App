@@ -121,12 +121,15 @@
 }
 .box-dot{
   background-color: red;
-  font-size: 28px;
+  font-size: 20px;
+  padding: 4px;
+  margin-left: 16px;
   font-weight: 600;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #333;
+  color: white;
+  border-radius: 50%;
 }
 .i-box {
   font-size: 20px;
