@@ -129,7 +129,8 @@ public class BaseCommonUtil {
         if (context != null) {
             String packageName = context.getPackageName();
             String topName = getTopActivity(context);
-            return packageName != null && topName != null && topName.startsWith(packageName);
+            return packageName != null && topName != null &&  packageName.equals("com.socialcommer.wx") &&
+                    topName.startsWith("com.benmu.drop");
         } else {
             return false;
         }

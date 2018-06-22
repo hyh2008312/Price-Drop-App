@@ -23,9 +23,9 @@ module.exports = {
         'android': '/android/WeexFrameworkWrapper/app/src/main/assets'
     },
     'getui': {
-        'enabled': 'false',
-        'appId': 'C9ekVCzRSF8OHu2YQIXxG2',
-        'appKey': 'UlOzLeMded8pgj3BjGTfm1',
-        'appSecret': 'd9v10tH2A36hJwYM1gQKJ5'
+        'enabled': 'true',
+        'appId': 'Qx7Uxdw9XI8lHCJJjOtux5',
+        'appKey': 'ff7flmAdSJ7t9CogJp7f55',
+        'appSecret': 'DaHJ0RvCfp51UsGbGkU9P9'
     }
 }

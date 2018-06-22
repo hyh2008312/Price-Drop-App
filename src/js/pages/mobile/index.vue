@@ -10,6 +10,7 @@ import util from './utils/util';
 import tabBar from './common/tabBar';
 import { tabConfig } from './config';
 import { cliendId } from '../../config/apis';
+const bmPush = weex.requireModule('bmPush');
 export default {
     bmRouter: {
         viewWillAppear () {
@@ -51,6 +52,7 @@ export default {
         });
         util.initIconFont()
         this.androidFinishApp()
+        this.initPush()
     },
     data () {
         return {
@@ -60,6 +62,9 @@ export default {
         }
     },
     methods: {
+        initPush () {
+            bmPush.initPush({});
+        },
         onTabTo (_result) {
             const _key = _result.data.key || '';
             this.selectedTab = _key

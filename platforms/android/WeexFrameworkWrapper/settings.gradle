@@ -1,1 +1,1 @@
-include ':app', ':sharesdk', ':eros-framework', ':sdk', ':nexus'
+include ':app', ':sharesdk', ':eros-framework', ':sdk', ':nexus', ':erosplugingt'

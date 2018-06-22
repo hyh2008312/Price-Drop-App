@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="state"></div>
-        <div class="navigation">
+        <div class="navigation" @click="test">
             <text class="title">Drops</text>
         </div>
         <div>
@@ -73,9 +73,8 @@
         },
         methods: {
             test () {
-                this.$router.open({
-                    name: 'welcome'
-                })
+                const bmPush = weex.requireModule('bmPush')
+                bmPush.getCliendId()
             },
             initGoogleAnalytics () {
                 googleAnalytics.trackingScreen('Drops');
@@ -146,7 +145,11 @@
                         this.isLoading = false;
                     }
                     this.refreshApiFinished();
-                }, error => {})
+                }, error => {
+                    this.$notice.alert({
+                        message: error
+                    })
+                })
             },
             getcutendProduct (isFirst) {
                 this.$fetch({

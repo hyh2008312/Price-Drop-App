@@ -30,10 +30,16 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="getui.permission.GetuiService.com.bmdoctor.jyt" />
 
+    <!-- 浮动通知权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="getui.permission.GetuiService.${APP_ID}"/>
+
+
     <!-- amap额外权限 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!-- Add the RECEIVE_SMS permission to enable OTP reading -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
 
 
     <application
@@ -94,28 +100,41 @@
             </intent-filter>
         </activity>
 
+
         <!-- 个推SDK配置开始 -->
+
         <permission
             android:name="getui.permission.GetuiService.${APP_ID}"
-            android:protectionLevel="normal" />
+            android:protectionLevel="normal"/>
 
+        <!-- 配置SDK核心服务 -->
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.service.message"/>
+            </intent-filter>
+        </service>
         <meta-data
             android:name="PUSH_APPID"
-            android:value="${GETUI_APP_ID}" />
+            android:value="${GETUI_APP_ID}"/>
         <meta-data
             android:name="PUSH_APPKEY"
-            android:value="${GETUI_APP_KEY}" />
+            android:value="${GETUI_APP_KEY}"/>
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="${GETUI_APP_SECRET}" />
+            android:value="${GETUI_APP_SECRET}"/>
 
         <receiver
             android:name="com.benmu.erosplugingt.GTPushReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.act6ion.${GETUI_APP_ID}"/>
+                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}"/>
             </intent-filter>
         </receiver>
+
         <!-- 个推SDK配置结束 -->
 
         <activity android:name=".activity.TestActivity"></activity>
