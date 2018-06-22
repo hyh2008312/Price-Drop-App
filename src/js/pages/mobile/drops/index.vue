@@ -73,8 +73,8 @@
         },
         methods: {
             test () {
-                const bmPush = weex.requireModule('bmPush')
-                bmPush.getCliendId()
+                /* const bmPush = weex.requireModule('bmPush')
+                bmPush.getCliendId() */
             },
             initGoogleAnalytics () {
                 googleAnalytics.trackingScreen('Drops');

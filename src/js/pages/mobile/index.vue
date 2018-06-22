@@ -63,7 +63,7 @@ export default {
     },
     methods: {
         initPush () {
-            bmPush.initPush({});
+           // bmPush.initPush({});
         },
         onTabTo (_result) {
             const _key = _result.data.key || '';
