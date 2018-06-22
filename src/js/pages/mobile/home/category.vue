@@ -89,6 +89,7 @@ export default {
                 const newArr = this.backup.splice(0, 4);
                 this.block1.items = [...newArr];
             } else {
+                this.block1.items = [];
                 this.$fetch({
                     method: 'GET',
                     name: 'promotion.get.list',
