@@ -13,7 +13,7 @@
                 </div>
             </cell>
             <cell v-for="(head, index) in activity" :key="index">
-                <block-2 :head="head" :class="[activity.length - 1 == index ? 'cell-margin-button': '']" v-if="activity.length > 0"></block-2>
+                <block-2 :head="head" :class="[activity.length - 1 == index ? 'cell-margin-button': '']" :isActiveLoading="isActiveLoading"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
                 <block-5 :logo="block5.items"></block-5>
@@ -91,7 +91,8 @@ export default {
             lengthNew: 2,
             countApi: 0,
             isPlatformAndroid: Utils.env.isAndroid(),
-            isShow: false
+            isShow: false,
+            isActiveLoading: false
         }
     },
     methods: {
@@ -167,12 +168,14 @@ export default {
             })
         },
         getActivity() {
+            this.isActiveLoading = false;
             this.$fetch({
                 method: 'GET',
                 name: 'product.topic.list',
                 data: {}
             }).then(resData => {
                 this.activity = [...resData]
+                this.isActiveLoading = true;
                 this.refreshApiFinished()
             }, error => {
 

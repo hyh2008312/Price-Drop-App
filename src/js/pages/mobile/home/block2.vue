@@ -32,15 +32,22 @@ export default {
     components: {
         preload
     },
-    props: ['head'],
-    mounted () {
-        this.getActivityProduct()
-    },
+    props: ['head', 'isActiveLoading'],
     data () {
         return {
-            goods: false,
+            goods: [],
             page: 1,
             pageSize: 6
+        }
+    },
+    mounted () {
+        this.getActivityProduct();
+    },
+    watch: {
+        isActiveLoading (newVal, oldVal) {
+            if (newVal) {
+                this.getActivityProduct();
+            }
         }
     },
     methods: {
