@@ -64,15 +64,15 @@
                                 })
                             })
                         }, function (param) {
+                            that.$router.finish();
                             if (param.code != 0) {
-                                that.$router.finish()
                                 that.$router.open({
                                     name: 'order.failure',
                                     type: 'PUSH',
                                     params: {
                                         source: 'confirm'
                                     }
-                                })
+                                });
                             } else {
                                 that.$router.open({
                                     name: 'order',
