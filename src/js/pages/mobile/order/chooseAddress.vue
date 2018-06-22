@@ -32,6 +32,7 @@
                 </div>
             </div>
         </wxc-mask>
+        <wxc-loading :show="isShow"></wxc-loading>
     </div>
 </template>
 <script>
@@ -39,7 +40,7 @@ import header from './header';
 import addressItem from './addressItem';
 import orderDetailItem from './orderDetailItem';
 import addressBottom from './addressBottom';
-import { Utils, WxcMask } from 'weex-ui';
+import { Utils, WxcMask, WxcLoading } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
@@ -49,7 +50,8 @@ export default {
         'address-item': addressItem,
         'order-detail-item': orderDetailItem,
         'address-bottom': addressBottom,
-        WxcMask
+        WxcMask,
+        WxcLoading
     },
     eros: {
         backAppeared (params, options) {
@@ -80,11 +82,13 @@ export default {
             source: false,
             isDeleteShow: false,
             deleteId: -1,
-            deleteIndex: 0
+            deleteIndex: 0,
+            isShow: false
         }
     },
     methods: {
         getAddress () {
+            this.isShow = true;
             this.$fetch({
                 method: 'GET',
                 name: 'address.shipping.list',
@@ -93,8 +97,10 @@ export default {
                     needAuth: true
                 }
             }).then(data => {
+                this.isShow = false;
                 this.addressList = [...data];
             }, error => {
+                this.isShow = false;
                 // 错误回调
                 this.$notice.toast({
                     message: error

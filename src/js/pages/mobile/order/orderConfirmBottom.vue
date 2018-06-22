@@ -64,14 +64,24 @@
                                 })
                             })
                         }, function (param) {
-                            that.$router.finish()
-                            that.$router.open({
-                                name: 'order.failure',
-                                type: 'PUSH',
-                                params: {
-                                    source: 'confirm'
-                                }
-                            })
+                            if (param.code != 0) {
+                                that.$router.finish()
+                                that.$router.open({
+                                    name: 'order.failure',
+                                    type: 'PUSH',
+                                    params: {
+                                        source: 'confirm'
+                                    }
+                                })
+                            } else {
+                                that.$router.open({
+                                    name: 'order',
+                                    type: 'PUSH',
+                                    params: {
+                                        tab: 1
+                                    }
+                                })
+                            }
                         });
                 }, error => {
                     this.$notice.toast({
