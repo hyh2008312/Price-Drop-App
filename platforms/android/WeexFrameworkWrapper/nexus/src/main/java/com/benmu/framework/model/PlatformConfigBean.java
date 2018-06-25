@@ -17,12 +17,21 @@ import java.io.Serializable;
 public class PlatformConfigBean implements Serializable {
     private String AppName;
     private String appBoard;
+    private Version version;
     private boolean androidIsListenHomeBack;
     private Page Page;
     private Url url;
     private Wechat wechat;
     private Umeng umeng;
     private Amap amap;
+
+    public Version getVersion() {
+        return version;
+    }
+
+    public void setVersion(Version version) {
+        this.version = version;
+    }
 
     public boolean isAndroidIsListenHomeBack() {
         return androidIsListenHomeBack;
@@ -131,6 +140,19 @@ public class PlatformConfigBean implements Serializable {
             this.navBarColor = navBarColor;
         }
     }
+
+    public class Version {
+        private String android;
+
+        public String getAndroid() {
+            return android;
+        }
+
+        public void setAndroid(String android) {
+            this.android = android;
+        }
+    }
+
 
     public class Url {
         private String request;
