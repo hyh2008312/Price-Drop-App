@@ -16,7 +16,7 @@ module.exports = {
     },
     'url': {
         'image': 'https://lev-inf.benmu-health.com/test/xxx',
-        'bundleUpdate': 'http://192.168.2.71:3001/app/check'
+        'bundleUpdate': 'http://149.129.135.114/app/check/'
     },
     'zipFolder': {
         'iOS': '/ios/WeexEros/WeexEros',

@@ -97,12 +97,18 @@ export default {
             this.payList = [...PAYLIST]
         },
         getAddress () {
-            this.$storage.get('user').then((params) => {
-                if (params.defaultAddress) {
-                    this.address = params.defaultAddress
-                } else {
-                    this.address.id = null
+            this.$fetch({
+                method: 'GET', // 大写
+                name: 'address.get.default',
+                header: {
+                    needAuth: true
                 }
+            }).then(resData => {
+                this.address = resData;
+            }, error => {
+                this.$notice.toast({
+                    message: error
+                })
             })
         }
     }
