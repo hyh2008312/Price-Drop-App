@@ -136,7 +136,8 @@ public class VersionManager extends Manager {
             callback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("appName", BMWXEnvironment.mPlatformConfig.getAppName());
-        params.put("android", BaseCommonUtil.getVersionName(context));
+        //params.put("android", BaseCommonUtil.getVersionName(context));
+        params.put("android", BMWXEnvironment.mPlatformConfig.getVersion().getAndroid());
         String versionInfo = SharePreferenceUtil.getDownLoadVersion(context);
         if (TextUtils.isEmpty(versionInfo)) {
             versionInfo = SharePreferenceUtil.getVersion(context);
