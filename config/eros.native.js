@@ -16,7 +16,7 @@ module.exports = {
     },
     'url': {
         'image': 'https://lev-inf.benmu-health.com/test/xxx',
-        'bundleUpdate': 'http://149.129.135.114/app/check/'
+        'bundleUpdate': 'https://app-api.getpricedrop.com/app/check/'
     },
     'zipFolder': {
         'iOS': '/ios/WeexEros/WeexEros',
