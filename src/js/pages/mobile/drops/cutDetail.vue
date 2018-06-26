@@ -1,25 +1,30 @@
 <template>
     <div class="wrapper">
         <div class="state"></div>
+        <div class="wrapper-background">
+            <image class="wrapper-background-image" src="bmlocal://assets/drop_detail_bg.jpg"></image>
+        </div>
         <scroller>
-            <div class="wrapper-head">
-                <div class="navigation">
-                    <text class="homeBack" @click="back">&#xe6f6;</text>
-                    <div class="cut-rule" @click="showCutRule">
-                        <text class="cut-rule-icon">&#xe709;</text>
-                        <text class="cut-rule-text">Price Drop FAQ</text>
-                    </div>
+            <div class="navigation">
+                <text class="homeBack" @click="back">&#xe6f6;</text>
+                <div class="cut-rule" @click="showCutRule">
+                    <text class="cut-rule-icon">&#xe709;</text>
+                    <text class="cut-rule-text">Price Drop FAQ</text>
                 </div>
-                <div class="out-head">
+            </div>
+            <div class="drop-detail-head">
+                 <div class="out-head">
                     <image class="in-head" resize="cover"
                            :src="goodsDetail.ownerAvatar"></image>
                 </div>
+                 <div class="wrapper-head">
                 <div class="share-content-top">
                     <text class="wrapper-tip">You have dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
-                    <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Share this item and invite more friends to drop price for you!</text>
+                    <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Share this item and invite more friends to
+                        drop price for you!</text>
                 </div>
-            </div>
-            <div class="wrapper-product" @click="openDetail()">
+              </div>
+                 <div class="wrapper-product" @click="openDetail()">
                 <div class="product-image">
                     <preload class="product-image-in" :src="goodsDetail.mainImage"></preload>
                 </div>
@@ -27,7 +32,9 @@
                     <text class="product-content-name">{{goodsDetail.title}}</text>
                     <text class="product-content-people">{{goodsDetail.cutGet == null ? 10 + "+" : goodsDetail.cutGet + 10}} people bought this item at the lowest price</text>
                 </div>
+              </div>
             </div>
+
             <!--正在进行-->
             <div v-if="goodsDetail.cutStatus=='progressing' && goodsDetail.operationStatus=='pending'">
                 <div class="wrapper-progress">
@@ -377,6 +384,14 @@
     }
 </script>
 <style scoped>
+    .drop-detail-head{
+        background-color: #689de5;
+        margin-left: 32px;
+        margin-right: 32px;
+        position: relative;
+        overflow: visible;
+        height: 424px;
+    }
     .rule-faq{
         width: 594px;
         font-size: 40px;
@@ -816,13 +831,11 @@
     }
 
     .wrapper-product {
-        width: 718px;
         height: 192px;
         margin-left: 16px;
         background-color: #FFFFFF;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
         margin-right: 16px;
-        margin-top: -135px;
         border-radius: 8px;
         display: flex;
         flex-direction: row;
@@ -836,23 +849,21 @@
     }
 
     .wrapper-head {
-        background-color: #EF8A31;
         width: 750px;
-        height: 452px;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
     }
 
     .out-head {
-        height: 80px;
-        width: 80px;
-        border-radius: 40px;
+        height: 96px;
+        width: 96px;
+        border-radius: 48px;
     }
 
     .in-head {
-        height: 80px;
-        width: 80px;
+        height: 96px;
+        width: 96px;
     }
 
     .navigation {
@@ -866,7 +877,7 @@
 
     .homeBack {
         font-family: iconfont;
-        color: white;
+        color: black;
         font-size: 32px;
         height: 112px;
         margin-left: 32px;
@@ -908,9 +919,19 @@
     .wrapper-tip {
         font-size: 24px;
         font-weight: bold;
-        color: rgba(255, 255, 255, 0.87);
-        line-height: 40px;
-        margin-top: 16px;
+        color: rgba(0, 0, 0, 0.87);
+        line-height: 36px;
+    }
+    .wrapper-background-image{
+        width: 750px;
+        height: 1440px;
+    }
+    .wrapper-background{
+        position: absolute;
+        top: 48px;
+    }
+    .wrapper{
+        position: relative;
     }
 
 </style>
