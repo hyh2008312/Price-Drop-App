@@ -246,7 +246,7 @@
                     Math.ceil(this.payOrder.paymentAmount * 100), user.defaultAddress.phoneNumber, user.email,
                     function (param) {
                         that.$fetch({
-                            method: 'PUT', // 大写
+                            method: 'POST', // 大写
                             url: `${baseUrl}/payment/razorpay/${that.payOrder.id}/`,
                             data: {
                                 paymentId: param.paymentId,
