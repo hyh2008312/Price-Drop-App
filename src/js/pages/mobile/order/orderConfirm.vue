@@ -109,7 +109,7 @@ export default {
                 this.$notice.toast({
                     message: error
                 })
-            })
+            });
         }
     }
 }

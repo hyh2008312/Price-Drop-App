@@ -11,6 +11,9 @@
     import { baseUrl } from '../../../config/apis';
     export default {
         props: ['order', 'address'],
+        data: {
+            isFirst: false
+        },
         methods: {
             confirm () {
                 const that = this
@@ -18,76 +21,80 @@
                     that.$notice.toast('Please add address first!')
                     return
                 }
-                that.$fetch({
-                    method: 'POST', // 大写
-                    name: 'order.cut.create',
-                    data: {
-                        cutId: that.order.id
-                    },
-                    header: {
-                        needAuth: true
-                    }
-                }).then(resData => {
-                    this.$event.emit('cutDetail');
-                    googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
-                    googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
-                    const order = resData;
-                    const user = that.$storage.getSync('user');
-                    pay.startPayRequest(that.order.title, '', that.order.mainImage,
-                        Math.ceil(that.order.currentPrice * 100), user.defaultAddress.phoneNumber, user.email,
-                        function (param) {
-                            that.$fetch({
-                                method: 'PUT', // 大写
-                                url: `${baseUrl}/payment/razorpay/${order.orderId}/`,
-                                data: {
-                                    paymentId: param.paymentId,
-                                    paymentAmount: that.order.currentPrice
-                                },
-                                header: {
-                                    needAuth: true
+                if (!this.isFirst) {
+                    this.isFirst = true;
+                    that.$fetch({
+                        method: 'POST', // 大写
+                        name: 'order.cut.create',
+                        data: {
+                            cutId: that.order.id
+                        },
+                        header: {
+                            needAuth: true
+                        }
+                    }).then(resData => {
+                        this.$event.emit('cutDetail');
+                        googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
+                        const order = resData;
+                        const user = that.$storage.getSync('user');
+                        pay.startPayRequest(that.order.title, '', that.order.mainImage,
+                            Math.ceil(that.order.currentPrice * 100), user.defaultAddress.phoneNumber, user.email,
+                            function (param) {
+                                that.$fetch({
+                                    method: 'POST', // 大写
+                                    url: `${baseUrl}/payment/razorpay/${order.id}/`,
+                                    data: {
+                                        paymentId: param.paymentId,
+                                        paymentAmount: that.order.currentPrice
+                                    },
+                                    header: {
+                                        needAuth: true
+                                    }
+                                }).then(resData => {
+                                    that.$router.finish()
+                                    that.$event.once('paySuccess', () => {
+                                        that.init()
+                                    });
+                                    that.$router.open({
+                                        name: 'order.success',
+                                        type: 'PUSH',
+                                        params: {
+                                            source: 'confirm'
+                                        }
+                                    })
+                                }, error => {
+                                    that.$notice.toast({
+                                        message: error
+                                    })
+                                })
+                            }, function (param) {
+                                if (param.code != 0) {
+                                    that.$router.open({
+                                        name: 'order.failure',
+                                        type: 'PUSH',
+                                        params: {
+                                            source: 'confirm'
+                                        }
+                                    });
+                                } else {
+                                    that.$router.open({
+                                        name: 'order',
+                                        type: 'PUSH',
+                                        params: {
+                                            tab: 1
+                                        }
+                                    })
                                 }
-                            }).then(resData => {
-                                that.$router.finish()
-                                that.$event.once('paySuccess', () => {
-                                    that.init()
-                                });
-                                that.$router.open({
-                                    name: 'order.success',
-                                    type: 'PUSH',
-                                    params: {
-                                        source: 'confirm'
-                                    }
-                                })
-                            }, error => {
-                                that.$notice.toast({
-                                    message: error
-                                })
-                            })
-                        }, function (param) {
-                            that.$router.finish();
-                            if (param.code != 0) {
-                                that.$router.open({
-                                    name: 'order.failure',
-                                    type: 'PUSH',
-                                    params: {
-                                        source: 'confirm'
-                                    }
-                                });
-                            } else {
-                                that.$router.open({
-                                    name: 'order',
-                                    type: 'PUSH',
-                                    params: {
-                                        tab: 1
-                                    }
-                                })
-                            }
-                        });
-                }, error => {
-                    this.$notice.toast({
-                        message: error
+                            });
+                        that.isFirst = true;
+                    }, error => {
+                        that.isFirst = true;
+                        that.$notice.toast({
+                            message: error
+                        })
                     })
-                })
+                }
             }
         }
     }

@@ -308,7 +308,7 @@
             cancelOrder () {
                 this.$refs.wxcCancelPopup.hide()
                 this.$fetch({
-                    method: 'PUT', // 大写
+                    method: 'POST', // 大写
                     url: `${baseUrl}/order/customer/cancel/${this.cancelId}/`,
                     data: {
                         reason: this.reason[this.reasonActive]
