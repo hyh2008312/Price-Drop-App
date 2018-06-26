@@ -43,7 +43,7 @@
                     </div>
                     <div class="wrapper-price">
                         <div class="wrapper-price-regular">
-                            <text class="current-price-1">Regular Price</text>
+                            <text class="current-price-1">Original Price</text>
                             <text class="wrapper-price-2">Rs.{{goodsDetail.salePrice}}</text>
                         </div>
                         <div class="wrapper-price-lowest">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <text class="wrapper-share" @click="showSharePanel">Share to Drop the Price Further</text>
+                <text class="wrapper-share" @click="showSharePanel">Invite More Friends to Drop Price Further</text>
                 <text class="wrapper-buy-now" @click="showBuyNow">Buy It At Current Price</text>
 
                 <div class="wrapper-timer">
