@@ -146,9 +146,10 @@
                     }
                     this.refreshApiFinished();
                 }, error => {
-                    this.$notice.alert({
+                    this.isShow = false;
+                    /* this.$notice.alert({
                         message: error
-                    })
+                    }) */
                 })
             },
             getcutendProduct (isFirst) {
