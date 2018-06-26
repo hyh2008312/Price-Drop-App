@@ -7,7 +7,7 @@
                     <text class="homeBack" @click="back">&#xe6f6;</text>
                     <div class="cut-rule" @click="showCutRule">
                         <text class="cut-rule-icon">&#xe709;</text>
-                        <text class="cut-rule-text">Price Drop FAQ</text>
+                        <text class="cut-rule-text">How to Reach Lowest Price?</text>
                     </div>
                 </div>
                 <div class="out-head">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="share-content-top">
                     <text class="wrapper-tip">You have dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
-                    <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Share this item and invite more friends to drop price for you!</text>
+                    <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Invite more friends to help you reach the lowest price!</text>
                 </div>
             </div>
             <div class="wrapper-product" @click="openDetail()">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <text class="wrapper-share" @click="showSharePanel">Invite More Friends to Drop Price Further</text>
+                <text class="wrapper-share" @click="showSharePanel">Invite More Friends to Drop Your Price</text>
                 <text class="wrapper-buy-now" @click="showBuyNow">Buy It At Current Price</text>
 
                 <div class="wrapper-timer">
@@ -130,9 +130,19 @@
             @wxcPopupOverlayClicked="popupOverlayAutoClick"
             ref="wxcPopup"
             pos="bottom"
-            height="384">
+            height="560">
             <div class="share-content">
                 <div>
+                    <div class="share-content-top">
+                        <div class="share-content-text">
+                            <text class="share-content-text-1">You just cut </text>
+                            <text class="share-content-text-2">Rs.{{ Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice)*100)/100 }}</text>
+                            <text class="share-content-text-1"> Off the price!</text>
+                        </div>
+                        <text class="share-content-text-1">Share this item and invite more friends to
+                            cut price for you!
+                        </text>
+                    </div>
                     <div class="share-content-bottom">
                         <div class="share-content-icon">
                             <div class="facebook" v-if="false" @click="shareFacebook">
@@ -219,14 +229,15 @@
             appeared (params, options) {
                 console.log('beforeAppear');
                // this.isShow = params.isShowSharePanel;
-                this.isShow = false;
+                this.isShow = true;
                 this.id = params.id;
                 this.requestCutDetail();
+                this.initGoogleAnalytics(this.id)
             }
         },
         created () {
             this.registerEvent();
-            this.initGoogleAnalytics();
+          //  this.initGoogleAnalytics();
         },
         destory () {
             this.$event.off('cutDetail')
@@ -238,14 +249,18 @@
                 isShowShare: false,
                 isShow: false,
                 id: -1,
-                goodsDetail: {},
+                goodsDetail: {
+                    salePrice: '0.00',
+                    currentPrice: '0.00',
+                    lowestPrice: '0.00'
+                },
                 isRuleShow: false,
                 distance: 1
             }
         },
         methods: {
-            initGoogleAnalytics () {
-                googleAnalytics.trackingScreen('DropDetail');
+            initGoogleAnalytics (dropId) {
+                googleAnalytics.trackingScreen(`DropDetail/${dropId}`);
             },
             registerEvent () {
                 this.$event.on('cutDetail', params => {
@@ -305,6 +320,7 @@
                 )
             },
             requestCutDetail () {
+                const that = this ;
                 this.$fetch({
                     method: 'GET',
                     url: baseUrl + '/promotion/cut/detail/' + this.id + '/'
@@ -318,7 +334,9 @@
                     if (this.distance > 450) {
                         this.distance = 450;
                     }
-                    this.isShowShare = this.isShow;
+                    setTimeout(function (){
+                        that.isShowShare = that.isShow;
+                    },1000);
                 }, error => {
                     this.$notice.toast('network is error');
                 })
@@ -910,7 +928,7 @@
         font-weight: bold;
         color: rgba(255, 255, 255, 0.87);
         line-height: 40px;
-        margin-top: 16px;
+        text-align: center;
     }
 
 </style>
