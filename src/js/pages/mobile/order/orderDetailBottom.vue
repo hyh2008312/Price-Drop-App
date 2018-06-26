@@ -35,8 +35,10 @@
             confirm () {
                 const that = this;
                 const user = that.$storage.getSync('user');
+                const price = that.order.paymentAmount.split('.');
+                const payAmount = price[0] + price[1];
                 pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
-                    Math.ceil(this.order.paymentAmount * 100), user.defaultAddress.phoneNumber, user.email,
+                    parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                     function (param) {
                         that.$fetch({
                             method: 'POST', // 大写

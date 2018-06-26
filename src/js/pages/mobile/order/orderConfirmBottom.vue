@@ -38,8 +38,10 @@
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                         const order = resData;
                         const user = that.$storage.getSync('user');
+                        const price = that.order.currentPrice.split('.');
+                        const payAmount = price[0] + price[1];
                         pay.startPayRequest(that.order.title, '', that.order.mainImage,
-                            Math.ceil(that.order.currentPrice * 100), user.defaultAddress.phoneNumber, user.email,
+                            parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                             function (param) {
                                 that.$fetch({
                                     method: 'POST', // 大写
