@@ -14,7 +14,7 @@
                     <text class="input-title" :class="[inputIndex==1?'input-title-active':'']">Phone</text>
                     <div class="input-bg-1">
                         <text class="input-title-1">+91</text>
-                        <input type="number" placeholder="" class="input-1" :value="address.phoneNumber"
+                        <input type="tel" placeholder="" class="input-1" :value="address.phoneNumber"
                                @input="onInputPhone" @return="onInputPhone"
                                @focus="changeColor(1)" @blur="changeColor(-1)"/>
                     </div>

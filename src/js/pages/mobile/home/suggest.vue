@@ -86,7 +86,7 @@ export default {
             isLoading: false,
             pageNew: 1,
             pageHot: 1,
-            pageSize: 24,
+            pageSize: 12,
             lengthHot: 2,
             lengthNew: 2,
             countApi: 0,
