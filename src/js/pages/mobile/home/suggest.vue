@@ -82,7 +82,7 @@ export default {
             tabsItems: [],
             goods3: [],
             showLoading: 'hide',
-            tabKey: 'hot',
+            tabKey: 'new',
             isLoading: false,
             pageNew: 1,
             pageHot: 1,
