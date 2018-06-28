@@ -1,10 +1,15 @@
 package com.benmu.drop.utils;
 
+import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.benmu.drop.R;
 import com.benmu.drop.activity.bean.AppDto;
+import com.benmu.drop.service.UpdateService;
+import com.benmu.framework.utils.PermissionUtils;
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
@@ -42,5 +47,16 @@ public class CommonUtils extends WXModule {
             appInfo.setCode(300);
             jsCallback.invoke(appInfo);
         }
+    }
+
+    @JSMethod
+    public void updateAndroidApp(String apkUrl) {
+        if (!PermissionUtils.checkPermission(mWXSDKInstance.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            return;
+        }
+        Intent updateIntent = new Intent(mWXSDKInstance.getContext(), UpdateService.class);
+        updateIntent.putExtra("app_name", "PriceDrop");
+        updateIntent.putExtra("updateurl", apkUrl);
+        mWXSDKInstance.getContext().startService(updateIntent);
     }
 }

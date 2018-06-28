@@ -20,7 +20,9 @@
 <script>
     const googleLogin = weex.requireModule('GoogleLoginModule');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+    const bmPush = weex.requireModule('bmPush')
      import { cliendId } from '../../../config/apis'
+
     export default {
         components: {
         },
@@ -70,15 +72,17 @@
                     that.$storage.deleteSync('token');
                     that.$storage.setSync('user', data.user);
                     that.$storage.setSync('token', data.token);
+                    bmPush.bindAlias(data.user.id, function (params) {
+                    });
                     googleAnalytics.recordEvent('login', 'google', data.user, 0);
-                    that.$router.back({
+                     that.$router.back({
                         length: 1,
                         type: 'PUSH',
                         callback () {
                             // 返回成功回调
                             that.$event.emit('login')
                         }
-                    })
+                    });
                 }, error => {
                     that.$notice.toast(JSON.stringify(error));
                 })

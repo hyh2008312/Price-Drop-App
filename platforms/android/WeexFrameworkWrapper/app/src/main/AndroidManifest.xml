@@ -176,6 +176,9 @@
             <service android:name="com.google.android.gms.analytics.CampaignTrackingService"
                 android:enabled="true"
                 android:exported="false" />
+        <!-- 版本更新 -->
+        <service android:name=".service.UpdateService" />
+
     </application>
 
 </manifest>
