@@ -15,16 +15,19 @@
                <text class="google-login-text">Logout with Google</text>
             </div>
         </div>
+        <wxc-loading :show="isShow"></wxc-loading>
     </div>
 </template>
 <script>
     const googleLogin = weex.requireModule('GoogleLoginModule');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const bmPush = weex.requireModule('bmPush')
+    import { WxcLoading } from 'weex-ui';
      import { cliendId } from '../../../config/apis'
 
     export default {
         components: {
+            WxcLoading
         },
         created () {
             this.initGoogleAnalytics();
@@ -35,6 +38,7 @@
         },
         data () {
             return {
+                isShow: false
             }
         },
         methods: {
@@ -49,7 +53,7 @@
                googleLogin.startGoogleLogin(function (param) {
                    that.requestUserInfo(param.tokenId, that);
                }, function (param) {
-                   that.$notice.toast('google login failed')
+                   that.$notice.toast('It seems that your internet is not stable. Please try again!')
                })
            },
             startGoogleSignOut () {
@@ -60,6 +64,7 @@
                 })
             },
             requestUserInfo (id_token, that) {
+                that.isShow = true;
                 that.$fetch({
                     method: 'POST',
                     name: 'user.google.sign',
@@ -75,6 +80,7 @@
                     bmPush.bindAlias(data.user.id, function (params) {
                     });
                     googleAnalytics.recordEvent('login', 'google', data.user, 0);
+                    that.isShow = false;
                      that.$router.back({
                         length: 1,
                         type: 'PUSH',
@@ -84,7 +90,8 @@
                         }
                     });
                 }, error => {
-                    that.$notice.toast(JSON.stringify(error));
+                    that.isShow = false;
+                    that.$notice.toast('It seems that your internet is not stable. Please try again!');
                 })
             }
         }

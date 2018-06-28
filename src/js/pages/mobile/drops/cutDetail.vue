@@ -135,12 +135,12 @@
                 <div>
                     <div class="share-content-top">
                         <div class="share-content-text">
-                            <text class="share-content-text-1">You just cut </text>
+                            <text class="share-content-text-1">You just dropped </text>
                             <text class="share-content-text-2">Rs.{{ Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice)*100)/100 }}</text>
                             <text class="share-content-text-1"> Off the price!</text>
                         </div>
                         <text class="share-content-text-1">Share this item and invite more friends to
-                            cut price for you!
+                            drop price for you!
                         </text>
                     </div>
                     <div class="share-content-bottom">
@@ -182,6 +182,9 @@
                  :show="isRuleShow"
                  @wxcMaskSetHidden="wxcMaskSetHidden">
             <div class="rule-content">
+                <div class="rule-close-div">
+                   <text class="rule-close" @click="wxcMaskSetHidden">&#xe632;</text>
+                </div>
                 <scroller>
                     <text class="rule-faq">FAQ</text>
                 <div class="rule-content-title">
@@ -413,6 +416,20 @@
 
     .rule-content-title {
 
+    }
+    .rule-close-div{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 666px;
+    }
+    .rule-close{
+        font-family: iconfont;
+        font-size: 40px;
+        margin-right: 60px;
+        margin-top: 30px;
+        font-weight: bold;
+        color: black;
     }
 
     .rule-content {
