@@ -63,7 +63,7 @@
                 goods: [],
                 length: 2,
                 page: 1,
-                pageSize: 24,
+                pageSize: 12,
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid()
             }

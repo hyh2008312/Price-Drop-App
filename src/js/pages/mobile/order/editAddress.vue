@@ -5,17 +5,17 @@
         <list class="container" :style="height">
             <cell class="input-bg input-mt">
                 <div>
-                    <text class="input-title" :class="[inputIndex==0?'input-title-active':'']">Name</text>
+                    <text class="input-title" :class="[inputIndex=='0'?'input-title-active':'']">Name</text>
                     <input type="text" placeholder="" class="input-1" :value="address.firstName"
-                           @input="onInputFirstName" @return="onInputFirstName"
-                           @focus="changeColor(0)" @blur="changeColor(-1)"/>
+                           @input="onInputFirstName" @return="onInputFirstName" :autofocus="inputIndex=='0'"
+                           @focus="changeColor('0')" @blur="changeColor(-1)"/>
                 </div>
                 <div>
                     <text class="input-title" :class="[inputIndex==1?'input-title-active':'']">Phone</text>
                     <div class="input-bg-1">
                         <text class="input-title-1">+91</text>
                         <input type="tel" placeholder="" class="input-1" :value="address.phoneNumber"
-                               @input="onInputPhone" @return="onInputPhone"
+                               @input="onInputPhone" @return="onInputPhone" :autofocus="inputIndex==1"
                                @focus="changeColor(1)" @blur="changeColor(-1)"/>
                     </div>
                 </div>
@@ -23,31 +23,31 @@
             <cell class="input-bg">
                 <text class="input-title" :class="[inputIndex==2?'input-title-active':'']">Pincode</text>
                 <input type="number" placeholder="" class="input" :value="address.postcode"
-                       @input="onInputPostcode" @return="onInputPostcode"
+                       @input="onInputPostcode" @return="onInputPostcode" :autofocus="inputIndex==2"
                        @focus="changeColor(2)" @blur="changeColor(-1)"/>
             </cell>
             <cell class="input-bg">
                 <text class="input-title" :class="[inputIndex==3?'input-title-active':'']">House No./Floor/Buildng</text>
                 <input type="text" placeholder="" class="input" :value="address.line1"
-                       @input="onInputLine1" @return="onInputLine1"
+                       @input="onInputLine1" @return="onInputLine1" :autofocus="inputIndex==3"
                        @focus="changeColor(3)" @blur="changeColor(-1)"/>
             </cell>
             <cell class="input-bg">
                 <text class="input-title" :class="[inputIndex==4?'input-title-active':'']">Street/Locality</text>
                 <input type="text" placeholder="" class="input" :value="address.line2"
-                       @input="onInputLine2" @return="onInputLine2"
+                       @input="onInputLine2" @return="onInputLine2" :autofocus="inputIndex==4"
                        @focus="changeColor(4)" @blur="changeColor(-1)"/>
             </cell>
             <cell class="input-bg">
                 <text class="input-title" :class="[inputIndex==5?'input-title-active':'']">Landmark: Near/Behind(Optional)</text>
                 <input type="text" placeholder="" class="input" :value="address.line3"
-                       @input="onInputLine3" @return="onInputLine3"
+                       @input="onInputLine3" @return="onInputLine3" :autofocus="inputIndex==5"
                        @focus="changeColor(5)" @blur="changeColor(-1)"/>
             </cell>
             <cell class="input-bg">
                 <text class="input-title" :class="[inputIndex==6?'input-title-active':'']">City</text>
                 <input type="text" placeholder="" class="input" :value="address.city"
-                       @input="onInputCity" @return="onInputCity"
+                       @input="onInputCity" @return="onInputCity" :autofocus="inputIndex==6"
                        @focus="changeColor(6)" @blur="changeColor(-1)"/>
             </cell>
             <cell class="input-bg">
@@ -58,7 +58,7 @@
                 </div>
             </cell>
         </list>
-        <edit-address-bottom :address="address" :id="id"></edit-address-bottom>
+        <edit-address-bottom :address="address" :id="id" @changeInput="changeInput"></edit-address-bottom>
     </div>
 </template>
 <script>
@@ -95,8 +95,8 @@ export default {
         this.$event.off('login')
     },
     created () {
-        const pageHeight = Utils.env.getScreenHeight()
-        this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' }
+        const pageHeight = Utils.env.getScreenHeight();
+        this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
     },
     data () {
         return {
@@ -105,26 +105,35 @@ export default {
             id: false,
             address: {
                 firstName: '',
+                phoneNumber: '',
                 postcode: '',
                 line1: '',
                 line2: '',
                 line3: '',
                 city: '',
-                stateId: '',
-                phoneNumber: ''
+                stateId: ''
+            },
+            indexList: {
+                firstName: '0',
+                phoneNumber: 1,
+                postcode: 2,
+                line1: 3,
+                line2: 4,
+                line3: 5,
+                city: 6
             },
             chooseState: 'Choose'
         }
     },
     methods: {
         back () {
-            this.$router.finish()
+            this.$router.finish();
         },
         changeColor (i) {
-            this.inputIndex = i
+            this.inputIndex = i;
         },
         jumpState () {
-            this.$event.off('state')
+            this.$event.off('state');
             this.$event.once('state', (params) => {
                 if (params) {
                     this.address.stateId = params.id
@@ -134,7 +143,7 @@ export default {
             this.$router.open({
                 name: 'order.address.state',
                 type: 'PUSH'
-            })
+            });
         },
         onInputFirstName (event) {
             this.address.firstName = event.value;
@@ -176,6 +185,9 @@ export default {
                     message: error
                 })
             })
+        },
+        changeInput (event) {
+            this.inputIndex = this.indexList[event.data.key];
         }
     }
 }

@@ -64,7 +64,7 @@
                     params: {
                         id: this.address.id
                     }
-                })
+                });
             },
             deleteAddress () {
                 this.$emit('delete', {
@@ -73,7 +73,7 @@
                         index: this.index,
                         id: this.address.id
                     }
-                })
+                });
             },
             getUser () {
 
