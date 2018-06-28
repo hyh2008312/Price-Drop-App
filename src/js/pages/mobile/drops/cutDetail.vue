@@ -15,99 +15,115 @@
                 </div>
             </div>
             <div class="drop-detail-head">
+                 <div class="drop-detail-blank"></div>
+                 <div class="drop-detail-card">
+                     <div class="wrapper-head-word">
+                     <div class="share-content-top">
+                    <text class="wrapper-tip">You have dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
+                    <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Invite more friends to help you reach the lowest price!</text>
+                </div>
+                 </div>
+                     <div class="wrapper-head-line"></div>
+                     <div class="wrapper-product" @click="openDetail()">
+                      <div class="product-image">
+                    <preload class="product-image-in" :src="goodsDetail.mainImage"></preload>
+                </div>
+                      <div class="product-content">
+                    <text class="product-content-name">{{goodsDetail.title}}</text>
+                    <text class="product-content-people">{{goodsDetail.cutGet == null ? 10 + "+" : goodsDetail.cutGet + 10}} people bought this item at the lowest price</text>
+                </div>
+                 </div>
+                 </div>
                  <div class="out-head">
                     <image class="in-head" resize="cover"
                            :src="goodsDetail.ownerAvatar"></image>
                 </div>
-                 <div class="wrapper-head">
-                <div class="share-content-top">
-                    <text class="wrapper-tip">You have dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
-                    <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Invite more friends to help you reach the lowest price!</text>
-                </div>
-              </div>
-                 <div class="wrapper-product" @click="openDetail()">
-                <div class="product-image">
-                    <preload class="product-image-in" :src="goodsDetail.mainImage"></preload>
-                </div>
-                <div class="product-content">
-                    <text class="product-content-name">{{goodsDetail.title}}</text>
-                    <text class="product-content-people">{{goodsDetail.cutGet == null ? 10 + "+" : goodsDetail.cutGet + 10}} people bought this item at the lowest price</text>
-                </div>
-              </div>
             </div>
 
-            <!--正在进行-->
-            <div v-if="goodsDetail.cutStatus=='progressing' && goodsDetail.operationStatus=='pending'">
-                <div class="wrapper-progress">
-                    <div class="current-price" :style="{'margin-left': distance+'px'}">
-                        <text class="current-price-1">Current Price</text>
-                        <text class="current-price-2">Rs.{{goodsDetail.currentPrice}}</text>
-                    </div>
-                    <div class="wrapper-progress-line">
-                        <div class="progress-line-bottom"></div>
-                        <div class="progress-line-top" :style="{'width': percentage * 606+'px'}"></div>
-                        <text class="progress-line-icon" :style="{'margin-left':percentage * 606 - 30+'px'}">&#xe70a;
-                        </text>
-                    </div>
-                    <div class="wrapper-price">
-                        <div class="wrapper-price-regular">
-                            <text class="current-price-1">Original Price</text>
-                            <text class="wrapper-price-2">Rs.{{goodsDetail.salePrice}}</text>
+            <div class="drop-middle">
+                <div class="drop-middle-top"></div>
+                <!--内容-->
+                <div class="drop-middle-content">
+                    <!--进行-->
+                    <div v-if="goodsDetail.cutStatus=='progressing' && goodsDetail.operationStatus=='pending'">
+                       <div class="wrapper-progress">
+                        <div class="current-price" :style="{'margin-left': distance+'px'}">
+                            <text class="current-price-1">Current Price</text>
+                            <text class="current-price-2">Rs.{{goodsDetail.currentPrice}}</text>
                         </div>
-                        <div class="wrapper-price-lowest">
-                            <text class="current-price-1">Lowest Price</text>
-                            <text class="wrapper-price-2">Rs.{{goodsDetail.lowestPrice}}</text>
+                        <div class="wrapper-progress-line">
+                            <div class="progress-line-bottom"></div>
+                            <div class="progress-line-top" :style="{'width': percentage * 606+'px'}"></div>
+                            <text class="progress-line-icon" :style="{'margin-left':percentage * 606 - 30+'px'}">&#xe70a;
+                            </text>
+                        </div>
+                        <div class="wrapper-price">
+                            <div class="wrapper-price-regular">
+                                <text class="wrapper-price-3">Rs.{{goodsDetail.salePrice}}</text>
+                                <text class="current-price-1">Original Price</text>
+                            </div>
+                            <div class="wrapper-price-lowest">
+                                <text class="wrapper-price-2">Rs.{{goodsDetail.lowestPrice}}</text>
+                                <text class="current-price-1">Lowest Price</text>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <text class="wrapper-share" @click="showSharePanel">Invite More Friends to Drop Your Price</text>
-                <text class="wrapper-buy-now" @click="showBuyNow">Buy It At Current Price</text>
+                       <text class="wrapper-share" @click="showSharePanel">Invite More Friends to Drop Your Price</text>
+                       <div class="wrapper-timer">
+                        <wxc-countdown tpl="{h}:{m}:{s}"
+                                       :time="goodsDetail.endTimestamp * 1000"
+                                       :timeBoxStyle="{backgroundColor: '#F1F1F1',height: '64px', width: '64px','border-radius': '8px'}"
+                                       :timeTextStyle="{fontSize: '28px', color: 'rgba(0,0,0,0.87)'}"
+                                       :dotTextStyle="{color: 'rgba(0,0,0,0.87)', fontSize: '24px'}"
+                                       :dotBoxStyle="{width: '64px'}"
+                                       :style="{justifyContent: 'center'}">
+                        </wxc-countdown>
+                    </div>
+                       <div class="wrapper-buy-now-parent" @click="showBuyNow">
+                        <text class="wrapper-buy-now">If you want to buy it at current price, click here.</text>
+                        <text class="wrapper-buy-now-go">&#xe626;</text>
+                    </div>
+                    </div>
+                    <!--结束-->
+                    <div class="cut-end" v-else>
+                        <div class="cut-end-total-price">
+                            <text class="cut-end-total-price-word">Total Price Dropped:</text>
+                            <text class="cut-end-total-price-1"> Rs.{{ Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice)*100)/100 }}</text>
+                        </div>
+                        <div class="cut-end-total-price-final">
+                            <text class="cut-end-total-price-word">Final Price:</text>
+                            <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
+                        </div>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Drop It Again</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy It Now</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy It Now</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Drop It Again</text>
+                        <div class="cut-end-item"
+                             v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
+                            <text class="cut-end-item-icon-1">&#xe6fa;</text>
+                            <text class="cut-end-item-2"> The final price will expire in:</text>
+                            <wxc-countdown tpl="{h}:{m}:{s}"
+                                           :time="goodsDetail.cancelTimestamp * 1000"
+                                           :timeBoxStyle="{backgroundColor: 'transparent', height: '36px', width: '36px','border-radius': '4px'}"
+                                           :timeTextStyle="{fontSize: '24px', color: '#000000' , fontWeight:600}"
+                                           :dotTextStyle="{color: '#000000', fontSize: '24px'}"
+                                           :dotBoxStyle="{width: '10px'}"
+                                           :style="{justifyContent: 'center'}">
+                            </wxc-countdown>
+                        </div>
+                        <div class="cut-end-item" v-else-if="goodsDetail.operationStatus=='overdue'">
+                            <text class="cut-end-item-icon-2">&#xe6fe;</text>
+                            <text class="cut-end-item-2"> The final price has expired</text>
+                        </div>
+                        <div class="cut-end-item" v-else-if="goodsDetail.operationStatus=='paid'">
+                            <text class="cut-end-item-icon-3">&#xe6fb;</text>
+                            <text class="cut-end-item-2"> Paid Successfully!</text>
+                        </div>
+                    </div>
 
-                <div class="wrapper-timer">
-                    <wxc-countdown tpl="{h}:{m}:{s}"
-                                   :time="goodsDetail.endTimestamp * 1000"
-                                   :timeBoxStyle="{backgroundColor: '#FFFFFF',height: '64px', width: '64px','border-radius': '8px'}"
-                                   :timeTextStyle="{fontSize: '28px', color: 'rgba(0,0,0,0.87)'}"
-                                   :dotTextStyle="{color: 'rgba(0,0,0,0.87)', fontSize: '24px'}"
-                                   :dotBoxStyle="{width: '64px'}"
-                                   :style="{justifyContent: 'center'}">
-                    </wxc-countdown>
                 </div>
-            </div>
-            <div class="cut-end" v-else>
-                <div class="cut-end-total-price">
-                    <text class="cut-end-total-price-word">Total Price Dropped:</text>
-                    <text class="cut-end-total-price-1"> Rs.{{ Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice)*100)/100 }}</text>
-                </div>
-                <div class="cut-end-total-price-final">
-                    <text class="cut-end-total-price-word">Final Price:</text>
-                    <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
-                </div>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid'" @click="jumpProductDetail">Drop It Again</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy It Now</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy It Now</text>
-                <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Drop It Again</text>
-                <div class="cut-end-item"
-                     v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
-                    <text class="cut-end-item-icon-1">&#xe6fa;</text>
-                    <text class="cut-end-item-2"> The final price will expire in:</text>
-                    <wxc-countdown tpl="{h}:{m}:{s}"
-                                   :time="goodsDetail.cancelTimestamp * 1000"
-                                   :timeBoxStyle="{backgroundColor: 'transparent', height: '36px', width: '36px','border-radius': '4px'}"
-                                   :timeTextStyle="{fontSize: '24px', color: '#000000' , fontWeight:600}"
-                                   :dotTextStyle="{color: '#000000', fontSize: '24px'}"
-                                   :dotBoxStyle="{width: '10px'}"
-                                   :style="{justifyContent: 'center'}">
-                    </wxc-countdown>
-                </div>
-                <div class="cut-end-item" v-else-if="goodsDetail.operationStatus=='overdue'">
-                    <text class="cut-end-item-icon-2">&#xe6fe;</text>
-                    <text class="cut-end-item-2"> The final price has expired</text>
-                </div>
-                <div class="cut-end-item" v-else-if="goodsDetail.operationStatus=='paid'">
-                    <text class="cut-end-item-icon-3">&#xe6fb;</text>
-                    <text class="cut-end-item-2"> Paid Successfully!</text>
-                </div>
+                <image class="drop-middle-line-left" src="bmlocal://assets/drop_line.png"></image>
+                <image class="drop-middle-line-right" src="bmlocal://assets/drop_line.png"></image>
             </div>
             <div class="contributors">
                 <text class="contributors-people">Price Drop Contributors</text>
@@ -263,7 +279,8 @@
                 goodsDetail: {
                     salePrice: '0.00',
                     currentPrice: '0.00',
-                    lowestPrice: '0.00'
+                    lowestPrice: '0.00',
+                    endTimestamp: 0
                 },
                 isRuleShow: false,
                 distance: 1
@@ -346,7 +363,7 @@
                         this.distance = 450;
                     }
                     setTimeout(function () {
-                        that.isShowShare = that.isShow;
+                        // that.isShowShare = that.isShow;
                     }, 1000);
                 }, error => {
                     this.$notice.toast('network is error');
@@ -406,13 +423,49 @@
     }
 </script>
 <style scoped>
-    .drop-detail-head{
-        background-color: #689de5;
+    .drop-middle-content{
+        background-color: #FFFFFF;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+        border-radius: 16px;
+    }
+    .drop-middle-line-left{
+        width: 18px;
+        height: 98px;
+        position: absolute;
+        top:0;
+        left: 20px;
+
+
+    }
+    .drop-middle-line-right{
+        width: 18px;
+        height: 98px;
+        position: absolute;
+        top:0;
+        right:20px;
+    }
+    .drop-middle-top{
+        height: 65px;
+    }
+    .drop-middle{
+        margin-top: -35px;
         margin-left: 32px;
         margin-right: 32px;
         position: relative;
-        overflow: visible;
-        height: 424px;
+    }
+    .drop-detail-head{
+        margin-left: 32px;
+        margin-right: 32px;
+        position: relative;
+    }
+    .drop-detail-blank{
+        width: 750px;
+        height: 48px;
+    }
+    .drop-detail-card{
+       background-color: #FFFFFF;
+        border-radius: 16px;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
     }
     .rule-faq{
         width: 594px;
@@ -729,41 +782,63 @@
     }
 
     .wrapper-share {
-        width: 606px;
+        font-family: ProximaNova-Bold;
+        width: 574px;
         height: 80px;
         font-size: 24px;
         border-radius: 8px;
         background-color: #EF8A31;
         line-height: 80px;
         text-align: center;
-        margin-left: 72px;
-        margin-right: 72px;
+        margin-left: 56px;
+        margin-right: 56px;
         color: white;
         font-weight: bold;
         margin-top: 24px;
     }
+    .wrapper-buy-now-go{
+        font-family: iconfont;
+        font-size: 24px;
+        margin-right: 28px;
+        font-weight: bold;
+        color: #333333;
+        opacity: 0.6;
+
+    }
 
     .wrapper-buy-now {
-        width: 606px;
-        height: 80px;
+        font-family: ProximaNova-Regular;
         font-size: 24px;
-        border-radius: 8px;
-        border-width: 1px;
-        border-color: #EF8A31;
-        border-style: solid;
         line-height: 80px;
-        text-align: center;
-        margin-left: 72px;
-        margin-right: 72px;
-        color: #EF8A31;
+        color:#000000;
+        margin-left: 28px;
         font-weight: bold;
+
+    }
+    .wrapper-buy-now-parent{
+        width: 686px;
+        height: 80px;
+        display: flex;
         margin-top: 24px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #FFEBD8;
+
     }
 
     .wrapper-price-2 {
+        font-family: ProximaNova-Regular;
         font-weight: bold;
         font-size: 24px;
         color: rgba(0, 0, 0, 0.87);
+    }
+    .wrapper-price-3 {
+        font-family: ProximaNova-Regular;
+        font-weight: bold;
+        font-size: 24px;
+        color: rgba(0, 0, 0, 0.87);
+        text-decoration: line-through;
     }
 
     .wrapper-price {
@@ -791,7 +866,7 @@
 
     .progress-line-bottom {
         border-radius: 8px;
-        width: 606px;
+        width: 574px;
         position: absolute;
         top: 15px;
         background-color: rgba(0, 0, 0, 0.12);
@@ -800,23 +875,24 @@
 
     .wrapper-progress-line {
         border-radius: 8px;
-        width: 606px;
+        width: 574px;
         position: relative;
         height: 40px;
         margin-top: 14px;
     }
 
     .current-price-2 {
-        font-size: 28px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 38px;
         font-weight: bold;
-        color: #FD7900;
+        color: black;
     }
 
     .current-price-1 {
-        font-size: 24px;
+        font-family: ProximaNova-Regular;
+        font-size: 20px;
         color: rgba(0, 0, 0, 0.87);
-        font-weight: 400;
+        letter-spacing: 0;
     }
 
     .current-price {
@@ -825,9 +901,9 @@
     }
 
     .wrapper-progress {
-        width: 606px;
-        margin-left: 72px;
-        margin-right: 72px;
+        margin-left: 56px;
+        margin-right: 56px;
+        margin-top: 50px;
     }
 
     .product-content-people {
@@ -867,12 +943,11 @@
     }
 
     .wrapper-product {
-        height: 192px;
+        height: 210px;
         margin-left: 16px;
+        margin-top: 12px;
         background-color: #FFFFFF;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
         margin-right: 16px;
-        border-radius: 8px;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -883,7 +958,23 @@
         height: 48px;
         background-color: black;
     }
+    .wrapper-head-line{
+        height: 16px;
+        opacity: 0.08;
+        margin-left: 32px;
+        margin-right: 32px;
+        border-style: dashed;
+        border-color: black;
+        border-bottom-width: 2px;
+    }
 
+    .wrapper-head-word {
+        width: 750px;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 70px;
+    }
     .wrapper-head {
         width: 750px;
         flex-direction: column;
@@ -892,6 +983,9 @@
     }
 
     .out-head {
+        position: absolute;
+        top:0;
+        left: 295px;
         height: 96px;
         width: 96px;
         border-radius: 48px;
