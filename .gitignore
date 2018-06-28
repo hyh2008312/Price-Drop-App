@@ -116,7 +116,7 @@ platforms/android/WeexFrameworkWrapper/nexus/build.gradle
 platforms/android/WeexFrameworkWrapper/sdk/build
 platforms/android/WeexFrameworkWrapper/sdk/build.gradle
 platforms/android/WeexFrameworkWrapper/erosplugingt/build
-platforms/android/WeexFrameworkWrapper/erosplugingt/build.gradle
+# platforms/android/WeexFrameworkWrapper/erosplugingt/build.gradle
 platforms/android/WeexFrameworkWrapper/gradle/wrapper/gradle-wrapper.properties
 
 
