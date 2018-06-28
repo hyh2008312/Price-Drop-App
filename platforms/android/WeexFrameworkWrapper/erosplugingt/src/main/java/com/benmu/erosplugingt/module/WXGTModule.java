@@ -1,7 +1,10 @@
 package com.benmu.erosplugingt.module;
 
+import android.widget.Toast;
+
 import com.alibaba.weex.plugin.annotation.WeexModule;
 import com.benmu.erosplugingt.manager.GetuiManager;
+import com.benmu.erosplugingt.model.NotificationBean;
 import com.benmu.framework.constant.WXEventCenter;
 import com.benmu.framework.manager.ManagerFactory;
 import com.benmu.framework.manager.impl.dispatcher.DispatchEventManager;
@@ -22,11 +25,13 @@ public class WXGTModule extends WXModule {
     @JSMethod
     public void initPush(String parms) {
         GetuiManager.pushInit(mWXSDKInstance.getContext());
+        Toast.makeText(mWXSDKInstance.getContext(), "register push", Toast.LENGTH_LONG).show();
     }
+
     @JSMethod
-    public void getCliendId(){
-       String ss =  PushManager.getInstance().getClientid(mWXSDKInstance.getContext());
-       String ss1=  PushManager.getInstance().getClientid(mWXSDKInstance.getContext());
+    public void getCliendId() {
+        String ss = PushManager.getInstance().getClientid(mWXSDKInstance.getContext());
+        String ss1 = PushManager.getInstance().getClientid(mWXSDKInstance.getContext());
     }
 
     /**
@@ -40,5 +45,17 @@ public class WXGTModule extends WXModule {
         weexEventBean.setJscallback(callback);
         ManagerFactory.getManagerService(DispatchEventManager.class).getBus().post(weexEventBean);
     }
+
+    /**
+     * 获取个推的Cid
+     */
+    @JSMethod
+    public void bindAlias(String alias, JSCallback callback) {
+        boolean flag = PushManager.getInstance().bindAlias(mWXSDKInstance.getContext(), alias, String.valueOf(System.currentTimeMillis()));
+        NotificationBean bean = new NotificationBean();
+        bean.trigger = flag;
+        callback.invoke(bean);
+    }
+
 
 }

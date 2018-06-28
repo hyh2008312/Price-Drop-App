@@ -53,7 +53,7 @@ module.exports = {
     },
     'diff': {
         'pwd': '/Users/heyaohua/weex-example/eros-new-app/eros-diff-folder',
-        'proxy': 'http://192.168.2.71:3001/static/Eros-socialcommer/dist/js/'
+        'proxy': 'http://p92s1j3q5.sabkt.gdipper.com/appproduce/'
     },
     'server': {
         'path': './',

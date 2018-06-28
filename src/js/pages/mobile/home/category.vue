@@ -74,7 +74,7 @@ export default {
             pageNew: 1,
             pageHot: 1,
             pagePrice: 1,
-            pageSize: 24,
+            pageSize: 12,
             lengthNew: 2,
             lengthHot: 2,
             lengthPrice: 2,

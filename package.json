@@ -10,7 +10,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "eros dev",
-    "pack": "eros pack"
+    "pack": "eros pack",
+    "pack:dev": "eros pack -s http://149.129.135.114/app/create/",
+    "build:dev": "eros build -s http://149.129.135.114/app/create/ -d",
+    "pack:prod": "eros pack -s https://app-api.getpricedrop.com/app/create/",
+    "build:prod": "eros build -s https://app-api.getpricedrop.com/app/create/ -d"
   },
   "dependencies": {
     "bui-weex": "^0.2.5",

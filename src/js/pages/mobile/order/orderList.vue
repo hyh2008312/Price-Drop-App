@@ -242,11 +242,13 @@
                 // this.isBottomShow = true
                 const that = this;
                 const user = that.$storage.getSync('user');
+                const price = that.payOrder.paymentAmount.split('.');
+                const payAmount = price[0] + price[1];
                 payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
-                    Math.ceil(this.payOrder.paymentAmount * 100), user.defaultAddress.phoneNumber, user.email,
+                    parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                     function (param) {
                         that.$fetch({
-                            method: 'PUT', // 大写
+                            method: 'POST', // 大写
                             url: `${baseUrl}/payment/razorpay/${that.payOrder.id}/`,
                             data: {
                                 paymentId: param.paymentId,
@@ -308,7 +310,7 @@
             cancelOrder () {
                 this.$refs.wxcCancelPopup.hide()
                 this.$fetch({
-                    method: 'PUT', // 大写
+                    method: 'POST', // 大写
                     url: `${baseUrl}/order/customer/cancel/${this.cancelId}/`,
                     data: {
                         reason: this.reason[this.reasonActive]

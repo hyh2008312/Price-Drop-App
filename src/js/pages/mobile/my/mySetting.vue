@@ -21,12 +21,13 @@
                 </div>
 
             </div>
-            <div class="box-tlt ">
+            <div class="box-tlt" @click="openDialog">
                 <div class="box-left">
                     <text class="box-txt">Version</text>
                 </div>
                 <div class="box-right">
-                    <text class="i-box iconfont" style="font-size: 24px">{{version}}</text>
+                    <text class="i-box" v-if="!isUpdate">{{version}}</text>
+                    <text class="i-new" v-if="isUpdate">new</text>
                 </div>
 
             </div>
@@ -36,6 +37,18 @@
         <div class="bottom-btn" @click="logOut" v-if="logsign==true">
             <text class="bottom-btn-txt">Logout</text>
         </div>
+        <wxc-dialog title="update"
+                    :content="updateDetail"
+                    :show="show"
+                    :single="false"
+                    :is-checked="false"
+                    :show-no-prompt="false"
+                    :cancel-text="'Cancel'"
+                    :confirm-text="'Confirm'"
+                    @wxcDialogCancelBtnClicked="wxcDialogCancelBtnClicked"
+                    @wxcDialogConfirmBtnClicked="wxcDialogConfirmBtnClicked"
+                    @wxcDialogNoPromptClicked="wxcDialogNoPromptClicked">
+        </wxc-dialog>
     </div>
 </template>
 
@@ -43,10 +56,12 @@
     import header from './header';
 
     const commonUtils = weex.requireModule('CommonUtils');
+    import { WxcDialog } from 'weex-ui';
 
     export default {
         components: {
-            'topic-header': header
+            'topic-header': header,
+             WxcDialog
         },
         eros: {
             appeared (params, options) {
@@ -59,7 +74,8 @@
             }
         },
         created () {
-            this.startGetAppVersion();
+            this.checkUpdate();
+           // this.startGetAppVersion();
         },
         data () {
             return {
@@ -67,15 +83,55 @@
                 logsign: true,
                 token: '',
                 client_id: '',
-                version: '1.0'
+                version: '1.0.0',
+                versionCode: 100,
+                show: false,
+                isChecked: false,
+                isUpdate: false,
+                updateDetail: 'Fixed some bugs & improved user experience',
+                apkUrl: ''
             }
         },
         name: 'myDetail',
         methods: {
-            startGetAppVersion () {
-                this.$notice.toast({
-                    message: this.params
+            checkUpdate () {
+                const that = this
+                that.$notice.toast(that.isUpdate)
+                this.$fetch({
+                    method: 'GET',
+                    name: 'app.get.version'
+                }).then(data => {
+                    commonUtils.getAppVersionCode(function (params) {
+                        if (params.code === 200) {
+                            that.version = params.versionName;
+                            that.updateDetail = data.detail;
+                            that.apkUrl = data.apkUrl;
+                            that.versionCode = params.versionCode;
+                            that.isUpdate = Number(data.version) > Number(that.versionCode);
+                            // that.$notice.toast(`${that.isUpdate}`)
+                        }
+                    })
+                }, error => {
                 })
+            },
+            openDialog () {
+                if (this.isUpdate) {
+                    this.show = true;
+                }
+            },
+            wxcDialogCancelBtnClicked () {
+                // must setting,control by yourself
+                this.show = false;
+            },
+            wxcDialogConfirmBtnClicked () {
+                this.show = false;
+                commonUtils.updateAndroidApp(this.apkUrl);
+            },
+            wxcDialogNoPromptClicked (e) {
+                // must setting,control by yourself
+                this.isChecked = e.isChecked;
+            },
+            startGetAppVersion () {
                 const that = this
                 commonUtils.getAppVersionCode(function (params) {
                     if (params.code === 200) {
@@ -163,7 +219,7 @@
     }
     .box-tlt {
         height: 96px;
-        border-bottom-width: 3px;
+        border-bottom-width: 1px;
         border-bottom-style: solid;
         border-bottom-color: rgba(0,0,0,0.08);
         flex-direction: row;
@@ -193,10 +249,20 @@
     }
 
     .i-box {
-        font-size: 20px;
-        padding-top: 34px;
+        font-size: 24px;
         padding-right: 32px;
         color: rgba(0,0,0,0.87);
+    }
+    .i-new {
+        height: 40px;
+        width: 60px;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 4px;
+        font-size: 20px;
+        margin-right: 32px;
+        color: white;
+        background-color: #ef8a31;
     }
     .mid-cell{
         margin-top: 160px;
@@ -210,6 +276,7 @@
     .box-right{
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
     }
     .bottom-btn{
         width: 750px;

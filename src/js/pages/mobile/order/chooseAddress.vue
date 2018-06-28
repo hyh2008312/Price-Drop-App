@@ -128,7 +128,8 @@ export default {
             this.isDeleteShow = false
         },
         deleteOrderConfirm () {
-            this.closeDeletePop()
+            this.closeDeletePop();
+            const that = this;
             this.$fetch({
                 method: 'DELETE', // 大写
                 url: `${baseUrl}/address/shipping/detail/${this.deleteId}/`,
@@ -139,15 +140,15 @@ export default {
                 this.$notice.toast({
                     message: 'Delete address success!'
                 })
-                const address = this.addressList[this.deleteId]
+                const address = that.addressList[that.deleteIndex];
                 if (address.isDefault) {
-                    this.$storage.get('user').then((data) => {
+                    that.$storage.get('user').then((data) => {
                         const user = data
                         user.defaultAddress = false
-                        this.$storage.set('user', user)
+                        that.$storage.set('user', user)
                     })
                 }
-                this.addressList.splice(event.data.index, 1)
+                that.addressList.splice(that.deleteIndex, 1)
             }, error => {
                 this.$notice.toast({
                     message: error

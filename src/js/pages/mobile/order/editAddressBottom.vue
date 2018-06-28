@@ -15,7 +15,7 @@
                 if (this.isChecked()) {
                     this.$notice.toast({
                         message: 'Please fill in all the required fields.'
-                    })
+                    });
                     return
                 }
                 if (!this.id) {
@@ -58,14 +58,23 @@
                 for (const k in this.address) {
                     if (k != 'line3') {
                         if (this.address[k] == '' || this.address[k] == null) {
+                            this.changeInput(k);
                             this.$notice.toast({
                                 message: this.address[k]
-                            })
+                            });
                             return true
                         }
                     }
                 }
                 return false
+            },
+            changeInput (k) {
+                this.$emit('changeInput', {
+                    status: 'changeInput',
+                    data: {
+                        key: k
+                    }
+                });
             }
         }
     }

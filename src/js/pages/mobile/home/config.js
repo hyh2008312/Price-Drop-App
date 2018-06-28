@@ -10,11 +10,11 @@ export const BLOCK1 = {
 };
 
 export const TAB = [{
-    name: 'Hottest',
-    key: 'hot'
-}, {
     name: 'Latest',
     key: 'new'
+}, {
+    name: 'Hottest',
+    key: 'hot'
 }];
 
 export const TABCAT = [{

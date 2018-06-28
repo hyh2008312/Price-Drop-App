@@ -4,7 +4,7 @@ module.exports = {
     // android 监听全局事件homeBack 如果为true 安卓端需要自行调用router.finish方法来关闭应用
     'androidIsListenHomeBack': 'true',
     'version': {
-        'android': '1.2.6'
+        'android': '1.2.7'
     },
     'page': {
         'homePage': '/pages/mobile/welcome/guide.js',
@@ -16,7 +16,7 @@ module.exports = {
     },
     'url': {
         'image': 'https://lev-inf.benmu-health.com/test/xxx',
-        'bundleUpdate': 'http://192.168.2.71:3001/app/check'
+        'bundleUpdate': 'https://app-api.getpricedrop.com/app/check/'
     },
     'zipFolder': {
         'iOS': '/ios/WeexEros/WeexEros',
