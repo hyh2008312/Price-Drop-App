@@ -104,10 +104,13 @@ public class ShareModule extends WXModule {
         sendIntent.setType("text/plain");
         sendIntent.setPackage("com.whatsapp");
         mWXSDKInstance.getContext().startActivity(sendIntent);
-        /* 
         this.whatsappSuccessCallback = jsSuccessCallback;
         this.WhatsappFailedCallback = jsFailedCallback;
-        new ShareAction((Activity) mWXSDKInstance.getContext())
+        ShareBean bean = new ShareBean();
+        bean.setState(200);
+        bean.setType("whatsapp");
+        whatsappSuccessCallback.invoke(bean);
+        /* new ShareAction((Activity) mWXSDKInstance.getContext())
                 .setPlatform(SHARE_MEDIA.WHATSAPP)//传入平台
                 .withText(content)
                 .setCallback(new UMShareListener() {
