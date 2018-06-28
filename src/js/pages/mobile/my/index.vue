@@ -105,13 +105,13 @@
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
 
-                <!--<div class="box-tlt " @click="openCell(2)">-->
+                <!--<div class="box-tlt " @click="openNoti()">-->
                     <!--<div class="box-left">-->
                         <!--<image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>-->
 
                         <!--&lt;!&ndash;<text class="box-txt-icon">&#xe705;</text>&ndash;&gt;-->
                         <!--<text class="box-txt">My Notification</text>-->
-                        <!--<text class=" box-dot">11</text>-->
+                        <!--<text class=" box-dot" v-if="unread>0"></text>-->
                     <!--</div>-->
                     <!--<text class="i-box iconfont">&#xe626;</text>-->
                 <!--</div>-->
@@ -193,7 +193,8 @@
                 gender: '',
                 points: '0',
                 cardNumber: '0',
-                setsign: ''
+                setsign: '',
+                unread: 0
             }
         },
         methods: {
@@ -320,11 +321,21 @@
                     }
                 }
             },
+            openNoti () {
+                this.$router.open({
+                    name: 'my.notice',
+                    type: 'PUSH'
+                })
+            },
             getUserData () {
                 this.$event.on('setdetail', parmas => {
                     this.img = parmas.avatar
                     this.fname = parmas.firstName
                     this.lname = parmas.lastName
+                    this.gender = parmas.gender
+                    // this.$notice.alert({
+                    //     message: parmas
+                    // })
                 })
 
                 this.$storage.get('token').then(resData => {
@@ -337,9 +348,9 @@
                                 needAuth: true
                             }
                         }).then((res) => {
-                            // this.$notice.alert({
-                            //     message: res
-                            // })
+                            this.$notice.alert({
+                                message: res
+                            })
 
                             this.nickname = res.firstName + res.lastName
                             this.fname = res.firstName
@@ -348,6 +359,7 @@
                             this.points = res.points
                             this.cardNumber = res.cardNumber
                             this.gender = res.gender
+                            this.unread = res.unreadNumber
                         }).catch((res) => {
                             this.$notice.toast({
                                 message: res

@@ -74,9 +74,9 @@
                 this.lname = resData.lname
 
                 if (resData.usergender == 'F') {
-                    this.selgender = 'Fale'
-                } else {
                     this.selgender = 'Female'
+                } else {
+                    this.selgender = 'Male'
                 }
             })
         },
