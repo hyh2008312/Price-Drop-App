@@ -130,7 +130,7 @@ export const Privacy = [{
     'To process transactions. Your information, whether public or private, will not be sold, exchanged, transferred,or given to any other company for any reason whatsoever, without your consent, other than for the express purpose of delivering the purchased product or service requested.\n' +
     'To administer a contest, promotion, survey or other site feature.\n' +
     'To send periodic emails. (The email address you provide for order processing will only be used to send you information and updates pertaining to your order. Note: If at any time you would like to unsubscribe from receiving future emails, we include detailed unsubscribe instructions at the bottom of each email.)\n'
-},{
+}, {
     question: 'Do we disclose any information to outside parties?',
     answer: 'We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information. This does not include trusted third parties who assist us in operating our app, conducting our business, or servicing you, so long as those parties agree to keep this information confidential. We may also release your information when we believe release is appropriate to comply with the law, enforce our site policies, or protect our or other’s rights, property, or safety. However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.'
 }]

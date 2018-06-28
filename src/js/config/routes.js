@@ -53,6 +53,12 @@ export default {
     'my.points': {
         url: '/pages/mobile/my/myPoints.js'
     },
+    'my.notice': {
+        url: '/pages/mobile/my/myNotice.js'
+    },
+    'my.notice.tmp': {
+        url: '/pages/mobile/my/myNoticeTmp.js'
+    },
     'order': {
         url: '/pages/mobile/order/index.js'
     },
