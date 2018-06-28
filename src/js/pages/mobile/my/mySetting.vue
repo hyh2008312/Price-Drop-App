@@ -38,7 +38,7 @@
             <text class="bottom-btn-txt">Logout</text>
         </div>
         <wxc-dialog title="update"
-                    content="1.fixed the some bugs and improve the User exp"
+                    :content="updateDetail"
                     :show="show"
                     :single="false"
                     :is-checked="false"
