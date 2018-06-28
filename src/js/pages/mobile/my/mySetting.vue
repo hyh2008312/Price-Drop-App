@@ -108,7 +108,7 @@
                             that.apkUrl = data.apkUrl;
                             that.versionCode = params.versionCode;
                             that.isUpdate = Number(data.version) > Number(that.versionCode);
-                            that.$notice.toast(`${that.isUpdate}`)
+                            // that.$notice.toast(`${that.isUpdate}`)
                         }
                     })
                 }, error => {
