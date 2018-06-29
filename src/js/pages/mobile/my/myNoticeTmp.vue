@@ -5,7 +5,7 @@
         <div class="blackheader"></div>
         <div style="margin-top: 160px;"></div>
         <list style=" width: 750px;"  ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" >
-            <cell v-for="(i,index) in goods">
+            <cell  v-for="(i,index) in goods">
                 <text class="first-time">{{tranDate(i.modified)}}</text>
 
                 <div class="mid-cell" >
@@ -111,6 +111,19 @@
                 <!--</text>-->
             </cell>
 
+            <cell class="container-1" v-if="goods.length == 0">
+                <!--<div class="container-1" v-if="order.length == 0">-->
+                    <!--<div class="container-2">-->
+                        <!--<image class="pay-image" src="bmlocal://assets/empty.png"></image>-->
+                    <!--</div>-->
+                    <!--<text class="address-title">There is no order to show.</text>-->
+                <!--</div>-->
+                <div class="container-2">
+                    <image class="pay-image" src="bmlocal://assets/empty.png"></image>
+                </div>
+                <text class="address-title">TThere is no notification to show. </text>
+            </cell>
+
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">{{loadingWord}}</text>
             </loading>
@@ -164,7 +177,7 @@
                page: 1,
                length: 2,
                pageSize: 3,
-               goods: []
+               goods: false
             }
         },
         created () {
@@ -236,16 +249,16 @@
                     } else {
                         this.length = Math.ceil(data.count / this.pageSize);
                     }
-                    // if (isFirst) {
-                    //     this.goods = [];
-                    // }
+                    if (isFirst) {
+                        this.goods = [];
+                    }
                     this.goods.push(...data.results);
                     this.page++;
                     this.isLoading = false;
 
-                    this.$notice.alert({
-                        message: data
-                    })
+                    // this.$notice.alert({
+                    //     message: data
+                    // })
                     // if (!isFirst) {
                     //     this.isLoading = false;
                     // }
@@ -435,5 +448,30 @@
         font-size: 28px;
         padding-top: 16px;
         padding-bottom: 16px;
+    }
+    .container-1{
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background-color: #fff;
+    }
+    .container-2{
+        margin-top: 86px;
+        width: 750px;
+        align-items: center;
+    }
+
+    .pay-image{
+        width: 202px;
+        height: 202px;
+    }
+
+    .address-title{
+        margin-top: 32px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
     }
 </style>
