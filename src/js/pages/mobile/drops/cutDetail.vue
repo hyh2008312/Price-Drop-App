@@ -19,7 +19,7 @@
                  <div class="drop-detail-card">
                      <div class="wrapper-head-word">
                      <div class="share-content-top">
-                    <text class="wrapper-tip">You have dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} Off the price!</text>
+                    <text class="wrapper-tip">You have dropped Rs.{{Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice) * 100) / 100 }} off the price!</text>
                     <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Invite more friends to help you reach the lowest price!</text>
                 </div>
                  </div>
@@ -159,7 +159,7 @@
                         <div class="share-content-text">
                             <text class="share-content-text-1">You just dropped </text>
                             <text class="share-content-text-2">Rs.{{ Math.floor((goodsDetail.salePrice - goodsDetail.currentPrice)*100)/100 }}</text>
-                            <text class="share-content-text-1"> Off the price!</text>
+                            <text class="share-content-text-1"> off the price!</text>
                         </div>
                         <text class="share-content-text-1">Share this item and invite more friends to
                             drop price for you!
