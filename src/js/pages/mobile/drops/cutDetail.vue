@@ -48,14 +48,13 @@
                     <div v-if="goodsDetail.cutStatus=='progressing' && goodsDetail.operationStatus=='pending'">
                        <div class="wrapper-progress">
                         <div class="current-price" :style="{'margin-left': distance+'px'}">
-                            <text class="current-price-1">Current Price</text>
+                            <text class="current-price-1-current">Current Price</text>
                             <text class="current-price-2">Rs.{{goodsDetail.currentPrice}}</text>
+                            <image class="current-indicator" :style="{'margin-left': indicatorDistance+'px'}" src="bmlocal://assets/drop_indicator.png"></image>
                         </div>
                         <div class="wrapper-progress-line">
                             <div class="progress-line-bottom"></div>
-                            <div class="progress-line-top" :style="{'width': percentage * 606+'px'}"></div>
-                            <text class="progress-line-icon" :style="{'margin-left':percentage * 606 - 30+'px'}">&#xe70a;
-                            </text>
+                            <div class="progress-line-top" :style="{'width': percentage * 574+'px'}"></div>
                         </div>
                         <div class="wrapper-price">
                             <div class="wrapper-price-regular">
@@ -98,8 +97,7 @@
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending'" @click="jumpConfirmOrder">Buy It Now</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'" @click="jumpOrderDetail">Buy It Now</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue'" @click="jumpProductDetail">Drop It Again</text>
-                        <div class="cut-end-item"
-                             v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
+                        <div class="cut-end-item"   v-if="goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid'">
                             <text class="cut-end-item-icon-1">&#xe6fa;</text>
                             <text class="cut-end-item-2"> The final price will expire in:</text>
                             <wxc-countdown tpl="{h}:{m}:{s}"
@@ -119,8 +117,8 @@
                             <text class="cut-end-item-icon-3">&#xe6fb;</text>
                             <text class="cut-end-item-2"> Paid Successfully!</text>
                         </div>
+                        <div class="cut-end-blank"></div>
                     </div>
-
                 </div>
                 <image class="drop-middle-line-left" src="bmlocal://assets/drop_line.png"></image>
                 <image class="drop-middle-line-right" src="bmlocal://assets/drop_line.png"></image>
@@ -148,7 +146,7 @@
             </div>
         </scroller>
         <wxc-popup
-            v-if="goodsDetail.operationStatus=='pending'"
+            v-if="goodsDetail.cutStatus=='progressing'"
             popup-color="rgba(255, 255, 255, 255)"
             :show="isShowShare"
             @wxcPopupOverlayClicked="popupOverlayAutoClick"
@@ -283,7 +281,8 @@
                     endTimestamp: 0
                 },
                 isRuleShow: false,
-                distance: 1
+                distance: 1,
+                indicatorDistance: 91
             }
         },
         methods: {
@@ -355,15 +354,17 @@
                 }).then(data => {
                     this.goodsDetail = data;
                     this.percentage = (data.salePrice - data.currentPrice) / (data.salePrice - data.lowestPrice);
-                    if (this.percentage < 0.05) {
-                        this.percentage = 0.05
+                    this.distance = this.percentage * 574 - 98;
+                    if (this.distance > 372) {
+                        this.indicatorDistance = 91 + this.distance - 372;
+                        this.distance = 372;
                     }
-                    this.distance = this.percentage * 606 - 30;
-                    if (this.distance > 450) {
-                        this.distance = 450;
+                    if (this.distance < 0) {
+                        this.indicatorDistance = 91 + this.distance;
+                        this.distance = 0;
                     }
                     setTimeout(function () {
-                        // that.isShowShare = that.isShow;
+                         that.isShowShare = that.isShow;
                     }, 1000);
                 }, error => {
                     this.$notice.toast('network is error');
@@ -505,6 +506,9 @@
         padding-left: 36px;
         padding-right: 36px;
         height: 850px;
+    }
+    .cut-end-blank{
+        height: 56px;
     }
 
     .cut-end-item-2 {
@@ -770,8 +774,7 @@
     }
 
     .contributors {
-        width: 718px;
-        margin: 35px 16px 40px 16px;
+        margin: 35px 32px 40px 32px;
         background-color: #FFFFFF;
         border-radius: 8px;
         box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
@@ -856,21 +859,21 @@
     }
 
     .progress-line-top {
-        border-radius: 8px;
+        border-radius: 18px;
         width: 200px;
-        top: 15px;
+        top: 5px;
         position: absolute;
         background-color: #EF8A31;
-        height: 8px;
+        height: 20px;
     }
 
     .progress-line-bottom {
-        border-radius: 8px;
+        border-radius: 18px;
         width: 574px;
         position: absolute;
-        top: 15px;
+        top: 5px;
         background-color: rgba(0, 0, 0, 0.12);
-        height: 8px;
+        height: 20px;
     }
 
     .wrapper-progress-line {
@@ -878,14 +881,24 @@
         width: 574px;
         position: relative;
         height: 40px;
-        margin-top: 14px;
+        margin-top: 6px;
+    }
+    .current-indicator{
+        width: 18px;
+        height: 8px;
+        margin-left: 91px;
     }
 
     .current-price-2 {
         font-size: 24px;
         line-height: 38px;
+        height: 38px;
+        width: 200px;
+        text-align: center;
         font-weight: bold;
         color: black;
+        border-radius: 16px;
+        background-color: #FFCC9E;
     }
 
     .current-price-1 {
@@ -894,10 +907,19 @@
         color: rgba(0, 0, 0, 0.87);
         letter-spacing: 0;
     }
+    .current-price-1-current{
+        font-family: ProximaNova-Regular;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.87);
+        letter-spacing: 0;
+        width: 200px;
+        text-align: center;
+    }
 
     .current-price {
         margin-left: 200px;
         margin-top: 24px;
+        position: relative;
     }
 
     .wrapper-progress {
@@ -943,7 +965,7 @@
     }
 
     .wrapper-product {
-        height: 210px;
+        height: 230px;
         margin-left: 16px;
         margin-top: 12px;
         background-color: #FFFFFF;
