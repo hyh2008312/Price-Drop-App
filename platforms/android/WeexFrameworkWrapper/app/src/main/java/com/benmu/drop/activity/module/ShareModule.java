@@ -1,6 +1,7 @@
 package com.benmu.drop.activity.module;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.benmu.drop.SocialCommerApplication;
@@ -91,14 +92,25 @@ public class ShareModule extends WXModule {
     @JSMethod
     public void shareWhatsapp(String content, String imageUrl,
                               JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
-        this.whatsappSuccessCallback = jsSuccessCallback;
-        this.WhatsappFailedCallback = jsFailedCallback;
+
         boolean isHaveWhatsapp = PackageManagerUtils.isInstallApp(mWXSDKInstance.getContext(),"com.whatsapp");
         if (!isHaveWhatsapp) {
             Toast.makeText(mWXSDKInstance.getContext(), "To share to WhatsApp, you need to download its app first!", Toast.LENGTH_SHORT).show();
             return;
         }
-        new ShareAction((Activity) mWXSDKInstance.getContext())
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+        sendIntent.setType("text/plain");
+        sendIntent.setPackage("com.whatsapp");
+        mWXSDKInstance.getContext().startActivity(sendIntent);
+        this.whatsappSuccessCallback = jsSuccessCallback;
+        this.WhatsappFailedCallback = jsFailedCallback;
+        ShareBean bean = new ShareBean();
+        bean.setState(200);
+        bean.setType("whatsapp");
+        this.whatsappSuccessCallback.invoke(bean);
+        /* new ShareAction((Activity) mWXSDKInstance.getContext())
                 .setPlatform(SHARE_MEDIA.WHATSAPP)//传入平台
                 .withText(content)
                 .setCallback(new UMShareListener() {
@@ -132,7 +144,7 @@ public class ShareModule extends WXModule {
                         Toast.makeText(mWXSDKInstance.getContext(), "cancel", Toast.LENGTH_SHORT).show();
                     }
                 })//回调监听器
-                .share();
+                .share();*/
         SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
         Tracker sTracker = application.getDefaultTracker();
         sTracker.send(new HitBuilders.EventBuilder()
