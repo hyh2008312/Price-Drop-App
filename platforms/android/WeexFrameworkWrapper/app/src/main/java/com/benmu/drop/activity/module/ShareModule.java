@@ -109,7 +109,7 @@ public class ShareModule extends WXModule {
         ShareBean bean = new ShareBean();
         bean.setState(200);
         bean.setType("whatsapp");
-        whatsappSuccessCallback.invoke(bean);
+        this.whatsappSuccessCallback.invoke(bean);
         /* new ShareAction((Activity) mWXSDKInstance.getContext())
                 .setPlatform(SHARE_MEDIA.WHATSAPP)//传入平台
                 .withText(content)

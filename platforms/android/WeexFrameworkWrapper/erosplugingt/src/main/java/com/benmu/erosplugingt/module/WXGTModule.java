@@ -25,7 +25,6 @@ public class WXGTModule extends WXModule {
     @JSMethod
     public void initPush(String parms) {
         GetuiManager.pushInit(mWXSDKInstance.getContext());
-        Toast.makeText(mWXSDKInstance.getContext(), "register push", Toast.LENGTH_LONG).show();
     }
 
     @JSMethod
