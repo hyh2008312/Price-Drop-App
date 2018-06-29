@@ -21,7 +21,7 @@
                             <div class="pro-content">
                                 <!--<text class="pro-word">Your DROP has ended and now you have 24 hours left to purchase your item at the final price.</text>-->
                                 <text class="pro-word">{{i.context.text}}</text>
-                                <image src="http://image.getpricedrop.com/appweb/line.png" class="pro-img"></image>
+                                <image :src="i.image" class="pro-img"></image>
                             </div>
 
                             <div class="item-div">
@@ -256,9 +256,9 @@
                     this.page++;
                     this.isLoading = false;
 
-                    // this.$notice.alert({
-                    //     message: data
-                    // })
+                    this.$notice.alert({
+                        message: this.goods[0]
+                    })
                     // if (!isFirst) {
                     //     this.isLoading = false;
                     // }
