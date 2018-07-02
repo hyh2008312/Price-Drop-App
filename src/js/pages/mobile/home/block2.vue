@@ -9,7 +9,7 @@
             <text class="iconfont tlt-tri">&#xe6ff;</text>
         </div>
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
-            <div class="i-good" v-for="i in goods" :key="i.id" @click="jumpWeb(i.productId)">
+            <div class="i-good" v-for="i in head.topicProducts" :key="i.id" @click="jumpWeb(i.productId)">
                 <div class="gd-bg">
                     <div class="gd-img">
                         <preload class="gd-img-image" :src="i.mainImage"></preload>
@@ -32,40 +32,8 @@ export default {
     components: {
         preload
     },
-    props: ['head', 'isActiveLoading'],
-    data () {
-        return {
-            goods: [],
-            page: 1,
-            pageSize: 6
-        }
-    },
-    mounted () {
-        this.getActivityProduct();
-    },
-    watch: {
-        isActiveLoading (newVal, oldVal) {
-            if (newVal) {
-                this.getActivityProduct();
-            }
-        }
-    },
+    props: ['head'],
     methods: {
-        getActivityProduct () {
-            this.$fetch({
-                method: 'GET',
-                name: 'product.topic.products',
-                data: {
-                    topicId: this.head.id,
-                    page: this.page,
-                    page_size: this.pageSize
-                }
-            }).then(data => {
-                this.goods = [...data.results]
-            }, error => {
-
-            })
-        },
         jumpActivity () {
             this.$router.open({
                 name: 'mobile.activity',

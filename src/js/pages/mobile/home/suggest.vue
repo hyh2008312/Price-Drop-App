@@ -160,9 +160,9 @@ export default {
                 name: 'promotion.banner.list',
                 data: {}
             }).then(resData => {
-                this.YXBanners = [...resData]
-                this.refreshing = false
-                this.refreshApiFinished()
+                this.YXBanners = [...resData];
+                this.refreshing = false;
+                this.refreshApiFinished();
             }, error => {
 
             })
@@ -174,8 +174,7 @@ export default {
                 name: 'product.topic.list',
                 data: {}
             }).then(resData => {
-                this.activity = [...resData]
-                this.isActiveLoading = true;
+                this.activity = [...resData];
                 this.refreshApiFinished()
             }, error => {
 
