@@ -22,7 +22,6 @@
             </div>
             <text class="address-title">There is no drop to show.</text>
         </div>
-        <wxc-loading :show="isShow"></wxc-loading>
     </div>
 </template>
 <script>
@@ -38,7 +37,6 @@
             'refresher': refresher,
             'cutTab': tabTitle,
             cutingItem,
-            WxcLoading
         },
         eros: {
             beforeAppear (params, options) {
@@ -68,10 +66,15 @@
                 pageSize: 12,
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid(),
-                isShow: false
             }
         },
         methods: {
+            loadingStart () {
+                this.$notice.loading.show('');
+            },
+            loadingEnd () {
+                this.$notice.loading.hide();
+            },
             test () {
                 /* const bmPush = weex.requireModule('bmPush')
                 bmPush.getCliendId() */
@@ -118,6 +121,7 @@
                 }
             },
             getcutingProduct (isFirst) {
+                this.loadingStart();
                 this.$fetch({
                     method: 'GET',
                     name: 'promotion.cut.list',
@@ -130,7 +134,7 @@
                             needAuth: true
             }}
             ).then(data => {
-                    this.isShow = false;
+                    this.loadingEnd();
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
@@ -146,13 +150,14 @@
                     }
                     this.refreshApiFinished();
                 }, error => {
-                    this.isShow = false;
-                    /* this.$notice.alert({
+                    this.loadingEnd();
+                    /* this.$notice.toast({
                         message: error
-                    }) */
+                    })*/
                 })
             },
             getcutendProduct (isFirst) {
+                this.loadingStart();
                 this.$fetch({
                     method: 'GET',
                     name: 'promotion.cut.list',
@@ -166,7 +171,7 @@
                     }
 
                 }).then(data => {
-                    this.isShow = false;
+                    this.loadingEnd();
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
@@ -181,7 +186,9 @@
                         this.isLoading = false;
                     }
                     this.refreshApiFinished();
-                }, error => {})
+                }, error => {
+                    this.loadingEnd();
+                })
             },
             onTabTo (event) {
                 this.tabKey = event.data.key;
@@ -192,7 +199,6 @@
                     googleAnalytics.trackingScreen('Drops/ended');
                 }
                 this.goods = false;
-                this.isShow = true;
                 this.requestProduct(true);
             }
         }
