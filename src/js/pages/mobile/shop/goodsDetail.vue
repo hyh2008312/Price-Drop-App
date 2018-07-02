@@ -27,15 +27,19 @@
 
                 </div>
                 <div class="count-div">
-                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text><text class="price-name price-off">{{goods.priceoff}}% OFF</text>
+                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text><text class="price-name price-off">Free shipping</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
                 </div>
             </div>
                  <div class="learn-drop">
-                    <div  class="learn-div" @click="openShip(1)"><text class="learn-picon iconfont">&#xe723;</text><text class="learn-price" >How to Drop Price</text></div>
-                    <div  class="learn-div" @click="openShip(2)"><text class="learn-sicon iconfont">&#xe722;</text><text class="learn-ship">Shipping & Delivery</text></div>
+                     <text>How It Works</text>
+                     <div>
+                        <text>More Details </text><text class="iconfont">&#xe626;</text>
+                     </div>
+
+
                  </div>
 
 
@@ -49,6 +53,13 @@
             <div class="mid">
                 <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >
                     <text class="dec">Size/Color</text>
+                    <text class="iconfont dec-arrows">&#xe626;</text>
+
+                </div>
+
+                <div class="dec-word" @click="openShip(2)"   >
+                    <text class="dec">Shipping & Delivery</text>
+                    <text class="iconfont dec-arrows">&#xe626;</text>
 
                 </div>
 
@@ -105,8 +116,11 @@
                 </div>
             </div>
             <div style="display: none" ref="policy"></div>
+            <!--<div class="bottom-btn" >-->
+                <!--<text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>-->
+            <!--</div>-->
             <div class="bottom-btn" >
-                <text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>
+                <text class="button" @click="openBuy">Buy Now</text>
             </div>
             <wxc-loading :show="isShow"></wxc-loading>
         </scroller>
@@ -330,6 +344,9 @@
                         // })
                     })
                 }
+            },
+            openBuy (){
+
             },
             createCut () {
                 this.isShow = true;
@@ -670,11 +687,11 @@
     .price-off{
         border-width: 1px;
         border-style: solid ;
-        border-color: #EF8A31;
+        border-color: #00CFE3;
         font-size: 20px;
         border-radius: 8px;
         padding: 4px 16px;
-        color: #EF8A31;
+        color: #00CFE3;
     }
     .price{
         font-family: PingFangSC-Semibold;
@@ -742,7 +759,9 @@
         flex-direction: row;
         justify-content: space-around;
         background-color: #fff;
-        border-bottom: 2px solid black;
+        border-bottom-width: 2px;
+        border-bottom-color: rgba(0,0,0,0.08);
+        border-bottom-style: solid ;
     }
     .slg{
         margin-top: 48px;
@@ -803,9 +822,10 @@
     .dec-word{
         width: 750px;
         height: 96px;
-        padding-top: 36px;
-        padding-left: 30px;
-        margin-top: 16px;
+        padding-left: 38px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         border-bottom-color: rgba(0,0,0,0.12) ;
         border-bottom-width: 1px ;
         border-bottom-style: solid ;
@@ -814,6 +834,11 @@
     .dec{
         font-size: 24px;
         font-weight:700;
+    }
+    .dec-arrows{
+        opacity: 0.54;
+        color: #333333;
+        padding-right: 38px;
     }
     .bottom-head{
         text-align: left;
