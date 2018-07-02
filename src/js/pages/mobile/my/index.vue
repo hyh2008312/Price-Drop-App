@@ -110,7 +110,7 @@
                         <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
 
                         <!--<text class="box-txt-icon">&#xe705;</text>-->
-                        <text class="box-txt">My Notification</text>
+                        <text class="box-txt">My Notifications</text>
                         <text class=" box-dot" v-if="unread>0"></text>
                     </div>
                     <text class="i-box iconfont">&#xe626;</text>

@@ -33,13 +33,32 @@
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
                 </div>
             </div>
-                 <div class="learn-drop">
-                     <text>How It Works</text>
-                     <div>
-                        <text>More Details </text><text class="iconfont">&#xe626;</text>
+                 <div class="learn-drop" @click="openShip(1)" v-if="isDrop== true">
+                     <div class="learn-drop-itme1">
+                         <text class="learn-drop-itmeh">How It Works</text>
+                         <div class="learn-drop-itmed">
+                            <text class="learn-drop-itmem">More Details </text><text class="iconfont learn-drop-itmem" style="padding-top: 2px">&#xe626;</text>
+                         </div>
                      </div>
 
-
+                    <div class="learn-drop-itme2">
+                        <div class="progress">
+                            <div class="progress-numdiv"><text  class="progress-num">1</text></div>
+                            <text class="progress-word">Start a Drop</text>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-numdiv"><text  class="progress-num">2</text></div>
+                            <text class="progress-word">Invite Friends</text>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-numdiv"><text  class="progress-num">3</text></div>
+                            <text class="progress-word">Get Lowest Price</text>
+                        </div>
+                    </div>
+                     <div class="learn-drop-line">
+                         <div class="progress-line-left"></div>
+                         <div class="progress-line-right"></div>
+                     </div>
                  </div>
 
 
@@ -116,13 +135,14 @@
                 </div>
             </div>
             <div style="display: none" ref="policy"></div>
-            <!--<div class="bottom-btn" >-->
-                <!--<text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>-->
-            <!--</div>-->
-            <div class="bottom-btn" >
-                <text class="button" @click="openBuy">Buy Now</text>
+            <div class="bottom-btn" v-if="isDrop== true" >
+                <text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>
             </div>
-            <wxc-loading :show="isShow"></wxc-loading>
+            <div class="bottom-btn" v-if="isDrop== false">
+                <text class="button" @click="openBottomPopup">Buy Now</text>
+            </div>
+
+
         </scroller>
 
         <wxc-popup :have-overlay="isTrue"
@@ -176,7 +196,7 @@
     import header from './header';
     import cimg from './customImg';
     import preload from '../common/preloadImg';
-    import { WxcCell, WxcButton, WxcPopup, WxcMask, WxcLoading } from 'weex-ui'
+    import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
     const dom = weex.requireModule('dom');
@@ -189,7 +209,7 @@
     export default {
         components: {
             'topic-header': header,
-            WxcCell, WxcButton, WxcPopup, WxcMask, WxcLoading,
+            WxcCell, WxcButton, WxcPopup, WxcMask,
             'tab': tab,
             'cimg': cimg,
             preload
@@ -219,6 +239,18 @@
                     priceoff: '0.00',
                     cut_get: '',
                     brandLogo: ''
+                },
+                nextPage: {
+                   title: '',
+                   mainImage: '',
+                   salePrice: '',
+                   currentPrice: '',
+                   attributes: '',
+                   productId: '',
+                   quantity: '1',
+                   id: '',
+                   shippingPrice: '',
+                   isDrop: ''
                 },
                 goodsImg: [],
                 tabsItems: [{
@@ -251,7 +283,7 @@
                 height: 400,
                 tabshow: false,
                 headerShow: true,
-                isShow: false,
+                isDrop: false,
                 positionX: 0,
                 positionY: 0,
                 deltaX: 0,
@@ -308,6 +340,7 @@
                             this.goodsVariants = res.variants;
                             if (res.images != null) {
                                 this.selimgsrc = res.images[0]
+                                this.nextPage.mainImage = this.selimgsrc
                             } else {
                                 this.selimgsrc = ''
                             }
@@ -315,14 +348,24 @@
                                 this.goodsType = this.operateData(res.attributes);
                             } else {
                                 this.hasVariants = false
+                                this.nextPage.attributes = ''
                                 this.goodsType = []
                                 this.variantsId = res.variants[0].id
+                                this.nextPage.id = res.variants[0].id
+                                this.nextPage.salePrice = res.variants[0].lowestPrice;
+                                this.nextPage.currentPrice = res.variants[0].saleUnitPrice;
+                                // this.nextPage.mainImage =
                             }
 
                             this.shipObj = res.shipping
                             this.dectxt = []
-                            // this.$notice.toast({
-                            //     message: (this.goods.price - this.lowestPrice) / this.goods.price
+                            this.nextPage.title = res.title;
+                            this.nextPage.productId = id.id;
+                            this.nextPage.shippingPrice = res.shipping.priceItem;
+                            this.isDrop = res.isDrop
+                            // nextPage 传给下一页组织的数据
+                            // this.$notice.alert({
+                            //     message: res
                             // })
                             if (res.newDescription != null) {
                                 this.newDescription = res.newDescription
@@ -345,14 +388,11 @@
                     })
                 }
             },
-            openBuy (){
-
-            },
             createCut () {
-                this.isShow = true;
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'POST',
-                    url: `${baseUrl}/promotion/cut/create/`,
+                    url: `${baseUrl}/promotion/cut/down/create/`,
                     data: { variant_id: this.variantsId },
                     header: {
                         needAuth: true
@@ -367,7 +407,7 @@
                             id: res.id
                         }
                     })
-                    this.isShow = false
+                    this.$notice.loading.hide();
                     googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.variantsId, 0);
                 }).catch((res) => {
                     if (res.status == 409) {
@@ -376,10 +416,6 @@
                             message: 'You have already started a drop for this item.'
                         })
                     }
-
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
                 })
             },
             wxcCellClick () {
@@ -389,7 +425,15 @@
                     this.isBottomShow = true;
 
                     if (this.variantsId != '') {
-                        this.createCut()
+                        if (this.isDrop == true) {
+                            this.createCut()
+                        } else {
+                            this.$router.open({
+                                name: 'order.confirm',
+                                type: 'PUSH',
+                                params: this.nextPage
+                            })
+                        }
                     }
                 }
             },
@@ -400,7 +444,15 @@
                     this.isBottomShow = true;
 
                     if (this.variantsId != '') {
-                        this.createCut()
+                        if (this.isDrop == true) {
+                            this.createCut()
+                        } else {
+                            this.$router.open({
+                                name: 'order.confirm',
+                                type: 'PUSH',
+                                params: this.nextPage
+                            })
+                        }
                     } else {
                         this.$notice.toast({
                             message: 'Please select an option first.'
@@ -424,7 +476,7 @@
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
-                    if (this.hasVariants === false) {
+                    if (this.hasVariants === false && this.isDrop == true) {
                         this.createCut()
                     } else {
                         this.isBottomShow = true;
@@ -538,11 +590,11 @@
                         this.selimgsrc = tmp[j].image
                     }
                 }
-            },
-
-            openCard (e) {
-                this.isCardShow = true;
-                this.hasCardAnimation = true;
+                this.nextPage.attributes = this.selcolor + ' ' + this.selsize
+                this.nextPage.id = this.variantsId
+                this.nextPage.mainImage = this.selimgsrc
+                this.nextPage.salePrice = this.lowestPrice;
+                this.nextPage.currentPrice = this.selsaleUnitPrice;
             },
             openShip (e) {
                 if (e == 1) {
@@ -784,40 +836,85 @@
     }
     .learn-drop{
         width: 750px;
-        height: 96px;
+        height: 208px;
         border-top-style:solid ;
         border-top-width:1px ;
         border-top-color:rgba(0,0,0,0.08) ;
         background-color: #fff;
-        flex-direction: row;
-        justify-content: space-around;
+        flex-direction: column;
+        margin-top: 12px;
+        /*justify-content: space-around;*/
     }
-    .learn-div{
-        width: 375px;
+    .learn-drop-itme1{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .learn-drop-itmeh{
+        padding-left: 32px;
         padding-top: 32px;
-        border-right-color:rgba(0,0,0,0.08) ;
-        border-right-width:1px ;
-        border-right-style:solid ;
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .learn-drop-itmed{
         flex-direction: row;
-        justify-content: center;
+        padding-top: 32px;
+        padding-right: 32px;
+
     }
-    .learn-picon{
-        color: #1abdcd;
-        font-size: 28px;
-        margin-right: 8px;
+    .learn-drop-itmem{
+        font-size: 20px;
+        color: #EF8A31;
     }
-    .learn-sicon{
-        color: #ffde00;
-        font-size: 28px;
-        margin-right: 8px;
+    .learn-drop-itme2{
+        flex-direction: row;
+        justify-content:space-between ;
     }
-    .learn-price{
-        font-weight: 700;
+    .progress{
+        /*background-color: #f4f4f4;*/
+        padding-top: 32px;
+        justify-content:center ;
+        width: 190px;
+        margin-right: 32px ;
+        margin-left: 32px ;
+    }
+    .progress-numdiv{
+        flex-direction: row;
+        justify-content:center ;
+
+    }
+    .progress-num{
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        padding-top: 5px;
+        color: white;
+        background-color: #EF8A31;
+        font-size: 20px;
+        border-radius: 50%;
+    }
+    .learn-drop-line{
+        flex-direction: row;
+        justify-content:space-around ;
+        margin-top: -50px;
+    }
+    .progress-line-left{
+        height: 3px;
+        width: 225px;
+        background-color: rgba(0,0,0,0.12);
+        margin-left: 125px;
+    }
+    .progress-line-right{
+        height: 3px;
+        width: 225px;
+        background-color: rgba(0,0,0,0.12);
+        margin-right: 113px;
+    }
+    .progress-word{
+        flex-direction: row;
+        text-align: center;
         font-size: 24px;
-    }
-    .learn-ship{
-        font-weight: 700;
-        font-size: 24px;
+        margin-top: 6px;
     }
     .dec-word{
         width: 750px;

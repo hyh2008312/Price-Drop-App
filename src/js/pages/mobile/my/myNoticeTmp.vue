@@ -30,7 +30,7 @@
                                 <text class="item-2">{{i.context.item}}</text>
                             </div>
 
-                            <div v-if="id==1">
+                            <div v-if="id==1&&i.noticeType!=='expired_not_paid'">
                                 <div class="price-div">
                                     <text class="item-1" >Price Drop: </text>
                                     <text class="item-2">Rs.{{i.context.priceDrop}}</text>
@@ -373,12 +373,13 @@
     }
     .pro-word{
         width: 448px;
-        height: 108px;
+        /*height: 108px;*/
         font-family: ProximaNova-Regular;
         font-size: 24px;
         line-height: 34px;
         color: #000000;
         margin-right: 34px;
+        margin-bottom: 6px;
     }
     .pro-img{
         width: 130px;

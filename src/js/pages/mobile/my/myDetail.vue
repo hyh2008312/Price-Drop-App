@@ -149,6 +149,9 @@
             },
             saveData () {
                 const self = this
+                if (this.src == 'bmlocal://assets/default.png') {
+                    this.src = ''
+                }
                 const params = {
                     avatar: this.src,
                     firstName: this.fname,
