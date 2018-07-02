@@ -32,7 +32,6 @@
                 </div>
             </div>
         </wxc-mask>
-        <wxc-loading :show="isShow"></wxc-loading>
     </div>
 </template>
 <script>
@@ -40,7 +39,7 @@ import header from './header';
 import addressItem from './addressItem';
 import orderDetailItem from './orderDetailItem';
 import addressBottom from './addressBottom';
-import { Utils, WxcMask, WxcLoading } from 'weex-ui';
+import { Utils, WxcMask } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
@@ -50,8 +49,7 @@ export default {
         'address-item': addressItem,
         'order-detail-item': orderDetailItem,
         'address-bottom': addressBottom,
-        WxcMask,
-        WxcLoading
+        WxcMask
     },
     eros: {
         backAppeared (params, options) {
@@ -67,7 +65,7 @@ export default {
         const pageHeight = Utils.env.getScreenHeight()
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' }
         googleAnalytics.trackingScreen('My Address');
-        this.getAddress()
+        this.getAddress();
         this.$event.on('login', params => {
             this.getAddress()
         })
@@ -82,13 +80,12 @@ export default {
             source: false,
             isDeleteShow: false,
             deleteId: -1,
-            deleteIndex: 0,
-            isShow: false
+            deleteIndex: 0
         }
     },
     methods: {
         getAddress () {
-            this.isShow = true;
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'GET',
                 name: 'address.shipping.list',
@@ -97,7 +94,7 @@ export default {
                     needAuth: true
                 }
             }).then(data => {
-                this.isShow = false;
+                this.$notice.loading.hide();
                 this.addressList = [...data];
             }, error => {
                 this.isShow = false;
@@ -111,21 +108,21 @@ export default {
             this.$router.finish()
         },
         deleteShipping (event) {
-            this.isDeleteShow = true
-            this.deleteIndex = event.data.index
-            this.deleteId = event.data.id
+            this.isDeleteShow = true;
+            this.deleteIndex = event.data.index;
+            this.deleteId = event.data.id;
         },
         chooseAddress (event) {
             this.addressList.forEach((e, i) => {
                 if (i == event.data.index) {
-                    e.isDefault = true
+                    e.isDefault = true;
                 } else {
-                    e.isDefault = false
+                    e.isDefault = false;
                 }
             })
         },
         popupDeleteClick () {
-            this.isDeleteShow = false
+            this.isDeleteShow = false;
         },
         deleteOrderConfirm () {
             this.closeDeletePop();
@@ -139,7 +136,7 @@ export default {
             }).then(resData => {
                 this.$notice.toast({
                     message: 'Delete address success!'
-                })
+                });
                 const address = that.addressList[that.deleteIndex];
                 if (address.isDefault) {
                     that.$storage.get('user').then((data) => {

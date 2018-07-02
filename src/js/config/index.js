@@ -1,5 +1,6 @@
 import Widget from 'eros-widget'
-import { apis, baseUrl } from './apis'
+import { baseUrl } from './apis'
+import { apis } from './config'
 import routes from './routes'
 import './push'
 

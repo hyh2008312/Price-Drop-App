@@ -50,7 +50,7 @@ export default {
             this.activeIndex = index;
         },
         onchangeTab (event) {
-            this.activeIndex = event.index
+            this.activeIndex = event.index;
         }
     }
 }

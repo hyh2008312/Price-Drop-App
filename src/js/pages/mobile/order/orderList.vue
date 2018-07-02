@@ -215,23 +215,23 @@
                         needAuth: true
                     }
                 }).then(data => {
-                    this.length = Math.ceil(data.count / this.pageSize)
-                    this.page++
+                    this.length = Math.ceil(data.count / this.pageSize);
+                    this.page++;
                     if (isfirst) {
                         this.order = []
                     }
                     this.order.push(...data.results)
                     if (!isfirst) {
                         this.$nextTick(() => {
-                            this.isLoading = false
-                        })
+                            this.isLoading = false;
+                        });
                     }
                     this.refreshApiFinished()
                 }, error => {
                     // 错误回调
                     this.$notice.toast({
                         message: error
-                    })
+                    });
                 })
             },
             refreshApiFinished () {
@@ -269,13 +269,13 @@
                             that.$notice.toast({
                                 message: error
                             })
-                        })
+                        });
                     }, function (param) {
                         if (param.code != 0) {
                             that.$router.open({
                                 name: 'order.failure',
                                 type: 'PUSH'
-                            })
+                            });
                         }
                     });
             },
@@ -286,29 +286,29 @@
                 this.$refs.wxcPopup.hide();
             },
             radioChecked (e) {
-                this.checkedInfo = e.data.pay
+                this.checkedInfo = e.data.pay;
             },
             resetPayList () {
-                this.payList = [...PAYLIST]
+                this.payList = [...PAYLIST];
             },
             payResult () {
             },
             popupCancelAutoClick () {
-                this.isCancelBottomShow = false
+                this.isCancelBottomShow = false;
             },
             closeBottomPop () {
-                this.$refs.wxcCancelPopup.hide()
+                this.$refs.wxcCancelPopup.hide();
             },
             changeReason (index) {
-                this.reasonActive = index
+                this.reasonActive = index;
             },
             cancel (event) {
-                this.isCancelBottomShow = true
-                this.cancelId = event.data.id
-                this.cancelIndex = event.data.index
+                this.isCancelBottomShow = true;
+                this.cancelId = event.data.id;
+                this.cancelIndex = event.data.index;
             },
             cancelOrder () {
-                this.$refs.wxcCancelPopup.hide()
+                this.$refs.wxcCancelPopup.hide();
                 this.$fetch({
                     method: 'POST', // 大写
                     url: `${baseUrl}/order/customer/cancel/${this.cancelId}/`,
@@ -319,21 +319,21 @@
                         needAuth: true
                     }
                 }).then(resData => {
-                    this.order[this.cancelIndex].orderStatus = 'Audit canceled'
-                    this.$notice.toast('Your order cancellation request has been submitted for review.')
+                    this.order[this.cancelIndex].orderStatus = 'Audit canceled';
+                    this.$notice.toast('Your order cancellation request has been submitted for review.');
                 }, error => {
                     this.$notice.toast({
                         message: error
-                    })
+                    });
                 })
             },
             deleteOrder (event) {
-                this.isDeleteShow = true
-                this.deleteIndex = event.data.index
-                this.deleteId = event.data.id
+                this.isDeleteShow = true;
+                this.deleteIndex = event.data.index;
+                this.deleteId = event.data.id;
             },
             popupDeleteClick () {
-                this.isDeleteShow = false
+                this.isDeleteShow = false;
             },
             deleteOrderConfirm () {
                 this.closeDeletePop()
@@ -345,15 +345,15 @@
                         needAuth: true
                     }
                 }).then(resData => {
-                    this.order.splice(this.deleteIndex, 1)
+                    this.order.splice(this.deleteIndex, 1);
                 }, error => {
                     this.$notice.toast({
                         message: error
-                    })
-                })
+                    });
+                });
             },
             closeDeletePop () {
-                this.isDeleteShow = false
+                this.isDeleteShow = false;
             }
         }
     }

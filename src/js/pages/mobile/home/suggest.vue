@@ -30,11 +30,10 @@
                 <text class="indicator">loading...</text>
             </loading>
         </list>
-        <wxc-loading :show="isShow"></wxc-loading>
     </div>
 </template>
 <script>
-import { Utils, WxcLoading } from 'weex-ui';
+import { Utils } from 'weex-ui';
 import refresher from '../common/refresh';
 import YXSlider from './YXSlider';
 import tab from './tab';
@@ -56,8 +55,7 @@ export default {
         'block-2': block2,
         'block-3': block3,
         'block-4': block4,
-        'block-5': block5,
-        WxcLoading
+        'block-5': block5
     },
     created () {
         this.init();
@@ -91,7 +89,6 @@ export default {
             lengthNew: 2,
             countApi: 0,
             isPlatformAndroid: Utils.env.isAndroid(),
-            isShow: false,
             isActiveLoading: false
         }
     },
@@ -143,15 +140,15 @@ export default {
             this.init();
         },
         init () {
-            this.getYXBanners()
-            this.getActivity()
-            this.getBlock4()
-            this.getTabName()
-            this.getBlock5()
+            this.getYXBanners();
+            this.getActivity();
+            this.getBlock4();
+            this.getTabName();
+            this.getBlock5();
             if(this.tabKey == 'new') {
-                this.getNewGoods(true)
+                this.getNewGoods(true);
             } else {
-                this.getHotGoods(true)
+                this.getHotGoods(true);
             }
         },
         getYXBanners () {
@@ -175,10 +172,10 @@ export default {
                 data: {}
             }).then(resData => {
                 this.activity = [...resData];
-                this.refreshApiFinished()
+                this.refreshApiFinished();
             }, error => {
 
-            })
+            });
         },
         getTabName () {
             this.tabsItems = TAB;
@@ -193,7 +190,7 @@ export default {
                 this.backup = [...resData];
                 const newArr = this.backup.splice(0, 4);
                 this.block1.items = [...newArr];
-            }, error => {})
+            }, error => {});
         },
         getBlock5 () {
             this.refreshApiFinished()
@@ -203,10 +200,10 @@ export default {
                 this.pageNew = 1
             }
             if(this.pageNew > this.lengthNew) {
-                this.$refs.refresh.refreshEnd()
+                this.$refs.refresh.refreshEnd();
                 this.$nextTick(()=> {
-                    this.isLoading = false
-                })
+                    this.isLoading = false;
+                });
             }
             this.$fetch({
                 method: 'GET', // 大写
@@ -216,20 +213,20 @@ export default {
                     page_size: this.pageSize
                 }
             }).then((data) => {
-                this.isShow = false;
+                this.$notice.loading.hide();
                 if(isfirst) {
-                    this.goods3 = []
+                    this.goods3 = [];
                 }
-                this.lengthNew = Math.ceil(data.count / this.pageSize)
-                this.pageNew++
-                this.goods3.push(...data.results)
+                this.lengthNew = Math.ceil(data.count / this.pageSize);
+                this.pageNew++;
+                this.goods3.push(...data.results);
                 if(!isfirst) {
-                    this.isLoading = false
+                    this.isLoading = false;
                 }
-                this.refreshApiFinished()
+                this.refreshApiFinished();
             }, (error) => {
 
-            })
+            });
         },
         getHotGoods (isfirst) {
             if(isfirst) {
@@ -238,8 +235,8 @@ export default {
             if(this.pageHot > this.lengthHot) {
                 this.$refs.refresh.refreshEnd();
                 this.$nextTick(()=> {
-                    this.isLoading = false
-                })
+                    this.isLoading = false;
+                });
             }
             this.$fetch({
                 method: 'GET',
@@ -249,30 +246,30 @@ export default {
                     page_size: this.pageSize
                 }
             }).then(data => {
-                this.isShow = false;
+                this.$notice.loading.hide();
                 if(isfirst) {
-                    this.goods3 = []
+                    this.goods3 = [];
                 }
-                this.lengthHot = Math.ceil(data.count / this.pageSize)
-                this.pageHot++
-                this.goods3.push(...data.results)
+                this.lengthHot = Math.ceil(data.count / this.pageSize);
+                this.pageHot++;
+                this.goods3.push(...data.results);
                 if(!isfirst) {
-                    this.isLoading = false
+                    this.isLoading = false;
                 }
-                this.refreshApiFinished()
+                this.refreshApiFinished();
             }, error => {
 
-            })
+            });
         },
         scrollToHeader() {
             return this.$nextTick(() => {
-                dom.scrollToElement(this.$refs['tab'], { animated: false })
-            })
+                dom.scrollToElement(this.$refs['tab'], { animated: false });
+            });
         },
         async onTabTo (event) {
             this.tabKey = event.data.key;
             await this.scrollToHeader();
-            this.isShow = true;
+            this.$notice.loading.show();
             if(event.data.key == 'new') {
                 this.getNewGoods(true);
             } else {
@@ -280,10 +277,10 @@ export default {
             }
         },
         refreshApiFinished() {
-            this.countApi++
+            this.countApi++;
             if(this.countApi >= 3) {
                 this.$refs.refresh.refreshEnd();
-                this.countApi = 0
+                this.countApi = 0;
             }
         }
     }
