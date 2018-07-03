@@ -15,7 +15,6 @@
                <text class="google-login-text">Logout with Google</text>
             </div>
         </div>
-        <wxc-loading :show="isShow"></wxc-loading>
     </div>
 </template>
 <script>
@@ -38,10 +37,15 @@
         },
         data () {
             return {
-                isShow: false
             }
         },
         methods: {
+            loadingStart () {
+                this.$notice.loading.show('');
+            },
+            loadingEnd () {
+                this.$notice.loading.hide();
+            },
             initGoogleAnalytics () {
                 googleAnalytics.trackingScreen('Login');
             },
@@ -64,7 +68,7 @@
                 })
             },
             requestUserInfo (id_token, that) {
-                that.isShow = true;
+                that.loadingStart();
                 that.$fetch({
                     method: 'POST',
                     name: 'user.google.sign',
@@ -73,6 +77,7 @@
                         idToken: id_token
                     }
                 }).then(data => {
+                    that.loadingEnd();
                     that.$storage.deleteSync('user');
                     that.$storage.deleteSync('token');
                     that.$storage.setSync('user', data.user);
@@ -80,7 +85,6 @@
                     bmPush.bindAlias(data.user.id, function (params) {
                     });
                     googleAnalytics.recordEvent('login', 'google', data.user, 0);
-                    that.isShow = false;
                      that.$router.back({
                         length: 1,
                         type: 'PUSH',
@@ -90,7 +94,7 @@
                         }
                     });
                 }, error => {
-                    that.isShow = false;
+                    that.loadingEnd();
                     that.$notice.toast('It seems that your internet is not stable. Please try again!');
                 })
             }
