@@ -407,7 +407,7 @@
                     googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.variantsId, 0);
                 }).catch((res) => {
                     if (res.status == 409) {
-                        this.isShow = false
+                        this.$notice.loading.hide();
                         this.$notice.toast({
                             message: 'You have already started a drop for this item.'
                         })
