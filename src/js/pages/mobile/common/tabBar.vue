@@ -39,16 +39,6 @@ export default {
     },
     methods: {
         tabTo (_key) {
-            if (_key == 'drops') {
-                const token = this.$storage.getSync('token')
-                if (!token || (token && !token.accessToken)) {
-                    this.$router.open({
-                        name: 'login',
-                        type: 'PUSH'
-                    })
-                    return
-                }
-            }
             if (this.pIndexKey == _key) return;
             this.pIndexKey = _key;
             this.$emit('tabTo', {
