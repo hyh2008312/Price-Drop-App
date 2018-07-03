@@ -106,7 +106,7 @@
             },
             initIsLogin () {
                 if (this.$storage.getSync('user')) {
-                    this.isMyDropLogin = false;
+                    this.isMyDropLogin = true;
                 } else {
                     this.isMyDropLogin = false;
                 }
