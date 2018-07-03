@@ -398,7 +398,8 @@
 
     .wrapper-1 {
         background-color: #fff;
-        padding-top: 26px;
+        padding-top: 24px;
+        padding-bottom: 24px;
         width: 750px;
     }
 

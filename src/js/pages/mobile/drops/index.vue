@@ -293,7 +293,7 @@
     }
     .main-list {
         width: 750px;
-        background-color: #F1F1F1;
+        background-color: #FFFFFF;
         padding-bottom: 114px;
     }
 
