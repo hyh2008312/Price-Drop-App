@@ -4,38 +4,39 @@
         <div class="navigation" @click="test">
             <text class="title">Drops</text>
         </div>
-        <div class="notice-wrapper cell-button">
-            <div class="notice-bg">
-                <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
-            </div>
-        </div>
-        <div>
-            <cutTab :items="tabsItems" @tabTo="onTabTo"></cutTab>
-        </div>
-        <list v-if="isCuting || !isCuting && isMyDropLogin " class="main-list" ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
+        <list  class="main-list" ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
             <refresher ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
+            <cell class="notice-wrapper cell-button">
+                <div class="notice-bg">
+                    <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
+                </div>
+            </cell>
+            <header>
+                <cutTab :items="tabsItems" @tabTo="onTabTo"></cutTab>
+            </header>
             <cell v-for="(i ,index) in goods">
                 <cutingItem :goods=i :key="index" :flag="isCuting"></cutingItem>
             </cell>
-            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+            <cell class="container-1" :style="height" v-if="goods.length == 0 && !(!isCuting &&!isMyDropLogin)">
+                <div class="container-2">
+                    <image class="pay-image" src="bmlocal://assets/empty.png"></image>
+                </div>
+                <text class="address-title">There is no drop to show.</text>
+            </cell>
+            <cell class="container-1-1" :style="height" v-if="!isCuting &&!isMyDropLogin">
+                <div class="container-2-1">
+                    <image class="pay-image" src="bmlocal://assets/pay-success.png"></image>
+                </div>
+                <text class="address-title-1">To view your Drops, please login first!</text>
+                <div class="drop-login" @click="toLogin">
+                    <text class="drop-login-text">Log In / Sign Up</text>
+                </div>
+            </cell>
+
+            <loading  class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">Loading...</text>
             </loading>
         </list>
-        <div class="container-1" :style="height" v-if="goods.length == 0">
-            <div class="container-2">
-                <image class="pay-image" src="bmlocal://assets/empty.png"></image>
-            </div>
-            <text class="address-title">There is no drop to show.</text>
-        </div>
-        <div class="container-1-1" :style="height" v-if="!isCuting &&!isMyDropLogin">
-            <div class="container-2-1">
-                <image class="pay-image" src="bmlocal://assets/pay-success.png"></image>
-            </div>
-            <text class="address-title-1">To view your Drops, please login first!</text>
-            <div class="drop-login" @click="toLogin">
-               <text class="drop-login-text">Log In / Sign Up</text>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -60,7 +61,7 @@
         },
         created () {
             const pageHeight = Utils.env.getScreenHeight();
-            this.height = { height: (pageHeight - 48 - 112 - 96) + 'px' };
+            this.height = { height: (pageHeight - 48 - 112 - 128 - 96 - 112) + 'px' };
             this.init();
             this.initGoogleAnalytics();
             this.$event.on('createCut', params => {
@@ -293,7 +294,7 @@
     }
     .main-list {
         width: 750px;
-        background-color: #FFFFFF;
+        background-color: #F1F1F1;
         padding-bottom: 114px;
     }
 
