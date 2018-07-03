@@ -376,9 +376,6 @@
                     }
                 })
                 this.$storage.get('user').then(resData => {
-                    this.$notice.alert({
-                        message: resData
-                    })
                     this.user = resData
                     this.email = this.user.email
                     this.fname = resData.firstName

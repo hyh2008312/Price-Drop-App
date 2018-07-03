@@ -348,8 +348,8 @@
                                 this.goodsType = []
                                 this.variantsId = res.variants[0].id
                                 this.nextPage.id = res.variants[0].id
-                                this.nextPage.salePrice = res.variants[0].lowestPrice;
-                                this.nextPage.currentPrice = res.variants[0].saleUnitPrice;
+                                this.nextPage.salePrice = res.variants[0].saleUnitPrice;
+                                this.nextPage.currentPrice = res.variants[0].lowestPrice;
                                 // this.nextPage.mainImage =
                             }
 
@@ -586,11 +586,11 @@
                         this.selimgsrc = tmp[j].image
                     }
                 }
-                this.nextPage.attributes = this.selcolor + ' ' + this.selsize
-                this.nextPage.id = this.variantsId
-                this.nextPage.mainImage = this.selimgsrc
-                this.nextPage.salePrice = this.lowestPrice;
-                this.nextPage.currentPrice = this.selsaleUnitPrice;
+                this.nextPage.attributes = this.selcolor + ' ' + this.selsize;
+                this.nextPage.id = this.variantsId;
+                this.nextPage.mainImage = this.selimgsrc;
+                this.nextPage.salePrice = this.selsaleUnitPrice;
+                this.nextPage.currentPrice = this.lowestPrice;
             },
             openShip (e) {
                 if (e == 1) {
