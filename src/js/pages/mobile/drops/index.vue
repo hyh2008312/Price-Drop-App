@@ -184,7 +184,6 @@
                     })
                     return
                 }
-                this.loadingStart();
                 if (this.isCuting) {
                     this.getcutingProduct(isFirst);
                 } else {
@@ -214,9 +213,6 @@
                     if (!isFirst) {
                         this.isLoading = false;
                     }
-                    this.$notice.alert({
-                        message: this.goods
-                    })
                 }, error => {
                     this.loadingEnd();
                      this.$notice.toast({
@@ -251,9 +247,6 @@
                     if (!isFirst) {
                         this.isLoading = false;
                     }
-                    this.$notice.alert({
-                        message: this.goods
-                    })
                 }, error => {
                     this.loadingEnd();
                     this.$notice.toast({
@@ -270,6 +263,9 @@
                     googleAnalytics.trackingScreen('Drops/my drops');
                 }
                 this.goods = false;
+                if (this.isMyDropLogin || this.isCuting) {
+                    this.loadingStart();
+                }
                 this.requestProduct(true);
             }
         }

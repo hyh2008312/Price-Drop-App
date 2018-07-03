@@ -96,10 +96,31 @@
            }
         },
         created () {
-          this.getData()
+            this.$event.on('readNotice', parmas => {
+                // this.$notice.alert({
+                //     message: parmas
+                // })
+                if (parmas.type == 'drop') {
+                    this.drop.isRead = true
+                } else if (parmas.type == 'order') {
+                    this.order.isRead = true
+                } else if (parmas.type == 'perk') {
+                    this.perk.isRead = true
+                } else if (parmas.type == 'refund') {
+                    this.refund.isRead = true
+                }
+                this.returnPre()
+            })
+            this.getData()
         },
         methods: {
-            openNew (id,type) {
+
+            returnPre () {
+                if (this.drop.isRead == true && this.order.isRead == true && this.perk.isRead == true && this.refund.isRead == true) {
+                this.$event.emit('read', 1)
+                }
+            },
+            openNew (id, type) {
                 this.$router.open({
                     name: 'my.notice.tmp',
                     type: 'PUSH',
@@ -209,6 +230,9 @@
         opacity: 0.38;
         font-family: ProximaNova-Regular;
         font-size: 24px;
+        lines:1;
+        width: 500px;
+        text-overflow:ellipsis;
         color: #000000;
     }
     .dot{

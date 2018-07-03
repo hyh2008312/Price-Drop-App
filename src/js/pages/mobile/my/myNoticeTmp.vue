@@ -9,7 +9,7 @@
                 <text class="first-time">{{tranDate(i.modified)}}</text>
 
                 <div class="mid-cell" >
-                    <div class="overflow-card" @click="openNew(1)">
+                    <div class="overflow-card" >
 
                         <div class="overflow-card-content">
                             <div class="header1">
@@ -21,7 +21,7 @@
                             <div class="pro-content">
                                 <!--<text class="pro-word">Your DROP has ended and now you have 24 hours left to purchase your item at the final price.</text>-->
                                 <text class="pro-word">{{i.context.text}}</text>
-                                <image :src="i.image" class="pro-img"></image>
+                                <image :src="i.context.image" class="pro-img"></image>
                             </div>
 
                             <div class="item-div">
@@ -69,22 +69,22 @@
                         </div>
 
 
-                        <div class="card-bottom" v-if="i.noticeType=='cut_end'||i.noticeType=='cut_end_early'"  @click="openNew(1)">
-                            <text class="card-bottom-word" >Click to View More Details</text>
+                        <div class="card-bottom" v-if="i.noticeType=='cut_end'||i.noticeType=='cut_end_early'"  @click="openNew(1,i.context.customerCutId)">
+                            <text class="card-bottom-word" >Click to View More Details  </text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 
-                        <div class="card-bottom" v-if="i.noticeType=='expired_not_paid'" @click="openNew(1)">
+                        <div class="card-bottom" v-if="i.noticeType=='expired_not_paid'" @click="openNew(1,i.context.customerCutId)">
                             <text class="card-bottom-word" >Click to Drop Price Again</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 
-                        <div class="card-bottom"  v-if="i.noticeType=='reminder_payment'" @click="openNew(1)">
+                        <div class="card-bottom"  v-if="i.noticeType=='reminder_payment'" @click="openNew(2,i.context.orderId)">
                             <text class="card-bottom-word" >Click to Pay Now</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 
-                        <div class="card-bottom" v-if="id==2" @click="openNew(2)" >
+                        <div class="card-bottom" v-if="id==2" @click="openNew(2,i.context.orderId)" >
                             <text class="card-bottom-word" >Click to View Order Details</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
@@ -186,17 +186,12 @@
             })
             this.$router.getParams().then(resData => {
                 this.params = resData.type
-                // this.getData()
                 this.requestProduct(true);
 
                 // this.$notice.alert({
                 //     message: resData
                 // })
             })
-            // this.requestProduct(true);
-            // if (this.params != '') {
-            //     this.getData()
-            // }
         },
         methods: {
             onLoadingMore () {
@@ -225,6 +220,7 @@
                 // } else {
                 //     this.getcutendProduct(isFirst);
                 // }
+                this.$event.emit('readNotice', { type: this.params })
             },
             getcutingProduct (isFirst) {
                 // this.$notice.alert({
@@ -256,26 +252,34 @@
                     this.page++;
                     this.isLoading = false;
 
-                    this.$notice.alert({
-                        message: this.goods[0]
-                    })
+                    // this.$notice.alert({
+                    //     message: this.goods[0]
+                    // })
                     // if (!isFirst) {
                     //     this.isLoading = false;
                     // }
                     // this.refreshApiFinished();
                 }, error => {})
             },
-            openNew (p) {
+            openNew (p, other) {
                 if (p == 1) {
-                    this.$router.setBackParams({ tab: 'drops' })
-                    this.$router.back({
-                        length: 9999,
-                        type: 'PUSH'
+                    // this.$notice.toast({
+                    //     message: other
+                    // })
+                    this.$router.open({
+                        name: 'drops.cutDetail',
+                        type: 'PUSH',
+                        params: {
+                            isShowSharePanel: false,
+                            id: other
+                        }
                     })
                 } else if (p == 2) {
                     this.$router.open({
-                        name: 'order',
-                        type: 'PUSH'
+                        name: 'order.detail',
+                        params: {
+                            id: other
+                        }
                     })
                 } else if (p == 3) {
                     this.$router.open({

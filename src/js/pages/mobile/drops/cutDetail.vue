@@ -286,6 +286,12 @@
             }
         },
         methods: {
+            loadingStart () {
+                this.$notice.loading.show('');
+            },
+            loadingEnd () {
+                this.$notice.loading.hide();
+            },
             initGoogleAnalytics (dropId) {
                 googleAnalytics.trackingScreen(`DropDetail/${dropId}`);
             },
@@ -348,10 +354,12 @@
             },
             requestCutDetail () {
                 const that = this;
+                that.loadingStart();
                 this.$fetch({
                     method: 'GET',
                     url: baseUrl + '/promotion/cut/detail/' + this.id + '/'
                 }).then(data => {
+                    that.loadingEnd();
                     this.goodsDetail = data;
                     this.percentage = (data.salePrice - data.currentPrice) / (data.salePrice - data.lowestPrice);
                     this.distance = this.percentage * 574 - 98;
@@ -367,6 +375,7 @@
                          that.isShowShare = that.isShow;
                     }, 1000);
                 }, error => {
+                    that.loadingEnd();
                     this.$notice.toast('network is error');
                 })
             },

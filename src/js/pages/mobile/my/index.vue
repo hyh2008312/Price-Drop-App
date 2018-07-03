@@ -175,6 +175,9 @@
             this.$event.on('redeem', parmas => {
                 this.getUserData()
             })
+            this.$event.on('read', parmas => {
+                this.unread = 0
+            })
         },
         destory () {
             this.$event.off('login')
