@@ -23,11 +23,16 @@
 
 
                 <div class="count-div">
-                    <text class=" count" v-if="isDrop== true" >Get it at</text><text class="count-bold">Rs.{{lowestPrice}}</text><text class="count-1">by inviting your friends!</text>
+                    <text class=" count" v-if="isDrop== true" >Get it at</text>
+                    <text class=" price-name" v-if="!isDrop" >Exclusive Price:</text>
+                    <text class="count-bold">Rs.{{lowestPrice}}</text>
+                    <text class="count-1" v-if="isDrop== true">by inviting your friends!</text>
 
                 </div>
                 <div class="count-div">
-                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text><text class="price-name price-price">{{priceoff}}OFF</text><text class="price-name price-off">Free shipping</text>
+                    <text class=" price-name" >Original Price: </text><text class="price">Rs.{{goods.price}}</text>
+                    <text class="price-name price-price" v-if="!isDrop" >{{goods.priceoff}}% OFF</text>
+                    <text class="price-name price-off">Free shipping</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
