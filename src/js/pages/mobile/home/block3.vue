@@ -14,7 +14,7 @@
                         <text class="gd-price-1">{{countOff(goods.lowestPrice, goods.saleUnitPrice)}}</text>
                     </div>
                     <text class="gd-info">Rs.{{goods.saleUnitPrice}}</text>
-                    <text class="gd-button">Drop Price</text>
+                    <text class="gd-button">Buy Now</text>
                 </div>
             </div>
         </div>
