@@ -28,5 +28,7 @@ export const apis = {
     'notice.list': '/notice/list/ ',
     'notice.detail': '/notice/detail/',
     'app.get.version': '/app/get/version/',
-    'order.create': '/order/create/'
+    'order.create': '/order/create/',
+    'product.cut.list': '/product/cut/list/', // 砍价商品的列表
+    'promotion.new.cut.list': '/promotion/new/cut/list/' // 我的砍价列表
 }

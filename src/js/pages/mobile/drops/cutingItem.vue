@@ -1,6 +1,26 @@
 <template>
     <div class="item">
-        <div class="wrapper">
+        <div class="wrapper-1" v-if="flag">
+            <div class="gb-box-1">
+                <div class="i-gd-1"  @click="jumpWeb()">
+                    <div class="gd-bg-1">
+                        <div class="gd-img-1">
+                            <preload class="gd-img-image-1" :src="goods.mainImage"></preload>
+                        </div>
+                    </div>
+                    <div class="gd-bg-right-1">
+                        <text class="gd-tlt-1">{{goods.title}}</text>
+                        <div class="gd-sm-1">
+                            <text class="gd-price-1">Rs.{{goods.lowestPrice}}</text>
+                            <text class="gd-price-1-1">{{countOff(goods.lowestPrice, goods.saleUnitPrice)}}</text>
+                        </div>
+                        <text class="gd-info-1">Rs.{{goods.saleUnitPrice}}</text>
+                        <text class="gd-button-1">Drop Price</text>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper"  v-else >
             <div class="gb-box">
                 <div class="i-gd" @click="jumpCutDetail">
                     <div class="gd-bg">
@@ -12,12 +32,12 @@
                             <text class="gd-price-sale">Rs.{{goods.currentPrice}}</text>
                             <text class="gd-price-original">Rs.{{goods.salePrice}}</text>
                         </div>
-                        <text class="gd-price-show" v-if="flag">Dropped Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }} by {{goods.cutTimes}} people</text>
-                        <div class="gd-cut" v-if="flag">
+                        <text class="gd-price-show" v-if="goods.cutStatus=='progressing'">Dropped Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }} by {{goods.cutTimes}} people</text>
+                        <div class="gd-cut" v-if="goods.cutStatus=='progressing'">
                             <text class="gd-cut-price">Rs.{{goods.lowestPrice}}</text>
                             <text class="gd-cut-price-tip"> left to reach the lowest price</text>
                         </div>
-                        <div class="gd-cut-end"v-if="!flag">
+                        <div class="gd-cut-end"v-if="goods.cutStatus=='end'">
                             <text class="gd-price-show-end">Dropped </text>
                             <text class="gd-cut-price">Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }}</text>
                             <text class="gd-price-show-end"> by {{goods.cutTimes}} people</text>
@@ -27,7 +47,7 @@
             </div>
             <div class="gb-line"></div>
             <!--正在砍价-->
-            <div class="gd-handle" v-if="flag">
+            <div class="gd-handle" v-if="goods.cutStatus=='progressing'">
                 <text class="gd-handle-tip">Ends in </text>
                 <wxc-countdown tpl="{h}:{m}:{s}"
                                :time="goods.endTimestamp *1000"
@@ -87,6 +107,24 @@
             }
         },
         methods: {
+            jumpWeb () {
+                const id = '';
+                this.$router.open({
+                    name: 'goods.details',
+                    type: 'PUSH',
+                    params: {
+                        id,
+                        isDrop: true
+                    }
+                })
+            },
+            countOff (s, o) {
+                if (o > 0) {
+                    return Math.ceil((o - s) / o * 100) + '% OFF'
+                } else {
+                    return ''
+                }
+            },
             jumpProductDetail () {
                 this.$router.open({
                     name: 'goods.details',
@@ -357,6 +395,124 @@
         color: #000000;
         font-weight: 400;
         margin-left: 8px;
+    }
+
+
+    .wrapper-1 {
+        background-color: #fff;
+        padding-top: 26px;
+        width: 750px;
+    }
+
+    .gb-box-1 {
+        padding: 0 16px;
+        display: flex;
+    }
+
+    .i-gd-1 {
+        width: 718px;
+        height: 288px;
+        flex-direction: row;
+    }
+
+    .gd-bg-1 {
+        width: 288px;
+        height: 288px;
+        border-radius: 8px;
+        overflow: hidden;
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-top-color: rgba(0,0,0,.08);
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-left-color: rgba(0,0,0,.08);
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: rgba(0,0,0,.08);
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        border-bottom-color: rgba(0,0,0,.08);
+    }
+
+    .gd-bg-right-1 {
+        margin-left: 32px;
+        width: 398px;
+        height: 288px;
+    }
+
+    .gd-img-1 {
+        width: 284px;
+        height: 284px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .gd-img-image-1 {
+        width: 284px;
+        height: 284px;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .gd-tlt-1 {
+        margin-top: 16px;
+        font-size: 24px;
+        font-weight: 300;
+        line-height: 36px;
+        width: 398px;
+        overflow: hidden;
+        lines: 2;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .gd-info-1 {
+        display: block;
+        margin-top: 4px;
+        font-size: 20px;
+        width: 398px;
+        line-height: 24px;
+        color: rgba(0,0,0,0.87);
+        text-decoration: line-through;
+        overflow: hidden;
+        lines: 1;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .gd-price-1 {
+        font-size: 28px;
+        line-height: 34px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .gd-price-1-1{
+        font-size: 20px;
+        line-height: 24px;
+        margin-left: 8px;
+        color: #EF8A31;
+    }
+
+    .gd-sm-1 {
+        margin-top: 14px;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .gd-button-1 {
+        margin-top: 62px;
+        width: 144px;
+        text-align: center;
+        font-size: 24px;
+        line-height: 44px;
+        font-weight: bold;
+        border-style: solid;
+        border-radius: 4px;
+        border-width: 2px;
+        border-color: #EF8A31;
+        color: #EF8A31;
     }
 
 </style>

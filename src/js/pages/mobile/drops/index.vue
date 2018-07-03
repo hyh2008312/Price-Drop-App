@@ -4,10 +4,15 @@
         <div class="navigation" @click="test">
             <text class="title">Drops</text>
         </div>
+        <div class="notice-wrapper cell-button">
+            <div class="notice-bg">
+                <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
+            </div>
+        </div>
         <div>
             <cutTab :items="tabsItems" @tabTo="onTabTo"></cutTab>
         </div>
-        <list class="main-list" ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
+        <list v-if="isCuting || !isCuting && isMyDropLogin " class="main-list" ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
             <refresher ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
             <cell v-for="(i ,index) in goods">
                 <cutingItem :goods=i :key="index" :flag="isCuting"></cutingItem>
@@ -22,6 +27,15 @@
             </div>
             <text class="address-title">There is no drop to show.</text>
         </div>
+        <div class="container-1-1" :style="height" v-if="!isCuting &&!isMyDropLogin">
+            <div class="container-2-1">
+                <image class="pay-image" src="bmlocal://assets/pay-success.png"></image>
+            </div>
+            <text class="address-title-1">To view your Drops, please login first!</text>
+            <div class="drop-login" @click="toLogin">
+               <text class="drop-login-text">Log In / Sign Up</text>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -29,14 +43,16 @@
     import tabTitle from './tabTitle';
     import cutingItem from './cutingItem';
     import { TAB } from './config'
-    import { Utils, WxcLoading } from 'weex-ui';
+    import { Utils } from 'weex-ui';
+    import block4 from './block4';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
             'refresher': refresher,
             'cutTab': tabTitle,
-            cutingItem,
+             cutingItem,
+            'block-4': block4
         },
         eros: {
             beforeAppear (params, options) {
@@ -44,12 +60,18 @@
         },
         created () {
             const pageHeight = Utils.env.getScreenHeight();
-            this.height = { height: (pageHeight - 48 - 112 - 96 - 112) + 'px' };
+            this.height = { height: (pageHeight - 48 - 112 - 96) + 'px' };
             this.init();
             this.initGoogleAnalytics();
             this.$event.on('createCut', params => {
                 this.requestProduct(true);
             });
+            this.$event.on('login', params => {
+                this.isMyDropLogin = true;
+                this.requestProduct(true);
+            });
+            this.getBlock4();
+            this.initIsLogin();
         },
         destory () {
             this.$event.off('login')
@@ -66,9 +88,59 @@
                 pageSize: 12,
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid(),
+                block1: {
+                    title: '',
+                    url: '',
+                    items: []
+                },
+                backup: [],
+                isMyDropLogin: false
             }
         },
         methods: {
+            toLogin () {
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            },
+            initIsLogin () {
+                if (this.$storage.getSync('user')) {
+                    this.isMyDropLogin = false;
+                } else {
+                    this.isMyDropLogin = false;
+                }
+            },
+            getBlock4 () {
+                this.block1.items = [];
+                this.$fetch({
+                    method: 'GET',
+                    name: 'promotion.get.list',
+                    data: {}
+                }).then(resData => {
+                    this.backup = [...resData];
+                    const newArr = this.backup.splice(0, 4);
+                    this.block1.items = [...newArr];
+                }, error => {})
+            },
+            noNoticeFinished (e) {
+                if (this.backup.length > 0) {
+                    const newArr = this.backup.splice(0, 4);
+                    this.block1.items = [...newArr];
+                } else {
+                    this.block1.items = [];
+                    this.$fetch({
+                        method: 'GET',
+                        name: 'promotion.get.list',
+                        data: {}
+                    }).then(resData => {
+                        this.backup = [...resData];
+                        const newArr = this.backup.splice(0, 4);
+                        this.block1.items = [];
+                        this.block1.items = [...newArr];
+                    }, error => {})
+                }
+            },
             loadingStart () {
                 this.$notice.loading.show('');
             },
@@ -76,8 +148,6 @@
                 this.$notice.loading.hide();
             },
             test () {
-                /* const bmPush = weex.requireModule('bmPush')
-                bmPush.getCliendId() */
             },
             initGoogleAnalytics () {
                 googleAnalytics.trackingScreen('Drops');
@@ -114,6 +184,7 @@
                     })
                     return
                 }
+                this.loadingStart();
                 if (this.isCuting) {
                     this.getcutingProduct(isFirst);
                 } else {
@@ -121,18 +192,13 @@
                 }
             },
             getcutingProduct (isFirst) {
-                this.loadingStart();
                 this.$fetch({
                     method: 'GET',
-                    name: 'promotion.cut.list',
+                    name: 'product.cut.list',
                     data: {
                         page: this.page,
-                        page_size: 6,
-                        status: 'progressing'
-                    },
-                    header: {
-                            needAuth: true
-            }}
+                        page_size: 12
+                    }}
             ).then(data => {
                     this.loadingEnd();
                     if (data.count == 0) {
@@ -148,23 +214,23 @@
                     if (!isFirst) {
                         this.isLoading = false;
                     }
-                    this.refreshApiFinished();
+                    this.$notice.alert({
+                        message: this.goods
+                    })
                 }, error => {
                     this.loadingEnd();
-                    /* this.$notice.toast({
+                     this.$notice.toast({
                         message: error
-                    })*/
+                    })
                 })
             },
             getcutendProduct (isFirst) {
-                this.loadingStart();
                 this.$fetch({
                     method: 'GET',
-                    name: 'promotion.cut.list',
+                    name: 'promotion.new.cut.list',
                     data: {
                         page: this.page,
-                        page_size: 6,
-                        status: 'end'
+                        page_size: 12
                     },
                     header: {
                         needAuth: true
@@ -185,18 +251,23 @@
                     if (!isFirst) {
                         this.isLoading = false;
                     }
-                    this.refreshApiFinished();
+                    this.$notice.alert({
+                        message: this.goods
+                    })
                 }, error => {
                     this.loadingEnd();
+                    this.$notice.toast({
+                        message: error
+                    })
                 })
             },
             onTabTo (event) {
                 this.tabKey = event.data.key;
                 this.isCuting = !(this.tabKey === 'cutEnd');
                 if (this.isCuting) {
-                    googleAnalytics.trackingScreen('Drops/ongoing');
+                    googleAnalytics.trackingScreen('Drops/Latest drops');
                 } else {
-                    googleAnalytics.trackingScreen('Drops/ended');
+                    googleAnalytics.trackingScreen('Drops/my drops');
                 }
                 this.goods = false;
                 this.requestProduct(true);
@@ -205,6 +276,25 @@
     }
 </script>
 <style scoped>
+    .drop-login-text{
+        width: 320px;
+        height: 64px;
+        line-height: 64px;
+        text-align: center;
+        background-color: #EF8A31;
+        border-radius: 8px;
+        font-family: ProximaNova-Bold;
+        font-weight: bold;
+        color: #FFFFFF;
+        font-size: 24px;
+    }
+    .drop-login{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 32px;
+    }
     .main-list {
         width: 750px;
         background-color: #F1F1F1;
@@ -372,6 +462,15 @@
         width: 750px;
         align-items: center;
     }
+    .container-1-1{
+        width: 750px;
+        background-color: #FFFFFF;
+    }
+    .container-2-1{
+        margin-top: 86px;
+        width: 750px;
+        align-items: center;
+    }
 
     .pay-image{
         width: 202px;
@@ -383,5 +482,34 @@
         font-size: 28px;
         line-height: 34px;
         text-align: center;
+    }
+    .address-title-1{
+        margin-top: 20px;
+        font-size: 20px;
+        line-height: 34px;
+        text-align: center;
+        font-family: ProximaNova-Bold;
+        font-weight: bold;
+        color: rgba(0,0,0,0.38);
+    }
+    .notice-bg{
+        width: 718px;
+        height: 96px;
+        background-color: #FFFFFF;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,0.12);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .notice-wrapper {
+        width: 750px;
+        height: 128px;
+        padding-top: 16px;
+        justify-content: start;
+        align-items: center;
+        overflow: hidden;
+        background-color: #F1F1F1;
     }
 </style>

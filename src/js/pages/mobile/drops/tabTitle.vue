@@ -52,7 +52,7 @@ export default {
 }
 
 .tab-txt {
-    width: 105px;
+    width: 180px;
     text-align: center;
     font-size: 24px;
     line-height: 34px;
