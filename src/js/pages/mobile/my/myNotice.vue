@@ -158,16 +158,16 @@
                     }
 
                 }).then((res) => {
-                    if (Object.keys('isRead') === res.drop) {
+                    if (Object.keys(res.drop).length !== 0) {
                         this.drop = res.drop
                     }
-                    if (Object.keys('isRead') === res.order) {
+                    if (Object.keys(res.order).length !== 0) {
                         this.order = res.order
                     }
-                    if (Object.keys('isRead') === res.perk) {
+                    if (Object.keys(res.perk).length !== 0) {
                         this.perk = res.perk
                     }
-                    if (Object.keys('isRead') === res.refund) {
+                    if (Object.keys(res.refund).length !== 0) {
                         this.refund = res.refund
                     }
                 }).catch((res) => {
