@@ -99,11 +99,13 @@
                     </div>
                 </div>
 
+                <div class="dec-word" ref="dec" >
+                    <text class="dec">Description</text>
+                </div>
+            </div>
 
-            </div>
-            <div class="dec-word" ref="dec" >
-                <text class="dec">Description</text>
-            </div>
+
+
                 <div style="width: 750px; background-color: white ; padding-top: 20px">
                     <div v-for="(i, index) in newDescription ">
                         <div v-if="i.type=='text'">
@@ -117,13 +119,7 @@
 
 
                 <div class="bottom-div" >
-                    <!--<div >-->
-                        <!--<text class="leftline"></text>-->
-                    <!--</div>-->
                     <text class="bottom-head" >Return Policy</text>
-                    <!--<div class="rightline">-->
-                        <!--<text style="letter-spacing: -10px">———————————</text>-->
-                    <!--</div>-->
 
                     <text class="bottom-text">You may return all items sold by PriceDrop within 9 days of delivery for a refund, as long as it is unused and in a good condition.
                     </text>
