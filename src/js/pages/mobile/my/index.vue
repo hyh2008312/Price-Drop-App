@@ -176,9 +176,9 @@
                 this.getUserData()
             })
             this.$event.on('read', parmas => {
-                this.$notice.toast({
-                    message:111
-                })
+                // this.$notice.toast({
+                //     message:111
+                // })
                 this.unread = 0
             })
         },
