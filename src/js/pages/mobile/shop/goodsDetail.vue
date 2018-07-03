@@ -23,11 +23,11 @@
 
 
                 <div class="count-div">
-                    <text class=" count" >Get it at</text><text class="count-bold">Rs.{{lowestPrice}}</text><text class="count-1">by inviting {{goods.price >= 1000 ? 5 : 2 }} friends!</text>
+                    <text class=" count" v-if="isDrop== true" >Get it at</text><text class="count-bold">Rs.{{lowestPrice}}</text><text class="count-1">by inviting your friends!</text>
 
                 </div>
                 <div class="count-div">
-                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text><text class="price-name price-off">Free shipping</text>
+                    <text class=" price-name" >Original Price:</text><text class="price">Rs.{{goods.price}}</text><text class="price-name price-price">{{priceoff}}OFF</text><text class="price-name price-off">Free shipping</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
@@ -740,6 +740,15 @@
         border-radius: 8px;
         padding: 4px 16px;
         color: #00CFE3;
+    }
+    .price-price{
+        border-width: 1px;
+        border-style: solid ;
+        border-color: #EF8A31;
+        font-size: 20px;
+        border-radius: 8px;
+        padding: 4px 16px;
+        color: #EF8A31;
     }
     .price{
         font-family: PingFangSC-Semibold;
