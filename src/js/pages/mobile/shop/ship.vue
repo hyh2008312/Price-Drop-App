@@ -1,9 +1,8 @@
 <template>
     <div>
         <div class="state"  ></div>
-        <scroller >
-
-        <div class="wrapper" v-if="ship==false" >
+        <scroller  v-if="ship==false">
+        <div class="wrapper"  >
 
         <div class="overflow-box" >
             <text class="close" @click="$router.finish();" >&#xe6f6;</text>
@@ -62,6 +61,7 @@
         </div>
 
     </div>
+        </scroller>
 
         <div class="wrapper" v-if="ship==true">
 
@@ -81,7 +81,6 @@
             <!--</scroller>-->
 
         </div>
-        </scroller>
 
     </div>
 </template>
@@ -220,7 +219,7 @@
         width: 686px;
         /*height: 420px;*/
         background-color: white;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12) ;
         border-radius: 16px;
         flex-direction: column;
         align-items: stretch;
@@ -273,7 +272,7 @@
     .bottom-card{
         width: 688px;
         overflow: hidden;
-        /*box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);*/
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
         background-color: white;
         border-radius: 8px;
     }
