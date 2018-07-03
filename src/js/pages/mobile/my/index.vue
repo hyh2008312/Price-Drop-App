@@ -186,6 +186,7 @@
             this.$event.off('login')
             this.$event.off('logout')
             this.$event.off('setdetail')
+            this.$event.off('read')
         },
         data () {
             return {
@@ -375,9 +376,9 @@
                     }
                 })
                 this.$storage.get('user').then(resData => {
-                    // this.$notice.alert({
-                    //     message: resData
-                    // })
+                    this.$notice.alert({
+                        message: resData
+                    })
                     this.user = resData
                     this.email = this.user.email
                     this.fname = resData.firstName
