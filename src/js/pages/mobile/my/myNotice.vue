@@ -89,17 +89,22 @@
         },
         data () {
            return {
-               drop: {},
-               order: {},
-               perk: {},
-               refund: {}
+               drop: {
+                   isRead: true
+               },
+               order: {
+                   isRead: true
+               },
+               perk: {
+                   isRead: true
+               },
+               refund: {
+                   isRead: true
+               }
            }
         },
         created () {
             this.$event.on('readNotice', parmas => {
-                // this.$notice.alert({
-                //     message: parmas
-                // })
                 if (parmas.type == 'drop') {
                     this.drop.isRead = true
                 } else if (parmas.type == 'order') {
@@ -114,10 +119,24 @@
             this.getData()
         },
         methods: {
-
             returnPre () {
-                if (this.drop.isRead == true && this.order.isRead == true && this.perk.isRead == true && this.refund.isRead == true) {
-                this.$event.emit('read', 1)
+                // if (this.drop == {}) {
+                //     this.drop.isRead = true
+                // }
+                // if (this.order == {}) {
+                //     this.order.isRead = true
+                // }
+                // if (this.perk == {}) {
+                //     this.perk.isRead = true
+                // }
+                // if (this.refund == {}) {
+                //     this.refund.isRead = true
+                // }
+                if (this.drop.isRead == true &&
+                     this.order.isRead == true &&
+                    this.perk.isRead == true &&
+                     this.refund.isRead == true) {
+                    this.$event.emit('read', 1)
                 }
             },
             openNew (id, type) {
@@ -139,13 +158,18 @@
                     }
 
                 }).then((res) => {
-                    this.drop = res.drop
-                    this.order = res.order
-                    this.perk = res.perk
-                    this.refund = res.refund
-                    // this.$notice.alert({
-                    //     message: res.drop
-                    // })
+                    if (Object.keys(res.drop).length !== 0) {
+                        this.drop = res.drop
+                    }
+                    if (Object.keys(res.order).length !== 0) {
+                        this.order = res.order
+                    }
+                    if (Object.keys(res.perk).length !== 0) {
+                        this.perk = res.perk
+                    }
+                    if (Object.keys(res.refund).length !== 0) {
+                        this.refund = res.refund
+                    }
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res

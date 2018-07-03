@@ -1,9 +1,8 @@
 <template>
     <div>
-        <div class="state"></div>
-        <scroller >
-
-        <div class="wrapper" v-if="ship==false" >
+        <div class="state"  ></div>
+        <scroller  v-if="ship==false">
+        <div class="wrapper"  >
 
         <div class="overflow-box" >
             <text class="close" @click="$router.finish();" >&#xe6f6;</text>
@@ -11,63 +10,45 @@
 
         </div>
         <div class="mask-content" style="margin-top: -120px">
-                    <div class="overflow-mid">
-                        <div class="mid-card">
-                            <div class="mask-head">
-                                <text class="mask-title">How To Drop Price</text>
-                            </div>
-                            <div class="mid-card-item1">
-                                <div><image class="img-icon" src="bmlocal://assets/pic-click.png"></image></div>
-                                <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 1</text>
-                                    <text class="mid-card-text2">Click the “Drop Price” button to start your DROP campaign immediately.</text>
-                                </div>
-                            </div>
-                            <div class="mid-card-item1">
-                                <div><image class="img-icon" src="bmlocal://assets/pic-share.png"></image></div>
-                                <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 2</text>
-                                    <text class="mid-card-text2">Invite friends to support your DROP by sharing to Facebook & WhatsAPP. </text>
-                                </div>
-                            </div>
-                            <div class="mid-card-item1">
-                                <div><image class="img-icon" src="bmlocal://assets/pic-crowed.png"></image></div>
-                                <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 3</text>
-                                    <text class="mid-card-text2">The more people click the “Drop Price” button for you, the lower price you can reach.</text>
-                                </div>
-                            </div>
-
-                            <div class="mid-card-item1 mid-card-btm">
-                                <div><image class="img-icon" src="bmlocal://assets/pic-discount.png"></image></div>
-                                <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 4</text>
-                                    <text class="mid-card-text2">After the DROP ends, you can purchase the item at the final discounted price!</text>
-                                </div>
-                            </div>
+            <div class="overflow-mid">
+                <div class="mid-card">
+                    <div class="mask-head">
+                        <text class="mask-title">How To Drop Price</text>
+                    </div>
+                    <div class="mid-card-item1">
+                        <div><image class="img-icon" src="bmlocal://assets/pic-click.png"></image></div>
+                        <div class="mid-card-text">
+                            <text class="mid-card-text1">Step 1</text>
+                            <text class="mid-card-text2">Click the “Drop Price” button to start your DROP campaign immediately.</text>
                         </div>
                     </div>
-                    <!--<text class="mask-text">Step1: </text>-->
-                    <!--<text class="mask-text">Click the “Drop Price” button to start your DROP campaign immediately.</text>-->
-                    <!--<text class="mask-text">Step2: </text>-->
-                    <!--<text class="mask-text">Invite friends to support your DROP by sharing to Facebook & WhatsAPP. </text>-->
-                    <!--<text class="mask-text">Step3: </text>-->
-                    <!--<text class="mask-text">The more people click the “Drop Price” button for you, the lower price you can reach.</text>-->
-                    <!--<text class="mask-text">Step4: </text>-->
-                    <!--<text class="mask-text">After the DROP ends, you can purchase the item at the final discounted price!</text>-->
-
-                    <!--<div class="mask-head">-->
-                        <!--<text class="mask-title">Rules to Know</text>-->
-                    <!--</div>-->
-                    <!--<text class="mask-text">1. The duration of a Price Drop campaign is up to 24 hours. The campaign will end automatically once it reaches the lowest price.</text>-->
-                    <!--<text class="mask-text">2. As soon as the DROP ends, you have 24 hours to make your purchase. If you do not complete the payment in time, you’re deemed to waive your purchase right, and the reduced price will also expire.</text>-->
-                    <!--<text class="mask-text">3. Due to the limited stocks of each item, the products will be given out on a "first-pay, first-serve” basis. That means, if the stock has been running out before you complete the payment, the DROP may fail as well.</text>-->
-                    <!--<text>&nbsp;</text>-->
-                    <!--<text>&nbsp;</text>-->
+                    <div class="mid-card-item1">
+                        <div><image class="img-icon" src="bmlocal://assets/pic-share.png"></image></div>
+                        <div class="mid-card-text">
+                            <text class="mid-card-text1">Step 2</text>
+                            <text class="mid-card-text2">Invite friends to support your DROP by sharing to Facebook & WhatsAPP. </text>
+                        </div>
+                    </div>
+                    <div class="mid-card-item1">
+                        <div><image class="img-icon" src="bmlocal://assets/pic-crowed.png"></image></div>
+                        <div class="mid-card-text">
+                            <text class="mid-card-text1">Step 3</text>
+                            <text class="mid-card-text2">The more people click the “Drop Price” button for you, the lower price you can reach.</text>
+                        </div>
+                    </div>
+                    <div class="mid-card-item1 mid-card-btm">
+                        <div><image class="img-icon" src="bmlocal://assets/pic-discount.png"></image></div>
+                        <div class="mid-card-text">
+                            <text class="mid-card-text1">Step 4</text>
+                            <text class="mid-card-text2">After the DROP ends, you can purchase the item at the final discounted price!</text>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="overflow-bottom">
+        <div class="overflow-bottom"  >
 
-            <div class="bottom-card">
+            <div class="bottom-card"  v-if="ship==false">
                 <text class="bottom-head-txt head-txt">Rules to Know</text>
                 <div class="bottom-card-item1" v-for="(i,index) in QAArr"  :class="[index==QAArr.length-1 ?'bottom-last':'',]">
                     <div><text class="bottom-num">{{index+1}}.</text></div>
@@ -77,30 +58,29 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
-    </div>
-
-    <div class="wrapper" v-if="ship==true">
-
-        <!--<scroller >-->
-        <div class="overflow-box1" >
-            <text class="close1" @click="$router.finish();" style="color:black;"  >&#xe6f6;</text>
-
-        </div>
-
-        <div class="container-1">
-            <div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.{{time.priceItem}}</text>  </div>
-            <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
-            <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">2 - 4 days</text>  </div>
-            <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}} days</text> </div>
-            <!--<div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>-->
-        </div>
-        <!--</scroller>-->
 
     </div>
         </scroller>
+
+        <div class="wrapper" v-if="ship==true">
+
+            <!--<scroller >-->
+            <div class="overflow-box1" >
+                <text class="close1" @click="$router.finish();" style="color:black;"  >&#xe6f6;</text>
+
+            </div>
+
+            <div class="container-1">
+                <div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.{{time.priceItem}}</text>  </div>
+                <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
+                <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">2 - 4 days</text>  </div>
+                <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}} days</text> </div>
+                <!--<div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>-->
+            </div>
+            <!--</scroller>-->
+
+        </div>
 
     </div>
 </template>
@@ -239,7 +219,7 @@
         width: 686px;
         /*height: 420px;*/
         background-color: white;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12) ;
         border-radius: 16px;
         flex-direction: column;
         align-items: stretch;
