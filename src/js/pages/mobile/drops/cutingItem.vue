@@ -108,13 +108,11 @@
         },
         methods: {
             jumpWeb () {
-                const id = '';
                 this.$router.open({
                     name: 'goods.details',
                     type: 'PUSH',
                     params: {
-                        id,
-                        isDrop: true
+                        id: this.goods.id
                     }
                 })
             },
