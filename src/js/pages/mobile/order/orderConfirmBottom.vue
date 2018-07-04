@@ -93,6 +93,7 @@
                                 });
                             that.isFirst = true;
                         }, error => {
+                            this.$event.emit('cutDetail');
                             that.isFirst = true;
                             that.$notice.toast({
                                 message: error
@@ -167,6 +168,7 @@
                                 });
                             that.isFirst = true;
                         }, error => {
+                            this.$event.emit('cutDetail');
                             that.isFirst = true;
                             that.$notice.toast({
                                 message: error
