@@ -163,9 +163,10 @@
 
                     <div class="popup-py">
                         <text class="popup-price">Rs.{{selsaleUnitPrice}}</text>
-                        <text class="popup-lowprice-word">Start a drop to get it at:  </text>
-                        <text class="popup-lowprice" v-if="isDrop">Rs.{{lowestPrice}}</text>
-                        <text class="popup-lowprice" v-if="!isDrop">Rs.{{goods.unitPrice}}</text>
+                        <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at:  </text>
+                        <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price::  </text>
+                        <text class="popup-lowprice"      v-if="isDrop">Rs.{{lowestPrice}}</text>
+                        <text class="popup-lowprice"      v-if="!isDrop">Rs.{{goods.unitPrice}}</text>
                         <text class="popup-yet" v-if="hasVariants==true">{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
                     </div>
 
