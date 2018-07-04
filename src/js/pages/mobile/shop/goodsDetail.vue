@@ -251,7 +251,7 @@
                    quantity: '1',
                    id: '',
                    shippingPrice: '',
-                   isDrop: ''
+                   proId: ''
                 },
                 goodsImg: [],
                 tabsItems: [{
@@ -364,6 +364,7 @@
                             this.nextPage.productId = id.id;
                             this.nextPage.shippingPrice = res.shipping.priceItem;
                             this.isDrop = res.isDrop
+                            this.nextPage.proId = res.isDrop == false ? 'product' : '';
                             // nextPage 传给下一页组织的数据
                             // this.$notice.alert({
                             //     message: res
