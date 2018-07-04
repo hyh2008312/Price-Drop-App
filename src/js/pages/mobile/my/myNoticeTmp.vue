@@ -70,7 +70,7 @@
 
 
                         <div class="card-bottom" v-if="i.noticeType=='cut_end'||i.noticeType=='cut_end_early'"  @click="openNew(1,i.context.customerCutId)">
-                            <text class="card-bottom-word" >Click to View More Details  </text>
+                            <text class="card-bottom-word" >Click to View More Details</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 
@@ -79,7 +79,7 @@
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 
-                        <div class="card-bottom"  v-if="i.noticeType=='reminder_payment'" @click="openNew(1,i.context.customerCutId)">
+                        <div class="card-bottom"  v-if="i.noticeType=='reminder_payment'" @click="openNew(2,i.context.orderId)">
                             <text class="card-bottom-word" >Click to Pay Now</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
@@ -263,9 +263,6 @@
             },
             openNew (p, other) {
                 if (p == 1) {
-                    // this.$notice.toast({
-                    //     message: other
-                    // })
                     this.$router.open({
                         name: 'drops.cutDetail',
                         type: 'PUSH',

@@ -105,7 +105,7 @@
                     <text class="i-box iconfont">&#xe626;</text>
                 </div>
 
-                <div class="box-tlt " @click="openNoti()">
+                <div class="box-tlt " @click="openNoti()" v-if="user">
                     <div class="box-left">
                         <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
 
