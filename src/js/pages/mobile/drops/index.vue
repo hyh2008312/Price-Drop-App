@@ -161,6 +161,7 @@
                 this.$refs.refresh.refreshEnd();
                 this.isLoading = false;
                 this.requestProduct(true);
+                this.getBlock4();
             },
             onLoadingMore () {
                 this.requestProduct(false)
