@@ -23,7 +23,7 @@
                 }
                 if (!this.isFirst) {
                     this.isFirst = true;
-                    if (that.order.isDrop == 'product') {
+                    if (that.order.proId == 'product') {
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'order.create',
