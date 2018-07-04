@@ -23,12 +23,14 @@
 
 
                 <div class="count-div">
-                    <text class=" count" v-if="isDrop== true" >Get it at</text>
+                    <text class=" count" v-if="isDrop" >Get it at</text>
                     <text class=" price-name" v-if="!isDrop" >Exclusive Price:</text>
-                    <text class="count-bold">Rs.{{lowestPrice}}</text>
+                    <text class="count-bold" v-if="isDrop">Rs.{{lowestPrice}}</text>
+                    <text class="count-bold" v-if="!isDrop">Rs.{{goods.unitPrice}}</text>
                     <text class="count-1" v-if="isDrop== true">by inviting your friends!</text>
 
                 </div>
+
                 <div class="count-div">
                     <text class=" price-name" >Original Price: </text><text class="price">Rs.{{goods.price}}</text>
                     <text class="price-name price-price" v-if="!isDrop" >{{goods.priceoff}}% OFF</text>
@@ -162,7 +164,8 @@
                     <div class="popup-py">
                         <text class="popup-price">Rs.{{selsaleUnitPrice}}</text>
                         <text class="popup-lowprice-word">Start a drop to get it at:  </text>
-                        <text class="popup-lowprice">Rs.{{lowestPrice}}</text>
+                        <text class="popup-lowprice" v-if="isDrop">Rs.{{lowestPrice}}</text>
+                        <text class="popup-lowprice" v-if="!isDrop">Rs.{{goods.unitPrice}}</text>
                         <text class="popup-yet" v-if="hasVariants==true">{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
                     </div>
 
@@ -237,6 +240,7 @@
                 goods: {
                     title: '',
                     price: '0.00',
+                    unitPrice: '0.00',
                     priceoff: '0.00',
                     cut_get: '',
                     brandLogo: ''
@@ -307,7 +311,8 @@
         },
         created () {
             this.$router.getParams().then(resData => {
-                this.proId = resData
+                this.proId = resData.id
+                this.isDrop = resData.isDrop
                 this.getGoodsDetail(resData)
                 googleAnalytics.trackingScreen(`Product Detail/${this.proId.id}`);
             })
@@ -327,9 +332,10 @@
                     }).then((res) => {
                             this.goods.title = res.title;
                             this.goods.price = res.saleUnitPrice;
+                            this.goods.unitPrice = res.unitPrice;
                             this.selsaleUnitPrice = res.saleUnitPrice;
                             this.lowestPrice = res.lowestPrice;
-                            this.goods.priceoff = parseInt((((this.goods.price - this.lowestPrice) / this.goods.price)) * 100)
+                            this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
                             this.goods.brandLogo = res.brandLogo;
                             this.goodsImg = res.images;
                             if (res.cutGet == null) {
@@ -354,7 +360,7 @@
                                 this.variantsId = res.variants[0].id
                                 this.nextPage.id = res.variants[0].id
                                 this.nextPage.salePrice = res.variants[0].saleUnitPrice;
-                                this.nextPage.currentPrice = res.variants[0].lowestPrice;
+                                this.nextPage.currentPrice = res.variants[0].unitPrice;
                                 // this.nextPage.mainImage =
                             }
 
@@ -596,7 +602,7 @@
                 this.nextPage.id = this.variantsId;
                 this.nextPage.mainImage = this.selimgsrc;
                 this.nextPage.salePrice = this.selsaleUnitPrice;
-                this.nextPage.currentPrice = this.lowestPrice;
+                this.nextPage.currentPrice = this.goods.unitPrice;
             },
             openShip (e) {
                 if (e == 1) {
