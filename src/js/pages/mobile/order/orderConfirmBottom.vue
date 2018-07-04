@@ -23,9 +23,6 @@
                 }
                 if (!this.isFirst) {
                     this.isFirst = true;
-                    that.$notice.alert({
-                        message: that.order.isDrop
-                    })
                     if (!that.order.isDrop) {
                         that.$fetch({
                             method: 'POST', // 大写
