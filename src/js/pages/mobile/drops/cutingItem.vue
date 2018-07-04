@@ -112,7 +112,8 @@
                     name: 'goods.details',
                     type: 'PUSH',
                     params: {
-                        id: this.goods.id
+                        id: this.goods.id,
+                        isDrop:true
                     }
                 })
             },
