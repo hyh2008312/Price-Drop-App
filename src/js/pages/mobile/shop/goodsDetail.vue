@@ -17,11 +17,13 @@
                 <div class="iiileft-div" @click="$router.back">
                     <text class="iiileft">&#xe6f6;</text>
                 </div>
-
                 <text class="iiiright" @click="openLink">&#xe700;</text>
+                <div class="red-dot" v-if="dropGoods>0"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
+
+
+
+
                 <text class="onetitle">{{goods.title}}</text>
-
-
                 <div class="count-div">
                     <text class=" count" v-if="isDrop" >Get it at</text>
                     <text class=" price-name" v-if="!isDrop" >Exclusive Price:</text>
@@ -34,7 +36,7 @@
                 <div class="count-div">
                     <text class=" price-name" >Original Price: </text><text class="price">Rs.{{goods.price}}</text>
                     <text class="price-name price-price" v-if="!isDrop" >{{goods.priceoff}}% OFF</text>
-                    <text class="price-name price-off">Free shipping</text>
+                    <text class="price-name price-off">Free Shipping</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
@@ -89,7 +91,7 @@
 
                 </div>
 
-                <div class="slogan" >
+                <div class="slogan" v-if="!isDrop">
                     <div class="slg">
                         <text class="i-slg-icon">&#xe714;</text>
                         <text class="i-slg"> Quality Guaranteed </text>
@@ -122,9 +124,7 @@
                     </div>
                 </div>
 
-                <div>
-
-
+            <div>
                 <div class="bottom-div" >
                     <text class="bottom-head" >Return Policy</text>
 
@@ -246,6 +246,7 @@
                     cut_get: '',
                     brandLogo: ''
                 },
+                dropGoods: 0,
                 nextPage: {
                    title: '',
                    mainImage: '',
@@ -315,6 +316,7 @@
                 this.proId = resData.id
                 this.isDrop = resData.isDrop
                 this.getGoodsDetail(resData)
+                this.getDropGoods()
                 googleAnalytics.trackingScreen(`Product Detail/${this.proId.id}`);
             })
             if (this.$storage.getSync('user')) {
@@ -397,6 +399,26 @@
                     })
                 }
             },
+            getDropGoods () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'promotion.cut.list',
+                    data: {
+                        page: 1,
+                        page_size: 999,
+                        status: 'progressing'
+                    },
+                    header: {
+                        needAuth: true
+                    }
+
+                }).then(data => {
+                    this.dropGoods = data.count
+                   // this.$notice.toast({
+                   //     message: data.count
+                   // })
+                }, error => {})
+            },
             createCut () {
                 this.$notice.loading.show();
                 this.$fetch({
@@ -416,6 +438,7 @@
                             id: res.id
                         }
                     })
+                    this.dropGoods += 1
                     this.$notice.loading.hide();
                     googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.variantsId, 0);
                 }).catch((res) => {
@@ -724,6 +747,18 @@
         width: 48px;
         line-height: 48px;
         text-align: center;
+        align-items: center;
+    }
+    .red-dot{
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        position: absolute;
+        border-radius:24px ;
+        top:75px;
+        right:38px;
+       flex-direction: row;
+        justify-content: center;
         align-items: center;
     }
     .onetitle{
