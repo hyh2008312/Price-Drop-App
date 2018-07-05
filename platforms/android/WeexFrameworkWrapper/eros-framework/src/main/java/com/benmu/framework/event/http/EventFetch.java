@@ -34,6 +34,7 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.squareup.otto.Subscribe;
 import com.taobao.weex.bridge.JSCallback;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -209,6 +210,9 @@ public class EventFetch extends EventGate {
             HttpException httpException = (HttpException) e;
             bean.status = httpException.getmErrorCode();
             bean.errorMsg = httpException.getmErrorMessage();
+        } else if (e instanceof ConnectException) {
+            bean.status = 10;
+            bean.errorMsg = "It seems your internet is not stable. Please try again or reopen your app!";
         } else if (e instanceof IrregularUrlException) {
             IrregularUrlException irregularUrlException = (IrregularUrlException) e;
             bean.status = 9;
