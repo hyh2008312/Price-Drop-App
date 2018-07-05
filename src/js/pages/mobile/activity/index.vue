@@ -23,8 +23,8 @@
                         </div>
                     </div>
                     <div class="gd-tlt-bg">
-                        <text class="gd-tlt">Rs.{{i.lowestPrice}}</text>
-                        <text class="gd-info">{{countOff(i.lowestPrice, i.saleUnitPrice)}}</text>
+                        <text class="gd-tlt">Rs.{{i.unitPrice}}</text>
+                        <text class="gd-info">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                     <text class="gd-price">Rs.{{i.saleUnitPrice}}</text>
                     <text class="gd-button">Buy Now</text>
