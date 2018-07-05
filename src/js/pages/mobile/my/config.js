@@ -134,4 +134,33 @@ export const Privacy = [{
     question: 'Do we disclose any information to outside parties?',
     answer: 'We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information. This does not include trusted third parties who assist us in operating our app, conducting our business, or servicing you, so long as those parties agree to keep this information confidential. We may also release your information when we believe release is appropriate to comply with the law, enforce our site policies, or protect our or other’s rights, property, or safety. However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.'
 }]
+export const Return = [{
+    question: 'How do I return an item?',
+    answer: 'Step 1: Send your return request to support@getpricedrop.com along with your order number and the name of the item you want to return.\n' +
+    'Step 2: Our customer service will send you a RAN (Return Authorization Number) within 24 hours.\n' +
+    'Step 3: Pack up the item you want to return and send it back to our warehouse (address in the email with RAN). \n' +
+    'Step 4: Once our warehouse receives the return package, we will issue the refund within 3 business days.\n' +
+    '\nPlease note that any returned items must be in resalable condition. Item that arrived damaged will not be eligible for refund.\n'
+}, {
+    question: 'Who is responsible for the return shipping?',
+    answer: 'If the return is caused by PriceDrop’s error, we will refund return shipping costs up to a certain amount. You will need to pay the carrier at the time of shipping and ask for a payment receipt. The return shipping costs will be covered along with the refund. \n' +
+    'If the return is not caused by PriceDrop’s error, you will need to pay for the return shipping fee. \n' +
+    'We recommend that you choose a local carrier with a cheaper price for return shipping. \n'
+}, {
+    question: 'How long does it take to receive the refund?',
+    answer: 'It usually takes 5-10 business days for the refund to be issued to your original payment method.'
+}]
+export const Contact = [{
+    question: 'Company Name:',
+    answer: 'JMD Techmosoft Pvt Ltd.'
+}, {
+    question: 'Address:',
+    answer: '274, CP Mission Compound, Gwalior Road Jhansi, Uttar Pradesh, 284003\n'
+}, {
+    question: 'Contact Email:',
+    answer: 'prachi@techmosoft.com'
+}, {
+    question: 'Contact Number:',
+    answer: '+91  9902070180 '
+}]
 
