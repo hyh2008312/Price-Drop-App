@@ -33,7 +33,7 @@
                         </div>
                         <text class="gd-price-show" v-if="goods.cutStatus=='progressing'">Dropped Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }} by {{goods.cutTimes}} people</text>
                         <div class="gd-cut" v-if="goods.cutStatus=='progressing'">
-                            <text class="gd-cut-price">Rs.{{goods.lowestPrice}}</text>
+                            <text class="gd-cut-price">Rs.{{ Math.floor((goods.currentPrice - goods.lowestPrice)*100)/100 }}</text>
                             <text class="gd-cut-price-tip"> left to reach the lowest price</text>
                         </div>
                         <div class="gd-cut-end"v-if="goods.cutStatus=='end'">
