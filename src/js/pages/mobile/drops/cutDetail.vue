@@ -34,6 +34,7 @@
                 </div>
                  </div>
                  </div>
+                <div class="out-head-1"></div>
                  <div class="out-head">
                     <image class="in-head" resize="cover"
                            :src="goodsDetail.ownerAvatar"></image>
@@ -376,7 +377,7 @@
                     }, 1000);
                 }, error => {
                     that.loadingEnd();
-                    this.$notice.toast('network is error');
+                    this.$notice.toast(error);
                 })
             },
             showBuyNow () {
@@ -791,6 +792,7 @@
 
     .wrapper-timer {
         margin-top: 24px;
+        margin-left: 64px;
     }
 
     .wrapper-share {
@@ -1015,16 +1017,26 @@
 
     .out-head {
         position: absolute;
-        top:0;
+        top:5px;
         left: 295px;
         height: 96px;
         width: 96px;
         border-radius: 48px;
     }
+    .out-head-1 {
+        position: absolute;
+        top:0;
+        left: 290px;
+        height: 106px;
+        width: 106px;
+        background-color: #FFFFFF;
+        border-radius: 53px;
+    }
 
     .in-head {
         height: 96px;
         width: 96px;
+        overflow: hidden;
     }
 
     .navigation {
