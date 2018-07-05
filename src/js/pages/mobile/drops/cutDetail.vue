@@ -377,7 +377,6 @@
                     }, 1000);
                 }, error => {
                     that.loadingEnd();
-                    this.$notice.toast(error);
                 })
             },
             showBuyNow () {

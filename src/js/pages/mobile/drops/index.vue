@@ -217,9 +217,7 @@
                     }
                 }, error => {
                     this.loadingEnd();
-                     this.$notice.toast({
-                        message: error
-                    })
+
                 })
             },
             getcutendProduct (isFirst) {
@@ -251,9 +249,6 @@
                     }
                 }, error => {
                     this.loadingEnd();
-                    this.$notice.toast({
-                        message: error
-                    })
                 })
             },
             onTabTo (event) {
