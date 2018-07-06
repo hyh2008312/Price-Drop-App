@@ -4,7 +4,7 @@
  */
 const ShareUrlUtil = {
     getShareUrl (productId) {
-        return `https://app.getpricedrop.com/detail/${productId}`;
+        return `https://app.getpricedrop.com/detail/${productId}/`;
     },
     /* getWhatsAppParams (productId, peopleNumber) {
         return 'Hey! I just found this item and need your help to drop the price before it sells out:  \n' +
