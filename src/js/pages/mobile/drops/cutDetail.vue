@@ -316,7 +316,7 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = '1,000+ got the lowest price here.';
+                const detail = 'Click to join me and get your favorite product at Rs.1 only!';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
@@ -330,7 +330,7 @@
             },
             shareFacebookMessenger () {
                 const that = this;
-                const detail = '1,000+ got the lowest price here.';
+                const detail = 'Click to join me and get your favorite product at Rs.1 only!';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebookMessenger(

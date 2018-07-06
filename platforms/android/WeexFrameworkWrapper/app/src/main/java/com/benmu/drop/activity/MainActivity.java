@@ -116,7 +116,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             @Override
             public void onSuccess(Sharer.Result result) {
                 jsSuccessCallback.invoke(result);
-                Toast.makeText(MainActivity.this, "Share Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Successful", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -135,13 +135,14 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentUrl(Uri.parse(url))
+                    .setQuote(detail)
                     .build();
             shareDialog.show(linkContent);
         }
     }
     public void shareFacebookMessenger(String title, String detail, String url, String imageUrl,
-                              final JSCallback jsSuccessCallback, final JSCallback jsFailedCallback){
-
+                               JSCallback jsSuccessCallback,  JSCallback jsFailedCallback){
+        jsSuccessCallback.invoke(new Object());
         ShareMessengerURLActionButton actionButton =
                 new ShareMessengerURLActionButton.Builder()
                         .setTitle(title)
@@ -156,7 +157,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
                         .build();
         ShareMessengerGenericTemplateContent genericTemplateContent =
                 new ShareMessengerGenericTemplateContent.Builder()
-                        .setPageId("Your Page Id") // Your page ID, required
+                        .setPageId("2090990797781838") // Your page ID, required
                         .setGenericTemplateElement(genericTemplateElement)
                         .build();
         if (MessageDialog.canShow(genericTemplateContent.getClass())) {
