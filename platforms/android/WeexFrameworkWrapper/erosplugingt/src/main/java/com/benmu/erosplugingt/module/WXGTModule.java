@@ -25,6 +25,7 @@ public class WXGTModule extends WXModule {
     @JSMethod
     public void initPush(String parms) {
         GetuiManager.pushInit(mWXSDKInstance.getContext());
+
     }
 
     @JSMethod
