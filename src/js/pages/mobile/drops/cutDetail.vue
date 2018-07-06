@@ -153,7 +153,7 @@
             @wxcPopupOverlayClicked="popupOverlayAutoClick"
             ref="wxcPopup"
             pos="bottom"
-            height="710">
+            height="560">
             <div class="share-content">
                 <div>
                     <div class="share-content-top">
@@ -181,7 +181,7 @@
                                 <text class="whatsapp-text">Copy Link</text>
                             </div>
                         </div>
-                        <div class="share-content-icon-1">
+                        <div class="share-content-icon-1" v-if="false">
                             <div class="messager"  @click="shareFacebookMessenger">
                                 <text class="messager-icon">&#xe727;</text>
                                 <text class="facebook-text">FBMessenger</text>
@@ -713,7 +713,7 @@
     }
 
     .share-content-bottom {
-        height: 534px;
+        height: 384px;
         background-color: white;
     }
 

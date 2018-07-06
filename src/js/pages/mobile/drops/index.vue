@@ -17,19 +17,29 @@
             <cell v-for="(i ,index) in goods">
                 <cutingItem :goods=i :key="index" :flag="isCuting"></cutingItem>
             </cell>
-            <cell class="container-1" :style="height" v-if="goods.length == 0 && !(!isCuting &&!isMyDropLogin)">
+            <cell class="container-1" :style="height" v-if="goods.length == 0 && !(!isCuting &&!isMyDropLogin) && isWifi">
                 <div class="container-2">
                     <image class="pay-image" src="bmlocal://assets/empty.png"></image>
                 </div>
                 <text class="address-title">There is no drop to show.</text>
             </cell>
-            <cell class="container-1-1" :style="height" v-if="!isCuting &&!isMyDropLogin">
+            <cell class="container-1-1" :style="height" v-if="!isCuting &&!isMyDropLogin && isWifi">
                 <div class="container-2-1">
                     <image class="pay-image" src="bmlocal://assets/pay-success.png"></image>
                 </div>
                 <text class="address-title-1">To view your Drops, please login first!</text>
                 <div class="drop-login" @click="toLogin">
                     <text class="drop-login-text">Log In / Sign Up</text>
+                </div>
+            </cell>
+            <cell class="container-1-1" :style="height" v-if="!isWifi">
+                <div class="container-2-1">
+                    <image class="pay-image" src="bmlocal://assets/error-05.png"></image>
+                </div>
+                <text class="no-wifi-title">It seems your internet is not stable. </text>
+                <text class="no-wifi-title-1">Please try again or reopen your app!</text>
+                <div class="drop-login" @click="ReloadData">
+                    <text class="drop-reload">Reload</text>
                 </div>
             </cell>
 
@@ -95,10 +105,17 @@
                     items: []
                 },
                 backup: [],
-                isMyDropLogin: false
+                isMyDropLogin: false,
+                isWifi: true
             }
         },
         methods: {
+            ReloadData () {
+                this.$refs.refresh.refreshEnd();
+                this.isLoading = false;
+                this.requestProduct(true);
+                this.getBlock4();
+                },
             toLogin () {
                 this.$router.open({
                     name: 'login',
@@ -202,6 +219,7 @@
                     }}
             ).then(data => {
                     this.loadingEnd();
+                    this.isWifi = true;
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
@@ -217,7 +235,9 @@
                     }
                 }, error => {
                     this.loadingEnd();
-
+                    if (error.status == 10) {
+                        this.isWifi = false;
+                    }
                 })
             },
             getcutendProduct (isFirst) {
@@ -234,6 +254,7 @@
 
                 }).then(data => {
                     this.loadingEnd();
+                    this.isWifi = true;
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
@@ -249,6 +270,9 @@
                     }
                 }, error => {
                     this.loadingEnd();
+                    if (error.status == 10) {
+                        this.isWifi = false;
+                    }
                 })
             },
             onTabTo (event) {
@@ -269,8 +293,31 @@
     }
 </script>
 <style scoped>
+    .gd-button{
+        margin-top: 48px;
+        width: 200px;
+        text-align: center;
+        font-size: 28px;
+        line-height: 72px;
+        font-weight: bold;
+        border-radius: 4px;
+        background-color: #EF8A31;
+        color: #FFF;
+    }
     .drop-login-text{
         width: 320px;
+        height: 64px;
+        line-height: 64px;
+        text-align: center;
+        background-color: #EF8A31;
+        border-radius: 8px;
+        font-family: ProximaNova-Bold;
+        font-weight: bold;
+        color: #FFFFFF;
+        font-size: 24px;
+    }
+    .drop-reload{
+        width: 200px;
         height: 64px;
         line-height: 64px;
         text-align: center;
@@ -481,10 +528,28 @@
         font-size: 20px;
         line-height: 34px;
         text-align: center;
-        font-family: ProximaNova-Bold;
-        font-weight: bold;
         color: rgba(0,0,0,0.38);
     }
+    .no-wifi-title{
+        margin-top: 32px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
+        font-weight: bold;
+        font-family: ProximaNova-Bold;
+        color: rgba(0,0,0, 0.38);
+    }
+
+    .no-wifi-title-1{
+        font-weight: bold;
+        font-family: ProximaNova-Bold;
+        margin-top: 8px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
+        color: rgba(0,0,0, 0.38);
+    }
+
     .notice-bg{
         width: 718px;
         height: 96px;

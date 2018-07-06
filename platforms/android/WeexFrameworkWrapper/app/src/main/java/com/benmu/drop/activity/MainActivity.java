@@ -116,19 +116,16 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             @Override
             public void onSuccess(Sharer.Result result) {
                 jsSuccessCallback.invoke(result);
-                Toast.makeText(MainActivity.this, "Successful", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel() {
                 jsFailedCallback.invoke(new Object());
-                Toast.makeText(MainActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException error) {
                 jsFailedCallback.invoke(error);
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
         },SHARE_FACEBOOK);
 
