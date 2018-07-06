@@ -44,7 +44,8 @@ export default {
             this.getAddress();
         },
         appeared (params, option) {
-            this.order = params
+            this.order = params;
+            this.order.shippingPrice = '0.00';
         }
     },
     created () {
