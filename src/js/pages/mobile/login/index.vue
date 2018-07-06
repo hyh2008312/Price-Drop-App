@@ -10,7 +10,7 @@
                <text class="google-login-icon">&#xe71f;</text>
                <text class="google-login-text">Continue with Google</text>
             </div>
-            <div class="google-login" v-if="true" @click="startFacebookLogin">
+            <div class="google-login" v-if="false" @click="startFacebookLogin">
                <text class="google-login-icon">&#xe71f;</text>
                <text class="google-login-text">Continue with Facebook</text>
             </div>

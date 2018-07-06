@@ -211,7 +211,7 @@ public class DefaultWXImageAdapter implements IWXImgLoaderAdapter {
         HookWXImageView wxImageView = (HookWXImageView) view;
         wxImageView.setImageBitmap(null);
         if (TextUtils.isEmpty(url)) {
-            handleError((HookWXImageView) view);
+           // handleError((HookWXImageView) view);
             if (strategy != null && strategy.getImageListener() != null) {
                 strategy.getImageListener().onImageFinish(url, view, true, null);
             }

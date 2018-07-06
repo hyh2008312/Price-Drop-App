@@ -2,11 +2,9 @@ package com.benmu.drop;
 
 import android.app.Application;
 
-import com.benmu.drop.activity.utils.HttpServerConfig;
 import com.benmu.framework.BMWXApplication;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.umeng.commonsdk.UMConfigure;
 
 /**
  * @author luzhenqiang
@@ -24,7 +22,7 @@ public class SocialCommerApplication extends BMWXApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        initUmengSDK();
+        // initUmengSDK();
         initGoogleAnalytics();
 
     }
@@ -36,10 +34,10 @@ public class SocialCommerApplication extends BMWXApplication {
         sAnalytics = GoogleAnalytics.getInstance(this);
     }
 
-    private void initUmengSDK() {
+    /*private void initUmengSDK() {
         UMConfigure.init(this, "5b03c2fca40fa3604400007f", "google", UMConfigure.DEVICE_TYPE_PHONE, "");
         UMConfigure.setLogEnabled(true);
-    }
+    }*/
 
     /**
      * Gets the default {@link Tracker} for this {@link Application}.

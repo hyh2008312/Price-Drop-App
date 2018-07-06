@@ -168,7 +168,7 @@
                     </div>
                     <div class="share-content-bottom">
                         <div class="share-content-icon">
-                            <div class="facebook" v-if="false" @click="shareFacebook">
+                            <div class="facebook" v-if="true" @click="shareFacebook">
                                 <text class="facebook-icon">&#xe70f;</text>
                                 <text class="facebook-text">Facebook</text>
                             </div>
@@ -180,7 +180,7 @@
                                 <text class="whatsapp-icon">&#xe710;</text>
                                 <text class="whatsapp-text">WhatsApp</text>
                             </div>
-                            <div class="copylink" @click="copyShareLink">
+                            <div class="copylink" v-if="true" @click="copyShareLink">
                                 <text class="copylink-icon">&#xe728;</text>
                                 <text class="whatsapp-text">Copy Link</text>
                             </div>
@@ -253,17 +253,17 @@
         },
         eros: {
             appeared (params, options) {
-                console.log('beforeAppear');
-               // this.isShow = params.isShowSharePanel;
-                this.isShow = true;
-                this.id = params.id;
-                this.requestCutDetail();
-                this.initGoogleAnalytics(this.id)
             }
         },
         created () {
             this.registerEvent();
-          //  this.initGoogleAnalytics();
+            this.$router.getParams().then(resData => {
+                // this.isShow = params.isShowSharePanel;
+                this.isShow = true;
+                this.id = resData.id;
+                this.requestCutDetail();
+                this.initGoogleAnalytics(this.id)
+            })
         },
         destory () {
             this.$event.off('cutDetail')

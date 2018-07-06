@@ -2,6 +2,7 @@ package com.benmu.drop.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,6 +23,13 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareMessengerGenericTemplateContent;
+import com.facebook.share.model.ShareMessengerGenericTemplateElement;
+import com.facebook.share.model.ShareMessengerURLActionButton;
+import com.facebook.share.widget.MessageDialog;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -31,7 +39,6 @@ import com.razorpay.PaymentResultListener;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXException;
-import com.umeng.socialize.UMShareAPI;
 
 import org.json.JSONObject;
 
@@ -50,6 +57,12 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
     private static final int RC_SIGN_IN = 12321;
 
     private CallbackManager mCallbackManager;
+    private CallbackManager mShareCallbackManager;
+    private CallbackManager mMessengerCallbackManager;
+    private ShareDialog shareDialog ;
+    private MessageDialog messageDialog;
+    private static final int SHARE_FACEBOOK=10086;
+    private static final int MESSENGER_FACEBOOK=10087;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +91,6 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         LoginResult ss = loginResult ;
-                        LoginResult ss1 = loginResult ;
-                        LoginResult ss2 = loginResult ;
                         Toast.makeText(MainActivity.this,"success",Toast.LENGTH_SHORT).show();
                     }
 
@@ -91,13 +102,67 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
                     @Override
                     public void onError(FacebookException exception) {
                         Toast.makeText(MainActivity.this,"onError",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(MainActivity.this,"onError",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
     public void startFacebookLogin(){
-       // LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
+    }
+    public void shareFacebook(String title, String detail, String url, String imageUrl,
+                              final JSCallback jsSuccessCallback, final JSCallback jsFailedCallback){
+        mShareCallbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        shareDialog.registerCallback(mShareCallbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                jsSuccessCallback.invoke(result);
+                Toast.makeText(MainActivity.this, "Share Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                jsFailedCallback.invoke(new Object());
+                Toast.makeText(MainActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                jsFailedCallback.invoke(error);
+                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        },SHARE_FACEBOOK);
+
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse(url))
+                    .build();
+            shareDialog.show(linkContent);
+        }
+    }
+    public void shareFacebookMessenger(String title, String detail, String url, String imageUrl,
+                              final JSCallback jsSuccessCallback, final JSCallback jsFailedCallback){
+
+        ShareMessengerURLActionButton actionButton =
+                new ShareMessengerURLActionButton.Builder()
+                        .setTitle(title)
+                        .setUrl(Uri.parse(url))
+                        .build();
+        ShareMessengerGenericTemplateElement genericTemplateElement =
+                new ShareMessengerGenericTemplateElement.Builder()
+                        .setTitle(title)
+                        .setSubtitle(detail)
+                        .setImageUrl(Uri.parse(imageUrl))
+                        .setButton(actionButton)
+                        .build();
+        ShareMessengerGenericTemplateContent genericTemplateContent =
+                new ShareMessengerGenericTemplateContent.Builder()
+                        .setPageId("Your Page Id") // Your page ID, required
+                        .setGenericTemplateElement(genericTemplateElement)
+                        .build();
+        if (MessageDialog.canShow(genericTemplateContent.getClass())) {
+            MessageDialog.show(this, genericTemplateContent);
+        }
+
     }
 
     private void initPayment() {
@@ -114,11 +179,13 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
         if (mCallbackManager != null) {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
+        if (mShareCallbackManager!=null && requestCode == SHARE_FACEBOOK){
+            mShareCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
-       // UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     public void setPayCallBack(JSCallback paySuccessCallback, JSCallback payFailedCallback) {
