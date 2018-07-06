@@ -33,7 +33,7 @@ export default {
         url: '/pages/mobile/my/faqTmp.js'
     },
     'my.about': {
-        url: '/pages/mobile/my/myAboutUs.js'
+        url: '/pages/mobile/my/myAbout.js'
     },
     'my.gender': {
         url: '/pages/mobile/my/myGender.js'

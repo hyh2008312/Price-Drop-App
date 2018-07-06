@@ -17,7 +17,7 @@ module.exports = {
         'js/pages/mobile/my/myDetail.vue',
         'js/pages/mobile/my/myFaq.vue',
         'js/pages/mobile/my/faqTmp.vue',
-        'js/pages/mobile/my/myAboutUs.vue',
+        'js/pages/mobile/my/myAbout.vue',
         'js/pages/mobile/my/myGender.vue',
         'js/pages/mobile/my/mySupport.vue',
         'js/pages/mobile/my/mySetting.vue',

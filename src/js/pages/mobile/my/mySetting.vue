@@ -3,24 +3,23 @@
         <topic-header title="Settings" leftBtn="icon"  ref="ref1" ></topic-header>
         <div class="blackheader"></div>
         <div class="mid-cell" >
-            <div class="box-tlt " @click="openNew(7)">
-                <div class="box-left">
-                    <text class="box-txt">Terms & Conditions</text>
-                </div>
-                <div class="box-right">
-                    <text class="i-box iconfont">&#xe626;</text>
-                </div>
+            <!--<div class="box-tlt " @click="openNew(7)">-->
+                <!--<div class="box-left">-->
+                    <!--<text class="box-txt">Terms & Conditions</text>-->
+                <!--</div>-->
+                <!--<div class="box-right">-->
+                    <!--<text class="i-box iconfont">&#xe626;</text>-->
+                <!--</div>-->
 
-            </div>
-            <div class="box-tlt "  @click="openNew(8)">
-                <div class="box-left">
-                    <text class="box-txt">Privacy Policy</text>
-                </div>
-                <div class="box-right">
-                    <text class="i-box iconfont">&#xe626;</text>
-                </div>
-
-            </div>
+            <!--</div>-->
+            <!--<div class="box-tlt "  @click="openNew(8)">-->
+                <!--<div class="box-left">-->
+                    <!--<text class="box-txt">Privacy Policy</text>-->
+                <!--</div>-->
+                <!--<div class="box-right">-->
+                    <!--<text class="i-box iconfont">&#xe626;</text>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="box-tlt" @click="openDialog">
                 <div class="box-left">
                     <text class="box-txt">Version</text>
@@ -136,15 +135,6 @@
                 commonUtils.getAppVersionCode(function (params) {
                     if (params.code === 200) {
                         that.version = params.versionName
-                    }
-                })
-            },
-            openNew (head) {
-                this.$router.open({
-                    name: 'my.faqTmp',
-                    type: 'PUSH',
-                    params: {
-                        type: head
                     }
                 })
             },

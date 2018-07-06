@@ -82,12 +82,7 @@ export default {
             }).then(resData => {
                 // 成功回调
                 this.order = resData
-            }, error => {
-                // 错误回调
-                this.$notice.toast({
-                    message: error
-                })
-            })
+            }, error => {});
         }
     }
 }

@@ -125,7 +125,7 @@
                         <image class="box-txt-icon" src="bmlocal://assets/pic-about.png"></image>
 
                         <!--<text class="box-txt-icon">&#xe721;</text>-->
-                        <text class="box-txt">About Us</text>
+                        <text class="box-txt">About</text>
                     </div>
                     <text class="i-box iconfont">&#xe626;</text>
 

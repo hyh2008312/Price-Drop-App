@@ -37,6 +37,57 @@
                     <text class="h2">PriceDrop hereby reserves the right to modify/amend or otherwise change this privacy policy, as it deems necessary or appropriate, due to legal compliance requirements or changes to our business practices. If you have provided us with an email address we will endeavor to notify you, by email to that address, of any material change to how we will use personally identifiable information.</text>
                 </div>
             </div>
+            <div v-if="settingPage==3" class="content" >  <!--about us-->
+                <text class="policy">PriceDrop is a fun, social and money-saving shopping app that lets you shop your favorite products at the lowest price by teaming up with your friends on Facebook & WhatsApp. </text>
+                <text class="policy">Our mission is to help our customers save bigger, and create a more engaging social selling channel for brands and manufacturers from around the world! </text>
+                <text class="policy">PriceDrop is a venture-backed company founded by two Y Combinator alumnus and former executives from Amazon, Google and Alibaba Group. If you are passionate about transforming the way people shop online, come join us by sending your resume to: career@getpricedrop.com.</text>
+            </div>
+            <div v-if="settingPage==4" class="content" >  <!--Shipping Policy-->
+                <div>
+                    <text class="policy">All the products will be shipped within 2-4 days as long as the order is placed, and the delivery time will depends on the shipping location. It normally takes 5 – 12 days.
+                    </text>
+                </div>
+            </div>
+            <div v-if="settingPage==5" class="content" >  <!--Return Policy-->
+                <div>
+                    <text class="policy">You may return all items sold by PriceDrop within 9 days of delivery for a refund, as long as it is unused and in a good condition.
+                    </text>
+                    <text class="policy">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
+                    </text>
+                </div>
+                <div v-for="(i,index) in QAArr ">
+                    <text class="question">{{index+1}}.{{i.question}}</text>
+                    <text class="answer">{{i.answer}}</text>
+                </div>
+            </div>
+            <div v-if="settingPage==6" class="content" >  <!--Cancellation Policy-->
+                <div>
+                       <text class="policy">To cancel an unfulfilled order, please contact our customer support team by sending an email along with your product name and order number to the following email address: support@getpricedrop.com ;
+                       </text>
+                    <text class="policy">Note: If your item has been shipped, you can’t cancel your order any more.</text>
+                </div>
+            </div>
+            <div v-if="settingPage==7" class="content" >  <!--Disclaimer-->
+                <div>
+                    <text class="policy">All goods sold by Our Company are warranted to Buyer to be free from defects in material and workmanship, and manufactured in accordance with industry standards. Therefore going warranty is non-assignable and in lieu of and excludes all other warranties not expressly set forth herein, whether express or implied by operation of law or other wise including but not limited to any implied warranties of merchant ability or fitness. No agent, employee, or representative of Our Company has any authority to bind Our Company to any representation, affirmation, or warranty concerning the goods and any such representation, affirmation, or warranty shall not be deemed to have become apart of the basis of this agreement and shall be unenforceable.
+                    </text>
+                    <text class="policy">Any claimed defect in material or workmanship shall be deemed waived by Buyer unless submitted to Our Company in writing within five (5) days from the date the goods are received by Buyer. Our Company shall not be liable under the foregoing warranty if any loss or damage is caused by improper application or use of the goods. Our Company disclaims all liability with respect to the design of the goods and makes no warranty with respect to such design. This warranty is in lieu of and excludes all other warranties, whether express, implied, or statutory, including implied warranties of merchantability or fitness.
+                    </text>
+                </div>
+
+            </div>
+            <div v-if="settingPage==8" class="content" >  <!--Contact Us-->
+                <div>
+                    <text class="policy">If you have any questions, please feel free to drop us an email or give us a call.
+                    </text>
+
+                    <div v-for="(i,index) in QAArr ">
+                        <text class="question">{{i.question}}</text>
+                        <text class="answer">{{i.answer}}</text>
+                    </div>
+                </div>
+
+            </div>
 
             <text class="answer">&nbsp;&nbsp;&nbsp;</text>
         </scroller>
@@ -45,7 +96,11 @@
 
 <script>
     import header from './header';
-    import { DropsQA, OrderQA, ShippingQA, CustomsQA, ReturnsQA, PaymentQA, TermAndCondittions, Privacy } from './config'
+    import { DropsQA, OrderQA,
+        ShippingQA, CustomsQA,
+        ReturnsQA, PaymentQA,
+        TermAndCondittions, Privacy,
+        Return, Contact } from './config'
 
     export default {
         components: {
@@ -97,6 +152,26 @@
                     this.title = 'Privacy Policy'
                     this.settingPage = 2
                     this.QAArr = Privacy
+                } else if (p.type == 9) {
+                    this.title = 'About Us'
+                    this.settingPage = 3
+                } else if (p.type == 10) {
+                    this.title = 'Shipping Policy'
+                    this.settingPage = 4
+                } else if (p.type == 11) {
+                    this.title = 'Return Policy'
+                    this.settingPage = 5
+                    this.QAArr = Return
+                } else if (p.type == 12) {
+                    this.title = 'Cancellation Policy'
+                    this.settingPage = 6
+                } else if (p.type == 13) {
+                    this.title = 'Disclaimer'
+                    this.settingPage = 7
+                } else if (p.type == 14) {
+                    this.title = 'Contact Us'
+                    this.settingPage = 8
+                    this.QAArr = Contact
                 }
             }
         }
@@ -165,5 +240,4 @@
         font-size: 24px;
 
     }
-
 </style>
