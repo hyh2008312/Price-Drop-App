@@ -1,7 +1,7 @@
 <!--suppress ALL -->
 <template>
     <div class="wrapper">
-        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" >
+        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button slider-wrap" v-if="false">
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
@@ -30,11 +30,13 @@
                 <text class="indicator">loading...</text>
             </loading>
         </list>
+        <no-wifi v-if="!hasWifi" @onReload="loadingDown"></no-wifi>
     </div>
 </template>
 <script>
 import { Utils } from 'weex-ui';
 import refresher from '../common/refresh';
+import noWifi from '../common/noWifi';
 import YXSlider from './YXSlider';
 import tab from './tab';
 import block2 from './block2';
@@ -55,7 +57,8 @@ export default {
         'block-2': block2,
         'block-3': block3,
         'block-4': block4,
-        'block-5': block5
+        'block-5': block5,
+        noWifi
     },
     created () {
         this.init();
@@ -89,7 +92,8 @@ export default {
             lengthNew: 2,
             countApi: 0,
             isPlatformAndroid: Utils.env.isAndroid(),
-            isActiveLoading: false
+            isActiveLoading: false,
+            hasWifi: true
         }
     },
     methods: {
@@ -108,7 +112,11 @@ export default {
                     const newArr = this.backup.splice(0, 4);
                     this.block1.items = [];
                     this.block1.items = [...newArr];
-                }, error => {})
+                }, error => {
+                    if(error.status == 10) {
+                        this.hasWifi = false;
+                    }
+                })
             }
         },
         onLoadingMore () {
@@ -134,9 +142,11 @@ export default {
             }
         },
         loadingDown () {
-            this.countApi = 0
-            this.$refs.refresh.refreshEnd()
-            this.isLoading = false
+            this.countApi = 0;
+            if (this.hasWifi) {
+                this.$refs.refresh.refreshEnd();
+            }
+            this.isLoading = false;
             this.init();
         },
         init () {
@@ -161,7 +171,9 @@ export default {
                 this.refreshing = false;
                 this.refreshApiFinished();
             }, error => {
-
+                if(error.status == 10) {
+                    this.hasWifi = false;
+                }
             })
         },
         getActivity() {
@@ -174,7 +186,9 @@ export default {
                 this.activity = [...resData];
                 this.refreshApiFinished();
             }, error => {
-
+                if(error.status == 10) {
+                    this.hasWifi = false;
+                }
             });
         },
         getTabName () {
@@ -190,7 +204,11 @@ export default {
                 this.backup = [...resData];
                 const newArr = this.backup.splice(0, 4);
                 this.block1.items = [...newArr];
-            }, error => {});
+            }, error => {
+                if(error.status == 10) {
+                    this.hasWifi = false;
+                }
+            });
         },
         getBlock5 () {
             this.refreshApiFinished()
@@ -225,7 +243,9 @@ export default {
                 }
                 this.refreshApiFinished();
             }, (error) => {
-
+                if(error.status == 10) {
+                    this.hasWifi = false;
+                }
             });
         },
         getHotGoods (isfirst) {
@@ -258,7 +278,9 @@ export default {
                 }
                 this.refreshApiFinished();
             }, error => {
-
+                if(error.status == 10) {
+                    this.hasWifi = false;
+                }
             });
         },
         scrollToHeader() {
@@ -279,6 +301,7 @@ export default {
         refreshApiFinished() {
             this.countApi++;
             if(this.countApi >= 3) {
+                this.hasWifi = true;
                 this.$refs.refresh.refreshEnd();
                 this.countApi = 0;
             }

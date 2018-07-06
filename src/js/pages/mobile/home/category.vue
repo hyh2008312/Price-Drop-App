@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <list ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
+        <list ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" v-if="hasWifi">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="cell-top" ></cell>
             <cell class="notice-wrapper cell-button">
@@ -22,11 +22,13 @@
                 <text class="indicator">loading...</text>
             </loading>
         </list>
+        <no-wifi v-if="!hasWifi" @onReload="loadingDown"></no-wifi>
     </div>
 </template>
 <script>
 import { Utils } from 'weex-ui';
 import refresher from '../common/refresh';
+import noWifi from '../common/noWifi';
 import tab from './tabCategory';
 import block3 from './block3';
 import block4 from './block4';
@@ -40,7 +42,8 @@ export default {
         'refresher': refresher,
         'tab': tab,
         'block-3': block3,
-        'block-4': block4
+        'block-4': block4,
+        noWifi
     },
     props: ['index', 'activeIndex', 'id', 'item'],
     created () {
@@ -80,7 +83,8 @@ export default {
             lengthPrice: 2,
             isLoading: false,
             isPlatformAndroid: Utils.env.isAndroid(),
-            isFirstLoad: false
+            isFirstLoad: false,
+            hasWifi: true
         }
     },
     methods: {
@@ -98,23 +102,29 @@ export default {
                     this.backup = [...resData];
                     const newArr = this.backup.splice(0, 4);
                     this.block1.items = [...newArr];
-                }, error => {})
+                }, error => {
+                    if (error.status == 10) {
+                        this.hasWifi = false;
+                    }
+                })
             }
         },
         onLoadingMore () {
             if (!this.isPlatformAndroid) {
-                this.isLoading = true
-                this.getGoods3(false)
+                this.isLoading = true;
+                this.getGoods3(false);
             }
         },
         onloading () {
             if (this.isPlatformAndroid) {
-                this.isLoading = true
-                this.getGoods3(false)
+                this.isLoading = true;
+                this.getGoods3(false);
             }
         },
         loadingDown () {
-            this.$refs.refresh.refreshEnd();
+            if (this.hasWifi) {
+                this.$refs.refresh.refreshEnd();
+            }
             this.isLoading = false;
             this.init();
         },
@@ -133,7 +143,14 @@ export default {
                 this.backup = [...resData];
                 const newArr = this.backup.splice(0, 4);
                 this.block1.items = [...newArr];
-            }, error => {})
+            }, error => {
+                this.$notice.alert({
+                    message: error
+                })
+                if (error.status == 10) {
+                    this.hasWifi = false;
+                }
+            })
         },
         getTabName () {
             this.tabsItems = [...TABCAT];
@@ -160,37 +177,37 @@ export default {
                     }
                     page = this.pageNew;
                     if (this.pageNew > this.lengthNew) {
-                        this.$refs.refresh.refreshEnd()
+                        this.$refs.refresh.refreshEnd();
                         this.$nextTick(() => {
-                            this.isLoading = false
-                        })
+                            this.isLoading = false;
+                        });
                     }
-                    this.getGoodsList(isfirst, page)
+                    this.getGoodsList(isfirst, page);
                     break;
                 case 'price':
                     if (isfirst) {
-                        this.pagePrice = 1
+                        this.pagePrice = 1;
                     }
                     page = this.pagePrice;
                     if (this.pagePrice > this.lengthPrice) {
-                        this.$refs.refresh.refreshEnd()
+                        this.$refs.refresh.refreshEnd();
                         this.$nextTick(() => {
-                            this.isLoading = false
-                        })
+                            this.isLoading = false;
+                        });
                     }
-                    this.getGoodsList(isfirst, page)
+                    this.getGoodsList(isfirst, page);
                     break;
             }
         },
         getGoodsList (isfirst, page) {
-            let sort = null
+            let sort = null;
             switch (this.priceStatus) {
                 case 1:
-                    sort = 'price_high'
-                    break
+                    sort = 'price_high';
+                    break;
                 case 2:
-                    sort = 'price_low'
-                    break
+                    sort = 'price_low';
+                    break;
             }
             this.$fetch({
                 method: 'GET',
@@ -204,24 +221,26 @@ export default {
             }).then(data => {
                 switch (this.tabKey) {
                     case 'new':
-                        this.pageNew++
-                        this.lengthNew = Math.ceil(data.count / this.pageSize)
-                        break
+                        this.pageNew++;
+                        this.lengthNew = Math.ceil(data.count / this.pageSize);
+                        break;
                     case 'price':
-                        this.pagePrice++
-                        this.lengthPrice = Math.ceil(data.count / this.pageSize)
-                        break
+                        this.pagePrice++;
+                        this.lengthPrice = Math.ceil(data.count / this.pageSize);
+                        break;
                 }
                 if (isfirst) {
                     this.goods3 = []
                 }
-                this.goods3.push(...data.results)
+                this.goods3.push(...data.results);
                 if (!isfirst) {
-                    this.isLoading = false
+                    this.isLoading = false;
                 }
                 this.refreshApiFinished()
             }, error => {
-
+                if (error.status == 10) {
+                    this.hasWifi = false;
+                }
             })
         },
         getSelectedList (isfirst, page) {
@@ -234,8 +253,8 @@ export default {
                     cat: this.id
                 }
             }).then(data => {
-                this.pageHot++
-                this.lengthHot = Math.ceil(data.count / this.pageSize)
+                this.pageHot++;
+                this.lengthHot = Math.ceil(data.count / this.pageSize);
                 if (isfirst) {
                     this.goods3 = [...data.results]
                 } else {
@@ -246,7 +265,9 @@ export default {
                 }
                 this.refreshApiFinished()
             }, error => {
-
+                if (error.status == 10) {
+                    this.hasWifi = false;
+                }
             })
         },
         onTabTo (event) {
@@ -256,6 +277,7 @@ export default {
             dom.scrollToElement(this.$refs['tab'], { animated: false })
         },
         refreshApiFinished () {
+            this.hasWifi = true;
             this.$refs.refresh.refreshEnd();
         }
     }
