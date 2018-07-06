@@ -140,12 +140,12 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             shareDialog.show(linkContent);
         }
     }
-    public void shareFacebookMessenger(String title, String detail, String url, String imageUrl,
+    public void shareFacebookMessenger(String title, String detail,String buttonWord, String url, String imageUrl,
                                JSCallback jsSuccessCallback,  JSCallback jsFailedCallback){
         jsSuccessCallback.invoke(new Object());
         ShareMessengerURLActionButton actionButton =
                 new ShareMessengerURLActionButton.Builder()
-                        .setTitle(title)
+                        .setTitle(buttonWord)
                         .setUrl(Uri.parse(url))
                         .build();
         ShareMessengerGenericTemplateElement genericTemplateElement =
@@ -157,7 +157,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
                         .build();
         ShareMessengerGenericTemplateContent genericTemplateContent =
                 new ShareMessengerGenericTemplateContent.Builder()
-                        .setPageId("2090990797781838") // Your page ID, required
+                        .setPageId("Your page ID") // Your page ID, required
                         .setGenericTemplateElement(genericTemplateElement)
                         .build();
         if (MessageDialog.canShow(genericTemplateContent.getClass())) {

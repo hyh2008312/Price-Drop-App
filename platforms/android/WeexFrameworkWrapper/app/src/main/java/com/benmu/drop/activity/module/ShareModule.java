@@ -29,8 +29,8 @@ public class ShareModule extends WXModule {
     @JSMethod
     public void shareFacebook(String title, String detail, String url, String imageUrl,
                               JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
-        Toast.makeText(mWXSDKInstance.getContext(),"Waiting...",Toast.LENGTH_SHORT).show();
-        ((MainActivity) mWXSDKInstance.getContext()).shareFacebook(title,detail,url,imageUrl,jsSuccessCallback,
+        Toast.makeText(mWXSDKInstance.getContext(), "Waiting...", Toast.LENGTH_SHORT).show();
+        ((MainActivity) mWXSDKInstance.getContext()).shareFacebook(title, detail, url, imageUrl, jsSuccessCallback,
                 jsFailedCallback);
         SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
         Tracker sTracker = application.getDefaultTracker();
@@ -45,7 +45,7 @@ public class ShareModule extends WXModule {
     public void shareWhatsapp(String content, String imageUrl,
                               JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
 
-        boolean isHaveWhatsapp = PackageManagerUtils.isInstallApp(mWXSDKInstance.getContext(),"com.whatsapp");
+        boolean isHaveWhatsapp = PackageManagerUtils.isInstallApp(mWXSDKInstance.getContext(), "com.whatsapp");
         if (!isHaveWhatsapp) {
             Toast.makeText(mWXSDKInstance.getContext(), "To share to WhatsApp, you need to download its app first!", Toast.LENGTH_SHORT).show();
             return;
@@ -72,9 +72,9 @@ public class ShareModule extends WXModule {
     }
 
     @JSMethod
-    public void shareFacebookMessenger(String title, String detail, String url, String imageUrl,
-                              JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
-        ((MainActivity) mWXSDKInstance.getContext()).shareFacebookMessenger(title,detail,url,imageUrl,jsSuccessCallback,
+    public void shareFacebookMessenger(String title, String detail, String buttonWord, String url, String imageUrl,
+                                       JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
+        ((MainActivity) mWXSDKInstance.getContext()).shareFacebookMessenger(title, detail, buttonWord, url, imageUrl, jsSuccessCallback,
                 jsFailedCallback);
         SocialCommerApplication application = (SocialCommerApplication) ((Activity) mWXSDKInstance.getContext()).getApplication();
         Tracker sTracker = application.getDefaultTracker();
