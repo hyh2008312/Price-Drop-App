@@ -159,6 +159,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
         <!--支付相关-->
         <meta-data
             android:name="com.razorpay.ApiKey"

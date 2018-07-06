@@ -153,7 +153,7 @@
             @wxcPopupOverlayClicked="popupOverlayAutoClick"
             ref="wxcPopup"
             pos="bottom"
-            height="560">
+            height="710">
             <div class="share-content">
                 <div>
                     <div class="share-content-top">
@@ -168,21 +168,31 @@
                     </div>
                     <div class="share-content-bottom">
                         <div class="share-content-icon">
-                            <div class="facebook" v-if="false" @click="shareFacebook">
+                            <div class="facebook"  @click="shareFacebook">
                                 <text class="facebook-icon">&#xe70f;</text>
                                 <text class="facebook-text">Facebook</text>
-                            </div>
-                            <div class="messager" v-if="false" @click="shareFacebookMessenger">
-                                <text class="messager-icon">&#xe727;</text>
-                                <text class="facebook-text">FBMessenger</text>
                             </div>
                             <div class="whatsapp" @click="shareWhatsApp">
                                 <text class="whatsapp-icon">&#xe710;</text>
                                 <text class="whatsapp-text">WhatsApp</text>
                             </div>
-                            <div class="copylink" @click="copyShareLink">
+                            <div class="copylink"  @click="copyShareLink">
                                 <text class="copylink-icon">&#xe728;</text>
                                 <text class="whatsapp-text">Copy Link</text>
+                            </div>
+                        </div>
+                        <div class="share-content-icon-1">
+                            <div class="messager"  @click="shareFacebookMessenger">
+                                <text class="messager-icon">&#xe727;</text>
+                                <text class="facebook-text">FBMessenger</text>
+                            </div>
+                            <div class="messager">
+                                <text class="messager-icon"></text>
+                                <text class="facebook-text"></text>
+                            </div>
+                            <div class="messager">
+                                <text class="messager-icon"></text>
+                                <text class="facebook-text"></text>
                             </div>
                         </div>
                         <div class="share-line"></div>
@@ -253,17 +263,17 @@
         },
         eros: {
             appeared (params, options) {
-                console.log('beforeAppear');
-               // this.isShow = params.isShowSharePanel;
-                this.isShow = true;
-                this.id = params.id;
-                this.requestCutDetail();
-                this.initGoogleAnalytics(this.id)
             }
         },
         created () {
             this.registerEvent();
-          //  this.initGoogleAnalytics();
+            this.$router.getParams().then(resData => {
+                // this.isShow = params.isShowSharePanel;
+                this.isShow = true;
+                this.id = resData.id;
+                this.requestCutDetail();
+                this.initGoogleAnalytics(this.id)
+            })
         },
         destory () {
             this.$event.off('cutDetail')
@@ -316,7 +326,7 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = '1,000+ got the lowest price here.';
+                const detail = 'Click to join me and get your favorite product at Rs.1 only!';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
@@ -330,11 +340,11 @@
             },
             shareFacebookMessenger () {
                 const that = this;
-                const detail = '1,000+ got the lowest price here.';
+                const detail = this.goodsDetail.title;
+                const title = 'Come join me to get this product at Rs.1 only!';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
-                shareModule.shareFacebookMessenger(
-                    'Come help me drop the price before it sells out!', detail, url, imageUrl,
+                shareModule.shareFacebookMessenger(title, detail, 'Join Now', url, imageUrl,
                     function (param) {
                         that.popupOverlayAutoClick();
                     }, function (param) {
@@ -625,6 +635,7 @@
     }
 
     .copylink {
+        width: 250px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -632,6 +643,7 @@
     }
 
     .whatsapp {
+        width: 250px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -639,6 +651,13 @@
     }
 
     .messager {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .messager-1 {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -646,6 +665,7 @@
     }
 
     .facebook {
+        width: 250px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -683,9 +703,17 @@
         justify-content: space-around;
         align-items: center;
     }
+    .share-content-icon-1 {
+        height: 200px;
+        margin-top: -50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
 
     .share-content-bottom {
-        height: 384px;
+        height: 534px;
         background-color: white;
     }
 

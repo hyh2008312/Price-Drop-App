@@ -10,15 +10,16 @@
                <text class="google-login-icon">&#xe71f;</text>
                <text class="google-login-text">Continue with Google</text>
             </div>
-            <div class="google-login" v-if="false" @click="startGoogleSignOut">
+            <div class="google-login" v-if="false" @click="startFacebookLogin">
                <text class="google-login-icon">&#xe71f;</text>
-               <text class="google-login-text">Logout with Google</text>
+               <text class="google-login-text">Continue with Facebook</text>
             </div>
         </div>
     </div>
 </template>
 <script>
     const googleLogin = weex.requireModule('GoogleLoginModule');
+    const facebookLogin = weex.requireModule('FacebookLoginModule');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const bmPush = weex.requireModule('bmPush')
     import { WxcLoading } from 'weex-ui';
@@ -58,6 +59,14 @@
                    that.requestUserInfo(param.tokenId, that);
                }, function (param) {
                    that.$notice.toast('It seems that your internet is not stable. Please try again!')
+               })
+           },
+            startFacebookLogin () {
+               // const that = this;
+                facebookLogin.startFacebookLogin(function (param) {
+                   // that.requestUserInfo(param.tokenId, that);
+               }, function (param) {
+                  // that.$notice.toast('It seems that your internet is not stable. Please try again!')
                })
            },
             startGoogleSignOut () {

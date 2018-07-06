@@ -2,6 +2,7 @@ package com.benmu.drop.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import com.benmu.drop.activity.bean.LoginDto;
 import com.benmu.drop.activity.bean.PayDto;
 
+import com.benmu.drop.activity.module.FacebookLoginModule;
 import com.benmu.drop.activity.module.GoogleAnalyticsModule;
 import com.benmu.drop.activity.module.GoogleLoginModule;
 import com.benmu.drop.activity.module.PayModule;
@@ -16,6 +18,18 @@ import com.benmu.drop.activity.module.ShareModule;
 import com.benmu.drop.utils.CommonUtils;
 import com.benmu.framework.activity.AbstractWeexActivity;
 import com.benmu.drop.R;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareMessengerGenericTemplateContent;
+import com.facebook.share.model.ShareMessengerGenericTemplateElement;
+import com.facebook.share.model.ShareMessengerURLActionButton;
+import com.facebook.share.widget.MessageDialog;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -25,18 +39,30 @@ import com.razorpay.PaymentResultListener;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXException;
-import com.umeng.socialize.UMShareAPI;
 
 import org.json.JSONObject;
+
+import java.util.Arrays;
 
 
 public class MainActivity extends AbstractWeexActivity implements PaymentResultListener {
     private JSCallback googleSuccessCallback;
     private JSCallback googleFailedCallback;
+    // facebook login callback
+    private JSCallback FacebookSuccessCallback;
+    private JSCallback FacebookFailedCallback;
     // 支付回调
     private JSCallback paySuccessCallback;
     private JSCallback payFailedCallback;
     private static final int RC_SIGN_IN = 12321;
+
+    private CallbackManager mCallbackManager;
+    private CallbackManager mShareCallbackManager;
+    private CallbackManager mMessengerCallbackManager;
+    private ShareDialog shareDialog ;
+    private MessageDialog messageDialog;
+    private static final int SHARE_FACEBOOK=10086;
+    private static final int MESSENGER_FACEBOOK=10087;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +78,92 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             WXSDKEngine.registerModule("GoogleAnalyticsModule", GoogleAnalyticsModule.class);
             WXSDKEngine.registerModule("PayModule", PayModule.class);
             WXSDKEngine.registerModule("CommonUtils", CommonUtils.class);
+            WXSDKEngine.registerModule("FacebookLoginModule", FacebookLoginModule.class);
         } catch (WXException e) {
             e.printStackTrace();
         }
+    }
+
+    public void initFacebook() {
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        LoginResult ss = loginResult ;
+                        Toast.makeText(MainActivity.this,"success",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(MainActivity.this,"cancel",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Toast.makeText(MainActivity.this,"onError",Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    public void startFacebookLogin(){
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
+    }
+    public void shareFacebook(String title, String detail, String url, String imageUrl,
+                              final JSCallback jsSuccessCallback, final JSCallback jsFailedCallback){
+        mShareCallbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        shareDialog.registerCallback(mShareCallbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                jsSuccessCallback.invoke(result);
+                Toast.makeText(MainActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                jsFailedCallback.invoke(new Object());
+                Toast.makeText(MainActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                jsFailedCallback.invoke(error);
+                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        },SHARE_FACEBOOK);
+
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse(url))
+                    .setQuote(detail)
+                    .build();
+            shareDialog.show(linkContent);
+        }
+    }
+    public void shareFacebookMessenger(String title, String detail,String buttonWord, String url, String imageUrl,
+                               JSCallback jsSuccessCallback,  JSCallback jsFailedCallback){
+        jsSuccessCallback.invoke(new Object());
+        ShareMessengerURLActionButton actionButton =
+                new ShareMessengerURLActionButton.Builder()
+                        .setTitle(buttonWord)
+                        .setUrl(Uri.parse(url))
+                        .build();
+        ShareMessengerGenericTemplateElement genericTemplateElement =
+                new ShareMessengerGenericTemplateElement.Builder()
+                        .setTitle(title)
+                        .setSubtitle(detail)
+                        .setImageUrl(Uri.parse(imageUrl))
+                        .setButton(actionButton)
+                        .build();
+        ShareMessengerGenericTemplateContent genericTemplateContent =
+                new ShareMessengerGenericTemplateContent.Builder()
+                        .setPageId("Your page ID") // Your page ID, required
+                        .setGenericTemplateElement(genericTemplateElement)
+                        .build();
+        if (MessageDialog.canShow(genericTemplateContent.getClass())) {
+            MessageDialog.show(this, genericTemplateContent);
+        }
+
     }
 
     private void initPayment() {
@@ -68,11 +177,16 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (mCallbackManager != null) {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+        if (mShareCallbackManager!=null && requestCode == SHARE_FACEBOOK){
+            mShareCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     public void setPayCallBack(JSCallback paySuccessCallback, JSCallback payFailedCallback) {
@@ -82,6 +196,11 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
 
     public void setGoogleCallback(JSCallback googleSuccessCallback, JSCallback googleFailedCallback) {
         this.googleSuccessCallback = googleSuccessCallback;
+        this.googleFailedCallback = googleFailedCallback;
+    }
+
+    public void setFacebookCallback(JSCallback FacebookSuccessCallback, JSCallback googleFailedCallback) {
+        this.FacebookSuccessCallback = FacebookSuccessCallback;
         this.googleFailedCallback = googleFailedCallback;
     }
 
@@ -120,7 +239,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
         payFailedCallback.invoke(pay);
     }
 
-    public void startPayment(String name, String description, String image, String amount, String contact, String email ) {
+    public void startPayment(String name, String description, String image, String amount, String contact, String email) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
