@@ -23,7 +23,7 @@ export const OrderQA = [{
 
 }, {
     question: 'My order status is still under processing, when will it be shipped?',
-    answer: 'It normally takes between 3-5 days for your items to be packed and shipped.'
+    answer: 'It takes 3-5 days to prepare your order shipment. And it takes another 8-15 days to arrive after your order has been shipped.'
 }, {
     question: 'Can I change the shipping address after placing an order?',
     answer: 'Please contact our customer support as soon as possible if you want to change your shipping address. But it’s no longer possible to change the address once your order has shipped.'
@@ -151,16 +151,7 @@ export const Return = [{
     answer: 'It usually takes 5-10 business days for the refund to be issued to your original payment method.'
 }]
 export const Contact = [{
-    question: 'Company Name:',
-    answer: 'JMD Techmosoft Pvt Ltd.'
-}, {
-    question: 'Address:',
-    answer: '274, CP Mission Compound, Gwalior Road Jhansi, Uttar Pradesh, 284003\n'
-}, {
     question: 'Contact Email:',
-    answer: 'prachi@techmosoft.com'
-}, {
-    question: 'Contact Number:',
-    answer: '+91  9902070180 '
+    answer: 'support@getpricedrop.com'
 }]
 
