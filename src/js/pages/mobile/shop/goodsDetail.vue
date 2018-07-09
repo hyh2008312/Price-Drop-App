@@ -138,11 +138,15 @@
                 </div>
             </div>
             <div style="display: none" ref="policy"></div>
+
             <div class="bottom-btn" v-if="isDrop== true" >
-                <text class="button" @click="openBottomPopup">Invite Friends to Drop Price</text>
+                <text class="button" @click="openBottomPopup" v-if="canBuy==true">Invite Friends to Drop Price</text>
+                <text class="button" style="background-color: rgba(0,0,0,0.48);"  v-if="canBuy==false">Out of Stock</text>
             </div>
+
             <div class="bottom-btn" v-if="isDrop== false">
-                <text class="button" @click="openBottomPopup">Buy Now</text>
+                <text class="button" @click="openBottomPopup" v-if="canBuy==true" >Buy Now</text>
+                <text class="button" style="background-color: rgba(0,0,0,0.48);"  v-if="canBuy==false" >Out of Stock</text>
             </div>
 
 
@@ -190,7 +194,8 @@
                     </div>
                 </scroller>
                 <div class="popup-btn">
-                    <text class="button" @click="confirm()">Confirm</text>
+                    <text class="button" @click="confirm()" v-if="canBuy==true" >Confirm</text>
+                    <text class="button" style="background-color: rgba(0,0,0,0.48);"  v-if="canBuy==false" >Out of Stock</text>
                 </div>
 
             </div>
@@ -280,6 +285,7 @@
                 proId: '',
                 shipObj: '',
                 hasVariants: true,
+                canBuy: true,
                 cactiveId: 1,
                 sactiveId: '',
                 isBottomShow: false,
@@ -317,7 +323,7 @@
                 this.isDrop = resData.isDrop
                 this.getGoodsDetail(resData)
                 this.getDropGoods()
-                googleAnalytics.trackingScreen(`Product Detail/${this.proId.id}`);
+                googleAnalytics.trackingScreen(`Product Detail/${this.proId}`);
             })
             if (this.$storage.getSync('user')) {
                 this.user = this.$storage.getSync('user')
@@ -331,6 +337,7 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id.id}/`,
+                        // url: `${baseUrl}/product/customer/detail/75/`,
                         data: {}
                     }).then((res) => {
                             this.goods.title = res.title;
@@ -360,6 +367,7 @@
                                 this.hasVariants = false
                                 this.nextPage.attributes = ''
                                 this.goodsType = []
+                                this.canBuy = res.variants[0].isCanBuy
                                 this.variantsId = res.variants[0].id
                                 this.nextPage.id = res.variants[0].id
                                 this.nextPage.salePrice = res.variants[0].saleUnitPrice;
@@ -595,6 +603,12 @@
                 if (color.length !== 0) {
                     this.selsaleUnitPrice = color[0].item.saleUnitPrice
                     this.variantsId = color[0].item.id
+
+                    for (let n = 0; n < this.goodsVariants.length; n++) {
+                        if (this.goodsVariants[n] === color[0].item.id) {
+                            this.canBuy = this.goodsVariants[n].isCanBuy
+                        }
+                    }
                 } else {
                     this.$notice.toast({
                         message: 'Please select an option first.'
