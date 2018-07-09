@@ -58,7 +58,7 @@
                 </div>
             </cell>
         </list>
-        <edit-address-bottom :address="address" :id="id" @changeInput="changeInput"></edit-address-bottom>
+        <edit-address-bottom :address="address" :id="id" :isForbidden="isForbidden" @changeInput="changeInput"></edit-address-bottom>
     </div>
 </template>
 <script>
@@ -122,7 +122,9 @@ export default {
                 line3: 5,
                 city: 6
             },
-            chooseState: 'Choose'
+            chooseState: 'Choose',
+            forbiddenList: ['Odisha'],
+            isForbidden: false
         }
     },
     methods: {
@@ -136,8 +138,14 @@ export default {
             this.$event.off('state');
             this.$event.once('state', (params) => {
                 if (params) {
-                    this.address.stateId = params.id
-                    this.chooseState = params.name
+                    this.address.stateId = params.id;
+                    this.chooseState = params.name;
+                    if (this.checkIsForbidden()) {
+                        this.$notice.toast('Sorry, our carrier cannot deliver to your state. ');
+                        this.isForbidden = true;
+                    } else {
+                        this.isForbidden = false;
+                    }
                 }
             });
             this.$router.open({
@@ -188,6 +196,14 @@ export default {
         },
         changeInput (event) {
             this.inputIndex = this.indexList[event.data.key];
+        },
+        checkIsForbidden () {
+            for (let item of this.forbiddenList) {
+                if (this.chooseState == item) {
+                    return true
+                }
+            }
+            return false
         }
     }
 }

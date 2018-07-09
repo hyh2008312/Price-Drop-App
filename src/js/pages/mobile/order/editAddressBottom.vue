@@ -1,7 +1,10 @@
 <template>
     <div class="wrapper">
-        <div class="od-button" @click="addAddress">
+        <div v-if="!isForbidden" class="od-button" @click="addAddress">
             <text class="od-text">Save</text>
+        </div>
+        <div v-if="isForbidden" class="od-button-1">
+            <text class="od-text">Change Your Address to Continue</text>
         </div>
     </div>
 </template>
@@ -9,7 +12,7 @@
     import { baseUrl } from '../../../config/apis';
 
     export default {
-        props: ['address', 'id'],
+        props: ['address', 'id', 'isForbidden'],
         methods: {
             addAddress () {
                 if (this.isChecked()) {
@@ -99,6 +102,17 @@
     .od-button{
         margin: 16px 32px;
         background-color: #EF8A31;
+        border-radius: 4px;
+        height: 80px;
+        width: 686px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .od-button-1{
+        margin: 16px 32px;
+        background-color: rgba(0,0,0,0.38);
         border-radius: 4px;
         height: 80px;
         width: 686px;
