@@ -141,12 +141,12 @@
 
             <div class="bottom-btn" v-if="isDrop== true" >
                 <text class="button" @click="openBottomPopup" v-if="canBuy==true">Invite Friends to Drop Price</text>
-                <text class="button" style="background-color: rgba(0,0,0,0.48);"  v-if="canBuy==false">Out of Stock</text>
+                <text class="button-gray"  v-if="canBuy==false">Out of Stock</text>
             </div>
 
             <div class="bottom-btn" v-if="isDrop== false">
                 <text class="button" @click="openBottomPopup" v-if="canBuy==true" >Buy Now</text>
-                <text class="button" style="background-color: rgba(0,0,0,0.48);"  v-if="canBuy==false" >Out of Stock</text>
+                <text class="button-gray"  v-if="canBuy==false" >Out of Stock</text>
             </div>
 
 
@@ -192,10 +192,11 @@
                             </div>
                         </div>
                     </div>
+                    <text>{{tmp}}</text>
                 </scroller>
                 <div class="popup-btn">
                     <text class="button" @click="confirm()" v-if="canBuy==true" >Confirm</text>
-                    <text class="button" style="background-color: rgba(0,0,0,0.48);"  v-if="canBuy==false" >Out of Stock</text>
+                    <text class="button-gray"               v-if="canBuy==false" >Out of Stock</text>
                 </div>
 
             </div>
@@ -303,7 +304,8 @@
                 deltaY: 0,
                 user: null,
                 opacity: 0,
-                category: ''
+                category: '',
+                tmp: ''
             }
         },
         computed: {
@@ -362,7 +364,8 @@
                                 this.selimgsrc = ''
                             }
                             if (res.attributes != null && res.attributes.length > 0) {
-                                this.goodsType = this.operateData(res.attributes);
+                                this.goodsType = res.attributes;
+                                this.operateData(res.attributes);
                             } else {
                                 this.hasVariants = false
                                 this.nextPage.attributes = ''
@@ -540,6 +543,7 @@
                 return data
             },
             clickColor (item, list) {
+
                 if (item.seldisable) return
                 item.isActive = !item.isActive
                 for (let i = 0; i < list.length; i++) {
@@ -547,25 +551,29 @@
                         list[i].isActive = false
                     }
                 }
-                const color = []
-                const discolor = []
+                const color = [];  // 点选的这个 有其他的颜色或者规格
+                const discolor = [];
                 for (let j = 0; j < this.goodsVariants.length; j++) {
                     for (let k = 0; k < this.goodsVariants[j].attributeValues.length; k++) {
                         if (item.value == this.goodsVariants[j].attributeValues[k].value) {
                             color.push({
                                 item: this.goodsVariants[j],
-                                index: k
-                            })
+                                index: this.goodsVariants[j].attributeValues[k].attributeId
+                            });
                             break;
                             // this.seldisable = true
                         }
                     }
                 }
+                this.tmp = color
+                this.$notice.alert({
+                    message:color
+                })
 
                 if (item.isActive == true) {
                     for (let n = 0; n < color.length; n++) {
                         for (let m = 0; m < color[n].item.attributeValues.length; m++) {
-                            if (m == color[n].index) {
+                            if (color[n].item.attributeValues[m].attributeId == color[n].index) {
                                 continue
                             }
                             discolor.push(color[n].item.attributeValues[m].value)
@@ -577,6 +585,9 @@
                             for (let u = 0; u < this.goodsType[p].value.length; u++) {
                                 this.goodsType[p].value[u].seldisable = false
                                 for (let o = 0; o < discolor.length; o++) {
+                                    this.$notice.toast({
+                                        message: this.goodsType[p].value[u].value
+                                    })
                                     if (this.goodsType[p].value[u].value != discolor[o]) {
                                         this.goodsType[p].value[u].seldisable = true
                                     }
@@ -593,6 +604,10 @@
                         }
                     }
                 }
+                // this.$notice.alert({
+                //     message: color
+                // })
+
                 this.changeDom(item, color)
                 // this.$notice.toast({
                 //     message: item
@@ -601,11 +616,10 @@
             },
             changeDom (item, color) {
                 if (color.length !== 0) {
-                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
+                    this.selsaleUnitPrice = color[0].item.saleUnitPriceer
                     this.variantsId = color[0].item.id
-
                     for (let n = 0; n < this.goodsVariants.length; n++) {
-                        if (this.goodsVariants[n] === color[0].item.id) {
+                        if (this.goodsVariants[n].id === color[0].item.id) {
                             this.canBuy = this.goodsVariants[n].isCanBuy
                         }
                     }
@@ -1041,6 +1055,22 @@
         color: #fff;
         height: 80px;
         background-color: #EF8A31;
+        border-color: #2e6da4;
+        border-radius: 12px;
+        padding-top: 22px;
+        padding-bottom: 10px;
+        margin-top: 16px;
+        margin-left: 12px;
+        margin-right: 12px;
+        margin-bottom: 16px;
+        font-size: 28px;
+        text-align: center;
+        font-weight: 700;
+    }
+    .button-gray{
+        color: #fff;
+        height: 80px;
+        background-color: rgba(0,0,0,0.48);
         border-color: #2e6da4;
         border-radius: 12px;
         padding-top: 22px;
