@@ -262,6 +262,8 @@
                    quantity: '1',
                    id: '',
                    shippingPrice: '',
+                   shippingTimeMin: '',
+                   shippingTimeMax: '',
                    proId: ''
                 },
                 goodsImg: [],
@@ -383,6 +385,8 @@
                             this.nextPage.title = res.title;
                             this.nextPage.productId = id.id;
                             this.nextPage.shippingPrice = res.shipping.priceItem;
+                            this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
+                            this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
                             this.isDrop = res.isDrop
                             this.nextPage.proId = res.isDrop == false ? 'product' : '';
                             // nextPage 传给下一页组织的数据
