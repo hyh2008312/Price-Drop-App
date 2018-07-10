@@ -115,7 +115,7 @@
         background-color: rgba(0,0,0,0.38);
         border-radius: 4px;
         height: 80px;
-        width: 686px;
+        width : 686px;
         flex-direction: row;
         justify-content: center;
         align-items: center;
