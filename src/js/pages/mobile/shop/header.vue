@@ -83,10 +83,10 @@ export default {
     height: 80px;
     width: 120px;
     position: absolute;
-    left: 47.5px;
-    top:77.5x;
-    padding-top: 10px;
-
+    left: 0;
+    top:57.5px;
+    padding-top: 30px;
+    padding-left: 47.5px;
 }
 .right {
     font-family: iconfont;

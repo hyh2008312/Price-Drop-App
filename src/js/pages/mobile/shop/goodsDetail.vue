@@ -319,6 +319,7 @@
             }
         },
         created () {
+            this.$notice.loading.show();
             this.$router.getParams().then(resData => {
                 this.proId = resData.id
                 this.isDrop = resData.isDrop
@@ -401,8 +402,10 @@
                         if (res.categories && res.categories.length > 0) {
                             this.category = res.categories[0].name;
                         }
+                        this.$notice.loading.hide();
                         googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
                     }).catch((res) => {
+                        this.$notice.loading.hide();
                         // this.$notice.toast({
                         //     message: res
                         // })
@@ -567,7 +570,6 @@
                 if (item.isActive == true) {
                     for (let n = 0; n < color.length; n++) {
                         for (let m = 0; m < color[n].item.attributeValues.length; m++) {
-                            this.$notice.toast(m)
                             if (m == color[n].index) {
                                 continue
                             }
