@@ -44,7 +44,7 @@
                 const payAmount = price[0] + price[1];
                 if (!this.isPaid) {
                     this.isPaid = true;
-                    pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
+                    pay.startPayRequest(this.order.lines[0].title, 'Order #:' + this.order.number, this.order.lines[0].mainImage,
                         parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                         function (param) {
                             that.$notice.loading.show();
