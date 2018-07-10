@@ -192,7 +192,6 @@
                             </div>
                         </div>
                     </div>
-                    <text>{{tmp}}</text>
                 </scroller>
                 <div class="popup-btn">
                     <text class="button" @click="confirm()" v-if="canBuy==true" >Confirm</text>
@@ -543,7 +542,6 @@
                 return data
             },
             clickColor (item, list) {
-
                 if (item.seldisable) return
                 item.isActive = !item.isActive
                 for (let i = 0; i < list.length; i++) {
@@ -551,29 +549,26 @@
                         list[i].isActive = false
                     }
                 }
-                const color = [];  // 点选的这个 有其他的颜色或者规格
+                const color = []; // 点选的这个 有其他的颜色或者规格
                 const discolor = [];
                 for (let j = 0; j < this.goodsVariants.length; j++) {
                     for (let k = 0; k < this.goodsVariants[j].attributeValues.length; k++) {
                         if (item.value == this.goodsVariants[j].attributeValues[k].value) {
                             color.push({
                                 item: this.goodsVariants[j],
-                                index: this.goodsVariants[j].attributeValues[k].attributeId
+                                index: k
                             });
                             break;
                             // this.seldisable = true
                         }
                     }
                 }
-                this.tmp = color
-                this.$notice.alert({
-                    message:color
-                })
 
                 if (item.isActive == true) {
                     for (let n = 0; n < color.length; n++) {
                         for (let m = 0; m < color[n].item.attributeValues.length; m++) {
-                            if (color[n].item.attributeValues[m].attributeId == color[n].index) {
+                            this.$notice.toast(m)
+                            if (m == color[n].index) {
                                 continue
                             }
                             discolor.push(color[n].item.attributeValues[m].value)
@@ -583,13 +578,10 @@
                     for (let p = 0; p < this.goodsType.length; p++) {
                         if (item.id != this.goodsType[p].id) {
                             for (let u = 0; u < this.goodsType[p].value.length; u++) {
-                                this.goodsType[p].value[u].seldisable = false
+                                this.goodsType[p].value[u].seldisable = true
                                 for (let o = 0; o < discolor.length; o++) {
-                                    this.$notice.toast({
-                                        message: this.goodsType[p].value[u].value
-                                    })
-                                    if (this.goodsType[p].value[u].value != discolor[o]) {
-                                        this.goodsType[p].value[u].seldisable = true
+                                    if (this.goodsType[p].value[u].value == discolor[o]) {
+                                        this.goodsType[p].value[u].seldisable = false
                                     }
                                 }
                             }
