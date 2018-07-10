@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">Rs.{{order.currentPrice}}</text>
+        <text class="od-text-1">Rs.{{order.total}}</text>
         <text class="od-button" @click="confirm">Pay Now</text>
     </div>
 </template>
@@ -40,11 +40,12 @@
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
                             const user = that.$storage.getSync('user');
-                            const price = that.order.currentPrice.split('.');
+                            const price = that.order.total.split('.');
                             const payAmount = price[0] + price[1];
                             pay.startPayRequest(that.order.title, '', that.order.mainImage,
                                 parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
+                                    that.$notice.loading.show();
                                     that.$fetch({
                                         method: 'POST', // 大写
                                         url: `${baseUrl}/payment/razorpay/${order.id}/`,
@@ -56,7 +57,8 @@
                                             needAuth: true
                                         }
                                     }).then(resData => {
-                                        that.$router.finish()
+                                        that.$notice.loading.hide();
+                                        that.$router.finish();
                                         that.$event.once('paySuccess', () => {
                                             that.init()
                                         });
@@ -66,11 +68,12 @@
                                             params: {
                                                 source: 'confirm'
                                             }
-                                        })
+                                        });
                                     }, error => {
+                                        that.$notice.loading.hide();
                                         that.$notice.toast({
                                             message: error
-                                        })
+                                        });
                                     })
                                 }, function (param) {
                                     if (param.code != 0) {
@@ -115,7 +118,7 @@
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
                             const user = that.$storage.getSync('user');
-                            const price = that.order.currentPrice.split('.');
+                            const price = that.order.total.split('.');
                             const payAmount = price[0] + price[1];
                             pay.startPayRequest(that.order.title, '', that.order.mainImage,
                                 parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
@@ -131,7 +134,7 @@
                                             needAuth: true
                                         }
                                     }).then(resData => {
-                                        that.$router.finish()
+                                        that.$router.finish();
                                         that.$event.once('paySuccess', () => {
                                             that.init()
                                         });
@@ -141,11 +144,11 @@
                                             params: {
                                                 source: 'confirm'
                                             }
-                                        })
+                                        });
                                     }, error => {
                                         that.$notice.toast({
                                             message: error
-                                        })
+                                        });
                                     })
                                 }, function (param) {
                                     if (param.code != 0) {
@@ -163,7 +166,7 @@
                                             params: {
                                                 tab: 1
                                             }
-                                        })
+                                        });
                                     }
                                 });
                             that.isFirst = true;
@@ -172,7 +175,7 @@
                             that.isFirst = true;
                             that.$notice.toast({
                                 message: error
-                            })
+                            });
                         });
                     }
                 }

@@ -13,6 +13,9 @@
                 <order-detail-item :order="order"></order-detail-item>
             </cell>
             <cell class="cell-bottom">
+                <order-detail-delivery :order="order"></order-detail-delivery>
+            </cell>
+            <cell class="cell-bottom">
                 <order-detail-number :order="order"></order-detail-number>
             </cell>
         </list>
@@ -65,6 +68,7 @@ import orderDetailShipping from './orderDetailShipping';
 import orderDetailItem from './orderDetailItem';
 import orderDetailBottom from './orderDetailBottom';
 import orderDetailNumber from './orderDetailNumber';
+import orderDetailDelivery from './orderDetailDelivery';
 import { Utils, WxcPopup, WxcMask } from 'weex-ui';
 import { ORDERDETAIL, CANCELREASON } from './config';
 import { baseUrl } from '../../../config/apis';
@@ -78,6 +82,7 @@ export default {
         'order-detail-item': orderDetailItem,
         'order-detail-bottom': orderDetailBottom,
         'order-detail-number': orderDetailNumber,
+        orderDetailDelivery,
         WxcPopup,
         WxcMask
     },

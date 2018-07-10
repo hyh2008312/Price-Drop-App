@@ -31,46 +31,59 @@
 
     export default {
         props: ['order'],
+        data () {
+            return {
+                isPaid: false
+            }
+        },
         methods: {
             confirm () {
                 const that = this;
                 const user = that.$storage.getSync('user');
                 const price = that.order.paymentAmount.split('.');
                 const payAmount = price[0] + price[1];
-                pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
-                    parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
-                    function (param) {
-                        that.$fetch({
-                            method: 'POST', // 大写
-                            url: `${baseUrl}/payment/razorpay/${that.order.id}/`,
-                            data: {
-                                paymentId: param.paymentId,
-                                paymentAmount: that.order.paymentAmount
-                            },
-                            header: {
-                                needAuth: true
+                if (!this.isPaid) {
+                    this.isPaid = true;
+                    pay.startPayRequest(this.order.lines[0].title, '', this.order.lines[0].mainImage,
+                        parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
+                        function (param) {
+                            that.$notice.loading.show();
+                            that.$fetch({
+                                method: 'POST', // 大写
+                                url: `${baseUrl}/payment/razorpay/${that.order.id}/`,
+                                data: {
+                                    paymentId: param.paymentId,
+                                    paymentAmount: that.order.paymentAmount
+                                },
+                                header: {
+                                    needAuth: true
+                                }
+                            }).then(resData => {
+                                that.$notice.loading.hide();
+                                that.isPaid = false;
+                                that.$event.once('paysuccess', () => {
+                                    that.init();
+                                });
+                                that.$router.open({
+                                    name: 'order.success',
+                                    type: 'PUSH'
+                                })
+                            }, error => {
+                                that.$notice.loading.hide();
+                                that.$notice.toast({
+                                    message: error
+                                });
+                            })
+                        }, function (param) {
+                            that.isPaid = false;
+                            if (param.code != 0) {
+                                that.$router.open({
+                                    name: 'order.failure',
+                                    type: 'PUSH'
+                                });
                             }
-                        }).then(resData => {
-                            that.$event.once('paysuccess', () => {
-                                that.init()
-                            });
-                            that.$router.open({
-                                name: 'order.success',
-                                type: 'PUSH'
-                            })
-                        }, error => {
-                            that.$notice.toast({
-                                message: error
-                            })
-                        })
-                    }, function (param) {
-                        if (param.code != 0) {
-                            that.$router.open({
-                                name: 'order.failure',
-                                type: 'PUSH'
-                            })
-                        }
-                    });
+                        });
+                }
             },
             jumpHome () {
                 this.$router.open({

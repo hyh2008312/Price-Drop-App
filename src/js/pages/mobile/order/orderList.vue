@@ -169,7 +169,8 @@
                 deleteIndex: 0,
                 hasAnimation: true,
                 payOrder: {},
-                isFirstLoad: false
+                isFirstLoad: false,
+                isPaid: false
             }
         },
         methods: {
@@ -200,7 +201,7 @@
                     }
                     this.$nextTick(() => {
                         this.isLoading = false
-                    })
+                    });
                     return
                 }
                 this.$fetch({
@@ -244,40 +245,48 @@
                 const user = that.$storage.getSync('user');
                 const price = that.payOrder.paymentAmount.split('.');
                 const payAmount = price[0] + price[1];
-                payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
-                    parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
-                    function (param) {
-                        that.$fetch({
-                            method: 'POST', // 大写
-                            url: `${baseUrl}/payment/razorpay/${that.payOrder.id}/`,
-                            data: {
-                                paymentId: param.paymentId,
-                                paymentAmount: that.payOrder.paymentAmount
-                            },
-                            header: {
-                                needAuth: true
+                if (!this.isPaid) {
+                    this.isPaid = true;
+                    payTm.startPayRequest(this.payOrder.lines[0].title, '', this.payOrder.lines[0].mainImage,
+                        parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
+                        function (param) {
+                            that.$notice.loading.show();
+                            that.$fetch({
+                                method: 'POST', // 大写
+                                url: `${baseUrl}/payment/razorpay/${that.payOrder.id}/`,
+                                data: {
+                                    paymentId: param.paymentId,
+                                    paymentAmount: that.payOrder.paymentAmount
+                                },
+                                header: {
+                                    needAuth: true
+                                }
+                            }).then(resData => {
+                                that.$notice.loading.hide();
+                                that.isPaid = false;
+                                that.$event.once('paysuccess', () => {
+                                    that.init()
+                                });
+                                that.$router.open({
+                                    name: 'order.success',
+                                    type: 'PUSH'
+                                })
+                            }, error => {
+                                that.$notice.loading.hide();
+                                that.$notice.toast({
+                                    message: error
+                                })
+                            });
+                        }, function (param) {
+                            that.isPaid = false;
+                            if (param.code != 0) {
+                                that.$router.open({
+                                    name: 'order.failure',
+                                    type: 'PUSH'
+                                });
                             }
-                        }).then(resData => {
-                            that.$event.once('paysuccess', () => {
-                                that.init()
-                            });
-                            that.$router.open({
-                                name: 'order.success',
-                                type: 'PUSH'
-                            })
-                        }, error => {
-                            that.$notice.toast({
-                                message: error
-                            })
                         });
-                    }, function (param) {
-                        if (param.code != 0) {
-                            that.$router.open({
-                                name: 'order.failure',
-                                type: 'PUSH'
-                            });
-                        }
-                    });
+                }
             },
             popupOverlayAutoClick () {
                 this.isBottomShow = false;

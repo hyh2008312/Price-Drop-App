@@ -9,6 +9,9 @@
             <cell class="cell-bottom">
                 <order-confirm-item :order="order"></order-confirm-item>
             </cell>
+            <cell class="cell-bottom">
+                <order-confirm-delivery :order="order"></order-confirm-delivery>
+            </cell>
             <cell class="cell-bottom" v-if="false">
                 <order-confirm-pay-method :list="payList" @radioChecked="radioChecked"></order-confirm-pay-method>
             </cell>
@@ -22,7 +25,8 @@ import orderConfirmShipping from './orderConfirmShipping';
 import orderConfirmItem from './orderConfirmItem';
 import orderConfirmBottom from './orderConfirmBottom';
 import orderDetailNumber from './orderDetailNumber';
-import orderConfirmPayMethod from './orderConfirmPayMethod'
+import orderConfirmPayMethod from './orderConfirmPayMethod';
+import orderConfirmDelivery from './orderConfirmDelivery';
 import { Utils } from 'weex-ui';
 import { PAYLIST } from './config';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
@@ -34,7 +38,8 @@ export default {
         'order-confirm-item': orderConfirmItem,
         'order-confirm-bottom': orderConfirmBottom,
         'order-detail-number': orderDetailNumber,
-        'order-confirm-pay-method': orderConfirmPayMethod
+        'order-confirm-pay-method': orderConfirmPayMethod,
+        orderConfirmDelivery
     },
     eros: {
         backAppeared (params, options) {
@@ -45,7 +50,7 @@ export default {
         },
         appeared (params, option) {
             this.order = params;
-            this.order.shippingPrice = '0.00';
+            this.order.total = ((this.order.currentPrice * 100 + this.order.shippingPrice * 100) / 100).toFixed(2)
         }
     },
     created () {
@@ -65,7 +70,8 @@ export default {
                 'attributes': '',
                 'quantity': 1,
                 'id': -1,
-                'shippingPrice': false
+                'shippingPrice': false,
+                'total': '0.00'
             },
             isOrderConfirm: true,
             payList: [],
