@@ -170,7 +170,7 @@
                         <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
                         <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
                         <text class="popup-lowprice"      v-if="isDrop">Rs.{{lowestPrice}}</text>
-                        <text class="popup-lowprice"      v-if="!isDrop">Rs.{{goods.unitPrice}}</text>
+                        <text class="popup-lowprice"      v-if="!isDrop">Rs.{{selunitPrice||goods.unitPrice}}</text>
                         <text class="popup-yet" v-if="hasVariants==true">{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
                     </div>
 
@@ -280,6 +280,7 @@
                 selsize: '',
                 selcolor: '',
                 selimgsrc: '',
+                selunitPrice: '',
                 variantsId: '',
                 selsaleUnitPrice: '',
                 lowestPrice: '0.00',
@@ -615,6 +616,7 @@
             changeDom (item, color) {
                 if (color.length !== 0) {
                     this.selsaleUnitPrice = color[0].item.saleUnitPrice
+                    this.selunitPrice = color[0].item.unitPrice
                     this.variantsId = color[0].item.id
                     for (let n = 0; n < this.goodsVariants.length; n++) {
                         if (this.goodsVariants[n].id === color[0].item.id) {
@@ -652,7 +654,7 @@
                 this.nextPage.id = this.variantsId;
                 this.nextPage.mainImage = this.selimgsrc;
                 this.nextPage.salePrice = this.selsaleUnitPrice;
-                this.nextPage.currentPrice = this.goods.unitPrice;
+                this.nextPage.currentPrice = this.selunitPrice;
             },
             openShip (e) {
                 if (e == 1) {
