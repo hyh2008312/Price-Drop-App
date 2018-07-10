@@ -36,7 +36,7 @@
                 <div class="count-div">
                     <text class=" price-name" >Original Price: </text><text class="price">Rs.{{goods.price}}</text>
                     <text class="price-name price-price" v-if="!isDrop" >{{goods.priceoff}}% OFF</text>
-                    <text class="price-name price-off">Free Shipping</text>
+                    <text class="price-name price-off" v-if="this.shipObj.priceItem === '0.00'">Free Shipping</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
@@ -183,7 +183,7 @@
                             <text class="popup-color">{{val.name}}</text>
 
                             <div  class="popup-color-chd" >
-                                <text class="popup-color-chdname  "
+                                <text class="popup-color-chdname"
                                       v-for="(val1, key1) in val.value"
                                       :key="key1"
                                       :class="[val1.isActive ?'popup-color-chdname-active':'',
