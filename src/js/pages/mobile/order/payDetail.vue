@@ -12,7 +12,7 @@
             <cell class="cell-bottom">
                 <order-detail-item :order="order"></order-detail-item>
             </cell>
-            <cell class="cell-bottom">
+            <cell class="cell-bottom" v-if="false">
                 <order-detail-delivery :order="order"></order-detail-delivery>
             </cell>
             <cell class="cell-bottom">
