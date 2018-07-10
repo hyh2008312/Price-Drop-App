@@ -84,7 +84,7 @@ export default {
     width: 120px;
     position: absolute;
     left: 0;
-    top:57.5px;
+    top:47.5px;
     padding-top: 30px;
     padding-left: 47.5px;
 }
@@ -95,7 +95,7 @@ export default {
     width: 120px;
     position: absolute;
     right: 5px;
-    top:77.5px;
+    top:67.5px;
     padding-top: 10px;
 
 }
