@@ -50,7 +50,8 @@ export default {
         },
         appeared (params, option) {
             this.order = params;
-            this.order.total = ((this.order.currentPrice * 100) / 100).toFixed(2)
+            this.order.shippingPrice = '0.00';
+            this.order.total = ((this.order.currentPrice * 100) / 100).toFixed(2);
         }
     },
     created () {
