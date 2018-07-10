@@ -610,7 +610,7 @@
             },
             changeDom (item, color) {
                 if (color.length !== 0) {
-                    this.selsaleUnitPrice = color[0].item.saleUnitPriceer
+                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
                     this.variantsId = color[0].item.id
                     for (let n = 0; n < this.goodsVariants.length; n++) {
                         if (this.goodsVariants[n].id === color[0].item.id) {
