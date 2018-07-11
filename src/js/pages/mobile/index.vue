@@ -2,6 +2,16 @@
     <div class="app-wrapper">
         <embed v-for="(item, index) in items" :src="item.src" type="weex" class="content" :style="{ visibility: item.visibility }"></embed>
         <tab-bar @tabTo="onTabTo" :items="items" :indexKey="selectedTab"></tab-bar>
+
+        <NewDialog class="wxdialog"
+                   :content="'Please update your app version to continue.'"
+                   :show="show"
+                   :single="true"
+                   :is-checked="isChecked"
+                   @wxcDialogCancelBtnClicked="wxcDialogCancelBtnClicked"
+                   @wxcDialogConfirmBtnClicked="wxcDialogConfirmBtnClicked"
+                   @wxcDialogNoPromptClicked="wxcDialogNoPromptClicked">
+        </NewDialog>
     </div>
 </template>
 <script>
@@ -10,7 +20,11 @@ import util from './utils/util';
 import tabBar from './common/tabBar';
 import { tabConfig } from './config';
 import { cliendId } from '../../config/apis';
+import NewDialog from './home/newPopup';
+
 const bmPush = weex.requireModule('bmPush');
+const commonUtils = weex.requireModule('CommonUtils');
+
 export default {
     bmRouter: {
         viewWillAppear () {
@@ -42,7 +56,8 @@ export default {
         }
     },
     components: {
-        'tab-bar': tabBar
+        'tab-bar': tabBar,
+        NewDialog
     },
     created () {
         this.$navigator.setNavigationInfo({
@@ -53,12 +68,14 @@ export default {
         util.initIconFont()
         this.androidFinishApp()
         this.initPush()
+        this.getVersion()
     },
     data () {
         return {
             items: tabConfig,
             selectedTab: 'home',
-            isFirstLogin: false
+            isFirstLogin: false,
+            show: false
         }
     },
     methods: {
@@ -104,6 +121,7 @@ export default {
                 this.$storage.set('state', data);
             }, error => {})
         },
+
         getUser () {
             return this.$fetch({
                 method: 'GET', // 大写
@@ -146,6 +164,31 @@ export default {
                     this.$storage.deleteSync('user');
                 })
             }
+        },
+        getVersion () {
+            commonUtils.getAppVersionCode((params) => {
+                if (params.code === 200 && Number(params.versionCode) == 134) {
+                    this.openDialog()
+                }
+            })
+        },
+        openDialog () {
+            // if (this.user == null) {
+            //     this.redirectLogin()
+            // } else {
+            this.show = true;
+            // }
+        },
+        wxcDialogCancelBtnClicked () {
+            // 此处必须设置，组件为无状态组件，自己管理
+            this.show = false;
+        },
+        wxcDialogConfirmBtnClicked () {
+            this.show = false;
+        },
+        wxcDialogNoPromptClicked (e) {
+            // 此处必须设置，组件为无状态组件，自己管理
+            this.isChecked = e.isChecked;
         }
     }
 }
