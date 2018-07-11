@@ -42,6 +42,19 @@
                             const user = that.$storage.getSync('user');
                             const price = that.order.total.split('.');
                             const payAmount = price[0] + price[1];
+                            // that.$fetch({
+                            //     method: 'POST', // 大写
+                            //     url: `${baseUrl}/payment/razorpay/create/${order.id}/`,
+                            //     header: {
+                            //         needAuth: true
+                            //     }
+                            // }).then(resData => {
+                            //     that.$notice.alert({
+                            //         message: resData
+                            //     });
+                            // }, error => {
+                            //
+                            // });
                             pay.startPayRequest(that.order.title, 'Order#: ' + resData.number, that.order.mainImage,
                                 parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
