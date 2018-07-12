@@ -85,9 +85,6 @@ export default {
                     needAuth: true
                 }
             }).then(resData => {
-                this.$notice.alert({
-                    message: resData
-                })
                 // 成功回调
                 this.order = {};
                 this.order = resData;
