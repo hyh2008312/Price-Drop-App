@@ -35,7 +35,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
+import com.razorpay.PaymentData;
+import com.razorpay.PaymentResultWithDataListener;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXException;
@@ -45,7 +46,7 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 
-public class MainActivity extends AbstractWeexActivity implements PaymentResultListener {
+public class MainActivity extends AbstractWeexActivity implements PaymentResultWithDataListener {
     private JSCallback googleSuccessCallback;
     private JSCallback googleFailedCallback;
     // facebook login callback
@@ -63,6 +64,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
     private MessageDialog messageDialog;
     private static final int SHARE_FACEBOOK=10086;
     private static final int MESSENGER_FACEBOOK=10087;
+    private String amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,28 +222,31 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
 
     // 支付成功
     @Override
-    public void onPaymentSuccess(String razorpayPaymentID) {
+    public void onPaymentSuccess(String razorpayPaymentID, PaymentData data) {
         PayDto pay = new PayDto();
         pay.setCode(2000);
-        pay.setPaymentId(razorpayPaymentID);
+        pay.setRazorPaymentId(razorpayPaymentID);
+        pay.setRazorSignature(data.getSignature());
+        pay.setRazorOrderId(data.getOrderId());
+        pay.setRazorAmount(this.amount);
         paySuccessCallback.invoke(pay);
     }
 
     // 支付失败
     @Override
-    public void onPaymentError(int code, String response) {
+    public void onPaymentError(int code, String response, PaymentData data) {
         PayDto pay = new PayDto();
         pay.setCode(code);
         pay.setError(response);
         payFailedCallback.invoke(pay);
     }
 
-    public void startPayment(String name, String description, String image, String amount, String contact, String email) {
+    public void startPayment(String razorpayOrderId ,String name, String description, String image, String amount, String contact, String email) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
         final Activity activity = this;
-
+        this.amount = amount ;
         final Checkout co = new Checkout();
         co.setImage(R.mipmap.ic_launcher);
         try {
@@ -251,11 +256,11 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultL
             //You can omit the image option to fetch the image from dashboard
             options.put("currency", "INR");
             options.put("amount", amount);
+            options.put("order_id", razorpayOrderId);
             JSONObject preFill = new JSONObject();
             preFill.put("email", email);
             preFill.put("contact", contact);
             options.put("prefill", preFill);
-
             co.open(activity, options);
         } catch (Exception e) {
             payFailedCallback.invoke(e);
