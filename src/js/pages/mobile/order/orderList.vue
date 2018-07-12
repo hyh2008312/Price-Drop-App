@@ -345,7 +345,7 @@
                 this.isDeleteShow = false;
             },
             deleteOrderConfirm () {
-                this.closeDeletePop()
+                this.closeDeletePop();
                 this.$fetch({
                     method: 'DELETE', // 大写
                     url: `${baseUrl}/order/customer/cancel/${this.deleteId}/`,
