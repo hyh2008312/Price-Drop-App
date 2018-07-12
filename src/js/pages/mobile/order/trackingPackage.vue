@@ -4,20 +4,20 @@
         <div class="status-bar"></div>
         <list class="container" :style="height">
             <cell class="cell-bottom" @click="jumpAddress">
-                <tracking-package-header :order="order.data"></tracking-package-header>
+                <tracking-package-header :order="order.orderData"></tracking-package-header>
             </cell>
             <cell class="cell-line"></cell>
             <cell>
-                <tracking-package-item :address="order.order_data.address"></tracking-package-item>
+                <tracking-package-item-new :address="order.orderData.address"></tracking-package-item-new>
             </cell>
-            <cell v-for="item in order.data.origin_info.trackinfo">
-                <tracking-package-item :order="item"></tracking-package-item>
-            </cell>
-            <cell>
-                <tracking-package-item :shippedTime="order.order_data.shipped_time"></tracking-package-item>
+            <cell v-for="item in order.data.originInfo.trackinfo" v-if="order.data">
+                <tracking-package-item-new :order="item"></tracking-package-item-new>
             </cell>
             <cell>
-                <tracking-package-item :paidTime="order.order_data.paid_time"></tracking-package-item>
+                <tracking-package-item-new :shippedTime="order.orderData.shippedTime"></tracking-package-item-new>
+            </cell>
+            <cell>
+                <tracking-package-item-new :paidTime="order.orderData.paidTime"></tracking-package-item-new>
             </cell>
         </list>
     </div>
@@ -26,6 +26,7 @@
 import header from './header';
 import trackingPackageHeader from './trackingPackageHeader';
 import trackingPackageItem from './trackingPackageItem';
+import trackingPackageItemNew from './trackingPackageItemNew';
 import { Utils } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
@@ -34,16 +35,17 @@ export default {
     components: {
         'top-header': header,
         'tracking-package-header': trackingPackageHeader,
-        'tracking-package-item': trackingPackageItem
+        'tracking-package-item': trackingPackageItem,
+        trackingPackageItemNew
     },
     eros: {
         appeared (params, option) {
             if (params) {
-                this.id = params.id
+                this.id = params.id;
                 googleAnalytics.trackingScreen(`Tracking Package/${this.id}`);
-                this.getOrderTracking()
+                this.getOrderTracking();
                 this.$event.once('login', params => {
-                    this.getOrderTracking()
+                    this.getOrderTracking();
                 })
             }
         }
@@ -60,11 +62,14 @@ export default {
             title: 'Tracking Package',
             id: false,
             order: {
-                'order_data': {},
-                'data': {
-                    'tracking_number': ' ',
-                    'carrier_code': ' ',
-                    'origin_info': {
+                orderData: {
+                    trackingNumber: ' ',
+                    carrierCode: ' ',
+                    shppingTime: ' ',
+                    paidTime: ' '
+                },
+                data: {
+                    'originInfo': {
                         trackinfo: []
                     }
                 }
@@ -80,8 +85,12 @@ export default {
                     needAuth: true
                 }
             }).then(resData => {
+                this.$notice.alert({
+                    message: resData
+                })
                 // 成功回调
-                this.order = resData
+                this.order = {};
+                this.order = resData;
             }, error => {});
         }
     }

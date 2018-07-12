@@ -4,10 +4,10 @@
             <div class="gb-box-left">
 
             </div>
+            <div class="gb-box-line"></div>
             <div class="gb-box-center">
                 <text class="iconfont gb-box-icon">&#xe716;</text>
             </div>
-            <div class="gb-box-line"></div>
             <div class="gb-box-right">
                 <text class="gb-text">{{address}}</text>
             </div>
@@ -18,14 +18,14 @@
                 <text class="gb-text-2">{{getMonth(order.Date)}}</text>
                 <text class="gb-text-3">{{getHour(order.Date)}}</text>
             </div>
-            <div class="gb-box-center">
-                <text class="iconfont gb-box-icon" v-if="order.checkpoint_status == 'delivered'">&#xe6fb;</text>
-                <div class="gb-icon" v-if="order.checkpoint_status == 'transit'"></div>
-            </div>
             <div class="gb-box-line"></div>
+            <div class="gb-box-center">
+                <text class="iconfont gb-box-icon" v-if="order.checkpointStatus == 'delivered'">&#xe6fb;</text>
+                <div class="gb-icon" v-if="order.checkpointStatus == 'transit'"></div>
+            </div>
             <div class="gb-box-right">
-                <text class="gb-text" :class="[order.checkpoint_status == 'transit'? 'gb-text-color': '']">{{order.StatusDescription}}</text>
-                <text class="gb-text-1" :class="[order.checkpoint_status == 'transit'? 'gb-text-color': '']">{{order.Details}}</text>
+                <text class="gb-text" :class="[order.checkpointStatus == 'transit'? 'gb-text-color': '']">{{order.StatusDescription}}</text>
+                <text class="gb-text-1" :class="[order.checkpointStatus == 'transit'? 'gb-text-color': '']">{{order.Details}}</text>
             </div>
         </div>
         <div class="gb-box" v-if="payTime">
@@ -34,33 +34,33 @@
                 <text class="gb-text-2">{{getMonth(payTime)}}</text>
                 <text class="gb-text-3">{{getHour(payTime)}}</text>
             </div>
+            <div class="gb-box-line"></div>
             <div class="gb-box-center">
                 <text class="iconfont gb-box-icon">&#xe716;</text>
             </div>
-            <div class="gb-box-line"></div>
             <div class="gb-box-right">
                 <text class="gb-text gb-text-colo">Your order is being processed and packed.</text>
             </div>
         </div>
         <div class="gb-box" v-if="shippedTime">
             <div class="gb-box-left">
-                <text class="gb-text-2">{{getYear(shippedTime)}}</text>
-                <text class="gb-text-2">{{getMonth(shippedTime)}}</text>
-                <text class="gb-text-3">{{getHour(shippedTime)}}</text>
+                <text class="gb-text-2">{{getNewYear(shippedTime)}}</text>
+                <text class="gb-text-2">{{getNewMonth(shippedTime)}}</text>
+                <text class="gb-text-3">{{getNewHour(shippedTime)}}</text>
             </div>
+            <div class="gb-box-line"></div>
             <div class="gb-box-center">
                 <text class="iconfont gb-box-icon">&#xe716;</text>
             </div>
-            <div class="gb-box-line"></div>
             <div class="gb-box-right">
                 <text class="gb-text gb-text-colo">Your order has been shipped.</text>
             </div>
         </div>
-        <div class="gb-box" v-if="payTime">
+        <div class="gb-box" v-if="paidTime">
             <div class="gb-box-left">
-                <text class="gb-text-2">{{getYear(payTime)}}</text>
-                <text class="gb-text-2">{{getMonth(payTime)}}</text>
-                <text class="gb-text-3">{{getHour(payTime)}}</text>
+                <text class="gb-text-2">{{getNewYear(paidTime)}}</text>
+                <text class="gb-text-2">{{getNewMonth(paidTime)}}</text>
+                <text class="gb-text-3">{{getNewHour(paidTime)}}</text>
             </div>
             <div class="gb-box-center">
                 <text class="iconfont gb-box-icon">&#xe716;</text>
@@ -80,11 +80,11 @@
             address: {
                 default: false
             },
-            payTime: {
+            paidTime: {
                 default: false
             },
             shippedTime: {
-                efault: false
+                default: false
             }
         },
         data () {
@@ -101,6 +101,18 @@
             },
             getHour (str) {
                 return str.split(' ')[1]
+            },
+            getNewYear (str) {
+                return new Date(str).getFullYear();
+            },
+            getNewMonth (str) {
+                return (new Date(str).getMonth() + 1 < 10 ? '0' + (new Date(str).getMonth() + 1) : (new Date(str).getMonth() + 1)) +
+                     '-' + (new Date(str).getDate() < 10 ? '0' + new Date(str).getDate() : new Date(str).getDate())
+            },
+            getNewHour (str) {
+                return (new Date(str).getHours() < 10 ? '0' + new Date(str).getHours() : new Date(str).getHours()) + ':' +
+                    (new Date(str).getMinutes() < 10 ? '0' + new Date(str).getMinutes() : new Date(str).getMinutes()) + ':' +
+                    (new Date(str).getSeconds() < 10 ? '0' + new Date(str).getSeconds() : new Date(str).getSeconds());
             }
         }
     }
@@ -129,7 +141,6 @@
     .gb-text-1{
         font-size: 24px;
         line-height: 40px;
-        margin-bottom: 64px;
     }
 
     .gb-text-2{
@@ -142,6 +153,7 @@
         font-size: 20px;
         line-height: 24px;
         color: rgba(0,0,0,0.38);
+        margin-bottom: 40px;
     }
 
     .gb-text-color{
@@ -165,19 +177,23 @@
         background-color: rgba(0,0,0,0.08);
         top: 0;
         bottom: 0;
-        left: 140px;
+        left: 142px;
     }
 
     .gb-box-right{
         width: 592px;
         padding-left: 26px;
         padding-right: 40px;
+        padding-bottom: 64px;
     }
 
     .gb-box-icon{
         font-size: 32px;
         line-height: 32px;
         color: #EF8A31;
+        width: 32px;
+        height: 32px;
+        background-color: #fff;
     }
 
     .gb-icon{

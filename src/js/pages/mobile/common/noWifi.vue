@@ -14,7 +14,6 @@
 export default {
     methods: {
         reload () {
-            this.$notice.toast(111)
             this.$emit('onReload', {
                 status: 'reload',
                 data: {

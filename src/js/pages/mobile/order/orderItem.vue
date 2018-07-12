@@ -108,7 +108,7 @@
                 this.$router.open({
                     name: 'order.address.tracking',
                     type: 'PUSH',
-                    data: {
+                    params: {
                         id: this.order.id
                     }
                 })

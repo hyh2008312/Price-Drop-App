@@ -32,10 +32,10 @@ export default {
         category
     },
     created () {
-        const pageHeight = Utils.env.getScreenHeight()
-        this.height = { height: (pageHeight - 112 - 112 - 48) + 'px' }
-        this.getChannel()
-        this.initGoogleAnalytics()
+        const pageHeight = Utils.env.getScreenHeight();
+        this.height = { height: (pageHeight - 112 - 112 - 48) + 'px' };
+        this.getChannel();
+        this.initGoogleAnalytics();
     },
     data () {
         return {
@@ -63,19 +63,19 @@ export default {
             this.deltaX = moveX - this.positionX;
             this.deltaY = moveY - this.positionY;
             if (this.deltaY > 0 && Math.abs(this.deltaY) > Math.abs(this.deltaX)) {
-                this.headerShow = true
-                this.changeHeader()
+                this.headerShow = true;
+                this.changeHeader();
             }
             if (this.deltaY < 0 && Math.abs(this.deltaY) > Math.abs(this.deltaX)) {
-                this.headerShow = false
-                this.changeHeader()
+                this.headerShow = false;
+                this.changeHeader();
             }
         },
         ontouchend (event) {
-            this.positionX = 0
-            this.positionY = 0
-            this.deltaX = 0
-            this.deltaY = 0
+            this.positionX = 0;
+            this.positionY = 0;
+            this.deltaX = 0;
+            this.deltaY = 0;
         },
         onchange (event) {
             this.activeIndex = event.data.index
@@ -102,22 +102,22 @@ export default {
                     width: 56,
                     left: 0,
                     id: '0'
-                })
+                });
 
                 for (const item of data) {
-                    index++
+                    index++;
                     this.channelList.push({
                         name: item.fullName,
                         left: channel[index].left,
                         id: item.id
-                    })
+                    });
                 }
             }, error => {})
         },
         changeHeader () {
             if (!this.headAni) {
                 if (this.headerShow) {
-                    this.headAni = true
+                    this.headAni = true;
                     animation.transition(this.$refs.header, {
                         styles: {
                             transform: 'translateY(0px)'
@@ -126,10 +126,10 @@ export default {
                         timingFunction: 'ease',
                         delay: 0
                     }, () => {
-                        this.headAni = false
+                        this.headAni = false;
                     });
                 } else {
-                    this.headAni = true
+                    this.headAni = true;
                     animation.transition(this.$refs.header, {
                         styles: {
                             transform: 'translateY(-104px)'
@@ -138,7 +138,7 @@ export default {
                         timingFunction: 'ease',
                         delay: 0
                     }, () => {
-                        this.headAni = false
+                        this.headAni = false;
                     });
                 }
             }

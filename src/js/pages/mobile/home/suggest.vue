@@ -135,9 +135,9 @@ export default {
                 this.countApi = 0;
                 this.isLoading = true;
                 if (this.tabKey == 'new') {
-                    this.getNewGoods(false)
+                    this.getNewGoods(false);
                 } else {
-                    this.getHotGoods(false)
+                    this.getHotGoods(false);
                 }
             }
         },
@@ -211,7 +211,7 @@ export default {
             });
         },
         getBlock5 () {
-            this.refreshApiFinished()
+            this.refreshApiFinished();
         },
         getNewGoods(isfirst) {
             if(isfirst) {
@@ -250,7 +250,7 @@ export default {
         },
         getHotGoods (isfirst) {
             if(isfirst) {
-                this.pageHot = 1
+                this.pageHot = 1;
             }
             if(this.pageHot > this.lengthHot) {
                 this.$refs.refresh.refreshEnd();

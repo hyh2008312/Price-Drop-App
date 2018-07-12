@@ -5,10 +5,10 @@
             <div class="gb-box-center">
                 <div class="gb-box-bg">
                     <text class="gb-text">Carrier: </text>
-                    <text class="gb-text-color">{{order.data.carrier_code}}</text>
+                    <text class="gb-text-color">{{order.carrierCode}}</text>
                 </div>
                 <div class="gb-box-bg gb-mt">
-                    <text class="gb-text">Tracking Number: {{order.data.tracking_number}}</text>
+                    <text class="gb-text">Tracking Number: {{order.trackingNumber}}</text>
                     <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         },
         methods: {
             setNumber () {
-                clipboard.setString(this.order.data.tracking_number)
+                clipboard.setString(this.order.trackingNumber)
                 this.$notice.toast('Tracking number copied')
             }
         }
@@ -64,9 +64,6 @@
 
     .gb-box-center{
         width: 574px;
-        border-right-width: 2px;
-        border-bottom-style: solid;
-        border-right-color: rgba(0,0,0,0.08);
     }
 
     .gb-box-bg{
