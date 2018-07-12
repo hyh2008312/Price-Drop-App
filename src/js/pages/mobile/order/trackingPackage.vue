@@ -64,9 +64,7 @@ export default {
             order: {
                 orderData: {
                     trackingNumber: ' ',
-                    carrierCode: ' ',
-                    shppingTime: ' ',
-                    paidTime: ' '
+                    carrierCode: ' '
                 },
                 data: {
                     'originInfo': {
