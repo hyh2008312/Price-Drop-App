@@ -14,7 +14,7 @@
             <div :style="{height:height}">
                 <image :style="{height:height}" class="image-content" resize="cover" src="bmlocal://assets/guide_3.png"></image>
                 <div class="guide-text">
-                    <text class="guide-text-content">Earn Points to Redeem for Free Gifts & Cash Rewards!</text>
+                    <text class="guide-text-content">Earn points to redeem for free gifts & cashback rewards</text>
                 </div>
                 <!--<div class="guide-circle">
                     <div class="guide-circle-white"></div>

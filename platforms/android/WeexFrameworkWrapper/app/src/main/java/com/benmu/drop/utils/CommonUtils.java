@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.benmu.drop.R;
 import com.benmu.drop.activity.bean.AppDto;
@@ -51,12 +53,15 @@ public class CommonUtils extends WXModule {
 
     @JSMethod
     public void updateAndroidApp(String apkUrl) {
-        if (!PermissionUtils.checkPermission(mWXSDKInstance.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            return;
+        final String GOOGLE_PLAY = "com.android.vending";//这里对应的是谷歌商店，跳转别的商店改成对应的即可
+        try {
+            Uri uri = Uri.parse("market://details?id=com.socialcommer.wx");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.setPackage(GOOGLE_PLAY);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mWXSDKInstance.getContext().startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(mWXSDKInstance.getContext(),"Don't discover Google play!", Toast.LENGTH_SHORT).show();
         }
-        Intent updateIntent = new Intent(mWXSDKInstance.getContext(), UpdateService.class);
-        updateIntent.putExtra("app_name", "PriceDrop");
-        updateIntent.putExtra("updateurl", apkUrl);
-        mWXSDKInstance.getContext().startService(updateIntent);
     }
 }

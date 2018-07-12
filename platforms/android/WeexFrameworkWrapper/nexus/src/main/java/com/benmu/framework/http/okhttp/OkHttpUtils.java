@@ -1,5 +1,7 @@
 package com.benmu.framework.http.okhttp;
 
+import android.text.TextUtils;
+
 import com.benmu.framework.http.okhttp.builder.GetBuilder;
 import com.benmu.framework.http.okhttp.builder.HeadBuilder;
 import com.benmu.framework.http.okhttp.builder.OtherRequestBuilder;
@@ -11,6 +13,8 @@ import com.benmu.framework.http.okhttp.exception.CancelException;
 import com.benmu.framework.http.okhttp.exception.HttpException;
 import com.benmu.framework.http.okhttp.request.RequestCall;
 import com.benmu.framework.http.okhttp.utils.Platform;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.concurrent.Executor;
@@ -132,6 +136,16 @@ public class OkHttpUtils {
 
                     if (!finalCallback.validateReponse(response, id)) {
                         //request failed
+                        String detail = response.body().string();
+                        if (!TextUtils.isEmpty(detail)) {
+                            JSONObject object = new JSONObject(detail);
+                            String content = object.getString("detail");
+                            if (!TextUtils.isEmpty(content)) {
+                                Exception failed = new HttpException(response.code(), content);
+                                sendFailResultCallback(call, failed, finalCallback, id);
+                                return;
+                            }
+                        }
                         Exception failed = new HttpException(response.code(), "request failed" +
                                 response.message());
                         sendFailResultCallback(call, failed, finalCallback, id);

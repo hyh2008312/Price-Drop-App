@@ -26,10 +26,11 @@ public class PayModule extends WXModule {
 
     @JSMethod
     public void startPayRequest(
+            String razorpayOrderId,
             String name, String description, String image, String amount, String contact, String email,
             JSCallback PaySuccessCallback, JSCallback PayFailedCallback) {
         ((MainActivity) mWXSDKInstance.getContext()).setPayCallBack(PaySuccessCallback, PayFailedCallback);
-        ((MainActivity) mWXSDKInstance.getContext()).startPayment(name, description, image, amount, contact,email);
+        ((MainActivity) mWXSDKInstance.getContext()).startPayment(razorpayOrderId,name, description, image, amount, contact,email);
 
     }
 }

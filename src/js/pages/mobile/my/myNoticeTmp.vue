@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="card-bottom"  v-if="i.noticeType=='reminder_payment'" @click="openNew(2,i.context.orderId)">
-                            <text class="card-bottom-word" >Click to Pay Now</text>
+                            <text class="card-bottom-word" >Click to Pay Now {{i}}</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 
@@ -272,12 +272,23 @@
                         }
                     })
                 } else if (p == 2) {
-                    this.$router.open({
-                        name: 'order.detail',
-                        params: {
-                            id: other
-                        }
-                    })
+                    if (other !== 0) {
+                        this.$router.open({
+                            name: 'order.detail',
+                            params: {
+                                id: other
+                            }
+                        })
+                    } else {
+                        this.$router.open({
+                            name: 'drops.cutDetail',
+                            type: 'PUSH',
+                            params: {
+                                isShowSharePanel: false,
+                                id: other
+                            }
+                        })
+                    }
                 } else if (p == 3) {
                     this.$router.open({
                         name: 'my.points',

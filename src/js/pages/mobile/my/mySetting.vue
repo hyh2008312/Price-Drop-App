@@ -36,18 +36,6 @@
         <div class="bottom-btn" @click="logOut" v-if="logsign==true">
             <text class="bottom-btn-txt">Logout</text>
         </div>
-        <wxc-dialog title="update"
-                    :content="updateDetail"
-                    :show="show"
-                    :single="false"
-                    :is-checked="false"
-                    :show-no-prompt="false"
-                    :cancel-text="'Cancel'"
-                    :confirm-text="'Confirm'"
-                    @wxcDialogCancelBtnClicked="wxcDialogCancelBtnClicked"
-                    @wxcDialogConfirmBtnClicked="wxcDialogConfirmBtnClicked"
-                    @wxcDialogNoPromptClicked="wxcDialogNoPromptClicked">
-        </wxc-dialog>
     </div>
 </template>
 
@@ -84,7 +72,6 @@
                 client_id: '',
                 version: '1.0.0',
                 versionCode: 100,
-                show: false,
                 isChecked: false,
                 isUpdate: false,
                 updateDetail: 'Fixed some bugs & improved user experience',
@@ -114,21 +101,7 @@
                 })
             },
             openDialog () {
-                if (this.isUpdate) {
-                    this.show = true;
-                }
-            },
-            wxcDialogCancelBtnClicked () {
-                // must setting,control by yourself
-                this.show = false;
-            },
-            wxcDialogConfirmBtnClicked () {
-                this.show = false;
                 commonUtils.updateAndroidApp(this.apkUrl);
-            },
-            wxcDialogNoPromptClicked (e) {
-                // must setting,control by yourself
-                this.isChecked = e.isChecked;
             },
             startGetAppVersion () {
                 const that = this
