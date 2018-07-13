@@ -28,20 +28,6 @@
                 <text class="gb-text-1" :class="[order.checkpointStatus == 'transit'? 'gb-text-color': '']">{{order.Details}}</text>
             </div>
         </div>
-        <div class="gb-box" v-if="payTime">
-            <div class="gb-box-left">
-                <text class="gb-text-2">{{getYear(payTime)}}</text>
-                <text class="gb-text-2">{{getMonth(payTime)}}</text>
-                <text class="gb-text-3">{{getHour(payTime)}}</text>
-            </div>
-            <div class="gb-box-line"></div>
-            <div class="gb-box-center">
-                <text class="iconfont gb-box-icon">&#xe716;</text>
-            </div>
-            <div class="gb-box-right">
-                <text class="gb-text gb-text-colo">Your order is being processed and packed.</text>
-            </div>
-        </div>
         <div class="gb-box" v-if="shippedTime">
             <div class="gb-box-left">
                 <text class="gb-text-2">{{getNewYear(shippedTime)}}</text>
@@ -94,12 +80,15 @@
         },
         methods: {
             getYear (str) {
+                if (str == '') return '';
                 return str.split(' ')[0].split('-')[0]
             },
             getMonth (str) {
+                if (str == '') return '';
                 return str.split(' ')[0].split('-')[1] + '-' + str.split(' ')[0].split('-')[2]
             },
             getHour (str) {
+                if (str == '') return '';
                 return str.split(' ')[1]
             },
             getNewYear (str) {

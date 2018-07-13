@@ -26,7 +26,7 @@
                     if (that.order.proId == 'product') {
                         that.$fetch({
                             method: 'POST', // 大写
-                            name: 'order.create',
+                            name: 'order.create.payment',
                             data: {
                                 vid: that.order.id,
                                 quantity: that.order.quantity
@@ -42,29 +42,17 @@
                             const user = that.$storage.getSync('user');
                             const price = that.order.total.split('.');
                             const payAmount = price[0] + price[1];
-                            // that.$fetch({
-                            //     method: 'POST', // 大写
-                            //     url: `${baseUrl}/payment/razorpay/create/${order.id}/`,
-                            //     header: {
-                            //         needAuth: true
-                            //     }
-                            // }).then(resData => {
-                            //     that.$notice.alert({
-                            //         message: resData
-                            //     });
-                            // }, error => {
-                            //
-                            // });
-                            pay.startPayRequest(that.order.title, 'Order#: ' + resData.number, that.order.mainImage,
+                            pay.startPayRequest(order.razorpayOrderId, that.order.title, 'Order#: ' + order.order.number, that.order.mainImage,
                                 parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
                                     that.$notice.loading.show();
                                     that.$fetch({
                                         method: 'POST', // 大写
-                                        url: `${baseUrl}/payment/razorpay/${order.id}/`,
+                                        name: 'payment.razorpay.check',
                                         data: {
-                                            paymentId: param.paymentId,
-                                            paymentAmount: that.order.currentPrice
+                                            razorpayPaymentId: param.razorPaymentId,
+                                            razorpayOrderId: param.razorOrderId,
+                                            razorpaySignature: param.razorSignature
                                         },
                                         header: {
                                             needAuth: true
@@ -83,11 +71,10 @@
                                             }
                                         });
                                     }, error => {
-                                        that.$notice.loading.hide();
                                         that.$notice.toast({
                                             message: error
                                         });
-                                    })
+                                    });
                                 }, function (param) {
                                     if (param.code != 0) {
                                         that.$router.open({
@@ -109,7 +96,7 @@
                                 });
                             that.isFirst = true;
                         }, error => {
-                            this.$event.emit('cutDetail');
+                            that.$event.emit('cutDetail');
                             that.isFirst = true;
                             that.$notice.toast({
                                 message: error
@@ -118,7 +105,7 @@
                     } else {
                         that.$fetch({
                             method: 'POST', // 大写
-                            name: 'order.cut.create',
+                            name: 'order.cut.create.payment',
                             data: {
                                 cutId: that.order.id
                             },
@@ -133,20 +120,23 @@
                             const user = that.$storage.getSync('user');
                             const price = that.order.total.split('.');
                             const payAmount = price[0] + price[1];
-                            pay.startPayRequest(that.order.title, '', that.order.mainImage,
+                            pay.startPayRequest(order.razorpayOrderId, that.order.title, 'Order#: ' + order.order.number, that.order.mainImage,
                                 parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
+                                    that.$notice.loading.show();
                                     that.$fetch({
                                         method: 'POST', // 大写
-                                        url: `${baseUrl}/payment/razorpay/${order.id}/`,
+                                        name: 'payment.razorpay.check',
                                         data: {
-                                            paymentId: param.paymentId,
-                                            paymentAmount: that.order.currentPrice
+                                            razorpayPaymentId: param.razorPaymentId,
+                                            razorpayOrderId: param.razorOrderId,
+                                            razorpaySignature: param.razorSignature
                                         },
                                         header: {
                                             needAuth: true
                                         }
                                     }).then(resData => {
+                                        that.$notice.loading.hide();
                                         that.$router.finish();
                                         that.$event.once('paySuccess', () => {
                                             that.init()

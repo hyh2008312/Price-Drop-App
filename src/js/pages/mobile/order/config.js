@@ -54,14 +54,14 @@ export const CHANNELLIST = [{
     name: 'All',
     left: '0'
 }, {
-    name: 'Unpaid',
-    left: '128'
+    name: 'Pending',
+    left: '130'
 }, {
     name: 'Packing',
-    left: '284'
+    left: '290'
 }, {
     name: 'Shipped',
-    left: '448'
+    left: '450'
 }, {
     name: 'Delivered',
     left: '620'
