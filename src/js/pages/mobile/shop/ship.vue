@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="state"  ></div>
-        <scroller  v-if="ship==false">
+        <scroller  v-if="shipA">
         <div class="wrapper"  >
 
         <div class="overflow-box" >
@@ -48,7 +48,7 @@
         </div>
         <div class="overflow-bottom"  >
 
-            <div class="bottom-card"  v-if="ship==false">
+            <div class="bottom-card"  v-if="shipA">
                 <text class="bottom-head-txt head-txt">Rules to Know</text>
                 <div class="bottom-card-item1" v-for="(i,index) in QAArr"  :class="[index==QAArr.length-1 ?'bottom-last':'',]">
                     <div><text class="bottom-num">{{index+1}}.</text></div>
@@ -63,7 +63,7 @@
     </div>
         </scroller>
 
-        <div class="wrapper" v-if="ship==true">
+        <div class="wrapper" v-if="shipB">
 
             <!--<scroller >-->
             <div class="overflow-box1" >
@@ -93,9 +93,11 @@
         },
         created () {
             this.$router.getParams().then(params => {
-                if (params) {
-                    this.ship = true
+                if (params.time) {
+                    this.shipB = true
                     this.time = params.time
+                } else {
+                    this.shipA = true
                 }
             })
             this.QAArr = QA
@@ -105,7 +107,8 @@
             return {
                 time: '',
                 aa: '',
-                ship: false
+                shipA: false,
+                shipB: false
             }
         },
         methods: {
