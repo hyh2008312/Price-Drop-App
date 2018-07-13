@@ -366,7 +366,7 @@
                             } else {
                                 this.selimgsrc = ''
                             }
-                            if (res.attributes != null && res.attributes.length > 0) {
+                            if (res.attributes != null && res.attributes.length > 1) {
                                 this.goodsType = res.attributes;
                                 this.operateData(res.attributes);
                             } else {
