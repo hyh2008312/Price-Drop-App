@@ -140,12 +140,12 @@
             <div style="display: none" ref="policy"></div>
 
             <div class="bottom-btn" v-if="isDrop== true" >
-                <text class="button" @click="openBottomPopup" v-if="canBuy==true">Invite Friends to Drop Price</text>
+                <text class="button" @click="openCutPrice" v-if="canBuy==true">Invite Friends to Drop Price</text>
                 <text class="button-gray"  v-if="canBuy==false">Out of Stock</text>
             </div>
 
             <div class="bottom-btn" v-if="isDrop== false">
-                <text class="button" @click="openBottomPopup" v-if="canBuy==true" >Buy Now</text>
+                <text class="button" @click="openBuyNow" v-if="canBuy==true" >Buy Now</text>
                 <text class="button-gray"  v-if="canBuy==false" >Out of Stock</text>
             </div>
 
@@ -522,12 +522,29 @@
                     type: 'PUSH'
                 })
             },
-            openBottomPopup () {
+            openCutPrice () {
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
-                    if (this.hasVariants === false && this.isDrop == true) {
+                    if (this.hasVariants === false) {
                         this.createCut()
+                    } else {
+                        this.isBottomShow = true;
+                    }
+                }
+            },
+            openBuyNow () {
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    if (this.hasVariants === false) {
+                        if (this.variantsId != '' && this.isDrop == false) {
+                            this.$router.open({
+                                name: 'order.confirm',
+                                type: 'PUSH',
+                                params: this.nextPage
+                            })
+                        }
                     } else {
                         this.isBottomShow = true;
                     }
