@@ -225,7 +225,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
     public void onPaymentSuccess(String razorpayPaymentID, PaymentData data) {
         PayDto pay = new PayDto();
         pay.setCode(2000);
-        pay.setRazorPaymentId(razorpayPaymentID);
+        pay.setRazorPaymentId(data.getPaymentId());
         pay.setRazorSignature(data.getSignature());
         pay.setRazorOrderId(data.getOrderId());
         pay.setRazorAmount(this.amount);
