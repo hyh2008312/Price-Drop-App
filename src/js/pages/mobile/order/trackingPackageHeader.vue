@@ -8,7 +8,8 @@
                     <text class="gb-text-color">{{order.carrierCode}}</text>
                 </div>
                 <div class="gb-box-bg gb-mt">
-                    <text class="gb-text">Tracking Number: {{order.trackingNumber}}</text>
+                    <text class="gb-text">Tracking Number: </text>
+                    <text class="gb-text-color">{{order.trackingNumber}}</text>
                     <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
                 </div>
             </div>

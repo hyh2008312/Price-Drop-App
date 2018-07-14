@@ -7,9 +7,6 @@
                 <tracking-package-header :order="order.orderData"></tracking-package-header>
             </cell>
             <cell class="cell-line"></cell>
-            <cell>
-                <tracking-package-item-new :address="order.orderData.address"></tracking-package-item-new>
-            </cell>
             <cell v-for="item in order.data.originInfo.trackinfo" v-if="order.data">
                 <tracking-package-item-new :order="item"></tracking-package-item-new>
             </cell>
@@ -59,7 +56,7 @@ export default {
     },
     data () {
         return {
-            title: 'Tracking Package',
+            title: 'Tracking Information',
             id: false,
             order: {
                 orderData: {

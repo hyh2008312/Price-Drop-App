@@ -21,7 +21,7 @@
             <div class="gb-box-line"></div>
             <div class="gb-box-center">
                 <text class="iconfont gb-box-icon" v-if="order.checkpointStatus == 'delivered'">&#xe6fb;</text>
-                <div class="gb-icon" v-if="order.checkpointStatus == 'transit'"></div>
+                <div class="gb-icon" v-if="order.checkpointStatus == 'transit' || order.checkpointStatus == 'pickup' "></div>
             </div>
             <div class="gb-box-right">
                 <text class="gb-text" :class="[order.checkpointStatus == 'transit'? 'gb-text-color': '']">{{order.StatusDescription}}</text>
@@ -36,7 +36,7 @@
             </div>
             <div class="gb-box-line"></div>
             <div class="gb-box-center">
-                <text class="iconfont gb-box-icon">&#xe716;</text>
+                <text class="iconfont gb-box-icon">&#xe6fb;</text>
             </div>
             <div class="gb-box-right">
                 <text class="gb-text gb-text-colo">Your order has been shipped.</text>
@@ -49,10 +49,10 @@
                 <text class="gb-text-3">{{getNewHour(paidTime)}}</text>
             </div>
             <div class="gb-box-center">
-                <text class="iconfont gb-box-icon">&#xe716;</text>
+                <text class="iconfont gb-box-icon">&#xe6fb;</text>
             </div>
             <div class="gb-box-right">
-                <text class="gb-text gb-text-colo">Your order is being processed and packed.</text>
+                <text class="gb-text gb-text-colo">Your order is being processed.</text>
             </div>
         </div>
     </div>
