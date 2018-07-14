@@ -18,9 +18,9 @@
             </div>
             <div class="dialog-footer">
                 <div class="overflow-btn">
-                    <!--<div class="footer-btn confirm" @click="primaryClicked">-->
-                        <!--<text class="btn-text" :style="{ color: mainBtnColor }">{{confirmText}}</text>-->
-                    <!--</div>-->
+                    <div class="footer-btn confirm" @click="primaryClicked">
+                        <text class="btn-text" :style="{ color: mainBtnColor }">{{confirmText}}</text>
+                    </div>
                     <div class="footer-btn1 cancel"
                          v-if="!single"
                          @click="secondaryClicked">
@@ -44,7 +44,7 @@
         position: fixed;
         left: 77px;
         width: 592px;
-        height: 296px;
+        height: 314px;
         background-color: #FFFFFF;
         border-radius: 8px;
     }

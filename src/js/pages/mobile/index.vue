@@ -4,10 +4,11 @@
         <tab-bar @tabTo="onTabTo" :items="items" :indexKey="selectedTab"></tab-bar>
 
         <NewDialog class="wxdialog"
-                   :content="'Please update your app version to continue.'"
+                   :content="'Welcome back! We just released a new version. Please update your app to continue.'"
                    :show="show"
                    :single="true"
                    :is-checked="isChecked"
+                   :confirmText="'Update Now'"
                    @wxcDialogCancelBtnClicked="wxcDialogCancelBtnClicked"
                    @wxcDialogConfirmBtnClicked="wxcDialogConfirmBtnClicked"
                    @wxcDialogNoPromptClicked="wxcDialogNoPromptClicked">
@@ -184,7 +185,7 @@ export default {
             this.show = false;
         },
         wxcDialogConfirmBtnClicked () {
-            this.show = false;
+            commonUtils.updateAndroidApp('');
         },
         wxcDialogNoPromptClicked (e) {
             // 此处必须设置，组件为无状态组件，自己管理
