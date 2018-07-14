@@ -7,7 +7,8 @@
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Packing' || order.orderStatus == 'Audit canceled'">&#xe70d;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Shipped'">&#xe712;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Completed'">&#xe6ed;</text>
-                <text class="gb-text">{{order.orderStatus == 'Audit canceled' ? 'Packing': order.orderStatus}}</text>
+                <text class="gb-text" v-if="order.orderStatus != 'Unpaid'">{{order.orderStatus == 'Audit canceled' ? 'Packing': order.orderStatus}}</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Unpaid'">Pending</text>
             </div>
             <div class="gb-bg-1" v-if="order.orderStatus == 'Unpaid'">
                 <text class="gb-icon iconfont gd-text-color">&#xe703;</text>

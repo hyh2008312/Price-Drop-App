@@ -20,15 +20,16 @@
                     <text class="gd-text">Subtotal</text>
                     <text class="gd-text">Shipping</text>
                     <text class="gd-text">Tax</text>
-                    <text class="gd-text">Price Drop</text>
+                    <text class="gd-text" v-if="!order.proId">Price Drop</text>
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
-                    <text class="gb-text">Rs.{{order.salePrice}}</text>
+                    <text class="gb-text" v-if="order.proId == 'product'">Rs.{{order.currentPrice}}</text>
+                    <text class="gb-text" v-if="!order.proId">Rs.{{order.salePrice}}</text>
                     <text class="gb-text">Rs.{{order.shippingPrice||'0.00'}}</text>
                     <text class="gb-text">Rs.0.00</text>
-                    <text class="gb-text gb-text-color">- Rs.{{((order.salePrice * 100 - order.currentPrice * 100) / 100).toFixed(2)}}</text>
-                    <text class="gb-text-1">Rs.{{order.currentPrice}}</text>
+                    <text class="gb-text gb-text-color" v-if="!order.proId">- Rs.{{((order.salePrice * 100 - order.currentPrice * 100) / 100).toFixed(2)}}</text>
+                    <text class="gb-text-1">Rs.{{order.total}}</text>
                 </div>
             </div>
         </div>

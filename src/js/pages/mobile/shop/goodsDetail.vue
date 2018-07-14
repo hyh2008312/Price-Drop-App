@@ -171,7 +171,10 @@
                         <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
                         <text class="popup-lowprice"      v-if="isDrop">Rs.{{lowestPrice}}</text>
                         <text class="popup-lowprice"      v-if="!isDrop">Rs.{{selunitPrice||goods.unitPrice}}</text>
-                        <text class="popup-yet" v-if="hasVariants==true">{{selcolor}}&nbsp;&nbsp;&nbsp;&nbsp;{{selsize}}</text>
+                        <div class="popup-yet-bg" v-if="hasVariants==true">
+                            <text class="popup-yet" v-if="selcolor != ''">{{selcolor}}</text>
+                            <text class="popup-yet" v-if="selsize != ''">{{selsize}}</text>
+                        </div>
                     </div>
 
                     <text class="popup-close" @click="popupOverlayBottomClick">&#xe632;</text>
@@ -345,65 +348,76 @@
                         // url: `${baseUrl}/product/customer/detail/75/`,
                         data: {}
                     }).then((res) => {
-                            this.goods.title = res.title;
-                            this.goods.price = res.saleUnitPrice;
-                            this.goods.unitPrice = res.unitPrice;
-                            this.selsaleUnitPrice = res.saleUnitPrice;
-                            this.lowestPrice = res.lowestPrice;
-                            this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
-                            this.goods.brandLogo = res.brandLogo;
-                            this.goodsImg = res.images;
-                            if (res.cutGet == null) {
-                                this.goods.cut_get = 0
-                            } else {
-                                this.goods.cut_get = res.cutGet
-                            }
+                        this.goods.title = res.title;
+                        this.goods.price = res.saleUnitPrice;
+                        this.goods.unitPrice = res.unitPrice;
+                        this.selsaleUnitPrice = res.saleUnitPrice;
+                        this.lowestPrice = res.lowestPrice;
+                        this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
+                        this.goods.brandLogo = res.brandLogo;
+                        this.goodsImg = res.images;
+                        if (res.cutGet == null) {
+                            this.goods.cut_get = 0
+                        } else {
+                            this.goods.cut_get = res.cutGet
+                        }
 
-                            this.goodsVariants = res.variants;
-                            if (res.images != null) {
-                                this.selimgsrc = res.images[0]
-                                this.nextPage.mainImage = this.selimgsrc
-                            } else {
-                                this.selimgsrc = ''
-                            }
-                            if (res.attributes != null && res.attributes.length > 1) {
-                                this.goodsType = res.attributes;
-                                this.operateData(res.attributes);
-                            } else {
-                                this.hasVariants = false
-                                this.nextPage.attributes = ''
-                                this.goodsType = []
-                                this.canBuy = res.variants[0].isCanBuy
-                                this.variantsId = res.variants[0].id
-                                this.nextPage.id = res.variants[0].id
+                        this.goodsVariants = res.variants;
+                        if (res.images != null) {
+                            this.selimgsrc = res.images[0]
+                            this.nextPage.mainImage = this.selimgsrc
+                        } else {
+                            this.selimgsrc = ''
+                        }
+                        if (res.attributes != null && res.attributes.length > 0) {
+                            if (this.goodsVariants.length == 1) {
+                                this.hasVariants = false;
+                                this.nextPage.attributes = '';
+                                this.goodsType = [];
+                                this.canBuy = res.variants[0].isCanBuy;
+                                this.variantsId = res.variants[0].id;
+                                this.nextPage.id = res.variants[0].id;
                                 this.nextPage.salePrice = res.variants[0].saleUnitPrice;
                                 this.nextPage.currentPrice = res.variants[0].unitPrice;
-                                // this.nextPage.mainImage =
+                            } else {
+                                this.goodsType = res.attributes;
+                                this.operateData(res.attributes);
                             }
+                        } else {
+                            this.hasVariants = false;
+                            this.nextPage.attributes = '';
+                            this.goodsType = [];
+                            this.canBuy = res.variants[0].isCanBuy;
+                            this.variantsId = res.variants[0].id;
+                            this.nextPage.id = res.variants[0].id;
+                            this.nextPage.salePrice = res.variants[0].saleUnitPrice;
+                            this.nextPage.currentPrice = res.variants[0].unitPrice;
+                            // this.nextPage.mainImage =
+                        }
 
-                            this.shipObj = res.shipping
-                            this.dectxt = []
-                            this.nextPage.title = res.title;
-                            this.nextPage.productId = id.id;
-                            this.nextPage.shippingPrice = res.shipping.priceItem;
-                            this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
-                            this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
-                            this.isDrop = res.isDrop
-                            this.nextPage.proId = res.isDrop == false ? 'product' : '';
-                            // nextPage 传给下一页组织的数据
-                            // this.$notice.alert({
-                            //     message: res
-                            // })
-                            if (res.newDescription != null) {
-                                this.newDescription = res.newDescription
-                                // for (let i = 0; i < res.description.length; i++) {
-                                //     if (res.description[i].type == 'image') {
-                                //         this.decimg.push(res.description[i].context)
-                                //     } else {
-                                //         this.dectxt.push(res.description[i].context)
-                                //     }
-                                // }
-                            }
+                        this.shipObj = res.shipping
+                        this.dectxt = []
+                        this.nextPage.title = res.title;
+                        this.nextPage.productId = id.id;
+                        this.nextPage.shippingPrice = res.shipping.priceItem;
+                        this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
+                        this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
+                        this.isDrop = res.isDrop
+                        this.nextPage.proId = res.isDrop == false ? 'product' : '';
+                        // nextPage 传给下一页组织的数据
+                        // this.$notice.alert({
+                        //     message: res
+                        // })
+                        if (res.newDescription != null) {
+                            this.newDescription = res.newDescription
+                            // for (let i = 0; i < res.description.length; i++) {
+                            //     if (res.description[i].type == 'image') {
+                            //         this.decimg.push(res.description[i].context)
+                            //     } else {
+                            //         this.dectxt.push(res.description[i].context)
+                            //     }
+                            // }
+                        }
                         if (res.categories && res.categories.length > 0) {
                             this.category = res.categories[0].name;
                         }
@@ -478,6 +492,9 @@
                         if (this.isDrop == true) {
                             this.createCut()
                         } else {
+                            if (!this.checkedSelected()) {
+                                return;
+                            }
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
@@ -492,11 +509,13 @@
                     this.redirectLogin()
                 } else {
                     this.isBottomShow = true;
-
                     if (this.variantsId != '') {
                         if (this.isDrop == true) {
                             this.createCut()
                         } else {
+                            if (!this.checkedSelected()) {
+                                return;
+                            }
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
@@ -509,6 +528,22 @@
                         })
                     }
                 }
+            },
+            checkedSelected () {
+                for (let i = 0; i < this.goodsType.length; i++) {
+                    for (let j = 0; j < this.goodsType[i].value.length; j++) {
+                        if (this.goodsType[i].value[j].isActive == true) {
+                            break;
+                        }
+                        if (j == this.goodsType[i].value.length - 1) {
+                            this.$notice.toast({
+                                message: 'Please select a ' + this.goodsType[i].name.toLowerCase() + '!'
+                            });
+                            return false
+                        }
+                    }
+                }
+                return true;
             },
             redirectLogin () {
                 this.$event.on('login', params => {
@@ -1148,8 +1183,12 @@
     .popup-yet{
         font-size: 24px;
         opacity: 0.54;
-        margin-left: 32px;
         margin-top: 16px;
+        margin-right: 12px;
+    }
+    .popup-yet-bg{
+        padding: 0 32px;
+        flex-direction: row;
     }
     .popup-close{
         font-family: iconfont;

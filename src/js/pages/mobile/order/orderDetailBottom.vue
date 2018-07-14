@@ -27,7 +27,6 @@
 </template>
 <script>
     const pay = weex.requireModule('PayModule');
-    import { baseUrl } from '../../../config/apis';
 
     export default {
         props: ['order'],
@@ -44,16 +43,17 @@
                 const payAmount = price[0] + price[1];
                 if (!this.isPaid) {
                     this.isPaid = true;
-                    pay.startPayRequest(this.order.lines[0].title, 'Order#: ' + this.order.number, this.order.lines[0].mainImage,
+                    pay.startPayRequest(this.order.razorPaymentId, this.order.lines[0].title, 'Order#: ' + this.order.number, this.order.lines[0].mainImage,
                         parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                         function (param) {
                             that.$notice.loading.show();
                             that.$fetch({
                                 method: 'POST', // 大写
-                                url: `${baseUrl}/payment/razorpay/${that.order.id}/`,
+                                name: 'payment.razorpay.check',
                                 data: {
-                                    paymentId: param.paymentId,
-                                    paymentAmount: that.order.paymentAmount
+                                    razorpayPaymentId: param.razorPaymentId,
+                                    razorpayOrderId: param.razorOrderId,
+                                    razorpaySignature: param.razorSignature
                                 },
                                 header: {
                                     needAuth: true

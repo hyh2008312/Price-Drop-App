@@ -9,7 +9,7 @@
             <cell class="cell-bottom">
                 <order-confirm-item :order="order"></order-confirm-item>
             </cell>
-            <cell class="cell-bottom" v-if="false">
+            <cell class="cell-bottom">
                 <order-confirm-delivery :order="order"></order-confirm-delivery>
             </cell>
             <cell class="cell-bottom" v-if="false">
@@ -50,8 +50,7 @@ export default {
         },
         appeared (params, option) {
             this.order = params;
-            this.order.shippingPrice = '0.00';
-            this.order.total = ((this.order.currentPrice * 100) / 100).toFixed(2);
+            this.order.total = ((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100).toFixed(2);
         }
     },
     created () {

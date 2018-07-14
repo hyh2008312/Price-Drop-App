@@ -8,7 +8,7 @@
                     <text class="gb-text">Shipping Time</text>
                 </div>
                 <div class="gb-center-right">
-                    <text class="gb-text gb-text-color">3-5 days</text>
+                    <text class="gb-text gb-text-color">3-5 business days</text>
                     <text class="gb-text gb-text-color">{{order.shippingTimeMin || 0}}-{{order.shippingTimeMax || 0}} days</text>
                 </div>
             </div>

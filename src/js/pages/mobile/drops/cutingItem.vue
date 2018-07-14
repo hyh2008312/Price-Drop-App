@@ -31,14 +31,14 @@
                             <text class="gd-price-sale">Rs.{{goods.currentPrice}}</text>
                             <text class="gd-price-original">Rs.{{goods.salePrice}}</text>
                         </div>
-                        <text class="gd-price-show" v-if="goods.cutStatus=='progressing'">Dropped Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }} by {{goods.cutTimes}} people</text>
+                        <text class="gd-price-show" v-if="goods.cutStatus=='progressing'">Dropped Rs.{{ ((goods.salePrice * 100 - goods.currentPrice * 100)/100).toFixed(2) }} by {{goods.cutTimes}} people</text>
                         <div class="gd-cut" v-if="goods.cutStatus=='progressing'">
                             <text class="gd-cut-price">Rs.{{ Math.floor((goods.currentPrice - goods.lowestPrice)*100)/100 }}</text>
                             <text class="gd-cut-price-tip"> left to reach the lowest price</text>
                         </div>
                         <div class="gd-cut-end"v-if="goods.cutStatus=='end'">
                             <text class="gd-price-show-end">Dropped </text>
-                            <text class="gd-cut-price">Rs.{{ Math.floor((goods.salePrice - goods.currentPrice)*100)/100 }}</text>
+                            <text class="gd-cut-price">Rs.{{ ((goods.salePrice * 100 - goods.currentPrice *100)/100).toFixed(2) }}</text>
                             <text class="gd-price-show-end"> by {{goods.cutTimes}} people</text>
                         </div>
                     </div>

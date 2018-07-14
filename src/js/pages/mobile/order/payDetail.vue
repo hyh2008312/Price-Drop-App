@@ -12,7 +12,7 @@
             <cell class="cell-bottom">
                 <order-detail-item :order="order"></order-detail-item>
             </cell>
-            <cell class="cell-bottom" v-if="false">
+            <cell class="cell-bottom">
                 <order-detail-delivery :order="order"></order-detail-delivery>
             </cell>
             <cell class="cell-bottom">
@@ -129,7 +129,7 @@ export default {
                     needAuth: true
                 }
             }).then(data => {
-                this.order = data
+                this.order = data;
             }, error => {
                 // 错误回调
                 this.$notice.toast({
