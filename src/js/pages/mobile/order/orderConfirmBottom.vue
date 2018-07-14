@@ -50,6 +50,7 @@
                                         method: 'POST', // 大写
                                         name: 'payment.razorpay.check',
                                         data: {
+                                            orderId: order.id,
                                             razorpayPaymentId: param.razorPaymentId,
                                             razorpayOrderId: param.razorOrderId,
                                             razorpaySignature: param.razorSignature
@@ -71,6 +72,7 @@
                                             }
                                         });
                                     }, error => {
+                                        that.$notice.loading.hide();
                                         that.$notice.toast({
                                             message: error
                                         });
@@ -128,6 +130,7 @@
                                         method: 'POST', // 大写
                                         name: 'payment.razorpay.check',
                                         data: {
+                                            orderId: order.id,
                                             razorpayPaymentId: param.razorPaymentId,
                                             razorpayOrderId: param.razorOrderId,
                                             razorpaySignature: param.razorSignature

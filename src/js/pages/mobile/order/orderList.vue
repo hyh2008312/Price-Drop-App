@@ -253,10 +253,12 @@
                             that.$notice.loading.show();
                             that.$fetch({
                                 method: 'POST', // 大写
-                                url: `${baseUrl}/payment/razorpay/${that.payOrder.id}/`,
+                                name: 'payment.razorpay.check',
                                 data: {
-                                    paymentId: param.paymentId,
-                                    paymentAmount: that.payOrder.paymentAmount
+                                    orderId: that.payOrder.id,
+                                    razorpayPaymentId: param.razorPaymentId,
+                                    razorpayOrderId: param.razorOrderId,
+                                    razorpaySignature: param.razorSignature
                                 },
                                 header: {
                                     needAuth: true
@@ -270,12 +272,12 @@
                                 that.$router.open({
                                     name: 'order.success',
                                     type: 'PUSH'
-                                })
+                                });
                             }, error => {
                                 that.$notice.loading.hide();
                                 that.$notice.toast({
                                     message: error
-                                })
+                                });
                             });
                         }, function (param) {
                             that.isPaid = false;

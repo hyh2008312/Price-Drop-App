@@ -51,6 +51,7 @@
                                 method: 'POST', // 大写
                                 name: 'payment.razorpay.check',
                                 data: {
+                                    orderId: that.order.id,
                                     razorpayPaymentId: param.razorPaymentId,
                                     razorpayOrderId: param.razorOrderId,
                                     razorpaySignature: param.razorSignature
@@ -67,7 +68,7 @@
                                 that.$router.open({
                                     name: 'order.success',
                                     type: 'PUSH'
-                                })
+                                });
                             }, error => {
                                 that.$notice.loading.hide();
                                 that.$notice.toast({
