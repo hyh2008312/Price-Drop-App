@@ -43,10 +43,6 @@
                 const payAmount = price[0] + price[1];
                 if (!this.isPaid) {
                     this.isPaid = true;
-                    this.$notice.alert({
-                        message: this.order.id
-                    })
-                    return
                     pay.startPayRequest(this.order.razorPaymentId, this.order.lines[0].title, 'Order#: ' + this.order.number, this.order.lines[0].mainImage,
                         parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                         function (param) {
