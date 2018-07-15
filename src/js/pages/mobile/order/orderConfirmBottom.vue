@@ -50,7 +50,7 @@
                                         method: 'POST', // 大写
                                         name: 'payment.razorpay.check',
                                         data: {
-                                            orderId: order.id,
+                                            orderId: order.order.id,
                                             razorpayPaymentId: param.razorPaymentId,
                                             razorpayOrderId: param.razorOrderId,
                                             razorpaySignature: param.razorSignature
@@ -130,7 +130,7 @@
                                         method: 'POST', // 大写
                                         name: 'payment.razorpay.check',
                                         data: {
-                                            orderId: order.id,
+                                            orderId: order.order.id,
                                             razorpayPaymentId: param.razorPaymentId,
                                             razorpayOrderId: param.razorOrderId,
                                             razorpaySignature: param.razorSignature
