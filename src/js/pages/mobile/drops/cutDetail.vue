@@ -30,7 +30,7 @@
                 </div>
                       <div class="product-content">
                     <text class="product-content-name">{{goodsDetail.title}}</text>
-                    <text class="product-content-people">{{goodsDetail.cutGet == null ? 10 + "+" : goodsDetail.cutGet + 10}} people bought this item at the lowest price</text>
+                    <text class="product-content-people">3500+ people joined and reached the lowest price!</text>
                 </div>
                  </div>
                  </div>
@@ -162,8 +162,8 @@
                             <text class="share-content-text-2">Rs.{{ ((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }}</text>
                             <text class="share-content-text-1"> off the price!</text>
                         </div>
-                        <text class="share-content-text-1">Share this item and invite more friends to
-                            drop price for you!
+                        <text class="share-content-text-1">Share this item and invite more friends todrop price for you!</text>
+                        <text class="share-content-text-3">Your friends will earn free point gifts too!
                         </text>
                     </div>
                     <div class="share-content-bottom">
@@ -733,6 +733,12 @@
 
     .share-content-text-2 {
         color: #EF8A31;
+        font-size: 28px;
+        font-weight: bold;
+        line-height: 48px;
+    }
+    .share-content-text-3 {
+        color: red;
         font-size: 28px;
         font-weight: bold;
         line-height: 48px;
