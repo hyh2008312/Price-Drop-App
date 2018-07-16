@@ -476,9 +476,17 @@
                 }).catch((res) => {
                     if (res.status == 409) {
                         this.$notice.loading.hide();
-                        this.$notice.toast({
-                            message: 'You have already started a drop for this item.'
-                        })
+                        if (res.errorMsg == 'You are bargaining for this item, you cannot add it repeatedly') {
+                            this.$event.emit('jumpMyDrop');
+                            this.$router.setBackParams({ tab: 'drops' })
+                            this.$router.back({
+                                length: 9999,
+                                type: 'PUSH'
+                            })
+                        }
+                        // this.$notice.alert({
+                        //     message: res.errorMsg
+                        // })
                     }
                 })
             },
@@ -733,6 +741,7 @@
                     this.redirectLogin()
                     return
                 }
+                this.$event.emit('jumpMyDrop');
                 this.$router.setBackParams({ tab: 'drops' })
                 this.$router.back({
                     length: 9999,
