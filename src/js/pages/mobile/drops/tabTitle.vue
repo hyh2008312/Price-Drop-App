@@ -17,6 +17,10 @@ export default {
         }
     },
     methods: {
+        changeTab (tab_key) {
+            if (this.pIndexKey == tab_key) return;
+            this.pIndexKey = tab_key;
+        },
         tabTo (_key) {
             if (this.pIndexKey == _key) return;
             this.pIndexKey = _key;

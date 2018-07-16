@@ -12,7 +12,7 @@
                 </div>
             </cell>
             <header>
-                <cutTab :items="tabsItems" @tabTo="onTabTo"></cutTab>
+                <cutTab :items="tabsItems" @tabTo="onTabTo" ref="cubTab"></cutTab>
             </header>
             <cell v-for="(i ,index) in goods">
                 <cutingItem :goods=i :key="index" :flag="isCuting"></cutingItem>
@@ -79,6 +79,16 @@
             });
             this.$event.on('login', params => {
                 this.isMyDropLogin = true;
+                this.requestProduct(true);
+            });
+            this.$event.on('jumpMyDrop', params => {
+                this.$refs.cubTab.changeTab('cutEnd');
+                this.isCuting = false;
+                googleAnalytics.trackingScreen('Drops/my drops');
+                this.goods = false;
+                if (this.isMyDropLogin || this.isCuting) {
+                    this.loadingStart();
+                }
                 this.requestProduct(true);
             });
             this.getBlock4();
