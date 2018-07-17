@@ -5,7 +5,7 @@
                 <div class="header">
                     <preload class="header-image" :src="message.avatar"></preload>
                 </div>
-                <text class="tlt">{{message.username}} purchased a new item! </text>
+                <text class="tlt">{{message.username}} started a new drop! </text>
             </div>
         </div>
     </div>
