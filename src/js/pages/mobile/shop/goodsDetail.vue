@@ -310,7 +310,8 @@
                 user: null,
                 opacity: 0,
                 category: '',
-                tmp: ''
+                tmp: '',
+                tmpArray: []
             }
         },
         computed: {
@@ -517,30 +518,48 @@
                     this.redirectLogin()
                 } else {
                     this.isBottomShow = true;
-                    if (this.variantsId != '') {
+
                         if (this.isDrop == true) {
                             this.createCut()
                         } else {
                             if (!this.checkedSelected()) {
                                 return;
                             }
+                            for (let i = 0; i < this.goodsVariants.length; i++) {
+                                let isDoubleChecked = 0;
+                                for (let j = 0; j < this.goodsVariants[i].attributeValues.length; j++) {
+                                    for (let m = 0; m < this.tmpArray.length; m++) {
+                                        if (this.tmpArray[m].id == this.goodsVariants[i].attributeValues[j].attributeId &&
+                                        this.tmpArray[m].value == this.goodsVariants[i].attributeValues[j].value) {
+                                            isDoubleChecked += 1;
+                                        }
+                                    }
+                                }
+                                if(isDoubleChecked == this.goodsType.length) {
+                                    this.variantsId = this.goodsVariants[i].id;
+                                    break;
+                                }
+                            }
+                            this.nextPage.id = this.variantsId;
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
                                 params: this.nextPage
                             })
                         }
-                    } else {
-                        this.$notice.toast({
-                            message: 'Please select an option first.'
-                        })
-                    }
+                    // } else {
+                    //     this.$notice.toast({
+                    //         message: 'Please select an option first.'
+                    //     })
+                    // }
                 }
             },
             checkedSelected () {
+                this.tmpArray = [];
                 for (let i = 0; i < this.goodsType.length; i++) {
                     for (let j = 0; j < this.goodsType[i].value.length; j++) {
                         if (this.goodsType[i].value[j].isActive == true) {
+                            this.tmpArray.push(this.goodsType[i].value[j])
                             break;
                         }
                         if (j == this.goodsType[i].value.length - 1) {
@@ -674,20 +693,20 @@
                 // this.cactiveId = id
             },
             changeDom (item, color) {
-                if (color.length !== 0) {
-                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
-                    this.selunitPrice = color[0].item.unitPrice
-                    this.variantsId = color[0].item.id
-                    for (let n = 0; n < this.goodsVariants.length; n++) {
-                        if (this.goodsVariants[n].id === color[0].item.id) {
-                            this.canBuy = this.goodsVariants[n].isCanBuy
-                        }
-                    }
-                } else {
-                    this.$notice.toast({
-                        message: 'Please select an option first.'
-                    })
-                }
+                // if (color.length !== 0) {
+                //     this.selsaleUnitPrice = color[0].item.saleUnitPrice
+                //     this.selunitPrice = color[0].item.unitPrice
+                //     this.variantsId = color[0].item.id
+                //     for (let n = 0; n < this.goodsVariants.length; n++) {
+                //         if (this.goodsVariants[n].id === color[0].item.id) {
+                //             this.canBuy = this.goodsVariants[n].isCanBuy
+                //         }
+                //     }
+                // } else {
+                //     this.$notice.toast({
+                //         message: 'Please select an option first.'
+                //     })
+                // }
                 if (item.isActive == true) {
                     if (item.id == 1) {
                         this.selsize = item.value
@@ -711,7 +730,6 @@
                     }
                 }
                 this.nextPage.attributes = this.selcolor + ' ' + this.selsize;
-                this.nextPage.id = this.variantsId;
                 this.nextPage.mainImage = this.selimgsrc;
                 this.nextPage.salePrice = this.selsaleUnitPrice;
                 this.nextPage.currentPrice = this.selunitPrice;
