@@ -552,6 +552,7 @@
                                 params: this.nextPage
                             })
                         }
+
                     // } else {
                     //     this.$notice.toast({
                     //         message: 'Please select an option first.'
