@@ -537,6 +537,11 @@
                                 }
                                 if(isDoubleChecked == this.goodsType.length) {
                                     this.variantsId = this.goodsVariants[i].id;
+                                    this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice
+                                    this.selunitPrice = this.goodsVariants[i].unitPrice
+
+                                    this.nextPage.salePrice = this.selsaleUnitPrice;
+                                    this.nextPage.currentPrice = this.selunitPrice;
                                     break;
                                 }
                             }
@@ -693,20 +698,20 @@
                 // this.cactiveId = id
             },
             changeDom (item, color) {
-                // if (color.length !== 0) {
-                //     this.selsaleUnitPrice = color[0].item.saleUnitPrice
-                //     this.selunitPrice = color[0].item.unitPrice
-                //     this.variantsId = color[0].item.id
-                //     for (let n = 0; n < this.goodsVariants.length; n++) {
-                //         if (this.goodsVariants[n].id === color[0].item.id) {
-                //             this.canBuy = this.goodsVariants[n].isCanBuy
-                //         }
-                //     }
-                // } else {
-                //     this.$notice.toast({
-                //         message: 'Please select an option first.'
-                //     })
-                // }
+                if (color.length !== 0) {
+                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
+                    this.selunitPrice = color[0].item.unitPrice
+                    this.variantsId = color[0].item.id
+                    for (let n = 0; n < this.goodsVariants.length; n++) {
+                        if (this.goodsVariants[n].id === color[0].item.id) {
+                            this.canBuy = this.goodsVariants[n].isCanBuy
+                        }
+                    }
+                } else {
+                    this.$notice.toast({
+                        message: 'Please select an option first.'
+                    })
+                }
                 if (item.isActive == true) {
                     if (item.id == 1) {
                         this.selsize = item.value
@@ -731,8 +736,7 @@
                 }
                 this.nextPage.attributes = this.selcolor + ' ' + this.selsize;
                 this.nextPage.mainImage = this.selimgsrc;
-                this.nextPage.salePrice = this.selsaleUnitPrice;
-                this.nextPage.currentPrice = this.selunitPrice;
+
             },
             openShip (e) {
                 if (e == 1) {
