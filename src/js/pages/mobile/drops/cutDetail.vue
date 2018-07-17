@@ -318,7 +318,7 @@
                 this.isShowShare = false;
             },
             copyShareLink () {
-                const url = ShareUrlUtil.getShareUrl(this.id);
+                const url = ShareUrlUtil.getCopylinkUrl(this.id);
                 clipboard.setString(url);
                 this.popupOverlayAutoClick();
                 this.$notice.toast('Copied successfully! You can share this link on your social media now.');
@@ -326,7 +326,7 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = 'Click to join me and get your favorite product at Rs.1 only!';
+                const detail = `Click to join me and get your favorite product at Rs.${this.goodsDetail.lowestPrice} only!`;
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
@@ -341,7 +341,7 @@
             shareFacebookMessenger () {
                 const that = this;
                 const detail = this.goodsDetail.title;
-                const title = 'Come join me to get this product at Rs.1 only!';
+                const title = `Come join me to get this product at Rs.${this.goodsDetail.lowestPrice} only!`;
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebookMessenger(title, detail, 'Join Now', url, imageUrl,
@@ -354,7 +354,7 @@
             },
             shareWhatsApp () {
                 const that = this;
-                const detail = ShareUrlUtil.getWhatsAppParams(that.id, that.goodsDetail.cutGet == null ? 0 : that.goodsDetail.cutGet);
+                const detail = ShareUrlUtil.getWhatsAppParams(that.id, this.goodsDetail.lowestPrice, this.goodsDetail.category);
                 shareModule.shareWhatsapp(detail, '',
                     function (param) {
                         that.popupOverlayAutoClick();
