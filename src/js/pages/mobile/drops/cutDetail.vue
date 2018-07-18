@@ -69,6 +69,7 @@
                         </div>
                     </div>
                        <text class="wrapper-share" @click="showSharePanel">Invite More Friends to Drop Your Price</text>
+                       <text class="wrapper-share-1" @click="showBuyNow">Buy It At Current Price</text>
                        <div class="wrapper-timer">
                         <wxc-countdown tpl="{h}:{m}:{s}"
                                        :time="goodsDetail.endTimestamp * 1000"
@@ -79,10 +80,11 @@
                                        :style="{justifyContent: 'center'}">
                         </wxc-countdown>
                     </div>
-                       <div class="wrapper-buy-now-parent" @click="showBuyNow">
+                        <div class="prod-blank"></div>
+                       <!--<div class="wrapper-buy-now-parent" @click="showBuyNow">
                         <text class="wrapper-buy-now">If you want to buy it at current price, click here.</text>
                         <text class="wrapper-buy-now-go">&#xe626;</text>
-                    </div>
+                       </div>-->
                     </div>
                     <!--结束-->
                     <div class="cut-end" v-else>
@@ -443,6 +445,9 @@
     }
 </script>
 <style scoped>
+    .prod-blank{
+        height: 48px;
+    }
     .drop-middle-content{
         background-color: #FFFFFF;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
@@ -738,7 +743,7 @@
         line-height: 48px;
     }
     .share-content-text-3 {
-        color: red;
+        color: #EF8A31;
         font-size: 28px;
         font-weight: bold;
         line-height: 48px;
@@ -840,6 +845,23 @@
         margin-left: 56px;
         margin-right: 56px;
         color: white;
+        font-weight: bold;
+        margin-top: 24px;
+    }
+    .wrapper-share-1 {
+        font-family: ProximaNova-Bold;
+        width: 574px;
+        height: 80px;
+        font-size: 24px;
+        border-radius: 8px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #EF8A31;
+        line-height: 80px;
+        text-align: center;
+        margin-left: 56px;
+        margin-right: 56px;
+        color: #EF8A31;
         font-weight: bold;
         margin-top: 24px;
     }

@@ -182,6 +182,7 @@
             },
             init () {
                 this.getTabName();
+                this.loadingStart();
                 this.requestProduct(true);
             },
             loadingDown () {
