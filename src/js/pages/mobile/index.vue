@@ -74,7 +74,7 @@ export default {
     data () {
         return {
             items: tabConfig,
-            selectedTab: 'home',
+            selectedTab: 'drops',
             isFirstLogin: false,
             show: false
         }
