@@ -328,7 +328,7 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = `Click to join me and get your favorite product at Rs.${this.goodsDetail.lowestPrice} only!`;
+                const detail = 'Top Brand sneakers, earphones, t-shirts & featured products at 70% OFF or MORE on #PriceDropAPP! Click on this link to help me drop the price';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
@@ -356,7 +356,8 @@
             },
             shareWhatsApp () {
                 const that = this;
-                const detail = ShareUrlUtil.getWhatsAppParams(that.id, this.goodsDetail.lowestPrice, this.goodsDetail.category);
+                const discount = that.countOff(this.goodsDetail.lowestPrice, this.goodsDetail.salePrice);
+                const detail = ShareUrlUtil.getWhatsAppParams(that.id, this.goodsDetail.title, discount);
                 shareModule.shareWhatsapp(detail, '',
                     function (param) {
                         that.popupOverlayAutoClick();
@@ -364,6 +365,13 @@
                         that.popupOverlayAutoClick();
                     }
                 )
+            },
+            countOff (s, o) {
+                if (o > 0) {
+                    return Math.floor((o - s) / o * 100) + '% OFF'
+                } else {
+                    return ''
+                }
             },
             requestCutDetail () {
                 const that = this;

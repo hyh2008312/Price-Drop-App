@@ -9,8 +9,8 @@ const ShareUrlUtil = {
     getCopylinkUrl (productId) {
         return `https://app.getpricedrop.com/detail/${productId}?utm_source=link&utm_medium=urlshare`;
     },
-    getWhatsAppParams (productId, productPrice, productCategory) {
-        return `Hey, I need your help to drop the price of this ${productCategory} product, so we can both get it at Rs.${productPrice} ! Here is the link to join me: https://app.getpricedrop.com/detail/${productId}?utm_source=whatsapp&utm_medium=msg`;
+    getWhatsAppParams (productId, productName, productDiscount) {
+        return `Hey, I want to get ${productDiscount} on this ${productName} and I need your help to click on the PriceDrop button in this page to help me drop the price. And if you like this product as well, I can help you to drop yours as well. https://app.getpricedrop.com/detail/${productId}?utm_source=whatsapp&utm_medium=msg`;
     }
 };
 export default ShareUrlUtil;
