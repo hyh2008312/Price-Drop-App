@@ -1,21 +1,15 @@
 <template>
     <div class="wrapper">
-        <div class="gb-box">
-            <div class="i-gd"  @click="jumpWeb()">
-                <div class="gd-bg">
-                    <div class="gd-img">
-                        <preload class="gd-img-image" :src="goods.mainImage"></preload>
-                    </div>
+        <div class="gb-box" v-for="item in goods" @click="jumpWeb()">
+            <div class="gd-bg">
+                <preload class="gd-img-image" :src="item.mainImage"></preload>
+            </div>
+            <div class="gd-bg-right">
+                <div class="gd-sm">
+                    <text class="gd-price">Rs.{{item.unitPrice}}</text>
+                    <text class="gd-price-1">{{countOff(item.unitPrice, item.saleUnitPrice)}}</text>
                 </div>
-                <div class="gd-bg-right">
-                    <text class="gd-tlt">{{goods.title}}</text>
-                    <div class="gd-sm">
-                        <text class="gd-price">Rs.{{goods.unitPrice}}</text>
-                        <text class="gd-price-1">{{countOff(goods.unitPrice, goods.saleUnitPrice)}}</text>
-                    </div>
-                    <text class="gd-info">Rs.{{goods.saleUnitPrice}}</text>
-                    <text class="gd-button">Buy Now</text>
-                </div>
+                <text class="gd-info">Rs.{{item.saleUnitPrice}}</text>
             </div>
         </div>
     </div>
@@ -67,94 +61,63 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    padding-top: 26px;
+    padding: 0 32px 32px 32px;
     width: 750px;
+    flex-direction: row;
+    justify-content: space-between;
 }
+
+
 
 .gb-box {
-    padding: 0 16px;
-    display: flex;
-}
-
-.i-gd {
-    width: 718px;
-    height: 288px;
-    flex-direction: row;
+    width: 327px;
 }
 
 .gd-bg {
-    width: 288px;
-    height: 288px;
+    width: 327px;
+    height: 327px;
     border-radius: 8px;
     overflow: hidden;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: rgba(0,0,0,.08);
-    border-left-width: 1px;
-    border-left-style: solid;
-    border-left-color: rgba(0,0,0,.08);
-    border-right-width: 1px;
-    border-right-style: solid;
-    border-right-color: rgba(0,0,0,.08);
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-bottom-color: rgba(0,0,0,.08);
 }
 
 .gd-bg-right {
-    margin-left: 32px;
-    width: 398px;
-    height: 288px;
+    width: 327px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.gd-img {
-    width: 284px;
-    height: 284px;
-    border-radius: 8px;
-    overflow: hidden;
-}
 .gd-img-image {
-    width: 284px;
-    height: 284px;
+    width: 327px;
+    height: 327px;
     border-radius: 8px;
     overflow: hidden;
     position: relative;
 }
 
-.gd-tlt {
-    margin-top: 16px;
-    font-size: 24px;
-    font-weight: 300;
-    line-height: 36px;
-    width: 398px;
-    overflow: hidden;
-    lines: 2;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
 
 .gd-info {
     display: block;
-    margin-top: 4px;
     font-size: 20px;
-    width: 398px;
     line-height: 24px;
-    color: rgba(0,0,0,0.87);
     text-decoration: line-through;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-align: center;
+    font-family: ProximaNova;
 }
 
 .gd-price {
+    font-family: ProximaNova;
     font-size: 28px;
     line-height: 34px;
     font-weight: bold;
-    color: #000;
+    color: rgba(0,0,0,0.87);
 }
 
 .gd-price-1{
+    font-family: ProximaNova;
     font-size: 20px;
     line-height: 24px;
     margin-left: 8px;
@@ -162,23 +125,9 @@ export default {
 }
 
 .gd-sm {
-    margin-top: 14px;
+    margin-top: 6px;
     flex-direction: row;
     justify-content: start;
     align-items: center;
-}
-
-.gd-button {
-    margin-top: 62px;
-    width: 144px;
-    text-align: center;
-    font-size: 24px;
-    line-height: 44px;
-    font-weight: bold;
-    border-style: solid;
-    border-radius: 4px;
-    border-width: 2px;
-    border-color: #EF8A31;
-    color: #EF8A31;
 }
 </style>

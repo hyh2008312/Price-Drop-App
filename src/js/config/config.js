@@ -2,6 +2,7 @@ export const apis = {
     'user.user': '/user/user/',
     'oauth2.token': '/oauth2/token/',
     'product.customer.list': '/product/new/customer/list/',
+    // 'product.customer.list': '/product/customer/list/',
     'category.list': '/product/category/list/',
     'product.recommended.list': '/product/recommended/list/',
     'product.recommended.create': '/product/recommended/create/',

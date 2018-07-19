@@ -3,11 +3,14 @@
     <div class="wrapper">
         <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
-            <cell class="cell-button slider-wrap" v-if="false">
+            <cell class="slider-wrap">
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
             </cell>
-            <cell class="cell-top" ></cell>
-            <cell class="notice-wrapper cell-button">
+            <cell class="cell-button">
+                <block-1 :category="category"></block-1>
+            </cell>
+            <cell class="cell-top" v-if="false"></cell>
+            <cell class="notice-wrapper cell-button" v-if="false">
                 <div class="notice-bg">
                     <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
                 </div>
@@ -19,9 +22,12 @@
                 <block-5 :logo="block5.items"></block-5>
             </cell>
             <cell ref="tab"></cell>
-            <header v-if="activity != false">
+            <header v-if="activity != false && false">
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
+            <cell>
+                <text class="home-title">Featured</text>
+            </cell>
             <cell v-for="(item,index) in goods3">
                 <block-3 :goods="item" :tab="tabKey"></block-3>
             </cell>
@@ -39,11 +45,12 @@ import refresher from '../common/refresh';
 import noWifi from '../common/noWifi';
 import YXSlider from './YXSlider';
 import tab from './tab';
+import block1 from './block1';
 import block2 from './block2';
 import block3 from './block3';
 import block4 from './block4';
 import block5 from './block5';
-import { TAB } from './config';
+import { TAB, CHANNELLIST } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
@@ -58,6 +65,7 @@ export default {
         'block-3': block3,
         'block-4': block4,
         'block-5': block5,
+        'block-1': block1,
         noWifi
     },
     created () {
@@ -83,7 +91,7 @@ export default {
             tabsItems: [],
             goods3: [],
             showLoading: 'hide',
-            tabKey: 'new',
+            tabKey: 'hot',
             isLoading: false,
             pageNew: 1,
             pageHot: 1,
@@ -93,7 +101,8 @@ export default {
             countApi: 0,
             isPlatformAndroid: Utils.env.isAndroid(),
             isActiveLoading: false,
-            hasWifi: true
+            hasWifi: true,
+            category: []
         }
     },
     methods: {
@@ -151,9 +160,10 @@ export default {
         },
         init () {
             this.getYXBanners();
+            this.getChannel();
             this.getActivity();
-            this.getBlock4();
-            this.getTabName();
+            // this.getBlock4();
+            // this.getTabName();
             this.getBlock5();
             if(this.tabKey == 'new') {
                 this.getNewGoods(true);
@@ -272,7 +282,15 @@ export default {
                 }
                 this.lengthHot = Math.ceil(data.count / this.pageSize);
                 this.pageHot++;
-                this.goods3.push(...data.results);
+                let arr = [];
+                for(let i = 0; i < data.results.length; i++) {
+                    let item = data.results[i];
+                    arr.push(item);
+                    if(i > 0 && (i % 2 == 1 || i == data.results.length - 1)) {
+                        this.goods3.push(arr);
+                        arr = [];
+                    }
+                }
                 if(!isfirst) {
                     this.isLoading = false;
                 }
@@ -282,6 +300,25 @@ export default {
                     this.hasWifi = false;
                 }
             });
+        },
+        getChannel () {
+            this.category = [...CHANNELLIST];
+            // this.$fetch({
+            //     method: 'GET', // 大写
+            //     name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
+            //     data: {}
+            // }).then(data => {
+            //     this.channelList = [];
+            //     let index = 0;
+            //     const channel = CHANNELLIST;
+            //     for (const item of data) {
+            //         index++;
+            //         this.channelList.push({
+            //             name: item.fullName,
+            //             id: item.id
+            //         });
+            //     }
+            // }, error => {})
         },
         scrollToHeader() {
             return this.$nextTick(() => {

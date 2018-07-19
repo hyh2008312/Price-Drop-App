@@ -104,7 +104,7 @@ body {
 .slider-wrap {
   align-items: center;
   width: 750px;
-  height: 349px;
+  height: 333px;
 }
 
 .slider-bg{
@@ -126,7 +126,7 @@ body {
 }
 
 .box{
-  top: 0;
+  top: 47px;
   left: 0;
   right: 0;
   width: 750px;
@@ -158,4 +158,16 @@ body {
   justify-content: start;
   align-items: center;
   overflow: hidden;
+}
+
+.home-title{
+  width: 750px;
+  background-color: #fff;
+  padding-top: 32px;
+  padding-bottom: 24px;
+  padding-left: 32px;
+  font-family: ProximaNova;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 38px;
 }

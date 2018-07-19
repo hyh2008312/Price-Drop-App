@@ -1,0 +1,74 @@
+<template>
+    <div class="wrapper">
+        <div class="tlt-box" v-for="item in category">
+            <image class="tlt-image" :src="'bmlocal://assets/category_' + item.name.toLowerCase() + '.png'"></image>
+            <text class="tlt-bg">{{item.name}}</text>
+        </div>
+    </div>
+</template>
+<script>
+import preload from '../common/preloadImg';
+
+export default {
+    components: {
+        preload
+    },
+    props: ['category'],
+    methods: {
+        jumpActivity () {
+            this.$router.open({
+                name: 'mobile.activity',
+                type: 'PUSH',
+                params: {
+                    id: this.head.id,
+                    name: this.head.name,
+                    imageUrl: this.head.image,
+                    type: 'activity'
+                }
+            })
+        }
+    }
+}
+</script>
+<style scoped>
+.iconfont {
+    font-family: iconfont;
+}
+
+.wrapper {
+    background-color: #fff;
+    padding: 48px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.tlt-box {
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.tlt-bg{
+    margin-top: 16px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 28px;
+    color: rgba(0,0,0, 0.87);
+    font-family: ProximaNova;
+}
+
+.tlt-image {
+    width: 80px;
+    height: 80px;
+    background-color: #fff;
+}
+
+
+
+</style>

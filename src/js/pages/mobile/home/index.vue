@@ -2,14 +2,8 @@
     <div class="wrapper" ref="header">
         <!--<home-header></home-header>-->
         <div class="status-bar"></div>
-        <top-channel @change="onchange" ref="topChannel"
-                     :activeIndex="activeIndex" :channelList="channelList"></top-channel>
         <div :style="height" class="box">
-            <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
-                <suggest></suggest>
-                <category v-for="(i, _index) in channelList" v-if="_index > 0" :key="i.id"
-                          :activeIndex="_index" :index="activeIndex" :id="i.id" :item="i"></category>
-            </slider>
+            <suggest></suggest>
         </div>
     </div>
 </template>
@@ -33,7 +27,7 @@ export default {
     },
     created () {
         const pageHeight = Utils.env.getScreenHeight();
-        this.height = { height: (pageHeight - 112 - 112 - 48) + 'px' };
+        this.height = { height: (pageHeight - 112 - 48) + 'px' };
         this.getChannel();
         this.initGoogleAnalytics();
     },
