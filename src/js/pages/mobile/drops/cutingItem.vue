@@ -81,9 +81,9 @@
                     <text class="gd-end-handle-state-text">Expired</text>
                 </div>
                 <!--pending-->
-                <text class="gd-handle-cut"v-if="goods.operationStatus =='pending'" @click="jumpConfirmOrder">Pay Now</text>
+                <text class="gd-handle-cut"v-if="goods.operationStatus =='pending' && computeIsCanPay(goods.salePrice,goods.currentPrice,lowestPrice)" @click="jumpConfirmOrder">Pay Now</text>
                 <!--unpaid-->
-                <text class="gd-handle-cut" v-else-if="goods.operationStatus =='unpaid'" @click="jumpOrderDetail">Pay Now</text>
+                <text class="gd-handle-cut" v-else-if="goods.operationStatus =='unpaid' && computeIsCanPay(goods.salePrice,goods.currentPrice,lowestPrice)" @click="jumpOrderDetail">Pay Now</text>
                 <!---->
                 <text class="gd-handle-cut-again" v-else @click="jumpProductDetail">Drop Again </text>
             </div>
@@ -106,13 +106,21 @@
             }
         },
         methods: {
+            computeIsCanPay (originalPrice, currentPrice, lowestPrice) {
+                const percentage = (originalPrice - currentPrice) / (originalPrice - lowestPrice);
+                if (percentage >= 0.5) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
             jumpWeb () {
                 this.$router.open({
                     name: 'goods.details',
                     type: 'PUSH',
                     params: {
                         id: this.goods.id,
-                        isDrop:true
+                        isDrop: true
                     }
                 })
             },
