@@ -382,7 +382,7 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = 'Top Brand sneakers, earphones, t-shirts & featured products at 70% OFF or MORE on #PriceDropAPP! Click on this link to help me drop the price';
+                const detail = 'Top Brand sneakers, earphones, t-shirts & featured products at Rs. 0 on #PriceDropAPP! Click this link to help me drop the price';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
@@ -411,7 +411,7 @@
             shareWhatsApp () {
                 const that = this;
                 const discount = that.countOff(this.goodsDetail.lowestPrice, this.goodsDetail.salePrice);
-                const detail = ShareUrlUtil.getWhatsAppParams(that.id, this.goodsDetail.title, discount);
+                const detail = ShareUrlUtil.getWhatsAppParams(that.id, this.goodsDetail.title, this.goodsDetail.lowestPrice);
                 shareModule.shareWhatsapp(detail, '',
                     function (param) {
                         that.popupOverlayAutoClick();
