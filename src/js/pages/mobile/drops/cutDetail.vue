@@ -30,7 +30,7 @@
                 </div>
                       <div class="product-content">
                     <text class="product-content-name">{{goodsDetail.title}}</text>
-                    <text class="product-content-people">3500+ people joined and reached the lowest price!</text>
+                    <text class="product-content-people">3500+ people reached the lowest price!</text>
                 </div>
                  </div>
                  </div>
@@ -76,29 +76,43 @@
                             </div>
                         </div>
                     </div>
-                       <text class="wrapper-share" @click="showSharePanel">Invite Friends to Drop Price for You</text>
-                       <text class="wrapper-share-1" v-if="dropStatus == 2 || dropStatus == 3" @click="showBuyNow">Buy Now At 50% Discount</text>
-                       <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite 2 more friends to unlock 50% OFF!</text>
-                       <div class="wrapper-timer">
-                        <wxc-countdown tpl="{h}:{m}:{s}"
-                                       :time="goodsDetail.endTimestamp * 1000"
-                                       :timeBoxStyle="{backgroundColor: '#F1F1F1',height: '64px', width: '64px','border-radius': '8px'}"
-                                       :timeTextStyle="{fontSize: '28px', color: 'rgba(0,0,0,0.87)'}"
-                                       :dotTextStyle="{color: 'rgba(0,0,0,0.87)', fontSize: '24px'}"
-                                       :dotBoxStyle="{width: '64px'}"
-                                       :style="{justifyContent: 'center'}">
-                        </wxc-countdown>
-                    </div>
+                       <text class="wrapper-share" @click="showSharePanel">Share to Drop Your Price Further</text>
+                       <text class="wrapper-share-1" v-if="dropStatus == 2 || dropStatus == 3" @click="showBuyNow">Buy Now At 50% OFF</text>
+                       <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite 3 friends to unlock 50% OFF!</text>
+                        <div class="wrapper-timer-con">
+                            <div class="wrapper-timer">
+                                <wxc-countdown tpl="{h}:{m}:{s}"
+                                               :time="goodsDetail.endTimestamp * 1000"
+                                               :timeBoxStyle="{backgroundColor: '#F1F1F1',height: '64px', width: '64px','border-radius': '8px'}"
+                                               :timeTextStyle="{fontSize: '28px', color: 'rgba(0,0,0,0.87)'}"
+                                               :dotTextStyle="{color: 'rgba(0,0,0,0.87)', fontSize: '24px'}"
+                                               :dotBoxStyle="{width: '64px'}"
+                                               :style="{justifyContent: 'center'}">
+                                </wxc-countdown>
+                            </div>
+                        </div>
                         <div class="prod-blank"></div>
                     </div>
                     <!--结束-->
                     <div  v-else>
+                        <div class="cut-end-title">
+                            <div class="cut-end-total-price">
+                                <text class="cut-end-total-price-word">Your Drop has ended!</text>
+                            </div>
+                            <div class="cut-end-total-price-final" v-if="dropStatus != 1">
+                                <text class="cut-end-total-price-word">Final Price Unlocked:</text>
+                                <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
+                            </div>
+                        </div>
+                        <div class="cut-end-item-unlock" v-if="dropStatus == 1">
+                            <text class="wrapper-unlock-tip-1">You didn't unlock any discount.</text>
+                        </div>
                         <div class="wrapper-progress">
-                            <div class="current-price" :style="{'margin-left': distance+'px'}">
+                            <!--<div class="current-price" :style="{'margin-left': distance+'px'}">
                                 <text class="current-price-1-current">Current Price</text>
                                 <text class="current-price-2">Rs.{{goodsDetail.currentPrice}}</text>
                                 <image class="current-indicator" :style="{'margin-left': indicatorDistance+'px'}" src="bmlocal://assets/drop_indicator.png"></image>
-                            </div>
+                            </div>-->
                             <div class="wrapper-progress-line">
                                 <div class="progress-line-bottom"></div>
                                 <div class="progress-line-top" :style="{'width': percentage * 574+'px'}"></div>
@@ -124,20 +138,17 @@
                         </div>
                         <text class="wrapper-share" v-if="dropStatus ==1" @click="jumpProductDetail">Click to Drop It Again</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid' && dropStatus !=1" @click="jumpProductDetail">Click to Drop It Again</text>
-                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==2" @click="jumpConfirmOrder">Buy Now At 50% Discount</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==2" @click="jumpConfirmOrder">Buy Now At 50% OFF</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==3" @click="jumpConfirmOrder">Click to Get It For Free</text>
-                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==2" @click="jumpOrderDetail">Buy Now At 50% Discount</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==2" @click="jumpOrderDetail">Buy Now At 50% OFF</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==3" @click="jumpOrderDetail">Click to Get It For Free</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue' && dropStatus !=1" @click="jumpProductDetail">Click to Drop It Again</text>
 
-                        <div class="cut-end-item-unlock" v-if="dropStatus == 1">
-                            <text class="wrapper-unlock-tip">You haven't unlocked any discount for this Drop. </text>
-                        </div>
                         <div class="cut-end-item-column"
                              v-if="(goodsDetail.operationStatus=='pending' || goodsDetail.operationStatus=='unpaid') && dropStatus != 1">
                             <div class="cut-end-item">
                                 <text class="cut-end-item-icon-1">&#xe6fa;</text>
-                                <text class="cut-end-item-2"> The current price will expire in:</text>
+                                <text class="cut-end-item-2"> The final price will expire in:</text>
                                 <wxc-countdown tpl="{h}:{m}:{s}"
                                                :time="goodsDetail.cancelTimestamp * 1000"
                                                :timeBoxStyle="{backgroundColor: 'transparent', height: '36px', width: '36px','border-radius': '4px'}"
@@ -200,12 +211,12 @@
                 <div>
                     <div class="share-content-top">
                         <div class="share-content-text">
-                            <text class="share-content-text-1">You just dropped </text>
+                            <text class="share-content-text-1">You have dropped </text>
                             <text class="share-content-text-2">Rs.{{ ((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }}</text>
                             <text class="share-content-text-1"> off the price!</text>
                         </div>
-                        <text class="share-content-text-1">Share this item and invite more friends todrop price for you!</text>
-                        <text class="share-content-text-3">Your friends will earn free point gifts too!
+                        <text class="share-content-text-1">Share to invite more friends to drop price for you!</text>
+                        <text class="share-content-text-3">Your friends will earn free points too.
                         </text>
                     </div>
                     <div class="share-content-bottom">
@@ -331,7 +342,9 @@
                     salePrice: '0.00',
                     currentPrice: '0.00',
                     lowestPrice: '0.00',
-                    endTimestamp: 0
+                    endTimestamp: 0,
+                    cutStatus: 'progressing',
+                    operationStatus: 'pending'
                 },
                 isRuleShow: false,
                 distance: 1,
@@ -1165,7 +1178,6 @@
     }
 
     .wrapper-head-word {
-        width: 750px;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
@@ -1271,6 +1283,18 @@
         color: rgba(255, 255, 255, 0.87);
         line-height: 40px;
         text-align: center;
+    }
+    .cut-end-title{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .wrapper-timer-con{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
     }
 
 </style>

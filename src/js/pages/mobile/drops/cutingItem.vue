@@ -108,11 +108,7 @@
         methods: {
             computeIsCanPay (originalPrice, currentPrice, lowestPrice) {
                 const percentage = (originalPrice - currentPrice) / (originalPrice - lowestPrice);
-                if (percentage >= 0.5) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return percentage >= 0.5;
             },
             jumpWeb () {
                 this.$router.open({
@@ -149,9 +145,11 @@
                 });
             },
             jumpConfirmOrder () {
+                const prama = this.goods;
+                prama.proId = 'drop';
                 this.$router.open({
                     name: 'order.confirm',
-                    params: this.goods
+                    params: prama
                 })
             },
             jumpOrderDetail () {
