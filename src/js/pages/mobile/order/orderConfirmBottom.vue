@@ -108,7 +108,8 @@
                             method: 'POST', // 大写
                             name: 'order.cut.create.payment',
                             data: {
-                                cutId: that.order.id
+                                cutId: that.order.id,
+                                zero: 1
                             },
                             header: {
                                 needAuth: true
