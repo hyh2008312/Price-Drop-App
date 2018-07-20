@@ -50,6 +50,18 @@ export default {
         },
         appeared (params, option) {
             this.order = params;
+            if (this.order.proId == 'drop') {
+                this.order.shippingPrice = '0.00';
+                if (this.order.currentPrice - this.order.lowestPrice <= 0) {
+                    this.order.currentPrice = '0.00';
+                } else {
+                    if ((this.order.salePrice - this.order.currentPrice) / (this.order.salePrice - this.order.lowestPrice) >= 0.5) {
+                        this.order.currentPrice = ((this.order.salePrice * 100 * 0.5) / 100).toFixed(2);
+                    } else {
+                        this.order.currentPrice = this.order.salePrice;
+                    }
+                }
+            }
             this.order.total = ((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100).toFixed(2);
         }
     },

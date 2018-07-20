@@ -2,13 +2,12 @@
     <div class="wrapper">
         <text class="od-text">Total:  </text>
         <text class="od-text-1">Rs.{{order.total}}</text>
-        <text class="od-button" @click="confirm">Pay Now</text>
+        <text class="od-button" @click="confirm">Place Order</text>
     </div>
 </template>
 <script>
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const pay = weex.requireModule('PayModule');
-    import { baseUrl } from '../../../config/apis';
     export default {
         props: ['order', 'address'],
         data: {
@@ -104,7 +103,7 @@
                                 message: error
                             });
                         });
-                    } else {
+                    } else if (that.order.proId == 'drop') {
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'order.cut.create.payment',
@@ -122,6 +121,20 @@
                             const user = that.$storage.getSync('user');
                             const price = that.order.total.split('.');
                             const payAmount = price[0] + price[1];
+                            if (payAmount <= 0) {
+                                that.$router.finish();
+                                that.$event.once('paySuccess', () => {
+                                    that.init()
+                                });
+                                that.$router.open({
+                                    name: 'order.success',
+                                    type: 'PUSH',
+                                    params: {
+                                        source: 'confirm'
+                                    }
+                                });
+                                return;
+                            }
                             pay.startPayRequest(order.razorpayOrderId, that.order.title, 'Order#: ' + order.order.number, that.order.mainImage,
                                 parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
