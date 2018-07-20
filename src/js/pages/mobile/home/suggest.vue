@@ -93,8 +93,7 @@ export default {
             countApi: 0,
             isPlatformAndroid: Utils.env.isAndroid(),
             isActiveLoading: false,
-            hasWifi: true,
-            categoryBlackList: [3]
+            hasWifi: true
         }
     },
     methods: {
@@ -229,8 +228,7 @@ export default {
                 name: 'product.customer.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
                 data: {
                     page: this.pageNew,
-                    page_size: this.pageSize,
-                    exclude: this.categoryBlackList[0]
+                    page_size: this.pageSize
                 }
             }).then((data) => {
                 this.$notice.loading.hide();
