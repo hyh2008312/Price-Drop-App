@@ -499,6 +499,9 @@
 
                     if (this.variantsId != '') {
                         if (this.isDrop == true) {
+                            if (!this.checkedSelected()) {
+                                return;
+                            }
                             this.createCut()
                         } else {
                             if (!this.checkedSelected()) {
