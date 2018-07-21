@@ -21,19 +21,19 @@
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-purchase.png"></image></div>
                         <div class="mid-card-text">
-                            <text class="mid-card-text2">Purchase an item by starting your DROP, you earn 5 reward points for every Rs.10 you spend.
+                            <text class="mid-card-text2">Purchase an item by starting your DROP, you earn 200 reward points for every Rs.10 you spend.
                             </text>
                         </div>
                     </div>
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-help.png"></image></div>
                         <div class="mid-card-text">
-                            <text class="mid-card-text2">Help your friends make successful purchases by supporting their DROP, you earn 1 point for every Rs.10 your friends spend.</text>
+                            <text class="mid-card-text2">Help your friends make successful purchases by supporting their DROP, you earn 100 point for every Rs.10 your friends spend.</text>
                         </div>
                     </div>
                     <div class="mid-card-item1">
                         <div class="mid-card-text">
-                            <text class="mid-card-text2 mid-card-bto">For example, you spend Rs.500 on your purchases, then you earn 250 points! If you help your friends drop the price and they spend Rs.6000 in total, then you earn 600 points!</text>
+                            <text class="mid-card-text2 mid-card-bto">For example, you spend Rs.500 on your purchases, then you earn 10000 points! If you help your friends drop the price and they spend Rs.6000 in total, then you earn 60000 points!</text>
                         </div>
                     </div>
                 </div>
