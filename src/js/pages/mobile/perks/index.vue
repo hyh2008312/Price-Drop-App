@@ -13,7 +13,7 @@
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Start Your Drop Campagin</text>
                             <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 5 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> you spend</text>
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> you spend</text>
                             </div>
 
                         </div>
@@ -24,7 +24,7 @@
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Help Your Friends Drop Price</text>
                             <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 1 point</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> your friends spend</text>
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 100 point</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> your friends spend</text>
                             </div>
 
                         </div>
