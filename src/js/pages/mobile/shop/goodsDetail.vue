@@ -521,34 +521,33 @@
                     this.redirectLogin()
                 } else {
                     this.isBottomShow = true;
+                    if (!this.checkedSelected()) {
+                        return;
+                    }
+                    for (let i = 0; i < this.goodsVariants.length; i++) {
+                        let isDoubleChecked = 0;
+                        for (let j = 0; j < this.goodsVariants[i].attributeValues.length; j++) {
+                            for (let m = 0; m < this.tmpArray.length; m++) {
+                                if (this.tmpArray[m].id == this.goodsVariants[i].attributeValues[j].attributeId &&
+                                    this.tmpArray[m].value == this.goodsVariants[i].attributeValues[j].value) {
+                                    isDoubleChecked += 1;
+                                }
+                            }
+                        }
+                        if(isDoubleChecked == this.goodsType.length) {
+                            this.variantsId = this.goodsVariants[i].id;
+                            this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice
+                            this.selunitPrice = this.goodsVariants[i].unitPrice
 
+                            this.nextPage.salePrice = this.selsaleUnitPrice;
+                            this.nextPage.currentPrice = this.selunitPrice;
+                            break;
+                        }
+                    }
+                    this.nextPage.id = this.variantsId;
                         if (this.isDrop == true) {
                             this.createCut()
                         } else {
-                            if (!this.checkedSelected()) {
-                                return;
-                            }
-                            for (let i = 0; i < this.goodsVariants.length; i++) {
-                                let isDoubleChecked = 0;
-                                for (let j = 0; j < this.goodsVariants[i].attributeValues.length; j++) {
-                                    for (let m = 0; m < this.tmpArray.length; m++) {
-                                        if (this.tmpArray[m].id == this.goodsVariants[i].attributeValues[j].attributeId &&
-                                        this.tmpArray[m].value == this.goodsVariants[i].attributeValues[j].value) {
-                                            isDoubleChecked += 1;
-                                        }
-                                    }
-                                }
-                                if(isDoubleChecked == this.goodsType.length) {
-                                    this.variantsId = this.goodsVariants[i].id;
-                                    this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice
-                                    this.selunitPrice = this.goodsVariants[i].unitPrice
-
-                                    this.nextPage.salePrice = this.selsaleUnitPrice;
-                                    this.nextPage.currentPrice = this.selunitPrice;
-                                    break;
-                                }
-                            }
-                            this.nextPage.id = this.variantsId;
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
