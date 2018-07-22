@@ -40,7 +40,7 @@
                         <div><image class="img-icon" src="bmlocal://assets/pic-discount.png"></image></div>
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Step 4</text>
-                            <text class="mid-card-text2">After the DROP ends, you can purchase the item at the final discounted price!</text>
+                            <text class="mid-card-text2">After the DROP ends, you can get this item at either 50% off or Rs.0.</text>
                         </div>
                     </div>
                 </div>
