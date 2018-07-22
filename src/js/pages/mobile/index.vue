@@ -22,6 +22,7 @@ import tabBar from './common/tabBar';
 import { tabConfig } from './config';
 import { cliendId } from '../../config/apis';
 import NewDialog from './home/newPopup';
+const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 const bmPush = weex.requireModule('bmPush');
 const commonUtils = weex.requireModule('CommonUtils');
@@ -186,6 +187,7 @@ export default {
         },
         wxcDialogConfirmBtnClicked () {
             commonUtils.updateAndroidApp('');
+            googleAnalytics.recordEvent('DownloadApp', 'DownLoad App 138', 'DownLoad App 138', 0);
         },
         wxcDialogNoPromptClicked (e) {
             // 此处必须设置，组件为无状态组件，自己管理
