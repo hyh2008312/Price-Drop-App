@@ -77,7 +77,8 @@
                         </div>
                     </div>
                        <text class="wrapper-share" @click="showSharePanel">Share to Drop Your Price Further</text>
-                       <text class="wrapper-share-1" v-if="dropStatus == 2 || dropStatus == 3" @click="showBuyNow">Buy Now At 50% OFF</text>
+                       <text class="wrapper-share-1" v-if="dropStatus == 2" @click="showBuyNow">Buy Now At 50% OFF</text>
+                       <text class="wrapper-share-1" v-if="dropStatus == 3" @click="showBuyNow">Click to Get It For Free</text>
                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite 3 friends to unlock 50% OFF!</text>
                         <div class="wrapper-timer-con">
                             <div class="wrapper-timer">
@@ -462,7 +463,6 @@
             },
             showBuyNow () {
                 this.jumpConfirmOrder();
-                googleAnalytics.recordEvent('DropStart', 'Buy at current price', '', 0);
             },
             jumpProductDetail () {
                 googleAnalytics.recordEvent('DropEnd', 'Drop It Again', '', 0);
@@ -474,7 +474,11 @@
                 })
             },
             jumpConfirmOrder () {
-                googleAnalytics.recordEvent('DropEnd', 'Buy it Now', '', 0);
+                if (this.dropStatus === 2) {
+                    googleAnalytics.recordEvent('DropStart', 'Buy Now At 50% OFF', '', 0);
+                } else if (this.dropStatus === 3) {
+                    googleAnalytics.recordEvent('DropStart', 'Click to Get It For Free', '', 0);
+                }
                 this.goodsDetail.proId = 'drop';
                 this.$router.open({
                     name: 'order.confirm',
