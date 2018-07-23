@@ -380,6 +380,7 @@
                                 this.nextPage.id = res.variants[0].id;
                                 this.nextPage.salePrice = res.variants[0].saleUnitPrice;
                                 this.nextPage.currentPrice = res.variants[0].unitPrice;
+
                             } else {
                                 this.goodsType = res.attributes;
                                 this.operateData(res.attributes);
@@ -395,7 +396,6 @@
                             this.nextPage.currentPrice = res.variants[0].unitPrice;
                             // this.nextPage.mainImage =
                         }
-
                         this.shipObj = res.shipping
                         this.dectxt = []
                         this.nextPage.title = res.title;
@@ -406,9 +406,7 @@
                         this.isDrop = res.isDrop
                         this.nextPage.proId = res.isDrop == false ? 'product' : '';
                         // nextPage 传给下一页组织的数据
-                        // this.$notice.alert({
-                        //     message: res
-                        // })
+
                         if (res.newDescription != null) {
                             this.newDescription = res.newDescription
                             // for (let i = 0; i < res.description.length; i++) {
@@ -534,7 +532,7 @@
                                 }
                             }
                         }
-                        if(isDoubleChecked == this.goodsType.length) {
+                        if (isDoubleChecked == this.goodsType.length) {
                             this.variantsId = this.goodsVariants[i].id;
                             this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice
                             this.selunitPrice = this.goodsVariants[i].unitPrice
@@ -730,7 +728,9 @@
                 }
                 let tmp = []
                 for (let i = 0; i < this.goodsType.length; i++) {
-                    tmp = this.goodsType[i].images
+                    if (this.goodsType[i].name == 'Color') {
+                        tmp = this.goodsType[i].images
+                    }
                 }
                 for (let j = 0; j < tmp.length; j++) {
                     if (tmp[j].value == this.selcolor) {
@@ -739,7 +739,6 @@
                 }
                 this.nextPage.attributes = this.selcolor + ' ' + this.selsize;
                 this.nextPage.mainImage = this.selimgsrc;
-
             },
             openShip (e) {
                 if (e == 1) {
