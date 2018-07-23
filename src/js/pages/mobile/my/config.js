@@ -8,9 +8,6 @@ export const DropsQA = [{
     question: 'Can I make a purchase before the Drop ends?',
     answer: 'No. You can only make a purchase when the campaign ends.'
 }, {
-    question: 'Can I shop the product if it doesn’t reach the lowest price?',
-    answer: 'Yes! You can purchase the item at the final price you have reached if it’s not the lowest price.'
-}, {
     question: 'Is there a time frame for a Price Drop campaign?',
     answer: 'A Price Drop campaign only lasts for 24 hours. Once the drop reaches the lowest price, the campaign will end automatically.'
 }, {
