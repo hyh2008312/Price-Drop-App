@@ -41,6 +41,8 @@
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Step 4</text>
                             <text class="mid-card-text2">After the DROP ends, you can get this item at either 50% off or Rs.0.</text>
+                           <text>&nbsp;</text>
+                            <text class="mid-card-text3">Please Note: Any fake users or spam activities will make your account blocked. We can cancel and refund any suspicious orders at any time.</text>
                         </div>
                     </div>
                 </div>
@@ -258,6 +260,15 @@
         width: 510px;
         line-height: 42px;
         font-family: ProximaNova-Regular;
+    }
+    .mid-card-text3{
+        color: rgba(0, 0, 0, 0.87);
+        /*opacity: 0.54;*/
+        font-size: 24px;
+        width: 510px;
+        line-height: 42px;
+        font-family: ProximaNova-Regular;
+        font-style: italic;
     }
     .overflow-bottom{
         flex-direction: column;
