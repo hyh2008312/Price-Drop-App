@@ -102,7 +102,8 @@
                             </div>
                             <div class="cut-end-total-price-final" v-if="dropStatus != 1">
                                 <text class="cut-end-total-price-word">Final Price Unlocked:</text>
-                                <text class="cut-end-total-price-2"> Rs.{{goodsDetail.currentPrice }}</text>
+                                <text class="cut-end-total-price-2" v-if="dropStatus ==2"> Rs.{{(goodsDetail.salePrice/2).toFixed(2)}}</text>
+                                <text class="cut-end-total-price-2" v-if="dropStatus ==3"> Rs.0.00</text>
                             </div>
                         </div>
                         <div class="cut-end-item-unlock" v-if="dropStatus == 1">
