@@ -124,13 +124,13 @@
                     }
                 }).then((res) => {
                     this.$notice.toast({
-                        message: 'redeem success'
+                        message: 'Redeemed successfully!'
                     })
                     this.$event.emit('redeem')
                     // this.setback()
                 }).catch((res) => {
                     this.$notice.toast({
-                        message: 'Your Points balance is not enough to \n' +
+                        message: 'Your points balance is not enough to \n' +
                         'redeem this card.'
                     })
                     // this.$notice.toast({
