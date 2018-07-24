@@ -55,7 +55,7 @@ module.exports = {
     },
     'diff': {
         'pwd': '/Users/heyaohua/weex-example/eros-new-app/eros-diff-folder',
-        'proxy': 'http://p92s1j3q5.sabkt.gdipper.com/appproduce/'
+        'proxy': 'http://image.getpricedrop.com/appproduce/'
     },
     'server': {
         'path': './',
