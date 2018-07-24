@@ -887,6 +887,9 @@
 
     .contributors-content-left-name {
         margin-left: 24px;
+        width: 250px;
+        lines:1;
+       text-overflow: ellipsis;
     }
 
     .contributors-content-right {
