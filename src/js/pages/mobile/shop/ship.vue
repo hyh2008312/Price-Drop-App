@@ -74,7 +74,8 @@
             </div>
 
             <div class="container-1">
-                <div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.{{time.priceItem}}</text>  </div>
+                <div class="item" v-if="drop==true"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.0.00</text>  </div>
+                <div class="item" v-if="drop==''"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.{{time.priceItem}}</text>  </div>
                 <!--<div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.0.00</text>  </div>-->
                 <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
                 <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">3 - 5  business days</text>  </div>
@@ -98,6 +99,7 @@
                 if (params.time) {
                     this.shipB = true
                     this.time = params.time
+                    this.drop = params.drop
                 } else {
                     this.shipA = true
                 }
@@ -110,7 +112,8 @@
                 time: '',
                 aa: '',
                 shipA: false,
-                shipB: false
+                shipB: false,
+                drop: ''
             }
         },
         methods: {

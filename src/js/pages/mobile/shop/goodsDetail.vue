@@ -767,7 +767,8 @@
                         name: 'goods.ship',
                         type: 'PUSH',
                         params: {
-                            time: this.shipObj
+                            time: this.shipObj,
+                            drop: this.isDrop
                         }
                     })
                 }
