@@ -55,7 +55,9 @@ export default {
                 if (this.order.currentPrice - this.order.lowestPrice <= 0) {
                     this.order.currentPrice = '0.00';
                 } else {
-                    if ((this.order.salePrice - this.order.currentPrice) / (this.order.salePrice - this.order.lowestPrice) >= 0.5) {
+                    if ((this.order.salePrice - this.order.currentPrice) / (this.order.salePrice - this.order.lowestPrice) >= 0.7) {
+                        this.order.currentPrice = ((this.order.salePrice * 100 * 0.7) / 100).toFixed(2);
+                    } else if ((this.order.salePrice - this.order.currentPrice) / (this.order.salePrice - this.order.lowestPrice) >= 0.5) {
                         this.order.currentPrice = ((this.order.salePrice * 100 * 0.5) / 100).toFixed(2);
                     } else {
                         this.order.currentPrice = this.order.salePrice;
