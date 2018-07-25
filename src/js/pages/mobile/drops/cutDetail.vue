@@ -62,24 +62,31 @@
                                 <text class="wrapper-price-3">Rs.{{goodsDetail.salePrice}}</text>
                                 <text class="current-price-1">Original Price</text>
                             </div>
-                            <div class="wrapper-price-lowest">
-                                <text class="icon-key" v-if="dropStatus == 1">&#xe73e;</text>
-                                <text class="icon-unlock" v-if="dropStatus == 2 || dropStatus == 3 ">&#xe73d;</text>
-                                <text class="wrapper-price-2" v-if="dropStatus == 1">50% OFF</text>
-                                <text class="wrapper-price-2-1" v-if="dropStatus == 2 || dropStatus == 3 ">50% OFF</text>
+                            <div class="wrapper-price-lowest" :style="{'margin-left': '50px'}">
+                                <text class="icon-key" v-if="dropStatus < 2">&#xe73e;</text>
+                                <text class="icon-unlock" v-else>&#xe73d;</text>
+                                <text class="wrapper-price-2" v-if="dropStatus < 2">50% OFF</text>
+                                <text class="wrapper-price-2-1" v-else>50% OFF</text>
                             </div>
                             <div class="wrapper-price-lowest">
-                                <text class="icon-key" v-if="dropStatus == 1 || dropStatus == 2">&#xe73e;</text>
-                                <text class="icon-unlock" v-if="dropStatus == 3">&#xe73d;</text>
-                                <text class="wrapper-price-2" v-if="dropStatus == 1 || dropStatus == 2">Rs.{{goodsDetail.lowestPrice}}</text>
-                                <text class="wrapper-price-2-1" v-if="dropStatus == 3">Rs.{{goodsDetail.lowestPrice}}</text>
+                                <text class="icon-key" v-if="dropStatus < 3">&#xe73e;</text>
+                                <text class="icon-unlock" v-else>&#xe73d;</text>
+                                <text class="wrapper-price-2" v-if="dropStatus < 3">70% OFF</text>
+                                <text class="wrapper-price-2-1" v-else>70% OFF</text>
+                            </div>
+                            <div class="wrapper-price-lowest">
+                                <text class="icon-key" v-if="dropStatus < 4">&#xe73e;</text>
+                                <text class="icon-unlock" v-else>&#xe73d;</text>
+                                <text class="wrapper-price-2" v-if="dropStatus < 4">Rs.{{goodsDetail.lowestPrice}}</text>
+                                <text class="wrapper-price-2-1" v-else >Rs.{{goodsDetail.lowestPrice}}</text>
                             </div>
                         </div>
                     </div>
                        <text class="wrapper-share" @click="showSharePanel">Share to Drop Your Price Further</text>
-                       <text class="wrapper-share-1" v-if="dropStatus == 2" @click="showBuyNow">Buy Now At 50% OFF</text>
-                       <text class="wrapper-share-1" v-if="dropStatus == 3" @click="showBuyNow">Click to Get It For Free</text>
-                       <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite 3 friends to unlock 50% OFF!</text>
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite 3 friends to unlock 50% OFF!</text>
+                       <text class="wrapper-share-1" v-else-if="dropStatus == 2" @click="showBuyNow">Buy Now At 50% OFF</text>
+                       <text class="wrapper-share-1" v-else-if="dropStatus == 3" @click="showBuyNow">Buy Now At 70% OFF</text>
+                       <text class="wrapper-share-1" v-else-if="dropStatus == 4" @click="showBuyNow">Click to Get It For Free</text>
                         <div class="wrapper-timer-con">
                             <div class="wrapper-timer">
                                 <wxc-countdown tpl="{h}:{m}:{s}"
@@ -103,18 +110,14 @@
                             <div class="cut-end-total-price-final" v-if="dropStatus != 1">
                                 <text class="cut-end-total-price-word">Final Price Unlocked:</text>
                                 <text class="cut-end-total-price-2" v-if="dropStatus ==2"> Rs.{{(goodsDetail.salePrice/2).toFixed(2)}}</text>
-                                <text class="cut-end-total-price-2" v-if="dropStatus ==3"> Rs.0.00</text>
+                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==3"> Rs.{{(goodsDetail.salePrice * 0.7).toFixed(2)}}</text>
+                                <text class="cut-end-total-price-2" v-if="dropStatus ==4"> Rs.0.00</text>
                             </div>
                         </div>
                         <div class="cut-end-item-unlock" v-if="dropStatus == 1">
                             <text class="wrapper-unlock-tip-1">You didn't unlock any discount.</text>
                         </div>
                         <div class="wrapper-progress">
-                            <!--<div class="current-price" :style="{'margin-left': distance+'px'}">
-                                <text class="current-price-1-current">Current Price</text>
-                                <text class="current-price-2">Rs.{{goodsDetail.currentPrice}}</text>
-                                <image class="current-indicator" :style="{'margin-left': indicatorDistance+'px'}" src="bmlocal://assets/drop_indicator.png"></image>
-                            </div>-->
                             <div class="wrapper-progress-line">
                                 <div class="progress-line-bottom"></div>
                                 <div class="progress-line-top" :style="{'width': percentage * 574+'px'}"></div>
@@ -124,26 +127,34 @@
                                     <text class="wrapper-price-3">Rs.{{goodsDetail.salePrice}}</text>
                                     <text class="current-price-1">Original Price</text>
                                 </div>
-                                <div class="wrapper-price-lowest">
-                                    <text class="icon-key" v-if="dropStatus == 1">&#xe73e;</text>
-                                    <text class="icon-unlock" v-if="dropStatus == 2 || dropStatus == 3 ">&#xe73d;</text>
-                                    <text class="wrapper-price-2" v-if="dropStatus == 1">50% OFF</text>
-                                    <text class="wrapper-price-2-1" v-if="dropStatus == 2 || dropStatus == 3 ">50% OFF</text>
+                                <div class="wrapper-price-lowest" :style="{'margin-left': '50px'}">
+                                    <text class="icon-key" v-if="dropStatus < 2">&#xe73e;</text>
+                                    <text class="icon-unlock" v-else>&#xe73d;</text>
+                                    <text class="wrapper-price-2" v-if="dropStatus < 2">50% OFF</text>
+                                    <text class="wrapper-price-2-1" v-else>50% OFF</text>
                                 </div>
                                 <div class="wrapper-price-lowest">
-                                    <text class="icon-key" v-if="dropStatus == 1 || dropStatus == 2">&#xe73e;</text>
-                                    <text class="icon-unlock" v-if="dropStatus == 3">&#xe73d;</text>
-                                    <text class="wrapper-price-2" v-if="dropStatus == 1 || dropStatus == 2">Rs.{{goodsDetail.lowestPrice}}</text>
-                                    <text class="wrapper-price-2-1" v-if="dropStatus == 3">Rs.{{goodsDetail.lowestPrice}}</text>
+                                    <text class="icon-key" v-if="dropStatus < 3">&#xe73e;</text>
+                                    <text class="icon-unlock" v-else>&#xe73d;</text>
+                                    <text class="wrapper-price-2" v-if="dropStatus < 3">70% OFF</text>
+                                    <text class="wrapper-price-2-1" v-else>70% OFF</text>
+                                </div>
+                                <div class="wrapper-price-lowest">
+                                    <text class="icon-key" v-if="dropStatus < 4">&#xe73e;</text>
+                                    <text class="icon-unlock" v-else>&#xe73d;</text>
+                                    <text class="wrapper-price-2" v-if="dropStatus < 4">Rs.{{goodsDetail.lowestPrice}}</text>
+                                    <text class="wrapper-price-2-1" v-else >Rs.{{goodsDetail.lowestPrice}}</text>
                                 </div>
                             </div>
                         </div>
                         <text class="wrapper-share" v-if="dropStatus ==1" @click="jumpProductDetail">Click to Drop It Again</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid' && dropStatus !=1" @click="jumpProductDetail">Click to Drop It Again</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==2" @click="jumpConfirmOrder">Buy Now At 50% OFF</text>
-                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==3" @click="jumpConfirmOrder">Click to Get It For Free</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==3" @click="jumpConfirmOrder">Buy Now At 70% OFF</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==4" @click="jumpConfirmOrder">Click to Get It For Free</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==2" @click="jumpOrderDetail">Buy Now At 50% OFF</text>
-                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==3" @click="jumpOrderDetail">Click to Get It For Free</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==3" @click="jumpOrderDetail">Buy Now At 70% OFF</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==4" @click="jumpOrderDetail">Click to Get It For Free</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue' && dropStatus !=1" @click="jumpProductDetail">Click to Drop It Again</text>
 
                         <div class="cut-end-item-column"
@@ -439,13 +450,16 @@
                     that.loadingEnd();
                     this.goodsDetail = data;
                     this.percentage = (data.salePrice - data.currentPrice) / (data.salePrice - data.lowestPrice);
+                    this.percentage = 0.75;
                     this.distance = this.percentage * 574 - 98;
                     if (this.percentage < 0.5) {
                         this.dropStatus = 1;
-                    } else if (this.percentage >= 0.5 && this.percentage < 1) {
+                    } else if (this.percentage >= 0.5 && this.percentage < 0.7) {
                         this.dropStatus = 2;
-                    } else if (this.percentage === 1) {
+                    } else if (this.percentage >= 0.7 && this.percentage < 1) {
                         this.dropStatus = 3;
+                    } else if (this.percentage === 1) {
+                        this.dropStatus = 4;
                     }
                     if (this.distance > 372) {
                         this.indicatorDistance = 91 + this.distance - 400;
