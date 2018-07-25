@@ -87,6 +87,8 @@
                        <text class="wrapper-share-1" v-else-if="dropStatus == 2" @click="showBuyNow">Buy Now At 50% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 3" @click="showBuyNow">Buy Now At 70% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 4" @click="showBuyNow">Click to Get It For Free</text>
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==2">Invite 10 more friends to unlock 70% OFF!</text>
+                        <text class="wrapper-unlock-tip" v-else-if="dropStatus ==3">Well done! Keep inviting more friends to unlock Rs.0!</text>
                         <div class="wrapper-timer-con">
                             <div class="wrapper-timer">
                                 <wxc-countdown tpl="{h}:{m}:{s}"
