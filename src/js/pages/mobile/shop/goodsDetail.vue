@@ -130,8 +130,11 @@
 
                     <text class="bottom-text">You may return all items sold by PriceDrop within 9 days of delivery for a refund, as long as it is unused and in a good condition.
                     </text>
-                    <text class="bottom-text">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
+                    <text class="bottom-text" v-if="isDrop==false">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
                     </text>
+                    <text class="bottom-text" v-if="isDrop">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for a refund and start to drop the price again. If this product is no longer available for a Drop, we will fully refund you.
+                    </text>
+
                     <text class="bottom-text" >To learn more about our return policy, please visit our FAQ page.
                     </text>
 

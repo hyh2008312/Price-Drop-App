@@ -6,7 +6,7 @@
             <div class="header">
                 <text class="header-word">Redeem Your Points for Free Gift Cards</text>
             </div>
-            <div class="overflow-mid">
+            <div class="overflow-mid" @click="openNewPage()">
                 <div class="mid-card">
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
@@ -24,7 +24,7 @@
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Help Your Friends Drop Price</text>
                             <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 100 point</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> your friends spend</text>
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 100 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> your friends spend</text>
                             </div>
 
                         </div>
@@ -127,7 +127,16 @@
                         card: id
                     }
                 })
-            }
+            },
+            // openNewPage () {
+            //     this.$router.open({
+            //         name: 'flash',
+            //         type: 'PUSH'
+            //         // params: {
+            //         //     card: id
+            //         // }
+            //     })
+            // }
         }
     }
 </script>
