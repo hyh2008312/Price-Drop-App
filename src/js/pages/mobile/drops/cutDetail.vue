@@ -110,8 +110,8 @@
                             <div class="cut-end-total-price-final" v-if="dropStatus != 1">
                                 <text class="cut-end-total-price-word">Final Price Unlocked:</text>
                                 <text class="cut-end-total-price-2" v-if="dropStatus ==2"> Rs.{{(goodsDetail.salePrice/2).toFixed(2)}}</text>
-                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==3"> Rs.{{(goodsDetail.salePrice * 0.7).toFixed(2)}}</text>
-                                <text class="cut-end-total-price-2" v-if="dropStatus ==4"> Rs.0.00</text>
+                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==3"> Rs.{{(goodsDetail.salePrice * 0.3).toFixed(2)}}</text>
+                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==4"> Rs.0.00</text>
                             </div>
                         </div>
                         <div class="cut-end-item-unlock" v-if="dropStatus == 1">
@@ -346,7 +346,7 @@
         },
         data () {
             return {
-                percentage: 0.34,
+                percentage: 0.1,
                 TIME: new Date().getTime() + 86400000 + '',
                 isShowShare: false,
                 isShow: false,
@@ -450,7 +450,6 @@
                     that.loadingEnd();
                     this.goodsDetail = data;
                     this.percentage = (data.salePrice - data.currentPrice) / (data.salePrice - data.lowestPrice);
-                    this.percentage = 0.75;
                     this.distance = this.percentage * 574 - 98;
                     if (this.percentage < 0.5) {
                         this.dropStatus = 1;
