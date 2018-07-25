@@ -20,6 +20,13 @@
                     that.$notice.toast('Please add address first!')
                     return
                 }
+                // that.$router.open({
+                //     name: 'order.payment',
+                //     type: 'PUSH',
+                //     params: {
+                //         source: 'confirm'
+                //     }
+                // });
                 if (!this.isFirst) {
                     this.isFirst = true;
                     if (that.order.proId == 'product') {

@@ -74,6 +74,9 @@ export default {
     'order.confirm': {
         url: '/pages/mobile/order/orderConfirm.js'
     },
+    'order.payment': {
+        url: '/pages/mobile/order/orderPaymentMethod.js'
+    },
     'order.address': {
         url: '/pages/mobile/order/chooseAddress.js'
     },
