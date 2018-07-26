@@ -54,12 +54,12 @@ export default {
                 this.$router.open({
                     name: 'order',
                     type: 'PUSH'
-                })
+                });
             } else {
                 this.$router.back({
                     length: 1,
                     type: 'PUSH'
-                })
+                });
             }
         },
         jumpHome () {

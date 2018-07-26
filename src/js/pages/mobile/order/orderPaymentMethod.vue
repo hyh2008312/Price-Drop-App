@@ -23,7 +23,7 @@
                 <text class="title-2">Order#:{{order.number}}</text>
             </cell>
         </list>
-        <order-payment-method-bottom :order="order" :method="method"></order-payment-method-bottom>
+        <order-payment-method-bottom :order="order" :method="method" :source="source"></order-payment-method-bottom>
     </div>
 </template>
 <script>
@@ -38,6 +38,7 @@ export default {
     eros: {
         appeared (params, option) {
             this.order = params.data;
+            this.source = params.source;
             this.$notice.alert({
                 message: this.order
             })
@@ -54,6 +55,7 @@ export default {
             method: 'paytm',
             paytmSrc: 'bmlocal://assets/paytm.png',
             razorpaySrc: 'bmlocal://assets/razorpay.png',
+            source: 'confirm',
             order: {
                 'title': '',
                 'mainImage': '',
@@ -69,14 +71,15 @@ export default {
     },
     methods: {
         back () {
-            this.$router.finish();
-            this.$router.open({
-                name: 'order.failure',
-                type: 'PUSH',
-                params: {
-                    source: 'confirm'
-                }
-            });
+            if (this.source == 'confirm') {
+                this.$router.finish();
+                this.$router.open({
+                    name: 'order',
+                    type: 'PUSH'
+                });
+            } else {
+                this.$router.finish();
+            }
         },
         chooseMethod (e) {
             this.method = e;

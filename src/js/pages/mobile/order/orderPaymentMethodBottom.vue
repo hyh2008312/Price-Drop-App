@@ -9,7 +9,7 @@
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const pay = weex.requireModule('PayModule');
     export default {
-        props: ['order', 'method'],
+        props: ['order', 'method', 'source'],
         data: {
             isFirst: false
         },
@@ -18,9 +18,10 @@
                 const that = this;
                 if (!this.isFirst) {
                     this.isFirst = true;
+                    that.$notice.loading.show();
                     if (that.method == 'paytm') {
                         that.$fetch({
-                            method: 'GET', // 大写
+                            method: 'POST', // 大写
                             name: 'payment.paytm.checksum',
                             data: {
                                 orderId: that.order.id
@@ -29,91 +30,105 @@
                                 needAuth: true
                             }
                         }).then(resData => {
-                            this.$event.emit('cutDetail');
-                            const order = resData;
-                            const user = that.$storage.getSync('user');
-                            const price = that.order.total.split('.');
-                            const payAmount = price[0] + price[1];
-                            pay.startPayRequest(order.razorpayOrderId, that.order.title, 'Order#: ' + order.order.number, that.order.mainImage,
-                                parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
-                                function (param) {
-                                    that.$notice.loading.show();
-                                    that.$fetch({
-                                        method: 'POST', // 大写
-                                        name: 'payment.razorpay.check',
-                                        data: {
-                                            orderId: order.order.id,
-                                            razorpayPaymentId: param.razorPaymentId,
-                                            razorpayOrderId: param.razorOrderId,
-                                            razorpaySignature: param.razorSignature
-                                        },
-                                        header: {
-                                            needAuth: true
+                            that.$notice.loading.hide();
+                            that.$event.emit('cutDetail');
+                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.amount,
+                                resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
+                                resData.paytmChecksum, (data) => {
+                                    if (data.code == 200) {
+                                        that.$notice.loading.show();
+                                        that.$fetch({
+                                            method: 'POST', // 大写
+                                            name: 'payment.paytm.get.status',
+                                            data: {
+                                                paytmOrderId: data.ORDERID,
+                                                checksum: data.CHECKSUMHASH,
+                                                orderId: resData.order.id
+                                            },
+                                            header: {
+                                                needAuth: true
+                                            }
+                                        }).then(resData => {
+                                            that.$notice.loading.hide();
+                                            that.$router.finish();
+                                            that.$event.once('paySuccess', () => {
+                                                that.init()
+                                            });
+                                            that.$router.open({
+                                                name: 'order.success',
+                                                type: 'PUSH',
+                                                params: {
+                                                    source: that.source
+                                                }
+                                            });
+                                        }, error => {
+                                            that.$notice.toast({
+                                                message: error
+                                            });
+                                        })
+                                    }
+                                }, (data) => {
+                                    if (that.source == 'confirm') {
+                                        if (data.code == 300) {
+                                            that.$router.open({
+                                                name: 'order.failure',
+                                                type: 'PUSH',
+                                                params: {
+                                                    source: that.source
+                                                }
+                                            });
+                                        } else {
+                                            that.$router.open({
+                                                name: 'order',
+                                                type: 'PUSH',
+                                                params: {
+                                                    tab: 1
+                                                }
+                                            });
                                         }
-                                    }).then(resData => {
-                                        that.$notice.loading.hide();
-                                        that.$router.finish();
-                                        that.$event.once('paySuccess', () => {
-                                            that.init()
-                                        });
-                                        that.$router.open({
-                                            name: 'order.success',
-                                            type: 'PUSH',
-                                            params: {
-                                                source: 'confirm'
-                                            }
-                                        });
-                                    }, error => {
-                                        that.$notice.loading.hide();
-                                        that.$notice.toast({
-                                            message: error
-                                        });
-                                    });
-                                }, function (param) {
-                                    if (param.code != 0) {
-                                        that.$router.open({
-                                            name: 'order.failure',
-                                            type: 'PUSH',
-                                            params: {
-                                                source: 'confirm'
-                                            }
-                                        });
                                     } else {
-                                        that.$router.open({
-                                            name: 'order',
-                                            type: 'PUSH',
-                                            params: {
-                                                tab: 1
-                                            }
-                                        });
+                                        if (data.code == 300) {
+                                            that.$router.open({
+                                                name: 'order.failure',
+                                                type: 'PUSH',
+                                                params: {
+                                                    source: that.source
+                                                }
+                                            });
+                                        } else {
+                                            that.$router.finish();
+                                        }
                                     }
                                 });
                             that.isFirst = true;
                         }, error => {
+                            that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             that.isFirst = true;
                             that.$notice.toast({
                                 message: error
                             });
                         });
-                    } else if (that.order.proId == 'drop') {
+                    } else if (that.method == 'razorpay') {
                         that.$fetch({
                             method: 'POST', // 大写
-                            name: 'order.cut.create.payment',
+                            name: 'payment.razorpay.create',
                             data: {
-                                cutId: that.order.id,
-                                zero: 1
+                                orderId: that.order.id
                             },
                             header: {
                                 needAuth: true
                             }
                         }).then(resData => {
-                            this.$event.emit('cutDetail');
-                            googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
-                            googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
+                            that.$notice.loading.hide();
+                            that.$event.emit('cutDetail');
+                            that.$notice.alert({
+                                message: resData
+                            });
+                            return;
                             const order = resData;
                             const user = that.$storage.getSync('user');
-                            const price = that.order.total.split('.');
+                            const price = resData.amount.split('.');
                             const payAmount = price[0] + price[1];
                             if (payAmount <= 0) {
                                 that.$router.finish();
@@ -124,12 +139,12 @@
                                     name: 'order.success',
                                     type: 'PUSH',
                                     params: {
-                                        source: 'confirm'
+                                        source: that.source
                                     }
                                 });
                                 return;
                             }
-                            pay.startPayRequest(order.razorpayOrderId, that.order.title, 'Order#: ' + order.order.number, that.order.mainImage,
+                            pay.startPayRequest(order.razorpayOrderId, order.order.title, 'Order#: ' + order.orderNumber, that.order.mainImage,
                                 parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
                                     that.$notice.loading.show();
@@ -155,7 +170,7 @@
                                             name: 'order.success',
                                             type: 'PUSH',
                                             params: {
-                                                source: 'confirm'
+                                                source: that.source
                                             }
                                         });
                                     }, error => {
@@ -164,27 +179,42 @@
                                         });
                                     })
                                 }, function (param) {
-                                    if (param.code != 0) {
-                                        that.$router.open({
-                                            name: 'order.failure',
-                                            type: 'PUSH',
-                                            params: {
-                                                source: 'confirm'
-                                            }
-                                        });
+                                    if (that.source == 'confirm') {
+                                        if (param.code != 0) {
+                                            that.$router.open({
+                                                name: 'order.failure',
+                                                type: 'PUSH',
+                                                params: {
+                                                    source: that.source
+                                                }
+                                            });
+                                        } else {
+                                            that.$router.open({
+                                                name: 'order',
+                                                type: 'PUSH',
+                                                params: {
+                                                    tab: 1
+                                                }
+                                            });
+                                        }
                                     } else {
-                                        that.$router.open({
-                                            name: 'order',
-                                            type: 'PUSH',
-                                            params: {
-                                                tab: 1
-                                            }
-                                        });
+                                        if (param.code != 0) {
+                                            that.$router.open({
+                                                name: 'order.failure',
+                                                type: 'PUSH',
+                                                params: {
+                                                    source: that.source
+                                                }
+                                            });
+                                        } else {
+                                            that.$router.finish();
+                                        }
                                     }
                                 });
                             that.isFirst = true;
                         }, error => {
-                            this.$event.emit('cutDetail');
+                            that.$notice.loading.hide();
+                            that.$event.emit('cutDetail');
                             that.isFirst = true;
                             that.$notice.toast({
                                 message: error
