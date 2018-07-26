@@ -34,5 +34,6 @@ export const apis = {
     'payment.razorpay.check': '/payment/razorpay/check/',
     'order.create.payment': '/order/create/payment/',
     'order.cut.create.payment': '/order/cut/create/payment/',
-    'order.cut.create.pure': '/order/cut/create/pure/'
+    'order.cut.create.pure': '/order/cut/create/pure/',
+    'payment.paytm.checksum': '/payment/paytm/checksum/'
 }

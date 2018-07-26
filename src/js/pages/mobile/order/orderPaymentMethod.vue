@@ -37,12 +37,16 @@ export default {
     },
     eros: {
         appeared (params, option) {
-            this.order = params.order;
+            this.order = params.data;
+            this.$notice.alert({
+                message: this.order
+            })
         }
     },
     created () {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
+        googleAnalytics.trackingScreen('Payment Method');
     },
     data () {
         return {
@@ -65,25 +69,17 @@ export default {
     },
     methods: {
         back () {
-            this.$router.finish()
+            this.$router.finish();
+            this.$router.open({
+                name: 'order.failure',
+                type: 'PUSH',
+                params: {
+                    source: 'confirm'
+                }
+            });
         },
         chooseMethod (e) {
             this.method = e;
-        },
-        getAddress () {
-            this.$fetch({
-                method: 'GET', // 大写
-                name: 'address.get.default',
-                header: {
-                    needAuth: true
-                }
-            }).then(resData => {
-                this.address = resData;
-            }, error => {
-                this.$notice.toast({
-                    message: error
-                })
-            });
         }
     }
 }
