@@ -145,11 +145,11 @@
                     this.title = 'Payment FAQs'
                     this.QAArr = PaymentQA
                 } else if (p.type == 7) {
-                    this.title = 'Terms & Conditions'
+                    this.title = 'Privacy Policy'
                     this.settingPage = 1
                     this.term = TermAndCondittions
                 } else if (p.type == 8) {
-                    this.title = 'Privacy Policy'
+                    this.title = 'Terms & Conditions'
                     this.settingPage = 2
                     this.QAArr = Privacy
                 } else if (p.type == 9) {
