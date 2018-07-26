@@ -111,9 +111,10 @@
                             });
                         });
                     } else if (that.order.proId == 'drop') {
+                        that.$notice.loading.show();
                         that.$fetch({
                             method: 'POST', // 大写
-                            name: 'order.cut.create.payment',
+                            name: 'order.cut.create.pure',
                             data: {
                                 cutId: that.order.id,
                                 zero: 1
@@ -122,82 +123,22 @@
                                 needAuth: true
                             }
                         }).then(resData => {
+                            that.$notice.loading.hide();
                             this.$event.emit('cutDetail');
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
-                            const user = that.$storage.getSync('user');
-                            const price = that.order.total.split('.');
-                            const payAmount = price[0] + price[1];
-                            if (payAmount <= 0) {
-                                that.$router.finish();
-                                that.$event.once('paySuccess', () => {
-                                    that.init()
-                                });
-                                that.$router.open({
-                                    name: 'order.success',
-                                    type: 'PUSH',
-                                    params: {
-                                        source: 'confirm'
-                                    }
-                                });
-                                return;
-                            }
-                            pay.startPayRequest(order.razorpayOrderId, that.order.title, 'Order#: ' + order.order.number, that.order.mainImage,
-                                parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
-                                function (param) {
-                                    that.$notice.loading.show();
-                                    that.$fetch({
-                                        method: 'POST', // 大写
-                                        name: 'payment.razorpay.check',
-                                        data: {
-                                            orderId: order.order.id,
-                                            razorpayPaymentId: param.razorPaymentId,
-                                            razorpayOrderId: param.razorOrderId,
-                                            razorpaySignature: param.razorSignature
-                                        },
-                                        header: {
-                                            needAuth: true
-                                        }
-                                    }).then(resData => {
-                                        that.$notice.loading.hide();
-                                        that.$router.finish();
-                                        that.$event.once('paySuccess', () => {
-                                            that.init()
-                                        });
-                                        that.$router.open({
-                                            name: 'order.success',
-                                            type: 'PUSH',
-                                            params: {
-                                                source: 'confirm'
-                                            }
-                                        });
-                                    }, error => {
-                                        that.$notice.toast({
-                                            message: error
-                                        });
-                                    })
-                                }, function (param) {
-                                    if (param.code != 0) {
-                                        that.$router.open({
-                                            name: 'order.failure',
-                                            type: 'PUSH',
-                                            params: {
-                                                source: 'confirm'
-                                            }
-                                        });
-                                    } else {
-                                        that.$router.open({
-                                            name: 'order',
-                                            type: 'PUSH',
-                                            params: {
-                                                tab: 1
-                                            }
-                                        });
-                                    }
-                                });
+                            that.$router.open({
+                                name: 'order.payment',
+                                type: 'PUSH',
+                                params: {
+                                    source: 'confirm',
+                                    data: order
+                                }
+                            });
                             that.isFirst = true;
                         }, error => {
+                            that.$notice.loading.hide();
                             this.$event.emit('cutDetail');
                             that.isFirst = true;
                             that.$notice.toast({
