@@ -122,10 +122,6 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            that.$notice.alert({
-                                message: resData
-                            });
-                            return;
                             const order = resData;
                             const user = that.$storage.getSync('user');
                             const price = resData.amount.split('.');
@@ -144,8 +140,8 @@
                                 });
                                 return;
                             }
-                            pay.startPayRequest(order.razorpayOrderId, order.order.title, 'Order#: ' + order.orderNumber, that.order.mainImage,
-                                parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
+                            pay.startPayRequest(order.razorpayOrderId, order.order.lines[0].title, 'Order#: ' + order.orderNumber,
+                                that.order.lines[0].mainImage, parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
                                     that.$notice.loading.show();
                                     that.$fetch({
