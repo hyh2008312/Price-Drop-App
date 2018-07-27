@@ -192,7 +192,9 @@
                 this.getBlock4();
             },
             onLoadingMore () {
-                this.requestProduct(false)
+                if (!this.isPlatformAndroid) {
+                    this.requestProduct(false)
+                }
             },
             onloading () {
                 if (this.isPlatformAndroid) {
