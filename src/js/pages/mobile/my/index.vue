@@ -64,7 +64,7 @@
                         <image class="i-box-icon" src="bmlocal://assets/ic-packed.png"></image>
 
                         <!--<text class="i-box-icon iconfont">&#xe718;</text>-->
-                        <text class="i-box-tlt">Packing</text>
+                        <text class="i-box-tlt">Preparing</text>
                     </div>
                     <div class="i-box-l" @click="jumpWeb(3)">
                         <image class="i-box-icon" src="bmlocal://assets/ic-shipped.png"></image>
