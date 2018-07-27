@@ -287,18 +287,18 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
     //paytm 的支付方式
     public void onStartTransaction(String orderId ,String custId,String txnAmount,String mobileNo,String email,String
                                    calllbackUrl ,String checkSumHash) {
-        PaytmPGService Service = PaytmPGService.getProductionService();
-        // PaytmPGService Service = PaytmPGService.getStagingService();
+       // PaytmPGService Service = PaytmPGService.getProductionService();
+         PaytmPGService Service = PaytmPGService.getStagingService();
         HashMap<String, String> paramMap = new HashMap<String, String>();
 
         // these are mandatory parameters
-        paramMap.put("MID" , "JMDTec16243179908223");
+        paramMap.put("MID" , "JMDTec00141927467271");
         paramMap.put("ORDER_ID" , orderId);
         paramMap.put("CUST_ID" , custId);
         paramMap.put("TXN_AMOUNT" , txnAmount);
         paramMap.put("CHANNEL_ID" , "WAP");
-        paramMap.put("INDUSTRY_TYPE_ID" , "Retail109");
-        paramMap.put("WEBSITE" , "APPPROD");
+        paramMap.put("INDUSTRY_TYPE_ID" , "Retail");
+        paramMap.put("WEBSITE" , "APPSTAGING");
         paramMap.put("MOBILE_NO" , mobileNo);
         paramMap.put("EMAIL" , email);
         paramMap.put("CALLBACK_URL" , calllbackUrl);
@@ -334,30 +334,30 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
                         Log.d("LOG", "Payment Transaction is successful " + inResponse.toString());
 
                         PaytmBean paybean = new PaytmBean();
-                        paybean.setSTATUS(inResponse.getString("STATUS"));
+                        paybean.setStatus(inResponse.getString("STATUS"));
 
-                        if ("TXN_SUCCESS".equals(paybean.getSTATUS())){
+                        if ("TXN_SUCCESS".equals(paybean.getStatus())){
                             //成功
                             paybean.setCode(200);
-                            paybean.setCHECKSUMHASH(inResponse.getString("CHECKSUMHASH"));
-                            paybean.setORDERID(inResponse.getString("ORDERID"));
-                            paybean.setTXNAMOUNT(inResponse.getString("TXNAMOUNT"));
-                            paybean.setRESPCODE(inResponse.getString("RESPCODE"));
+                            paybean.setCheckSumHash(inResponse.getString("CHECKSUMHASH"));
+                            paybean.setOrderId(inResponse.getString("ORDERID"));
+                            paybean.setTxnAmount(inResponse.getString("TXNAMOUNT"));
+                            paybean.setRespCode(inResponse.getString("RESPCODE"));
                             /*paybean.setBANKNAME(inResponse.getString("BANKNAME"));
                             paybean.setTXNDATE(inResponse.getString("TXNDATE"));
                             paybean.setTXNID(inResponse.getString("TXNID"));
                             paybean.setPAYMENTMODE(inResponse.getString("PAYMENTMODE"));
                             paybean.setGATEWAYNAME(inResponse.getString("GATEWAYNAME"));*/
-                            paybean.setRESPMSG(inResponse.getString("RESPMSG"));
+                            paybean.setRespMsg(inResponse.getString("RESPMSG"));
                             paybean.setErrmsg("pay success");
                             paytmSuccessCallback.invoke(paybean);
                         }else {
                             //失败
                             paybean.setCode(300);
-                            paybean.setCHECKSUMHASH(inResponse.getString("CHECKSUMHASH"));
-                            paybean.setORDERID(inResponse.getString("ORDERID"));
-                            paybean.setTXNAMOUNT(inResponse.getString("TXNAMOUNT"));
-                            paybean.setRESPCODE(inResponse.getString("RESPCODE"));
+                            paybean.setCheckSumHash(inResponse.getString("CHECKSUMHASH"));
+                            paybean.setOrderId(inResponse.getString("ORDERID"));
+                            paybean.setTxnAmount(inResponse.getString("TXNAMOUNT"));
+                            paybean.setRespCode(inResponse.getString("RESPCODE"));
                             paybean.setErrmsg(inResponse.getString("RESPMSG"));
                             paytmFailedCallback.invoke(paybean);
                         }

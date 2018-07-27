@@ -32,7 +32,21 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.amount,
+                            if (resData.order.paymentAmount <= 0) {
+                                that.$router.finish();
+                                that.$event.once('paySuccess', () => {
+                                    that.init()
+                                });
+                                that.$router.open({
+                                    name: 'order.success',
+                                    type: 'PUSH',
+                                    params: {
+                                        source: that.source
+                                    }
+                                });
+                                return;
+                            }
+                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
                                     if (data.code == 200) {
@@ -41,8 +55,8 @@
                                             method: 'POST', // 大写
                                             name: 'payment.paytm.get.status',
                                             data: {
-                                                paytmOrderId: data.ORDERID,
-                                                checksum: data.CHECKSUMHASH,
+                                                paytmOrderId: data.orderId,
+                                                checksum: data.checkSumHash,
                                                 orderId: resData.order.id
                                             },
                                             header: {

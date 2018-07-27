@@ -5,29 +5,37 @@ package com.benmu.drop.activity.bean;
  */
 
 public class PaytmBean {
-    private int code ;
-    private String STATUS;
-    private String CHECKSUMHASH;
-    private String BANKNAME;
-    private String ORDERID;
-    private String TXNAMOUNT;
-    private String TXNDATE;
-    private String MID;
-    private String TXNID;
-    private String RESPCODE;
-    private String PAYMENTMODE;
-    private String BANKTXNID;
-    private String GATEWAYNAME;
-    private String RESPMSG;
-    private String CURRENCY;
+    private int code;
+    private String status;
+    private String checkSumHash;
+    private String bankName;
+    private String orderId;
+    private String txnAmount;
+    private String txnDate;
+    private String mid;
+    private String txnId;
+    private String respCode;
+    private String paymentMode;
+    private String bankTxnId;
+    private String gateWayName;
+    private String respMsg;
+    private String currency;
     private String errmsg;
 
-    public String getErrmsg() {
-        return errmsg;
+    public String getBankTxnId() {
+        return bankTxnId;
     }
 
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
+    public void setBankTxnId(String bankTxnId) {
+        this.bankTxnId = bankTxnId;
+    }
+
+    public String getGateWayName() {
+        return gateWayName;
+    }
+
+    public void setGateWayName(String gateWayName) {
+        this.gateWayName = gateWayName;
     }
 
     public int getCode() {
@@ -38,115 +46,108 @@ public class PaytmBean {
         this.code = code;
     }
 
-    public String getSTATUS() {
-        return STATUS;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSTATUS(String STATUS) {
-        this.STATUS = STATUS;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getCHECKSUMHASH() {
-        return CHECKSUMHASH;
+    public String getCheckSumHash() {
+        return checkSumHash;
     }
 
-    public void setCHECKSUMHASH(String CHECKSUMHASH) {
-        this.CHECKSUMHASH = CHECKSUMHASH;
+    public void setCheckSumHash(String checkSumHash) {
+        this.checkSumHash = checkSumHash;
     }
 
-    public String getBANKNAME() {
-        return BANKNAME;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setBANKNAME(String BANKNAME) {
-        this.BANKNAME = BANKNAME;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
-    public String getORDERID() {
-        return ORDERID;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setORDERID(String ORDERID) {
-        this.ORDERID = ORDERID;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
-    public String getTXNAMOUNT() {
-        return TXNAMOUNT;
+    public String getTxnAmount() {
+        return txnAmount;
     }
 
-    public void setTXNAMOUNT(String TXNAMOUNT) {
-        this.TXNAMOUNT = TXNAMOUNT;
+    public void setTxnAmount(String txnAmount) {
+        this.txnAmount = txnAmount;
     }
 
-    public String getTXNDATE() {
-        return TXNDATE;
+    public String getTxnDate() {
+        return txnDate;
     }
 
-    public void setTXNDATE(String TXNDATE) {
-        this.TXNDATE = TXNDATE;
+    public void setTxnDate(String txnDate) {
+        this.txnDate = txnDate;
     }
 
-    public String getMID() {
-        return MID;
+    public String getMid() {
+        return mid;
     }
 
-    public void setMID(String MID) {
-        this.MID = MID;
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
-    public String getTXNID() {
-        return TXNID;
+    public String getTxnId() {
+        return txnId;
     }
 
-    public void setTXNID(String TXNID) {
-        this.TXNID = TXNID;
+    public void setTxnId(String txnId) {
+        this.txnId = txnId;
     }
 
-    public String getRESPCODE() {
-        return RESPCODE;
+    public String getRespCode() {
+        return respCode;
     }
 
-    public void setRESPCODE(String RESPCODE) {
-        this.RESPCODE = RESPCODE;
+    public void setRespCode(String respCode) {
+        this.respCode = respCode;
     }
 
-    public String getPAYMENTMODE() {
-        return PAYMENTMODE;
+    public String getPaymentMode() {
+        return paymentMode;
     }
 
-    public void setPAYMENTMODE(String PAYMENTMODE) {
-        this.PAYMENTMODE = PAYMENTMODE;
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
-    public String getBANKTXNID() {
-        return BANKTXNID;
+
+    public String getRespMsg() {
+        return respMsg;
     }
 
-    public void setBANKTXNID(String BANKTXNID) {
-        this.BANKTXNID = BANKTXNID;
+    public void setRespMsg(String respMsg) {
+        this.respMsg = respMsg;
     }
 
-    public String getGATEWAYNAME() {
-        return GATEWAYNAME;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setGATEWAYNAME(String GATEWAYNAME) {
-        this.GATEWAYNAME = GATEWAYNAME;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
-    public String getRESPMSG() {
-        return RESPMSG;
+    public String getErrmsg() {
+        return errmsg;
     }
 
-    public void setRESPMSG(String RESPMSG) {
-        this.RESPMSG = RESPMSG;
-    }
-
-    public String getCURRENCY() {
-        return CURRENCY;
-    }
-
-    public void setCURRENCY(String CURRENCY) {
-        this.CURRENCY = CURRENCY;
+    public void setErrmsg(String errmsg) {
+        this.errmsg = errmsg;
     }
 }
