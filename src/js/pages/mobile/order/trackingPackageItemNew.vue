@@ -39,7 +39,7 @@
                 <text class="iconfont gb-box-icon">&#xe6fb;</text>
             </div>
             <div class="gb-box-right">
-                <text class="gb-text gb-text-colo">Your order has been shipped.</text>
+                <text class="gb-text gb-text-colo">Your order has been shipped. Your tracking info will be updated by courier later.</text>
             </div>
         </div>
         <div class="gb-box" v-if="paidTime">
