@@ -6,20 +6,22 @@
                 <div class="guide-text">
                     <text class="guide-text-content">Team up with friends to get the lowest price on products you love</text>
                 </div>
-                <!--<div class="guide-circle">
+                <div class="guide-circle">
                     <div class="guide-circle-white"></div>
-                    <div class="guide-circle-gray"></div>
-                </div>-->
+                    <div class="guide-circle-gray" style="margin-left: 32px"></div>
+                    <div class="guide-circle-gray" style="margin-left: 32px"></div>
+                </div>
             </div>
             <div :style="{height:height}">
                 <image :style="{height:height}" class="image-content" resize="cover" src="bmlocal://assets/guide_3.png"></image>
                 <div class="guide-text">
                     <text class="guide-text-content">Earn points to redeem for free gifts & cashback rewards</text>
                 </div>
-                <!--<div class="guide-circle">
-                    <div class="guide-circle-white"></div>
+                <div class="guide-circle">
                     <div class="guide-circle-gray"></div>
-                </div>-->
+                    <div class="guide-circle-white" style="margin-left: 32px"></div>
+                    <div class="guide-circle-gray" style="margin-left: 32px"></div>
+                </div>
             </div>
             <div :style="{height:height}">
                 <image :style="{height:height}" class="image-content" resize="cover" src="bmlocal://assets/guide_2.png"></image>
@@ -102,7 +104,6 @@
         width: 16px;
         height: 16px;
         opacity: 0.38;
-        margin-left: 32px;
         background-color: #FFFFFF;
         border-radius: 8px;
     }

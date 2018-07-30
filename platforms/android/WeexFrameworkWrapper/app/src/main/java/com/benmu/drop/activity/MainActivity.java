@@ -200,7 +200,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
 
     public void setFacebookCallback(JSCallback FacebookSuccessCallback, JSCallback googleFailedCallback) {
         this.FacebookSuccessCallback = FacebookSuccessCallback;
-        this.googleFailedCallback = googleFailedCallback;
+        this.FacebookFailedCallback = googleFailedCallback;
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
