@@ -214,7 +214,7 @@
                 </div>
             </div>
         </scroller>
-        <wxc-popup
+       <!-- <wxc-popup
             v-if="goodsDetail.cutStatus=='progressing'"
             popup-color="rgba(255, 255, 255, 255)"
             :show="isShowShare"
@@ -271,7 +271,46 @@
                 </div>
 
             </div>
-        </wxc-popup>
+        </wxc-popup>-->
+        <WxcMask height="580"
+                 width="622"
+                 border-radius="16"
+                 duration="200"
+                 mask-bg-color="transparent"
+                 :has-animation="hasAnimation"
+                 :has-overlay="true"
+                 :show-close="false"
+                 :show="isShowShare"
+                 @wxcMaskSetHidden="wxcMaskSetShareHidden">
+            <div class="n-share-content">
+                <div class="n-share-icon"></div>
+                <div class="n-share-des">
+                    <div class="share-content-text">
+                        <text class="share-content-text-1">You have dropped </text>
+                        <text class="share-content-text-2">Rs.{{ ((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }}</text>
+                        <text class="share-content-text-1"> off the price!</text>
+                    </div>
+                    <text class="share-content-text-4">Share to invite more friends to drop price for you!</text>
+                    <text class="share-content-text-3">Your friends will earn free points too.</text>
+                    <div class="share-content-icon">
+                        <div class="facebook"  @click="shareFacebook">
+                            <text class="facebook-icon">&#xe70f;</text>
+                            <text class="facebook-text">Facebook</text>
+                        </div>
+                        <div class="whatsapp" @click="shareWhatsApp">
+                            <text class="whatsapp-icon">&#xe710;</text>
+                            <text class="whatsapp-text">WhatsApp</text>
+                        </div>
+                        <div class="copylink"  @click="copyShareLink">
+                            <text class="copylink-icon">&#xe728;</text>
+                            <text class="whatsapp-text">Copy Link</text>
+                        </div>
+                    </div>
+                </div>
+                <image class="n-share-head" src="bmlocal://assets/congratulations.png"></image>
+
+            </div>
+        </WxcMask>
         <WxcMask height="900"
                  width="666"
                  border-radius="8"
@@ -385,13 +424,10 @@
             showSharePanel () {
                 this.isShowShare = true;
             },
-            popupOverlayAutoClick () {
-                this.isShowShare = false;
-            },
             copyShareLink () {
                 const url = ShareUrlUtil.getCopylinkUrl(this.id);
                 clipboard.setString(url);
-                this.popupOverlayAutoClick();
+                this.wxcMaskSetShareHidden();
                 this.$notice.toast('Copied successfully! You can share this link on your social media now.');
                 googleAnalytics.recordEvent('DropStart', 'Share to Drop the Price Further', 'CopyURL', 0);
             },
@@ -403,9 +439,9 @@
                 shareModule.shareFacebook(
                     'Come help me drop the price before it sells out!', detail, url, imageUrl,
                     function (param) {
-                        that.popupOverlayAutoClick();
+                        that.wxcMaskSetShareHidden();
                     }, function (param) {
-                        that.popupOverlayAutoClick();
+                        that.wxcMaskSetShareHidden();
                     }
                 );
             },
@@ -417,9 +453,9 @@
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebookMessenger(title, detail, 'Join Now', url, imageUrl,
                     function (param) {
-                        that.popupOverlayAutoClick();
+                        that.wxcMaskSetShareHidden();
                     }, function (param) {
-                        that.popupOverlayAutoClick();
+                        that.wxcMaskSetShareHidden();
                     }
                 );
             },
@@ -429,9 +465,9 @@
                 const detail = ShareUrlUtil.getWhatsAppParams(that.id, this.goodsDetail.title, this.goodsDetail.lowestPrice);
                 shareModule.shareWhatsapp(detail, '',
                     function (param) {
-                        that.popupOverlayAutoClick();
+                        that.wxcMaskSetShareHidden();
                     }, function (param) {
-                        that.popupOverlayAutoClick();
+                        that.wxcMaskSetShareHidden();
                     }
                 )
             },
@@ -521,6 +557,9 @@
             wxcMaskSetHidden () {
                 this.isRuleShow = false;
             },
+            wxcMaskSetShareHidden () {
+                this.isShowShare = false;
+            },
             openDetail () {
                 this.$router.open({
                     name: 'simple.details',
@@ -535,6 +574,25 @@
     }
 </script>
 <style scoped>
+    .n-share-head{
+        width: 410px;
+        height: 172px;
+        position: absolute;
+        top:0;
+        left:106px;
+    }
+    .n-share-icon{
+        height: 140px;
+    }
+    .n-share-des{
+        height: 440px;
+        background-color: #FFFFFF;
+        border-radius: 16px;
+    }
+    .n-share-content{
+        background-color: transparent;
+        position: relative;
+    }
     .wrapper-unlock-tip{
         font-family: ProximaNova-Regular;
         font-size: 24px;
@@ -811,19 +869,19 @@
     .copylink-icon {
         font-family: iconfont;
         color: rgba(0, 0, 0, 0.54);
-        font-size: 96px;
+        font-size: 80px;
     }
 
     .whatsapp-icon {
         font-family: iconfont;
         color: #3AC34C;
-        font-size: 96px;
+        font-size: 80px;
     }
 
     .facebook-icon {
         font-family: iconfont;
         color: #3C5A99;
-        font-size: 96px;
+        font-size: 80px;
     }
 
     .messager-icon {
@@ -833,7 +891,8 @@
     }
 
     .share-content-icon {
-        height: 270px;
+        height: 150px;
+        margin-top: 50px;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -861,8 +920,16 @@
     }
 
     .share-content-text-1 {
-        color: white;
-        font-size: 28px;
+        font-size: 24px;
+        font-family: ProximaNova-Regular;
+        line-height: 32px;
+        font-weight: 400;
+    }
+    .share-content-text-4 {
+        width: 622px;
+        text-align: center;
+        font-size: 24px;
+        font-family: ProximaNova-Regular;
         line-height: 48px;
         font-weight: 400;
     }
@@ -871,17 +938,22 @@
         color: #EF8A31;
         font-size: 28px;
         font-weight: bold;
-        line-height: 48px;
+        font-family: ProximaNova-Bold;
+        line-height: 32px;
     }
     .share-content-text-3 {
+        width: 622px;
+        text-align: center;
+        font-family: ProximaNova-Bold;
         color: #EF8A31;
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
-        line-height: 48px;
+        line-height: 36px;
     }
 
     .share-content-text {
         display: flex;
+        margin-top: 72px;
         flex-direction: row;
         justify-content: center;
     }
