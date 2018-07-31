@@ -364,6 +364,9 @@
                             this.cardNumber = res.cardNumber
                             this.gender = res.gender
                             this.unread = res.unreadNumber
+                            this.$event.emit('getRead', {
+                                unread: this.unread
+                            });
                         }).catch((res) => {
                             this.$notice.toast({
                                 message: res

@@ -5,9 +5,24 @@ body {
   color: #333;
 }
 .header{
+  position: fixed;
+  top: 48px;
   width: 750px;
   height: 112px;
   overflow: hidden;
+  background-color: #fff;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.19);
+}
+
+.header-title{
+  font-family: ProximaNova;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: bold;
+  color: #000000;
 }
 
 .mask {
@@ -126,7 +141,7 @@ body {
 }
 
 .box{
-  top: 47px;
+  top: 159px;
   left: 0;
   right: 0;
   width: 750px;
@@ -142,22 +157,23 @@ body {
 }
 
 .notice-bg{
-  width: 718px;
-  height: 96px;
+  width: 622px;
+  height: 80px;
   background-color: #FFFFFF;
   border-width: 1px;
   border-style: solid;
   border-color: rgba(0,0,0,0.12);
-  border-radius: 8px;
+  border-radius: 40px;
   overflow: hidden;
 }
 
 .notice-wrapper {
   width: 750px;
-  height: 112px;
+  height: 104px;
   justify-content: start;
   align-items: center;
   overflow: hidden;
+  margin-top: 32px;
 }
 
 .home-title{
@@ -170,4 +186,108 @@ body {
   font-weight: bold;
   font-size: 32px;
   line-height: 38px;
+}
+
+.home-drop{
+  width: 750px;
+  height: 264px;
+  position: relative;
+  align-items: center;
+  overflow: hidden;
+}
+
+.home-drop-1{
+  width: 750px;
+  height: 450px;
+  position: relative;
+  align-items: center;
+  overflow: hidden;
+  background-color: #EF8A31;
+}
+
+.drop-bg{
+  position: absolute;
+  top: 72px;
+  width: 1520px;
+  height: 600px;
+  border-top-left-radius: 760px;
+  border-top-right-radius: 760px;
+  background-color: #EF8A31;
+  left: -385px;
+}
+
+.drop-title-bg{
+  width: 750px;
+  height: 112px;
+  padding-top: 32px;
+  justify-content: center;
+  align-items: center;
+}
+
+.drop-title{
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+  border-radius: 100px;
+  width: 406px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+}
+
+.drop-title{
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+  border-radius: 100px;
+  width: 406px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+}
+
+.drop-title-icon{
+  font-size: 54px;
+  line-height: 54px;
+  position: absolute;
+  left: 132px;
+  top: 18px;
+  color: #ff335a;
+}
+
+.drop-title-text{
+  font-family: ProximaNova;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 34px;
+  color: #EF8A31;
+}
+
+.box-bg{
+  position: absolute;
+  right: 24px;
+  top: 26px;
+  width: 60px;
+  height: 60px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-txt-icon {
+  width: 40px;
+  height: 40px;
+  color: #ef8a31;
+}
+
+.box-dot{
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: red;
+  font-size: 20px;
+  line-height: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50%;
 }

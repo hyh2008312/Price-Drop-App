@@ -6,13 +6,27 @@
             <cell class="slider-wrap">
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
             </cell>
-            <cell class="cell-button">
+            <cell>
                 <block-1 :category="category"></block-1>
             </cell>
             <cell class="cell-top" v-if="false"></cell>
-            <cell class="notice-wrapper cell-button" v-if="false">
-                <div class="notice-bg">
-                    <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
+            <cell class="home-drop">
+                <div class="drop-bg"></div>
+                <div class="drop-title-bg">
+                    <div class="drop-title">
+                        <text class="drop-title-text">Welcome to Drop Price</text>
+                    </div>
+                    <text class="iconfont drop-title-icon">&#xe740;</text>
+                </div>
+                <div class="notice-wrapper">
+                    <div class="notice-bg">
+                        <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
+                    </div>
+                </div>
+            </cell>
+            <cell class="cell-button">
+                <div class="home-drop-1">
+                    <block-6 :drops="drops"></block-6>
                 </div>
             </cell>
             <cell v-for="(head, index) in activity" :key="index">
@@ -25,7 +39,7 @@
             <header v-if="activity != false && false">
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
-            <cell>
+            <cell v-if="goods3.length > 0">
                 <text class="home-title">Featured</text>
             </cell>
             <cell v-for="(item,index) in goods3">
@@ -50,6 +64,7 @@ import block2 from './block2';
 import block3 from './block3';
 import block4 from './block4';
 import block5 from './block5';
+import block6 from './block6';
 import { TAB, CHANNELLIST } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
@@ -66,6 +81,7 @@ export default {
         'block-4': block4,
         'block-5': block5,
         'block-1': block1,
+        'block-6': block6,
         noWifi
     },
     created () {
@@ -91,7 +107,7 @@ export default {
             tabsItems: [],
             goods3: [],
             showLoading: 'hide',
-            tabKey: 'hot',
+            tabKey: 'new',
             isLoading: false,
             pageNew: 1,
             pageHot: 1,
@@ -102,7 +118,8 @@ export default {
             isPlatformAndroid: Utils.env.isAndroid(),
             isActiveLoading: false,
             hasWifi: true,
-            category: []
+            category: [],
+            drops: []
         }
     },
     methods: {
@@ -161,8 +178,9 @@ export default {
         init () {
             this.getYXBanners();
             this.getChannel();
+            this.getBlock4();
+            this.getDrops();
             this.getActivity();
-            // this.getBlock4();
             // this.getTabName();
             this.getBlock5();
             if(this.tabKey == 'new') {
@@ -247,7 +265,15 @@ export default {
                 }
                 this.lengthNew = Math.ceil(data.count / this.pageSize);
                 this.pageNew++;
-                this.goods3.push(...data.results);
+                let arr = [];
+                for(let i = 0; i < data.results.length; i++) {
+                    let item = data.results[i];
+                    arr.push(item);
+                    if(i > 0 && (i % 2 == 1 || i == data.results.length - 1)) {
+                        this.goods3.push(arr);
+                        arr = [];
+                    }
+                }
                 if(!isfirst) {
                     this.isLoading = false;
                 }
@@ -320,6 +346,23 @@ export default {
             //     }
             // }, error => {})
         },
+        getDrops() {
+            this.$fetch({
+                method: 'GET',
+                name: 'product.cut.list',
+                data: {
+                    page: 1,
+                    page_size: 3
+                }}
+            ).then(data => {
+                this.drops = [...data.results];
+                this.refreshApiFinished();
+            }, error => {
+                if (error.status == 10) {
+                    this.isWifi = false;
+                }
+            })
+        },
         scrollToHeader() {
             return this.$nextTick(() => {
                 dom.scrollToElement(this.$refs['tab'], { animated: false });
@@ -337,7 +380,7 @@ export default {
         },
         refreshApiFinished() {
             this.countApi++;
-            if(this.countApi >= 3) {
+            if(this.countApi >= 4) {
                 this.hasWifi = true;
                 this.$refs.refresh.refreshEnd();
                 this.countApi = 0;
