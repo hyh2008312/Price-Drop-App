@@ -28,18 +28,17 @@
                     <div class="gd-bg-right">
                         <text class="gd-tlt">{{goods.title}}</text>
                         <div class="gb-price">
-                            <text class="gd-price-sale">Rs.{{goods.currentPrice}}</text>
+                            <!--<text class="gd-price-sale">Rs.{{goods.currentPrice}}</text>-->
                             <text class="gd-price-original">Rs.{{goods.salePrice}}</text>
                         </div>
                         <text class="gd-price-show" v-if="goods.cutStatus=='progressing'">Dropped Rs.{{ ((goods.salePrice * 100 - goods.currentPrice * 100)/100).toFixed(2) }} by {{goods.cutTimes}} people</text>
                         <div class="gd-cut" v-if="goods.cutStatus=='progressing'">
                             <text class="gd-cut-price">Rs.{{ Math.floor((goods.currentPrice - goods.lowestPrice)*100)/100 }}</text>
-                            <text class="gd-cut-price-tip"> left to reach the lowest price</text>
+                            <text class="gd-cut-price-tip"> left to reach Rs.0 price</text>
                         </div>
                         <div class="gd-cut-end"v-if="goods.cutStatus=='end'">
-                            <text class="gd-price-show-end">Dropped </text>
-                            <text class="gd-cut-price">Rs.{{ ((goods.salePrice * 100 - goods.currentPrice *100)/100).toFixed(2) }}</text>
-                            <text class="gd-price-show-end"> by {{goods.cutTimes}} people</text>
+                            <text class="gd-price-show-end">{{computeLockMoney(goods.salePrice,goods.currentPrice,goods.lowestPrice)}}</text>
+                            <!--<text class="gd-cut-price">Rs.{{ ((goods.salePrice * 100 - goods.currentPrice *100)/100).toFixed(2) }}</text>-->
                         </div>
                     </div>
                 </div>
@@ -60,7 +59,7 @@
             </div>
             <!--砍价结束-->
             <div class="gd-end-handle" v-else>
-                <div class="gd-end-handle-state" v-if="goods.operationStatus =='pending' || goods.operationStatus =='unpaid'">
+                <div class="gd-end-handle-state" v-if="(computeIsCanPay(goods.salePrice,goods.currentPrice,goods.lowestPrice))&&(goods.operationStatus =='pending' || goods.operationStatus =='unpaid')">
                     <text class="icon-timer">&#xe6fa;</text>
                     <text class="gd-end-handle-state-text">Time Left</text>
                     <wxc-countdown tpl="{h}:{m}:{s}"
@@ -72,18 +71,18 @@
                                    :style="{justifyContent: 'center'}">
                     </wxc-countdown>
                 </div>
-                <div class="gd-end-handle-state" v-if="goods.operationStatus =='paid'">
+                <!--<div class="gd-end-handle-state" v-if="computeIsCanPay(goods.salePrice,goods.currentPrice,goods.lowestPrice)">
                     <text class="icon-paid">&#xe6fb;</text>
                     <text class="gd-end-handle-state-text">Paid</text>
-                </div>
-                <div class="gd-end-handle-state" v-if="goods.operationStatus =='overdue'">
+                </div>-->
+                <div class="gd-end-handle-state" v-else>
                     <text class="icon-expired">&#xe6fe;</text>
-                    <text class="gd-end-handle-state-text">Expired</text>
+                    <text class="gd-end-handle-state-text">Ended</text>
                 </div>
                 <!--pending-->
-                <text class="gd-handle-cut"v-if="goods.operationStatus =='pending' && computeIsCanPay(goods.salePrice,goods.currentPrice,lowestPrice)" @click="jumpConfirmOrder">Pay Now</text>
+                <text class="gd-handle-cut"v-if="goods.operationStatus =='pending' && computeIsCanPay(goods.salePrice,goods.currentPrice,goods.lowestPrice)" @click="jumpConfirmOrder">Pay Now</text>
                 <!--unpaid-->
-                <text class="gd-handle-cut" v-else-if="goods.operationStatus =='unpaid' && computeIsCanPay(goods.salePrice,goods.currentPrice,lowestPrice)" @click="jumpOrderDetail">Pay Now</text>
+                <text class="gd-handle-cut" v-else-if="goods.operationStatus =='unpaid' && computeIsCanPay(goods.salePrice,goods.currentPrice,goods.lowestPrice)" @click="jumpOrderDetail">Pay Now</text>
                 <!---->
                 <text class="gd-handle-cut-again" v-else @click="jumpProductDetail">Drop Again </text>
             </div>
@@ -102,13 +101,30 @@
         props: ['goods', 'flag'],
         data () {
             return {
-                TIME: new Date().getTime() + 86400000 + ''
+                TIME: new Date().getTime() + 86400000 + '',
+                dropStatus: 1
             }
         },
         methods: {
             computeIsCanPay (originalPrice, currentPrice, lowestPrice) {
                 const percentage = (originalPrice - currentPrice) / (originalPrice - lowestPrice);
                 return percentage >= 0.5;
+            },
+            computeLockMoney (originalPrice, currentPrice, lowestPrice) {
+                const percentage = (originalPrice - currentPrice) / (originalPrice - lowestPrice);
+                if (percentage < 0.5) {
+                    this.dropStatus = 1;
+                    return 'You didn\'t unlock any discount.'
+                } else if (percentage >= 0.5 && percentage < 0.7) {
+                    this.dropStatus = 2;
+                    return `Final price unlocked: Rs.${(originalPrice * 0.5).toFixed(2)}`;
+                } else if (percentage >= 0.7 && percentage < 1) {
+                    this.dropStatus = 3;
+                    return `Final price unlocked: Rs.${(originalPrice * 0.3).toFixed(2)}`;
+                } else if (percentage === 1) {
+                    this.dropStatus = 4;
+                    return `Final price unlocked: Rs.${(lowestPrice)}`;
+                }
             },
             jumpWeb () {
                 this.$router.open({
@@ -324,7 +340,6 @@
         font-size: 20px;
         font-weight: 400;
         color: rgba(0,0,0,0.55);
-        margin-left: 16px;
         text-decoration: line-through;
         line-height: 36px;
         height: 36px;

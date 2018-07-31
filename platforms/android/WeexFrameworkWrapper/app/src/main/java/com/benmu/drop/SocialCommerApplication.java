@@ -22,7 +22,6 @@ public class SocialCommerApplication extends BMWXApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        // initUmengSDK();
         initGoogleAnalytics();
 
     }
@@ -34,19 +33,16 @@ public class SocialCommerApplication extends BMWXApplication {
         sAnalytics = GoogleAnalytics.getInstance(this);
     }
 
-    /*private void initUmengSDK() {
-        UMConfigure.init(this, "5b03c2fca40fa3604400007f", "google", UMConfigure.DEVICE_TYPE_PHONE, "");
-        UMConfigure.setLogEnabled(true);
-    }*/
-
     /**
      * Gets the default {@link Tracker} for this {@link Application}.
+     *
      * @return tracker
      */
     synchronized public Tracker getDefaultTracker() {
         // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
         if (sTracker == null) {
             sTracker = sAnalytics.newTracker(R.xml.global_tracker);
+            sTracker.enableExceptionReporting(true);
         }
 
         return sTracker;
