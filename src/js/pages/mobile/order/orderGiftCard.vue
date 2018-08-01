@@ -17,7 +17,7 @@
                     <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===100" :src="emptyImg.point100"></image>
                     <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===150" :src="emptyImg.point150"></image>
                     <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===200" :src="emptyImg.point200"></image>
-                    <div class="triangle-topright" v-if="index === flag">
+                    <div class="triangle-topright" v-if="(index === flag&&cardMoney>=i.lowestAmount)||i.id===selCardId">
                         <text  class="triangle">&#xe741;</text>
                         <text  class="tick">&radic;</text>
                     </div>
@@ -26,7 +26,8 @@
                             <!--<text class="gift-card-txt1">{{i.name}} Gift Card </text>-->
                             <text class="gift-card-txt2">Order above Rs.{{i.lowestAmount}} </text>
                         </div>
-                        <text class="gift-card-txt3">Expired in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>
+                        <text class="gift-card-txt3" v-if="cardMoney<i.lowestAmount" >Not Applicable</text>
+                        <text class="gift-card-txt3" v-if="cardMoney>=i.lowestAmount">Expired in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>
                     </div>
                 </div>
             </div>
@@ -51,15 +52,21 @@
         eros: {
             beforeAppear (a) {
                 this.cardMoney = a.cardMoney
+                if (a.card) {
+                    this.selCard = a.card
+                    this.selCardId = a.card.id  // 已经选择上一页传回来的
+                    this.flag = ''
+                }
             }
         },
         data () {
             return {
                 title: 'Choose a Gift Card',
                 selCard: '',
+                selCardId: '',
                 cardArr: false,
                 cardMoney: '',
-                flag: '',
+                flag: 0,
                 emptyImg: {
                     point100: 'bmlocal://assets/100-min-no.png',
                     point150: 'bmlocal://assets/150-min-no.png',
@@ -79,8 +86,10 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    this.cardArr = res;
-                    // this.cardArr.sort((a, b) => { return a - b })
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                    this.cardArr = res
                     for (let j = 0; j < this.cardArr.length - 1; j++) {
                         for (let i = 0; i < this.cardArr.length - 1 - j; i++) {
                             if (this.cardArr[i].share > this.cardArr[i + 1].share) {
@@ -89,6 +98,9 @@
                                 this.cardArr[i + 1] = temp;
                             }
                         }
+                    }
+                    if (this.flag == 0) {
+                        this.selCard = this.cardArr[0]
                     }
                     if (this.cardArr.length === 0) {
                         this.card = ''
@@ -100,9 +112,10 @@
                 })
             },
             tickCard (i, card) {
-                if (this.cardMoney < card.share) {
+                if (this.cardMoney < card.lowestAmount) {
                     return
                 }
+                this.selCardId=''
                 this.selCard = card
                 this.flag = i;
             },
