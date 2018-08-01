@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <top-header :title="title"></top-header>
+        <top-header :title="title" ></top-header>
         <div class="status-bar"></div>
         <list class="container" :style="height">
             <cell class="cell-bottom" @click="jumpAddress">
@@ -9,7 +9,7 @@
             <cell class="cell-bottom">
                 <order-confirm-item :order="order"></order-confirm-item>
             </cell>
-            <cell class="cell-bottom">
+            <cell class="cell-bottom" @click="jumpCard">
                 <order-confirm-delivery :order="order"></order-confirm-delivery>
             </cell>
             <cell class="cell-bottom" v-if="false">
@@ -135,6 +135,16 @@ export default {
                     message: error
                 })
             });
+        },
+        jumpCard () {
+            this.$router.open({
+                name: 'order.detail.card',
+                type: 'PUSH',
+                // params: {
+                //     params: this.token,
+                //     setsign: '2'
+                // }
+            })
         }
     }
 }

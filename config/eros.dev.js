@@ -24,6 +24,7 @@ module.exports = {
         'js/pages/mobile/my/myName.vue',
         'js/pages/mobile/my/myCard.vue',
         'js/pages/mobile/my/myPoints.vue',
+        'js/pages/mobile/my/myCoupons.vue',
         'js/pages/mobile/my/myNotice.vue',
         'js/pages/mobile/my/myNoticeTmp.vue',
         'js/pages/mobile/shop/goodsDetail.vue',
@@ -31,6 +32,7 @@ module.exports = {
         'js/pages/mobile/shop/ship.vue',
         'js/pages/mobile/activity/index.vue',
         'js/pages/mobile/order/index.vue',
+        'js/pages/mobile/order/orderGiftCard.vue',
         'js/pages/mobile/order/paySuccess.vue',
         'js/pages/mobile/order/payFailure.vue',
         'js/pages/mobile/order/payDetail.vue',
@@ -42,6 +44,7 @@ module.exports = {
         'js/pages/mobile/perks/index.vue',
         'js/pages/mobile/perks/redeemCard.vue',
         'js/pages/mobile/perks/pointsCardDetail.vue',
+        'js/pages/mobile/flash-sale/index.vue',
         'js/pages/mobile/login/index.vue',
         'js/pages/mobile/welcome/guide.vue',
         'js/pages/mobile/order/orderPaymentMethod.vue'
