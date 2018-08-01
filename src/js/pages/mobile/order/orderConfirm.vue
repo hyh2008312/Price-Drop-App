@@ -7,7 +7,7 @@
                 <order-confirm-shipping :address="address"></order-confirm-shipping>
             </cell>
             <cell class="cell-bottom">
-                <order-confirm-item :order="order"></order-confirm-item>
+                <order-confirm-item :order="order" :card="card"></order-confirm-item>
             </cell>
             <cell class="cell-bottom" >
                 <order-confirm-delivery :order="order"></order-confirm-delivery>
@@ -16,7 +16,7 @@
                 <order-confirm-pay-method :list="payList" @radioChecked="radioChecked"></order-confirm-pay-method>
             </cell>
         </list>
-        <order-confirm-bottom :order="order" :address="address"></order-confirm-bottom>
+        <order-confirm-bottom :order="order" :address="address" :card="card"></order-confirm-bottom>
     </div>
 </template>
 <script>
@@ -45,7 +45,7 @@ export default {
         backAppeared (params, options) {
             this.getAddress();
             if (params.card) {
-                this.order.card = params.card;
+                this.card = params.card;
             }
         },
         beforeAppear (params, options) {
@@ -108,7 +108,8 @@ export default {
                 'isDefault': false,
                 'phoneNumber': '',
                 'stateId': 5
-            }
+            },
+            card: false
         }
     },
     methods: {

@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">Rs.{{getOrderTotal(order)}}</text>
+        <text class="od-text-1">Rs.{{getOrderTotal(order, card)}}</text>
         <text class="od-button" @click="confirm">Place Order</text>
     </div>
 </template>
@@ -9,14 +9,14 @@
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const pay = weex.requireModule('PayModule');
     export default {
-        props: ['order', 'address'],
+        props: ['order', 'address', 'card'],
         data: {
             isFirst: false
         },
         methods: {
-            getOrderTotal (order) {
-                if (order.card && order.card != '') {
-                    return ((order.total * 100 - order.card.share * 100) / 100).toFixed(2);
+            getOrderTotal (order, card) {
+                if (card) {
+                    return ((order.total * 100 - card.share * 100) / 100).toFixed(2);
                 } else {
                     return order.total;
                 }
@@ -31,7 +31,7 @@
                     this.isFirst = true;
                     that.$notice.loading.show();
                     if (that.order.proId == 'product') {
-                        const voucherId = that.order.card && that.order.card != '' ? that.order.card.id : null;
+                        const voucherId = that.card ? that.card.id : null;
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'order.create.pure',

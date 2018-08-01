@@ -160,7 +160,7 @@
     .triangle-topright{
         position: absolute;
         border-radius: 24px;
-        top:-10px;
+        top:-11px;
         right:0;
     }
     .tick{
