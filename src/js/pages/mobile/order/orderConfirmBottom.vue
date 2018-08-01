@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">Rs.{{order.total}}</text>
+        <text class="od-text-1">Rs.{{getOrderTotal(order)}}</text>
         <text class="od-button" @click="confirm">Place Order</text>
     </div>
 </template>
@@ -14,22 +14,31 @@
             isFirst: false
         },
         methods: {
+            getOrderTotal (order) {
+                if (order.card && order.card != '') {
+                    return ((order.total * 100 - order.card.share * 100) / 100).toFixed(2);
+                } else {
+                    return order.total;
+                }
+            },
             confirm () {
                 const that = this;
                 if (!that.address.id) {
-                    that.$notice.toast('Please add address first!')
+                    that.$notice.toast('Please add address first!');
                     return
                 }
                 if (!this.isFirst) {
                     this.isFirst = true;
                     that.$notice.loading.show();
                     if (that.order.proId == 'product') {
+                        const voucherId = that.order.card && that.order.card != '' ? that.order.card.id : null;
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'order.create.pure',
                             data: {
                                 vid: that.order.id,
-                                quantity: that.order.quantity
+                                quantity: that.order.quantity,
+                                voucherId
                             },
                             header: {
                                 needAuth: true

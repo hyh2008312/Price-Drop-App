@@ -21,7 +21,9 @@
                         <text class="gd-text-2">Gift Card</text>
                     </div>
                     <div class="gb-center-right-1" @click="jumpCard">
-                        <text class="gb-text-3" v-if="!card">Choose a Gift Card</text>
+                        <text class="gb-text-3" v-if="order.card === false">Choose a Gift Card</text>
+                        <text class="gb-text-5" v-if="order.card === ''">No Gift Card Available</text>
+                        <text class="gb-text-3" v-if="order.card && order.card != ''">Rs.{{order.card.share}} Gift Card</text>
                         <text class="iconfont gb-text-4">&#xe626;</text>
                     </div>
                 </div>
@@ -32,6 +34,7 @@
                     <text class="gd-text">Shipping</text>
                     <text class="gd-text">Tax</text>
                     <text class="gd-text" v-if="order.proId == 'drop'">Price Drop</text>
+                    <text class="gd-text" v-if="order.card && order.card != ''">Gift Card</text>
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
@@ -40,7 +43,8 @@
                     <text class="gb-text">Rs.{{order.shippingPrice||'0.00'}}</text>
                     <text class="gb-text">Rs.0.00</text>
                     <text class="gb-text gb-text-color" v-if="order.proId == 'drop'">- Rs.{{((order.salePrice * 100 - order.total * 100) / 100).toFixed(2)}}</text>
-                    <text class="gb-text-1">Rs.{{order.total}}</text>
+                    <text class="gb-text gb-text-color" v-if="order.card && order.card != ''">- Rs.{{order.card.share}}</text>
+                    <text class="gb-text-1">Rs.{{getOrderTotal(order)}}</text>
                 </div>
             </div>
         </div>
@@ -52,7 +56,7 @@
         components: {
             preload
         },
-        props: ['order', 'card'],
+        props: ['order'],
         methods: {
             jumpWeb () {
                 this.$router.open({
@@ -69,6 +73,13 @@
                         cardMoney: this.order.total
                     }
                 });
+            },
+            getOrderTotal (order) {
+                if (order.card && order.card != '') {
+                    return ((order.total * 100 - order.card.share * 100) / 100).toFixed(2);
+                } else {
+                    return order.total;
+                }
             }
         }
     }
@@ -221,6 +232,15 @@
         font-size: 24px;
         font-weight: bold;
         color: rgba(0,0,0,0.54);
+    }
+
+    .gb-text-5{
+        font-family: ProximaNova;
+        font-size: 24px;
+        color: rgba(0,0,0,0.38);
+        letter-spacing: 0;
+        text-align: left;
+        line-height: 40px;
     }
 
     .gb-text{
