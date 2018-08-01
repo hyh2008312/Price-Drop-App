@@ -3,7 +3,7 @@
         <div class="blackheader"></div>
         <topic-header :title="title" ></topic-header>
         <scroller style="background-color: #f4f4f4">
-        <div style="margin-top: 32px;margin-bottom: 32px">
+        <div style="margin-top: 16px;margin-bottom: 32px">
 
             <div v-if="cardArr.length===0" class="empty-div">
                 <image  src="bmlocal://assets/empty.png" class="empty-img"></image>
@@ -32,7 +32,7 @@
         </div>
         </scroller>
 
-        <div class="bottom-btn">
+        <div class="bottom-btn" v-if="cardArr.length!==0">
             <text class="bottom-btn-txt1" @click="backPre(1)">Apply</text>
             <text class="bottom-btn-txt2" @click="backPre(2)">Cancel</text>
         </div>
@@ -77,6 +77,9 @@
                     //     message: res
                     // })
                     this.cardArr = res
+                    if (this.cardArr.length === 0) {
+                        this.card = ''
+                    }
                     // this.cardArr = []
                 }).catch((res) => {
                     this.$notice.toast({
