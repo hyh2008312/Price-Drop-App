@@ -79,10 +79,7 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    this.$notice.alert({
-                        message: res
-                    })
-                    this.cardArr = res
+                    this.cardArr = res;
                     // this.cardArr.sort((a, b) => { return a - b })
                     for (let j = 0; j < this.cardArr.length - 1; j++) {
                         for (let i = 0; i < this.cardArr.length - 1 - j; i++) {

@@ -49,13 +49,23 @@
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
-                            that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
                                 type: 'PUSH',
                                 params: {
                                     source: 'confirm',
                                     data: order
+                                },
+                                backCallback: () => {
+                                    that.$router.open({
+                                        name: 'order',
+                                        type: 'PUSH',
+                                        params: {
+                                            tab: 1
+                                        }
+                                    });
+                                    that.$router.finish();
+                                    that.$event.emit('closePayment');
                                 }
                             });
                             that.isFirst = true;
@@ -83,13 +93,23 @@
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
-                            that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
                                 type: 'PUSH',
                                 params: {
                                     source: 'confirm',
                                     data: order
+                                },
+                                backCallback: () => {
+                                    that.$router.open({
+                                        name: 'order',
+                                        type: 'PUSH',
+                                        params: {
+                                            tab: 1
+                                        }
+                                    });
+                                    that.$router.finish();
+                                    that.$event.emit('closePayment');
                                 }
                             });
                             that.isFirst = true;

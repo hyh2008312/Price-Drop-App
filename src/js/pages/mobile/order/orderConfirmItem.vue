@@ -70,7 +70,8 @@
                 this.$router.open({
                     name: 'order.detail.card',
                     params: {
-                        cardMoney: this.order.total
+                        cardMoney: this.order.total,
+                        card: this.card
                     }
                 });
             },
@@ -228,7 +229,7 @@
     }
 
     .gb-text-4{
-        margin-left: 20px;
+        margin-left: 16px;
         font-size: 24px;
         font-weight: bold;
         color: rgba(0,0,0,0.54);

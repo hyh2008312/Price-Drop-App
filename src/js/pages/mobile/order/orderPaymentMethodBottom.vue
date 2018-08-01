@@ -50,6 +50,7 @@
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
                                     if (data.code == 200) {
+                                        that.$router.finish();
                                         that.$notice.loading.show();
                                         that.$fetch({
                                             method: 'POST', // 大写
@@ -83,6 +84,7 @@
                                     }
                                 }, (data) => {
                                     if (that.source == 'confirm') {
+                                        that.$router.finish();
                                         if (data.code == 300) {
                                             that.$router.open({
                                                 name: 'order.failure',
@@ -190,6 +192,7 @@
                                     })
                                 }, function (param) {
                                     if (that.source == 'confirm') {
+                                        that.$router.finish();
                                         if (param.code != 0) {
                                             that.$router.open({
                                                 name: 'order.failure',
