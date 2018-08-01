@@ -23,7 +23,7 @@
                 <text class="title-2">Order#:{{order.number}}</text>
             </cell>
         </list>
-        <order-payment-method-bottom :order="order" :method="method"></order-payment-method-bottom>
+        <order-payment-method-bottom :order="order" :method="method" :source="source"></order-payment-method-bottom>
     </div>
 </template>
 <script>
@@ -37,12 +37,14 @@ export default {
     },
     eros: {
         appeared (params, option) {
-            this.order = params.order;
+            this.order = params.data;
+            this.source = params.source;
         }
     },
     created () {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
+        googleAnalytics.trackingScreen('Payment Method');
     },
     data () {
         return {
@@ -50,6 +52,7 @@ export default {
             method: 'paytm',
             paytmSrc: 'bmlocal://assets/paytm.png',
             razorpaySrc: 'bmlocal://assets/razorpay.png',
+            source: 'confirm',
             order: {
                 'title': '',
                 'mainImage': '',
@@ -65,25 +68,18 @@ export default {
     },
     methods: {
         back () {
-            this.$router.finish()
+            if (this.source == 'confirm') {
+                this.$router.finish();
+                this.$router.open({
+                    name: 'order',
+                    type: 'PUSH'
+                });
+            } else {
+                this.$router.finish();
+            }
         },
         chooseMethod (e) {
             this.method = e;
-        },
-        getAddress () {
-            this.$fetch({
-                method: 'GET', // 大写
-                name: 'address.get.default',
-                header: {
-                    needAuth: true
-                }
-            }).then(resData => {
-                this.address = resData;
-            }, error => {
-                this.$notice.toast({
-                    message: error
-                })
-            });
         }
     }
 }

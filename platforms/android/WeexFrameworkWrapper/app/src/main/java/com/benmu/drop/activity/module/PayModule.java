@@ -33,4 +33,12 @@ public class PayModule extends WXModule {
         ((MainActivity) mWXSDKInstance.getContext()).startPayment(razorpayOrderId,name, description, image, amount, contact,email);
 
     }
+    @JSMethod
+    public void startPaytmRequest(
+            String orderId ,String custId,String txnAmount,String mobileNo,String email,String
+            calllbackUrl ,String checkSumHash, JSCallback PaySuccessCallback, JSCallback PayFailedCallback) {
+        ((MainActivity) mWXSDKInstance.getContext()).setPaytmCallBack(PaySuccessCallback, PayFailedCallback);
+        ((MainActivity) mWXSDKInstance.getContext()).onStartTransaction(orderId,custId, txnAmount, mobileNo, email, calllbackUrl,checkSumHash);
+
+    }
 }

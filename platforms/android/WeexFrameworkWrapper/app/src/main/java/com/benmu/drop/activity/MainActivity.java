@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.benmu.drop.activity.bean.LoginDto;
 import com.benmu.drop.activity.bean.PayDto;
 
+import com.benmu.drop.activity.bean.PaytmBean;
 import com.benmu.drop.activity.module.FacebookLoginModule;
 import com.benmu.drop.activity.module.GoogleAnalyticsModule;
 import com.benmu.drop.activity.module.GoogleLoginModule;
@@ -34,6 +37,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
@@ -44,6 +50,7 @@ import com.taobao.weex.common.WXException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 
 public class MainActivity extends AbstractWeexActivity implements PaymentResultWithDataListener {
@@ -55,6 +62,9 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
     // 支付回调
     private JSCallback paySuccessCallback;
     private JSCallback payFailedCallback;
+    // 支付回调
+    private JSCallback paytmSuccessCallback;
+    private JSCallback paytmFailedCallback;
     private static final int RC_SIGN_IN = 12321;
 
     private CallbackManager mCallbackManager;
@@ -192,6 +202,10 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         this.paySuccessCallback = paySuccessCallback;
         this.payFailedCallback = payFailedCallback;
     }
+    public void setPaytmCallBack(JSCallback paySuccessCallback, JSCallback payFailedCallback) {
+        this.paytmSuccessCallback = paySuccessCallback;
+        this.paytmFailedCallback = payFailedCallback;
+    }
 
     public void setGoogleCallback(JSCallback googleSuccessCallback, JSCallback googleFailedCallback) {
         this.googleSuccessCallback = googleSuccessCallback;
@@ -270,4 +284,138 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         }
     }
 
+    //paytm 的支付方式
+    public void onStartTransaction(String orderId ,String custId,String txnAmount,String mobileNo,String email,String
+                                   calllbackUrl ,String checkSumHash) {
+        PaytmPGService Service = PaytmPGService.getProductionService();
+        // PaytmPGService Service = PaytmPGService.getStagingService();
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+
+        // these are mandatory parameters
+        paramMap.put("MID" , "JMDTec16243179908223");
+        paramMap.put("ORDER_ID" , orderId);
+        paramMap.put("CUST_ID" , custId);
+        paramMap.put("TXN_AMOUNT" , txnAmount);
+        paramMap.put("CHANNEL_ID" , "WAP");
+        paramMap.put("INDUSTRY_TYPE_ID" , "Retail109");
+        paramMap.put("WEBSITE" , "APPPROD");
+        paramMap.put("MOBILE_NO" , mobileNo);
+        paramMap.put("EMAIL" , email);
+        paramMap.put("CALLBACK_URL" , calllbackUrl);
+        //paramMap.put("CALLBACK_URL" , "https://securegw.paytm.in/theia/paytmCallback?ORDER_ID=Order_153223772120");
+        paramMap.put("CHECKSUMHASH",checkSumHash);
+
+        PaytmOrder Order = new PaytmOrder(paramMap);
+
+		/*PaytmMerchant Merchant = new PaytmMerchant(
+				"https://pguat.paytm.com/paytmchecksum/paytmCheckSumGenerator.jsp",
+				"https://pguat.paytm.com/paytmchecksum/paytmCheckSumVerify.jsp");*/
+
+        Service.initialize(Order, null);
+
+        Service.startPaymentTransaction(this, true, true,
+                new PaytmPaymentTransactionCallback() {
+                    @Override
+                    public void someUIErrorOccurred(String inErrorMessage) {
+                        // Some UI Error Occurred in Payment Gateway Activity.
+                        // // This may be due to initialization of views in
+                        // Payment Gateway Activity or may be due to //
+                        // initialization of webview. // Error Message details
+                        // the error occurred.
+                        PaytmBean paybean = new PaytmBean();
+                        paybean.setCode(300);
+                        paybean.setErrmsg("UIError");
+                        paytmFailedCallback.invoke(paybean);
+                    }
+
+                    @Override
+                    public void onTransactionResponse(Bundle inResponse) {
+                        // Log.d("LOG", "Payment Transaction is successful " + inResponse);
+                        Log.d("LOG", "Payment Transaction is successful " + inResponse.toString());
+
+                        PaytmBean paybean = new PaytmBean();
+                        paybean.setStatus(inResponse.getString("STATUS"));
+
+                        if ("TXN_SUCCESS".equals(paybean.getStatus())){
+                            //成功
+                            paybean.setCode(200);
+                            paybean.setCheckSumHash(inResponse.getString("CHECKSUMHASH"));
+                            paybean.setOrderId(inResponse.getString("ORDERID"));
+                            paybean.setTxnAmount(inResponse.getString("TXNAMOUNT"));
+                            paybean.setRespCode(inResponse.getString("RESPCODE"));
+                            /*paybean.setBANKNAME(inResponse.getString("BANKNAME"));
+                            paybean.setTXNDATE(inResponse.getString("TXNDATE"));
+                            paybean.setTXNID(inResponse.getString("TXNID"));
+                            paybean.setPAYMENTMODE(inResponse.getString("PAYMENTMODE"));
+                            paybean.setGATEWAYNAME(inResponse.getString("GATEWAYNAME"));*/
+                            paybean.setRespMsg(inResponse.getString("RESPMSG"));
+                            paybean.setErrmsg("pay success");
+                            paytmSuccessCallback.invoke(paybean);
+                        }else {
+                            //失败
+                            paybean.setCode(300);
+                            paybean.setCheckSumHash(inResponse.getString("CHECKSUMHASH"));
+                            paybean.setOrderId(inResponse.getString("ORDERID"));
+                            paybean.setTxnAmount(inResponse.getString("TXNAMOUNT"));
+                            paybean.setRespCode(inResponse.getString("RESPCODE"));
+                            paybean.setErrmsg(inResponse.getString("RESPMSG"));
+                            paytmFailedCallback.invoke(paybean);
+                        }
+                        // Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void networkNotAvailable() { // If network is not
+                        // available, then this
+                        // method gets called.
+                        PaytmBean paybean = new PaytmBean();
+                        paybean.setCode(300);
+                        paybean.setErrmsg("networkNotAvailable");
+                        paytmFailedCallback.invoke(paybean);
+                    }
+
+                    @Override
+                    public void clientAuthenticationFailed(String inErrorMessage) {
+                        Toast.makeText(getApplicationContext(),"clientAuthenticationFailed",Toast.LENGTH_SHORT).show();
+                        // This method gets called if client authentication
+                        // failed. // Failure may be due to following reasons //
+                        // 1. Server error or downtime. // 2. Server unable to
+                        // generate checksum or checksum response is not in
+                        // proper format. // 3. Server failed to authenticate
+                        // that client. That is value of payt_STATUS is 2. //
+                        // Error Message describes the reason for failure.
+                        PaytmBean paybean = new PaytmBean();
+                        paybean.setCode(300);
+                        paybean.setErrmsg("clientAuthenticationFailed");
+                        paytmFailedCallback.invoke(paybean);
+                    }
+
+                    @Override
+                    public void onErrorLoadingWebPage(int iniErrorCode,
+                                                      String inErrorMessage, String inFailingUrl) {
+
+                    }
+
+                    // had to be added: NOTE
+                    @Override
+                    public void onBackPressedCancelTransaction() {
+                        PaytmBean paybean = new PaytmBean();
+                        paybean.setCode(400);
+                        paybean.setErrmsg("onBackPressedCancelTransaction");
+                        paytmFailedCallback.invoke(paybean);
+                        Toast.makeText(MainActivity.this,"Back pressed. Transaction cancelled",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
+                        Log.d("LOG", "Payment Transaction Failed " + inErrorMessage);
+                        PaytmBean paybean = new PaytmBean();
+                        paybean.setCode(400);
+                        paybean.setErrmsg("onTransactionCancel");
+                        paytmFailedCallback.invoke(paybean);
+                        Toast.makeText(getBaseContext(), "Payment Transaction Failed ", Toast.LENGTH_LONG).show();
+                    }
+
+                });
+    }
 }

@@ -33,5 +33,10 @@ export const apis = {
     'promotion.new.cut.list': '/promotion/new/cut/list/', // 我的砍价列表
     'payment.razorpay.check': '/payment/razorpay/check/',
     'order.create.payment': '/order/create/payment/',
-    'order.cut.create.payment': '/order/cut/create/payment/'
+    'order.cut.create.payment': '/order/cut/create/payment/',
+    'order.create.pure': '/order/create/pure/',
+    'order.cut.create.pure': '/order/cut/create/pure/',
+    'payment.paytm.checksum': '/payment/paytm/checksum/',
+    'payment.paytm.get.status': '/payment/paytm/get/status/',
+    'payment.razorpay.create': '/payment/razorpay/create/'
 }

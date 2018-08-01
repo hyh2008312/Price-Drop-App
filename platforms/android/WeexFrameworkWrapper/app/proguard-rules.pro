@@ -206,4 +206,9 @@
 -keep class com.igexin.** { *; }
 -keep class org.json.** { *; }
 
+# paytm混淆
+-keepclassmembers class com.paytm.pgsdk.PaytmWebView$PaytmJavaScriptInterface {
+public *;
+}
+
 
