@@ -13,8 +13,10 @@
 
             <div class="overflow-gift" v-if="cardArr.length!==0" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
                 <div class="gift-card" @click="tickCard(index,i)">
-
-                    <image class="gift-card-img"  :src="i.image" ></image>
+                    <image class="gift-card-img" v-if="cardMoney>=i.share"  :src="i.image" ></image>
+                    <image class="gift-card-img" v-if="cardMoney<i.share&&i.share===100" :src="emptyImg.point100"></image>
+                    <image class="gift-card-img" v-if="cardMoney<i.share&&i.share===150" :src="emptyImg.point150"></image>
+                    <image class="gift-card-img" v-if="cardMoney<i.share&&i.share===200" :src="emptyImg.point200"></image>
                     <div class="triangle-topright" v-if="index == flag">
                         <text  class="triangle">&#xe741;</text>
                         <text  class="tick">&radic;</text>
@@ -22,7 +24,7 @@
                     <div class="gift-card-txt">
                         <div class="gift-card-right-txt">
                             <!--<text class="gift-card-txt1">{{i.name}} Gift Card </text>-->
-                            <text class="gift-card-txt2">Order above Rs.{{i.lowestAmount}}</text>
+                            <text class="gift-card-txt2">Order above Rs.{{i.lowestAmount}} </text>
                         </div>
 
                         <text class="gift-card-txt3">Expired in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>
@@ -49,7 +51,10 @@
         name: 'myCard',
         eros: {
             beforeAppear (a) {
-
+                // this.$notice.alert({
+                //     message:a.cardMoney
+                // })
+                this.cardMoney = a.cardMoney
             }
         },
         data () {
@@ -58,7 +63,12 @@
                 selCard: '',
                 cardArr: false,
                 cardMoney: '',
-                flag: ''
+                flag: '',
+                emptyImg: {
+                    point100: 'bmlocal://assets/100-min-no.png',
+                    point150: 'bmlocal://assets/150-min-no.png',
+                    point200: 'bmlocal://assets/200-min-no.png'
+                }
             }
         },
         created () {
@@ -80,7 +90,6 @@
                     if (this.cardArr.length === 0) {
                         this.card = ''
                     }
-                    // this.cardArr = []
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res
@@ -88,11 +97,20 @@
                 })
             },
             tickCard (i, card) {
+                if (this.cardMoney < card.share) {
+                    return
+                }
                 this.selCard = card
                 this.flag = i;
             },
             backPre (p) {
                 if (p === 1) {
+                    if (this.selCard == '') {
+                        this.$notice.toast({
+                            message: 'Please select card frist!'
+                        });
+                        return
+                    }
                     this.$router.back()
                     this.$router.setBackParams({
                         card: this.selCard
