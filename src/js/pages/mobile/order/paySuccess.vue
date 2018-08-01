@@ -48,8 +48,8 @@ export default {
     },
     methods: {
         back () {
-            this.$router.finish()
-            this.$event.emit('paySuccess')
+            this.$router.finish();
+            this.$event.emit('paySuccess');
             if (this.source == 'confirm') {
                 this.$router.open({
                     name: 'order',
