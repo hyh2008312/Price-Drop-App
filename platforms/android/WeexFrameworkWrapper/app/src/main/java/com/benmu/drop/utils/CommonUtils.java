@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.benmu.drop.R;
+import com.benmu.drop.activity.MainActivity;
 import com.benmu.drop.activity.bean.AppDto;
 import com.benmu.drop.service.UpdateService;
 import com.benmu.framework.utils.PermissionUtils;
@@ -63,5 +64,13 @@ public class CommonUtils extends WXModule {
         } catch (Exception e) {
             Toast.makeText(mWXSDKInstance.getContext(),"Don't discover Google play!", Toast.LENGTH_SHORT).show();
         }
+    }
+    @JSMethod
+    public void setAndroidCanBack(boolean isCanBack , JSCallback jsCallback) {
+        ((MainActivity) mWXSDKInstance.getContext()).setIsCanBack(isCanBack,jsCallback);
+    }
+    @JSMethod
+    public void changeAndroidCanBack(boolean isCanBack) {
+        ((MainActivity) mWXSDKInstance.getContext()).changeCanBack(isCanBack);
     }
 }

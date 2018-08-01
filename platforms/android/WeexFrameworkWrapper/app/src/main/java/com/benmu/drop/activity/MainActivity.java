@@ -70,11 +70,14 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
     private CallbackManager mCallbackManager;
     private CallbackManager mShareCallbackManager;
     private CallbackManager mMessengerCallbackManager;
-    private ShareDialog shareDialog ;
+    private ShareDialog shareDialog;
     private MessageDialog messageDialog;
-    private static final int SHARE_FACEBOOK=10086;
-    private static final int MESSENGER_FACEBOOK=10087;
+    private static final int SHARE_FACEBOOK = 10086;
+    private static final int MESSENGER_FACEBOOK = 10087;
     private String amount;
+
+    private boolean isCanBack = true;
+    private JSCallback jsCanBackCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,26 +105,28 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        LoginResult ss = loginResult ;
-                        Toast.makeText(MainActivity.this,"success",Toast.LENGTH_SHORT).show();
+                        LoginResult ss = loginResult;
+                        Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancel() {
-                        Toast.makeText(MainActivity.this,"cancel",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "cancel", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        Toast.makeText(MainActivity.this,"onError",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "onError", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-    public void startFacebookLogin(){
+
+    public void startFacebookLogin() {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
     }
+
     public void shareFacebook(String title, String detail, String url, String imageUrl,
-                              final JSCallback jsSuccessCallback, final JSCallback jsFailedCallback){
+                              final JSCallback jsSuccessCallback, final JSCallback jsFailedCallback) {
         mShareCallbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
         shareDialog.registerCallback(mShareCallbackManager, new FacebookCallback<Sharer.Result>() {
@@ -139,7 +144,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
             public void onError(FacebookException error) {
                 jsFailedCallback.invoke(error);
             }
-        },SHARE_FACEBOOK);
+        }, SHARE_FACEBOOK);
 
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
@@ -149,8 +154,9 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
             shareDialog.show(linkContent);
         }
     }
-    public void shareFacebookMessenger(String title, String detail,String buttonWord, String url, String imageUrl,
-                               JSCallback jsSuccessCallback,  JSCallback jsFailedCallback){
+
+    public void shareFacebookMessenger(String title, String detail, String buttonWord, String url, String imageUrl,
+                                       JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
         jsSuccessCallback.invoke(new Object());
         ShareMessengerURLActionButton actionButton =
                 new ShareMessengerURLActionButton.Builder()
@@ -189,7 +195,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         if (mCallbackManager != null) {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
-        if (mShareCallbackManager!=null && requestCode == SHARE_FACEBOOK){
+        if (mShareCallbackManager != null && requestCode == SHARE_FACEBOOK) {
             mShareCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
         if (requestCode == RC_SIGN_IN) {
@@ -202,6 +208,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         this.paySuccessCallback = paySuccessCallback;
         this.payFailedCallback = payFailedCallback;
     }
+
     public void setPaytmCallBack(JSCallback paySuccessCallback, JSCallback payFailedCallback) {
         this.paytmSuccessCallback = paySuccessCallback;
         this.paytmFailedCallback = payFailedCallback;
@@ -255,12 +262,12 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         payFailedCallback.invoke(pay);
     }
 
-    public void startPayment(String razorpayOrderId ,String name, String description, String image, String amount, String contact, String email) {
+    public void startPayment(String razorpayOrderId, String name, String description, String image, String amount, String contact, String email) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
         final Activity activity = this;
-        this.amount = amount ;
+        this.amount = amount;
         final Checkout co = new Checkout();
         co.setImage(R.mipmap.ic_launcher);
         try {
@@ -285,30 +292,30 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
     }
 
     //paytm 的支付方式
-    public void onStartTransaction(String orderId ,String custId,String txnAmount,String mobileNo,String email,String
-                                   calllbackUrl ,String checkSumHash) {
+    public void onStartTransaction(String orderId, String custId, String txnAmount, String mobileNo, String email, String
+            calllbackUrl, String checkSumHash) {
         PaytmPGService Service = PaytmPGService.getProductionService();
         // PaytmPGService Service = PaytmPGService.getStagingService();
         HashMap<String, String> paramMap = new HashMap<String, String>();
 
         // these are mandatory parameters
-        paramMap.put("MID" , "JMDTec16243179908223");
-        paramMap.put("ORDER_ID" , orderId);
-        paramMap.put("CUST_ID" , custId);
-        paramMap.put("TXN_AMOUNT" , txnAmount);
-        paramMap.put("CHANNEL_ID" , "WAP");
-        paramMap.put("INDUSTRY_TYPE_ID" , "Retail109");
-        paramMap.put("WEBSITE" , "APPPROD");
-        paramMap.put("MOBILE_NO" , mobileNo);
-        paramMap.put("EMAIL" , email);
-        paramMap.put("CALLBACK_URL" , calllbackUrl);
+        paramMap.put("MID", "JMDTec16243179908223");
+        paramMap.put("ORDER_ID", orderId);
+        paramMap.put("CUST_ID", custId);
+        paramMap.put("TXN_AMOUNT", txnAmount);
+        paramMap.put("CHANNEL_ID", "WAP");
+        paramMap.put("INDUSTRY_TYPE_ID", "Retail109");
+        paramMap.put("WEBSITE", "APPPROD");
+        paramMap.put("MOBILE_NO", mobileNo);
+        paramMap.put("EMAIL", email);
+        paramMap.put("CALLBACK_URL", calllbackUrl);
         //paramMap.put("CALLBACK_URL" , "https://securegw.paytm.in/theia/paytmCallback?ORDER_ID=Order_153223772120");
-        paramMap.put("CHECKSUMHASH",checkSumHash);
+        paramMap.put("CHECKSUMHASH", checkSumHash);
 
         PaytmOrder Order = new PaytmOrder(paramMap);
 
 		/*PaytmMerchant Merchant = new PaytmMerchant(
-				"https://pguat.paytm.com/paytmchecksum/paytmCheckSumGenerator.jsp",
+                "https://pguat.paytm.com/paytmchecksum/paytmCheckSumGenerator.jsp",
 				"https://pguat.paytm.com/paytmchecksum/paytmCheckSumVerify.jsp");*/
 
         Service.initialize(Order, null);
@@ -336,7 +343,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
                         PaytmBean paybean = new PaytmBean();
                         paybean.setStatus(inResponse.getString("STATUS"));
 
-                        if ("TXN_SUCCESS".equals(paybean.getStatus())){
+                        if ("TXN_SUCCESS".equals(paybean.getStatus())) {
                             //成功
                             paybean.setCode(200);
                             paybean.setCheckSumHash(inResponse.getString("CHECKSUMHASH"));
@@ -351,7 +358,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
                             paybean.setRespMsg(inResponse.getString("RESPMSG"));
                             paybean.setErrmsg("pay success");
                             paytmSuccessCallback.invoke(paybean);
-                        }else {
+                        } else {
                             //失败
                             paybean.setCode(300);
                             paybean.setCheckSumHash(inResponse.getString("CHECKSUMHASH"));
@@ -376,7 +383,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
 
                     @Override
                     public void clientAuthenticationFailed(String inErrorMessage) {
-                        Toast.makeText(getApplicationContext(),"clientAuthenticationFailed",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "clientAuthenticationFailed", Toast.LENGTH_SHORT).show();
                         // This method gets called if client authentication
                         // failed. // Failure may be due to following reasons //
                         // 1. Server error or downtime. // 2. Server unable to
@@ -403,7 +410,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
                         paybean.setCode(400);
                         paybean.setErrmsg("onBackPressedCancelTransaction");
                         paytmFailedCallback.invoke(paybean);
-                        Toast.makeText(MainActivity.this,"Back pressed. Transaction cancelled",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Back pressed. Transaction cancelled", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -417,5 +424,24 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
                     }
 
                 });
+    }
+
+
+    public void setIsCanBack(boolean isCanBack, JSCallback jsCallback) {
+        this.isCanBack = isCanBack;
+        this.jsCanBackCallback = jsCallback;
+    }
+    public void changeCanBack(boolean isCanBack) {
+        this.isCanBack = isCanBack;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isCanBack) {
+            super.onBackPressed();
+        } else {
+            this.jsCanBackCallback.invokeAndKeepAlive(new Object());
+        }
+
     }
 }

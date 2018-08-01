@@ -217,6 +217,7 @@
     import { baseUrl } from '../../../config/apis';
     const dom = weex.requireModule('dom');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+    const common = weex.requireModule('CommonUtils');
 
     // import block from './block';
     // import refresher from '../common/refresh';
@@ -342,8 +343,20 @@
             } else {
                 this.user = null
             }
+            this.$notice.toast({
+                message: 'ddddd'
+            })
+            this.initBack();
+
         },
         methods: {
+            initBack () {
+               const self = this;
+                common.setAndroidCanBack(true, function (params) {
+                    self.isBottomShow = false;
+                    common.changeAndroidCanBack(true)
+                })
+            },
             getGoodsDetail (id) {
                 if (id) {
                     this.$fetch({
@@ -510,6 +523,7 @@
                     this.redirectLogin()
                 } else {
                     this.isBottomShow = true;
+                    common.changeAndroidCanBack(false)
 
                     if (this.variantsId != '') {
                         if (this.isDrop == true) {
