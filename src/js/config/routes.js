@@ -53,6 +53,9 @@ export default {
     'my.points': {
         url: '/pages/mobile/my/myPoints.js'
     },
+    'my.coupons': {
+        url: '/pages/mobile/my/myCoupons.js'
+    },
     'my.notice': {
         url: '/pages/mobile/my/myNotice.js'
     },
@@ -70,6 +73,9 @@ export default {
     },
     'order.detail': {
         url: '/pages/mobile/order/payDetail.js'
+    },
+    'order.detail.card': {
+        url: '/pages/mobile/order/orderGiftCard.js'
     },
     'order.confirm': {
         url: '/pages/mobile/order/orderConfirm.js'
@@ -94,6 +100,9 @@ export default {
     },
     'perks': {
         url: '/pages/mobile/perks/index.js'
+    },
+    'flash': {
+        url: '/pages/mobile/flash-sale/index.js'
     },
     'redeem.card': {
         url: '/pages/mobile/perks/redeemCard.js'
