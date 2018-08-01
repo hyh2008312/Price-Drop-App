@@ -343,9 +343,6 @@
             } else {
                 this.user = null
             }
-            this.$notice.toast({
-                message: 'ddddd'
-            })
             this.initBack();
 
         },
