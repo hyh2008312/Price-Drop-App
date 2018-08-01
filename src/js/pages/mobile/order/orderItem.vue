@@ -41,7 +41,10 @@
                                    :style="{justifyContent: 'center'}">
                     </wxc-countdown>
                 </div>
-                <text class="gd-button" @click="openBottomPopup">Pay Now</text>
+                <div class="gb-bottom-2">
+                    <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
+                    <text class="gd-button" @click="openBottomPopup">Pay Now</text>
+                </div>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Packing'">
                 <text class="od-button-1" @click="cancel">Cancel Order</text>
@@ -181,6 +184,13 @@
         justify-content: flex-end;
         align-items: center;
     }
+
+    .gb-bottom-2{
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
 
     .gb-bottom-left{
         flex-direction: row;

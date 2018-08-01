@@ -3,6 +3,7 @@
         <div class="wrapper" v-if="order.orderStatus == 'Unpaid'">
             <text class="od-text">Total:  </text>
             <text class="od-text-1">Rs.{{order.paymentAmount}}</text>
+            <text class="od-button-1" @click="deleteOrder">Delete</text>
             <text class="od-button" @click="confirm">Pay Now</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Canceled'">
