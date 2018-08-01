@@ -343,17 +343,13 @@
             } else {
                 this.user = null
             }
-            this.$notice.toast({
-                message: 'ddddd'
-            })
             this.initBack();
 
         },
         methods: {
             initBack () {
-               const self = this;
-                common.setAndroidCanBack(true, function (params) {
-                    self.isBottomShow = false;
+                common.setAndroidCanBack(true, (params) => {
+                    this.isBottomShow = false;
                     common.changeAndroidCanBack(true)
                 })
             },
@@ -628,6 +624,7 @@
                         this.createCut()
                     } else {
                         this.isBottomShow = true;
+                        common.changeAndroidCanBack(false)
                     }
                 }
             },
@@ -645,6 +642,7 @@
                         }
                     } else {
                         this.isBottomShow = true;
+                        common.changeAndroidCanBack(false)
                     }
                 }
             },
@@ -790,10 +788,6 @@
                         }
                     })
                 }
-            },
-
-            wxcCardSetHidden () {
-                this.isCardShow = false;
             },
             openLink () {
                 if (this.user == null) {
