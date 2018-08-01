@@ -180,7 +180,7 @@
                         </div>
                     </div>
 
-                    <text class="popup-close" @click="popupOverlayBottomClick">&#xe632;</text>
+                    <text class="popup-close" @click="popupCloseClick">&#xe632;</text>
                 </div>
                 <scroller  class="scroller">
 
@@ -653,6 +653,10 @@
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
                 this.isCardShow = false;
+            },
+
+            popupCloseClick () {
+                this.$refs.wxcPopup.hide();
             },
 
             operateData (data) {
