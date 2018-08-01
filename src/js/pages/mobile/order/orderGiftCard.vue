@@ -83,11 +83,16 @@
                         message: res
                     })
                     this.cardArr = res
-                    // for (let i = 0; i < this.cardArr; i++) {
-                    //     if (this.cardArr[i].share) {
-                    //
-                    //     }
-                    // }
+                    // this.cardArr.sort((a, b) => { return a - b })
+                    for (let j = 0; j < this.cardArr.length - 1; j++) {
+                        for (let i = 0; i < this.cardArr.length - 1 - j; i++) {
+                            if (this.cardArr[i].share > this.cardArr[i + 1].share) {
+                                const temp = this.cardArr[i];
+                                this.cardArr[i] = this.cardArr[i + 1];
+                                this.cardArr[i + 1] = temp;
+                            }
+                        }
+                    }
                     if (this.cardArr.length === 0) {
                         this.card = ''
                     }
