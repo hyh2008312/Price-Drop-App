@@ -13,11 +13,11 @@
 
             <div class="overflow-gift" v-if="cardArr.length!==0" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
                 <div class="gift-card" @click="tickCard(index,i)">
-                    <image class="gift-card-img" v-if="cardMoney>=i.share"  :src="i.image" ></image>
-                    <image class="gift-card-img" v-if="cardMoney<i.share&&i.share===100" :src="emptyImg.point100"></image>
-                    <image class="gift-card-img" v-if="cardMoney<i.share&&i.share===150" :src="emptyImg.point150"></image>
-                    <image class="gift-card-img" v-if="cardMoney<i.share&&i.share===200" :src="emptyImg.point200"></image>
-                    <div class="triangle-topright" v-if="index == flag">
+                    <image class="gift-card-img" v-if="cardMoney>=i.lowestAmount"  :src="i.image" ></image>
+                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===100" :src="emptyImg.point100"></image>
+                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===150" :src="emptyImg.point150"></image>
+                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===200" :src="emptyImg.point200"></image>
+                    <div class="triangle-topright" v-if="index === flag">
                         <text  class="triangle">&#xe741;</text>
                         <text  class="tick">&radic;</text>
                     </div>
@@ -26,7 +26,6 @@
                             <!--<text class="gift-card-txt1">{{i.name}} Gift Card </text>-->
                             <text class="gift-card-txt2">Order above Rs.{{i.lowestAmount}} </text>
                         </div>
-
                         <text class="gift-card-txt3">Expired in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>
                     </div>
                 </div>
@@ -51,9 +50,6 @@
         name: 'myCard',
         eros: {
             beforeAppear (a) {
-                // this.$notice.alert({
-                //     message:a.cardMoney
-                // })
                 this.cardMoney = a.cardMoney
             }
         },
@@ -83,10 +79,15 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    // this.$notice.alert({
-                    //     message: res
-                    // })
+                    this.$notice.alert({
+                        message: res
+                    })
                     this.cardArr = res
+                    // for (let i = 0; i < this.cardArr; i++) {
+                    //     if (this.cardArr[i].share) {
+                    //
+                    //     }
+                    // }
                     if (this.cardArr.length === 0) {
                         this.card = ''
                     }
