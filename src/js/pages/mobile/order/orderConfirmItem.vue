@@ -64,7 +64,7 @@
             },
             jumpCard () {
                 this.$router.open({
-                    name: 'order.details.card',
+                    name: 'order.detail.card',
                     params: {
                         cardMoney: this.order.total
                     }
