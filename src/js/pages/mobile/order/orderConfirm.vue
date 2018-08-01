@@ -44,12 +44,16 @@ export default {
     eros: {
         backAppeared (params, options) {
             this.getAddress();
+            if (params.card) {
+                this.order.card = params.card;
+            }
         },
         beforeAppear (params, options) {
             this.getAddress();
         },
         appeared (params, option) {
             this.order = params;
+            this.order.card = false;
             if (this.order.proId == 'drop') {
                 this.order.shippingPrice = '0.00';
                 if (this.order.currentPrice - this.order.lowestPrice <= 0) {

@@ -15,6 +15,17 @@
                     </div>
                 </div>
             </div>
+            <div class="gb-gift-bg" v-if="order.proId == 'product'">
+                <div class="gb-gift">
+                    <div>
+                        <text class="gd-text-2">Gift Card</text>
+                    </div>
+                    <div class="gb-center-right-1" @click="jumpCard">
+                        <text class="gb-text-3" v-if="!card">Choose a Gift Card</text>
+                        <text class="iconfont gb-text-4">&#xe626;</text>
+                    </div>
+                </div>
+            </div>
             <div class="gb-center">
                 <div>
                     <text class="gd-text">Subtotal</text>
@@ -41,16 +52,23 @@
         components: {
             preload
         },
-        props: ['order'],
+        props: ['order', 'card'],
         methods: {
             jumpWeb () {
-                // if (!url) return;
                 this.$router.open({
                     name: 'goods.details',
                     params: {
                         id: this.order.productId
                     }
-                })
+                });
+            },
+            jumpCard () {
+                this.$router.open({
+                    name: 'order.details.card',
+                    params: {
+                        cardMoney: this.order.total
+                    }
+                });
             }
         }
     }
@@ -71,6 +89,21 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: stretch;
+    }
+
+    .gb-gift-bg{
+        padding: 0 32px;
+        width: 750px;
+    }
+
+    .gb-gift{
+        padding: 28px 0 16px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: rgba(0,0,0,0.12);
     }
 
     .gb-box {
@@ -152,16 +185,42 @@
     }
 
     .gd-text{
-           margin-top: 4px;
-           font-size: 24px;
-           line-height: 40px;
-       }
+       margin-top: 4px;
+       font-size: 24px;
+       line-height: 40px;
+    }
 
     .gd-text-1{
         margin-top: 4px;
         font-size: 28px;
         line-height: 40px;
         font-weight: bold;
+    }
+
+    .gd-text-2{
+        font-family: ProximaNova;
+        font-weight: bold;
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+        text-align: left;
+        line-height: 40px;
+    }
+
+    .gb-text-3{
+        font-family: ProximaNova;
+        font-size: 24px;
+        color: #53B2EA;
+        letter-spacing: 0;
+        text-align: left;
+        line-height: 40px;
+    }
+
+    .gb-text-4{
+        margin-left: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: rgba(0,0,0,0.54);
     }
 
     .gb-text{
@@ -173,6 +232,12 @@
 
     .gb-center-right{
         align-items: flex-end;
+    }
+
+    .gb-center-right-1{
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
     }
 
     .gb-text-1{
