@@ -349,7 +349,7 @@
         methods: {
             initBack () {
                 common.setAndroidCanBack(true, (params) => {
-                    this.isBottomShow = false;
+                    this.popupCloseClick();
                     common.changeAndroidCanBack(true)
                 })
             },
