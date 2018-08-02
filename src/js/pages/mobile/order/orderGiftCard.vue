@@ -27,7 +27,7 @@
                             <text class="gift-card-txt2">Order above Rs.{{i.lowestAmount}} </text>
                         </div>
                         <text class="gift-card-txt3" style="color: rgba(0,0,0,0.38)" v-if="cardMoney<i.lowestAmount" >Not Applicable</text>
-                        <text class="gift-card-txt3" v-if="cardMoney>=i.lowestAmount">Expired in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>
+                        <text class="gift-card-txt3" v-if="cardMoney>=i.lowestAmount">Expire in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>
                     </div>
                 </div>
             </div>
@@ -44,6 +44,7 @@
 <script>
     import header from './header';
     import { baseUrl } from '../../../config/apis'
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
         components: {
             'topic-header': header
@@ -75,7 +76,8 @@
             }
         },
         created () {
-          this.getCard()
+            this.getCard()
+            googleAnalytics.trackingScreen('Choose a Gift Card');
         },
         methods: {
             getCard () {
@@ -127,7 +129,8 @@
                         });
                         return
                     }
-                    this.$router.back()
+                    googleAnalytics.recordEvent('PayGiftCard', 'Choose a Gift Card', this.selCard.share, 0);
+                    this.$router.back();
                     this.$router.setBackParams({
                         card: this.selCard
                     })
