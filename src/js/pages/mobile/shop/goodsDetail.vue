@@ -1256,8 +1256,12 @@
         font-family: iconfont;
         font-size: 32px;
         position: absolute;
-        right: 32px;
-        top: 32px;
+        right: 0;
+        top: 0;
+        padding-right:32px ;
+        padding-top: 32px;
+        padding-left: 32px;
+        padding-bottom: 32px;
     }
     .popup-bottom{
 
