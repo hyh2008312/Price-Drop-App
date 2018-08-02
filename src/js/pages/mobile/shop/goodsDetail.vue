@@ -344,7 +344,6 @@
                 this.user = null
             }
             this.initBack();
-
         },
         methods: {
             initBack () {
