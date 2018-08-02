@@ -7,16 +7,21 @@
         <!--<text class="tlt">{{title}}</text>-->
         <div class="right">
             <text class="rightTxt" v-if="iconSign==true" @click="openLink" >&#xe700;</text>
+
+            <div class="red-dot" v-if="dropGoods>0" ><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
+
+            <!--<text class="rightTxt" v-if="iconSign==true" @click="openLink" >21312312</text>-->
         </div>
     </div>
 </template>
 <script>
 export default {
-    props: ['title', 'leftBtn', 'rightBtn'],
+    props: ['title', 'leftBtn', 'rightBtn', 'dropGoods'],
     data () {
         return {
             leftSign: '',
-            iconSign: ''
+            iconSign: '',
+            dropGoods: ''
         }
     },
     created () {
@@ -97,7 +102,6 @@ export default {
     right: 5px;
     top:67.5px;
     padding-top: 10px;
-
 }
 
 .leftTxt{
@@ -112,5 +116,19 @@ export default {
     color: #FFFFFF;
     font-size: 32px;
     text-align: center;
+}
+.red-dot{
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    position: absolute;
+    border-radius:24px ;
+    padding-bottom: 3px;
+    padding-right: 2px;
+    top:0;
+    right:25px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 </style>

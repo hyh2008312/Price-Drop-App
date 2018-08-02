@@ -1,7 +1,7 @@
 <template>
 
     <div class="wrapper" >
-        <topic-header ref="ref1" :style="{opacity:opacity}" @open="openLink" :leftBtn="1" :rightBtn="1"></topic-header>
+        <topic-header ref="ref1" :style="{opacity:opacity}" @open="openLink" :leftBtn="1" :rightBtn="1" :dropGoods="dropGoods"></topic-header>
         <div class="blackheader"></div>
 
         <scroller class="main-list" @scroll="scrollHandler"  offset-accuracy="10px">
@@ -655,6 +655,7 @@
 
             popupCloseClick () {
                 this.$refs.wxcPopup.hide();
+                common.changeAndroidCanBack(true)
             },
 
             operateData (data) {

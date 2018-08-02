@@ -86,9 +86,8 @@
                       image: '',
                       name: '',
                       pointNumber: ''
-                  },
-              ],
-              loading: true
+                  }
+              ]
           }
         },
         created () {
@@ -98,6 +97,7 @@
         methods: {
             // get.card
             getCard () {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     name: 'get.card'
@@ -106,8 +106,9 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
-                    this.loading = false
+                    this.$notice.loading.hide();
                 }).catch((res) => {
+                    this.$notice.loading.hide();
                     this.$notice.toast({
                         message: res
                     })
