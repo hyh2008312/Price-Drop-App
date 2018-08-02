@@ -10,12 +10,18 @@
                 <text class="title-1">Payment Method</text>
             </cell>
             <cell class="cell-bottom" @click="chooseMethod('paytm')">
-                <image class="item-image" resize="contain" :src="paytmSrc"></image>
+                <div>
+                    <image class="item-image" resize="contain" :src="paytmSrc"></image>
+                    <text class="item-text">Wallet / UPI / Credit&Debit Card / Net Banking </text>
+                </div>
                 <text class="iconfont item-checked" v-if="method == 'paytm'">&#xe6fb;</text>
                 <text class="iconfont item-no-checked" v-if="method != 'paytm'">&#xe73f;</text>
             </cell>
             <cell class="cell-bottom" @click="chooseMethod('razorpay')">
-                <image class="item-image-1" resize="contain" :src="razorpaySrc"></image>
+                <div>
+                    <image class="item-image-1" resize="contain" :src="razorpaySrc"></image>
+                    <text class="item-text">UPI / Credit&Debit Card / Net Banking </text>
+                </div>
                 <text class="iconfont item-checked" v-if="method == 'razorpay'">&#xe6fb;</text>
                 <text class="iconfont item-no-checked" v-if="method != 'razorpay'">&#xe73f;</text>
             </cell>
@@ -185,6 +191,15 @@ export default {
     .item-image{
         width: 152px;
         height: 48px;
+    }
+
+    .item-text{
+        margin-top: 16px;
+        font-family: ProximaNova;
+        font-size: 20px;
+        line-height: 24px;
+        color: rgba(0,0,0,0.87);
+        letter-spacing: 0;
     }
 
     .item-image-1{
