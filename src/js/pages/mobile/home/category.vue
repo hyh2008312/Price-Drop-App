@@ -10,7 +10,7 @@
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <header>
                 <div class="category-header">
-
+                    <text class="iconfont category-arrange">&#xe742;</text>
                 </div>
             </header>
             <cell v-for="(i ,index) in goods">
@@ -151,6 +151,10 @@
 
 </script>
 <style scoped>
+    .iconfont{
+        font-family: iconfont;
+    }
+
     .main-list {
         width: 750px;
         margin-top: -1px;
@@ -307,4 +311,8 @@
         padding-bottom: 16px;
     }
 
+    .category-arrange{
+        font-size: 32px;
+        color: #EF8A31;
+    }
 </style>
