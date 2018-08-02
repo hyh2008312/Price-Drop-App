@@ -102,6 +102,8 @@
         destory () {
             this.$event.off('login')
             this.$event.off('createCut')
+            this.$event.off('logout')
+            this.$event.off('jumpMyDrop')
         },
         data () {
             return {
