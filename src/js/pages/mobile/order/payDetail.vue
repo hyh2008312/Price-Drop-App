@@ -73,6 +73,7 @@ import { Utils, WxcPopup, WxcMask } from 'weex-ui';
 import { ORDERDETAIL, CANCELREASON } from './config';
 import { baseUrl } from '../../../config/apis';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+const common = weex.requireModule('CommonUtils');
 
 export default {
     components: {
@@ -90,16 +91,17 @@ export default {
         appeared (params) {
             if (params && params.id) {
                 googleAnalytics.trackingScreen(`Order Detail/${params.id}`);
-                this.getOrder(params.id)
+                this.getOrder(params.id);
                 this.$event.on('login', params => {
                     this.getOrder(params.id)
-                })
+                });
             }
         }
     },
     created () {
-        const pageHeight = Utils.env.getScreenHeight()
-        this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' }
+        const pageHeight = Utils.env.getScreenHeight();
+        this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
+        this.initMaskBack();
     },
     destory () {
         this.$event.off('login')
@@ -141,13 +143,16 @@ export default {
             this.isBottomShow = false
         },
         closeBottomPop () {
-            this.$refs.wxcPopup.hide()
+            if (this.$refs.wxcPopup) {
+                this.$refs.wxcPopup.hide();
+            }
         },
         changeReason (index) {
             this.reasonActive = index
         },
         cancel () {
-            this.isBottomShow = true
+            this.isBottomShow = true;
+            common.changeAndroidCanBack(false);
         },
         cancelOrder () {
             this.$refs.wxcPopup.hide()
@@ -170,7 +175,8 @@ export default {
             })
         },
         deleteOrder (event) {
-            this.isDeleteShow = true
+            this.isDeleteShow = true;
+            common.changeAndroidCanBack(false);
         },
         popupDeleteClick () {
             this.isDeleteShow = false
@@ -187,16 +193,27 @@ export default {
             }).then(resData => {
                 this.$router.setBackParams({
                     status: 'delete'
-                })
-                this.$router.finish()
+                });
+                this.$router.finish();
             }, error => {
                 this.$notice.toast({
                     message: error
-                })
+                });
             })
         },
         closeDeletePop () {
             this.isDeleteShow = false
+        },
+        initMaskBack () {
+            common.setAndroidCanBack(true, (params) => {
+                if (this.isDeleteShow) {
+                    this.closeDeletePop();
+                }
+                if (this.isBottomShow) {
+                    this.closeBottomPop();
+                }
+                common.changeAndroidCanBack(true);
+            });
         }
     }
 }
