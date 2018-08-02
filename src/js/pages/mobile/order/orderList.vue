@@ -90,6 +90,7 @@
 
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const payTm = weex.requireModule('PayModule');
+    const common = weex.requireModule('CommonUtils');
 
     export default {
         components: {
@@ -189,7 +190,8 @@
                 this.init();
             },
             init () {
-                this.getOrder(true)
+                this.getOrder(true);
+                this.initMaskBack();
             },
             getOrder (isfirst) {
                 if (isfirst) {
@@ -253,7 +255,9 @@
                 this.isBottomShow = false;
             },
             openBottomPopup () {
-                this.$refs.wxcPopup.hide();
+                if (this.$refs.wxcPopup) {
+                    this.$refs.wxcPopup.hide();
+                }
             },
             radioChecked (e) {
                 this.checkedInfo = e.data.pay;
@@ -267,7 +271,9 @@
                 this.isCancelBottomShow = false;
             },
             closeBottomPop () {
-                this.$refs.wxcCancelPopup.hide();
+                if (this.$refs.wxcCancelPopup) {
+                    this.$refs.wxcCancelPopup.hide();
+                }
             },
             changeReason (index) {
                 this.reasonActive = index;
@@ -276,6 +282,7 @@
                 this.isCancelBottomShow = true;
                 this.cancelId = event.data.id;
                 this.cancelIndex = event.data.index;
+                common.changeAndroidCanBack(false);
             },
             cancelOrder () {
                 this.$refs.wxcCancelPopup.hide();
@@ -301,6 +308,7 @@
                 this.isDeleteShow = true;
                 this.deleteIndex = event.data.index;
                 this.deleteId = event.data.id;
+                common.changeAndroidCanBack(false);
             },
             popupDeleteClick () {
                 this.isDeleteShow = false;
@@ -324,6 +332,17 @@
             },
             closeDeletePop () {
                 this.isDeleteShow = false;
+            },
+            initMaskBack () {
+                common.setAndroidCanBack(true, (params) => {
+                    if (this.isDeleteShow) {
+                        this.closeDeletePop();
+                    }
+                    if (this.isCancelBottomShow) {
+                        this.closeBottomPop();
+                    }
+                    common.changeAndroidCanBack(true)
+                })
             }
         }
     }
