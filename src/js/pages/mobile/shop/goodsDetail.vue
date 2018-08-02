@@ -655,6 +655,7 @@
 
             popupCloseClick () {
                 this.$refs.wxcPopup.hide();
+                common.changeAndroidCanBack(true)
             },
 
             operateData (data) {
