@@ -360,7 +360,8 @@
     const clipboard = weex.requireModule('clipboard')
     const shareModule = weex.requireModule('ShareModule');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
-    import { baseUrl } from '../../../config/apis'
+    import { baseUrl } from '../../../config/apis';
+    const common = weex.requireModule('CommonUtils');
     export default {
         components: {
             WxcCountdown,
@@ -381,6 +382,7 @@
                 this.requestCutDetail();
                 this.initGoogleAnalytics(this.id)
             })
+            this.initBack();
         },
         destory () {
             this.$event.off('cutDetail')
@@ -407,6 +409,12 @@
             }
         },
         methods: {
+            initBack () {
+                common.setAndroidCanBack(true, (params) => {
+                    this.wxcMaskSetShareHidden();
+
+                })
+            },
             loadingStart () {
                 this.$notice.loading.show('');
             },
@@ -423,6 +431,7 @@
             },
             showSharePanel () {
                 this.isShowShare = true;
+                common.changeAndroidCanBack(false)
             },
             copyShareLink () {
                 const url = ShareUrlUtil.getCopylinkUrl(this.id);
@@ -508,6 +517,7 @@
                     }
                     setTimeout(function () {
                          that.isShowShare = that.isShow;
+                        common.changeAndroidCanBack(false)
                     }, 1000);
                 }, error => {
                     that.loadingEnd();
@@ -559,6 +569,7 @@
             },
             wxcMaskSetShareHidden () {
                 this.isShowShare = false;
+                common.changeAndroidCanBack(true)
             },
             openDetail () {
                 this.$router.open({

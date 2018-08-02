@@ -81,6 +81,11 @@
                 this.isMyDropLogin = true;
                 this.requestProduct(true);
             });
+            this.$event.on('logout', params => {
+                this.goods = false;
+                this.isMyDropLogin = false;
+                this.requestProduct(true);
+            });
             this.$event.on('jumpMyDrop', params => {
                 this.$refs.cubTab.changeTab('cutEnd');
                 this.isCuting = false;
