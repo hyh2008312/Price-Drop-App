@@ -89,7 +89,6 @@
     import { baseUrl } from '../../../config/apis';
 
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
-    const payTm = weex.requireModule('PayModule');
     const common = weex.requireModule('CommonUtils');
 
     export default {
