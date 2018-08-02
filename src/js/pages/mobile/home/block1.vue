@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <div class="tlt-box" v-for="item in category">
+        <div class="tlt-box" v-for="item in category" @click="jumpActivity(item)">
             <image class="tlt-image" :src="'bmlocal://assets/category_' + item.name.toLowerCase() + '.png'"></image>
             <text class="tlt-bg">{{item.name}}</text>
         </div>
@@ -15,15 +15,13 @@ export default {
     },
     props: ['category'],
     methods: {
-        jumpActivity () {
+        jumpActivity (item) {
             this.$router.open({
-                name: 'mobile.activity',
+                name: 'goods.category',
                 type: 'PUSH',
                 params: {
-                    id: this.head.id,
-                    name: this.head.name,
-                    imageUrl: this.head.image,
-                    type: 'activity'
+                    id: item.id,
+                    name: item.name
                 }
             })
         }

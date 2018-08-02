@@ -10,6 +10,7 @@ module.exports = {
         // home
         'js/pages/mobile/index.vue',
         'js/pages/mobile/home/index.vue',
+        'js/pages/mobile/home/category.vue',
         'js/pages/mobile/drops/index.vue',
         'js/pages/mobile/drops/cutDetail.vue',
         // 'js/pages/mobile/shop/index.vue',

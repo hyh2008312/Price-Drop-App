@@ -329,22 +329,15 @@ export default {
         },
         getChannel () {
             this.category = [...CHANNELLIST];
-            // this.$fetch({
-            //     method: 'GET', // 大写
-            //     name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
-            //     data: {}
-            // }).then(data => {
-            //     this.channelList = [];
-            //     let index = 0;
-            //     const channel = CHANNELLIST;
-            //     for (const item of data) {
-            //         index++;
-            //         this.channelList.push({
-            //             name: item.fullName,
-            //             id: item.id
-            //         });
-            //     }
-            // }, error => {})
+            this.$fetch({
+                method: 'GET', // 大写
+                name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
+                data: {}
+            }).then(data => {
+                for (let i = 0; i < data.length; i++) {
+                    this.category[i].id = data[i].id;
+                }
+            }, error => {})
         },
         getDrops() {
             this.$fetch({
