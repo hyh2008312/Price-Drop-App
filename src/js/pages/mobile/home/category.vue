@@ -5,49 +5,50 @@
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name}}</text>
         </div>
-        <waterfall class="main-list" column-count="2" ref="list" loadmoreoffset="30"
+        <list class="main-list" ref="list" loadmoreoffset="30"
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <header>
                 <div class="category-header">
-                    <text class="iconfont category-arrange">&#xe742;</text>
+                    <text class="iconfont category-arrange" v-if="arrangement == false" @click="changeArrangement">&#xe742;</text>
+                    <text class="iconfont category-arrange" v-if="arrangement == true" @click="changeArrangement">&#xe743;</text>
                 </div>
             </header>
-            <cell v-for="(i ,index) in goods">
-                <div class="i-gd" :class="[index % 2 ==0 ? 'margin-left16':'margin-right16']" @click="jumpWeb(i.productId)">
-                    <div class="gd-bg">
-                        <div class="gd-img">
-                            <preload class="gd-img-image" :src="i.mainImage"></preload>
-                        </div>
-                    </div>
-                    <div class="gd-tlt-bg">
-                        <text class="gd-tlt">Rs.{{i.unitPrice}}</text>
-                        <text class="gd-info">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
-                    </div>
-                    <text class="gd-price">Rs.{{i.saleUnitPrice}}</text>
-                </div>
+            <cell v-for="(i ,index) in goods" >
+                <block3 :goods="i" v-if="arrangement == false"></block3>
+                <block7 :goods="i" v-if="arrangement == true"></block7>
             </cell>
+            <cell class="cell-fixed" v-if="goods.length > 0"></cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">loading...</text>
             </loading>
-        </waterfall>
+        </list>
+
     </div>
 </template>
 <script>
     import { Utils } from 'weex-ui';
     import refresher from '../common/refresh';
     import preload from '../common/preloadImg';
+    import block3 from './block3';
+    import block7 from './block7';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
             'refresher': refresher,
-            preload
+            preload,
+            block7,
+            block3
         },
         created () {},
         eros: {
             appeared (params, options) {
-                this.getActivityParam(params)
+                const arrange = this.$storage.getSync('categoryArrangement');
+                if (arrange) {
+                    this.arrangement = arrange;
+                }
+                this.getActivityParam(params);
             }
         },
         data () {
@@ -61,7 +62,9 @@
                 page: 1,
                 pageSize: 12,
                 isLoading: false,
-                isPlatformAndroid: Utils.env.isAndroid()
+                isPlatformAndroid: Utils.env.isAndroid(),
+                arrangement: false,
+                goodsSave: []
             }
         },
         methods: {
@@ -113,7 +116,21 @@
                         this.goods = []
                     }
                     this.page++;
-                    this.goods.push(...data.results);
+                    if (!this.arrangement) {
+                        let arr = [];
+                        for (let i = 0; i < data.results.length; i++) {
+                            const item = data.results[i];
+                            arr.push(item);
+                            if (i > 0 && (i % 2 == 1 || i == data.results.length - 1)) {
+                                this.goods.push(arr);
+                                arr = [];
+                            }
+                        }
+                        this.goodsSave.push(...data.results);
+                    } else {
+                        this.goods.push(...data.results);
+                        this.goodsSave.push(...data.results);
+                    }
                     if (!isfirst) {
                         this.isLoading = false
                     }
@@ -145,6 +162,25 @@
                 } else {
                     return ''
                 }
+            },
+            changeArrangement () {
+                this.arrangement = !this.arrangement;
+                const results = this.goodsSave;
+                if (!this.arrangement) {
+                    this.goods = [];
+                    let arr = [];
+                    for (let i = 0; i < results.length; i++) {
+                        const item = results[i];
+                        arr.push(item);
+                        if (i > 0 && (i % 2 == 1 || i == results.length - 1)) {
+                            this.goods.push(arr);
+                            arr = [];
+                        }
+                    }
+                } else {
+                    this.goods = [...results];
+                }
+                this.$storage.set('categoryArrangement', this.arrangement);
             }
         }
     }
@@ -158,19 +194,20 @@
     .main-list {
         width: 750px;
         margin-top: -1px;
+        background-color: #fff;
     }
 
     .category-header {
-        margin-top: 1px;
         width: 750px;
         height: 96px;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        position: relative;
         background-color: #ffffff;
-        border: 2px solid rgba(0,0,0,0.08);
+        border-width: 2px;
+        border-style: solid;
+        border-color: rgba(0,0,0,.08);
     }
 
     .state {
@@ -312,7 +349,14 @@
     }
 
     .category-arrange{
+        padding: 32px;
         font-size: 32px;
         color: #EF8A31;
+    }
+
+    .cell-fixed {
+        width: 750px;
+        height: 26px;
+        background-color: #fff;
     }
 </style>

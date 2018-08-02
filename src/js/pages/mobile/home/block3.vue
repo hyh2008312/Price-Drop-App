@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <div class="gb-box" v-for="item in goods" @click="jumpWeb()">
+        <div class="gb-box" v-for="item in goods" @click="jumpWeb(item)">
             <div class="gd-bg">
                 <preload class="gd-img-image" :src="item.mainImage"></preload>
             </div>
@@ -28,13 +28,8 @@ export default {
         }
     },
     methods: {
-        jumpWeb () {
-            let id = '';
-            if (this.tab == 'hot') {
-                id = this.goods.productId
-            } else {
-                id = this.goods.id
-            }
+        jumpWeb (item) {
+            const id = item.id;
             // if (!url) return;
             this.$router.open({
                 name: 'goods.details',
@@ -61,7 +56,7 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    padding: 0 32px 32px 32px;
+    padding: 24px 32px 0 32px;
     width: 750px;
     flex-direction: row;
     justify-content: space-between;
