@@ -344,7 +344,6 @@
                 this.user = null
             }
             this.initBack();
-
         },
         methods: {
             initBack () {
@@ -610,7 +609,7 @@
                     this.$storage.get('user').then(resData => {
                         this.user = resData
                     })
-                })
+                });
                 this.$router.open({
                     name: 'login',
                     type: 'PUSH'

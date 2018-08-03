@@ -20,7 +20,7 @@
                             <text class="gift-card-txt2">Only vaild for order above Rs.{{i.lowestAmount}}</text>
                         </div>
 
-                        <text class="gift-card-txt3">Expired in&nbsp;{{tranDate(i.expiredTimestamp)}}&nbsp;days</text>
+                        <text class="gift-card-txt3">Expire in&nbsp;{{tranDate(i.expiredTimestamp)}}&nbsp;days</text>
                     </div>
                 </div>
             </div>

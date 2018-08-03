@@ -16,11 +16,11 @@
                 </div>
             </div>
             <div class="gb-gift-bg" v-if="order.proId == 'product'">
-                <div class="gb-gift">
+                <div class="gb-gift" @click="jumpCard">
                     <div>
                         <text class="gd-text-2">Gift Card</text>
                     </div>
-                    <div class="gb-center-right-1" @click="jumpCard">
+                    <div class="gb-center-right-1">
                         <text class="gb-text-3" v-if="card === false">Choose a Gift Card</text>
                         <text class="gb-text-5" v-if="card === ''">No Gift Card Available</text>
                         <text class="gb-text-3" v-if="card">Rs.{{card.share}} Gift Card</text>
