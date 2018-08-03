@@ -83,7 +83,7 @@
                         </div>
                     </div>
                        <text class="wrapper-share" @click="showSharePanel">Share to Drop Your Price Further</text>
-                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite friends to drop your price to Rs.0!</text>
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Drop price to 50% off, 70% off or Rs.0!</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 2" @click="showBuyNow">Buy Now At 50% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 3" @click="showBuyNow">Buy Now At 70% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 4" @click="showBuyNow">Click to Get It For Free</text>
