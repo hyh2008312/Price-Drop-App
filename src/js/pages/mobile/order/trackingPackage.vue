@@ -7,7 +7,7 @@
                 <tracking-package-header :order="order.orderData"></tracking-package-header>
             </cell>
             <cell class="cell-line"></cell>
-            <cell v-for="item in order.data.originInfo.trackinfo" v-if="order.data">
+            <cell v-if="order.data" v-for="item in order.data.originInfo.trackinfo">
                 <tracking-package-item-new :order="item"></tracking-package-item-new>
             </cell>
             <cell>
@@ -83,6 +83,13 @@ export default {
                 // 成功回调
                 this.order = {};
                 this.order = resData;
+                if (!this.order.data) {
+                    this.order.data = {
+                        'originInfo': {
+                            trackinfo: []
+                        }
+                    }
+                }
             }, error => {});
         }
     }

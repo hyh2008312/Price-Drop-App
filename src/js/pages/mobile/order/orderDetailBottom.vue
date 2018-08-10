@@ -11,7 +11,7 @@
             <text class="od-button" @click="jumpHome">Buy Again</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Paid'">
-            <text class="od-button-1" @click="tracking">Cancel Order</text>
+            <text class="od-button" @click="tracking">Track Package</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Packing'">
             <text class="od-button-1" @click="cancel">Track Package</text>

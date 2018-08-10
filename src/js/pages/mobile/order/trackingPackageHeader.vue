@@ -7,10 +7,14 @@
                     <text class="gb-text">Carrier: </text>
                     <text class="gb-text-color">{{order.carrierCode}}</text>
                 </div>
-                <div class="gb-box-bg gb-mt">
+                <div class="gb-box-bg gb-mt" v-if="order.trackingNumber">
                     <text class="gb-text">Tracking Number: </text>
                     <text class="gb-text-color">{{order.trackingNumber}}</text>
                     <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
+                </div>
+                <div class="gb-box-bg gb-mt" v-if="!order.trackingNumber">
+                    <text class="gb-text">Tracking Number: </text>
+                    <text class="gb-text-color">Waiting for update</text>
                 </div>
             </div>
             <text class="gb-icon-1 iconfont" v-if="false">&#xe70e;</text>

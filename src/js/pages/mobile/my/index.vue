@@ -58,7 +58,7 @@
                         <image class="i-box-icon" src="bmlocal://assets/ic-paid.png"></image>
 
                         <!--<text class="i-box-icon iconfont">&#xe717;</text>-->
-                        <text class="i-box-tlt">Pending</text>
+                        <text class="i-box-tlt">Paid</text>
                     </div>
                     <div class="i-box-l" @click="jumpWeb(2)">
                         <image class="i-box-icon" src="bmlocal://assets/ic-packed.png"></image>
