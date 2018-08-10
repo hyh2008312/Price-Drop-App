@@ -70,7 +70,7 @@
                   :show-close="false"
                   :show="isDeleteShow"
                   @wxcMaskSetHidden="popupDeleteClick">
-            <div class="popup-delete-container">
+            <div class="popup-delete-container" @click="prevent($event)">
                 <text class="popup-delete-title">Are you sure you want to delete this order？</text>
                 <div class="popup-delete-bottom">
                     <text class="popup-delete-button" @click="deleteOrderConfirm">DELETE</text>
@@ -322,6 +322,7 @@
                         needAuth: true
                     }
                 }).then(resData => {
+                    this.$notice.toast('Deleted successfully!');
                     this.order.splice(this.deleteIndex, 1);
                 }, error => {
                     this.$notice.toast({
@@ -342,6 +343,9 @@
                     }
                     common.changeAndroidCanBack(true)
                 })
+            },
+            prevent (e) {
+                e.stopPropagation();
             }
         }
     }
