@@ -4,10 +4,12 @@
             <text class="gb-title">Delivery</text>
             <div class="gb-center">
                 <div>
+                    <text class="gb-text" v-if="order.orderStatus != 'Canceled'">Estimated Arrival</text>
                     <text class="gb-text">Order Prcessing</text>
                     <text class="gb-text">Shipping Time</text>
                 </div>
                 <div class="gb-center-right">
+                    <text class="gb-text gb-text-color" v-if="order.orderStatus != 'Canceled'">{{formatMinDate(order,  'MMMM DD, YYYY')}} - {{formatMaxDate(order,  'MMMM DD, YYYY')}}</text>
                     <text class="gb-text gb-text-color">3-5 business days</text>
                     <text class="gb-text gb-text-color">{{order.shippingTimeMin || 0}}-{{order.shippingTimeMax || 0}} days</text>
                 </div>
@@ -16,8 +18,34 @@
     </div>
 </template>
 <script>
+    import dayjs from 'dayjs';
+
     export default {
-        props: ['order']
+        props: ['order'],
+        methods: {
+            formatMinDate (order, hmr) {
+                if (order.orderStatus != 'Canceled' && order.orderStatus != 'Unpaid') {
+                    if (order.paidTime) {
+                        return dayjs(new Date(order.paidTime).getTime() + 12 * 24 * 60 * 60 * 1000).format(hmr);
+                    } else {
+                        return dayjs(new Date(order.created).getTime() + 13 * 24 * 60 * 60 * 1000).format(hmr);
+                    }
+                } else {
+                    return dayjs(new Date().getTime() + 12 * 24 * 60 * 60 * 1000).format(hmr);
+                }
+            },
+            formatMaxDate (order, hmr) {
+                if (order.orderStatus != 'Canceled' && order.orderStatus != 'Unpaid') {
+                    if (order.paidTime) {
+                        return dayjs(new Date(order.paidTime).getTime() + 18 * 24 * 60 * 60 * 1000).format(hmr);
+                    } else {
+                        return dayjs(new Date(order.created).getTime() + 19 * 24 * 60 * 60 * 1000).format(hmr);
+                    }
+                } else {
+                    return dayjs(new Date().getTime() + 18 * 24 * 60 * 60 * 1000).format(hmr);
+                }
+            }
+        }
     }
 </script>
 <style scoped>

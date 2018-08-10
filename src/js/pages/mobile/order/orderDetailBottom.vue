@@ -10,11 +10,14 @@
             <text class="od-button-1" @click="deleteOrder">Delete</text>
             <text class="od-button" @click="jumpHome">Buy Again</text>
         </div>
+        <div class="wrapper" v-if="order.orderStatus == 'Paid'">
+            <text class="od-button-1" @click="tracking">Cancel Order</text>
+        </div>
         <div class="wrapper" v-if="order.orderStatus == 'Packing'">
-            <text class="od-button-1" @click="cancel">Cancel Order</text>
+            <text class="od-button-1" @click="cancel">Track Package</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Audit canceled'">
-            <text class="od-text-2">Order cancellation pending </text>
+            <text class="od-text-2">Order cancellation pending</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Shipped'">
             <text class="od-button" @click="tracking">Track Package</text>
@@ -66,7 +69,8 @@
                     name: 'order.address.tracking',
                     type: 'PUSH',
                     params: {
-                        id: this.order.id
+                        id: this.order.id,
+                        status: this.order.orderStatus
                     }
                 })
             },

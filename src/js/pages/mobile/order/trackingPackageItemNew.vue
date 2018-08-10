@@ -39,7 +39,21 @@
                 <text class="iconfont gb-box-icon">&#xe6fb;</text>
             </div>
             <div class="gb-box-right">
-                <text class="gb-text gb-text-colo">Your order has been shipped. Your tracking info will be updated by courier later.</text>
+                <text class="gb-text gb-text-colo">Your order has been shipped out from our warehouse. Your tracking details will be updated by courier later.</text>
+            </div>
+        </div>
+        <div class="gb-box" v-if="paidTime">
+            <div class="gb-box-left">
+                <text class="gb-text-2">{{getNewYear(paidTime)}}</text>
+                <text class="gb-text-2">{{getNewMonth(paidTime)}}</text>
+                <text class="gb-text-3">{{getNewHour(paidTime)}}</text>
+            </div>
+            <div class="gb-box-line"></div>
+            <div class="gb-box-center">
+                <text class="iconfont gb-box-icon">&#xe6fb;</text>
+            </div>
+            <div class="gb-box-right">
+                <text class="gb-text gb-text-colo">The manufacturer is preparing for your order now. Your products will be shipped to our warehouse in 2-3 days.</text>
             </div>
         </div>
         <div class="gb-box" v-if="paidTime">
@@ -52,7 +66,7 @@
                 <text class="iconfont gb-box-icon">&#xe6fb;</text>
             </div>
             <div class="gb-box-right">
-                <text class="gb-text gb-text-colo">Your order is being processed.</text>
+                <text class="gb-text gb-text-colo">Your order has been confirmed.</text>
             </div>
         </div>
     </div>

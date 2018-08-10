@@ -59,10 +59,7 @@
                                 backCallback: () => {
                                     that.$router.open({
                                         name: 'order',
-                                        type: 'PUSH',
-                                        params: {
-                                            tab: 1
-                                        }
+                                        type: 'PUSH'
                                     });
                                     that.$router.finish();
                                     that.$event.emit('closePayment');
@@ -103,10 +100,7 @@
                                 backCallback: () => {
                                     that.$router.open({
                                         name: 'order',
-                                        type: 'PUSH',
-                                        params: {
-                                            tab: 1
-                                        }
+                                        type: 'PUSH'
                                     });
                                     that.$router.finish();
                                     that.$event.emit('closePayment');

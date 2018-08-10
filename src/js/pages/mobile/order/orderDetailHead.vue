@@ -4,6 +4,7 @@
             <div class="gb-bg">
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Canceled'">&#xe711;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Unpaid'">&#xe702;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Paid'">&#xe702;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Packing' || order.orderStatus == 'Audit canceled'">&#xe70d;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Shipped'">&#xe712;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Completed'">&#xe6ed;</text>

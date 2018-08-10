@@ -6,7 +6,6 @@
     </div>
 </template>
 <script>
-    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const pay = weex.requireModule('PayModule');
     export default {
         props: ['order', 'method', 'source'],
@@ -96,10 +95,7 @@
                                         } else {
                                             that.$router.open({
                                                 name: 'order',
-                                                type: 'PUSH',
-                                                params: {
-                                                    tab: 1
-                                                }
+                                                type: 'PUSH'
                                             });
                                         }
                                     } else {
@@ -204,10 +200,7 @@
                                         } else {
                                             that.$router.open({
                                                 name: 'order',
-                                                type: 'PUSH',
-                                                params: {
-                                                    tab: 1
-                                                }
+                                                type: 'PUSH'
                                             });
                                         }
                                     } else {

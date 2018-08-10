@@ -47,6 +47,9 @@
                 </div>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Packing'">
+                <text class="od-button-1" @click="tracking">Cancel Order</text>
+            </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Paid'">
                 <text class="od-button-1" @click="cancel">Cancel Order</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Audit canceled'">
@@ -115,7 +118,8 @@
                     name: 'order.address.tracking',
                     type: 'PUSH',
                     params: {
-                        id: this.order.id
+                        id: this.order.id,
+                        status: this.order.orderStatus
                     }
                 })
             },
