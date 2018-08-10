@@ -68,6 +68,7 @@
                 cardArr: false,
                 cardMoney: '',
                 flag: 0,
+                PS: '',
                 emptyImg: {
                     point100: 'bmlocal://assets/100-min-no.png',
                     point150: 'bmlocal://assets/150-min-no.png',
@@ -132,10 +133,6 @@
                         return
                     } else {
                         googleAnalytics.recordEvent('PayGiftCard', 'Choose a Gift Card', this.selCard.share, 0);
-                        this.$notice.toast({
-                            message: this.selCard
-                        });
-                        return
                         this.$router.back();
                         this.$router.setBackParams({
                             card: this.selCard
