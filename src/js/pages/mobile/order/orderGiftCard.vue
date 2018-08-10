@@ -7,7 +7,7 @@
 
             <div v-if="cardArr.length===0" class="empty-div">
                 <image  src="bmlocal://assets/empty.png" class="empty-img"></image>
-                <text class="empty-txt">No gift card Available.</text>
+                <text class="empty-txt">No gift card available.</text>
             </div>
 
 
@@ -36,7 +36,7 @@
 
         <div class="bottom-btn" v-if="cardArr.length!==0">
             <text class="bottom-btn-txt1" @click="backPre(1)">Apply</text>
-            <text class="bottom-btn-txt2" @click="backPre(2)">Cancel</text>
+            <text class="bottom-btn-txt2" @click="backPre(2)">Reset</text>
         </div>
     </div>
 </template>
@@ -101,9 +101,6 @@
                             }
                         }
                     }
-                    if (this.flag == 0) {
-                        this.selCard = this.cardArr[0]
-                    }
                     if (this.cardArr.length === 0) {
                         this.card = ''
                     }
@@ -115,25 +112,35 @@
             },
             tickCard (i, card) {
                 if (this.cardMoney < card.lowestAmount) {
+                    this.selCard = '';
                     return
+                } else {
+                    this.selCardId = ''
+                    this.selCard = card
+                    this.flag = i;
                 }
-                this.selCardId=''
-                this.selCard = card
-                this.flag = i;
             },
             backPre (p) {
                 if (p === 1) {
+                    // this.$notice.toast({
+                    //     message: this.selCard
+                    // });
                     if (this.selCard == '') {
                         this.$notice.toast({
-                            message: 'Please select card frist!'
+                            message: 'Please choose a gift card first!'
                         });
                         return
+                    } else {
+                        googleAnalytics.recordEvent('PayGiftCard', 'Choose a Gift Card', this.selCard.share, 0);
+                        this.$notice.toast({
+                            message: this.selCard
+                        });
+                        return
+                        this.$router.back();
+                        this.$router.setBackParams({
+                            card: this.selCard
+                        })
                     }
-                    googleAnalytics.recordEvent('PayGiftCard', 'Choose a Gift Card', this.selCard.share, 0);
-                    this.$router.back();
-                    this.$router.setBackParams({
-                        card: this.selCard
-                    })
                 } else {
                     this.$router.back()
                     this.$router.setBackParams({
