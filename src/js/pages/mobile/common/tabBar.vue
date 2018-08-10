@@ -24,7 +24,7 @@ export default {
     },
     data () {
         return {
-            pIndexKey: 'drops'
+            pIndexKey: 'home'
         }
     },
     watch: {

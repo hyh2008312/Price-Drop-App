@@ -46,7 +46,7 @@
                     animation.transition(this.$refs.notice, {
                         styles: {
                             opacity: 1,
-                            transform: 'translateY(' + (-96 * (e + 1)) + 'px)'
+                            transform: 'translateY(' + (-80 * (e + 1)) + 'px)'
                         },
                         duration: 2500,
                         timingFunction: 'ease',
@@ -58,7 +58,7 @@
                             if (e == that.items.length - 1) {
                                 that.$emit('noticeFinished', {
                                     status: 'finished'
-                                })
+                                });
                                 return
                             }
                             that.aniNotice(e)
@@ -77,7 +77,7 @@
                     timingFunction: 'ease',
                     delay: 0
                 }, function () {
-                    that.isOnAni = false
+                    that.isOnAni = false;
                     that.init()
                 })
             },
@@ -93,14 +93,14 @@
     }
 
     .wrapper{
-        width: 718px;
-        height: 96px;
+        width: 622px;
+        height: 80px;
         overflow: hidden;
     }
 
     .inner-container{
-        width: 718px;
-        height: 96px;
+        width: 622px;
+        height: 80px;
         justify-content: start;
         flex-direction: row;
         align-items: center;
@@ -111,7 +111,7 @@
         height: 64px;
         overflow: hidden;
         border-radius: 32px;
-        margin-left: 32px;
+        margin-left: 8px;
     }
 
     .header-image{
@@ -121,12 +121,11 @@
 
     .tlt {
         color: rgba(0,0,0,0.87);
-        width: 582px;
-        padding: 10px;
+        width: 530px;
         font-size: 24px;
         lines: 1;
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 12px;
+        margin-right: 8px;
         text-overflow: ellipsis;
     }
 </style>

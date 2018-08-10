@@ -67,15 +67,25 @@ export default {
             navShow: false,
             statusBarStyle: 'LightContent'
         });
-        util.initIconFont()
-        this.androidFinishApp()
-        this.initPush()
-        this.getVersion()
+        util.initIconFont();
+        this.androidFinishApp();
+        this.initPush();
+        this.getVersion();
+        this.$event.on('changeTab', param => {
+            this.selectedTab = param.tab;
+            this.items.forEach((val) => {
+                if (val.key === this.selectedTab) {
+                    val.visibility = 'visible';
+                    return
+                }
+                val.visibility = 'hidden';
+            })
+        });
     },
     data () {
         return {
             items: tabConfig,
-            selectedTab: 'drops',
+            selectedTab: 'home',
             isFirstLogin: false,
             show: false
         }

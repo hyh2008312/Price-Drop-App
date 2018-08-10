@@ -1,7 +1,7 @@
 <template>
     <slider class="slider" auto-play="true" interval="5000">
         <div class="frame" v-for="img in imageList"  @click="jumpDetail(img.url)">
-            <image class="image" resize="cover" :src="img.image || src"></image>
+            <image class="image" resize="cover" :src="img.image"></image>
         </div>
         <indicator class="indicator"></indicator>
     </slider>

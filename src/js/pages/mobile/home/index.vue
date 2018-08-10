@@ -2,14 +2,15 @@
     <div class="wrapper" ref="header">
         <!--<home-header></home-header>-->
         <div class="status-bar"></div>
-        <top-channel @change="onchange" ref="topChannel"
-                     :activeIndex="activeIndex" :channelList="channelList"></top-channel>
+        <div class="header">
+            <text class="header-title">PriceDrop</text>
+            <div class="box-bg" @click="openNotification">
+                <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
+                <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
+            </div>
+        </div>
         <div :style="height" class="box">
-            <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
-                <suggest></suggest>
-                <category v-for="(i, _index) in channelList" v-if="_index > 0" :key="i.id"
-                          :activeIndex="_index" :index="activeIndex" :id="i.id" :item="i"></category>
-            </slider>
+            <suggest></suggest>
         </div>
     </div>
 </template>
@@ -19,9 +20,9 @@ import suggest from './suggest';
 import category from './category';
 import topChannel from './topChannel';
 import { Utils } from 'weex-ui';
-import { CHANNELLIST } from './config'
+import { CHANNELLIST } from './config';
 
-const animation = weex.requireModule('animation')
+const animation = weex.requireModule('animation');
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
@@ -36,6 +37,10 @@ export default {
         this.height = { height: (pageHeight - 112 - 112 - 48) + 'px' };
         this.getChannel();
         this.initGoogleAnalytics();
+        this.$event.on('getRead', param => {
+            this.unread = param.unread
+        });
+        this.getUnread();
     },
     data () {
         return {
@@ -46,7 +51,9 @@ export default {
             positionY: 0,
             deltaX: 0,
             deltaY: 0,
-            headAni: false
+            headAni: false,
+            unread: 0,
+            isFirstLoad: false
         }
     },
     methods: {
@@ -142,6 +149,28 @@ export default {
                     });
                 }
             }
+        },
+        getUnread () {
+            this.$storage.get('token').then((data) => {
+                if (data && !this.isFirstLoad) {
+                    this.isFirstLoad = true;
+                    this.$fetch({
+                        method: 'GET',
+                        name: 'user.userprofile',
+                        header: {
+                            isLoginPop: true
+                        }
+                    }).then((res) => {
+                        this.unread = res.unreadNumber;
+                    }).catch((res) => {});
+                }
+            });
+        },
+        openNotification () {
+            this.$router.open({
+                name: 'my.notice',
+                type: 'PUSH'
+            })
         }
     }
 }

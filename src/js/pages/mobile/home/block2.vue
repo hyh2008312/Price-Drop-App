@@ -1,6 +1,20 @@
 <template>
     <div class="wrapper">
-        <div class="tlt-box" @click="jumpActivity">
+        <div class="gd-top">
+            <div class="gd-top-left">
+                <text class="title">Flash Sale</text>
+                <wxc-countdown tpl="{h}:{m}:{s}"
+                               :time="time"
+                               :timeBoxStyle="{backgroundColor: '#000', height: '36px', width: '36px','border-radius': '4px'}"
+                               :timeTextStyle="{fontSize: '24px', color: '#FFF'}"
+                               :dotTextStyle="{color: '#000', fontSize: '24px'}"
+                               :dotBoxStyle="{width: '10px'}"
+                               :style="{justifyContent: 'center'}">
+                </wxc-countdown>
+            </div>
+            <text class="title-1">VIEW MORE</text>
+        </div>
+        <div class="tlt-box" @click="jumpActivity" v-if="false">
             <image class="tlt-image" resize="cover" :src="head.image"></image>
             <div class="tlt-bg" v-if="false">
                 <text class="tlt tlt-new">{{head.name}}</text>
@@ -20,19 +34,25 @@
                     <text class="gd-info">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                 </div>
                 <text class="gd-price">Rs.{{i.saleUnitPrice}}</text>
-                <text class="gd-button">Buy Now</text>
             </div>
         </scroller>
     </div>
 </template>
 <script>
 import preload from '../common/preloadImg';
+import { WxcCountdown } from 'weex-ui';
 
 export default {
     components: {
-        preload
+        preload,
+        WxcCountdown
     },
     props: ['head'],
+    data () {
+        return {
+            time: 1532165015000
+        }
+    },
     methods: {
         jumpActivity () {
             this.$router.open({
@@ -73,6 +93,36 @@ export default {
 .wrapper {
     background-color: #fff;
     padding-bottom: 16px;
+}
+
+.gd-top{
+    width: 750px;
+    height: 90px;
+    padding: 48px 32px 24px 32px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gd-top-left{
+    flex-direction: row;
+    align-items: center;
+    height: 38px;
+}
+
+.title{
+    font-family: ProximaNova;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 38px;
+    margin-right: 24px;
+}
+
+.title-1{
+    font-family: ProximaNova;
+    font-size: 24px;
+    color: #EF8A31;
+    line-height: 28px;
 }
 
 .tlt-box {
@@ -141,11 +191,10 @@ export default {
 
 .box {
     width: 750px;
-    height: 474px;
-    padding-top: 16px;
-    padding-bottom: 32px;
-    padding-left: 8px;
-    padding-right: 8px;
+    height: 394px;
+    padding-top: 8px;
+    padding-left: 24px;
+    padding-right: 24px;
     flex-direction: row;
 }
 
@@ -222,21 +271,5 @@ export default {
     text-overflow: ellipsis;
     text-align: center;
     text-decoration: line-through;
-}
-
-.gd-button{
-    margin-top: 16px;
-    font-size: 24px;
-    font-weight: bold;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #EF8A31;
-    color: #EF8A31;
-    border-radius: 4px;
-    line-height: 44px;
-    width: 144px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
 }
 </style>

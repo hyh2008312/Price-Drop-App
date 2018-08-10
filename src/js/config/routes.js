@@ -11,6 +11,9 @@ export default {
     'mobile.activity': {
         url: '/pages/mobile/activity/index.js'
     },
+    'goods.category': {
+        url: '/pages/mobile/home/category.js'
+    },
     'goods.details': {
         url: '/pages/mobile/shop/goodsDetail.js'
     },

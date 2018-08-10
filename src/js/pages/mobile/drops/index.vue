@@ -220,7 +220,7 @@
                     this.$refs.refresh.refreshEnd();
                     this.$nextTick(() => {
                         this.isLoading = false
-                    })
+                    });
                     return
                 }
                 if (this.isCuting) {
