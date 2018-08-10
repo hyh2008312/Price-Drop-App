@@ -38,5 +38,5 @@ export const CHANNELLIST = [{
 }, {
     name: 'Fashion'
 }, {
-    name: 'Kitchen'
+    name: 'Lifestyle'
 }];

@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="inner-box" @click="jumpActivity(i)">
-            <text class="title">SHOP THESE FROM RS.0.00</text>
+            <text class="title">Invite Friends to Unlock Rs.0 Price!</text>
             <div class="drop-bg">
                 <div class="i-good" v-for="i in drops" >
                     <div class="gd-bg">

@@ -10,6 +10,10 @@
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <header>
                 <div class="category-header">
+                    <div class="category-left" @click="openDialog">
+                        <text class="category-left-text">{{selectedSort.text}}</text>
+                        <text class="iconfont category-left-icon">&#xe6fd;</text>
+                    </div>
                     <text class="iconfont category-arrange" v-if="arrangement == false" @click="changeArrangement">&#xe742;</text>
                     <text class="iconfont category-arrange" v-if="arrangement == true" @click="changeArrangement">&#xe743;</text>
                 </div>
@@ -23,7 +27,20 @@
                 <text class="indicator">loading...</text>
             </loading>
         </list>
-
+        <toggle :have-overlay="isTrue"
+                   popup-color="rgba(255, 255, 255, 0)"
+                   :show="isCancelBottomShow"
+                   @wxcPopupOverlayClicked="popupCancelAutoClick"
+                   ref="wxcCancelPopup"
+                   pos="top"
+                   height="272">
+            <div class="popup-cancel">
+                <div v-for="item in sort">
+                    <text class="popup-text" :class="[item.value == selectedSort.value?'popup-text-active': '']"
+                    @click="chooseSort(item)">{{item.text}}</text>
+                </div>
+            </div>
+        </toggle>
     </div>
 </template>
 <script>
@@ -32,6 +49,7 @@
     import preload from '../common/preloadImg';
     import block3 from './block3';
     import block7 from './block7';
+    import toggle from './toggle';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
@@ -39,7 +57,8 @@
             'refresher': refresher,
             preload,
             block7,
-            block3
+            block3,
+            toggle
         },
         created () {},
         eros: {
@@ -64,7 +83,23 @@
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid(),
                 arrangement: false,
-                goodsSave: []
+                goodsSave: [],
+                sort: [{
+                    value: false,
+                    text: 'New Arrivals'
+                }, {
+                    value: 'price_high',
+                    text: 'Price Low to High'
+                }, {
+                    value: 'price_low',
+                    text: 'Price High to Low'
+                }],
+                selectedSort: {
+                    value: false,
+                    text: 'New Arrivals'
+                },
+                isTrue: true,
+                isCancelBottomShow: false
             }
         },
         methods: {
@@ -181,6 +216,16 @@
                     this.goods = [...results];
                 }
                 this.$storage.set('categoryArrangement', this.arrangement);
+            },
+            openDialog () {
+                this.isCancelBottomShow = true;
+            },
+            popupCancelAutoClick () {
+                this.isCancelBottomShow = false;
+            },
+            chooseSort (item) {
+                this.selectedSort = item;
+                this.$refs.wxcCancelPopup.hide();
             }
         }
     }
@@ -210,6 +255,25 @@
         border-color: rgba(0,0,0,.08);
     }
 
+    .category-left{
+        margin-left: 32px;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .category-left-text{
+        font-family: ProximaNova;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 80px;
+    }
+
+    .category-left-icon{
+        margin-left: 16px;
+        font-size: 20px;
+        color: rgba(0,0,0,0.54);
+    }
+
     .state {
         width: 750px;
         height: 48px;
@@ -217,7 +281,6 @@
     }
 
     .navigation {
-        display: flex;
         width: 750px;
         height: 112px;
         background-color: #fff;
@@ -358,5 +421,31 @@
         width: 750px;
         height: 26px;
         background-color: #fff;
+    }
+
+    .popup-cancel {
+        height: 272px;
+        width: 750px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: rgba(0,0,0, 0.12);
+        background-color: #fff;
+        overflow: hidden;
+        padding: 16px 32px;
+    }
+
+    .popup-text{
+        font-family: ProximaNova;
+        font-size: 28px;
+        line-height: 80px;
+        width: 686px;
+        text-align: center;
+    }
+
+    .popup-text-active{
+        font-weight: bold;
+        color: #EF8A31;
     }
 </style>

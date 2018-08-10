@@ -14,7 +14,7 @@
                 <div class="drop-bg"></div>
                 <div class="drop-title-bg">
                     <div class="drop-title">
-                        <text class="drop-title-text">Welcome to Drop Price</text>
+                        <text class="drop-title-text">Start Your Drop Now</text>
                     </div>
                     <text class="iconfont drop-title-icon">&#xe740;</text>
                 </div>
