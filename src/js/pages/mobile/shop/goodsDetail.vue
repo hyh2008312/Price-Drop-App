@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="dec-word" @click="openShip(2)"   >
-                    <text class="dec">Shipping & Delivery</text>
+                    <text class="dec">Processing & Delivery Time</text>
                     <text class="iconfont dec-arrows">&#xe626;</text>
 
                 </div>

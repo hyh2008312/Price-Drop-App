@@ -13,6 +13,9 @@ export const DropsQA = [{
 }, {
     question: 'How many times can a user help others drop the price?',
     answer: 'Each user can only help others drop the price up to 10 times a day for different products.'
+}, {
+    question: 'How many free products can I get from Drops every month?',
+    answer: 'Due to the limited quantity of products, each user can only get one free product through Drops every month.'
 } ]
 export const OrderQA = [{
     question: 'How do I check on the status of my order?',
@@ -73,9 +76,9 @@ export const ReturnsQA = [{
 
 }, {
     question: 'Who is responsible for the return shipping? ',
-    answer: 'If the return is caused by PriceDrop’s error, we will refund return shipping costs up to a certain amount. You will need to pay the carrier at the time of shipping and ask for a payment receipt.\n' +
-    '\nThe return shipping costs will be covered along with the refund. \n' +
-    '\nIf the return is not caused by PriceDrop’s error, you will need to pay for the return shipping fee.We recommend that you choose a local carrier with a cheaper price for return shipping. \n'
+    answer: 'If the return is caused by PriceDrop’s error, we will refund return shipping costs up to a certain amount through gift card. You will need to pay the carrier at the time of shipping and ask for a payment receipt.\n' +
+    '' +
+    '\nIf the return is not caused by PriceDrop’s error, you will need to pay for both the return shipping fee and order shipping fee. We recommend that you choose a local carrier with a cheaper price for return shipping. \n'
 
 }, {
     question: 'How long does it take to receive the refund?',
