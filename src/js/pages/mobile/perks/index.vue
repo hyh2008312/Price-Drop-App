@@ -129,15 +129,15 @@
                     }
                 })
             },
-            // openNewPage () {
-            //     this.$router.open({
-            //         name: 'flash',
-            //         type: 'PUSH'
-            //         // params: {
-            //         //     card: id
-            //         // }
-            //     })
-            // }
+            openNewPage () {
+                this.$router.open({
+                    name: 'flash',
+                    type: 'PUSH'
+                    // params: {
+                    //     card: id
+                    // }
+                })
+            }
         }
     }
 </script>

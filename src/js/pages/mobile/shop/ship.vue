@@ -80,6 +80,7 @@
                 <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
                 <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">3 - 5  business days</text>  </div>
                 <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}} days</text> </div>
+                <div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword"> {{EstimatedTimeA}} ~ {{EstimatedTimeB}} </text> </div>
                 <!--<div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>-->
             </div>
             <!--</scroller>-->
@@ -91,6 +92,7 @@
 <script>
     import { QA } from './config'
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+    import dayjs from 'dayjs';
     export default {
         components: {
         },
@@ -105,6 +107,7 @@
                 }
             })
             this.QAArr = QA
+            this.getNowDay()
             googleAnalytics.trackingScreen('Product Detail Ship');
         },
         data () {
@@ -113,12 +116,21 @@
                 aa: '',
                 shipA: false,
                 shipB: false,
-                drop: ''
+                drop: '',
+                EstimatedTimeA: '',
+                EstimatedTimeB: ''
             }
         },
         methods: {
             loginBack () {
                 this.$router.finish();
+            },
+            getNowDay () {
+               const date = new Date().valueOf();
+               const tmp = (date + (24 * 60 * 60 * 1000 * 4))
+               this.EstimatedTimeA = dayjs(new Date(tmp)).format('MM-DD')
+               this.EstimatedTimeB = dayjs(new Date(date + (24 * 60 * 60 * 1000 * 10))).format('MM-DD')
+                // return tmp
             }
         }
     }

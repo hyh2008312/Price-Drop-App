@@ -355,7 +355,9 @@
                                 needAuth: true
                             }
                         }).then((res) => {
-
+                            // this.$notice.alert({
+                            //     message: res
+                            // })
                             this.nickname = res.firstName + res.lastName
                             this.fname = res.firstName
                             this.lname = res.lastName

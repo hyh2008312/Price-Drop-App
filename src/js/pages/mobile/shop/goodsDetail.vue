@@ -20,7 +20,9 @@
                 <text class="iiiright" @click="openLink">&#xe700;</text>
                 <div class="red-dot" v-if="dropGoods>0"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
 
-
+                <div class="flash-sales" v-if="isflash== true">
+                    <text class="flash-sales-word">Flash Sales</text> <text class="flash-sales-time">12:00:00</text>
+                </div>
 
 
                 <text class="onetitle">{{goods.title}}</text>
@@ -314,6 +316,7 @@
                 user: null,
                 opacity: 0,
                 category: '',
+                isflash: true,
                 tmp: '',
                 tmpArray: []
             }
@@ -1199,7 +1202,23 @@
     }
     .scroller{
         max-height: 500px;
-
+    }
+    .flash-sales{
+        flex-direction: row;
+        justify-content: start;
+        background-color: #EF8A31;
+        padding: 20px;
+    }
+    .flash-sales-word{
+        font-style: italic;
+        margin-left: 32px;
+        margin-right: 40px;
+        font-size: 28px;
+        color: #FFFFFF;
+    }
+    .flash-sales-time{
+        font-size: 28px;
+        color: #FFFFFF;
     }
     .popup-content{
         height: 718px;

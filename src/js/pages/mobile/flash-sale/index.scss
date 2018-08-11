@@ -1,0 +1,257 @@
+body{
+  background-color: #fff;
+}
+
+.iconfont {
+  font-family: iconfont;
+}
+
+.status-bar{
+  position: fixed;
+  top: 0;
+  height: 48px;
+  background-color: #000;
+  width: 750px;
+}
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f1f1f1;
+}
+
+.cell-button {
+  //background-color: #888888;
+
+  padding-bottom: 16px;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.box{
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 750px;
+}
+
+.slider{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.container-1{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+}
+
+.container-2{
+  margin-top: 86px;
+  width: 750px;
+  align-items: center;
+}
+
+.pay-image{
+  width: 202px;
+  height: 202px;
+}
+
+.address-title{
+  margin-top: 32px;
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+}
+
+.indicator {
+  width: 750px;
+  text-align: center;
+  color: #888888;
+  font-size: 28px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.popup-content {
+  height: 416px;
+  width: 750px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.popup-content-top{
+  height: 308px;
+  width: 750px;
+  padding: 48px 32px;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(0,0,0,0.08);
+}
+
+.popup-content-title{
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: bold;
+}
+
+.popup-content-title-bg{
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-content-bottom{
+  height: 108px;
+  width: 750px;
+  padding: 0 16px;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.popup-content-text{
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.popup-content-price{
+  font-size: 28px;
+  line-height: 34px;
+  margin-right: 24px;
+  font-weight: bold;
+}
+
+.popup-content-button{
+  font-size: 28px;
+  line-height: 80px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 24px;
+  border-radius: 4px;
+  background-color: #EF8A31;
+  color: #fff;
+}
+
+.popup-close{
+  font-size: 32px;
+  line-height: 32px;
+  color: rgba(0,0,0, 0.54);
+}
+
+
+.popup-cancel {
+  height: 583px;
+  width: 750px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.popup-cancel-top{
+  height: 463px;
+  width: 750px;
+  padding: 48px 32px;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(0,0,0,0.08);
+  align-items: center;
+}
+
+.popup-cancel-title{
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.popup-cancel-title-1{
+  font-size: 24px;
+  line-height: 28px;
+  margin-top: 32px;
+  text-align: center;
+  width: 686px;
+}
+
+.popup-cancel-active{
+  color: #EF8A31;
+}
+
+.popup-cancel-mt{
+  margin-top: 32px;
+  width: 686px;
+}
+
+.popup-cancel-bottom{
+  height: 120px;
+  width: 750px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.popup-cancel-button{
+  font-size: 28px;
+  line-height: 120px;
+  font-weight: bold;
+  width: 375px;
+  border-right-color: rgba(0,0,0, 0.08);
+  border-right-width: 1px;
+  border-right-style: solid;
+  text-align: center;
+  color: rgba(0,0,0,0.38);
+}
+
+.popup-cancel-button-1{
+  font-size: 28px;
+  line-height: 120px;
+  font-weight: bold;
+  width: 375px;
+  text-align: center;
+  color: #EF8A31;
+}
+
+.popup-delete-container{
+  width: 514px;
+  height: 258px;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 32px;
+}
+
+.popup-delete-title{
+  font-size: 28px;
+  line-height: 48px;
+}
+
+.popup-delete-bottom{
+  margin-top: 48px;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.popup-delete-button{
+  font-size: 28px;
+  line-height: 34px;
+  margin-right: 48px;
+  font-weight: bold;
+  color: #EF8A31;
+}
+
+.popup-delete-button-1{
+  font-size: 28px;
+  line-height: 34px;
+  color: rgba(0,0,0,0.54);
+}
