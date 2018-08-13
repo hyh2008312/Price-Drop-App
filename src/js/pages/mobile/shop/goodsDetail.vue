@@ -19,11 +19,7 @@
                 </div>
                 <text class="iiiright" @click="openLink">&#xe700;</text>
                 <div class="red-dot" v-if="dropGoods>0"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
-
-                <div class="flash-sales" v-if="isflash== true">
-                    <text class="flash-sales-word">Flash Sales</text> <text class="flash-sales-time">12:00:00</text>
-                </div>
-
+                <flash v-if="purchaseMethod==='flash'" :hour="ahour" :min="amin" :second="asecond" :fstatus="flashSale.flashStatus" ></flash>
 
                 <text class="onetitle">{{goods.title}}</text>
                 <div class="count-div">
@@ -71,10 +67,7 @@
                          <div class="progress-line-right"></div>
                      </div>
                  </div>
-
-
-
-                <div v-if="tabshow==true" style="position: sticky">
+                 <div v-if="tabshow==true" style="position: sticky">
 
                     <tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>
 
@@ -212,6 +205,7 @@
 </template>
 <script>
     import header from './header';
+    import flash from './flash-item';
     import cimg from './customImg';
     import preload from '../common/preloadImg';
     import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
@@ -228,6 +222,7 @@
     export default {
         components: {
             'topic-header': header,
+            'flash': flash,
             WxcCell, WxcButton, WxcPopup, WxcMask,
             'tab': tab,
             'cimg': cimg,
@@ -265,7 +260,7 @@
                    title: '',
                    mainImage: '',
                    salePrice: '',
-                   currentPrice: '',
+                   currentPrice: '',  // 计算价钱的金额
                    attributes: '',
                    productId: '',
                    quantity: '1',
@@ -273,7 +268,8 @@
                    shippingPrice: '',
                    shippingTimeMin: '',
                    shippingTimeMax: '',
-                   proId: ''
+                   proId: '',
+                   flashSale: {}
                 },
                 goodsImg: [],
                 tabsItems: [{
@@ -316,10 +312,21 @@
                 user: null,
                 opacity: 0,
                 category: '',
-                isflash: true,
+                purchaseMethod: '',
+                flashSale: '',
+                NOW_DATE: '',
+                ahour: '',
+                amin: '',
+                asecond: '',
                 tmp: '',
                 tmpArray: []
             }
+        },
+        mounted () {
+            // setInterval(() => {
+            //     this.NOW_DATE = new Date().getTime();
+            // }, 1000);
+            // this.countDate(this.flashSale.endTime)
         },
         computed: {
             opacity: {
@@ -331,6 +338,7 @@
                     this.opacity = v
                 }
             }
+
         },
         created () {
             this.$notice.loading.show();
@@ -359,10 +367,22 @@
                 if (id) {
                     this.$fetch({
                         method: 'GET',
-                        url: `${baseUrl}/product/customer/detail/${id.id}/`,
-                        // url: `${baseUrl}/product/customer/detail/75/`,
+                        // url: `${baseUrl}/product/customer/detail/${id.id}/`,
+                        url: `${baseUrl}/product/customer/detail/189/`,
                         data: {}
                     }).then((res) => {
+                        this.purchaseMethod = res.purchaseMethod;
+                        if (this.purchaseMethod === 'flash') {
+                            this.flashSale = res.flashSale;
+                            this.nextPage.flashSale = res.flashSale;
+                            if (this.flashSale.flashStatus == 'Ongoing') {
+                                this.countDate(this.flashSale.endTime)
+                            } else {
+                                this.countDate(this.flashSale.startTime)
+                            }
+                        }
+
+                        // ---- 上面是闪购属性设置 下面是普通属性设置----
                         this.goods.title = res.title;
                         this.goods.price = res.saleUnitPrice;
                         this.goods.unitPrice = res.unitPrice;
@@ -405,6 +425,7 @@
                             this.canBuy = res.variants[0].isCanBuy;
                             this.variantsId = res.variants[0].id;
                             this.nextPage.id = res.variants[0].id;
+
                             this.nextPage.salePrice = res.variants[0].saleUnitPrice;
                             this.nextPage.currentPrice = res.variants[0].unitPrice;
                             // this.nextPage.mainImage =
@@ -417,18 +438,11 @@
                         this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
                         this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
                         this.isDrop = res.isDrop
-                        this.nextPage.proId = res.isDrop == false ? 'product' : '';
+                        this.nextPage.proId = this.purchaseMethod;
                         // nextPage 传给下一页组织的数据
 
                         if (res.newDescription != null) {
                             this.newDescription = res.newDescription
-                            // for (let i = 0; i < res.description.length; i++) {
-                            //     if (res.description[i].type == 'image') {
-                            //         this.decimg.push(res.description[i].context)
-                            //     } else {
-                            //         this.dectxt.push(res.description[i].context)
-                            //     }
-                            // }
                         }
                         if (res.categories && res.categories.length > 0) {
                             this.category = res.categories[0].name;
@@ -636,6 +650,7 @@
                 } else {
                     if (this.hasVariants === false) {
                         if (this.variantsId != '' && this.isDrop == false) {
+
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
@@ -836,6 +851,37 @@
                         dom.scrollToElement(this.$refs['tab'], { animated: false })
                     })
                 }
+            },
+            countDate (time) {
+                const self = this
+                // if (this.purchaseMethod == 'flash') {
+                setInterval(() => {
+                    this.NOW_DATE = new Date().getTime();
+
+                    const total = (new Date(time).getTime() - this.NOW_DATE) / 1000
+                    const day = Math.floor(total / (24 * 60 * 60))// 整天
+
+                    self.aday = day
+                    const afterDay = total - day * 24 * 60 * 60;
+                    self.ahour = Math.floor(afterDay / (60 * 60)); // 小时
+                    if (self.ahour < 10) {
+                        self.ahour = '0' + self.ahour
+                    }
+                    const afterHour = total - day * 24 * 60 * 60 - self.ahour * 60 * 60;
+                    self.amin = Math.floor(afterHour / 60); // 分钟
+                    if (self.amin < 10) {
+                        self.amin = '0' + self.amin
+                    }
+                    const afterMin = total - day * 24 * 60 * 60 - self.ahour * 60 * 60 - self.amin * 60;
+                    self.asecond = Math.floor(afterMin)// 秒
+                    if (self.asecond < 10) {
+                        self.asecond = '0' + self.asecond
+                    }
+                    // this.$notice.toast({
+                    //     message: self.ahour + ':' + self.amin + ':' + self.asecond
+                    // })
+                }, 1000);
+                // }
             }
 
         }
@@ -1203,23 +1249,7 @@
     .scroller{
         max-height: 500px;
     }
-    .flash-sales{
-        flex-direction: row;
-        justify-content: start;
-        background-color: #EF8A31;
-        padding: 20px;
-    }
-    .flash-sales-word{
-        font-style: italic;
-        margin-left: 32px;
-        margin-right: 40px;
-        font-size: 28px;
-        color: #FFFFFF;
-    }
-    .flash-sales-time{
-        font-size: 28px;
-        color: #FFFFFF;
-    }
+
     .popup-content{
         height: 718px;
         width: 750px;

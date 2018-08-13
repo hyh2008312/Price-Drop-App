@@ -41,7 +41,7 @@
 <script>
 import preload from '../common/preloadImg';
 import { WxcCountdown } from 'weex-ui';
-
+import { baseUrl } from '../../../config/apis'
 export default {
     components: {
         preload,
@@ -50,10 +50,31 @@ export default {
     props: ['head'],
     data () {
         return {
-            time: 1532165015000
+            time: 1532165015000,
+            goodsList: []
         }
     },
+    created () {
+      this.getGoodsDetail()
+    },
     methods: {
+        getGoodsDetail () {
+            this.$fetch({
+                method: 'GET',
+                url: `${baseUrl}/flashsale/flash/customer/home/`
+            }).then((res) => {
+                // this.$notice.alert({
+                //     message: res
+                // })
+                // this.getGoodsList()
+                this.$notice.loading.hide();
+            }).catch((res) => {
+                this.$notice.loading.hide();
+                this.$notice.toast({
+                    message: res
+                })
+            })
+        },
         jumpActivity () {
             this.$router.open({
                 name: 'mobile.activity',
