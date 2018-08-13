@@ -154,23 +154,37 @@ export default {
             this.$storage.get('token').then((data) => {
                 if (data && !this.isFirstLoad) {
                     this.isFirstLoad = true;
-                    this.$fetch({
-                        method: 'GET',
-                        name: 'user.userprofile',
-                        header: {
-                            isLoginPop: true
-                        }
-                    }).then((res) => {
-                        this.unread = res.unreadNumber;
-                    }).catch((res) => {});
+                    this.getUreadApi();
                 }
             });
         },
+        getUreadApi () {
+            this.$fetch({
+                method: 'GET',
+                name: 'user.userprofile',
+                header: {
+                    isLoginPop: true
+                }
+            }).then((res) => {
+                this.unread = res.unreadNumber;
+            }).catch((res) => {});
+        },
         openNotification () {
-            this.$router.open({
-                name: 'my.notice',
-                type: 'PUSH'
-            })
+            const user = this.$storage.getSync('user');
+            if (user) {
+                this.$router.open({
+                    name: 'my.notice',
+                    type: 'PUSH'
+                });
+            } else {
+                this.$event.on('login', params => {
+                    this.getUreadApi();
+                });
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                });
+            }
         }
     }
 }
