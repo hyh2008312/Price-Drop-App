@@ -12,7 +12,8 @@
                 <div class="category-header">
                     <div class="category-left" @click="openDialog">
                         <text class="category-left-text">{{selectedSort.text}}</text>
-                        <text class="iconfont category-left-icon">&#xe6fd;</text>
+                        <text class="iconfont category-left-icon" v-if="isCancelBottomShow == false">&#xe6fd;</text>
+                        <text class="iconfont category-left-icon-1" v-if="isCancelBottomShow == true">&#xe6fc;</text>
                     </div>
                     <text class="iconfont category-arrange" v-if="arrangement == false" @click="changeArrangement">&#xe742;</text>
                     <text class="iconfont category-arrange" v-if="arrangement == true" @click="changeArrangement">&#xe743;</text>
@@ -33,7 +34,7 @@
                    @wxcPopupOverlayClicked="popupCancelAutoClick"
                    ref="wxcCancelPopup"
                    pos="top"
-                   height="272">
+                   height="224">
             <div class="popup-cancel">
                 <div v-for="item in sort">
                     <text class="popup-text" :class="[item.value == selectedSort.value?'popup-text-active': '']"
@@ -143,7 +144,8 @@
                     data: {
                         cat: this.id,
                         page: this.page,
-                        page_size: this.pageSize
+                        page_size: this.pageSize,
+                        sort: this.selectedSort.value
                     }
                 }).then(data => {
                     this.length = Math.ceil(data.count / this.pageSize)
@@ -218,7 +220,11 @@
                 this.$storage.set('categoryArrangement', this.arrangement);
             },
             openDialog () {
-                this.isCancelBottomShow = true;
+                if (this.isCancelBottomShow == false) {
+                    this.isCancelBottomShow = true;
+                } else {
+                    this.$refs.wxcCancelPopup.hide();
+                }
             },
             popupCancelAutoClick () {
                 this.isCancelBottomShow = false;
@@ -226,6 +232,7 @@
             chooseSort (item) {
                 this.selectedSort = item;
                 this.$refs.wxcCancelPopup.hide();
+                this.getActivityProduct(true);
             }
         }
     }
@@ -270,6 +277,13 @@
 
     .category-left-icon{
         margin-left: 16px;
+        font-size: 20px;
+        color: rgba(0,0,0,0.54);
+    }
+
+    .category-left-icon-1{
+        margin-left: 16px;
+        margin-bottom: 12px;
         font-size: 20px;
         color: rgba(0,0,0,0.54);
     }
@@ -424,13 +438,22 @@
     }
 
     .popup-cancel {
-        height: 272px;
-        width: 750px;
+        margin-left: 32px;
+        height: 224px;
+        width: 260px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
-        border-top-style: solid;
-        border-top-width: 1px;
-        border-top-color: rgba(0,0,0, 0.12);
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgba(0,0,0, 0.12);
+        /*border-left-style: solid;*/
+        /*border-left-width: 1px;*/
+        /*border-left-color: rgba(0,0,0, 0.12);*/
+        /*border-bottom-style: solid;*/
+        /*border-bottom-width: 1px;*/
+        /*border-bottom-color: rgba(0,0,0, 0.12);*/
         background-color: #fff;
         overflow: hidden;
         padding: 16px 32px;
@@ -438,10 +461,9 @@
 
     .popup-text{
         font-family: ProximaNova;
-        font-size: 28px;
-        line-height: 80px;
+        font-size: 24px;
+        line-height: 64px;
         width: 686px;
-        text-align: center;
     }
 
     .popup-text-active{
