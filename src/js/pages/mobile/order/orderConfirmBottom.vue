@@ -115,6 +115,51 @@
                                 message: error
                             });
                         });
+                    } else if (that.order.proId == 'flash') {
+                        const voucherId = that.card ? that.card.id : null;
+                        that.$fetch({
+                            method: 'POST', // 大写
+                            name: 'order.create.pure',
+                            data: {
+                                flashPromotionId: that.order.flashSale.id,
+                                vid: that.order.id,
+                                quantity: that.order.quantity,
+                                voucherId
+                            },
+                            header: {
+                                needAuth: true
+                            }
+                        }).then(resData => {
+                            that.$notice.loading.hide();
+                            that.$event.emit('cutDetail');
+                            googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
+                            googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, 'flash sale', 'Rs', that.order.currentPrice);
+                            const order = resData;
+                            that.$router.open({
+                                name: 'order.payment',
+                                type: 'PUSH',
+                                params: {
+                                    source: 'confirm',
+                                    data: order
+                                },
+                                backCallback: () => {
+                                    that.$router.open({
+                                        name: 'order',
+                                        type: 'PUSH'
+                                    });
+                                    that.$router.finish();
+                                    that.$event.emit('closePayment');
+                                }
+                            });
+                            that.isFirst = true;
+                        }, error => {
+                            that.$notice.loading.hide();
+                            that.$event.emit('cutDetail');
+                            that.isFirst = true;
+                            that.$notice.toast({
+                                message: error
+                            });
+                        });
                     }
                 }
             }
