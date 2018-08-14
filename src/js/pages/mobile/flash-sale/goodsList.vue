@@ -165,7 +165,9 @@
                         });
                     }
                     this.refreshApiFinished()
+                    this.$notice.loading.hide();
                 }, error => {
+                    this.$notice.loading.hide();
                     // 错误回调
                     this.$notice.toast({
                         message: error

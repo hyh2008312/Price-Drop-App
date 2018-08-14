@@ -61,6 +61,9 @@
         },
         methods: {
             calc (a, b) {
+                // this.$notice.alert({
+                //     message: (a * b) / 100
+                // })
                 return ((a * b) / 100).toFixed(2)
             }
         },

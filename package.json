@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "bui-weex": "^0.2.5",
-    "dayjs": "^1.6.7",
+    "dayjs": "^1.6.9",
     "eros-cli": "^2.0.8-beta.1",
     "eros-widget": "^1.0.2-beta.1",
     "fsevents": "^1.2.3",

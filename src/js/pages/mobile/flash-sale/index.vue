@@ -5,7 +5,7 @@
         <top-channel @change="onchange" :activeIndex="activeIndex" :channelList="cardArr"></top-channel>
         <div :style="height" class="box">
             <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
-                <goods-list v-for="(i, index) in cardArr" :key="index"
+                <goods-list v-if="i.id" v-for="(i, index) in cardArr" :key="index"
                             :activeIndex="index" :index="activeIndex" :item="i" :listArr="cardArr"></goods-list>
             </slider>
         </div>
@@ -41,7 +41,20 @@
                 activeIndex: 0,
                 index: 0,
                 channelList: [],
-                cardArr: []
+                cardArr: [
+                    {
+                        flashStatus: 'Ongoing',
+                        startTime: new Date()
+                    },
+                    {
+                        flashStatus: 'Scheduled',
+                        startTime: new Date()
+                    },
+                    {
+                        flashStatus: 'Scheduled',
+                        startTime: new Date()
+                    }
+                ]
             }
         },
         methods: {
@@ -62,9 +75,7 @@
                     //     message: this.cardArr
                     // })
                     // this.getGoodsList()
-                    this.$notice.loading.hide();
                 }).catch((res) => {
-                    this.$notice.loading.hide();
                     this.$notice.toast({
                         message: res
                     })
