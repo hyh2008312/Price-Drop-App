@@ -17,30 +17,29 @@
                 <div class="iiileft-div" @click="$router.back">
                     <text class="iiileft">&#xe6f6;</text>
                 </div>
-                <text class="iiiright" @click="openLink">&#xe700;</text>
+                <text class="iiiright" v-if="purchaseMethod==='direct'||purchaseMethod==='drop'" @click="openLink">&#xe700;</text>
                 <div class="red-dot" v-if="dropGoods>0"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
                 <flash v-if="purchaseMethod==='flash'" :hour="ahour" :min="amin" :second="asecond" :fstatus="flashSale.flashStatus" ></flash>
 
                 <text class="onetitle">{{goods.title}}</text>
-                <div class="count-div">
-                    <text class=" count" v-if="isDrop" >Get it at</text>
-                    <text class=" price-name" v-if="!isDrop" >Exclusive Price:</text>
-                    <text class="count-bold" v-if="isDrop">Rs.{{lowestPrice}}</text>
-                    <text class="count-bold" v-if="!isDrop">Rs.{{goods.unitPrice}}</text>
-                    <text class="count-1" v-if="isDrop== true">by inviting your friends!</text>
+                <div class="count-div" >
+                    <text class=" count" v-if="purchaseMethod==='drop'" >Get it at</text>
+                    <text class=" price-name" v-if="(purchaseMethod==='flash'||purchaseMethod==='direct')" >Exclusive Price:</text>
+                    <text class="count-bold" v-if="(purchaseMethod==='flash'||purchaseMethod==='direct')">Rs.{{goods.unitPrice}}</text>
 
+                    <text class="count-bold" v-if="purchaseMethod==='drop'">Rs.{{lowestPrice}}</text>
+                    <text class="count-1" v-if="purchaseMethod==='drop'">by inviting your friends!</text>
                 </div>
-
                 <div class="count-div">
                     <text class=" price-name" >Original Price: </text><text class="price">Rs.{{goods.price}}</text>
-                    <text class="price-name price-price" v-if="!isDrop" >{{goods.priceoff}}% OFF</text>
+                    <text class="price-name price-price" v-if="purchaseMethod==='flash'||purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-off" v-if="this.shipObj.priceItem === '0.00'">Free Shipping</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
                 </div>
             </div>
-                 <div class="learn-drop" @click="openShip(1)" v-if="isDrop== true">
+                 <div class="learn-drop" @click="openShip(1)" v-if="isDrop">
                      <div class="learn-drop-itme1">
                          <text class="learn-drop-itmeh">How It Works</text>
                          <div class="learn-drop-itmed">
@@ -67,7 +66,7 @@
                          <div class="progress-line-right"></div>
                      </div>
                  </div>
-                 <div v-if="tabshow==true" style="position: sticky">
+                 <div v-if="tabshow" style="position: sticky">
 
                     <tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>
 
@@ -367,8 +366,8 @@
                 if (id) {
                     this.$fetch({
                         method: 'GET',
-                        // url: `${baseUrl}/product/customer/detail/${id.id}/`,
-                        url: `${baseUrl}/product/customer/detail/189/`,
+                        url: `${baseUrl}/product/customer/detail/${id.id}/`,
+                        // url: `${baseUrl}/product/customer/detail/189/`,
                         data: {}
                     }).then((res) => {
                         this.purchaseMethod = res.purchaseMethod;

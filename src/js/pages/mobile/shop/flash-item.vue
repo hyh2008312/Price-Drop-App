@@ -7,12 +7,37 @@
                 <text class="flash-sales-word">Rs.6.00</text>
                 <text class="flash-sales-word1">Rs.1299.00</text>
             </div>
+            <image class="flash-triangle" src="bmlocal://assets/right-01.png"></image>
             <div class="flash-sales-right">
                 <text class="flash-sales-tword">Ends In</text>
+
                 <div class="flash-sales-time">
-                    <text class="flash-sales-hh">{{hour}}:</text>
-                    <text class="flash-sales-hh">{{min}}:</text>
-                    <text class="flash-sales-hh">{{second}}</text>
+                    <text class="flash-sales-hh">{{hour||'00'}}</text>
+                    <text style="color: #EF8A31;font-size: 24px; padding-top: 10px;">:</text>
+                    <text class="flash-sales-hh">{{min||'00'}}</text>
+                    <text style="color: #EF8A31;font-size: 24px; padding-top: 10px;">:</text>
+                    <text class="flash-sales-hh" >{{second||'00'}}</text>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="flash-saless" v-if="fstatus== 'Scheduled'">
+            <div class="flash-sales-lefts">
+                <text class="flash-icon" >&#xe745;</text>
+                <text class="flash-sales-words">Rs.6.00</text>
+            </div>
+
+            <div class="flash-sales-rights">
+                <text class="flash-sales-twords">Start In</text>
+
+                <div class="flash-sales-times">
+                    <text class="flash-sales-hhs">{{hour||'00'}}</text>
+                    <text style="color: white;font-size: 24px;">:</text>
+                    <text class="flash-sales-hhs">{{min||'00'}}</text>
+                    <text style="color: white;font-size: 24px; ">:</text>
+                    <text class="flash-sales-hhs" >{{second||'00'}}</text>
                 </div>
 
 
@@ -42,23 +67,28 @@
 <style scoped>
     .flash-sales{
         flex-direction: row;
-        justify-content: space-between;
-        background-color: #EF8A31;
+        justify-content: space-around;
+        background-color: #FFEACF;
         /*padding: 30px 0;*/
         height: 80px;
-        /*transform: rotate(10deg);*/
     }
     .flash-sales-left{
         flex-direction: row;
         justify-content: start;
         align-items: center;
-
-        /*border-bottom-right-style:  ;*/
+        background-color: #EF8A31;
     }
     .flash-sales-right{
         flex-direction: row;
         justify-content: start;
+        align-items: center;
         background-color: #FFEACF;
+    }
+
+    .flash-triangle{
+        width: 40px;
+        height: 80px;
+        margin-right: 40px;
     }
     .flash-icon{
         font-family: iconfont;
@@ -76,22 +106,75 @@
     .flash-sales-word1{
         font-size: 24px;
         color: #FFFFFF;
+        padding-right:50px ;
         text-decoration: line-through;
         font-weight: 700;
     }
     .flash-sales-tword{
-
+        color:#EF8A31;
+        font-style: italic;
+        margin-right: 18px;
+        font-size: 32px;
     }
     .flash-sales-time{
         font-size: 28px;
         color: #FFFFFF;
         flex-direction: row;
         justify-content: start;
+        margin-right: 32px;
     }
     .flash-sales-hh{
+        font-family: ProximaNova;
         background-color: #EF8A31;
         color: white;
-        padding: 2px;
-        font-size: 24px;
+        border-radius: 6px;
+        padding: 5px;
+        margin: 5px;
+        font-size: 28px;
+    }
+
+
+
+    .flash-saless{
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: #00CFE3;
+        /*padding: 30px 0;*/
+        height: 80px;
+    }
+    .flash-sales-lefts{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        background-color: #00CFE3;
+    }
+    .flash-sales-words{
+        background-color: #00CFE3;
+        color: white;
+    }
+    .flash-sales-twords{
+        color:white;
+        font-style: italic;
+        margin-right: 18px;
+        font-size: 32px;
+    }
+    .flash-sales-rights{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        color: white;
+    }
+    .flash-sales-times{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        margin-right: 32px;
+    }
+    .flash-sales-hhs{
+        color: white;
+        font-family: ProximaNova;
+        padding: 5px;
+        margin: 5px;
+        font-size: 28px;
     }
 </style>

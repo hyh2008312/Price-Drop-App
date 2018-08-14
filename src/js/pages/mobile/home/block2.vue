@@ -12,7 +12,7 @@
                                :style="{justifyContent: 'center'}">
                 </wxc-countdown>
             </div>
-            <text class="title-1">VIEW MORE</text>
+            <text class="title-1" @click="openNewPage()">VIEW MORE</text>
         </div>
         <div class="tlt-box" @click="jumpActivity" v-if="false">
             <image class="tlt-image" resize="cover" :src="head.image"></image>
@@ -94,6 +94,15 @@ export default {
                 params: {
                     id: id
                 }
+            })
+        },
+        openNewPage () {
+            this.$router.open({
+                name: 'flash',
+                type: 'PUSH'
+                // params: {
+                //     card: id
+                // }
             })
         },
         countOff (s, o) {
