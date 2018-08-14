@@ -374,9 +374,9 @@
             },
             getGoodsDetail (id) {
                 if (id) {
-                    this.$notice.toast({
-                        message: id
-                    })
+                    // this.$notice.toast({
+                    //     message: id
+                    // })
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id.id}/`,
@@ -394,9 +394,6 @@
                                 this.countDate(this.flashSale.startTime)
                             }
                         }
-                        this.$notice.alert({
-                            message: res.flashSale
-                        })
                         // ---- 上面是闪购属性设置 下面是普通属性设置----
                         this.goods.title = res.title;
                         this.goods.price = res.saleUnitPrice;

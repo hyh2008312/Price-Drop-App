@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <topic-header title="Gift Card" leftBtn="icon"  ref="ref1" ></topic-header>
+        <topic-header title="Gift Voucher" leftBtn="icon"  ref="ref1" ></topic-header>
         <div class="blackheader"></div>
         <scroller class="main-list">
             <div class="overflow-top">
@@ -9,12 +9,12 @@
                         <image class="top-card-img"  :src="card.imageDetail"></image>
                     </div>
                     <div class="top-card-txt" >
-                        <text class="top-card-txt1" >{{card.name}} Gift Card</text>
+                        <text class="top-card-txt1" >{{card.name}} Gift Voucher</text>
 
                         <div class="top-card-txt2">
                             <text style="line-height: 42px;">• Points needed: {{card.pointNumber}}</text>
                             <text >• Only vaild for order above Rs.{{card.lowestAmount}}</text>
-                            <text >• The gift card doesn't apply to any Drops order. </text>
+                            <text >• The gift voucher doesn't apply to any Drops order. </text>
                         </div>
                     </div>
                 </div>
@@ -24,10 +24,10 @@
                 <div class="bottom-card">
 
                     <text class="bottom-card-txt1">Redeem Instruction</text>
-                    <text class="bottom-card-txt2">1. To redeem this gift card, please check your balance to ensure you have enough points.</text>
-                    <text class="bottom-card-txt2">2. Once you confirm to redeem this gift card, you cannot cancel it any more.</text>
-                    <text class="bottom-card-txt2">3. The gift card cannot be redeemed for cash at any time.</text>
-                    <text class="bottom-card-txt2">4. The gift card can only be used for orders above the minimum price during checkout, but it doesn't include any Drops order.</text>
+                    <text class="bottom-card-txt2">1. To redeem this gift voucher, please check your balance to ensure you have enough points.</text>
+                    <text class="bottom-card-txt2">2. Once you confirm to redeem this gift voucher, you cannot cancel it any more.</text>
+                    <text class="bottom-card-txt2">3. The gift voucher cannot be redeemed for cash at any time.</text>
+                    <text class="bottom-card-txt2">4. The gift voucher can only be used for orders above the minimum price during checkout, but it doesn't include any Drops order.</text>
 
                 </div>
             </div>
@@ -37,7 +37,7 @@
         </scroller>
 
         <NewDialog class="wxdialog"
-                    :content="'To redeem this gift card, you need to spend ' + card.pointNumber +' reward points'"
+                    :content="'To redeem this gift voucher, you need to spend ' + card.pointNumber +' reward points'"
                     :show="show"
                     :single="false"
                     :is-checked="isChecked"

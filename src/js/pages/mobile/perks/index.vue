@@ -6,7 +6,7 @@
             <div class="header">
                 <text class="header-word">Redeem Your Points for Free Gift Cards</text>
             </div>
-            <div class="overflow-mid" @click="openNewPage()">
+            <div class="overflow-mid">
                 <div class="mid-card">
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
@@ -40,7 +40,7 @@
                 <div class="gift-card" @click="redeemCard(i)">
                     <image class="gift-card-img"  :src="i.image"></image>
                     <div class="gift-card-txt">
-                        <text class="gift-card-txt1">{{i.name}} Gift Card</text>
+                        <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
                         <text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>
                     </div>
                     <!--<div class="gift-card-txt" v-if="i.id==1">-->

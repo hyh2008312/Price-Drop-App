@@ -40,7 +40,7 @@
                 <text class="center-border"></text>
                 <div class="card" @click="openCell(6)">
                     <text class="point-card-num">{{cardNumber}}</text>
-                    <text class="point-card-txt">My Gift Card</text>
+                    <text class="point-card-txt">My Gift Voucher</text>
                 </div>
 
             </div>

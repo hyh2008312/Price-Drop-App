@@ -61,7 +61,7 @@
 
                             <div v-if="id==4">
                                 <div class="price-div">
-                                    <text class="item-italic" >Please Note: If you bought this item with a gift card, we will refund the gift card to you in 3 business days.</text>
+                                    <text class="item-italic" >Please Note: If you bought this item with a gift voucher, we will refund the gift voucher to you in 3 business days.</text>
                                 </div>
                             </div>
 
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="card-bottom" v-if="i.noticeType=='card_expired_reminder'||i.noticeType=='card_expired_notice'" @click="openNew(5)">
-                            <text class="card-bottom-word" >Click to Check Your Gift Card</text>
+                            <text class="card-bottom-word" >Click to Check Your Gift Voucher</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 

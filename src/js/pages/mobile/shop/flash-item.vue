@@ -27,6 +27,7 @@
             <div class="flash-sales-lefts">
                 <text class="flash-icon" >&#xe745;</text>
                 <text class="flash-sales-words">Rs.{{calc(unitPrice,discount)}}</text>
+                <!--<text class="flash-sales-words">Rs.{{unitPrice}}-{{discount}}</text>-->
             </div>
 
             <div class="flash-sales-rights">
@@ -61,10 +62,11 @@
         },
         methods: {
             calc (a, b) {
-                // this.$notice.alert({
-                //     message: (a * b) / 100
+                // this.$notice.toast({
+                //     message: a
                 // })
                 return ((a * b) / 100).toFixed(2)
+                // return (('0.00' * 100) / 100).toFixed(2)
             }
         },
         name: 'flash-item'
@@ -85,6 +87,7 @@
         justify-content: start;
         align-items: center;
         background-color: #EF8A31;
+        width: 360px;
     }
     .flash-sales-right{
         flex-direction: row;

@@ -76,7 +76,7 @@ export const ReturnsQA = [{
 
 }, {
     question: 'Who is responsible for the return shipping? ',
-    answer: 'If the return is caused by PriceDrop’s error, we will refund return shipping costs up to a certain amount through gift card. You will need to pay the carrier at the time of shipping and ask for a payment receipt.\n' +
+    answer: 'If the return is caused by PriceDrop’s error, we will refund return shipping costs up to a certain amount through gift voucher. You will need to pay the carrier at the time of shipping and ask for a payment receipt.\n' +
     '' +
     '\nIf the return is not caused by PriceDrop’s error, you will need to pay for both the return shipping fee and order shipping fee. We recommend that you choose a local carrier with a cheaper price for return shipping. \n'
 

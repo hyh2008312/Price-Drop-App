@@ -2,12 +2,12 @@
     <div class="wrapper">
         <scroller >
         <div class="blackheader"></div>
-        <topic-header title="My Gift Cards" leftBtn="icon"  ref="ref1" ></topic-header>
+        <topic-header title="My Gift Vouchers" leftBtn="icon"  ref="ref1" ></topic-header>
         <div style="margin-top: 160px;margin-bottom: 32px">
 
             <div v-if="cardArr.length===0" class="empty-div">
                 <image src="bmlocal://assets/empty.png" class="empty-img"></image>
-                <text class="empty-txt">You haven’t redeemed any gift cards yet.</text>
+                <text class="empty-txt">You haven’t redeemed any gift vouchers yet.</text>
             </div>
 
 
@@ -16,7 +16,7 @@
                     <image class="gift-card-img"  :src="i.image"></image>
                     <div class="gift-card-txt">
                         <div class="gift-card-right-txt">
-                            <text class="gift-card-txt1">{{i.name}} Gift Card</text>
+                            <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
                             <text class="gift-card-txt2">Only vaild for order above Rs.{{i.lowestAmount}}</text>
                         </div>
 
