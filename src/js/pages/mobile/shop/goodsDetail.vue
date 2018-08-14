@@ -19,19 +19,29 @@
                 </div>
                 <text class="iiiright" v-if="purchaseMethod==='direct'||purchaseMethod==='drop'" @click="openLink">&#xe700;</text>
                 <div class="red-dot" v-if="dropGoods>0"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
-                <flash v-if="purchaseMethod==='flash'" :hour="ahour" :min="amin" :second="asecond" :fstatus="flashSale.flashStatus" ></flash>
+                <flash v-if="purchaseMethod==='flash'"
+                       :hour="ahour"
+                       :min="amin"
+                       :second="asecond"
+                       :fstatus="flashSale.flashStatus"
+                       :saleUnitPrice="goods.price"
+                       :unitPrice="goods.unitPrice"
+                       :discount="flashSale.discount"
+                ></flash>
 
                 <text class="onetitle">{{goods.title}}</text>
                 <div class="count-div" >
                     <text class=" count" v-if="purchaseMethod==='drop'" >Get it at</text>
-                    <text class=" price-name" v-if="(purchaseMethod==='flash'||purchaseMethod==='direct')" >Exclusive Price:</text>
-                    <text class="count-bold" v-if="(purchaseMethod==='flash'||purchaseMethod==='direct')">Rs.{{goods.unitPrice}}</text>
+                    <text class=" price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Exclusive Price:</text>
+                    <text class="count-bold" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">Rs.{{goods.unitPrice}}</text>
 
                     <text class="count-bold" v-if="purchaseMethod==='drop'">Rs.{{lowestPrice}}</text>
                     <text class="count-1" v-if="purchaseMethod==='drop'">by inviting your friends!</text>
                 </div>
                 <div class="count-div">
-                    <text class=" price-name" >Original Price: </text><text class="price">Rs.{{goods.price}}</text>
+
+                    <text class=" price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Original Price: </text>
+                    <text class="price" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Rs.{{goods.price}}</text>
                     <text class="price-name price-price" v-if="purchaseMethod==='flash'||purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-off" v-if="this.shipObj.priceItem === '0.00'">Free Shipping</text>
                 </div>
@@ -259,7 +269,7 @@
                    title: '',
                    mainImage: '',
                    salePrice: '',
-                   currentPrice: '',  // 计算价钱的金额
+                   currentPrice: '', // 计算价钱的金额
                    attributes: '',
                    productId: '',
                    quantity: '1',
@@ -364,10 +374,13 @@
             },
             getGoodsDetail (id) {
                 if (id) {
+                    this.$notice.toast({
+                        message: id
+                    })
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id.id}/`,
-                        // url: `${baseUrl}/product/customer/detail/189/`,
+                        // url: `${baseUrl}/product/customer/detail/117/`,
                         data: {}
                     }).then((res) => {
                         this.purchaseMethod = res.purchaseMethod;
@@ -375,19 +388,22 @@
                             this.flashSale = res.flashSale;
                             this.nextPage.flashSale = res.flashSale;
                             if (this.flashSale.flashStatus == 'Ongoing') {
+                                // this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
                                 this.countDate(this.flashSale.endTime)
                             } else {
                                 this.countDate(this.flashSale.startTime)
                             }
                         }
-
+                        this.$notice.alert({
+                            message: res.flashSale
+                        })
                         // ---- 上面是闪购属性设置 下面是普通属性设置----
                         this.goods.title = res.title;
                         this.goods.price = res.saleUnitPrice;
                         this.goods.unitPrice = res.unitPrice;
+                        this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
                         this.selsaleUnitPrice = res.saleUnitPrice;
                         this.lowestPrice = res.lowestPrice;
-                        this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
                         this.goods.brandLogo = res.brandLogo;
                         this.goodsImg = res.images;
                         if (res.cutGet == null) {
@@ -546,6 +562,9 @@
                             if (!this.checkedSelected()) {
                                 return;
                             }
+                            if (this.flashSale.flashStatus === 'Ongoing') {
+                                ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
+                            }
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
@@ -587,6 +606,9 @@
                         if (this.isDrop == true) {
                             this.createCut()
                         } else {
+                            if (this.flashSale.flashStatus === 'Ongoing') {
+                                ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
+                            }
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
@@ -649,7 +671,9 @@
                 } else {
                     if (this.hasVariants === false) {
                         if (this.variantsId != '' && this.isDrop == false) {
-
+                            if (this.flashSale.flashStatus === 'Ongoing') {
+                                ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
+                            }
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',

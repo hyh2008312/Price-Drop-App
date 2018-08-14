@@ -4,8 +4,8 @@
             <!--<text class="flash-sales-word">Flash Sales</text> <text class="flash-sales-time">12:00:00</text>-->
             <div class="flash-sales-left">
                 <text class="flash-icon" >&#xe745;</text>
-                <text class="flash-sales-word">Rs.6.00</text>
-                <text class="flash-sales-word1">Rs.1299.00</text>
+                <text class="flash-sales-word">Rs.{{calc(unitPrice,discount)}}</text>
+                <text class="flash-sales-word1">Rs.{{saleUnitPrice}}</text>
             </div>
             <image class="flash-triangle" src="bmlocal://assets/right-01.png"></image>
             <div class="flash-sales-right">
@@ -26,7 +26,7 @@
         <div class="flash-saless" v-if="fstatus== 'Scheduled'">
             <div class="flash-sales-lefts">
                 <text class="flash-icon" >&#xe745;</text>
-                <text class="flash-sales-words">Rs.6.00</text>
+                <text class="flash-sales-words">Rs.{{calc(unitPrice,discount)}}</text>
             </div>
 
             <div class="flash-sales-rights">
@@ -48,7 +48,7 @@
 
 <script>
     export default {
-        props: ['hour', 'min', 'second', 'fstatus'],
+        props: ['hour', 'min', 'second', 'fstatus', 'saleUnitPrice', 'unitPrice', 'discount'],
         data () {
             return {
                 // all: '',
@@ -57,6 +57,11 @@
                 // pstyle: {
                 //     width:
                 // }
+            }
+        },
+        methods: {
+            calc (a, b) {
+                return ((a * b) / 100).toFixed(2)
             }
         },
         name: 'flash-item'
