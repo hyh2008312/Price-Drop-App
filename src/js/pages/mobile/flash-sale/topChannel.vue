@@ -3,9 +3,9 @@
         <div class="i-c" :class="[ activeIndex == index ? 'c-act' : '']"
              v-for="(item,index) in channelList"
              @click="chooseChannel(index,item)">
-            <text class="i-b">{{tranTime(item.startTime,1)}}</text>
+            <text class="i-b">{{tranTime(item.startTime,1)||'00'}}</text>
             <text class="i-b" v-if="item.flashStatus=='Ongoing'">{{item.flashStatus}}</text>
-            <text class="i-b" v-if="item.flashStatus=='Scheduled'">{{tranTime(item.startTime,2)}}</text>
+            <text class="i-b" v-if="item.flashStatus=='Scheduled'">{{tranTime(item.startTime,2)||'00'}}</text>
         </div>
 
         <div ref="jcLine" class="j-uline">11</div>
