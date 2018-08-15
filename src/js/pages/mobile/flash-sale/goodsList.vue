@@ -19,14 +19,14 @@
                             <div class="goods-top-price" >
                                 <text class="goods-low-price">Rs.{{i.unitPrice}}</text>
                                 <text class="goods-regular-price">Rs.{{i.saleUnitPrice}}</text>
-                                <text class="goods-off-price">{{i.discount}}% off</text>
+                                <text class="goods-off-price">{{i.discount}}% off  {{i.productId}}</text>
                             </div>
                         </div>
 
                     </div>
                     <div class="goods-bottom">
-                        <div>
-                            <progressbar :value="i.totalStockLocked" :all="i.totalStock"></progressbar>
+                        <div >
+                            <progressbar :value="i.totalStockLocked" :all="i.totalStock" v-if="channelIndex==0"></progressbar>
                             <text class="goods-bottom-word">{{i.totalStockLocked}} limited</text>
                         </div>
                         <div class="goods-bottom-btn">
@@ -147,9 +147,6 @@
                         page: this.page,
                         pageSize: this.pageSize,
                         id: this.proId
-                    },
-                    header: {
-                        needAuth: true
                     }
                 }).then(data => {
                     this.$notice.loading.hide();
@@ -164,6 +161,7 @@
                             this.isLoading = false;
                         });
                     }
+
                     this.refreshApiFinished()
                     this.$notice.loading.hide();
                 }, error => {

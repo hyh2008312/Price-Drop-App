@@ -98,7 +98,7 @@
 
     .flash-triangle{
         width: 40px;
-        height: 80px;
+        height: 85px;
         margin-right: 40px;
     }
     .flash-icon{

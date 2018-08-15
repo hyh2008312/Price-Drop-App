@@ -43,7 +43,7 @@
                 channelList: [],
                 cardArr: [
                     {
-                        flashStatus: 'Ongoing',
+                        flashStatus: 'Scheduled',
                         startTime: new Date()
                     },
                     {
@@ -76,7 +76,7 @@
                     // })
                     // this.getGoodsList()
                 }).catch((res) => {
-                    this.$notice.toast({
+                    this.$notice.alert({
                         message: res
                     })
                 })
