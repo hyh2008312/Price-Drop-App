@@ -177,7 +177,13 @@
                         <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
                         <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
                         <text class="popup-lowprice"      v-if="isDrop">Rs.{{lowestPrice}}</text>
-                        <text class="popup-lowprice"      v-if="!isDrop">Rs.{{selunitPrice||goods.unitPrice}}</text>
+                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">
+                            Rs.{{ (selunitPrice*(flashSale.discount/100)).toFixed(2) || (goods.unitPrice*(flashSale.discount/100)).toFixed(2)}}
+                        </text>
+                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">
+                            Rs.{{selunitPrice||goods.unitPrice}}
+                        </text>
+
                         <div class="popup-yet-bg" v-if="hasVariants==true">
                             <text class="popup-yet" v-if="selcolor != ''">{{selcolor}}</text>
                             <text class="popup-yet" v-if="selsize != ''">{{selsize}}</text>
@@ -560,7 +566,7 @@
                                 return;
                             }
                             if (this.flashSale.flashStatus === 'Ongoing') {
-                                ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
+                                this.nextPage.currentPrice = ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
                             }
                             this.$router.open({
                                 name: 'order.confirm',
@@ -604,7 +610,7 @@
                             this.createCut()
                         } else {
                             if (this.flashSale.flashStatus === 'Ongoing') {
-                                ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
+                                this.nextPage.currentPrice = ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
                             }
                             this.$router.open({
                                 name: 'order.confirm',
