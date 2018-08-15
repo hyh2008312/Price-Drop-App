@@ -27,6 +27,10 @@
                     that.$notice.toast('Please add address first!');
                     return
                 }
+                that.$notice.alert({
+                    message: that.order.proId
+                });
+                return;
                 if (!this.isFirst) {
                     this.isFirst = true;
                     that.$notice.loading.show();

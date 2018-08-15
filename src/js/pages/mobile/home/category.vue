@@ -127,7 +127,7 @@
                 googleAnalytics.trackingScreen(`Activity/${this.name}`);
                 this.getActivityProduct(true);
             },
-            getActivityProduct (isfirst) {
+            getActivityProduct (isfirst, arrange) {
                 if (isfirst) {
                     this.page = 1
                 }
@@ -148,11 +148,16 @@
                         sort: this.selectedSort.value
                     }
                 }).then(data => {
+                    this.$notice.loading.hide();
                     this.length = Math.ceil(data.count / this.pageSize)
                     if (isfirst) {
                         this.goods = []
                     }
                     this.page++;
+                    if (arrange) {
+                        this.arrangement = !this.arrangement;
+                        this.$storage.set('categoryArrangement', this.arrangement);
+                    }
                     if (!this.arrangement) {
                         let arr = [];
                         for (let i = 0; i < data.results.length; i++) {
@@ -201,23 +206,8 @@
                 }
             },
             changeArrangement () {
-                this.arrangement = !this.arrangement;
-                const results = this.goodsSave;
-                if (!this.arrangement) {
-                    this.goods = [];
-                    let arr = [];
-                    for (let i = 0; i < results.length; i++) {
-                        const item = results[i];
-                        arr.push(item);
-                        if (i > 0 && (i % 2 == 1 || i == results.length - 1)) {
-                            this.goods.push(arr);
-                            arr = [];
-                        }
-                    }
-                } else {
-                    this.goods = [...results];
-                }
-                this.$storage.set('categoryArrangement', this.arrangement);
+                this.$notice.loading.show();
+                this.getActivityProduct(true, true);
             },
             openDialog () {
                 if (this.isCancelBottomShow == false) {
