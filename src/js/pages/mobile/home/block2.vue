@@ -64,11 +64,8 @@ export default {
                 method: 'GET',
                 url: `${baseUrl}/flashsale/flash/customer/home/`
             }).then((res) => {
-                this.$notice.alert({
-                    message: res
-                })
-                this.goodsList = res
-                this.time = new Date(this.goodsList[0].flashPromotionEndtime).getTime()
+                this.goodsList = res;
+                this.time = new Date(this.goodsList[0].flashPromotionEndtime).getTime();
                 // this.getGoodsList()
                 this.$notice.loading.hide();
             }).catch((res) => {
