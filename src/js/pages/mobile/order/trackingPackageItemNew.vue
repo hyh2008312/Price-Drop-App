@@ -66,7 +66,7 @@
                 <text class="iconfont gb-box-icon">&#xe6fb;</text>
             </div>
             <div class="gb-box-right">
-                <text class="gb-text gb-text-colo">Your order has been confirmed.</text>
+                <text class="gb-text gb-text-colo">Your order has been confirmed by manufacturer.</text>
             </div>
         </div>
     </div>
