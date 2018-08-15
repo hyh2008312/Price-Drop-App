@@ -134,9 +134,9 @@
 
                     <text class="bottom-text">You may return all items sold by PriceDrop within 9 days of delivery for a refund, as long as it is unused and in a good condition.
                     </text>
-                    <text class="bottom-text" v-if="purchaseMethod != 'drop'">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
+                    <text class="bottom-text" v-if="isDrop==false">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
                     </text>
-                    <text class="bottom-text" v-if="purchaseMethod == 'drop'">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for a refund and start to drop the price again. If this product is no longer available for a Drop, we will fully refund you.
+                    <text class="bottom-text" v-if="isDrop">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for a refund and start to drop the price again. If this product is no longer available for a Drop, we will fully refund you.
                     </text>
 
                     <text class="bottom-text" >To learn more about our return policy, please visit our FAQ page.
@@ -174,9 +174,9 @@
 
                     <div class="popup-py">
                         <text class="popup-price">Rs.{{selsaleUnitPrice}}</text>
-                        <text class="popup-lowprice-word" v-if="purchaseMethod == 'drop'">Start a drop to get it at: </text>
-                        <text class="popup-lowprice-word" v-if="purchaseMethod != 'drop'">Exclusive Price: </text>
-                        <text class="popup-lowprice"      v-if="purchaseMethod == 'drop'">Rs.{{lowestPrice}}</text>
+                        <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
+                        <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
+                        <text class="popup-lowprice"      v-if="isDrop">Rs.{{lowestPrice}}</text>
                         <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">Rs.{{ (selunitPrice*(flashSale.discount/100)).toFixed(2) || (goods.unitPrice*(flashSale.discount/100)).toFixed(2)}}</text>
                         <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">Rs.{{selunitPrice||goods.unitPrice}}</text>
                         <div class="popup-yet-bg" v-if="hasVariants==true">
@@ -244,7 +244,7 @@
           // appeared (a) {
           //     this.proId = a
           // },
-          beforeBackAppear (params) {
+          backAppeared (params) {
               //   this.$notice.toast({
               //     message: 111111
               // })
@@ -450,7 +450,7 @@
                         this.nextPage.shippingPrice = res.shipping.priceItem;
                         this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
                         this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
-                        this.isDrop = this.purchaseMethod == 'drop' ? true: false;
+                        this.isDrop = this.purchaseMethod == 'drop';
                         this.nextPage.proId = this.purchaseMethod;
                         // nextPage 传给下一页组织的数据
 
@@ -551,7 +551,7 @@
                     common.changeAndroidCanBack(false)
 
                     if (this.variantsId != '') {
-                        if (this.purchaseMethod == 'drop') {
+                        if (this.isDrop == true) {
                             if (!this.checkedSelected()) {
                                 return;
                             }
@@ -561,7 +561,7 @@
                                 return;
                             }
                             if (this.flashSale.flashStatus === 'Ongoing') {
-                                this.nextPage.currentPrice = ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
+                                this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
                             }
                             this.$router.open({
                                 name: 'order.confirm',
@@ -601,11 +601,11 @@
                         }
                     }
                     this.nextPage.id = this.variantsId;
-                        if (this.purchaseMethod == 'drop') {
+                        if (this.isDrop == true) {
                             this.createCut()
                         } else {
                             if (this.flashSale.flashStatus === 'Ongoing') {
-                                this.nextPage.currentPrice = ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
+                                this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
                             }
                             this.$router.open({
                                 name: 'order.confirm',
@@ -668,9 +668,9 @@
                     this.redirectLogin()
                 } else {
                     if (this.hasVariants === false) {
-                        if (this.variantsId != '' && this.purchaseMethod != 'drop') {
+                        if (this.variantsId != '' && this.isDrop == false) {
                             if (this.flashSale.flashStatus === 'Ongoing') {
-                                ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
+                                this.nextPage.currentPrice = (((this.selunitPrice || this.goods.unitPrice) * this.flashSale.discount) / 100).toFixed(2)
                             }
                             this.$router.open({
                                 name: 'order.confirm',
