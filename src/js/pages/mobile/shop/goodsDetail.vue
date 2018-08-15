@@ -450,7 +450,7 @@
                         this.nextPage.shippingPrice = res.shipping.priceItem;
                         this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
                         this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
-                        this.isDrop = res.isDrop
+                        this.isDrop = this.purchaseMethod == 'drop' ? true: false;
                         this.nextPage.proId = this.purchaseMethod;
                         // nextPage 传给下一页组织的数据
 
@@ -551,7 +551,7 @@
                     common.changeAndroidCanBack(false)
 
                     if (this.variantsId != '') {
-                        if (this.isDrop == true) {
+                        if (this.purchaseMethod == 'drop') {
                             if (!this.checkedSelected()) {
                                 return;
                             }
@@ -601,7 +601,7 @@
                         }
                     }
                     this.nextPage.id = this.variantsId;
-                        if (this.isDrop == true) {
+                        if (this.purchaseMethod == 'drop') {
                             this.createCut()
                         } else {
                             if (this.flashSale.flashStatus === 'Ongoing') {
@@ -668,7 +668,7 @@
                     this.redirectLogin()
                 } else {
                     if (this.hasVariants === false) {
-                        if (this.variantsId != '' && this.isDrop == false) {
+                        if (this.variantsId != '' && this.purchaseMethod != 'drop') {
                             if (this.flashSale.flashStatus === 'Ongoing') {
                                 ((this.nextPage.currentPrice * this.flashSale.discount) / 100).toFixed(2)
                             }
