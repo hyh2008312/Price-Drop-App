@@ -186,7 +186,7 @@
             },
             tranTime (str) {
                 if (str != null) {
-                    return dayjs(new Date(str)).format('HH:mm:ss')
+                    return dayjs(new Date(str)).format('MM-DD HH:mm:ss')
                 } else {
                 }
             },

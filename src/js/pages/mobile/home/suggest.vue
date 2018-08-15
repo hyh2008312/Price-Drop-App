@@ -29,8 +29,8 @@
                     <block-6 :drops="drops"></block-6>
                 </div>
             </cell>
-            <cell v-for="(head, index) in activity" :key="index">
-                <block-2 :head="head" :class="[activity.length - 1 == index ? 'cell-margin-button': '']" :isActiveLoading="isActiveLoading"></block-2>
+            <cell v-if="activity">
+                <block-2 :goodsList="activity" :time="time" class="cell-margin-button"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
                 <block-5 :logo="block5.items"></block-5>
@@ -104,6 +104,7 @@ export default {
                 items: []
             },
             activity: false,
+            time: false,
             tabsItems: [],
             goods3: [],
             showLoading: 'hide',
@@ -205,15 +206,14 @@ export default {
             })
         },
         getActivity() {
-            this.isActiveLoading = false;
             this.$fetch({
                 method: 'GET',
-                name: 'product.topic.list',
-                data: {}
-            }).then(resData => {
-                this.activity = [...resData];
+                name: `flashsale.flash.customer.home`
+            }).then((res) => {
+                this.activity = res;
+                this.time = new Date(this.activity[0].flashPromotionEndtime).getTime();
                 this.refreshApiFinished();
-            }, error => {
+            }).catch((res) => {
                 if(error.status == 10) {
                     this.hasWifi = false;
                 }

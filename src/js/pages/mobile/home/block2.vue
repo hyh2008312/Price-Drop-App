@@ -47,11 +47,9 @@ export default {
         preload,
         WxcCountdown
     },
-    props: ['head'],
+    props: ['time', 'goodsList'],
     data () {
         return {
-            time: 1532165015000,
-            goodsList: [],
             finalPrice: ''
         }
     },
@@ -59,22 +57,6 @@ export default {
       this.getGoodsDetail()
     },
     methods: {
-        getGoodsDetail () {
-            this.$fetch({
-                method: 'GET',
-                url: `${baseUrl}/flashsale/flash/customer/home/`
-            }).then((res) => {
-                this.goodsList = res;
-                this.time = new Date(this.goodsList[0].flashPromotionEndtime).getTime();
-                // this.getGoodsList()
-                this.$notice.loading.hide();
-            }).catch((res) => {
-                this.$notice.loading.hide();
-                this.$notice.toast({
-                    message: res
-                })
-            })
-        },
         jumpActivity () {
             this.$router.open({
                 name: 'mobile.activity',

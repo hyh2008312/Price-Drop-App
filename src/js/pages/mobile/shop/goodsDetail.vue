@@ -134,9 +134,9 @@
 
                     <text class="bottom-text">You may return all items sold by PriceDrop within 9 days of delivery for a refund, as long as it is unused and in a good condition.
                     </text>
-                    <text class="bottom-text" v-if="isDrop==false">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
+                    <text class="bottom-text" v-if="purchaseMethod != 'drop'">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for the refund and then place a new order.
                     </text>
-                    <text class="bottom-text" v-if="isDrop">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for a refund and start to drop the price again. If this product is no longer available for a Drop, we will fully refund you.
+                    <text class="bottom-text" v-if="purchaseMethod == 'drop'">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for a refund and start to drop the price again. If this product is no longer available for a Drop, we will fully refund you.
                     </text>
 
                     <text class="bottom-text" >To learn more about our return policy, please visit our FAQ page.
@@ -146,12 +146,12 @@
             </div>
             <div style="display: none" ref="policy"></div>
 
-            <div class="bottom-btn" v-if="isDrop== true" >
+            <div class="bottom-btn" v-if="purchaseMethod == 'drop'" >
                 <text class="button" @click="openCutPrice" v-if="canBuy==true">Invite Friends to Drop Price</text>
                 <text class="button-gray"  v-if="canBuy==false">Out of Stock</text>
             </div>
 
-            <div class="bottom-btn" v-if="isDrop== false">
+            <div class="bottom-btn" v-if="purchaseMethod != 'drop'">
                 <text class="button" @click="openBuyNow" v-if="canBuy==true" >Buy Now</text>
                 <text class="button-gray"  v-if="canBuy==false" >Out of Stock</text>
             </div>
@@ -174,16 +174,11 @@
 
                     <div class="popup-py">
                         <text class="popup-price">Rs.{{selsaleUnitPrice}}</text>
-                        <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
-                        <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
-                        <text class="popup-lowprice"      v-if="isDrop">Rs.{{lowestPrice}}</text>
-                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">
-                            Rs.{{ (selunitPrice*(flashSale.discount/100)).toFixed(2) || (goods.unitPrice*(flashSale.discount/100)).toFixed(2)}}
-                        </text>
-                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">
-                            Rs.{{selunitPrice||goods.unitPrice}}
-                        </text>
-
+                        <text class="popup-lowprice-word" v-if="purchaseMethod == 'drop'">Start a drop to get it at: </text>
+                        <text class="popup-lowprice-word" v-if="purchaseMethod != 'drop'">Exclusive Price: </text>
+                        <text class="popup-lowprice"      v-if="purchaseMethod == 'drop'">Rs.{{lowestPrice}}</text>
+                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">Rs.{{ (selunitPrice*(flashSale.discount/100)).toFixed(2) || (goods.unitPrice*(flashSale.discount/100)).toFixed(2)}}</text>
+                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">Rs.{{selunitPrice||goods.unitPrice}}</text>
                         <div class="popup-yet-bg" v-if="hasVariants==true">
                             <text class="popup-yet" v-if="selcolor != ''">{{selcolor}}</text>
                             <text class="popup-yet" v-if="selsize != ''">{{selsize}}</text>
