@@ -211,6 +211,7 @@
                     data: {
                         page: this.page,
                         pageSize: this.pageSize,
+                        version: 1,
                         status: ORDERSTATUS[this.index]
                     },
                     header: {

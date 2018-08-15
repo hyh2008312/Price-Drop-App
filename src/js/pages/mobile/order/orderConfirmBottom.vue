@@ -27,10 +27,6 @@
                     that.$notice.toast('Please add address first!');
                     return
                 }
-                that.$notice.alert({
-                    message: that.order.proId
-                });
-                return;
                 if (!this.isFirst) {
                     this.isFirst = true;
                     that.$notice.loading.show();
@@ -123,9 +119,9 @@
                         const voucherId = that.card ? that.card.id : null;
                         that.$fetch({
                             method: 'POST', // 大写
-                            name: 'order.create.pure',
+                            name: 'order.flash.pure',
                             data: {
-                                flashPromotionId: that.order.flashSale.id,
+                                flashPromotionId: that.order.flashSale.promotionId,
                                 vid: that.order.id,
                                 quantity: that.order.quantity,
                                 voucherId

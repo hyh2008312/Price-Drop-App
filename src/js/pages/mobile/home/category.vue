@@ -163,7 +163,7 @@
                         for (let i = 0; i < data.results.length; i++) {
                             const item = data.results[i];
                             arr.push(item);
-                            if (i > 0 && (i % 2 == 1 || i == data.results.length - 1)) {
+                            if ((i > 0 && i % 2 == 1) || i == data.results.length - 1) {
                                 this.goods.push(arr);
                                 arr = [];
                             }

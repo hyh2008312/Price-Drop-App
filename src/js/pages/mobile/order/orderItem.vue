@@ -3,8 +3,7 @@
         <div class="gb-box">
             <div class="gb-top" @click="jumpWeb()">
                 <text class="gb-date">{{order.created | formatDate('MMMM DD, YYYY hh:mm:ss')}}</text>
-                <text class="gb-status" v-if="order.orderStatus != 'Canceled' && order.orderStatus != 'Completed' && order.orderStatus !='Unpaid' && order.orderStatus != 'Packing'">
-                    {{order.orderStatus == 'Audit canceled'? 'Preparing':order.orderStatus}}</text>
+                <text class="gb-status" v-if="order.orderStatus != 'Canceled' && order.orderStatus != 'Completed' && order.orderStatus !='Unpaid' && order.orderStatus != 'Packing'">{{order.orderStatus == 'Audit canceled'? 'Paid':order.orderStatus}}</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Unpaid'">Pending</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Completed'">Delivered</text>
