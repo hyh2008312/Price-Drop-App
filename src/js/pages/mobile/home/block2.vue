@@ -23,15 +23,15 @@
             <text class="iconfont tlt-tri">&#xe6ff;</text>
         </div>
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
-            <div class="i-good" v-for="i in head.topicProducts" :key="i.id" @click="jumpWeb(i.productId)">
+            <div class="i-good" v-for="i in goodsList" :key="i.id" @click="jumpWeb(i.productId)">
                 <div class="gd-bg">
                     <div class="gd-img">
                         <preload class="gd-img-image" :src="i.mainImage"></preload>
                     </div>
                 </div>
                 <div class="gd-tlt-bg">
-                    <text class="gd-tlt">Rs.{{i.unitPrice}}</text>
-                    <text class="gd-info">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    <text class="gd-tlt">Rs.{{countPrice(i.unitPrice, i.discount)}}</text>
+                    <text class="gd-info">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
                 </div>
                 <text class="gd-price">Rs.{{i.saleUnitPrice}}</text>
             </div>
@@ -51,7 +51,8 @@ export default {
     data () {
         return {
             time: 1532165015000,
-            goodsList: []
+            goodsList: [],
+            finalPrice: ''
         }
     },
     created () {
@@ -63,9 +64,11 @@ export default {
                 method: 'GET',
                 url: `${baseUrl}/flashsale/flash/customer/home/`
             }).then((res) => {
-                // this.$notice.alert({
-                //     message: res
-                // })
+                this.$notice.alert({
+                    message: res
+                })
+                this.goodsList = res
+                this.time = new Date(this.goodsList[0].flashPromotionEndtime).getTime()
                 // this.getGoodsList()
                 this.$notice.loading.hide();
             }).catch((res) => {
@@ -108,6 +111,13 @@ export default {
         countOff (s, o) {
             if (o > 0) {
                 return Math.floor((o - s) / o * 100) + '% OFF'
+            } else {
+                return ''
+            }
+        },
+        countPrice (s, o) {
+            if (o > 0) {
+                return Math.floor(s * (o / 100)) + '.00'
             } else {
                 return ''
             }
