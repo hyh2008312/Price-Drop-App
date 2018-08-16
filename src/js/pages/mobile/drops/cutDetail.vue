@@ -272,7 +272,8 @@
 
             </div>
         </wxc-popup>-->
-        <WxcMask height="580"
+        <WxcMask
+                 height="580"
                  width="622"
                  border-radius="16"
                  duration="200"
@@ -412,7 +413,6 @@
             initBack () {
                 common.setAndroidCanBack(true, (params) => {
                     this.wxcMaskSetShareHidden();
-
                 })
             },
             loadingStart () {
@@ -516,8 +516,10 @@
                         this.distance = 0;
                     }
                     setTimeout(function () {
-                         that.isShowShare = that.isShow;
-                        common.changeAndroidCanBack(false)
+                        if (that.goodsDetail.cutStatus == 'progressing') {
+                            that.isShowShare = that.isShow;
+                            common.changeAndroidCanBack(false)
+                        }
                     }, 1000);
                 }, error => {
                     that.loadingEnd();
