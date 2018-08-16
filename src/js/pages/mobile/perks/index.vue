@@ -4,16 +4,22 @@
 
             <div class="blackheader"></div>
             <div class="header">
-                <text class="header-word">Redeem Your Points for Free Gift Cards</text>
+                <text class="header-word">Redeem Your Points for Free Gift Vouchers</text>
             </div>
             <div class="overflow-mid">
+
                 <div class="mid-card">
+                    <!--<div class="notice-wrapper">-->
+                        <!--<div class="notice-bg">-->
+                            <!--<slider :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></slider>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Start Your Drop Campagin</text>
                             <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> you spend</text>
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.50</text><text class="mid-card-text2"> you spend</text>
                             </div>
 
                         </div>
@@ -24,7 +30,7 @@
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Help Your Friends Drop Price</text>
                             <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 100 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.10</text><text class="mid-card-text2"> your friends spend</text>
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 100 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.50</text><text class="mid-card-text2"> your friends spend</text>
                             </div>
 
                         </div>
@@ -53,32 +59,19 @@
                     <!--</div>-->
                 </div>
             </div>
-            <!--<div class="overflow-gift" v-if="loading">-->
-                <!--<image style="width: 100px;height: 100px" src="bmlocal://assets/loading.gif"></image>-->
-                <!--<div class="gift-card" @click="redeemCard(i)">-->
-                <!--<image class="gift-card-img"  :src="i.image"></image>-->
-                <!--<div class="gift-card-txt">-->
-                <!--<text class="gift-card-txt1">{{i.name}} Gift Card</text>-->
-                <!--<text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>-->
-                <!--</div>-->
-                <!--<div class="gift-card-txt" v-if="i.id==1">-->
-                <!--<text class="gift-card-txt1">Rs.150 Gift Card</text>-->
-                <!--<text class="gift-card-txt2">1,500 Points Needed</text>-->
-                <!--</div>-->
-                <!--<div class="gift-card-txt" v-if="i.id==2">-->
-                <!--<text class="gift-card-txt1">Rs.200 Gift Card</text>-->
-                <!--<text class="gift-card-txt2">2,000 Points Needed</text>-->
-                <!--</div>-->
-            <!--</div>-->
         </scroller>
     </div>
 </template>
 
 <script>
+    import slider from './slider';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         name: 'index',
+        components: {
+            'slider': slider,
+        },
         data () {
           return {
               cardArr: [
@@ -87,7 +80,13 @@
                       name: '',
                       pointNumber: ''
                   }
-              ]
+              ],
+              backup: [],
+              block1: {
+                  title: '',
+                  url: '',
+                  items: []
+              }
           }
         },
         created () {
@@ -113,6 +112,28 @@
                         message: res
                     })
                 })
+            },
+            noNoticeFinished (e) {
+                if(this.backup.length > 0) {
+                    const newArr = this.backup.splice(0, 4);
+                    this.block1.items = [...newArr];
+                } else {
+                    this.block1.items = [];
+                    this.$fetch({
+                        method: 'GET',
+                        name: 'promotion.get.list',
+                        data: {}
+                    }).then(resData => {
+                        this.backup = [...resData];
+                        const newArr = this.backup.splice(0, 4);
+                        this.block1.items = [];
+                        this.block1.items = [...newArr];
+                    }, error => {
+                        // if(error.status == 10) {
+                        //     this.hasWifi = false;
+                        // }
+                    })
+                }
             },
             openDetail () {
                 this.$router.open({
@@ -144,6 +165,24 @@
     .img-icon{
         width: 48px;
         height: 48px;
+    }
+    .notice-wrapper {
+        width: 750px;
+        height: 50px;
+        justify-content: start;
+        align-items: center;
+        overflow: hidden;
+        margin-top: 32px;
+    }
+    .notice-bg{
+        width: 622px;
+        height: 80px;
+        background-color: #FFFFFF;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,0.12);
+        border-radius: 40px;
+        overflow: hidden;
     }
     .blackheader{
         position: fixed;

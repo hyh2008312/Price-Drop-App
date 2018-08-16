@@ -6,14 +6,14 @@ export const QA = [{
     answer: 'You can see your total points balance by going to “Account” －> “My Points”.'
 }, {
     question: 'How to spend my points and redeem for free gifts? ',
-    answer: 'Once you get a certain number of points, you can redeem for free gift cards on the page of “Perks” by selecting a gift card option and clicking the “Redeem" button.'
+    answer: 'Once you get a certain number of points, you can redeem for free gift vouchers on the page of “Perks” by selecting a gift voucher option and clicking the “Redeem" button.'
 }, {
-    question: 'How to use my gift cards?',
-    answer: 'The gift cards can be applied to use at checkout if your order reaches the minimum price that is required for the gift card to use. Please note: The gift card doesn\'t apply to any Drops order.'
+    question: 'How to use my gift vouchers?',
+    answer: 'The gift vouchers can be applied to use at checkout if your order reaches the minimum price that is required for the gift voucher to use. Please note: The gift voucher doesn\'t apply to any Drops order.'
 }, {
-    question: 'Why can\'t I use gift card for Drops order? ',
-    answer: 'Now the gift card doesn\'t support any Drops orders, because all products on Drops are offered at extremely low price.'
+    question: 'Why can\'t I use gift voucher for Drops order? ',
+    answer: 'Now the gift voucher doesn\'t support any Drops orders, because all products on Drops are offered at extremely low price.'
 }, {
-    question: 'What will happen if I return an item bought with a gift card?',
-    answer: 'We will refund the gift card you used to pay for your order, so you can use it next time!'
+    question: 'What will happen if I return an item bought with a gift voucher?',
+    answer: 'We will refund the gift voucher you used to pay for your order, so you can use it next time!'
 }]

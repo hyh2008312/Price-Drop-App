@@ -1,154 +1,99 @@
 <template>
     <div class="wrapper">
-        <scroller >
-        <div class="blackheader"></div>
-        <topic-header title="My Gift Vouchers" leftBtn="icon"  ref="ref1" ></topic-header>
-        <div style="margin-top: 160px;margin-bottom: 32px">
-
-            <div v-if="cardArr.length===0" class="empty-div">
-                <image src="bmlocal://assets/empty.png" class="empty-img"></image>
-                <text class="empty-txt">You haven’t redeemed any gift vouchers yet.</text>
-            </div>
-
-
-            <div class="overflow-gift" v-if="cardArr.length!==0" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
-                <div class="gift-card">
-                    <image class="gift-card-img"  :src="i.image"></image>
-                    <div class="gift-card-txt">
-                        <div class="gift-card-right-txt">
-                            <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
-                            <text class="gift-card-txt2">Only vaild for order above Rs.{{i.lowestAmount}}</text>
-                        </div>
-
-                        <text class="gift-card-txt3">Expire in&nbsp;{{tranDate(i.expiredTimestamp)}}&nbsp;days</text>
-                    </div>
-                </div>
-            </div>
+        <top-header :title="title"  leftBtn="icon"></top-header>
+        <div class="status-bar"></div>
+        <top-channel @change="onchange" :activeIndex="activeIndex" :channelList="cardArr"></top-channel>
+        <div :style="height" class="box">
+            <slider class="slider" infinite="false" ref="slider" @change="onchangeTab" :index="activeIndex">
+                <goods-list v-if="i.id" v-for="(i, index) in cardArr" :key="index"
+                            :activeIndex="index" :index="activeIndex" :item="i" :listArr="cardArr"></goods-list>
+            </slider>
         </div>
-        </scroller>
     </div>
 </template>
-
 <script>
     import header from './header';
+    import goodsList from './cardList';
+    import topChannel from './cardTopChannel';
+    // import { CHANNELLIST } from './config';
+    import { Utils } from 'weex-ui';
+    import { baseUrl } from '../../../config/apis'
+
     export default {
         components: {
-            'topic-header': header
-        },
-        name: 'myCard',
-        data () {
-            return {
-                cardArr: false
-            }
+            'goods-list': goodsList,
+            'top-header': header,
+            'top-channel': topChannel
         },
         created () {
-          this.getCard()
+            const pageHeight = Utils.env.getScreenHeight()
+            this.height = { height: (pageHeight - 112 - 96 - 48) + 'px' }
+            this.$router.getParams().then(params => {
+                if (params && params.tab) {
+                    this.activeIndex = params.tab
+                }
+            })
+            // this.getFlash()
+        },
+        data () {
+            return {
+                title: 'My Gift Vouchers',
+                activeIndex: 0,
+                index: 0,
+                channelList: [],
+                cardArr: [
+                    {
+                        cardStatus: 'Available',
+                        id: 'available',
+                        left: 0
+                    },
+                    {
+                        cardStatus: 'Used',
+                        id: 'used',
+                        left: 250
+                    },
+                    {
+                        cardStatus: 'Expired',
+                        id: 'expired',
+                        left: 490
+                    }
+                ]
+            }
         },
         methods: {
-            getCard () {
-                this.$fetch({
-                    method: 'GET',
-                    name: 'point.exchange', // 通过get 获取我自己的积分卡
-                    header: {
-                        needAuth: true
-                    }
-                }).then((res) => {
-                    // this.$notice.alert({
-                    //     message: res
-                    // })
-                    this.cardArr = res
-                    // this.cardArr = []
-                }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
-                })
+            // getFlash () {
+            //     this.$notice.loading.show();
+            //     this.$fetch({
+            //         method: 'GET',
+            //         url: `${baseUrl}/flashsale/flash/customer/list/`
+            //     }).then((res) => {
+            //         this.cardArr = res[1]
+            //         this.cardArr.unshift(res[0][0])
+            //         for (let i = 0; i < this.cardArr.length; i++) {
+            //             this.cardArr[i].left = i * 260
+            //         }
+            //         this.cardArr[2].left = 500
+            //         // this.$notice.alert({
+            //         //     message: this.cardArr
+            //         // })
+            //     }).catch((res) => {
+            //         this.$notice.alert({
+            //             message: res
+            //         })
+            //     })
+            // },
+            onchange (index) {
+                this.activeIndex = index;
             },
-            tranDate (tamp) {
-                const now = new Date().getTime()
-                const total = tamp - now / 1000
-                const day = Math.floor(total / (24 * 60 * 60)); // 整天
-                return day;
+            onchangeTab (event) {
+                this.activeIndex = event.index;
+                // this.$notice.toast({
+                //     message: event
+                // })
+                // this.$emit('changeC', )
             }
         }
     }
+
 </script>
-
-<style scoped>
-    .wrapper{
-        background-color: #f1f1f1;
-    }
-    .blackheader{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 750px;
-        height: 48px;
-        background-color: black;
-    }
-
-    .overflow-gift{
-        flex-direction: row;
-        justify-content: center;
-        margin-top: 32px;
-    }
-    .gift-card{
-        box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
-        border-radius: 24px;
-    }
-    .gift-card-img{
-        width: 686px;
-        height: 304px;
-    }
-
-    .gift-card-txt{
-        width: 686px;
-        flex-direction: row;
-        justify-content: space-between;
-        background-color: white;
-        padding-top:26px ;
-        padding-bottom:26px ;
-        padding-left:24px ;
-        padding-right:24px ;
-    }
-    .gift-card-right-txt{
-        flex-direction: column;
-        /*align-items: center;*/
-        justify-content: flex-start;
-    }
-    .gift-card-txt1{
-        font-family: ProximaNova-Bold;
-        font-weight: 700;
-        font-size: 24px;
-        margin-bottom: 16px;
-        color: rgba(0,0,0,0.87);
-    }
-    .gift-card-txt2{
-        font-family: ProximaNova-Regular;
-        font-size: 24px;
-        color: rgba(0,0,0,0.87);
-    }
-    .gift-card-txt3{
-        font-family: ProximaNova-Regular;
-        font-size: 24px;
-        color: #EF8A31;
-    }
-    .empty-div{
-        flex-direction: column;
-        justify-content:flex-start;
-        align-items: center;
-        height: 300px;
-        margin-top: 140px;
-        /*background-color: black;*/
-    }
-    .empty-img{
-        width: 200px;
-        height: 200px;
-    }
-    .empty-txt{
-        opacity: 0.54;
-        font-family: ProximaNova-Bold;
-        font-size: 24px;
-        color: #000000;
-    }
-</style>
+<style lang="sass" src="./index.scss"></style>

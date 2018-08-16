@@ -119,7 +119,6 @@
         color: #FFFFFF;
         padding-right:50px ;
         text-decoration: line-through;
-        font-weight: 700;
     }
     .flash-sales-tword{
         color:#EF8A31;
