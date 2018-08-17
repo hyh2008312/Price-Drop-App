@@ -18,12 +18,12 @@
             <div class="gb-gift-bg" v-if="order.proId == 'product'">
                 <div class="gb-gift" @click="jumpCard">
                     <div>
-                        <text class="gd-text-2">Gift Card</text>
+                        <text class="gd-text-2">Gift Voucher</text>
                     </div>
                     <div class="gb-center-right-1">
-                        <text class="gb-text-3" v-if="card === false">Choose a Gift Card</text>
-                        <text class="gb-text-5" v-if="card === ''">No Gift Card Available</text>
-                        <text class="gb-text-3" v-if="card">Rs.{{card.share}} Gift Card</text>
+                        <text class="gb-text-3" v-if="card === false">Choose a Gift Voucher</text>
+                        <text class="gb-text-5" v-if="card === ''">No Gift Voucher Available</text>
+                        <text class="gb-text-3" v-if="card">Rs.{{card.share}} Gift Voucher</text>
                         <text class="iconfont gb-text-4">&#xe626;</text>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                     <text class="gd-text">Shipping</text>
                     <text class="gd-text">Tax</text>
                     <text class="gd-text" v-if="order.proId == 'drop'">Price Drop</text>
-                    <text class="gd-text" v-if="card && card != ''">Gift Card</text>
+                    <text class="gd-text" v-if="card && card != ''">Gift Voucher</text>
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">

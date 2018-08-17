@@ -21,7 +21,7 @@
                     <text class="gd-text">Shipping</text>
                     <text class="gd-text">Tax</text>
                     <text class="gd-text" v-if="order.orderType == 'Cut'">Price Drop</text>
-                    <text class="gd-text" v-if="order.orderType == 'Normal' && order.voucherShare > 0">Gift Card</text>
+                    <text class="gd-text" v-if="order.orderType == 'Normal' && order.voucherShare > 0">Gift Voucher</text>
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
