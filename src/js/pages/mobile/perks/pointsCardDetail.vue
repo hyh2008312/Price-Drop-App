@@ -10,7 +10,8 @@
                         <image class="top-card-img"  src="bmlocal://assets/pic-2.png"></image>
                     </div>
                     <div class="top-bottom-txtdiv">
-                        <text class="top-bottom-txt">The perks program is designed to reward our users for starting their DROP campaigns and helping their friends to drop the price on products they love. With all reward points you earn from your participation, you can redeem for FREE gift vouchers!</text>
+                        <text class="top-bottom-txt">The perks program is designed to reward our users for starting their DROP campaigns and helping their friends to drop the price on products they love.</text>
+                        <text class="top-bottom-txt" style="padding-top: 5px"> With all reward points you earn from your participation, you can redeem for FREE gift vouchers!</text>
                     </div>
                 </div>
             </div>
@@ -18,6 +19,13 @@
                 <div class="mid-card">
                     <text class="mid-head-txt head-txt">Ways to Earn Points</text>
 
+                    <div class="mid-card-item1">
+                        <div><image class="img-icon" src="bmlocal://assets/color-locked-01.png"></image></div>
+                        <div class="mid-card-text">
+                            <text class="mid-card-text2">Invite friends to drop price for your campaign and earn 200 / 300 points by unlocking 50% / 70% OFF. Please note: The daily limit is up to 600 points.
+                            </text>
+                        </div>
+                    </div>
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-purchase.png"></image></div>
                         <div class="mid-card-text">
@@ -31,12 +39,14 @@
                             <text class="mid-card-text2">Help your friends make successful purchases by supporting their DROP, you earn 100 point for every Rs.50 your friends spend.</text>
                         </div>
                     </div>
-                    <div class="mid-card-item1">
-                        <div class="mid-card-text">
-                            <!--<text class="mid-card-text2 mid-card-bto">For example, you spend Rs.500 on your purchases, then you earn 10000 points! If you help your friends drop the price and they spend Rs.6000 in total, then you earn 60000 points!</text>-->
-                        </div>
-                    </div>
+                    <text>&nbsp;</text>
+                    <!--<div class="mid-card-item1">-->
+                        <!--<div class="mid-card-text">-->
+                            <!--<text class="mid-card-text2 mid-card-bto">&nbsp;</text>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
+                <text>&nbsp;</text>
             </div>
 
 
@@ -148,12 +158,12 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 548px;
+        height: 588px;
         margin-top: 16px;
     }
     .mid-card{
         width: 688px;
-        height: 540px;
+        height: 580px;
         background-color: white;
         overflow: hidden;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);

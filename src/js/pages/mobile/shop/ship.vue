@@ -80,7 +80,7 @@
                 <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
                 <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">3 - 5  business days</text>  </div>
                 <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}} days</text> </div>
-                <div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword"> {{EstimatedTimeA}} ~ {{EstimatedTimeB}} </text> </div>
+                <div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword"> {{getNowDay(time.shippingTimeMin)}} - {{getNowDay(time.shippingTimeMax)}} </text> </div>
                 <!--<div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>-->
             </div>
             <!--</scroller>-->
@@ -125,11 +125,12 @@
             loginBack () {
                 this.$router.finish();
             },
-            getNowDay () {
+            getNowDay (str) {
                const date = new Date().valueOf();
-               const tmp = (date + (24 * 60 * 60 * 1000 * 4))
-               this.EstimatedTimeA = dayjs(new Date(tmp)).format('MM-DD')
-               this.EstimatedTimeB = dayjs(new Date(date + (24 * 60 * 60 * 1000 * 10))).format('MM-DD')
+               const tmp = (date + ((24 * 60 * 60 * 1000) * (5 + str)))
+               return dayjs(new Date(tmp)).format('MMMM DD')
+               // this.EstimatedTimeA = dayjs(new Date(tmp)).format('MMMM-DD')
+               // this.EstimatedTimeB = dayjs(new Date(date + (24 * 60 * 60 * 1000 * 5))).format('MMMM-DD')
                 // return tmp
             }
         }

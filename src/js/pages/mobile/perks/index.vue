@@ -22,6 +22,14 @@
                                 <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.50</text><text class="mid-card-text2"> you spend</text>
                             </div>
 
+                            <div class="count-div" style="margin-top: 6px;">
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> by dropping price to</text><text class="mid-card-text2b"> 50% OFF</text>
+                            </div>
+
+                            <div class="count-div" style="margin-top: 6px;">
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 300 points</text><text class="mid-card-text2"> by dropping price to</text><text class="mid-card-text2b"> 70% OFF</text>
+                            </div>
+
                         </div>
                     </div>
 
@@ -221,7 +229,7 @@
     }
     .mid-card{
         width: 686px;
-        height: 420px;
+        height: 520px;
         background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
         border-radius: 16px;

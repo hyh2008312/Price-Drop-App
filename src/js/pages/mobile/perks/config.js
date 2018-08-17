@@ -14,6 +14,6 @@ export const QA = [{
     question: 'Why can\'t I use gift voucher for Drops order? ',
     answer: 'Now the gift voucher doesn\'t support any Drops orders, because all products on Drops are offered at extremely low price.'
 }, {
-    question: 'What will happen if I return an item bought with a gift voucher?',
-    answer: 'We will refund the gift voucher you used to pay for your order, so you can use it next time!'
+    question: 'What will happen if I cancel or return an item bought with a gift voucher?',
+    answer: 'Your gift voucher won\'t be resumed for any canceled or returned orders!'
 }]
