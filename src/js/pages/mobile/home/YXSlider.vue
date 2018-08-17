@@ -20,7 +20,7 @@ export default {
                 name: 'mobile.activity',
                 params: {
                     id: 2,
-                    imageUrl: 'http://image.getpricedrop.com/source/banner/cdd98933-2637-405c-bf01-7947c1b09732.jpg',
+                    imageUrl: 'http://image.getpricedrop.com/source/banner/c671f5b6-0681-4e68-ad83-b2098a6115b0.jpg',
                     name: '70% OFF',
                     type: 'activity'
                 }
