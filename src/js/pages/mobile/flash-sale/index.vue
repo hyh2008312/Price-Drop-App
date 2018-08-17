@@ -76,9 +76,9 @@
                     // })
                     // this.getGoodsList()
                 }).catch((res) => {
-                    this.$notice.alert({
-                        message: res
-                    })
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
                 })
             },
             onchange (index) {
