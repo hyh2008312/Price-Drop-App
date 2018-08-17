@@ -30,7 +30,7 @@
                 if (!this.isFirst) {
                     this.isFirst = true;
                     that.$notice.loading.show();
-                    if (that.order.proId == 'product') {
+                    if (that.order.proId == 'direct') {
                         const voucherId = that.card ? that.card.id : null;
                         that.$fetch({
                             method: 'POST', // 大写

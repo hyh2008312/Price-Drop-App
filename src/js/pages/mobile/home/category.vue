@@ -19,7 +19,7 @@
                     <text class="iconfont category-arrange" v-if="arrangement == true" @click="changeArrangement">&#xe743;</text>
                 </div>
             </header>
-            <cell v-for="(i ,index) in goods" >
+            <cell v-for="(i ,index) in goods" :key="index" >
                 <block3 :goods="i" v-if="arrangement == false"></block3>
                 <block7 :goods="i" v-if="arrangement == true"></block7>
             </cell>
@@ -89,10 +89,10 @@
                     value: false,
                     text: 'New Arrivals'
                 }, {
-                    value: 'price_high',
+                    value: 'price_low',
                     text: 'Price Low to High'
                 }, {
-                    value: 'price_low',
+                    value: 'price_high',
                     text: 'Price High to Low'
                 }],
                 selectedSort: {
@@ -125,7 +125,8 @@
                 this.id = resData.id;
                 this.name = resData.name;
                 googleAnalytics.trackingScreen(`Activity/${this.name}`);
-                this.getActivityProduct(true);
+                this.$notice.loading.show();
+                this.getActivityProduct(true, false);
             },
             getActivityProduct (isfirst, arrange) {
                 if (isfirst) {
@@ -149,9 +150,9 @@
                     }
                 }).then(data => {
                     this.$notice.loading.hide();
-                    this.length = Math.ceil(data.count / this.pageSize)
+                    this.length = Math.ceil(data.count / this.pageSize);
                     if (isfirst) {
-                        this.goods = []
+                        this.goods = [];
                     }
                     this.page++;
                     if (arrange) {
@@ -168,15 +169,16 @@
                                 arr = [];
                             }
                         }
-                        this.goodsSave.push(...data.results);
                     } else {
-                        this.goods.push(...data.results);
-                        this.goodsSave.push(...data.results);
+                        for (let i = 0; i < data.results.length; i++) {
+                            const item = data.results[i];
+                            this.goods.push(item);
+                        }
                     }
                     if (!isfirst) {
-                        this.isLoading = false
+                        this.isLoading = false;
                     }
-                    this.refreshApiFinished()
+                    this.refreshApiFinished();
                 }, error => {
                     this.$notice.toast({
                         message: JSON.stringify(error)
@@ -220,9 +222,11 @@
                 this.isCancelBottomShow = false;
             },
             chooseSort (item) {
-                this.selectedSort = item;
-                this.$refs.wxcCancelPopup.hide();
+                this.selectedSort = {};
+                this.selectedSort.text = item.text;
+                this.selectedSort.value = item.value;
                 this.getActivityProduct(true);
+                this.$refs.wxcCancelPopup.hide();
             }
         }
     }

@@ -10,7 +10,7 @@
                 <block-1 :category="category"></block-1>
             </cell>
             <cell class="cell-top" v-if="false"></cell>
-            <cell class="home-drop">
+            <cell class="home-drop" v-if="false">
                 <div class="drop-bg"></div>
                 <div class="drop-title-bg">
                     <div class="drop-title">
@@ -24,10 +24,13 @@
                     </div>
                 </div>
             </cell>
-            <cell class="cell-button">
+            <cell class="cell-button" v-if="false">
                 <div class="home-drop-1">
                     <block-6 :drops="drops"></block-6>
                 </div>
+            </cell>
+            <cell class="cell-button">
+                <text> </text>
             </cell>
             <cell v-if="activity">
                 <block-2 :goodsList="activity" :time="time" class="cell-margin-button"></block-2>
@@ -269,7 +272,7 @@ export default {
                 for(let i = 0; i < data.results.length; i++) {
                     let item = data.results[i];
                     arr.push(item);
-                    if(i > 0 && (i % 2 == 1 || i == data.results.length - 1)) {
+                    if((i > 0 && i % 2 == 1) || (i == data.results.length - 1)) {
                         this.goods3.push(arr);
                         arr = [];
                     }

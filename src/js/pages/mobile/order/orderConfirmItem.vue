@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-            <div class="gb-gift-bg" v-if="order.proId == 'product'">
+            <div class="gb-gift-bg" v-if="order.proId == 'direct'">
                 <div class="gb-gift" @click="jumpCard">
                     <div>
                         <text class="gd-text-2">Gift Card</text>
@@ -38,7 +38,7 @@
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
-                    <text class="gb-text" v-if="order.proId == 'product'">Rs.{{order.currentPrice}}</text>
+                    <text class="gb-text" v-if="order.proId == 'direct'">Rs.{{order.currentPrice}}</text>
                     <text class="gb-text" v-if="order.proId == 'flash'">Rs.{{order.currentPrice}}</text>
                     <text class="gb-text" v-if="order.proId == 'drop'">Rs.{{order.salePrice}}</text>
                     <text class="gb-text">Rs.{{order.shippingPrice||'0.00'}}</text>
