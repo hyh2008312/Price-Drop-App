@@ -6,7 +6,7 @@
             <cell>
                 <text class="center-time" v-if="channelIndex==0">This round ends in {{ahour}}:{{amin}}:{{asecond}}</text>
                 <!--<text class="center-time" v-if="channelIndex!==0">New round starts in {{tranTime(startTime)}}</text>-->
-                <text class="center-time" v-if="channelIndex!==0">&nbsp;</text>
+                <text class="center-time-space" v-if="channelIndex!==0">&nbsp;</text>
             </cell>
             <cell class="cell-button" v-for="(i, index) in order" :key="i.id" @click="openGoodsDetail(i.productId)" >
                 <div style="box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);border-radius: 16px;">
@@ -268,6 +268,16 @@
         margin-top: 18px;
         margin-bottom: 18px;
         /*background-color: #f4f4f4;*/
+    }
+    .center-time-space{
+        width: 750px;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        color: black;
+        font-size: 24px;
+        margin-top: 4px;
+        margin-bottom: 4px;
     }
     .goods{
         width: 686px;

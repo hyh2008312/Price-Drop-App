@@ -261,12 +261,14 @@
     }
     .mid-card-text2{
         color: black;
+        line-height: 38px;
         font-size: 24px;
         font-family: ProximaNova-Regular;
     }
     .mid-card-text2b{
         color: #EF8A31;
         font-size: 24px;
+        line-height: 38px;
         font-weight: 700;
         font-family: ProximaNova-Regular;
     }

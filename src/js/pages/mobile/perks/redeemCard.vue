@@ -131,8 +131,7 @@
                     // this.setback()
                 }).catch((res) => {
                     this.$notice.toast({
-                        message: 'Your points balance is not enough to \n' +
-                        'redeem this card.'
+                        message: 'Your points balance is not enough to redeem this voucher.'
                     })
                     // this.$notice.toast({
                     //     message: res
