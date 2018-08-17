@@ -44,7 +44,7 @@
             </div>
             <div v-if="settingPage==4" class="content" >  <!--Shipping Policy-->
                 <div>
-                    <text class="policy">All the products will be shipped within 2-4 days as long as the order is placed, and the delivery time will depends on the shipping location. It normally takes 5 – 12 days.
+                    <text class="policy">All the products will be shipped in 4-5 working days as long as the order is placed, and the delivery time will depends on the shipping location and shipping method.
                     </text>
                 </div>
             </div>
@@ -62,9 +62,9 @@
             </div>
             <div v-if="settingPage==6" class="content" >  <!--Cancellation Policy-->
                 <div>
-                       <text class="policy">To cancel an unfulfilled order, please contact our customer support team by sending an email along with your product name and order number to the following email address: support@getpricedrop.com ;
+                       <text class="policy">To cancel an unfulfilled order, please contact our customer support team by sending an email along with your order number to the following email address: support@getpricedrop.com ;
                        </text>
-                    <text class="policy">Note: If your item has been shipped, you can’t cancel your order any more.</text>
+                    <text class="policy">Note: If your item has been shipped or under packing, you can’t cancel your order any more.</text>
                 </div>
             </div>
             <div v-if="settingPage==7" class="content" >  <!--Disclaimer-->
