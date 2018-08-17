@@ -1,7 +1,9 @@
 <template>
     <div class="wrapper">
-        <div class="i-c" :class="[ activeIndex == index ? 'c-act' : '']"
-             v-for="(item,index) in channelList"
+        <div v-for="(item,index) in channelList"
+             :class="[ activeIndex == index ? 'c-act' : '',
+             index==0?'i-c':'' ,index==1?'i-c1':'',index==2?'i-c2':'']"
+
              @click="chooseChannel(index,item)">
             <text class="i-b">{{tranTime(item.startTime,1)}}</text>
             <text class="i-b" v-if="item.flashStatus=='Ongoing'">{{item.flashStatus}}</text>
@@ -9,6 +11,7 @@
         </div>
 
         <div ref="jcLine" class="j-uline">11</div>
+        <!--<text>{{style.left}}</text>-->
     </div>
 </template>
 <script>
@@ -36,7 +39,8 @@
         created () {},
         data () {
             return {
-                dataReady: false
+                dataReady: false,
+
             }
         },
         methods: {
@@ -87,11 +91,39 @@
         border-bottom-color: rgba(0,0,0, .12);
         border-bottom-style: solid;
         flex-direction: row;
-        justify-content: space-around;
+        /*justify-content: space-around;*/
         align-items: center;
     }
 
     .i-c {
+        position: absolute;
+        left: 45px;
+        font-size: 24px;
+        margin-left: 32px;
+        margin-right: 32px;
+        line-height: 96px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /*background-color: black;*/
+        margin-bottom: 8px;
+    }
+    .i-c1 {
+        position: absolute;
+        left: 322px;
+        font-size: 24px;
+        margin-left: 32px;
+        margin-right: 32px;
+        line-height: 96px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /*background-color: black;*/
+        margin-bottom: 8px;
+    }
+    .i-c2 {
+        position: absolute;
+        left: 562px;
         font-size: 24px;
         margin-left: 32px;
         margin-right: 32px;
