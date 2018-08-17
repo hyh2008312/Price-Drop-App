@@ -16,12 +16,15 @@ export default {
     },
     methods: {
         jumpDetail (id) {
-            // this.$router.open({
-            //     name: 'goods.details',
-            //     params: {
-            //         id: id
-            //     }
-            // })
+            this.$router.open({
+                name: 'mobile.activity',
+                params: {
+                    id: 2,
+                    imageUrl: 'http://image.getpricedrop.com/source/banner/cdd98933-2637-405c-bf01-7947c1b09732.jpg',
+                    name: '70% OFF',
+                    type: 'activity'
+                }
+            })
         }
     }
 }
