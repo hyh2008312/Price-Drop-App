@@ -123,6 +123,7 @@ export default {
             this.$router.finish()
         },
         getOrder (id) {
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'GET',
                 url: `${baseUrl}/order/customer/detail/${id}/`,
@@ -131,8 +132,10 @@ export default {
                     needAuth: true
                 }
             }).then(data => {
+                this.$notice.loading.hide();
                 this.order = data;
             }, error => {
+                this.$notice.loading.hide();
                 // 错误回调
                 this.$notice.toast({
                     message: error

@@ -189,6 +189,7 @@
                 this.init();
             },
             init () {
+                this.$notice.loading.show();
                 this.getOrder(true);
                 this.initMaskBack();
             },
@@ -218,6 +219,7 @@
                         needAuth: true
                     }
                 }).then(data => {
+                    this.$notice.loading.hide();
                     this.length = Math.ceil(data.count / this.pageSize);
                     this.page++;
                     if (isfirst) {
@@ -231,6 +233,7 @@
                     }
                     this.refreshApiFinished()
                 }, error => {
+                    this.$notice.loading.hide();
                     // 错误回调
                     this.$notice.toast({
                         message: error
