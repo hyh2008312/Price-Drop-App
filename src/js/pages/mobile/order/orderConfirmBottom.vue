@@ -49,7 +49,7 @@
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
-                            that.$router.finish();
+                            // that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
                                 type: 'PUSH',
@@ -91,7 +91,7 @@
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
-                            that.$router.finish();
+                            // that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
                                 type: 'PUSH',
@@ -137,7 +137,7 @@
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, 'flash sale', 'Rs', that.order.currentPrice);
                             const order = resData;
-                            that.$router.finish();
+                            // that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
                                 type: 'PUSH',
