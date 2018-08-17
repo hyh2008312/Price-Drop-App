@@ -566,7 +566,7 @@
                                 this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
                             }
                             if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
-                                this.nextPage.proId == 'direct'
+                                this.nextPage.proId = 'direct'
                             }
                             this.$router.open({
                                 name: 'order.confirm',
@@ -613,7 +613,7 @@
                                 this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
                             }
                             if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
-                                this.nextPage.proId == 'direct'
+                                this.nextPage.proId = 'direct'
                             }
                             this.$router.open({
                                 name: 'order.confirm',
@@ -681,7 +681,7 @@
                                 this.nextPage.currentPrice = (((this.selunitPrice || this.goods.unitPrice) * this.flashSale.discount) / 100).toFixed(2);
                             }
                             if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
-                                this.nextPage.proId == 'direct'
+                                this.nextPage.proId = 'direct'
                             }
                             this.$router.open({
                                 name: 'order.confirm',

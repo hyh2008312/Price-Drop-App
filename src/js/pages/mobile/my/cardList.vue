@@ -26,7 +26,7 @@
             <div class="container-2">
                 <image class="pay-image" src="bmlocal://assets/empty.png"></image>
             </div>
-            <text class="address-title">You haven’t redeemed any gift vouchers yet.</text>
+            <text class="address-title">There is no gift voucher to show.</text>
         </div>
     </div>
 </template>
