@@ -21,16 +21,16 @@
                     <text class="gd-text">Shipping</text>
                     <text class="gd-text">Tax</text>
                     <text class="gd-text" v-if="order.orderType == 'Cut'">Price Drop</text>
-                    <text class="gd-text" v-if="order.orderType == 'Normal' && order.voucherShare > 0">Gift Voucher</text>
+                    <text class="gd-text" v-if="(order.orderType == 'Normal' || order.orderType == 'Flash') && order.voucherShare > 0">Gift Voucher</text>
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
-                    <text class="gb-text" v-if="order.orderType == 'Normal'">Rs.{{((order.paymentAmount * 100 + order.voucherShare * 100 - order.shippingExclTax * 100) / 100).toFixed(2)}}</text>
+                    <text class="gb-text" v-if="order.orderType == 'Normal' || order.orderType == 'Flash'">Rs.{{((order.paymentAmount * 100 + order.voucherShare * 100 - order.shippingExclTax * 100) / 100).toFixed(2)}}</text>
                     <text class="gb-text" v-if="order.orderType == 'Cut'">Rs.{{order.totalExclTax}}</text>
                     <text class="gb-text">Rs.{{order.shippingExclTax}}</text>
                     <text class="gb-text">Rs.0.00</text>
                     <text class="gb-text gb-text-color" v-if="order.orderType == 'Cut'">- Rs.{{((order.totalExclTax * 100 + order.shippingExclTax * 100 - order.paymentAmount * 100) / 100).toFixed(2)}}</text>
-                    <text class="gd-text gb-text-color" v-if="order.orderType == 'Normal' && order.voucherShare > 0">- Rs.{{order.voucherShare}}</text>
+                    <text class="gd-text gb-text-color" v-if="(order.orderType == 'Normal'|| order.orderType == 'Flash') && order.voucherShare > 0">- Rs.{{order.voucherShare}}</text>
                     <text class="gb-text-1">Rs.{{order.paymentAmount}}</text>
                 </div>
             </div>
