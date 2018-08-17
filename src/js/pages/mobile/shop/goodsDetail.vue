@@ -18,7 +18,7 @@
                     <text class="iiileft">&#xe6f6;</text>
                 </div>
                 <text class="iiiright" v-if="purchaseMethod==='direct'||purchaseMethod==='drop'" @click="openLink">&#xe700;</text>
-                <div class="red-dot" v-if="dropGoods>0"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
+                <div class="red-dot" v-if="(dropGoods>0)&&(purchaseMethod==='direct'||purchaseMethod==='drop')"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
                 <flash v-if="purchaseMethod==='flash'"
                        :hour="ahour"
                        :min="amin"
@@ -42,7 +42,9 @@
 
                     <text class=" price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Original Price: </text>
                     <text class="price" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Rs.{{goods.price}}</text>
-                    <text class="price-name price-price" v-if="purchaseMethod==='flash'||purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
+                    <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
+                    <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{goods.priceoff}}% OFF</text>
+                    <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
                     <text class="price-name price-off" v-if="this.shipObj.priceItem === '0.00'">Free Shipping</text>
                 </div>
                 <div class="count-div">
@@ -563,6 +565,9 @@
                             if (this.flashSale.flashStatus === 'Ongoing') {
                                 this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
                             }
+                            if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
+                                this.nextPage.proId == 'direct'
+                            }
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
@@ -606,6 +611,9 @@
                         } else {
                             if (this.flashSale.flashStatus === 'Ongoing') {
                                 this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
+                            }
+                            if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
+                                this.nextPage.proId == 'direct'
                             }
                             this.$router.open({
                                 name: 'order.confirm',
@@ -670,7 +678,10 @@
                     if (this.hasVariants === false) {
                         if (this.variantsId != '' && this.isDrop == false) {
                             if (this.flashSale.flashStatus === 'Ongoing') {
-                                this.nextPage.currentPrice = (((this.selunitPrice || this.goods.unitPrice) * this.flashSale.discount) / 100).toFixed(2)
+                                this.nextPage.currentPrice = (((this.selunitPrice || this.goods.unitPrice) * this.flashSale.discount) / 100).toFixed(2);
+                            }
+                            if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
+                                this.nextPage.proId == 'direct'
                             }
                             this.$router.open({
                                 name: 'order.confirm',
@@ -692,7 +703,8 @@
             },
 
             popupCloseClick () {
-                this.$refs.wxcPopup.hide();
+                // this.$refs.wxcPopup.hide();
+                this.isBottomShow = false;
                 common.changeAndroidCanBack(true)
             },
 
@@ -873,6 +885,22 @@
                     })
                 }
             },
+
+            countOff (s, o) {
+                if (o > 0) {
+                    return Math.floor((o - s) / o * 100) + '% OFF'
+                } else {
+                    return ''
+                }
+            },
+            countPrice (s, o) {
+                if (o > 0) {
+                    return Math.floor(s * (o / 100)) + '.00'
+                } else {
+                    return ''
+                }
+            },
+
             countDate (time) {
                 const self = this
                 // if (this.purchaseMethod == 'flash') {
@@ -885,9 +913,6 @@
                     self.aday = day
                     const afterDay = total - day * 24 * 60 * 60;
                     self.ahour = Math.floor(afterDay / (60 * 60)); // 小时
-                    if (self.ahour < 10) {
-                        self.ahour = '0' + self.ahour
-                    }
                     const afterHour = total - day * 24 * 60 * 60 - self.ahour * 60 * 60;
                     self.amin = Math.floor(afterHour / 60); // 分钟
                     if (self.amin < 10) {
@@ -897,6 +922,12 @@
                     self.asecond = Math.floor(afterMin)// 秒
                     if (self.asecond < 10) {
                         self.asecond = '0' + self.asecond
+                    }
+
+                    // 加上减掉的天数
+                    self.ahour += (self.aday * 24)
+                    if (self.ahour < 10) {
+                        self.ahour = '0' + self.ahour
                     }
                     // this.$notice.toast({
                     //     message: self.ahour + ':' + self.amin + ':' + self.asecond

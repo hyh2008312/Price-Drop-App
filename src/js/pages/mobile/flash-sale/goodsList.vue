@@ -4,8 +4,9 @@
         <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell>
-                <text class="center-time" v-if="channelIndex==0">This round ends in {{tranDateTime(endTime)}}</text>
-                <text class="center-time" v-if="channelIndex!==0">New round starts in {{tranTime(startTime)}}</text>
+                <text class="center-time" v-if="channelIndex==0">This round ends in {{ahour}}:{{amin}}:{{asecond}}</text>
+                <!--<text class="center-time" v-if="channelIndex!==0">New round starts in {{tranTime(startTime)}}</text>-->
+                <text class="center-time" v-if="channelIndex!==0">&nbsp;</text>
             </cell>
             <cell class="cell-button" v-for="(i, index) in order" :key="i.id" @click="openGoodsDetail(i.productId)" >
                 <div style="box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);border-radius: 16px;">
@@ -17,9 +18,9 @@
                         <div class="goods-top-word">
                             <text class="goods-title">{{i.title}}</text>
                             <div class="goods-top-price" >
-                                <text class="goods-low-price">Rs.{{i.unitPrice}}</text>
+                                <text class="goods-low-price">Rs.{{calc(i.unitPrice,i.discount)}}</text>
                                 <text class="goods-regular-price">Rs.{{i.saleUnitPrice}}</text>
-                                <text class="goods-off-price">{{i.discount}}% off  {{i.productId}}</text>
+                                <text class="goods-off-price">{{countOff(calc(i.unitPrice,i.discount),i.saleUnitPrice)}}</text>
                             </div>
                         </div>
 
@@ -78,7 +79,14 @@
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid(),
                 startTime: '',
-                endTime: new Date()
+                endTime: new Date(),
+                // end: {
+                //
+                // },
+                aday: '',
+                ahour: '',
+                amin: '',
+                asecond: ''
             }
         },
         created () {
@@ -125,6 +133,7 @@
             },
             init () {
                 this.$notice.loading.show();
+                this.countDate(this.endTime)
                 this.getOrder(true);
             },
             getOrder (isfirst) {
@@ -156,6 +165,9 @@
                         this.order = []
                     }
                     this.order.push(...data.results)
+                    // this.$notice.alert({
+                    //     message: this.order[0]
+                    // })
                     if (!isfirst) {
                         this.$nextTick(() => {
                             this.isLoading = false;
@@ -194,6 +206,52 @@
                 if (str != null) {
                     return dayjs(new Date(str)).format('MM-DD HH:mm:ss')
                 }
+            },
+            calc (a, b) {
+                return ((a * b) / 100).toFixed(2)
+                // return (('0.00' * 100) / 100).toFixed(2)
+            },
+            countOff (s, o) {
+                if (o > 0) {
+                    return Math.floor((o - s) / o * 100) + '% OFF'
+                } else {
+                    return ''
+                }
+            },
+            countDate (time) {
+                const self = this
+                // if (this.purchaseMethod == 'flash') {
+                setInterval(() => {
+                    this.NOW_DATE = new Date().getTime();
+
+                    const total = (new Date(time).getTime() - this.NOW_DATE) / 1000
+
+                    const day = Math.floor(total / (24 * 60 * 60))// 整天
+
+                    self.aday = day
+                    const afterDay = total - day * 24 * 60 * 60;
+                    self.ahour = Math.floor(afterDay / (60 * 60)); // 小时
+                    const afterHour = total - day * 24 * 60 * 60 - self.ahour * 60 * 60;
+                    self.amin = Math.floor(afterHour / 60); // 分钟
+                    if (self.amin < 10) {
+                        self.amin = '0' + self.amin
+                    }
+
+                    const afterMin = total - day * 24 * 60 * 60 - self.ahour * 60 * 60 - self.amin * 60;
+                    self.asecond = Math.floor(afterMin)// 秒
+                    if (self.asecond < 10) {
+                        self.asecond = '0' + self.asecond
+                    }
+                    // 加上减掉的天数
+                    self.ahour += (self.aday * 24)
+                    if (self.ahour < 10) {
+                        self.ahour = '0' + self.ahour
+                    }
+                    // this.$notice.toast({
+                    //     message: self.aday + '天' + self.ahour + ':' + self.amin + ':' + self.asecond
+                    // })
+                }, 1000);
+                // }
             }
         }
     }
