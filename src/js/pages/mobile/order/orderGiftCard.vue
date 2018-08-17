@@ -7,7 +7,7 @@
 
             <div v-if="cardArr.length===0" class="empty-div">
                 <image  src="bmlocal://assets/empty.png" class="empty-img"></image>
-                <text class="empty-txt">No gift card available.</text>
+                <text class="empty-txt">No gift voucher available.</text>
             </div>
 
 
@@ -62,7 +62,7 @@
         },
         data () {
             return {
-                title: 'Choose a Gift Card',
+                title: 'Choose a Gift Voucher',
                 selCard: '',
                 selCardId: '',
                 cardArr: false,
@@ -78,7 +78,7 @@
         },
         created () {
             this.getCard()
-            googleAnalytics.trackingScreen('Choose a Gift Card');
+            googleAnalytics.trackingScreen('Choose a Gift Voucher');
         },
         methods: {
             getCard () {
@@ -128,11 +128,11 @@
                     // });
                     if (this.selCard == '') {
                         this.$notice.toast({
-                            message: 'Please choose a gift card first!'
+                            message: 'Please choose a gift voucher first!'
                         });
                         return
                     } else {
-                        googleAnalytics.recordEvent('PayGiftCard', 'Choose a Gift Card', this.selCard.share, 0);
+                        googleAnalytics.recordEvent('PayGiftCard', 'Choose a Gift Voucher', this.selCard.share, 0);
                         this.$router.back();
                         this.$router.setBackParams({
                             card: this.selCard
