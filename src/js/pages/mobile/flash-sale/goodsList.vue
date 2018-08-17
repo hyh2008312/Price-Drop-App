@@ -31,8 +31,8 @@
                             <text class="goods-bottom-word">{{i.totalStockLocked}} limited</text>
                         </div>
                         <div class="goods-bottom-btn">
-                            <text class="goods-bottom-btntxt" v-if="channelIndex==0">Buy now</text>
-                            <text class="goods-bottom-btntxt" v-if="channelIndex!==0">View detail</text>
+                            <text class="goods-bottom-btntxt" v-if="channelIndex==0">Buy Now</text>
+                            <text class="goods-bottom-btntxt" v-if="channelIndex!==0">View Detail</text>
                         </div>
                     </div>
                 </div>
