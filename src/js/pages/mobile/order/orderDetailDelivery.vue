@@ -26,23 +26,23 @@
             formatMinDate (order, hmr) {
                 if (order.orderStatus != 'Canceled' && order.orderStatus != 'Unpaid') {
                     if (order.paidTime) {
-                        return dayjs(new Date(order.paidTime).getTime() + 12 * 24 * 60 * 60 * 1000).format(hmr);
+                        return dayjs(new Date(order.paidTime).getTime() + (order.shippingTimeMin + 5) * 24 * 60 * 60 * 1000).format(hmr);
                     } else {
-                        return dayjs(new Date(order.created).getTime() + 13 * 24 * 60 * 60 * 1000).format(hmr);
+                        return dayjs(new Date(order.created).getTime() + (order.shippingTimeMin + 6) * 24 * 60 * 60 * 1000).format(hmr);
                     }
                 } else {
-                    return dayjs(new Date().getTime() + 12 * 24 * 60 * 60 * 1000).format(hmr);
+                    return dayjs(new Date().getTime() + (order.shippingTimeMin + 5) * 24 * 60 * 60 * 1000).format(hmr);
                 }
             },
             formatMaxDate (order, hmr) {
                 if (order.orderStatus != 'Canceled' && order.orderStatus != 'Unpaid') {
                     if (order.paidTime) {
-                        return dayjs(new Date(order.paidTime).getTime() + 18 * 24 * 60 * 60 * 1000).format(hmr);
+                        return dayjs(new Date(order.paidTime).getTime() + (order.shippingTimeMax + 5) * 24 * 60 * 60 * 1000).format(hmr);
                     } else {
-                        return dayjs(new Date(order.created).getTime() + 19 * 24 * 60 * 60 * 1000).format(hmr);
+                        return dayjs(new Date(order.created).getTime() + (order.shippingTimeMax + 6) * 24 * 60 * 60 * 1000).format(hmr);
                     }
                 } else {
-                    return dayjs(new Date().getTime() + 18 * 24 * 60 * 60 * 1000).format(hmr);
+                    return dayjs(new Date().getTime() + (order.shippingTimeMax + 5) * 24 * 60 * 60 * 1000).format(hmr);
                 }
             }
         }

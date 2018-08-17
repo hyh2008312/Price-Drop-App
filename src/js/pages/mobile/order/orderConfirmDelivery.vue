@@ -24,10 +24,10 @@
         props: ['order'],
         methods: {
             formatMinDate (order, hmr) {
-                return dayjs(new Date().getTime() + 12 * 24 * 60 * 60 * 1000).format(hmr);
+                return dayjs(new Date().getTime() + (order.shippingTimeMin + 5) * 24 * 60 * 60 * 1000).format(hmr);
             },
             formatMaxDate (order, hmr) {
-                return dayjs(new Date().getTime() + 18 * 24 * 60 * 60 * 1000).format(hmr);
+                return dayjs(new Date().getTime() + (order.shippingTimeMax + 5) * 24 * 60 * 60 * 1000).format(hmr);
             }
         }
     }

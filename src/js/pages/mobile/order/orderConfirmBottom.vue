@@ -49,6 +49,7 @@
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
+                            that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
                                 type: 'PUSH',
@@ -57,11 +58,11 @@
                                     data: order
                                 },
                                 backCallback: () => {
+                                    that.$router.finish();
                                     that.$router.open({
                                         name: 'order',
                                         type: 'PUSH'
                                     });
-                                    that.$router.finish();
                                     that.$event.emit('closePayment');
                                 }
                             });
@@ -90,6 +91,7 @@
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
+                            that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
                                 type: 'PUSH',
@@ -98,11 +100,11 @@
                                     data: order
                                 },
                                 backCallback: () => {
+                                    that.$router.finish();
                                     that.$router.open({
                                         name: 'order',
                                         type: 'PUSH'
                                     });
-                                    that.$router.finish();
                                     that.$event.emit('closePayment');
                                 }
                             });
@@ -135,6 +137,7 @@
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, 'flash sale', 'Rs', that.order.currentPrice);
                             const order = resData;
+                            that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
                                 type: 'PUSH',
@@ -143,11 +146,11 @@
                                     data: order
                                 },
                                 backCallback: () => {
+                                    that.$router.finish();
                                     that.$router.open({
                                         name: 'order',
                                         type: 'PUSH'
                                     });
-                                    that.$router.finish();
                                     that.$event.emit('closePayment');
                                 }
                             });

@@ -38,22 +38,22 @@ export default {
     },
     eros: {
         beforeAppear (params) {
-            this.refreshToken()
-            this.getState()
+            this.refreshToken();
+            this.getState();
         },
         backAppeared (params) {
             if (params && params.tab) {
-                this.selectedTab = params.tab
+                this.selectedTab = params.tab;
                 this.items.forEach((val) => {
                     if (val.key === this.selectedTab) {
-                        val.visibility = 'visible'
+                        val.visibility = 'visible';
                         return
                     }
-                    val.visibility = 'hidden'
+                    val.visibility = 'hidden';
                 })
             }
             if (params && params.type == 'login') {
-                this.$router.refresh()
+                this.$router.refresh();
             }
         }
     },
