@@ -27,7 +27,7 @@
                     </div>
                     <div class="goods-bottom">
                         <div >
-                            <progressbar :value="i.totalStockLocked" :all="i.totalStock" v-if="channelIndex==0"></progressbar>
+                            <progressbar :value="i.soldStock" :all="i.totalFlashVariantStocks" v-if="channelIndex==0"></progressbar>
                             <text class="goods-bottom-word">{{i.totalStockLocked}} limited</text>
                         </div>
                         <div class="goods-bottom-btn">
