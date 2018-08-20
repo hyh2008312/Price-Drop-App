@@ -97,7 +97,7 @@
 
     .i-c {
         position: absolute;
-        left: 45px;
+        left: 4px;
         font-size: 24px;
         margin-left: 32px;
         margin-right: 32px;
@@ -110,7 +110,7 @@
     }
     .i-c1 {
         position: absolute;
-        left: 322px;
+        left: 262px;
         font-size: 24px;
         margin-left: 32px;
         margin-right: 32px;
@@ -123,7 +123,7 @@
     }
     .i-c2 {
         position: absolute;
-        left: 562px;
+        left: 498px;
         font-size: 24px;
         margin-left: 32px;
         margin-right: 32px;
@@ -137,6 +137,8 @@
     .i-b {
         font-size: 30px;
         color: white;
+        width: 200px;
+        text-align: center;
     }
 
     .c-act {
