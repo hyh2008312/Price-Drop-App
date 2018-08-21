@@ -3,17 +3,18 @@
         <div class="gb-box-1">
             <text class="gb-title">Delivery</text>
             <div class="gb-center">
-                <div>
-                    <text class="gb-text">Estimated Arrival</text>
-                    <text class="gb-text">Order Prcessing</text>
-                    <text class="gb-text">Shipping Time</text>
-                </div>
-                <div class="gb-center-right">
-                    <text class="gb-text gb-text-color">{{formatMinDate(order,  'MMMM DD, YYYY')}} - {{formatMaxDate(order,  'MMMM DD, YYYY')}}</text>
-                    <text class="gb-text gb-text-color">3-5 business days</text>
-                    <text class="gb-text gb-text-color">{{order.shippingTimeMin || 0}}-{{order.shippingTimeMax || 0}} days</text>
-                </div>
+                <text class="gb-text">Estimated Arrival</text>
+                <text class="gb-text gb-text-color">{{formatMinDate(order,  'MMMM DD, YYYY')}} - {{formatMaxDate(order,  'MMMM DD, YYYY')}}</text>
             </div>
+            <div class="gb-center">
+                <text class="gb-text">Order Preparing Before Shipping</text>
+                <text class="gb-text gb-text-color">5-7 days</text>
+            </div>
+            <div class="gb-center">
+                <text class="gb-text">Shipping Time After Processing</text>
+                <text class="gb-text gb-text-color">{{order.shippingTimeMin || 0}}-{{order.shippingTimeMax || 0}} days</text>
+            </div>
+            <text class="gb-text gb-text-color-1">Please Note: In some cases, order might be delayed for a few days due to Custom Duty Check.</text>
         </div>
     </div>
 </template>
@@ -24,10 +25,10 @@
         props: ['order'],
         methods: {
             formatMinDate (order, hmr) {
-                return dayjs(new Date().getTime() + (order.shippingTimeMin + 5) * 24 * 60 * 60 * 1000).format(hmr);
+                return dayjs(new Date().getTime() + (order.shippingTimeMin + 7) * 24 * 60 * 60 * 1000).format(hmr);
             },
             formatMaxDate (order, hmr) {
-                return dayjs(new Date().getTime() + (order.shippingTimeMax + 5) * 24 * 60 * 60 * 1000).format(hmr);
+                return dayjs(new Date().getTime() + (order.shippingTimeMax + 7) * 24 * 60 * 60 * 1000).format(hmr);
             }
         }
     }
@@ -70,6 +71,10 @@
 
     .gb-text-color{
         color: #EF8A31;
+    }
+
+    .gb-text-color-1{
+        color: rgba(0,0,0,0.54);
     }
 
     .gb-center-right{
