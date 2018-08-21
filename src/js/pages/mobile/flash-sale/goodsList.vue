@@ -4,7 +4,7 @@
         <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell>
-                <text class="center-time" v-if="channelIndex==0">This round ends in {{ahour}}:{{amin}}:{{asecond}}</text>
+                <text class="center-time" v-if="channelIndex==0">This round ends in {{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
                 <!--<text class="center-time" v-if="channelIndex!==0">New round starts in {{tranTime(startTime)}}</text>-->
                 <text class="center-time-space" v-if="channelIndex!==0">&nbsp;</text>
             </cell>
