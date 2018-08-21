@@ -7,13 +7,15 @@
 
 <script>
     export default {
-        props: ['all', 'value'],
+        props: ['all', 'value', 'pId'],
         name: 'progressBar',
         data () {
             return {
-                // all: '',
-                // value: '',
-                len: '',
+                // all: 50,
+                // value: 5,
+                // pId: 1191,
+                len: ''
+
                 // pstyle: {
                 //     width:
                 // }
@@ -27,7 +29,22 @@
             init () {
                 let tmp = 0;
                 tmp = this.value / this.all
-                this.len = tmp * 320
+                if ((tmp * 100) >= 50) {
+                    this.len = tmp * 320
+                } else {
+                    let num, num1;
+                    num = parseInt(this.pId.toString().split('').reverse().splice(0, 2).reverse().join(''))
+                    num1 = parseInt(this.pId.toString().split('').reverse()[0])
+
+                    if (num < 9) {
+                        tmp = (30 + num1)
+                    } else if (num >= 10 && num <= 50) {
+                        tmp = num
+                    } else if (num >= 51 && num <= 99) {
+                        tmp = (num / 2)
+                    }
+                    this.len = (tmp / 100) * 320
+                }
             }
         }
     }

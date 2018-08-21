@@ -78,10 +78,10 @@
                 <div class="item" v-if="drop==''"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.{{time.priceItem}}</text>  </div>
                 <!--<div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.0.00</text>  </div>-->
                 <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
-                <div class="item"><text class="shipname">Order Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">3 - 5  business days</text>  </div>
-                <div class="item"> <text class="shipname">Shipping Time:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}} days</text> </div>
                 <div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword"> {{getNowDay(time.shippingTimeMin)}} - {{getNowDay(time.shippingTimeMax)}} </text> </div>
-                <!--<div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{formatDate(time.expectedDeliveryDateMin)}} - {{formatDate(time.expectedDeliveryDateMax)}}</text>  </div>-->
+                <div class="item"><text class="shipname">Order Preparing Before Shipping:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">5 - 7 days</text>  </div>
+                <div class="item"> <text class="shipname">Shipping Time After Processing:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingTimeMin}} - {{time.shippingTimeMax}} days</text> </div>
+                <div class="item"> <text class="shipname-note">Please Note: In some cases, order might be delayed for a few days due to Custom Duty Check.</text>  </div>
             </div>
             <!--</scroller>-->
 
@@ -127,7 +127,7 @@
             },
             getNowDay (str) {
                const date = new Date().valueOf();
-               const tmp = (date + ((24 * 60 * 60 * 1000) * (5 + str)))
+               const tmp = (date + ((24 * 60 * 60 * 1000) * (7 + str)))
                return dayjs(new Date(tmp)).format('MMMM DD')
                // this.EstimatedTimeA = dayjs(new Date(tmp)).format('MMMM-DD')
                // this.EstimatedTimeB = dayjs(new Date(date + (24 * 60 * 60 * 1000 * 5))).format('MMMM-DD')
@@ -158,7 +158,13 @@
         margin-bottom: 16px;
     }
 
-
+    .shipname-note{
+        font-family: ProximaNova-Regular;
+        font-size: 24px;
+        color: #000000;
+        margin-bottom: 16px;
+        width: 670px;
+    }
     .shipword {
         font-family: ProximaNova-Bold;
         font-size: 24px;

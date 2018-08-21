@@ -8,7 +8,7 @@
 
             <div style="background-color: white" >
 
-                <slider class="slider" interval="3000" auto-play="true" :index="2">
+                <slider class="slider" interval="8000" auto-play="true" :index="2">
                     <div class="frame" v-for="(img, idx) in goodsImg">
                         <preload class="image" :src="img"></preload>
                         <text style="right:20px;bottom:20px;color:black;position:absolute">{{idx+1}}/{{goodsImg.length}}</text>
@@ -151,11 +151,13 @@
             <div class="bottom-btn" v-if="purchaseMethod == 'drop'" >
                 <text class="button" @click="openCutPrice" v-if="canBuy==true">Invite Friends to Drop Price</text>
                 <text class="button-gray"  v-if="canBuy==false">Out of Stock</text>
+                <text class="button-gray"  v-if="productStatus=='unpublished'">Unavailable</text>
             </div>
 
             <div class="bottom-btn" v-if="purchaseMethod != 'drop'">
                 <text class="button" @click="openBuyNow" v-if="canBuy==true" >Buy Now</text>
                 <text class="button-gray"  v-if="canBuy==false" >Out of Stock</text>
+                <text class="button-gray"  v-if="productStatus=='unpublished'">Unavailable</text>
             </div>
 
 
@@ -317,6 +319,7 @@
                 tabshow: false,
                 headerShow: true,
                 isDrop: false,
+                productStatus: '',
                 positionX: 0,
                 positionY: 0,
                 deltaX: 0,
@@ -446,6 +449,7 @@
                             // this.nextPage.mainImage =
                         }
                         this.shipObj = res.shipping
+                        this.productStatus = res.status
                         this.dectxt = []
                         this.nextPage.title = res.title;
                         this.nextPage.productId = id.id;
