@@ -148,16 +148,24 @@
             </div>
             <div style="display: none" ref="policy"></div>
 
-            <div class="bottom-btn" v-if="purchaseMethod == 'drop'" >
-                <text class="button" @click="openCutPrice" v-if="canBuy==true">Invite Friends to Drop Price</text>
-                <text class="button-gray"  v-if="canBuy==false">Out of Stock</text>
-                <text class="button-gray"  v-if="productStatus=='unpublished'">Unavailable</text>
+            <div class="bottom-btn" v-if="purchaseMethod === 'drop'" >
+                <div v-if="productStatus==='unpublished'">
+                    <text class="button-gray"  >Unavailable</text>
+                </div>
+                <div v-if="productStatus!=='unpublished'">
+                    <text class="button" @click="openCutPrice" v-if="canBuy">Invite Friends to Drop Price</text>
+                    <text class="button-gray"  v-if="!canBuy">Out of Stock</text>
+                </div>
             </div>
 
-            <div class="bottom-btn" v-if="purchaseMethod != 'drop'">
-                <text class="button" @click="openBuyNow" v-if="canBuy==true" >Buy Now</text>
-                <text class="button-gray"  v-if="canBuy==false" >Out of Stock</text>
-                <text class="button-gray"  v-if="productStatus=='unpublished'">Unavailable</text>
+            <div class="bottom-btn" v-if="purchaseMethod !== 'drop'">
+                <div v-if="productStatus==='unpublished'">
+                    <text class="button-gray"  >Unavailable</text>
+                </div>
+                <div v-if="productStatus!=='unpublished'">
+                    <text class="button" @click="openBuyNow" v-if="canBuy" >Buy Now</text>
+                    <text class="button-gray"  v-if="!canBuy" >Out of Stock</text>
+                </div>
             </div>
 
 
