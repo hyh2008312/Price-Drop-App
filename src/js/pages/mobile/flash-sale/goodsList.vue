@@ -27,7 +27,7 @@
                     </div>
                     <div class="goods-bottom">
                         <div >
-                            <progressbar :value="i.soldStock" :all="i.totalFlashVariantStocks" v-if="channelIndex==0"></progressbar>
+                            <progressbar :value="i.soldStock" :all="i.totalFlashVariantStocks" :pId ="i.productId" v-if="channelIndex==0"></progressbar>
                             <text class="goods-bottom-word">{{i.totalFlashVariantStocks}} limited</text>
                         </div>
                         <div class="goods-bottom-btn">
@@ -84,9 +84,9 @@
                 //
                 // },
                 aday: '',
-                ahour: '00',
-                amin: '00',
-                asecond: '00'
+                ahour: '',
+                amin: '',
+                asecond: ''
             }
         },
         created () {
@@ -244,6 +244,7 @@
                     }
                     // 加上减掉的天数
                     self.ahour += (self.aday * 24)
+
                     if (self.ahour < 10) {
                         self.ahour = '0' + self.ahour
                     }
