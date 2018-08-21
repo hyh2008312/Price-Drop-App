@@ -48,7 +48,7 @@
                 </div>
             </cell>
 
-            <loading  class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+            <loading v-if="!(!isCuting &&!isMyDropLogin && isWifi)" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">Loading...</text>
             </loading>
         </list>
