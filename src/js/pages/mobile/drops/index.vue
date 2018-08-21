@@ -586,7 +586,7 @@
     .notice-bg{
         width: 750px;
         height: 64px;
-        background-color: #FFFFFF;
+        background-color:#FFF7E1;
         border-width: 1px;
         border-style: solid;
         border-color: rgba(0,0,0,0.12);
@@ -599,6 +599,6 @@
         justify-content: start;
         align-items: center;
         overflow: hidden;
-        background-color: #F1F1F1;
+        background-color: #FFF7E1;
     }
 </style>
