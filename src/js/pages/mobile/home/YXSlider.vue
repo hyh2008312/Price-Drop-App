@@ -1,6 +1,6 @@
 <template>
     <slider class="slider" auto-play="true" interval="5000">
-        <div class="frame" v-for="img in imageList"  @click="jumpDetail(img.url)">
+        <div class="frame" v-for="img in imageList"  @click="jumpDetail(img)">
             <image class="image" resize="cover" :src="img.image"></image>
         </div>
         <indicator class="indicator"></indicator>
@@ -15,16 +15,26 @@ export default {
         }
     },
     methods: {
-        jumpDetail (id) {
-            this.$router.open({
-                name: 'mobile.activity',
-                params: {
-                    id: 2,
-                    imageUrl: 'http://image.getpricedrop.com/source/banner/c671f5b6-0681-4e68-ad83-b2098a6115b0.jpg',
-                    name: '70% OFF',
-                    type: 'activity'
-                }
-            })
+        jumpDetail (img) {
+            if (img.title == 'mobile.activity') {
+                this.$router.open({
+                    name: 'mobile.activity',
+                    params: {
+                        id: 2,
+                        imageUrl: 'img.image',
+                        name: '70% OFF',
+                        type: 'activity'
+                    }
+                });
+            } else if (img.title == 'flash') {
+                this.$router.open({
+                    name: 'flash',
+                    type: 'PUSH'
+                    // params: {
+                    //     card: id
+                    // }
+                })
+            }
         }
     }
 }
