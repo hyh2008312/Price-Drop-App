@@ -55,16 +55,16 @@ export const CHANNELLIST = [{
     left: '0'
 }, {
     name: 'Paid',
-    left: '116'
+    left: '124'
 }, {
     name: 'Preparing',
-    left: '272'
+    left: '286'
 }, {
     name: 'Shipped',
-    left: '450'
+    left: '466'
 }, {
-    name: 'Delivered',
-    left: '620'
+    name: 'Closed',
+    left: '634'
 }];
 
 export const ADDRESS = [{
@@ -72,16 +72,16 @@ export const ADDRESS = [{
     left: '0'
 }, {
     name: 'Paid',
-    left: '116'
+    left: '124'
 }, {
     name: 'Preparing',
-    left: '272'
+    left: '286'
 }, {
     name: 'Shipped',
-    left: '450'
+    left: '466'
 }, {
-    name: 'Delivered',
-    left: '620'
+    name: 'Closed',
+    left: '634'
 }];
 
 export const PAYLIST = [{
@@ -93,7 +93,7 @@ export const PAYLIST = [{
     value: 2
 }];
 
-export const ORDERSTATUS = [null, 'Paid', 'Packing', 'Shipped', 'Completed'];
+export const ORDERSTATUS = [null, 'Paid', 'Packing', 'Shipped', 'Canceled'];
 
 export const CANCELREASON = [
     'I need to change my order',
