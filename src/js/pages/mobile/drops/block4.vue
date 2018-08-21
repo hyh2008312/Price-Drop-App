@@ -46,7 +46,7 @@
                     animation.transition(this.$refs.notice, {
                         styles: {
                             opacity: 1,
-                            transform: 'translateY(' + (-96 * (e + 1)) + 'px)'
+                            transform: 'translateY(' + (-64 * (e + 1)) + 'px)'
                         },
                         duration: 2500,
                         timingFunction: 'ease',
@@ -93,30 +93,31 @@
     }
 
     .wrapper{
-        width: 718px;
-        height: 96px;
+        width: 750px;
+        height: 64px;
+        background-color: #FFF7E1;
         overflow: hidden;
     }
 
     .inner-container{
-        width: 718px;
-        height: 96px;
+        width: 750px;
+        height: 64px;
         justify-content: start;
         flex-direction: row;
         align-items: center;
     }
 
     .header{
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
         overflow: hidden;
-        border-radius: 32px;
+        border-radius: 24px;
         margin-left: 32px;
     }
 
     .header-image{
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
     }
 
     .tlt {
