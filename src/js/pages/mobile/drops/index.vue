@@ -11,6 +11,11 @@
                     <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
                 </div>
             </cell>
+            <cell>
+                <div class="price-drop-banner">
+                    <image class="price-drop-banner-image" src="bmlocal://assets/drop-price-banner.jpg"></image>
+                </div>
+            </cell>
             <header>
                 <cutTab :items="tabsItems" @tabTo="onTabTo" ref="cubTab"></cutTab>
             </header>
@@ -313,6 +318,14 @@
     }
 </script>
 <style scoped>
+    .price-drop-banner{
+        width: 750px;
+        height: 288px;
+    }
+    .price-drop-banner-image{
+        width: 750px;
+        height: 288px;
+    }
     .gd-button{
         margin-top: 48px;
         width: 200px;
@@ -571,20 +584,18 @@
     }
 
     .notice-bg{
-        width: 718px;
-        height: 96px;
+        width: 750px;
+        height: 64px;
         background-color: #FFFFFF;
         border-width: 1px;
         border-style: solid;
         border-color: rgba(0,0,0,0.12);
-        border-radius: 8px;
         overflow: hidden;
     }
 
     .notice-wrapper {
         width: 750px;
-        height: 128px;
-        padding-top: 16px;
+        height: 64px;
         justify-content: start;
         align-items: center;
         overflow: hidden;
