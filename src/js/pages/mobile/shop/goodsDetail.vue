@@ -8,7 +8,7 @@
 
             <div style="background-color: white" >
 
-                <slider class="slider" interval="3000" auto-play="true" :index="2">
+                <slider class="slider" interval="8000" auto-play="true" :index="2">
                     <div class="frame" v-for="(img, idx) in goodsImg">
                         <preload class="image" :src="img"></preload>
                         <text style="right:20px;bottom:20px;color:black;position:absolute">{{idx+1}}/{{goodsImg.length}}</text>
