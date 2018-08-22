@@ -95,6 +95,7 @@
                 this.proId = this.listArr[0].id
                 this.endTime = this.listArr[0].endTime
                 this.init()
+                googleAnalytics.trackingScreen(`flash sale list/${this.channelIndex == 0 ? 'Ongoing' : 'Scheduled'}`)
             }
         },
         watch: {
@@ -107,6 +108,7 @@
                             this.startTime = this.listArr[val].startTime
                             this.endTime = this.listArr[val].endTime
                             this.init()
+                            googleAnalytics.trackingScreen(`flash sale list/${this.channelIndex == 0 ? 'Ongoing' : 'Scheduled'}`)
                         }
                     }
                 },

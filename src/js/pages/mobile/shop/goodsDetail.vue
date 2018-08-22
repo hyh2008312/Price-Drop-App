@@ -370,7 +370,6 @@
                 this.isDrop = resData.isDrop
                 this.getGoodsDetail(resData)
                 this.getDropGoods()
-                googleAnalytics.trackingScreen(`Product Detail/${this.proId}`);
             })
             if (this.$storage.getSync('user')) {
                 this.user = this.$storage.getSync('user')
@@ -475,6 +474,7 @@
                             this.category = res.categories[0].name;
                         }
                         this.$notice.loading.hide();
+                        googleAnalytics.trackingScreen(`Product Detail/${this.proId}/${this.purchaseMethod}`);
                         googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
                     }).catch((res) => {
                         this.$notice.loading.hide();
