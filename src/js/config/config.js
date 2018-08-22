@@ -41,5 +41,6 @@ export const apis = {
     'payment.paytm.get.status': '/payment/paytm/get/status/',
     'payment.razorpay.create': '/payment/razorpay/create/',
     'order.flash.pure': '/order/flash/pure/',
-    'flashsale.flash.customer.home': '/flashsale/flash/customer/home/'
+    'flashsale.flash.customer.home': '/flashsale/flash/customer/home/',
+    'promotion.get.broadcast': '/promotion/get/broadcast/'
 }

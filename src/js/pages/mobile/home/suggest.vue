@@ -135,7 +135,7 @@ export default {
                 this.block1.items = [];
                 this.$fetch({
                     method: 'GET',
-                    name: 'promotion.get.list',
+                    name: 'promotion.get.broadcast',
                     data: {}
                 }).then(resData => {
                     this.backup = [...resData];
@@ -229,7 +229,7 @@ export default {
             this.block1.items = [];
             this.$fetch({
                 method: 'GET',
-                name: 'promotion.get.list',
+                name: 'promotion.get.broadcast',
                 data: {}
             }).then(resData => {
                 this.backup = [...resData];
