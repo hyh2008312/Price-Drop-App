@@ -5,7 +5,7 @@
                 <div class="header">
                     <preload class="header-image" :src="message.avatar"></preload>
                 </div>
-                <text class="tlt">{{message.username}} {{message.title}} </text>
+                <text class="tlt">{{message.title}} </text>
             </div>
         </div>
     </div>
