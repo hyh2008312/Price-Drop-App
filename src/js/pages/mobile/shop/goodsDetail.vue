@@ -152,7 +152,7 @@
             <div v-if="productStatus==='unpublished'">
                 <text class="button-gray"  >Unavailable</text>
             </div>
-            <div v-if="productStatus!=='published'">
+            <div v-if="productStatus==='published'">
                 <text class="button" @click="openCutPrice" v-if="canBuy">Invite Friends to Drop Price</text>
                 <text class="button-gray"  v-if="!canBuy">Out of Stock</text>
             </div>
