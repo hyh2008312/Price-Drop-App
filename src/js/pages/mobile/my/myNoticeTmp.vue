@@ -17,7 +17,7 @@
                                 <!--<text class="header1-word">Your DROP has ended!</text>-->
                                 <text class="header1-word">{{i.title}}</text>
                             </div>
-                            <text class="name">{{user}}</text>
+                            <text class="name">{{user}}  ---{{i.id}}</text>
                             <div class="pro-content">
                                 <!--<text class="pro-word">Your DROP has ended and now you have 24 hours left to purchase your item at the final price.</text>-->
                                 <text class="pro-word">{{i.context.text}}</text>
@@ -30,21 +30,30 @@
                                 <text class="item-2">{{i.context.item}}</text>
                             </div>
 
-                            <div v-if="id==1&&i.noticeType!=='expired_not_paid'">
-                                <div class="price-div">
-                                    <text class="item-1" >Price Drop: </text>
-                                    <text class="item-2">Rs.{{i.context.priceDrop}}</text>
-                                </div>
-                                <div class="price-div">
-                                    <text class="item-1" >Final Drop: </text>
-                                    <text class="item-2">Rs.{{i.context.finalPrice}}</text>
+                            <div v-if="id==1">
+                                <div class="price-div" v-if="i.context.priceUnlocked">
+                                    <text class="item-1" >Price Unlocked: </text>
+                                    <text class="item-2" >Rs.{{i.context.priceUnlocked}}</text>
                                 </div>
                             </div>
 
                             <div v-if="id==2">
-                                <div class="price-div">
+                                <div class="price-div" v-if="i.noticeType=='flash_15_left_for_pay'||i.noticeType=='flash_expire_for_pay'">
+                                    <text class="item-1" >Flash Sale Price: </text>
+                                    <text class="item-2">{{i.context.flashSalePrice}}</text>
+                                </div>
+
+                                <div class="price-div" v-if="i.noticeType=='payment_success'||i.noticeType=='order_canceled'"> <!--付款成功 和 取消订单审核通过-->
                                     <text class="item-1" >Order #: </text>
                                     <text class="item-2">{{i.context.orderNumber}}</text>
+                                </div>
+                                <div class="price-div" v-if="i.noticeType=='payment_success'">
+                                    <text class="item-1" >Payment Amount: </text>
+                                    <text class="item-2">{{i.context.paymentAmount}}</text>
+                                </div>
+                                <div class="price-div" v-if="i.noticeType=='paid_to_packing'||i.noticeType=='already_shipped'"> <!--付款成功到发货 和 shipped-->
+                                    <!--<text class="item-1" >Payment Amount: </text>-->
+                                    <!--<text class="item-2">{{i.context.paymentAmount}}</text>-->
                                 </div>
                             </div>
 
@@ -53,9 +62,17 @@
                                     <!--<text class="item-1" >Points: </text>-->
                                     <!--<text class="item-2">{{i.context.orderNumber}}</text>-->
                                 <!--</div>-->
-                                <div class="price-div" v-if="i.context.price!==''">
-                                    <text class="item-1" >Final Drop: </text>
-                                    <text class="item-2">Rs.{{i.context.price}}</text>
+                                <div class="price-div" v-if="i.noticeType==='point_increase_owner'||i.noticeType==='point_increase_friend'||i.noticeType==='cut_down_to'">
+                                    <!--<text class="item-1" >Final Drop: </text>-->
+                                    <!--<text class="item-2">Rs.{{i.context.price}}</text>-->
+                                </div>
+                                <div class="price-div" v-if="i.noticeType==='card_expired_reminder'||i.noticeType==='card_expired_notice'">
+                                    <text class="item-1" >Gift Voucher: </text>
+                                    <text class="item-2">Rs.{{i.context.giftVoucher}}</text>
+                                </div>
+                                <div class="price-div" v-if="i.noticeType==='card_expired_reminder'||i.noticeType==='card_expired_notice'">
+                                    <text class="item-1" >Deadline: </text>
+                                    <text class="item-2">{{i.context.deadline}}</text>
                                 </div>
                             </div>
 
@@ -80,7 +97,7 @@
                         </div>
 
                         <div class="card-bottom"  v-if="i.noticeType=='reminder_payment'" @click="openNew(2,i.context.orderId)">
-                            <text class="card-bottom-word" >Click to Pay Now</text>
+                            <text class="card-bottom-word" >Click to Pay Now {{i.context.orderId}}</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 
@@ -98,6 +115,7 @@
                             <text class="card-bottom-word" >Click to View Your Ponits</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
+
 
                         <div class="card-bottom" v-if="id==4"  @click="openNew(4)">
                             <text class="card-bottom-word" >Click to See Our New Offers</text>
@@ -223,9 +241,6 @@
                 this.$event.emit('readNotice', { type: this.params })
             },
             getcutingProduct (isFirst) {
-                // this.$notice.alert({
-                //     message: this.page
-                // })
                 this.$fetch({
                     method: 'GET',
                     url: `${baseUrl}/notice/detail/`,
@@ -239,6 +254,7 @@
                     }}
                 ).then(data => {
                     this.data = data
+
 
                     if (data.count == 0) {
                         this.length = 2;
@@ -259,7 +275,11 @@
                     //     this.isLoading = false;
                     // }
                     // this.refreshApiFinished();
-                }, error => {})
+                }, error => {
+                    // this.$notice.alert({
+                    //     message: error
+                    // })
+                })
             },
             openNew (p, other) {
                 if (p == 1) {

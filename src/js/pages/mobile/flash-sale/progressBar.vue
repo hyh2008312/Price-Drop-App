@@ -2,6 +2,7 @@
     <div style="margin-bottom: 8px">
         <div class="all"></div>
         <div class="value" :style="pwidth"></div>
+        <text class="goods-bottom-word">{{percentNum}}% Sold</text>
     </div>
 </template>
 
@@ -14,7 +15,8 @@
                 // all: 50,
                 // value: 5,
                 // pId: 1191,
-                len: ''
+                len: '',
+                percentNum: ''
 
                 // pstyle: {
                 //     width:
@@ -44,6 +46,8 @@
                         tmp = (num / 2)
                     }
                     this.len = (tmp / 100) * 320
+                    this.percentNum = parseInt(tmp)
+                    // this.$emit('percent', this.percentNum)
                 }
             }
         }
@@ -67,6 +71,15 @@
         /*width: 160px;*/
         height: 8px;
         border-radius: 8px;
+    }
+    .goods-bottom-word{
+        opacity: 0.38;
+        font-family: ProximaNova-Regular;
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+        margin-top: 15px;
+        text-align: left;
     }
 
 </style>

@@ -56,23 +56,23 @@
                 </div>
 
             </div>
-            <div class="overflow-box" @click="openNew(4,'refund')">
-                <div class="overflow-box-content">
-                    <div>
-                        <div class="dot" v-if="refund.isRead==false"></div>
-                        <image src="bmlocal://assets/ic-refund-noti.png" class="icon-img" style=""></image>
-                    </div>
-                    <div class="word">
-                        <div class="title-time">
-                            <text class="title">Refunds Notifications</text>
-                            <text class="time">{{tranDate(refund.created)}}</text>
-                        </div>
+            <!--<div class="overflow-box" @click="openNew(4,'refund')">-->
+                <!--<div class="overflow-box-content">-->
+                    <!--<div>-->
+                        <!--<div class="dot" v-if="refund.isRead==false"></div>-->
+                        <!--<image src="bmlocal://assets/ic-refund-noti.png" class="icon-img" style=""></image>-->
+                    <!--</div>-->
+                    <!--<div class="word">-->
+                        <!--<div class="title-time">-->
+                            <!--<text class="title">Refunds Notifications</text>-->
+                            <!--<text class="time">{{tranDate(refund.created)}}</text>-->
+                        <!--</div>-->
 
-                        <text class="title-item">{{refund.title||'There is no notification to show. '}}</text>
-                    </div>
-                </div>
+                        <!--<text class="title-item">{{refund.title||'There is no notification to show. '}}</text>-->
+                    <!--</div>-->
+                <!--</div>-->
 
-            </div>
+            <!--</div>-->
 
         </div>
 
