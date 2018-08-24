@@ -122,9 +122,11 @@
     }
     .flash-sales-tword{
         color:#EF8A31;
+        width: 125px;
         font-style: italic;
-        margin-right: 18px;
+        /*margin-right: 18px;*/
         font-size: 32px;
+
     }
     .flash-sales-time{
         font-size: 28px;
