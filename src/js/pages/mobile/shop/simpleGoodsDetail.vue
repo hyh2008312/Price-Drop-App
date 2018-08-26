@@ -26,12 +26,33 @@
                 </div>
 
             </div>
-                 <div class="learn-drop">
-                    <div  class="learn-div" @click="openShip(1)"><text class="learn-picon iconfont">&#xe723;</text><text class="learn-price" >How to Drop Price</text></div>
-                    <div  class="learn-div" @click="openShip(2)"><text class="learn-sicon iconfont">&#xe722;</text><text class="learn-ship">Shipping & Delivery</text></div>
-                 </div>
+            <div class="learn-drop" @click="openShip(1)" >
+                <div class="learn-drop-itme1">
+                    <text class="learn-drop-itmeh">How It Works</text>
+                    <div class="learn-drop-itmed">
+                        <text class="learn-drop-itmem">More Details </text><text class="iconfont learn-drop-itmem" style="padding-top: 2px">&#xe626;</text>
+                    </div>
+                </div>
 
-
+                <div class="learn-drop-itme2">
+                    <div class="progress">
+                        <div class="progress-numdiv"><text  class="progress-num">1</text></div>
+                        <text class="progress-word">Start a Drop</text>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-numdiv"><text  class="progress-num">2</text></div>
+                        <text class="progress-word">Invite Friends</text>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-numdiv"><text  class="progress-num">3</text></div>
+                        <text class="progress-word">Get Lowest Price</text>
+                    </div>
+                </div>
+                <div class="learn-drop-line">
+                    <div class="progress-line-left"></div>
+                    <div class="progress-line-right"></div>
+                </div>
+            </div>
 
                 <div v-if="tabshow==true" style="position: sticky">
                     <tab   @tabTo="onTabTo" :items="tabsItems"></tab>
@@ -490,43 +511,6 @@
         color: black;
         margin-bottom: 48px;
     }
-    .learn-drop{
-        width: 750px;
-        height: 96px;
-        border-top-style:solid ;
-        border-top-width:1px ;
-        border-top-color:rgba(0,0,0,0.08) ;
-        background-color: #fff;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-    .learn-div{
-        width: 375px;
-        padding-top: 32px;
-        border-right-color:rgba(0,0,0,0.08) ;
-        border-right-width:1px ;
-        border-right-style:solid ;
-        flex-direction: row;
-        justify-content: center;
-    }
-    .learn-picon{
-        color: #1abdcd;
-        font-size: 28px;
-        margin-right: 8px;
-    }
-    .learn-sicon{
-        color: #ffde00;
-        font-size: 28px;
-        margin-right: 8px;
-    }
-    .learn-price{
-        font-weight: 700;
-        font-size: 24px;
-    }
-    .learn-ship{
-        font-weight: 700;
-        font-size: 24px;
-    }
     .dec-word{
         width: 750px;
         height: 96px;
@@ -590,5 +574,88 @@
         font-size: 28px;
         text-align: center;
         font-weight: 700;
+    }
+
+    .learn-drop{
+        width: 750px;
+        height: 208px;
+        border-top-style:solid ;
+        border-top-width:1px ;
+        border-top-color:rgba(0,0,0,0.08) ;
+        background-color: #fff;
+        flex-direction: column;
+        margin-top: 12px;
+        /*justify-content: space-around;*/
+    }
+    .learn-drop-itme1{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .learn-drop-itmeh{
+        padding-left: 32px;
+        padding-top: 32px;
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .learn-drop-itmed{
+        flex-direction: row;
+        padding-top: 32px;
+        padding-right: 32px;
+
+    }
+    .learn-drop-itmem{
+        font-size: 20px;
+        color: #EF8A31;
+    }
+    .learn-drop-itme2{
+        flex-direction: row;
+        justify-content:space-between ;
+    }
+    .progress{
+        /*background-color: #f4f4f4;*/
+        padding-top: 32px;
+        justify-content:center ;
+        width: 190px;
+        margin-right: 32px ;
+        margin-left: 32px ;
+    }
+    .progress-numdiv{
+        flex-direction: row;
+        justify-content:center ;
+
+    }
+    .progress-num{
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        padding-top: 5px;
+        color: white;
+        background-color: #EF8A31;
+        font-size: 20px;
+        border-radius: 50%;
+    }
+    .learn-drop-line{
+        flex-direction: row;
+        justify-content:space-around ;
+        margin-top: -50px;
+    }
+    .progress-line-left{
+        height: 3px;
+        width: 225px;
+        background-color: rgba(0,0,0,0.12);
+        margin-left: 125px;
+    }
+    .progress-line-right{
+        height: 3px;
+        width: 225px;
+        background-color: rgba(0,0,0,0.12);
+        margin-right: 113px;
+    }
+    .progress-word{
+        flex-direction: row;
+        text-align: center;
+        font-size: 24px;
+        margin-top: 6px;
     }
 </style>
