@@ -78,7 +78,7 @@
         font-size: 24px;
         color: #000000;
         letter-spacing: 0;
-        margin-top: 15px;
+        margin-top: 8px;
         text-align: left;
     }
 

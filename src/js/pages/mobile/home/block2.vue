@@ -28,7 +28,11 @@
                     <div class="gd-img">
                         <preload class="gd-img-image" :src="i.mainImage"></preload>
                     </div>
+                    <text class="gd-txt">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
+                    <!--<text class="gd-txt"></text>-->
                 </div>
+
+
                 <div class="gd-tlt-bg">
                     <text class="gd-tlt">Rs.{{countPrice(i.unitPrice, i.discount)}}</text>
                     <text class="gd-info">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
@@ -242,7 +246,23 @@ export default {
     border-bottom-style: solid;
     border-bottom-color: rgba(0,0,0,.08);
 }
-
+.gd-txt{
+    font-family: ProximaNova-Bold;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #00CFE3 ;
+    width: 66px;
+    height: 66px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 28px;
+    border-radius: 8px;
+    padding-top: 4px;
+}
 .gd-img {
     width: 284px;
     height: 284px;
