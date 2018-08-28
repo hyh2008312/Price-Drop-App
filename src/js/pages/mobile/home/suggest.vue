@@ -1,7 +1,7 @@
 <!--suppress ALL -->
 <template>
     <div class="wrapper">
-        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" v-if="hasWifi" >
+        <list offset-accuracy="100" loadmoreoffset="200" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="slider-wrap">
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
@@ -49,8 +49,11 @@
                 <block-3 :goods="item" :tab="tabKey"></block-3>
             </cell>
             <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
-            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
-                <text class="indicator">loading...</text>
+            <cell class="loading" v-if="isLoading">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
+            <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </loading>
         </list>
         <no-wifi v-if="!hasWifi" @onReload="loadingDown"></no-wifi>
@@ -150,7 +153,7 @@ export default {
             }
         },
         onLoadingMore () {
-            if (!this.isPlatformAndroid) {
+            if (this.isPlatformAndroid) {
                 this.countApi = 0;
                 this.isLoading = true;
                 if (this.tabKey == 'new') {
@@ -161,7 +164,7 @@ export default {
             }
         },
         onloading () {
-            if (this.isPlatformAndroid) {
+            if (!this.isPlatformAndroid) {
                 this.countApi = 0;
                 this.isLoading = true;
                 if (this.tabKey == 'new') {

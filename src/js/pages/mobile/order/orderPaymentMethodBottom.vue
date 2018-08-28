@@ -30,9 +30,6 @@
                             }
                         }).then(resData => {
                             that.$notice.loading.hide();
-                            that.$notice.alert({
-                                message: resData
-                            });
                             that.$event.emit('cutDetail');
                             if (resData.order.paymentAmount <= 0) {
                                 that.$router.finish();
@@ -51,9 +48,6 @@
                             pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
-                                    that.$notice.alert({
-                                        message: data
-                                    });
                                     if (data.code == 200) {
                                         that.$router.finish();
                                         that.$notice.loading.show();
@@ -170,9 +164,6 @@
                             pay.startPayRequest(order.razorpayOrderId, order.order.lines[0].title, 'Order#: ' + order.orderNumber,
                                 that.order.lines[0].mainImage, parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
-                                    that.$notice.alert({
-                                        message: param
-                                    });
                                     that.$notice.loading.show();
                                     that.$fetch({
                                         method: 'POST', // 大写
