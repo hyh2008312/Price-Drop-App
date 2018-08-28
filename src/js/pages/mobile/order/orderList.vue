@@ -1,12 +1,15 @@
 <template>
     <div class="wrapper">
-        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
+        <list offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown" v-if="order.length > 0"></refresher>
             <cell class="cell-button" v-for="(item, i) in order" :key="item.id">
                 <order-item :order="item" :index="i" @pay="pay"
                             @cancel="cancel" @deleteOrder="deleteOrder"></order-item>
             </cell>
-            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+            <cell class="loading" v-if="isLoading">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
+            <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">Loading...</text>
             </loading>
         </list>
@@ -175,12 +178,15 @@
         },
         methods: {
             onLoadingMore () {
-                this.getOrder(false)
+                if(!this.isLoading) {
+                    this.isLoading = true;
+                    this.getOrder(false);
+                }
             },
             onloading () {
                 if (this.isPlatformAndroid) {
-                    this.isLoading = true
-                    this.getOrder(false)
+                    this.isLoading = true;
+                    this.getOrder(false);
                 }
             },
             loadingDown () {
