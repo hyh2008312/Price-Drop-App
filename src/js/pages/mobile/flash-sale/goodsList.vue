@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
 
-        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
+        <list  offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell>
                 <div v-if="channelIndex==0" class="overflow-center-time">
@@ -56,7 +56,10 @@
                 <!--</cell>-->
 
             </cell>
-            <loading class="loading"  :display="isLoading? 'show': 'hide'" @loading="onloading" >
+            <cell class="loading" v-if="isLoading">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
+            <loading  v-if="false" class="loading"  :display="isLoading? 'show': 'hide'" @loading="onloading" >
                 <text class="indicator">Loading...</text>
             </loading>
         </list>
@@ -136,7 +139,7 @@
         },
         methods: {
             onLoadingMore () {
-                if (!this.isPlatformAndroid) {
+                if (!this.isLoading) {
                     this.isLoading = true;
                     this.getOrder(false)
                 }
