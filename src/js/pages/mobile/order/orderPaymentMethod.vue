@@ -45,6 +45,9 @@ export default {
         appeared (params, option) {
             this.order = params.data;
             this.source = params.source;
+            this.$notice.alert({
+                message: this.order
+            })
         }
     },
     created () {
