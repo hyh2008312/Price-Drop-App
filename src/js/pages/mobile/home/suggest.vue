@@ -1,7 +1,7 @@
 <!--suppress ALL -->
 <template>
     <div class="wrapper">
-        <list offset-accuracy="100" loadmoreoffset="200" @loadmore="onLoadingMore" v-if="hasWifi" >
+        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="slider-wrap">
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
@@ -153,12 +153,14 @@ export default {
             }
         },
         onLoadingMore () {
-            this.countApi = 0;
-            this.isLoading = true;
-            if (this.tabKey == 'new') {
-                this.getNewGoods(false)
-            } else {
-                this.getHotGoods(false)
+            if(!this.isLoading) {
+                this.countApi = 0;
+                this.isLoading = true;
+                if (this.tabKey == 'new') {
+                    this.getNewGoods(false)
+                } else {
+                    this.getHotGoods(false)
+                }
             }
         },
         onloading () {
