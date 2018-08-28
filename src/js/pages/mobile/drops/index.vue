@@ -47,10 +47,9 @@
                     <text class="drop-reload">Reload</text>
                 </div>
             </cell>
-
-            <loading v-if="!(!isCuting &&!isMyDropLogin && isWifi)" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
-                <text class="indicator">Loading...</text>
-            </loading>
+            <cell class="loading" v-if="isLoading && !(!isCuting &&!isMyDropLogin && isWifi)">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
         </list>
     </div>
 </template>
@@ -204,15 +203,16 @@
                 this.getBlock4();
             },
             onLoadingMore () {
-                if (!this.isPlatformAndroid) {
+                if (!this.isLoading) {
+                    this.isLoading = true;
                     this.requestProduct(false)
                 }
             },
             onloading () {
-                if (this.isPlatformAndroid) {
+                /* if (this.isPlatformAndroid) {
                     this.isLoading = true
                     this.requestProduct(false)
-                }
+                } */
             },
             getTabName () {
                 this.tabsItems = TAB;
@@ -600,5 +600,16 @@
         align-items: center;
         overflow: hidden;
         background-color: #FFF7E1;
+    }
+    .loading{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 0;
+    }
+
+    .loading-icon{
+        width: 64px;
+        height: 64px;
     }
 </style>
