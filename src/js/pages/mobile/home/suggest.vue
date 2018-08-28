@@ -153,26 +153,24 @@ export default {
             }
         },
         onLoadingMore () {
-            if (this.isPlatformAndroid) {
-                this.countApi = 0;
-                this.isLoading = true;
-                if (this.tabKey == 'new') {
-                    this.getNewGoods(false)
-                } else {
-                    this.getHotGoods(false)
-                }
+            this.countApi = 0;
+            this.isLoading = true;
+            if (this.tabKey == 'new') {
+                this.getNewGoods(false)
+            } else {
+                this.getHotGoods(false)
             }
         },
         onloading () {
-            if (!this.isPlatformAndroid) {
-                this.countApi = 0;
-                this.isLoading = true;
-                if (this.tabKey == 'new') {
-                    this.getNewGoods(false);
-                } else {
-                    this.getHotGoods(false);
-                }
-            }
+            // if (!this.isPlatformAndroid) {
+            //     this.countApi = 0;
+            //     this.isLoading = true;
+            //     if (this.tabKey == 'new') {
+            //         this.getNewGoods(false);
+            //     } else {
+            //         this.getHotGoods(false);
+            //     }
+            // }
         },
         loadingDown () {
             this.countApi = 0;
