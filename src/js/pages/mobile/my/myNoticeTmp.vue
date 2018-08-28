@@ -4,7 +4,7 @@
 
         <div class="blackheader"></div>
         <div style="margin-top: 160px;"></div>
-        <list style=" width: 750px;"  ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore" >
+        <list style=" width: 750px;"  ref="list" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore" >
             <cell  v-for="(i,index) in goods">
                 <text class="first-time">{{tranDate(i.modified)}}</text>
 
@@ -141,12 +141,15 @@
                 </div>
                 <text class="address-title">TThere is no notification to show. </text>
             </cell>
-
-            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+            <cell class="loading" v-if="isLoading">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
+            <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">{{loadingWord}}</text>
             </loading>
 
         </list>
+
 
 
         <!--<text> time</text>-->
@@ -213,8 +216,10 @@
         },
         methods: {
             onLoadingMore () {
-                this.requestProduct(false)
-                // this.isLoading = true
+                if (!this.isLoading) {
+                    this.isLoading = true
+                    this.requestProduct(false)
+                }
             },
             onloading () {
                 this.isLoading = true
@@ -506,5 +511,15 @@
         font-size: 28px;
         line-height: 34px;
         text-align: center;
+    }
+    .loading{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 0;
+    }
+    .loading-icon{
+        width: 64px;
+        height: 64px;
     }
 </style>

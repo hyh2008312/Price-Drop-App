@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
 
-        <list offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
+        <list offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="cell-button" v-for="(i, index) in order" :key="i.id" >
                 <div class="overflow-gift">
@@ -18,7 +18,10 @@
                 </div>
             </cell>
 
-            <loading class="loading"  :display="isLoading? 'show': 'hide'" @loading="onloading" >
+            <cell class="loading" v-if="isLoading">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
+            <loading  v-if="false" class="loading"  :display="isLoading? 'show': 'hide'" @loading="onloading" >
                 <text class="indicator">Loading...</text>
             </loading>
         </list>
@@ -82,7 +85,7 @@
         },
         methods: {
             onLoadingMore () {
-                if (!this.isPlatformAndroid) {
+                if (!this.isLoading) {
                     this.isLoading = true;
                     this.getOrder(false)
                 }
@@ -242,6 +245,16 @@
         font-family: ProximaNova-Regular;
         font-size: 24px;
         color: #EF8A31;
+    }
+    .loading{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 0;
+    }
+    .loading-icon{
+        width: 64px;
+        height: 64px;
     }
     .empty-div{
         flex-direction: column;

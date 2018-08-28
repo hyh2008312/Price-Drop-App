@@ -328,5 +328,15 @@
         margin-top: 4px;
         margin-bottom: 4px;
     }
+    .loading{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 0;
+    }
+    .loading-icon{
+        width: 64px;
+        height: 64px;
+    }
 </style>
 
