@@ -5,7 +5,7 @@
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name}}</text>
         </div>
-        <list class="main-list" ref="list" loadmoreoffset="30"
+        <list class="main-list" ref="list" offset-accuracy="10" loadmoreoffset="400"
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <header>
@@ -24,7 +24,10 @@
                 <block7 :goods="i" v-if="arrangement == true"></block7>
             </cell>
             <cell class="cell-fixed" v-if="goods.length > 0"></cell>
-            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+            <cell class="loading" v-if="isLoading">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
+            <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">loading...</text>
             </loading>
         </list>
@@ -110,7 +113,7 @@
                 this.getActivityProduct(true);
             },
             onLoadingMore () {
-                if (!this.isPlatformAndroid) {
+                if (!this.isLoading) {
                     this.isLoading = true;
                     this.getActivityProduct(false);
                 }
@@ -464,4 +467,17 @@
         font-weight: bold;
         color: #EF8A31;
     }
+
+    .loading{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 0;
+    }
+
+    .loading-icon{
+        width: 64px;
+        height: 64px;
+    }
+
 </style>
