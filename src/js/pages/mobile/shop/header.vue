@@ -2,7 +2,7 @@
     <div class="wrappertop">
         <div class="left">
             <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe6f6;</text>
-            <text class="leftTxt" v-else>&#xe632;</text>
+            <text class="leftTxt" v-else                @click="$router.back">&#xe632;</text>
         </div>
         <!--<text class="tlt">{{title}}</text>-->
         <div class="right">
