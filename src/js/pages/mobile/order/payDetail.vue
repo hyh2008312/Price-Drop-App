@@ -19,7 +19,8 @@
                 <order-detail-number :order="order"></order-detail-number>
             </cell>
         </list>
-        <order-detail-bottom :order="order" @cancel="cancel" @deleteOrder="deleteOrder"></order-detail-bottom>
+        <order-detail-bottom :order="order" @cancel="cancel" @deleteOrder="deleteOrder"
+                             @receiptOrder="receiptOrder"></order-detail-bottom>
         <wxc-popup :have-overlay="isTrue"
                    popup-color="rgb(255, 255, 255, 255)"
                    :show="isBottomShow"
@@ -54,8 +55,26 @@
             <div class="popup-delete-container" @click="prevent($event)">
                 <text class="popup-delete-title">Are you sure you want to delete this order？</text>
                 <div class="popup-delete-bottom">
-                    <text class="popup-delete-button" @click="deleteOrderConfirm">DELETE</text>
-                    <text class="popup-delete-button-1" @click="closeDeletePop">CANCEL</text>
+                    <text class="popup-delete-button" @click="deleteOrderConfirm">Delete</text>
+                    <text class="popup-delete-button-1" @click="closeDeletePop">Cancel</text>
+                </div>
+            </div>
+        </wxc-mask>
+        <wxc-mask height="260"
+                  width="560"
+                  border-radius="0"
+                  duration="200"
+                  mask-bg-color="rgba(0,0,0,0)"
+                  :has-animation="hasAnimation"
+                  :has-overlay="true"
+                  :show-close="false"
+                  :show="isReceiptShow"
+                  @wxcMaskSetHidden="popupReceiptClick">
+            <div class="popup-receipt-container" @click="prevent($event)">
+                <text class="popup-delete-title">Confirm receipt of your package and earn reward points from this order. </text>
+                <div class="popup-delete-bottom">
+                    <text class="popup-delete-button" @click="receiptOrderConfirm">Confirm Receipt</text>
+                    <text class="popup-delete-button-1" @click="closeReceiptPop">Not Yet</text>
                 </div>
             </div>
         </wxc-mask>
@@ -115,6 +134,7 @@ export default {
             reason: CANCELREASON,
             reasonActive: 0,
             isDeleteShow: false,
+            isReceiptShow: false,
             hasAnimation: true
         }
     },
@@ -181,8 +201,15 @@ export default {
             this.isDeleteShow = true;
             common.changeAndroidCanBack(false);
         },
+        receiptOrder (event) {
+            this.isReceiptShow = true;
+            common.changeAndroidCanBack(false);
+        },
         popupDeleteClick () {
             this.isDeleteShow = false
+        },
+        popupReceiptClick () {
+            this.isReceiptShow = false;
         },
         deleteOrderConfirm () {
             this.closeDeletePop()
@@ -205,11 +232,42 @@ export default {
                 });
             })
         },
+        receiptOrderConfirm () {
+            this.closeReceiptPop();
+            this.$fetch({
+                method: 'POST', // 大写
+                url: `${baseUrl}/order/customer/update/${this.order.id}/`,
+                data: {
+                    status: 'Completed'
+                },
+                header: {
+                    needAuth: true
+                }
+            }).then(resData => {
+                this.order = resData.order;
+                if (resData.point != 0) {
+                    this.$notice.toast(`Congratulations! You have got ${resData.point} points!!`);
+                } else {
+
+                }
+                this.order.splice(this.deleteIndex, 1);
+            }, error => {
+                this.$notice.toast({
+                    message: error
+                });
+            });
+        },
         closeDeletePop () {
             this.isDeleteShow = false
         },
+        closeReceiptPop () {
+            this.isReceiptShow = false
+        },
         initMaskBack () {
             common.setAndroidCanBack(true, (params) => {
+                if (this.isReceiptShow) {
+                    this.closeReceiptPop();
+                }
                 if (this.isDeleteShow) {
                     this.closeDeletePop();
                 }
@@ -348,7 +406,8 @@ export default {
     }
 
     .popup-delete-button{
-        font-size: 28px;
+        font-family: ProximaNova;
+        font-size: 24px;
         line-height: 34px;
         margin-right: 48px;
         font-weight: bold;
@@ -356,9 +415,19 @@ export default {
     }
 
     .popup-delete-button-1{
-        font-size: 28px;
+        font-family: ProximaNova;
+        font-weight: bold;
+        font-size: 24px;
         line-height: 34px;
         color: rgba(0,0,0,0.54);
+    }
+
+    .popup-receipt-container{
+        width: 560px;
+        height: 260px;
+        border-radius: 8px;
+        background-color: #fff;
+        padding: 32px;
     }
 
 </style>

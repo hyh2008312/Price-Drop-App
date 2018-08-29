@@ -55,7 +55,8 @@
                 <text class="od-text-2">Order cancellation pending</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Shipped'">
-                <text class="gd-button" @click="tracking">Track Package</text>
+                <text class="od-button-1 gt-mr" @click="tracking">Track Package</text>
+                <text class="gd-button" @click="receipt">Confirm Receipt</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Canceled'">
                 <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
@@ -134,6 +135,15 @@
             deleteOrder () {
                 this.$emit('deleteOrder', {
                     status: 'deleteOrder',
+                    data: {
+                        index: this.index,
+                        id: this.order.id
+                    }
+                })
+            },
+            receipt () {
+                this.$emit('receiptOrder', {
+                    status: 'receiptOrder',
                     data: {
                         index: this.index,
                         id: this.order.id

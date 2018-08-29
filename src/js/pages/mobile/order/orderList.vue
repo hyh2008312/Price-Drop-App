@@ -4,7 +4,8 @@
             <refresher ref="refresh" @loadingDown="loadingDown" v-if="order.length > 0"></refresher>
             <cell class="cell-button" v-for="(item, i) in order" :key="item.id">
                 <order-item :order="item" :index="i" @pay="pay"
-                            @cancel="cancel" @deleteOrder="deleteOrder"></order-item>
+                            @cancel="cancel" @deleteOrder="deleteOrder"
+                            @receiptOrder="receiptOrder"></order-item>
             </cell>
             <cell class="loading" v-if="isLoading">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
@@ -76,8 +77,26 @@
             <div class="popup-delete-container" @click="prevent($event)">
                 <text class="popup-delete-title">Are you sure you want to delete this order？</text>
                 <div class="popup-delete-bottom">
-                    <text class="popup-delete-button" @click="deleteOrderConfirm">DELETE</text>
-                    <text class="popup-delete-button-1" @click="closeDeletePop">CANCEL</text>
+                    <text class="popup-delete-button" @click="deleteOrderConfirm">Delete</text>
+                    <text class="popup-delete-button-1" @click="closeDeletePop">Cancel</text>
+                </div>
+            </div>
+        </wxc-mask>
+        <wxc-mask height="260"
+                  width="560"
+                  border-radius="0"
+                  duration="200"
+                  mask-bg-color="rgba(0,0,0,0)"
+                  :has-animation="hasAnimation"
+                  :has-overlay="true"
+                  :show-close="false"
+                  :show="isReceiptShow"
+                  @wxcMaskSetHidden="popupReceiptClick">
+            <div class="popup-receipt-container" @click="prevent($event)">
+                <text class="popup-delete-title">Confirm receipt of your package and earn reward points from this order. </text>
+                <div class="popup-delete-bottom">
+                    <text class="popup-delete-button" @click="receiptOrderConfirm">Confirm Receipt</text>
+                    <text class="popup-delete-button-1" @click="closeReceiptPop">Not Yet</text>
                 </div>
             </div>
         </wxc-mask>
@@ -173,12 +192,15 @@
                 hasAnimation: true,
                 payOrder: {},
                 isFirstLoad: false,
-                isPaid: false
+                isPaid: false,
+                isReceiptShow: false,
+                receiptIndex: 0,
+                receiptId: -1
             }
         },
         methods: {
             onLoadingMore () {
-                if(!this.isLoading) {
+                if (!this.isLoading) {
                     this.isLoading = true;
                     this.getOrder(false);
                 }
@@ -319,8 +341,17 @@
                 this.deleteId = event.data.id;
                 common.changeAndroidCanBack(false);
             },
+            receiptOrder (event) {
+                this.isReceiptShow = true;
+                this.receiptIndex = event.data.index;
+                this.receiptId = event.data.id;
+                common.changeAndroidCanBack(false);
+            },
             popupDeleteClick () {
                 this.isDeleteShow = false;
+            },
+            popupReceiptClick () {
+                this.isReceiptShow = false;
             },
             deleteOrderConfirm () {
                 this.closeDeletePop();
@@ -340,11 +371,45 @@
                     });
                 });
             },
+            receiptOrderConfirm () {
+                this.closeReceiptPop();
+                this.$fetch({
+                    method: 'POST', // 大写
+                    url: `${baseUrl}/order/customer/update/${this.receiptId}/`,
+                    data: {
+                        status: 'Completed'
+                    },
+                    header: {
+                        needAuth: true
+                    }
+                }).then(resData => {
+                    if (resData.point != 0) {
+                        this.$notice.toast(`Congratulations! You have got ${resData.point} points!!`);
+                    } else {
+
+                    }
+                    if (this.index == 3) {
+                        this.order.splice(this.deleteIndex, 1);
+                    } else {
+                        this.order[this.receiptIndex].orderStatus = 'Completed';
+                    }
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    });
+                });
+            },
             closeDeletePop () {
                 this.isDeleteShow = false;
             },
+            closeReceiptPop () {
+                this.isReceiptShow = false;
+            },
             initMaskBack () {
                 common.setAndroidCanBack(true, (params) => {
+                    if (this.isReceiptShow) {
+                        this.closeReceiptPop();
+                    }
                     if (this.isDeleteShow) {
                         this.closeDeletePop();
                     }

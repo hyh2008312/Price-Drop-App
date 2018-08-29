@@ -93,7 +93,7 @@ export const PAYLIST = [{
     value: 2
 }];
 
-export const ORDERSTATUS = [null, 'Paid', 'Packing', 'Shipped', 'Canceled'];
+export const ORDERSTATUS = [null, 'Paid', 'Packing', 'Shipped', 'Completed'];
 
 export const CANCELREASON = [
     'I need to change my order',
