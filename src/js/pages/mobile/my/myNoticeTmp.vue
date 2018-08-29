@@ -139,7 +139,7 @@
                 <div class="container-2">
                     <image class="pay-image" src="bmlocal://assets/empty.png"></image>
                 </div>
-                <text class="address-title">TThere is no notification to show. </text>
+                <text class="address-title">There is no notification to show. </text>
             </cell>
             <cell class="loading" v-if="isLoading">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
