@@ -244,11 +244,10 @@ export default {
                     needAuth: true
                 }
             }).then(resData => {
-                this.order = resData.order;
+                this.order.orderStatus = resData.order.orderStatus;
                 if (resData.point != 0) {
                     this.$notice.toast(`Congratulations! You have got ${resData.point} points!!`);
                 }
-                this.order.splice(this.deleteIndex, 1);
             }, error => {
                 this.$notice.toast({
                     message: error
