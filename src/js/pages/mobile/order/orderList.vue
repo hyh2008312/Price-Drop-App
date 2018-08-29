@@ -93,7 +93,7 @@
                   :show="isReceiptShow"
                   @wxcMaskSetHidden="popupReceiptClick">
             <div class="popup-receipt-container" @click="prevent($event)">
-                <text class="popup-delete-title">Confirm receipt of your package and earn reward points from this order. </text>
+                <text class="popup-delete-title">Once you confirm the receipt of your order, it will be marked as completed.</text>
                 <div class="popup-delete-bottom">
                     <text class="popup-delete-button" @click="receiptOrderConfirm">Confirm Receipt</text>
                     <text class="popup-delete-button-1" @click="closeReceiptPop">Not Yet</text>
@@ -195,7 +195,8 @@
                 isPaid: false,
                 isReceiptShow: false,
                 receiptIndex: 0,
-                receiptId: -1
+                receiptId: -1,
+                orderType: 'Normal'
             }
         },
         methods: {
@@ -345,6 +346,7 @@
                 this.isReceiptShow = true;
                 this.receiptIndex = event.data.index;
                 this.receiptId = event.data.id;
+                this.orderType = event.data.orderType;
                 common.changeAndroidCanBack(false);
             },
             popupDeleteClick () {
@@ -385,8 +387,6 @@
                 }).then(resData => {
                     if (resData.point != 0) {
                         this.$notice.toast(`Congratulations! You have got ${resData.point} points!!`);
-                    } else {
-
                     }
                     if (this.index == 3) {
                         this.order.splice(this.deleteIndex, 1);

@@ -146,9 +146,10 @@
                     status: 'receiptOrder',
                     data: {
                         index: this.index,
-                        id: this.order.id
+                        id: this.order.id,
+                        orderType: this.order.orderType
                     }
-                })
+                });
             }
         }
     }
