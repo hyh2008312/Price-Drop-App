@@ -82,9 +82,6 @@
                                         })
                                     }
                                 }, (data) => {
-                                    that.$notice.alert({
-                                        message: data
-                                    });
                                     if (that.source == 'confirm') {
                                         that.$router.finish();
                                         if (data.code == 300) {
@@ -117,9 +114,6 @@
                                 });
                             that.isFirst = true;
                         }, error => {
-                            that.$notice.alert({
-                                message: error
-                            });
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             that.isFirst = true;
@@ -139,9 +133,6 @@
                             }
                         }).then(resData => {
                             that.$notice.loading.hide();
-                            that.$notice.alert({
-                                message: resData
-                            });
                             that.$event.emit('cutDetail');
                             const order = resData;
                             const user = that.$storage.getSync('user');
@@ -178,9 +169,6 @@
                                             needAuth: true
                                         }
                                     }).then(resData => {
-                                        that.$notice.alert({
-                                            message: resData
-                                        });
                                         that.$notice.loading.hide();
                                         that.$router.finish();
                                         that.$event.once('paySuccess', () => {
@@ -199,9 +187,6 @@
                                         });
                                     })
                                 }, function (param) {
-                                    that.$notice.alert({
-                                        message: param
-                                    });
                                     if (that.source == 'confirm') {
                                         that.$router.finish();
                                         if (param.code != 0) {
@@ -234,9 +219,6 @@
                                 });
                             that.isFirst = true;
                         }, error => {
-                            that.$notice.alert({
-                                message: error
-                            });
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             that.isFirst = true;
