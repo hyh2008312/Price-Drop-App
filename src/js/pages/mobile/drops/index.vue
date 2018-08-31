@@ -4,7 +4,7 @@
         <div class="navigation" @click="test">
             <text class="title">Drops</text>
         </div>
-        <list  class="main-list" ref="list" offset-accuracy="100" loadmoreoffset="100" @loadmore="onLoadingMore">
+        <list  class="main-list" ref="list" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
             <cell class="notice-wrapper cell-button">
                 <div class="notice-bg">
@@ -50,6 +50,9 @@
             <cell class="loading" v-if="isLoading && !(!isCuting &&!isMyDropLogin && isWifi)">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </cell>
+            <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </loading>
         </list>
     </div>
 </template>
@@ -258,6 +261,7 @@
                     if (!isFirst) {
                         this.isLoading = false;
                     }
+                    this.$notice.toast(this.length + '---->' + this.page)
                 }, error => {
                     this.loadingEnd();
                     if (error.status == 10) {
