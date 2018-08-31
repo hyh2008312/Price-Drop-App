@@ -261,7 +261,6 @@
                     if (!isFirst) {
                         this.isLoading = false;
                     }
-                    this.$notice.toast(this.length + '---->' + this.page)
                 }, error => {
                     this.loadingEnd();
                     if (error.status == 10) {
