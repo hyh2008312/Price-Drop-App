@@ -83,12 +83,12 @@
                         </div>
                     </div>
                        <text class="wrapper-share" @click="showSharePanel">Share to Drop Your Price Further</text>
-                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite 3 friends to unlock 50% off, 14 friends to 70% off, 150+ new friends to Rs.0!</text>
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite friends to unlock 50% OFF, 70% OFF and Rs.0 price!</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 2" @click="showBuyNow">Buy Now At 50% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 3" @click="showBuyNow">Buy Now At 70% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 4" @click="showBuyNow">Click to Get It For Free</text>
-                        <text class="wrapper-unlock-tip" v-if="dropStatus ==2">Invite 3 friends to unlock 50% off, 14 friends to 70% off, 150+ new friends to Rs.0!</text>
-                        <text class="wrapper-unlock-tip" v-else-if="dropStatus ==3">Invite 3 friends to unlock 50% off, 14 friends to 70% off, 150+ new friends to Rs.0!</text>
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==2">Invite friends to unlock 50% OFF, 70% OFF and Rs.0 price!</text>
+                        <text class="wrapper-unlock-tip" v-else-if="dropStatus ==3">Invite friends to unlock 50% OFF, 70% OFF and Rs.0 price!</text>
                         <div class="wrapper-timer-con">
                             <div class="wrapper-timer">
                                 <wxc-countdown tpl="{h}:{m}:{s}"
