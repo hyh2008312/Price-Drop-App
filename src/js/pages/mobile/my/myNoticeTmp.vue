@@ -96,7 +96,7 @@
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
 
-                        <div class="card-bottom"  v-if="i.noticeType=='reminder_payment'" @click="openNew(2,i.context.orderId)">
+                        <div class="card-bottom"  v-if="i.noticeType=='reminder_payment'" @click="openNew(1,i.context.customerCutId)">
                             <text class="card-bottom-word" >Click to Pay Now </text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
