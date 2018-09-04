@@ -55,16 +55,16 @@ export const CHANNELLIST = [{
     left: '0'
 }, {
     name: 'Paid',
-    left: '124'
+    left: '112'
 }, {
     name: 'Preparing',
-    left: '286'
+    left: '264'
 }, {
     name: 'Shipped',
-    left: '466'
+    left: '434'
 }, {
-    name: 'Closed',
-    left: '634'
+    name: 'Completed',
+    left: '614'
 }];
 
 export const ADDRESS = [{
@@ -72,16 +72,16 @@ export const ADDRESS = [{
     left: '0'
 }, {
     name: 'Paid',
-    left: '124'
+    left: '112'
 }, {
     name: 'Preparing',
-    left: '286'
+    left: '264'
 }, {
     name: 'Shipped',
-    left: '466'
+    left: '434'
 }, {
-    name: 'Closed',
-    left: '634'
+    name: 'Completed',
+    left: '614'
 }];
 
 export const PAYLIST = [{

@@ -76,7 +76,7 @@
                         <image class="i-box-icon" src="bmlocal://assets/ic-delivered.png"></image>
 
                         <!--<text class="i-box-icon iconfont">&#xe71a;</text>-->
-                        <text class="i-box-tlt">Closed</text>
+                        <text class="i-box-tlt">Completed</text>
                     </div>
                 </div>
             </div>

@@ -29,6 +29,7 @@
                                 </div>
                                 <text class="txt" :class="[index==0 ?'txt-f':'',index==pArr.length-1 ?'txt-f':'',]" >{{i.contents}}</text>
                                 <text v-if="i.operationType=='decrease'">-{{i.operationPoints}}</text>
+                                <text v-if="i.operationType=='increase'">+{{i.operationPoints}}</text>
                             </div>
                         </scroller>
                     </div>
