@@ -7,6 +7,7 @@
 </template>
 <script>
     const pay = weex.requireModule('PayModule');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
         props: ['order', 'method', 'source'],
         data: {
@@ -19,6 +20,7 @@
                     this.isFirst = true;
                     that.$notice.loading.show();
                     if (that.method == 'paytm') {
+                        googleAnalytics.recordEvent('Paytm', 'Pay Now Start', that.order.id, 0);
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'payment.paytm.checksum',
@@ -48,6 +50,7 @@
                             pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
+                                    googleAnalytics.recordEvent('Paytm', 'Pay Now Success', that.order.id, 0);
                                     if (data.code == 200) {
                                         that.$router.finish();
                                         that.$notice.loading.show();
@@ -122,6 +125,7 @@
                             });
                         });
                     } else if (that.method == 'razorpay') {
+                        googleAnalytics.recordEvent('Razorpay', 'Pay Now Start', that.order.id, 0);
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'payment.razorpay.create',
@@ -155,6 +159,7 @@
                             pay.startPayRequest(order.razorpayOrderId, order.order.lines[0].title, 'Order#: ' + order.orderNumber,
                                 that.order.lines[0].mainImage, parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
+                                    googleAnalytics.recordEvent('Razorpay', 'Pay Now Success', that.order.id, 0);
                                     that.$notice.loading.show();
                                     that.$fetch({
                                         method: 'POST', // 大写
