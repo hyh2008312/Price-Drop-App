@@ -123,7 +123,7 @@ export default {
                 city: 6
             },
             chooseState: 'Choose',
-            forbiddenList: ['Odisha'],
+            forbiddenList: [],
             isForbidden: false
         }
     },
