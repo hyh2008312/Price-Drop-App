@@ -11,7 +11,7 @@
                     <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
                 </div>
                 <div class="b-tlt" @click="openMydetail(1)">
-                    <text class="i-name">{{fname}}{{lname}}</text>
+                    <text class="i-name">{{fname}} {{lname}}</text>
                     <div class="txt-tag ">
                         <text class="txt-tag-txt" >{{email}}</text>&nbsp;&nbsp;<text class="txt-icon iconfont">&#xe626;</text>
 
@@ -361,7 +361,7 @@
                             // this.$notice.alert({
                             //     message: res
                             // })
-                            this.nickname = res.firstName + res.lastName
+                            this.nickname = res.firstName + ' ' + res.lastName
                             this.fname = res.firstName
                             this.lname = res.lastName
                             this.img = res.avatar
