@@ -1,0 +1,343 @@
+<template>
+    <div class="wrapper">
+        <div class="goods">
+            <text class="goods-h">RAFFLE PRIZE</text>
+            <!--<text class="goods-h">{{item.}}</text>-->
+            <text class="goods-t">{{item.product}}</text>
+            <div class="goods-p">
+                <text class="goods-p1">Rs.0.00</text>
+                <text class="goods-p2">Rs.100.00</text>
+                <text class="goods-p3">Free Shipping</text>
+            </div>
+        </div>
+        <div class="goods-image">
+            <image class="goods-i" resize="stretch" :src="item.image"></image>
+        </div>
+
+        <div v-if="item.drawStatus == 'Ongoing'" style="margin-left: 48px">
+            <div class="goods-p">
+                <text class="goods-num">1st Prize</text>
+                <text class="goods-pri">Free Product - 1 Participant</text>
+            </div>
+            <div class="goods-p" style="margin: 8px 0;">
+                <text class="goods-num">2nd Prize</text>
+                <text class="goods-pri">{{item.secondPrize}} Voucher - 30% of Panticipants</text>
+            </div>
+            <div class="goods-p">
+                <text class="goods-num">3rd Prize</text>
+                <text class="goods-pri">{{item.thirdPrize}} Voucher - 40% of Panticipants</text>
+            </div>
+            <div class="goods-p" style="margin-top: 24px;margin-bottom: 48px">
+                <text class="goods-num">Time Left to join</text>
+                <text class="goods-time">16:27:27</text>
+            </div>
+            <div class="goods-people" style="margin-bottom: 50px">
+            <div class="goods-a">
+                <image class="goods-a-i" src="bmlocal://assets/successful.png"></image>
+            </div>
+            <text class="goods-w">2015 people joined</text>
+        </div>
+        </div>
+
+        <div v-if="item.drawStatus == 'Scheduled'">
+            <div class="goods-snum-d">
+                <text class="goods-snum" >Starts In</text>
+            </div>
+            <div class="overflow-center-time">
+                <div class="center-time">
+                    <text class="center-time-hh">{{ahour||'00'}}</text>
+                    <text style="font-size: 24px; padding-top: 35px;">:</text>
+                    <text class="center-time-hh">{{amin||'00'}}</text>
+                    <text style="font-size: 24px; padding-top: 35px;">:</text>
+                    <text class="center-time-hh">{{asecond||'00'}}</text>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="goods-btn" v-if="item.drawStatus == 'Ongoing'">
+            <text class="goods-btn-w" @click="opendialog()">Join Raffle & Win Prize</text>
+        </div>
+
+        <div class="goods-btn" v-if="item.drawStatus == 'Scheduled'" style="margin-top: 96px" >
+            <text class="goods-btn-s">Share to Your Friends</text>
+        </div>
+        <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
+            <text class="goods-btn-w" style="background-color:#00CFE3;">See the Winners</text>
+        </div>
+
+
+
+    </div>
+</template>
+
+<script>
+    const common = weex.requireModule('CommonUtils');
+    import { WxcMask } from 'weex-ui';
+    export default {
+        components: { WxcMask },
+        data () {
+            return {
+                hasAnimation: true,
+                show: false,
+                isShow: false,
+                cItem: {},
+                aday: '',
+                ahour: '',
+                amin: '',
+                asecond: ''
+            }
+        },
+        props: ['item'],
+        created () {
+            this.cItem = this.item
+            this.initBack();
+        },
+        computed: {
+            show: {
+                get: function () {
+                    return this.show
+                },
+                set: function (v) {
+                    this.show = v
+                }
+            }
+
+        },
+        methods: {
+            opendialog () {
+                this.$emit('openMask')
+
+            },
+            countDate (time) {
+                const self = this
+                // if (this.purchaseMethod == 'flash') {
+                setInterval(() => {
+                    this.NOW_DATE = new Date().getTime();
+
+                    const total = (new Date(time).getTime() - this.NOW_DATE) / 1000
+
+                    const day = Math.floor(total / (24 * 60 * 60))// 整天
+
+                    self.aday = day
+                    const afterDay = total - day * 24 * 60 * 60;
+                    self.ahour = Math.floor(afterDay / (60 * 60)); // 小时
+                    const afterHour = total - day * 24 * 60 * 60 - self.ahour * 60 * 60;
+                    self.amin = Math.floor(afterHour / 60); // 分钟
+                    if (self.amin < 10) {
+                        self.amin = '0' + self.amin
+                    }
+
+                    const afterMin = total - day * 24 * 60 * 60 - self.ahour * 60 * 60 - self.amin * 60;
+                    self.asecond = Math.floor(afterMin)// 秒
+                    if (self.asecond < 10) {
+                        self.asecond = '0' + self.asecond
+                    }
+                    // 加上减掉的天数
+                    self.ahour += (self.aday * 24)
+
+                    if (self.ahour < 10) {
+                        self.ahour = '0' + self.ahour
+                    }
+                    // this.$notice.toast({
+                    //     message: self.aday + '天' + self.ahour + ':' + self.amin + ':' + self.asecond
+                    // })
+                }, 1000);
+                // }
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .wrapper{
+        /*margin-left: 48px;*/
+    }
+    .goods{
+        margin-left: 48px;
+    }
+    .goods-h{
+        font-family: ProximaNova;
+        font-size: 38px;
+        color: #000000;
+        letter-spacing: 0;
+        text-align: left;
+        font-weight: 700;
+        margin-top: 48px;
+    }
+    .goods-t{
+        font-family: ProximaNova-Regular;
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+        height: 30px;
+        width: 500px;
+        text-align: left;
+        margin: 4px 0 8px 0;
+    }
+    .goods-p{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+    .goods-p1{
+        font-family: ProximaNova;
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+        text-align: left;
+        font-weight: 700;
+        margin-right: 14px;
+    }
+    .goods-p2{
+        font-family: ProximaNova;
+        font-size: 20px;
+        color: #000000;
+        letter-spacing: 0;
+        text-align: left;
+        text-decoration: line-through;
+        margin-right: 18px;
+    }
+    .goods-p3{
+        font-family: ProximaNova-Regular;
+        font-size: 20px;
+        background-color: #00CFE3;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+    .goods-image{
+        /*flex-direction: row;*/
+        /*justify-content: center;*/
+        /*align-items: center;*/
+        margin: 20px 0 20px 48px;
+    }
+    .goods-i{
+        width: 400px;
+        height: 380px;
+        margin-left: 64px;
+    }
+    .goods-num{
+        font-family: ProximaNova;
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+        font-weight: 700;
+        text-align: left;
+        margin-right: 16px;
+    }
+    .goods-pri{
+        font-family: ProximaNova-Regular;
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+        text-align: left;
+    }
+    .goods-time{
+        font-family: ProximaNova-Regular;
+        font-size: 24px;
+        color: #EF8A31;
+        letter-spacing: 0;
+        text-align: left;
+    }
+    .goods-people{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+    .goods-a {
+        flex-direction: row;
+        justify-content: start;
+        border-radius: 50%;
+    }
+    .goods-a-i{
+        width: 48px;
+        height: 48px;
+    }
+    .goods-w{
+        opacity: 0.38;
+        font-size: 20px;
+        color: #000000;
+        letter-spacing: 0;
+        text-align: left;
+    }
+    .goods-btn{
+        width: 624px;
+        height:62px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 64px;
+        margin-left: 15px;
+        /*background-color: #689de5;*/
+    }
+    .goods-btn-w{
+        /*width: 422px;*/
+        /*height:62px;*/
+        background-color: #EF8A31;
+        color: white;
+        padding: 18px 32px;
+        text-align: center;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        /*box-shadow: 0 1px 1px 0 rgba(0,0,0,0.19);*/
+        border-radius: 50%;
+    }
+    .goods-btn-s{
+        background-color: white;
+        color:black;
+        padding: 18px 32px;
+        border: 2px solid rgba(0,0,0,0.08);
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.24);
+        text-align: center;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    .goods-snum-d{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .goods-snum{
+        font-size: 32px;
+        color: #000000;
+        letter-spacing: 0;
+        text-align: left;
+        font-weight: 700;
+    }
+
+
+
+
+    .overflow-center-time{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 34px 0 8px 48px ;
+    }
+    .center-time-word{
+        color: black;
+        font-size: 24px;
+    }
+    .center-time{
+        font-size: 28px;
+        color: #FFFFFF;
+        flex-direction: row;
+        justify-content: start;
+        margin-right: 32px;
+    }
+    .center-time-hh{
+        font-family: ProximaNova;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.24);
+        color: black;
+        border-radius: 6px;
+        padding: 16px;
+        margin: 18px;
+        font-size: 28px;
+    }
+</style>

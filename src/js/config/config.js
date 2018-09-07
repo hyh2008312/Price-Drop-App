@@ -42,5 +42,7 @@ export const apis = {
     'payment.razorpay.create': '/payment/razorpay/create/',
     'order.flash.pure': '/order/flash/pure/',
     'flashsale.flash.customer.home': '/flashsale/flash/customer/home/',
-    'promotion.get.broadcast': '/promotion/get/broadcast/'
+    'promotion.get.broadcast': '/promotion/get/broadcast/',
+    'lottery.draw.list': '/lottery/draw/list/',
+    'lottery.draw': '/lottery/draw/'
 }

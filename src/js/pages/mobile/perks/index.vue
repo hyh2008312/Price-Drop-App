@@ -4,7 +4,7 @@
 
             <div class="blackheader"></div>
             <div class="header">
-                <text class="header-word">Redeem Your Points for Free Gift Vouchers</text>
+                <text class="header-word" @click="openNewPage">Redeem Your Points for Free Gift Vouchers</text>
             </div>
             <div class="overflow-mid">
 
@@ -158,7 +158,12 @@
                     }
                 })
             },
-            openNewPage () {}
+            openNewPage () {
+                this.$router.open({
+                    name: 'raffle',
+                    type: 'PUSH'
+                })
+            }
         }
     }
 </script>

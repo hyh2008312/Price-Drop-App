@@ -2,10 +2,21 @@
     <div class="wrapper">
             <div class="blackheader"></div>
             <topic-header title="My Points" leftBtn="icon"  ref="ref1" ></topic-header>
-            <div class="overflow-points-head">
+            <div class="overflow-points-head1">
+
                 <div class="points-head">
-                    <text class="points-head-txt1">Points Balance</text>
-                    <text class="points-head-txt2">{{points}}</text>
+                    <text class="points-head-txt11">Total</text>
+                    <text class="points-head-txt21">{{totalPoints}}</text>
+                </div>
+
+                <div class="points-head">
+                    <text class="points-head-txt11">Available</text>
+                    <text class="points-head-txt21">{{availablePoints}}</text>
+                </div>
+
+                <div class="points-head">
+                    <text class="points-head-txt11">Pending</text>
+                    <text class="points-head-txt21">{{pendingPoints}}</text>
                 </div>
             </div>
             <div class="overflow-points-head">
@@ -19,7 +30,7 @@
                         <image src="bmlocal://assets/empty.png" class="empty-img"></image>
                         <text class="empty-txt">You haven’t earned or spent any points yet.</text>
                     </div>
-                    <div style="height: 800px"  v-if="pArr.length!==0">
+                    <div style="height: 900px"  v-if="pArr.length!==0">
                         <scroller>
                             <div class="points-content-content" v-for="(i,index) in pArr" :class="[index==pArr.length-1 ?'bottom-last':'',]">
                                 <text class="points-date" :class="[index==0 ?'points-date-f':'',index==pArr.length-1 ?'points-date-f':'',]">{{tranDate(i.created)}}</text>
@@ -59,8 +70,10 @@
         },
         data () {
             return {
-                points: '',
-                pArr: []
+                totalPoints: '',
+                availablePoints: '',
+                pendingPoints: '',
+                pArr: false
             }
         },
         created () {
@@ -79,6 +92,9 @@
                     //     message: res
                     // })
                     this.pArr = res.records
+                    this.totalPoints = res.totalPoints
+                    this.availablePoints = res.availablePoints
+                    this.pendingPoints = this.totalPoints - this.availablePoints
                     // this.pArr = []
                 }).catch((res) => {
                     this.$notice.toast({
@@ -105,29 +121,40 @@
         height: 48px;
         background-color: black;
     }
+    .overflow-points-head1{
+        flex-direction: row;
+        justify-content: space-around;
+
+    }
     .overflow-points-head{
         flex-direction: row;
         justify-content: center;
     }
     .points-head{
-        width: 712px;
+        width: 200px;
         height: 96px;
         margin-top: 178px;
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
+        justify-content: center;
         align-items:center ;
         border-radius: 8px;
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
         background-color: white;
     }
-    .points-head-txt1{
-        padding-left:32px;
+    .points-head-txt11{
+        /*padding-left:32px;*/
         font-weight: 700;
         font-size: 28px;
     }
-    .points-head-txt2{
-        padding-right:32px;
+    .points-head-txt21{
+        /*padding-right:32px;*/
         color: #EF8A31;
+        font-weight: 700;
+        font-size: 28px;
+    }
+
+    .points-head-txt1{
+        padding-left:32px;
         font-weight: 700;
         font-size: 28px;
     }
@@ -205,6 +232,7 @@
     }
     .txt{
         width: 330px;
+        height: 100px;
         font-family: ProximaNova-Regular;
         font-size: 24px;
         color: #000000;

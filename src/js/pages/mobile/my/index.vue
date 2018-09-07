@@ -347,6 +347,9 @@
 
                 this.$storage.get('token').then(resData => {
                     this.token = resData
+                    this.$notice.alert({
+                        message: resData
+                    })
                     if (this.token !== null) {
                         this.$fetch({
                             method: 'GET',

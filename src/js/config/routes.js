@@ -113,6 +113,12 @@ export default {
     'card.detail': {
         url: '/pages/mobile/perks/pointsCardDetail.js'
     },
+    'raffle': {
+        url: '/pages/mobile/raffle/index.js'
+    },
+    'raffle.result': {
+        url: '/pages/mobile/raffle/raffleResult.js'
+    },
     'login': {
         url: '/pages/mobile/login/index.js'
     },
