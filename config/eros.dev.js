@@ -48,6 +48,7 @@ module.exports = {
         'js/pages/mobile/flash-sale/index.vue',
         'js/pages/mobile/raffle/index.vue',
         'js/pages/mobile/raffle/raffleResult.vue',
+        'js/pages/mobile/raffle/guide.vue',
         'js/pages/mobile/login/index.vue',
         'js/pages/mobile/welcome/guide.vue',
         'js/pages/mobile/order/orderPaymentMethod.vue'

@@ -119,6 +119,9 @@ export default {
     'raffle.result': {
         url: '/pages/mobile/raffle/raffleResult.js'
     },
+    'raffle.guide': {
+        url: '/pages/mobile/raffle/guide.js'
+    },
     'login': {
         url: '/pages/mobile/login/index.js'
     },

@@ -4,7 +4,7 @@
             <div class="blackheader"></div>
             <div class="top-header" >
                 <div class="th-right">
-                    <text class="th-r-1">Guideline</text>
+                    <text class="th-r-1" @click="openGuide">Guideline</text>
                     <div class="th-r-d">
                         <image class="th-r-img" src="bmlocal://assets/myprize-01.png"></image>
                     </div>
@@ -208,6 +208,12 @@
                     message: 'pull more'
                 })
             },
+            openGuide () {
+                this.$router.open({
+                    name: 'raffle.guide',
+                    type: 'PUSH'
+                });
+            }
             // wxcPanItemPan (e) {
             //     if (BindEnv.supportsEBForAndroid()) {
             //         this.$refs['wxc-ep-slider'].clearAutoPlay();
