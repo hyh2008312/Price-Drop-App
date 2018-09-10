@@ -148,13 +148,7 @@
                 }).then((res) => {
                     this.$notice.loading.hide();
                     this.firstPrize = res.firstPrize;
-                    for (let i = 0; i < 100; i++) {
-                        this.firstPrize.drawer.push(this.firstPrize.drawer[0]);
-                    }
                     this.secondPrize = res.secondPrize;
-                    for (let i = 0; i < 100; i++) {
-                        this.secondPrize.drawer.push(this.secondPrize.drawer[0]);
-                    }
                     this.thirdPrize = res.thirdPrize;
                     if (this.firstPrize.drawer.length > 3) {
                         this.firstPrize.isLongArr = true;
