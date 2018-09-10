@@ -168,7 +168,7 @@
                             method: 'POST', // 大写
                             name: 'order.lottery.pure',
                             data: {
-                                drawId: that.order.draw.id,
+                                drawId: that.order.drawId,
                                 vid: that.order.id,
                                 ownerId: that.order.ownerId
                             },
