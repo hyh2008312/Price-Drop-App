@@ -14,7 +14,7 @@
             <image class="goods-i" resize="stretch" :src="item.image"></image>
         </div>
 
-        <div v-if="item.drawStatus == 'Ongoing'" style="margin-left: 48px">
+        <div v-if="item.drawStatus == 'Ongoing'|| item.drawStatus == 'Ended'" style="margin-left: 48px">
             <div class="goods-p">
                 <text class="goods-num">1st Prize</text>
                 <text class="goods-pri">Free Product - 1 Participant</text>
@@ -63,7 +63,8 @@
             <text class="goods-btn-s">Share to Your Friends</text>
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
-            <text class="goods-btn-w" style="background-color:#00CFE3;">See the Winners</text>
+
+            <text class="goods-btn-w" style="background-color:#00CFE3;" @click="openNewPage()">See the Winners</text>
         </div>
 
 
@@ -107,7 +108,16 @@
         methods: {
             opendialog () {
                 this.$emit('openMask')
+            },
+            openNewPage () {
+                this.$router.open({
+                    name: 'raffle.result',
+                    type: 'PUSH',
+                    params: {
+                        id: 11
+                    }
 
+                })
             },
             countDate (time) {
                 const self = this
