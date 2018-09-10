@@ -61,12 +61,14 @@
         props: ['order', 'card'],
         methods: {
             jumpWeb () {
-                this.$router.open({
-                    name: 'goods.details',
-                    params: {
-                        id: this.order.productId
-                    }
-                });
+                if (this.order.productId) {
+                    this.$router.open({
+                        name: 'goods.details',
+                        params: {
+                            id: this.order.productId
+                        }
+                    });
+                }
             },
             jumpCard () {
                 this.$router.open({

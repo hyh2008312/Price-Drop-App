@@ -46,7 +46,7 @@
         props: ['order'],
         methods: {
             jumpWeb () {
-                // if (!url) return;
+                if (this.order.orderType == 'Lottery') return;
                 this.$router.open({
                     name: 'goods.details',
                     params: {

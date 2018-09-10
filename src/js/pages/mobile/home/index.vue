@@ -89,9 +89,9 @@ export default {
         },
         onchangeTab (event) {
             if (event.index == 0) {
-                this.activeIndex = '0'
+                this.activeIndex = '0';
             } else {
-                this.activeIndex = event.index
+                this.activeIndex = event.index;
             }
         },
         getChannel () {
