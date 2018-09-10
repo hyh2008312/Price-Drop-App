@@ -122,6 +122,9 @@ export default {
     'raffle.result': {
         url: '/pages/mobile/raffle/raffleResult.js'
     },
+    'raffle.result.detail': {
+        url: '/pages/mobile/raffle/raffleResultDetail.js'
+    },
     'raffle.guide': {
         url: '/pages/mobile/raffle/guide.js'
     },

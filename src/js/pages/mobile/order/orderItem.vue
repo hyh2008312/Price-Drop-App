@@ -27,7 +27,7 @@
                 <text class="gd-text">Total: </text>
                 <text class="gb-price-2">Rs.{{order.paymentAmount}}</text>
             </div>
-            <div class="gb-bottom" v-if="order.orderStatus == 'Unpaid'">
+            <div class="gb-bottom" v-if="order.orderStatus == 'Unpaid' && order">
                 <div class="gb-bottom-left">
                     <text class="iconfont gb-time">&#xe6fa;</text>
                     <text class="gd-text">  Ends in</text>

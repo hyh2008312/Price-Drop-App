@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="left">
-            <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe6f6;</text>
+            <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe632;</text>
             <text class="leftTxt" v-else>{{leftBtn}}</text>
 
         </div>
@@ -50,25 +50,8 @@ export default {
 }
 </script>
 <style scoped>
-.wrappertop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 48px;
-    padding-top: 44px;
-    z-index: 101;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: #000;
-    opacity: 1;
-    /*border-bottom-width: 1px;*/
-    /*border-bottom-color: #d9d9d9;*/
-}
 .wrapper {
-    position: fixed;
-    top: 48px;
+    position: relative;
     left: 0;
     right: 0;
     height: 112px;
@@ -78,7 +61,6 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     background-color: white;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.19);
     /*box-shadow: 0 0 4px 0 rgba(0,0,7,0.12);*/
     /*border-bottom-width: 1px;*/
     /*border-bottom-color: #d9d9d9;*/
@@ -88,8 +70,8 @@ export default {
     color: #FFFFFF;
     height: 80px;
     position: absolute;
-    left: 32px;
-    top:32px;
+    left: 22px;
+    top: 26px;
 }
 .tlt{
     color: black;
@@ -108,7 +90,7 @@ export default {
 .leftTxt{
     font-family: iconfont;
     color: black;
-    font-size: 32px;
+    font-size: 40px;
     padding: 10px;
     text-align: left;
 }
