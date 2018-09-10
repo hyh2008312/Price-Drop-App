@@ -82,6 +82,21 @@
                                 </div>
                             </div>
 
+                            <div v-if="id==5">
+                                <div class="price-div" v-if="i.noticeType==='lottery_first'">
+                                    <text class="item-1" >Your Prize: </text>
+                                    <text class="item-2">{{i.context.prize}}</text>
+                                </div>
+                                <div class="price-div" v-if="i.noticeType==='lottery_second'||i.noticeType==='lottery_third'">
+                                    <text class="item-1" >Your Prize: </text>
+                                    <text class="item-2">{{i.context.prize}} gift voucher</text>
+                                </div>
+                                <div class="price-div" v-if="i.noticeType==='lottery_no_prize'">
+                                    <text class="item-1" >Your Prize: </text>
+                                    <text class="item-2">{{i.context.deadline}}</text>
+                                </div>
+                            </div>
+
 
                         </div>
 
@@ -115,10 +130,24 @@
                             <text class="card-bottom-word" >Click to View Your Ponits</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
-
-
                         <div class="card-bottom" v-if="id==4"  @click="openNew(4)">
                             <text class="card-bottom-word" >Click to See Our New Offers</text>
+                            <text class="card-bottom-more" >&#xe626;</text>
+                        </div>
+
+
+
+                        <!-- 抽奖相关-->
+                        <div class="card-bottom" v-if="i.noticeType=='lottery_first'" @click="openRaffle(1,i)" >
+                            <text class="card-bottom-word" >Click to Submit Your Address</text>
+                            <text class="card-bottom-more" >&#xe626;</text>
+                        </div>
+                        <div class="card-bottom" v-if="i.noticeType==='lottery_second'||i.noticeType==='lottery_third'" @click="openRaffle(2)" >
+                            <text class="card-bottom-word" >Click to Use Your Voucher</text>
+                            <text class="card-bottom-more" >&#xe626;</text>
+                        </div>
+                        <div class="card-bottom" v-if="i.noticeType==='lottery_no_prize'" @click="openRaffle(4)" >
+                            <text class="card-bottom-word" >Click to See Prize Winners</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
                     </div>
@@ -179,9 +208,12 @@
                 } else if (params.id == 3) {
                     this.title = 'Perks Notifications'
                     // this.params = 'perk'
-                } else {
+                } else if (params.id == 4) {
                     this.title = 'Refunds Notifications'
                     // this.params = 'refund'
+                } else if (params.id == 5) {
+                    this.title = 'Raffle Draw Notifications'
+                    // this.params = 'raffle'
                 }
                 // this.getData()
             }
@@ -246,6 +278,9 @@
                 this.$event.emit('readNotice', { type: this.params })
             },
             getcutingProduct (isFirst) {
+                // this.$notice.alert({
+                //     message: this.params
+                // })
                 this.$fetch({
                     method: 'GET',
                     url: `${baseUrl}/notice/detail/`,
@@ -260,7 +295,6 @@
                 ).then(data => {
                     this.data = data
 
-
                     if (data.count == 0) {
                         this.length = 2;
                     } else {
@@ -273,9 +307,9 @@
                     this.page++;
                     this.isLoading = false;
 
-                    // this.$notice.alert({
-                    //     message: this.goods[0]
-                    // })
+                    this.$notice.alert({
+                        message: this.goods[1]
+                    })
                     // if (!isFirst) {
                     //     this.isLoading = false;
                     // }
@@ -328,6 +362,42 @@
                     this.$router.open({
                         name: 'mobile',
                         type: 'PUSH'
+                    })
+                }
+            },
+
+            openRaffle (par, item) {
+                if (par == 1) {
+                    this.$router.open({
+                        name: 'order.confirm',
+                        type: 'PUSH',
+                        params: {
+                                title: item.title,
+                                mainImage: item.context.image,
+                                salePrice: '0',
+                                currentPrice: '0', // 计算价钱的金额
+                                quantity: '1',
+                                id: '',
+                                drawId: '',
+                                shippingPrice: '',
+                                shippingTimeMin: '',
+                                shippingTimeMax: '',
+                                proId: 'lottery'
+                            }
+                    })
+                } else if (par === 2) {
+                    this.$router.open({
+                        name: 'my.card',
+                        type: 'PUSH'
+                    })
+                } else if (par === 4) {
+                    this.$router.open({
+                        name: 'raffle.result',
+                        type: 'PUSH',
+                        params: {
+                            id: 11
+                        }
+
                     })
                 }
             },

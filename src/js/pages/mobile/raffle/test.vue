@@ -9,13 +9,13 @@
              @panmove="onPanMove"
              @panend="onPanEnd"
              @horizontalpan="onEpPanStart">
+            <slot name="pull-more"></slot>
             <div class="slider"
                  v-for="(v,index) in cardList"
                  :ref="`card${index}_${sliderId}`"
                  :style="{transform: `scale(${index===currentIndex ? 1 : cardS.scale})`,left: `${index * (cardS.width+cardS.spacing)}px`,marginLeft:`${(containerS.width - cardS.width) / 2}px`,width: cardS.width+'px', height: cardS.height+'px'}">
                 <slot :name="`card${index}_${sliderId}`"></slot>
             </div>
-            <slot name="pull-more"></slot>
         </div>
     </div>
 </template>
@@ -63,8 +63,7 @@
                 default: () => ({
                     position: 'relative',
                     width: 750,
-                    height: 998,
-                    backgroudColor: 'red'
+                    height: 998
                 })
             },
             cardS: {
@@ -99,13 +98,14 @@
                 return new Array(this.cardLength + 1).join().split('');
             },
             cardWidth () {
-                return (this.cardLength - 1) * this.cardS.width + this.containerS.width + 235;
+                return (this.cardLength - 1) * (this.cardS.width + this.cardS.spacing) + this.containerS.width;
             }
         },
         created () {
             this.currentIndex = this.selectIndex;
         },
         mounted () {
+
             // ios和页面返回冲突，组件里面将ios系统横滑返回禁止
             if (swipeBack && swipeBack.forbidSwipeBack) {
                 swipeBack.forbidSwipeBack(true);
@@ -222,7 +222,8 @@
                 let selectIndex = originIndex;
                 const duration = Date.now() - this.startTime;
                 const panOffset = this.panOffset || (this.cardS.width / 2);
-                const isPullMore = (selectIndex === this.cardLength - 1 && (moveX < -68 || (moveX < -10 && duration < 200)));
+                // const isPullMore = (selectIndex === this.cardLength - 1 && (moveX < -68 || (moveX < -10 && duration < 200)));
+                const isPullMore = (selectIndex === 0 && (moveX > -68 || (moveX > -10 && duration < 200))); // 控制向左或者向右加载更多
 
                 if(isPullMore){
                     this.$emit('wxcEpSliderPullMore', { currentIndex: selectIndex });

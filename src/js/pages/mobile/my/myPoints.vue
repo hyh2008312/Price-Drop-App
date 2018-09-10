@@ -1,25 +1,19 @@
 <template>
     <div class="wrapper">
-            <div class="blackheader"></div>
-            <topic-header title="My Points" leftBtn="icon"  ref="ref1" ></topic-header>
-            <div class="overflow-points-head1">
-
-                <div class="points-head">
-                    <text class="points-head-txt11">Total</text>
-                    <text class="points-head-txt21">{{totalPoints}}</text>
-                </div>
-
-                <div class="points-head">
-                    <text class="points-head-txt11">Available</text>
-                    <text class="points-head-txt21">{{availablePoints}}</text>
-                </div>
-
-                <div class="points-head">
-                    <text class="points-head-txt11">Pending</text>
-                    <text class="points-head-txt21">{{pendingPoints}}</text>
-                </div>
+        <div class="blackheader"></div>
+        <div class="overflow-box" >
+            <text class="close" @click="$router.finish();" >&#xe6f6;</text>
+            <text class="center-word"  >My Points</text>
+            <text class="total-points">{{totalPoints||0}}</text>
+            <div class="point-item">
+                <text class="point-num">{{availablePoints||0}}</text>
+                <text class="point-word">points available</text>
+                <text class="point-num">{{pendingPoints||0}}</text>
+                <text class="point-word">points pending</text>
+                <text class="iconfont point-icon" @click="openDialog">&#xe71d;</text>
             </div>
-            <div class="overflow-points-head">
+        </div>
+        <div class="overflow-points-head">
                 <div class="points-content">
                     <div class="points-content-head">
                         <text class="points-head-txt1">Detailed History</text>
@@ -48,15 +42,27 @@
 
                 </div>
             </div>
+
+        <NewDialog class="wxdialog"
+                   :content="content"
+                   :show="show"
+                   :single="false"
+                   :is-checked="isChecked"
+                   @wxcDialogCancelBtnClicked="wxcDialogCancelBtnClicked"
+                   @wxcDialogConfirmBtnClicked="wxcDialogConfirmBtnClicked"
+                   @wxcDialogNoPromptClicked="wxcDialogNoPromptClicked">
+        </NewDialog>
     </div>
 </template>
 
 <script>
     import header from './header';
     import dayjs from 'dayjs';
+    import NewDialog from './newPopup';
     export default {
         components: {
-            'topic-header': header
+            'topic-header': header,
+            NewDialog
         },
         name: 'myCard',
         eros: {
@@ -73,7 +79,14 @@
                 totalPoints: '',
                 availablePoints: '',
                 pendingPoints: '',
-                pArr: false
+                pArr: false,
+                show: false,
+                isChecked: false,
+                content: 'All “Pending" points cannot be used until they' +
+                'change to “Available" status. \n' +
+                'These points will become “Available" on the ' +
+                '10th' + ' day after you confirm the receipt of your ' +
+                'order with no return.'
             }
         },
         created () {
@@ -102,6 +115,20 @@
                     })
                 })
             },
+            openDialog () {
+                this.show = true;
+            },
+            wxcDialogCancelBtnClicked () {
+                // 此处必须设置，组件为无状态组件，自己管理
+                this.show = false;
+            },
+            wxcDialogConfirmBtnClicked () {
+                this.show = false;
+            },
+            wxcDialogNoPromptClicked (e) {
+                // 此处必须设置，组件为无状态组件，自己管理
+                this.isChecked = e.isChecked;
+            },
             tranDate (str) {
                 return dayjs(new Date(str)).format('MMMM DD, YYYY')
             }
@@ -121,14 +148,76 @@
         height: 48px;
         background-color: black;
     }
-    .overflow-points-head1{
-        flex-direction: row;
-        justify-content: space-around;
-
+    .iconfont{
+        font-family: iconfont;
     }
+
+    .overflow-box{
+        background-color: #EF8A31;
+        height: 446px;
+        margin-top: 48px;
+        border-bottom-left-radius: 100%;
+        border-bottom-right-radius: 100%;
+        /*border-radius: 100%;*/
+    }
+    .close{
+        font-family: iconfont;
+        font-size: 32px;
+        color: white;
+        margin-top: 46px;
+        margin-left: 32px;
+    }
+    .close1{
+        font-family: iconfont;
+        font-size: 32px;
+        color: black;
+        margin-top: 44px;
+        margin-left: 32px;
+    }
+    .center-word{
+        font-family: ProximaNova;
+        text-align: center;
+        color: white;
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: -36px;
+    }
+    .total-points{
+        font-family: ProximaNova;
+        font-size: 80px;
+        margin-top: 78px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        text-align: center;
+        font-weight: 700;
+    }
+    .point-item{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .point-num{
+        font-weight: 700;
+        font-size: 24px;
+        color: white;
+        margin-left: 12px;
+    }
+    .point-word{
+        font-size: 24px;
+        color: white;
+        margin-left: 12px;
+    }
+    .point-icon{
+        font-size: 24px;
+        color: white;
+        margin-left: 12px;
+        margin-top: 4px;
+    }
+
     .overflow-points-head{
         flex-direction: row;
         justify-content: center;
+        margin-top: -105px;
     }
     .points-head{
         width: 200px;
@@ -141,29 +230,17 @@
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
         background-color: white;
     }
-    .points-head-txt11{
-        /*padding-left:32px;*/
-        font-weight: 700;
-        font-size: 28px;
-    }
-    .points-head-txt21{
-        /*padding-right:32px;*/
-        color: #EF8A31;
-        font-weight: 700;
-        font-size: 28px;
-    }
-
     .points-head-txt1{
         padding-left:32px;
         font-weight: 700;
         font-size: 28px;
     }
     .points-content{
-        width: 712px;
+        width: 686px;
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
         background-color: white;
         border-radius: 8px;
-        margin-top: 19px;
+        margin-top: 0px;
     }
     .points-content-head{
         flex-direction: row;

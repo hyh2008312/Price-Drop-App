@@ -393,7 +393,7 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id.id}/`,
-                        // url: `${baseUrl}/product/customer/detail/117/`,
+                        // url: `${baseUrl}/product/customer/detail/654/`,
                         data: {}
                     }).then((res) => {
                         this.purchaseMethod = res.purchaseMethod;
@@ -478,9 +478,9 @@
                         googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
                     }).catch((res) => {
                         this.$notice.loading.hide();
-                        // this.$notice.toast({
-                        //     message: res
-                        // })
+                        this.$notice.toast({
+                            message: res
+                        })
                     })
                 }
             },
