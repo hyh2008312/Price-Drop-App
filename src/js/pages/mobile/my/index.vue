@@ -85,6 +85,14 @@
 
         <div class="overflow-box">
             <div class="mid-cell">
+                <div class="box-tlt " @click="openMyRaffleDraws()">
+                    <div class="box-left">
+                        <image class="box-txt-icon" src="bmlocal://assets/pic-customer.png"></image>
+                        <text class="box-txt">My Raffle Draws</text>
+                    </div>
+                    <text class="i-box iconfont">&#xe626;</text>
+
+                </div>
                 <div class="box-tlt " @click="openCell(1)">
                     <div class="box-left">
                         <image class="box-txt-icon" src="bmlocal://assets/pic-customer.png"></image>
@@ -205,6 +213,12 @@
             }
         },
         methods: {
+            openMyRaffleDraws () {
+                this.$router.open({
+                    name: 'my.RaffleDraws',
+                    type: 'PUSH'
+                })
+            },
             jumpWeb (id) {
                 if (this.user == null) {
                     this.$router.open({

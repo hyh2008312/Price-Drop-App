@@ -32,6 +32,9 @@ export default {
     'my.faq': {
         url: '/pages/mobile/my/myFaq.js'
     },
+    'my.RaffleDraws': {
+        url: '/pages/mobile/my/myRaffleDraws.js'
+    },
     'my.faqTmp': {
         url: '/pages/mobile/my/faqTmp.js'
     },
