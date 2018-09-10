@@ -46,22 +46,34 @@
         methods: {
             jumpWeb () {
                if (this.goods.logFirstPrize === 'first') {
-                   this.$router.open({
-                       name: 'order.confirm',
-                       type: 'PUSH',
-                       params: {
-                           title: this.goods.productTitle,
-                           mainImage: this.goods.image,
-                           salePrice: '0',
-                           currentPrice: '0', // 计算价钱的金额
-                           quantity: '1',
-                           id: this.goods.variantId,
-                           shippingPrice: '',
-                           shippingTimeMin: '',
-                           shippingTimeMax: '',
-                           proId: 'lottery'
-                       }
-                   })
+                   if (this.goods.prizeReceived) {
+                       this.$router.open({
+                           name: 'order',
+                           type: 'PUSH',
+                           params: {
+                               tab: 0
+                           }
+                       })
+                   } else {
+                       this.$router.open({
+                           name: 'order.confirm',
+                           type: 'PUSH',
+                           params: {
+                               title: this.goods.productTitle,
+                               mainImage: this.goods.image,
+                               salePrice: '0',
+                               currentPrice: '0', // 计算价钱的金额
+                               quantity: '1',
+                               id: this.goods.variantId,
+                               shippingPrice: this.goods.shippingPrice,
+                               shippingTimeMin: this.goods.shippingTimeMin,
+                               shippingTimeMax: this.goods.shippingTimeMax,
+                               proId: 'lottery',
+                               drawId: this.goods.drawId
+
+                           }
+                       })
+                   }
                } else if (this.goods.logFirstPrize === 'second') {
                    this.$router.open({
                        name: 'my.card',
