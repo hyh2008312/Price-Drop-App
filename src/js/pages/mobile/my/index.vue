@@ -215,7 +215,7 @@
         methods: {
             openMyRaffleDraws () {
                 this.$router.open({
-                    name: 'my.RaffleDraws',
+                    name: 'my.raffle.draws',
                     type: 'PUSH'
                 })
             },
