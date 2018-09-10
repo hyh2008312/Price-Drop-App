@@ -40,6 +40,7 @@
                 <div class="gb-center-right">
                     <text class="gb-text" v-if="order.proId == 'direct'">Rs.{{order.currentPrice}}</text>
                     <text class="gb-text" v-if="order.proId == 'flash'">Rs.{{order.currentPrice}}</text>
+                    <text class="gb-text" v-if="order.proId == 'lottery'">Rs.{{order.currentPrice}}</text>
                     <text class="gb-text" v-if="order.proId == 'drop'">Rs.{{order.salePrice}}</text>
                     <text class="gb-text">Rs.{{order.shippingPrice||'0.00'}}</text>
                     <text class="gb-text">Rs.0.00</text>

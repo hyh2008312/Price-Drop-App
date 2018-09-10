@@ -25,7 +25,7 @@
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
-                    <text class="gb-text" v-if="order.orderType == 'Normal' || order.orderType == 'Flash'">Rs.{{((order.paymentAmount * 100 + order.voucherShare * 100 - order.shippingExclTax * 100) / 100).toFixed(2)}}</text>
+                    <text class="gb-text" v-if="order.orderType == 'Normal' || order.orderType == 'Flash' || order.orderType == 'Lottery'">Rs.{{((order.paymentAmount * 100 + order.voucherShare * 100 - order.shippingExclTax * 100) / 100).toFixed(2)}}</text>
                     <text class="gb-text" v-if="order.orderType == 'Cut'">Rs.{{order.totalExclTax}}</text>
                     <text class="gb-text">Rs.{{order.shippingExclTax}}</text>
                     <text class="gb-text">Rs.0.00</text>

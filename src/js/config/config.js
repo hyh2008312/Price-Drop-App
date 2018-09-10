@@ -44,5 +44,6 @@ export const apis = {
     'flashsale.flash.customer.home': '/flashsale/flash/customer/home/',
     'promotion.get.broadcast': '/promotion/get/broadcast/',
     'lottery.draw.list': '/lottery/draw/list/',
-    'lottery.draw': '/lottery/draw/'
+    'lottery.draw': '/lottery/draw/',
+    'order.lottery.pure': '/order/lottery/pure/'
 }

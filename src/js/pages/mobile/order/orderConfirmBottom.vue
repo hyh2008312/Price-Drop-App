@@ -163,6 +163,36 @@
                                 message: error
                             });
                         });
+                    } else if (that.order.proId == 'lottery') {
+                        that.$fetch({
+                            method: 'POST', // 大写
+                            name: 'order.lottery.pure',
+                            data: {
+                                drawId: that.order.draw.id,
+                                vid: that.order.id,
+                                ownerId: that.order.ownerId
+                            },
+                            header: {
+                                needAuth: true
+                            }
+                        }).then(resData => {
+                            that.$notice.loading.hide();
+                            that.$event.emit('cutDetail');
+                            googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
+                            googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, 'lucky draw', 'Rs', that.order.currentPrice);
+                            that.$router.finish();
+                            that.$router.open({
+                                name: 'order',
+                                type: 'PUSH'
+                            });
+                            that.isFirst = true;
+                        }, error => {
+                            that.$notice.loading.hide();
+                            that.isFirst = true;
+                            that.$notice.toast({
+                                message: error
+                            });
+                        });
                     }
                 }
             }
