@@ -155,6 +155,9 @@
             } else {
                 this.getCard()
             }
+            // this.$event.on('login', parmas => {
+            //     this.getCardA()
+            // });
             this.$event.on('readR', parmas => {
                 this.dotNum = 0
             })
@@ -373,10 +376,13 @@
             },
             redirectLogin () {
                 this.$event.on('login', params => {
-                    this.loginS = true
-                    this.getCardA()
                     this.$storage.get('user').then(resData => {
                         this.user = resData
+                        this.myPoints = this.user.pointsAvailable
+                        this.loginS = true
+                        this.selindex = false
+                        this.page = 1
+                        this.getCardA()
                     })
                 });
                 this.$router.open({

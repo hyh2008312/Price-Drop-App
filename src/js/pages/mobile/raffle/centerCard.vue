@@ -31,9 +31,16 @@
                 <text class="goods-num">3rd Prize</text>
                 <text class="goods-pri">{{item.thirdPrize}} Voucher - {{item.discountThird}}% of Panticipants</text>
             </div>
-            <div class="goods-p" v-if="item.drawStatus == 'Ongoing'"  style="margin-top: 24px;margin-bottom: 48px">
-                <text class="goods-num">Time Left to Join</text>
-                <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
+            <div class="goods-p" v-if="item.drawStatus == 'Ongoing'"  style="margin-bottom: 48px">
+                <div v-if="!item.isDraw" class="goods-p margin-top-0">
+                    <text class="goods-num">Time Left to Join</text>
+                    <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
+                </div>
+                <div v-if="item.isDraw" class="goods-p margin-top-0">
+                    <text class="goods-num">Winner Announcement Time:</text>
+                    <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                    <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
+                </div>
             </div>
 
             <div class="goods-p" v-if="item.drawStatus == 'Ended'"  style="margin-top: 24px;margin-bottom: 48px">
@@ -89,6 +96,7 @@
 <script>
     const common = weex.requireModule('CommonUtils');
     import { WxcMask } from 'weex-ui';
+    import dayjs from 'dayjs';
     export default {
         components: { WxcMask },
         data () {
@@ -109,8 +117,19 @@
         created () {
             this.cItem = this.item
             this.userAvatar = JSON.parse(this.cItem.imageSet);
-            this.initBack();
-            // this.countDate(this.cItem.startTime)
+            if (this.selindex == this.itemIndex) {
+                if (this.item.drawStatus == 'Ongoing') {
+                    if (this.item.isDraw) {
+                        clearInterval(this.tranTime)
+                    } else {
+                        this.countDate(this.cItem.endTime)
+                    }
+                } else {
+                    this.countDate(this.cItem.startTime)
+                }
+            } else {
+                clearInterval(this.tranTime)
+            }
         },
         computed: {
             // show: {
@@ -128,7 +147,11 @@
                 handler: function (val, oldVal) {
                     if (this.selindex == this.itemIndex) {
                         if (this.item.drawStatus == 'Ongoing') {
-                            this.countDate(this.cItem.endTime)
+                            if (this.item.isDraw) {
+                                clearInterval(this.tranTime)
+                            } else {
+                                this.countDate(this.cItem.endTime)
+                            }
                         } else {
                             this.countDate(this.cItem.startTime)
                         }
@@ -155,6 +178,9 @@
                     }
 
                 })
+            },
+            tranDateM (tmp) {
+                return dayjs(new Date(tmp)).format('HH:mm a, MMM DD')
             },
             countDate (time) {
                 // this.$notice.toast({
@@ -423,5 +449,8 @@
         font-family: iconfont;
         font-size: 120px;
         color: #00CFE3;
+    }
+    .margin-top-0{
+        margin-top: 0;
     }
 </style>
