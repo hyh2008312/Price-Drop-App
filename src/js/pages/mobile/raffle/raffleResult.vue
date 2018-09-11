@@ -5,7 +5,10 @@
                 <topic-header title="Prize Winners" leftBtn="icon"  ref="ref1" ></topic-header>
             </cell>
             <cell class="content-4">
-                <text class="title">First Prize</text>
+                <div class="title-bg">
+                    <text class="icon-first">&#xe747;</text>
+                    <text class="title">First Prize</text>
+                </div>
                 <div class="product-bg">
                     <image class="product-image" :src="firstPrize.product.image"></image>
                 </div>
@@ -25,7 +28,10 @@
                 </div>
             </cell>
             <cell class="content-4">
-                <text class="title">Second Prize</text>
+                <div class="title-bg">
+                    <text class="icon-second">&#xe749;</text>
+                    <text class="title">Second Prize</text>
+                </div>
                 <div class="voucher-bg">
                     <image class="product-image-1" :src="secondPrize.voucher.image"></image>
                     <text class="product-title-1">{{secondPrize.voucher.name}} Gift Voucher</text>
@@ -45,7 +51,10 @@
                 </div>
             </cell>
             <cell class="content-4 md-padding-bottom">
-                <text class="title">Third Prize</text>
+                <div class="title-bg">
+                    <text class="icon-third">&#xe749;</text>
+                    <text class="title">Third Prize</text>
+                </div>
                 <div class="voucher-bg">
                     <image class="product-image-1" :src="thirdPrize.voucher.image"></image>
                     <text class="product-title-1">{{thirdPrize.voucher.name}} Gift Voucher</text>
@@ -211,8 +220,15 @@
         font-size: 32px;
         line-height: 38px;
         font-weight: bold;
-        margin-top: 32px;
+        margin-left: 16px;
+    }
+
+    .title-bg{
+        margin-top: 48px;
         margin-bottom: 16px;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
     }
 
     .title-1{
@@ -342,4 +358,19 @@
         padding-bottom: 32px;
     }
 
+    .icon-first {
+        font-family: iconfont;
+        font-size: 32px;
+        color: #69549d;
+    }
+    .icon-second {
+        font-family: iconfont;
+        font-size: 32px;
+        color: #ffba1b;
+    }
+    .icon-third {
+        font-family: iconfont;
+        font-size: 32px;
+        color: #00CFE3;
+    }
 </style>
