@@ -12,7 +12,7 @@ export const tabConfig = [{
     visibility: 'hidden'
 }, {
     icon: '&#xe74a;',
-    name: 'Raffle',
+    name: 'Luckydraw',
     key: 'raffle',
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/raffle/index.js`,
     visibility: 'hidden'

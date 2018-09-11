@@ -36,7 +36,7 @@
                          :class="['slider']"
                          :accessible="true"
                     >
-                        <CenterCard :item="v"  v-on:openMask="openM" v-on:openShare="openS" ></CenterCard>
+                        <CenterCard :item="v"  :itemIndex="index" :selindex="selindex"  v-on:openMask="openM" v-on:openShare="openS" ></CenterCard>
                         <!--<text class="text">这里是第{{index + 1}}个滑块</text>-->
                     </div>
                 </NewS>
@@ -62,15 +62,15 @@
                         <image class="mask-c-i"  src="bmlocal://assets/raffle-2.png"></image>
                     </div>
                     <div class="mask-c-t">
-                        <text class="mask-c-tw">Prize Winner Announced At:</text>
+                        <text class="mask-c-tw">Prize Winner to be Announced At:</text>
                         <text class="mask-c-tt" style="margin-bottom: 24px">{{tranDateM(endTime)}}</text>
 
-                        <text class="mask-c-tw">To join this raffle draw,</text>
+                        <text class="mask-c-tw">To join this lucky draw,</text>
                         <div class="mask-c-r" style="margin-bottom: 36px">
                             <text class="mask-c-tw">you need to spend </text> <text class="mask-c-tt">500</text><text class="mask-c-tw"> points.</text>
                         </div>
                         <div class="mask-c-r" style="margin-bottom: 24px">
-                            <text class="mask-c-tw">Your points balance: </text> <text class="mask-c-tt">{{myPoints}}</text><text class="mask-c-tw"> points</text>
+                            <text class="mask-c-tw">Your available points: </text> <text class="mask-c-tt">{{myPoints}}</text><text class="mask-c-tw"></text>
                         </div>
                     </div>
                     <div class="mask-btn" @click="getResult()" v-if="myPoints >= 500" style="margin-left: 110px">
@@ -81,7 +81,7 @@
                         <text class="mask-btn-w">ENTER</text>
                     </div>
                 </div>
-                <text class="mask-bottom-w" v-if="myPoints < 500" >You need to earn more points to enter this raffle.</text>
+                <text class="mask-bottom-w" v-if="myPoints < 500" >You need to earn more points to enter this lucky draw.</text>
 
 
                 <!--<div class="mask-bottom">-->
@@ -129,7 +129,7 @@
             endTime: '',
             cardArr: false,
             page: 1,
-            pageSize: 5,
+            pageSize: 20,
             show: false,
             isLoading: false,
             isBottomShow: false,
@@ -138,16 +138,24 @@
             myPoints: false
         }),
         created () {
-            this.$storage.get('user').then(resData => {
-                this.user = resData
-                if (this.user) {
-                    this.loginS = true
-                    this.myPoints = this.user.pointsAvailable
-                    this.getCardA()
-                } else {
-                    this.getCard()
-                }
-            })
+            this.user = this.$storage.getSync('user')
+            if (this.user) {
+                this.loginS = true
+                this.myPoints = this.user.pointsAvailable
+                this.getCardA()
+            } else {
+                this.getCard()
+            }
+            // this.$storage.get('user').then(resData => {
+            //     this.user = resData
+            //     if (this.user) {
+            //         this.loginS = true
+            //         this.myPoints = this.user.pointsAvailable
+            //         this.getCardA()
+            //     } else {
+            //         this.getCard()
+            //     }
+            // })
            this.initBack()
         },
         computed: {
@@ -180,11 +188,11 @@
                 common.changeAndroidCanBack(false);
             },
             openS () {
-                if (!this.loginS) {
-                   this.redirectLogin()
-                } else {
-                    this.openBottomPopup()
-                }
+                // if (!this.loginS) {
+                //    this.redirectLogin()
+                // } else {
+                //     this.openBottomPopup()
+                // }
                 // common.changeAndroidCanBack(false);
             },
 
@@ -201,9 +209,13 @@
             },
             wxcEpSliderCurrentIndexSelected (e) {
                const index = e.currentIndex;
-               this.bgcolor = this.cardArr[index].background
-               this.time = this.cardArr[index].startTime
-               this.endTime = this.cardArr[index].endTime
+               this.selindex = e.currentIndex;
+               if (index == '') {
+                   this.selindex = '0'
+               }
+               this.bgcolor = this.cardArr[this.selindex].background
+               this.time = this.cardArr[this.selindex].startTime
+               this.endTime = this.cardArr[this.selindex].endTime
             },
             getCard () {
                 this.$notice.loading.show();
@@ -242,17 +254,17 @@
                     })
                 })
             },
-            prePullMore () {
-                if (this.isLoading) {
-                    return
-                } else {
-                    if (!this.loginS) {
-                        this.pullMore()
-                    } else if (this.loginS) {
-                        this.pullMoreA()
-                    }
-                }
-            },
+            // prePullMore () {
+            //     if (this.isLoading) {
+            //         return
+            //     } else {
+            //         if (!this.loginS) {
+            //             this.pullMore()
+            //         } else if (this.loginS) {
+            //             this.pullMoreA()
+            //         }
+            //     }
+            // },
             pullMore () {
                 this.isLoading = true
                 if (this.page > this.length) {
@@ -276,7 +288,7 @@
                         this.cardArr.unshift(item);
                     }
                     this.$nextTick(() => {
-                        this.selindex = 0 + res.results.length;
+                        this.selindex = 0 + res.results.length - 1;
                     })
                     this.length = Math.ceil(res.count / this.pageSize);
                     this.page++
@@ -392,7 +404,7 @@
                         this.cardArr.unshift(item);
                     }
                     this.$nextTick(() => {
-                        this.selindex = 0 + res.results.length;
+                        this.selindex = 0 + res.results.length - 1;
                     })
                     this.length = Math.ceil(res.count / this.pageSize);
                     this.page++
@@ -408,7 +420,7 @@
                 return dayjs(new Date(tmp)).format('MMM DD')
             },
             tranDateM (tmp) {
-                return dayjs(new Date(tmp)).format('HH:mm MMM DD')
+                return dayjs(new Date(tmp)).format('MMM DD, HH:mm a')
             },
             tranDateY (tmp) {
                 return dayjs(new Date(tmp)).format('YYYY')

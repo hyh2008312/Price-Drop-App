@@ -5,7 +5,7 @@
             <text  class="tick">Joined</text>
         </div>
         <div class="goods">
-            <text class="goods-h">RAFFLE PRIZE</text>
+            <text class="goods-h">Lucky Draw Prize</text>
             <!--<text class="goods-h">{{item.}}</text>-->
             <text class="goods-t">{{item.product}}</text>
             <div class="goods-p">
@@ -32,8 +32,8 @@
                 <text class="goods-pri">{{item.thirdPrize}} Voucher - {{item.discountThird}}% of Panticipants</text>
             </div>
             <div class="goods-p" v-if="item.drawStatus == 'Ongoing'"  style="margin-top: 24px;margin-bottom: 48px">
-                <text class="goods-num">Time Left to join</text>
-                <text class="goods-time">16:27:27</text>
+                <text class="goods-num">Time Left to Join</text>
+                <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
             </div>
 
             <div class="goods-p" v-if="item.drawStatus == 'Ended'"  style="margin-top: 24px;margin-bottom: 48px">
@@ -64,8 +64,17 @@
             </div>
         </div>
 
-        <div class="goods-btn" v-if="item.drawStatus == 'Ongoing'">
-            <text class="goods-btn-w" @click="opendialog()">Join Raffle & Win Prize</text>
+
+
+        <div class="goods-btn" v-if="item.drawStatus == 'Ongoing' ">
+
+            <div class="goods-btn-s " @click="openshare()" v-if="item.isDraw" >
+                <text class="iconfont goods-btn-sicon" >&#xe74b;</text>
+                <text class="goods-btn-sword"  >Share to Your Friends</text>
+            </div>
+
+            <text class="goods-btn-w" @click="opendialog()" v-if="!item.isDraw">Join Now & Win Prize</text>
+
         </div>
 
         <div class="goods-btn" v-if="item.drawStatus == 'Scheduled'" style="margin-top: 96px" >
@@ -96,26 +105,43 @@
                 ahour: '',
                 amin: '',
                 asecond: '',
+                tranTime: false,
                 userAvatar: []
             }
         },
-        props: ['item'],
+        props: ['item', 'itemIndex', 'selindex'],
         created () {
             this.cItem = this.item
             this.userAvatar = JSON.parse(this.cItem.imageSet);
             this.initBack();
-            this.countDate(this.cItem.startTime)
+            // this.countDate(this.cItem.startTime)
         },
         computed: {
-            show: {
-                get: function () {
-                    return this.show
-                },
-                set: function (v) {
-                    this.show = v
-                }
-            }
+            // show: {
+            //     get: function () {
+            //         return this.show
+            //     },
+            //     set: function (v) {
+            //         this.show = v
+            //     }
+            // }
 
+        },
+        watch: {
+            'selindex': {
+                handler: function (val, oldVal) {
+                    if (this.selindex == this.itemIndex) {
+                        if (this.item.drawStatus == 'Ongoing') {
+                            this.countDate(this.cItem.endTime)
+                        } else {
+                            this.countDate(this.cItem.startTime)
+                        }
+                    } else {
+                        clearInterval(this.tranTime)
+                    }
+                },
+                deep: true
+            }
         },
         methods: {
             opendialog () {
@@ -135,12 +161,15 @@
                 })
             },
             countDate (time) {
+                // this.$notice.toast({
+                //     message: '1111'
+                // })
                 const self = this
                 // if (this.purchaseMethod == 'flash') {
-                setInterval(() => {
-                    this.NOW_DATE = new Date().getTime();
+                self.tranTime = setInterval(() => {
+                    self.NOW_DATE = new Date().getTime();
 
-                    const total = (new Date(time).getTime() - this.NOW_DATE) / 1000
+                    const total = (new Date(time).getTime() - self.NOW_DATE) / 1000
 
                     const day = Math.floor(total / (24 * 60 * 60))// 整天
 

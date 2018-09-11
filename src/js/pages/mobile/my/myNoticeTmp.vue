@@ -212,7 +212,7 @@
                     this.title = 'Refunds Notifications'
                     // this.params = 'refund'
                 } else if (params.id == 5) {
-                    this.title = 'Raffle Draw Notifications'
+                    this.title = 'Lucky Draw Notifications'
                     // this.params = 'raffle'
                 }
                 // this.getData()
