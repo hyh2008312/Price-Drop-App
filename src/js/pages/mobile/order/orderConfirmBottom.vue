@@ -45,9 +45,10 @@
                             }
                         }).then(resData => {
                             that.$notice.loading.hide();
-                            that.$event.emit('cutDetail');
+
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
+
                             const order = resData;
                             // that.$router.finish();
                             that.$router.open({
@@ -177,9 +178,20 @@
                             }
                         }).then(resData => {
                             that.$notice.loading.hide();
-                            that.$event.emit('cutDetail');
+
                             googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, 'lucky draw', 'Rs', that.order.currentPrice);
+
+                            if (resData.orderId != null) {
+                                that.$router.finish();
+                                this.$router.open({
+                                    name: 'order.detail',
+                                    params: {
+                                        id: resData.orderId
+                                    }
+                                });
+                                return;
+                            }
                             that.$router.finish();
                             that.$router.open({
                                 name: 'order',
