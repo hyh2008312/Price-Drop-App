@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <topic-header title="My Raffle Draws" leftBtn="icon"  ref="ref1" ></topic-header>
+        <topic-header title="Lucky Draws" leftBtn="icon"  ref="ref1" ></topic-header>
         <div class="blackheader"></div>
         <list class="list" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
@@ -9,12 +9,6 @@
             </cell>
             <cell class="blank" v-if="goods">
             </cell>
-            <cell class="container-1" :style="height" v-if="goods.length == 0">
-                <div class="container-2">
-                    <image class="pay-image" src="bmlocal://assets/empty.png"></image>
-                </div>
-                <text class="address-title">There is no reward to show.</text>
-            </cell>
             <cell class="loading" v-if="isLoading">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </cell>
@@ -22,6 +16,12 @@
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </loading>
         </list>
+        <div class="container-1" :style="height" v-if="goods.length == 0">
+            <div class="container-2">
+                <image class="pay-image" src="bmlocal://assets/empty.png"></image>
+            </div>
+            <text class="address-title">There is no reward to show.</text>
+        </div>
     </div>
 </template>
 
@@ -149,5 +149,24 @@
     .blank{
         height: 40px;
     }
-
+    .container-1{
+        width: 750px;
+        background-color: #F1F1F1;
+    }
+    .container-2{
+        margin-top: 150px;
+        width: 750px;
+        align-items: center;
+    }
+    .pay-image{
+        width: 202px;
+        height: 202px;
+    }
+    .address-title{
+        margin-top: 32px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
+    }
 </style>
+
