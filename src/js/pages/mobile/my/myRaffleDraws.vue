@@ -93,6 +93,7 @@
                     }
                     this.page++;
                     this.goods.push(...data.results);
+                    this.$event.emit('readR', 1)
                     if (!isFirst) {
                         this.isLoading = false;
                     }

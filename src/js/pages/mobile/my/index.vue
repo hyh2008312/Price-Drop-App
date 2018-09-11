@@ -82,17 +82,22 @@
             </div>
 
         </div>
-
         <div class="overflow-box">
             <div class="mid-cell">
-                <div class="box-tlt " @click="openMyRaffleDraws()">
+                <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
                     <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/pic-customer.png"></image>
-                        <text class="box-txt">My Raffle Draws</text>
+                        <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
+                        <text class="box-txt">My Lucky Draws</text>
+                        <text class=" box-dot" v-if="unreadR>0"></text>
                     </div>
                     <text class="i-box iconfont">&#xe626;</text>
 
                 </div>
+            </div>
+        </div>
+        <div class="overflow-box">
+            <div class="mid-cell">
+
                 <div class="box-tlt " @click="openCell(1)">
                     <div class="box-left">
                         <image class="box-txt-icon" src="bmlocal://assets/pic-customer.png"></image>
@@ -116,8 +121,6 @@
                 <div class="box-tlt " @click="openNoti()" v-if="user">
                     <div class="box-left">
                         <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
-
-                        <!--<text class="box-txt-icon">&#xe705;</text>-->
                         <text class="box-txt">My Notifications</text>
                         <text class=" box-dot" v-if="unread>0"></text>
                     </div>
@@ -189,6 +192,9 @@
                 // })
                 this.unread = 0
             })
+            this.$event.on('readR', parmas => {
+                this.unreadR = 0
+            })
         },
         destory () {
             this.$event.off('login')
@@ -209,7 +215,8 @@
                 points: '0',
                 cardNumber: '0',
                 setsign: '',
-                unread: 0
+                unread: 0,
+                unreadR: 0
             }
         },
         methods: {
@@ -384,6 +391,20 @@
                                 unread: this.unread
                             });
                         }).catch((res) => {
+                            this.$notice.toast({
+                                message: res
+                            })
+                        })
+                        this.$fetch({
+                            method: 'GET',
+                            name: 'lottery.draw.prize.unread',
+                            header: {
+                                needAuth: true
+                            }
+                        }).then((res) => {
+                            this.unreadR = res.count
+                        }).catch((res) => {
+                            // this.$notice.loading.hide();
                             this.$notice.toast({
                                 message: res
                             })

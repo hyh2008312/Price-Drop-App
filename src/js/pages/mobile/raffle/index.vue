@@ -8,7 +8,7 @@
                     <div class="th-r-d" @click="openMyRaffleDraws">
                         <image class="th-r-img" src="bmlocal://assets/myprize-01.png"></image>
                     </div>
-                    <text class="dot">1</text>
+                    <text class="dot" v-if="dotNum>0">{{dotNum}}</text>
                 </div>
                 <div class="th-left">
                     <text class="th-l-w1">{{tranDateY(time)}}</text>
@@ -135,7 +135,8 @@
             isBottomShow: false,
             loginS: false,
             user: false,
-            myPoints: false
+            myPoints: false,
+            dotNum: false
         }),
         created () {
             this.user = this.$storage.getSync('user')
@@ -143,9 +144,13 @@
                 this.loginS = true
                 this.myPoints = this.user.pointsAvailable
                 this.getCardA()
+                this.getDot()
             } else {
                 this.getCard()
             }
+            this.$event.on('readR', parmas => {
+                this.dotNum = 0
+            })
             // this.$storage.get('user').then(resData => {
             //     this.user = resData
             //     if (this.user) {
@@ -333,6 +338,25 @@
                 })
             },
 
+            getDot () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'lottery.draw.prize.unread',
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    this.dotNum = res.count
+                    // this.$notice.toast({
+                    //     message: res.count
+                    // })
+                }).catch((res) => {
+                    // this.$notice.loading.hide();
+                    this.$notice.toast({
+                        message: res
+                    })
+                })
+            },
             redirectLogin () {
                 this.$event.on('login', params => {
                     this.loginS = true

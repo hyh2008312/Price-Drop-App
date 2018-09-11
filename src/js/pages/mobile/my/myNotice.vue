@@ -73,21 +73,21 @@
                 <!--</div>-->
 
             <!--</div>-->
-            <div class="overflow-box" @click="openNew(5,'raffle')">
-                <div class="overflow-box-content">
-                    <div>
-                        <div class="dot" v-if="raffle.isRead==false"></div>
-                        <image src="bmlocal://assets/ic-perks-not.png" class="icon-img" style=""></image>
-                    </div>
-                    <div class="word">
-                        <div class="title-time">
-                            <text class="title">Lucky Draw Notifications</text>
-                            <text class="time">{{tranDate(raffle.created)}}</text>
-                        </div>
+            <!--<div class="overflow-box" @click="openNew(5,'raffle')">-->
+                <!--<div class="overflow-box-content">-->
+                    <!--<div>-->
+                        <!--<div class="dot" v-if="raffle.isRead==false"></div>-->
+                        <!--<image src="bmlocal://assets/ic-perks-not.png" class="icon-img" style=""></image>-->
+                    <!--</div>-->
+                    <!--<div class="word">-->
+                        <!--<div class="title-time">-->
+                            <!--<text class="title">Lucky Draw Notifications</text>-->
+                            <!--<text class="time">{{tranDate(raffle.created)}}</text>-->
+                        <!--</div>-->
 
-                        <text class="title-item">{{raffle.title||'There is no notification to show. '}}</text>
-                    </div>
-                </div>
+                        <!--<text class="title-item">{{raffle.title||'There is no notification to show. '}}</text>-->
+                    <!--</div>-->
+                <!--</div>-->
 
             </div>
         </div>
@@ -192,9 +192,9 @@
                     if (Object.keys(res.refund).length !== 0) {
                         this.refund = res.refund
                     }
-                    if (Object.keys(res.raffle).length !== 0) {
-                        this.raffle = res.raffle
-                    }
+                    // if (Object.keys(res.raffle).length !== 0) {
+                    //     this.raffle = res.raffle
+                    // }
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res
