@@ -7,7 +7,6 @@
 </template>
 <script>
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
-    const pay = weex.requireModule('PayModule');
     export default {
         props: ['order', 'address', 'card'],
         data: {
