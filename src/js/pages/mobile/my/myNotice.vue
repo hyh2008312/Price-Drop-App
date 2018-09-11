@@ -81,7 +81,7 @@
                     </div>
                     <div class="word">
                         <div class="title-time">
-                            <text class="title">Raffle Draw Notifications</text>
+                            <text class="title">Lucky Draw Notifications</text>
                             <text class="time">{{tranDate(raffle.created)}}</text>
                         </div>
 
