@@ -5,7 +5,7 @@
             <div class="top-header" >
                 <div class="th-right">
                     <text class="th-r-1" @click="openGuide">Guideline</text>
-                    <div class="th-r-d">
+                    <div class="th-r-d" @click="openMyRaffleDraws">
                         <image class="th-r-img" src="bmlocal://assets/myprize-01.png"></image>
                     </div>
                     <text class="dot">1</text>
@@ -27,7 +27,7 @@
                     <div class="more-slider"
                          v-if="isLoading"
                          slot="pull-more">
-                        <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+                        <image class="loading-icon" resize="contain" src="bmlocal://assets/loading.gif"></image>
                     </div>
                     <!--自动生成demo-->
                     <div v-for="(v,index) in cardArr"
@@ -129,7 +129,7 @@
             endTime: '',
             cardArr: false,
             page: 1,
-            pageSize: 20,
+            pageSize: 10,
             show: false,
             isLoading: false,
             isBottomShow: false,
@@ -178,6 +178,16 @@
                     }
                     common.changeAndroidCanBack(true)
                 })
+            },
+            openMyRaffleDraws () {
+                if (!this.loginS) {
+                    this.redirectLogin()
+                } else {
+                    this.$router.open({
+                        name: 'my.raffle.draws',
+                        type: 'PUSH'
+                    })
+                }
             },
             openM () {
                 if (!this.loginS) {
@@ -236,11 +246,10 @@
                             //     message: this.selindex
                             // })
                             break
+                        } else {
+                            this.selindex = 2
                         }
                     }
-                    // this.$notice.alert({
-                    //     message: this.selindex
-                    // })
                     this.bgcolor = this.cardArr[this.selindex].background
                     this.time = this.cardArr[this.selindex].startTime
                     this.endTime = this.cardArr[this.selindex].endTime
@@ -340,6 +349,9 @@
 
             getCardA () {
                 this.$notice.loading.show();
+                // this.$notice.alert({
+                //     message: this.pageSize
+                // })
                 this.$fetch({
                     method: 'GET',
                     name: 'lottery.draw.list',
@@ -360,11 +372,10 @@
                             //     message: this.selindex
                             // })
                             break
+                        } else {
+                            this.selindex = 2
                         }
                     }
-                    // this.$notice.alert({
-                    //     message: this.selindex
-                    // })
                     this.bgcolor = this.cardArr[this.selindex].background
                     this.time = this.cardArr[this.selindex].startTime
                     this.endTime = this.cardArr[this.selindex].endTime

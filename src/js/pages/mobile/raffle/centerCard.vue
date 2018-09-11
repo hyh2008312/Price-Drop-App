@@ -236,6 +236,7 @@
         flex-direction: row;
         justify-content: start;
         align-items: center;
+        margin-top: 8px;
     }
     .goods-p1{
         font-family: ProximaNova;
