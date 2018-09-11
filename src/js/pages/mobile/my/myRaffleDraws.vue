@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <topic-header title="Lucky Draws" leftBtn="icon"  ref="ref1" ></topic-header>
+        <topic-header title="My Lucky Draws" leftBtn="icon"  ref="ref1" ></topic-header>
         <div class="blackheader"></div>
         <list class="list" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
