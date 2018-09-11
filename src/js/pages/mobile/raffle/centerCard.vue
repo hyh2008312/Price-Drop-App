@@ -41,12 +41,12 @@
                 <text class="goods-time">&nbsp;</text>
             </div>
 
-            <div class="goods-people" style="margin-bottom: 50px">
-            <div class="goods-a" v-for="i in userAvatar.slice(0,4).reverse()">
-                <image class="goods-a-i" :src="i"></image>
+            <div class="goods-people" v-if="item.drawCount>0" style="margin-bottom: 50px">
+                <div class="goods-a" v-for="i in userAvatar.slice(0,6).reverse()">
+                    <image class="goods-a-i" :src="i"></image>
+                </div>
+                <text class="goods-w">{{item.drawCount}} people joined</text>
             </div>
-            <text class="goods-w">{{item.drawCount}} people joined</text>
-        </div>
         </div>
 
         <div v-if="item.drawStatus == 'Scheduled'">
@@ -81,8 +81,6 @@
             </div>
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
-
-
             <text class="goods-btn-w" style="background-color:#00CFE3;" @click="openNewPage()">See the Winners</text>
         </div>
     </div>
