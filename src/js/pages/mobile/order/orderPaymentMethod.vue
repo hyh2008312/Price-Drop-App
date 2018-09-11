@@ -17,7 +17,7 @@
                 <text class="iconfont item-checked" v-if="method == 'paytm'">&#xe6fb;</text>
                 <text class="iconfont item-no-checked" v-if="method != 'paytm'">&#xe73f;</text>
             </cell>
-            <cell class="cell-bottom" @click="chooseMethod('razorpay')">
+            <cell v-if="false" class="cell-bottom" @click="chooseMethod('razorpay')">
                 <div>
                     <image class="item-image-1" resize="contain" :src="razorpaySrc"></image>
                     <text class="item-text">UPI / Credit&Debit Card / Net Banking </text>
