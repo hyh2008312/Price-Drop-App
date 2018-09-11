@@ -4,9 +4,10 @@
         <div class="blackheader"></div>
         <list class="list" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
-
             <cell v-for="(i ,index) in goods">
                 <rewardItem :goods=i :key="index"></rewardItem>
+            </cell>
+            <cell class="blank" v-if="goods">
             </cell>
             <cell class="container-1" :style="height" v-if="goods.length == 0">
                 <div class="container-2">
@@ -14,16 +15,13 @@
                 </div>
                 <text class="address-title">There is no reward to show.</text>
             </cell>
-
             <cell class="loading" v-if="isLoading">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </cell>
-
             <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </loading>
         </list>
-
     </div>
 </template>
 
@@ -32,7 +30,6 @@
     import rewardItem from './rewardItem';
     import { Utils } from 'weex-ui';
     import refresher from '../common/refresh';
-
     export default {
         components: {
             'topic-header': header,
@@ -139,7 +136,6 @@
     }
     .list{
        margin-top: 160px;
-       padding-bottom: 40px;
     }
     .loading{
         flex-direction: row;
@@ -147,10 +143,12 @@
         align-items: center;
         padding: 16px 0;
     }
-
     .loading-icon{
         width: 64px;
         height: 64px;
+    }
+    .blank{
+        height: 40px;
     }
 
 </style>

@@ -51,7 +51,6 @@
                     <text style="font-size: 24px; padding-top: 35px;">:</text>
                     <text class="center-time-hh">{{asecond||'00'}}</text>
                 </div>
-
             </div>
         </div>
 
@@ -60,7 +59,10 @@
         </div>
 
         <div class="goods-btn" v-if="item.drawStatus == 'Scheduled'" style="margin-top: 96px" >
-            <text class="goods-btn-s">Share to Your Friends</text>
+            <div class="goods-btn-s " @click="openshare()" >
+                <text class="iconfont goods-btn-sicon" >&#xe74b;</text>
+                <text class="goods-btn-sword"  >Share to Your Friends</text>
+            </div>
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
 
@@ -93,6 +95,7 @@
         created () {
             this.cItem = this.item
             this.initBack();
+            this.countDate(this.cItem.startTime)
         },
         computed: {
             show: {
@@ -108,6 +111,9 @@
         methods: {
             opendialog () {
                 this.$emit('openMask')
+            },
+            openshare () {
+                this.$emit('openShare')
             },
             openNewPage () {
                 this.$router.open({
@@ -162,6 +168,9 @@
 <style scoped>
     .wrapper{
         /*margin-left: 48px;*/
+    }
+    .iconfont{
+        font-family: iconfont;
     }
     .goods{
         margin-left: 48px;
@@ -282,17 +291,18 @@
         /*background-color: #689de5;*/
     }
     .goods-btn-w{
-        /*width: 422px;*/
-        /*height:62px;*/
+        font-size: 24px;
+        font-weight: 700;
         background-color: #EF8A31;
         color: white;
-        padding: 18px 32px;
+        padding: 0 32px;
+        line-height: 64px;
         text-align: center;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        /*box-shadow: 0 1px 1px 0 rgba(0,0,0,0.19);*/
-        border-radius: 50%;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);
+        border-radius: 32px;
     }
     .goods-btn-s{
         background-color: white;
@@ -306,6 +316,17 @@
         justify-content: center;
         border-radius: 50%;
     }
+    .goods-btn-sword{
+        color:black;
+        font-weight: 700;
+        font-size: 24px;
+        padding: 18px 32px;
+    }
+    .goods-btn-sicon{
+        text-align: center;
+        margin-left: 25px;
+        color:#00CFE3;
+    }
     .goods-snum-d{
         flex-direction: row;
         align-items: center;
@@ -318,17 +339,13 @@
         text-align: left;
         font-weight: 700;
     }
-
-
-
-
     .overflow-center-time{
         flex-direction: row;
         justify-content: center;
         align-items: center;
         margin: 34px 0 8px 48px ;
     }
-    .center-time-word{
+    .center-time-word {
         color: black;
         font-size: 24px;
     }

@@ -11,19 +11,24 @@
                     <text class="dot">1</text>
                 </div>
                 <div class="th-left">
-                    <text class="th-l-w1">2018</text>
+                    <text class="th-l-w1">{{tranDateY(time)}}</text>
                     <!--<text class="th-l-w2">Aug 17th</text>-->
-                    <text class="th-l-w2">{{time}}</text>
+                    <text class="th-l-w2">{{tranDate(time)}}</text>
                 </div>
             </div>
 
-            <div class="wrapper1">
+            <div class="wrapper1" v-if="selindex">
                 <NewS :slider-id="sliderId"
                       :card-length='cardArr.length'
                       :card-s="cardSize"
                       :select-index="selindex"
-                      @wxcEpSliderPullMore="pullMore"
+                      @wxcEpSliderPullMore="prePullMore"
                       @wxcEpSliderCurrentIndexSelected="wxcEpSliderCurrentIndexSelected">
+                    <div class="more-slider"
+                         v-if="isLoading"
+                         slot="pull-more">
+                        <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+                    </div>
                     <!--自动生成demo-->
                     <div v-for="(v,index) in cardArr"
                          :key="index"
@@ -31,13 +36,8 @@
                          :class="['slider']"
                          :accessible="true"
                     >
-                        <CenterCard :item="v"  v-on:openMask="openM"></CenterCard>
+                        <CenterCard :item="v"  v-on:openMask="openM" v-on:openShare="openS"></CenterCard>
                         <!--<text class="text">这里是第{{index + 1}}个滑块</text>-->
-                    </div>
-                    <div class="more-slider"
-                         slot="pull-more"
-                         :style="{left: `${cardArr.length * (cardSize.width + cardSize.spacing)+60}px`,marginLeft:`${(750 - cardSize.width) / 2}px`}">
-                        <text>加载更多</text>
                     </div>
                 </NewS>
             </div>
@@ -87,15 +87,28 @@
 
             </div>
         </WxcMask>
+
+        <wxc-popup popup-color="rgb(92, 184, 92)"
+                   :show="isBottomShow"
+                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
+                   pos="bottom"
+                   height="400">
+            <div class="demo-content">
+                <div>
+                    <div></div>
+                </div>
+            </div>
+        </wxc-popup>
     </div>
 </template>
 <script>
     const common = weex.requireModule('CommonUtils');
-    import { WxcEpSlider, WxcPanItem, WxcMask } from 'weex-ui';
-    import NewS from "./test"
-    import CenterCard from "./centerCard"
+    import { WxcEpSlider, WxcPanItem, WxcMask, WxcPopup } from 'weex-ui';
+    import NewS from './test'
+    import CenterCard from './centerCard'
+    import dayjs from 'dayjs';
     export default {
-        components: { WxcEpSlider, WxcPanItem, WxcMask, NewS, CenterCard },
+        components: { WxcEpSlider, WxcPanItem, WxcMask, WxcPopup, NewS, CenterCard },
         data: () => ({
             sliderId: 1,
             autoSliderId: 2,
@@ -106,15 +119,26 @@
                 spacing: 42,
                 scale: 1
             },
-            selindex: 1,
+            selindex: '',
             bgcolor: '',
             time: '',
             cardArr: false,
             page: 1,
             pageSize: 5,
-            show: false
+            show: false,
+            isLoading: false,
+            isBottomShow: false,
+            loginS: false,
+            user: false
         }),
         created () {
+            this.$storage.get('user').then(resData => {
+                this.user = resData
+                if (this.user) {
+                    this.loginS = true
+                }
+            })
+
            this.getCard()
            this.initBack()
         },
@@ -140,9 +164,29 @@
                 })
             },
             openM () {
-                this.show = true
+                if (!this.loginS) {
+                   this.redirectLogin()
+                } else {
+                    this.show = true
+                }
                 common.changeAndroidCanBack(false);
             },
+            openS () {
+                if (!this.loginS) {
+                   this.redirectLogin()
+                } else {
+                    this.openBottomPopup()
+                }
+                // common.changeAndroidCanBack(false);
+            },
+
+            openBottomPopup () {
+                this.isBottomShow = true;
+            },
+            popupOverlayBottomClick () {
+                this.isBottomShow = false;
+            },
+
             wxcMaskSetShareHidden () {
                 this.show = false;
                 common.changeAndroidCanBack(true)
@@ -163,12 +207,23 @@
                         page_size: this.pageSize
                     }
                 }).then((res) => {
-                    this.cardArr = res.results
+                    this.cardArr = (res.results).reverse()
+                    for (let i = 0; i < this.cardArr.length; i++) {
+                        if (this.cardArr[i].drawStatus === 'Ongoing') {
+                            this.selindex = i
+                            // this.$notice.alert({
+                            //     message: this.selindex
+                            // })
+                            break
+                        }
+                    }
+                    // this.$notice.alert({
+                    //     message: this.selindex
+                    // })
                     this.bgcolor = this.cardArr[this.selindex].background
                     this.time = this.cardArr[this.selindex].startTime
-                    // this.$notice.alert({
-                    //     message: this.bgcolor
-                    // })
+
+                    this.page++
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
@@ -177,6 +232,53 @@
                     })
                 })
             },
+            prePullMore () {
+                if (this.isLoading) {
+                    return
+                } else {
+                    if (!this.loginS) {
+                        this.pullMore()
+                    } else if (this.loginS) {
+                        this.pullMoreA()
+                    }
+                }
+            },
+            pullMore () {
+                this.isLoading = true
+                if (this.page > this.length) {
+                    if (this.cardArr.length > 0) {}
+                    this.$nextTick(() => {
+                        this.isLoading = false
+                    });
+                    return
+                }
+                this.$fetch({
+                    method: 'GET',
+                    name: 'lottery.draw.list',
+                    // url: `${baseUrl}/lottery/draw/list/`,
+                    data: {
+                        page: this.page,
+                        page_size: this.pageSize
+                    }
+                }).then((res) => {
+                    this.selindex = false;
+                    for (const item of res.results) {
+                        this.cardArr.unshift(item);
+                    }
+                    this.$nextTick(() => {
+                        this.selindex = 0 + res.results.length;
+                    })
+                    this.length = Math.ceil(res.count / this.pageSize);
+                    this.page++
+                    this.isLoading = false
+                }).catch((res) => {
+                    this.isLoading = false
+                    this.$notice.toast({
+                        message: res
+                    })
+                })
+            },
+
             getResult () {
                 this.$fetch({
                     method: 'POST',
@@ -199,14 +301,107 @@
                     })
                 })
             },
+
+            redirectLogin () {
+                this.$event.on('login', params => {
+                    this.loginS = true
+                    this.getCardA()
+                    this.$storage.get('user').then(resData => {
+                        this.user = resData
+                    })
+                });
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            },
+
+            getCardA () {
+                this.$notice.loading.show();
+                this.$fetch({
+                    method: 'GET',
+                    name: 'lottery.draw.list',
+                    // url: `${baseUrl}/lottery/draw/list/`,
+                    data: {
+                        page: this.page,
+                        page_size: this.pageSize
+                    },
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    this.cardArr = (res.results).reverse()
+                    for (let i = 0; i < this.cardArr.length; i++) {
+                        if (this.cardArr[i].drawStatus === 'Ongoing') {
+                            this.selindex = i
+                            // this.$notice.alert({
+                            //     message: this.selindex
+                            // })
+                            break
+                        }
+                    }
+                    // this.$notice.alert({
+                    //     message: this.selindex
+                    // })
+                    this.bgcolor = this.cardArr[this.selindex].background
+                    this.time = this.cardArr[this.selindex].startTime
+
+                    this.page++
+                    this.$notice.loading.hide();
+                }).catch((res) => {
+                    this.$notice.loading.hide();
+                    this.$notice.toast({
+                        message: res
+                    })
+                })
+            },
+            pullMoreA () {
+                this.isLoading = true
+                if (this.page > this.length) {
+                    if (this.cardArr.length > 0) {}
+                    this.$nextTick(() => {
+                        this.isLoading = false
+                    });
+                    return
+                }
+                this.$fetch({
+                    method: 'GET',
+                    name: 'lottery.draw.list',
+                    // url: `${baseUrl}/lottery/draw/list/`,
+                    data: {
+                        page: this.page,
+                        page_size: this.pageSize
+                    },
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    this.selindex = false;
+                    for (const item of res.results) {
+                        this.cardArr.unshift(item);
+                    }
+                    this.$nextTick(() => {
+                        this.selindex = 0 + res.results.length;
+                    })
+                    this.length = Math.ceil(res.count / this.pageSize);
+                    this.page++
+                    this.isLoading = false
+                }).catch((res) => {
+                    this.isLoading = false
+                    this.$notice.toast({
+                        message: res
+                    })
+                })
+            },
+            tranDate (tmp) {
+                return dayjs(new Date(tmp)).format('MMM DD')
+            },
+            tranDateY (tmp) {
+                return dayjs(new Date(tmp)).format('YYYY')
+            },
             onClick () {
                 // 手动切换到第2张
                 this.$refs['wxc-ep-slider'].manualSetPage(1);
-            },
-            pullMore () {
-                this.$notice.toast({
-                    message: 'pull more'
-                })
             },
             openGuide () {
                 this.$router.open({
@@ -316,8 +511,8 @@
     }
     .more-slider{
         width: 100px;
-        height: 300px;
-        background-color: #ffc302;
+        height: 998px;
+        /*background-color: #ffc302;*/
     }
     .mask-content{
 
@@ -385,5 +580,11 @@
         letter-spacing: 0;
         text-align: center;
         /*margin-left: -100px;*/
+    }
+    .loading-icon{
+        position: absolute;
+        top: 470px;
+        width: 64px;
+        height: 64px;
     }
 </style>
