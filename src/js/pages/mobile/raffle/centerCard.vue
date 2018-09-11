@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="goods-image">
-            <image class="goods-i" resize="stretch" :src="item.image"></image>
+            <image class="goods-i" resize="contain" :src="item.image"></image>
         </div>
 
         <div v-if="item.drawStatus == 'Ongoing'|| item.drawStatus == 'Ended'" style="margin-left: 48px">
@@ -76,7 +76,6 @@
             <text class="goods-btn-w" @click="opendialog()" v-if="!item.isDraw">Join Now & Win Prize</text>
 
         </div>
-
         <div class="goods-btn" v-if="item.drawStatus == 'Scheduled'" style="margin-top: 96px" >
             <div class="goods-btn-s " @click="openshare()" >
                 <text class="iconfont goods-btn-sicon" >&#xe74b;</text>
@@ -84,6 +83,7 @@
             </div>
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
+
 
             <text class="goods-btn-w" style="background-color:#00CFE3;" @click="openNewPage()">See the Winners</text>
         </div>
