@@ -44,16 +44,18 @@
             }
         },
         methods: {
+            jumpOrderDetail () {
+                this.$router.open({
+                    name: 'order.detail',
+                    params: {
+                        id: this.goods.orderId
+                    }
+                })
+            },
             jumpWeb () {
                if (this.goods.logFirstPrize === 'first') {
                    if (this.goods.prizeReceived) {
-                       this.$router.open({
-                           name: 'order',
-                           type: 'PUSH',
-                           params: {
-                               tab: 0
-                           }
-                       })
+                       this.jumpOrderDetail()
                    } else {
                        this.$router.open({
                            name: 'order.confirm',
@@ -74,10 +76,18 @@
                            }
                        })
                    }
-               } else if (this.goods.logFirstPrize === 'second') {
+               } else if (this.goods.logFirstPrize === 'second' || this.goods.logFirstPrize === 'third') {
                    this.$router.open({
                        name: 'my.card',
                        type: 'PUSH'
+                   })
+               } else {
+                   this.$router.open({
+                       name: 'raffle.result',
+                       type: 'PUSH',
+                       params: {
+                           id: this.goods.drawId
+                       }
                    })
                }
             },

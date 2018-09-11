@@ -41,7 +41,7 @@
             this.height = { height: (pageHeight - 48 - 112) + 'px' };
             this.loadingStart();
             this.requestRewards(true);
-        },
+            },
         data () {
             return {
                 first: true,
@@ -116,8 +116,7 @@
                     this.isLoading = true;
                     this.requestRewards(false);
                 }
-            },
-
+            }
         }
     }
 </script>
