@@ -1,12 +1,16 @@
 <template>
     <div class="wrapper">
+        <div class="triangle-topright" v-if="item.isDraw">
+            <text  class="triangle">&#xe741;</text>
+            <text  class="tick">Joined</text>
+        </div>
         <div class="goods">
             <text class="goods-h">RAFFLE PRIZE</text>
             <!--<text class="goods-h">{{item.}}</text>-->
             <text class="goods-t">{{item.product}}</text>
             <div class="goods-p">
-                <text class="goods-p1">Rs.0.00</text>
-                <text class="goods-p2">Rs.100.00</text>
+                <text class="goods-p1">Rs.{{item.unitPrice}}</text>
+                <text class="goods-p2">Rs.{{item.saleUnitPrice}}</text>
                 <text class="goods-p3">Free Shipping</text>
             </div>
         </div>
@@ -21,21 +25,27 @@
             </div>
             <div class="goods-p" style="margin: 8px 0;">
                 <text class="goods-num">2nd Prize</text>
-                <text class="goods-pri">{{item.secondPrize}} Voucher - 30% of Panticipants</text>
+                <text class="goods-pri">{{item.secondPrize}} Voucher - {{item.discountSecond}}% of Panticipants</text>
             </div>
             <div class="goods-p">
                 <text class="goods-num">3rd Prize</text>
-                <text class="goods-pri">{{item.thirdPrize}} Voucher - 40% of Panticipants</text>
+                <text class="goods-pri">{{item.thirdPrize}} Voucher - {{item.discountThird}}% of Panticipants</text>
             </div>
-            <div class="goods-p" style="margin-top: 24px;margin-bottom: 48px">
+            <div class="goods-p" v-if="item.drawStatus == 'Ongoing'"  style="margin-top: 24px;margin-bottom: 48px">
                 <text class="goods-num">Time Left to join</text>
                 <text class="goods-time">16:27:27</text>
             </div>
-            <div class="goods-people" style="margin-bottom: 50px">
-            <div class="goods-a">
-                <image class="goods-a-i" src="bmlocal://assets/successful.png"></image>
+
+            <div class="goods-p" v-if="item.drawStatus == 'Ended'"  style="margin-top: 24px;margin-bottom: 48px">
+                <text class="goods-num">&nbsp;</text>
+                <text class="goods-time">&nbsp;</text>
             </div>
-            <text class="goods-w">2015 people joined</text>
+
+            <div class="goods-people" style="margin-bottom: 50px">
+            <div class="goods-a" v-for="i in userAvatar.slice(0,4)">
+                <image class="goods-a-i" :src="i"></image>
+            </div>
+            <text class="goods-w">{{item.drawCount}} people joined</text>
         </div>
         </div>
 
@@ -68,9 +78,6 @@
 
             <text class="goods-btn-w" style="background-color:#00CFE3;" @click="openNewPage()">See the Winners</text>
         </div>
-
-
-
     </div>
 </template>
 
@@ -88,12 +95,14 @@
                 aday: '',
                 ahour: '',
                 amin: '',
-                asecond: ''
+                asecond: '',
+                userAvatar: []
             }
         },
         props: ['item'],
         created () {
             this.cItem = this.item
+            this.userAvatar = JSON.parse(this.cItem.imageSet);
             this.initBack();
             this.countDate(this.cItem.startTime)
         },
@@ -120,7 +129,7 @@
                     name: 'raffle.result',
                     type: 'PUSH',
                     params: {
-                        id: 11
+                        id: this.cItem.id
                     }
 
                 })
@@ -279,6 +288,7 @@
         color: #000000;
         letter-spacing: 0;
         text-align: left;
+        margin-left: 10px;
     }
     .goods-btn{
         width: 624px;
@@ -366,5 +376,26 @@
         padding: 16px;
         margin: 18px;
         font-size: 28px;
+    }
+    .triangle-topright{
+        position: absolute;
+        border-radius: 24px;
+        top:-11px;
+        right:0;
+    }
+    .tick{
+        position: relative;
+        top:-90px;
+        right:-45px;
+        color: white;
+        font-size: 24px;
+    }
+    .triangle{
+        position: relative;
+        top:10px;
+        left:0;
+        font-family: iconfont;
+        font-size: 120px;
+        color: #00CFE3;
     }
 </style>

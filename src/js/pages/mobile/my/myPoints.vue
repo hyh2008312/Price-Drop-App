@@ -318,6 +318,7 @@
     }
     .bottom-last{
         padding-bottom: 20px;
+        margin-bottom: 60px;
     }
     .empty-div{
         flex-direction: column;

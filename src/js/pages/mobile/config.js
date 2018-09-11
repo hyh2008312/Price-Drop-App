@@ -11,6 +11,12 @@ export const tabConfig = [{
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/drops/index.js`,
     visibility: 'hidden'
 }, {
+    icon: '&#xe74a;',
+    name: 'Raffle',
+    key: 'raffle',
+    src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/raffle/index.js`,
+    visibility: 'hidden'
+}, {
     icon: '&#xe733;',
     name: 'Perks',
     key: 'perks',

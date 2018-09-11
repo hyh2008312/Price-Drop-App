@@ -6,7 +6,7 @@
         <div style="margin-top: 160px;"></div>
         <list style=" width: 750px;"  ref="list" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore" >
             <cell  v-for="(i,index) in goods">
-                <text class="first-time">{{tranDate(i.modified)}}</text>
+                <text class="first-time">{{tranDate(i.created)}}</text>
 
                 <div class="mid-cell" >
                     <div class="overflow-card" >
@@ -308,7 +308,7 @@
                     this.isLoading = false;
 
                     this.$notice.alert({
-                        message: this.goods[1]
+                        message: data
                     })
                     // if (!isFirst) {
                     //     this.isLoading = false;

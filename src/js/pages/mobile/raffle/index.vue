@@ -36,7 +36,7 @@
                          :class="['slider']"
                          :accessible="true"
                     >
-                        <CenterCard :item="v"  v-on:openMask="openM" v-on:openShare="openS"></CenterCard>
+                        <CenterCard :item="v"  v-on:openMask="openM" v-on:openShare="openS" ></CenterCard>
                         <!--<text class="text">这里是第{{index + 1}}个滑块</text>-->
                     </div>
                 </NewS>
@@ -63,21 +63,25 @@
                     </div>
                     <div class="mask-c-t">
                         <text class="mask-c-tw">Prize Winner Announced At:</text>
-                        <text class="mask-c-tt" style="margin-bottom: 24px">16:00 Aug 17th</text>
+                        <text class="mask-c-tt" style="margin-bottom: 24px">{{tranDateM(endTime)}}</text>
 
                         <text class="mask-c-tw">To join this raffle draw,</text>
                         <div class="mask-c-r" style="margin-bottom: 36px">
                             <text class="mask-c-tw">you need to spend </text> <text class="mask-c-tt">500</text><text class="mask-c-tw"> points.</text>
                         </div>
                         <div class="mask-c-r" style="margin-bottom: 24px">
-                            <text class="mask-c-tw">Your points balance: </text> <text class="mask-c-tt">1200</text><text class="mask-c-tw"> points</text>
+                            <text class="mask-c-tw">Your points balance: </text> <text class="mask-c-tt">{{myPoints}}</text><text class="mask-c-tw"> points</text>
                         </div>
                     </div>
-                    <div class="mask-btn" @click="getResult()" style="margin-left: 110px">
+                    <div class="mask-btn" @click="getResult()" v-if="myPoints >= 500" style="margin-left: 110px">
+                        <text class="mask-btn-w">ENTER</text>
+                    </div>
+
+                    <div class="mask-btn-5"  v-if="myPoints < 500" style="margin-left: 110px">
                         <text class="mask-btn-w">ENTER</text>
                     </div>
                 </div>
-                <text class="mask-bottom-w">You need to earn more points to enter this raffle.</text>
+                <text class="mask-bottom-w" v-if="myPoints < 500" >You need to earn more points to enter this raffle.</text>
 
 
                 <!--<div class="mask-bottom">-->
@@ -122,6 +126,7 @@
             selindex: '',
             bgcolor: '',
             time: '',
+            endTime: '',
             cardArr: false,
             page: 1,
             pageSize: 5,
@@ -129,17 +134,20 @@
             isLoading: false,
             isBottomShow: false,
             loginS: false,
-            user: false
+            user: false,
+            myPoints: false
         }),
         created () {
             this.$storage.get('user').then(resData => {
                 this.user = resData
                 if (this.user) {
                     this.loginS = true
+                    this.myPoints = this.user.pointsAvailable
+                    this.getCardA()
+                } else {
+                    this.getCard()
                 }
             })
-
-           this.getCard()
            this.initBack()
         },
         computed: {
@@ -195,6 +203,7 @@
                const index = e.currentIndex;
                this.bgcolor = this.cardArr[index].background
                this.time = this.cardArr[index].startTime
+               this.endTime = this.cardArr[index].endTime
             },
             getCard () {
                 this.$notice.loading.show();
@@ -222,6 +231,7 @@
                     // })
                     this.bgcolor = this.cardArr[this.selindex].background
                     this.time = this.cardArr[this.selindex].startTime
+                    this.endTime = this.cardArr[this.selindex].endTime
 
                     this.page++
                     this.$notice.loading.hide();
@@ -297,7 +307,7 @@
                 }).catch((res) => {
                     // this.$notice.loading.hide();
                     this.$notice.toast({
-                        message: res
+                        message: res.errorMsg
                     })
                 })
             },
@@ -345,6 +355,7 @@
                     // })
                     this.bgcolor = this.cardArr[this.selindex].background
                     this.time = this.cardArr[this.selindex].startTime
+                    this.endTime = this.cardArr[this.selindex].endTime
 
                     this.page++
                     this.$notice.loading.hide();
@@ -396,6 +407,9 @@
             tranDate (tmp) {
                 return dayjs(new Date(tmp)).format('MMM DD')
             },
+            tranDateM (tmp) {
+                return dayjs(new Date(tmp)).format('HH:mm MMM DD')
+            },
             tranDateY (tmp) {
                 return dayjs(new Date(tmp)).format('YYYY')
             },
@@ -443,7 +457,7 @@
     .th-right{
         flex-direction: row;
         justify-content: start;
-        margin-top: 32px;
+        margin-top: 25px;
     }
     .th-r-1{
         background-color: white;
@@ -486,7 +500,7 @@
         margin-left: -12px;
     }
     .th-left{
-        margin-top: 30px;
+        margin-top: 25px;
 
     }
     .th-l-w1 {
@@ -502,7 +516,7 @@
     }
     .wrapper1 {
         padding-top: 40px;
-        height: 1050px;
+        height: 1150px;  /*卡片背景高度*/
     }
     .slider {
         width: 624px;
@@ -562,6 +576,15 @@
     .mask-btn{
         border-radius: 100%;
         background-color:#EAD68E;
+        width: 128px;
+        height: 128px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .mask-btn-5{
+        border-radius: 100%;
+        background-color:#AFAFAF;
         width: 128px;
         height: 128px;
         flex-direction: row;
