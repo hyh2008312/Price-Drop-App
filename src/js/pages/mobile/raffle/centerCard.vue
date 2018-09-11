@@ -9,7 +9,7 @@
             <!--<text class="goods-h">{{item.}}</text>-->
             <text class="goods-t">{{item.product}}</text>
             <div class="goods-p">
-                <text class="goods-p1">Rs.{{item.unitPrice}}</text>
+                <text class="goods-p1">Rs.0.00</text>
                 <text class="goods-p2">Rs.{{item.saleUnitPrice}}</text>
                 <text class="goods-p3">Free Shipping</text>
             </div>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="goods-people" style="margin-bottom: 50px">
-            <div class="goods-a" v-for="i in userAvatar.slice(0,4)">
+            <div class="goods-a" v-for="i in userAvatar.slice(0,4).reverse()">
                 <image class="goods-a-i" :src="i"></image>
             </div>
             <text class="goods-w">{{item.drawCount}} people joined</text>
@@ -64,20 +64,18 @@
             </div>
         </div>
 
-
-
         <div class="goods-btn" v-if="item.drawStatus == 'Ongoing' ">
 
-            <div class="goods-btn-s " @click="openshare()" v-if="item.isDraw" >
+            <!--<div class="goods-btn-s " @click="openshare()" v-if="item.isDraw" >-->
+            <div class="goods-btn-s " @click="openshare()" v-if="false" >
                 <text class="iconfont goods-btn-sicon" >&#xe74b;</text>
                 <text class="goods-btn-sword"  >Share to Your Friends</text>
             </div>
-
             <text class="goods-btn-w" @click="opendialog()" v-if="!item.isDraw">Join Now & Win Prize</text>
 
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Scheduled'" style="margin-top: 96px" >
-            <div class="goods-btn-s " @click="openshare()" >
+            <div class="goods-btn-s " @click="openshare()"  v-if="false">
                 <text class="iconfont goods-btn-sicon" >&#xe74b;</text>
                 <text class="goods-btn-sword"  >Share to Your Friends</text>
             </div>

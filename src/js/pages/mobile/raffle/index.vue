@@ -11,15 +11,21 @@
                     <text class="dot" v-if="dotNum>0">{{dotNum}}</text>
                 </div>
                 <div class="th-left">
-                    <text class="th-l-w1">{{tranDateY(time)}}</text>
-                    <!--<text class="th-l-w2">Aug 17th</text>-->
-                    <text class="th-l-w2">{{tranDate(time)}}</text>
+                    <div class="th-l-div-icon" @click="goDefault">
+                        <text class="iconfont th-l-icon ">&#xe74d;</text>
+                    </div>
+                    <div>
+                        <text class="th-l-w1">{{tranDateY(time)}}</text>
+                        <text class="th-l-w2">{{tranDate(time)}}</text>
+                    </div>
+
                 </div>
             </div>
 
             <div class="wrapper1" v-if="selindex">
                 <NewS :slider-id="sliderId"
                       :card-length='cardArr.length'
+                      ref="wxc-ep-slider"
                       :card-s="cardSize"
                       :select-index="selindex"
                       @wxcEpSliderPullMore="prePullMore"
@@ -124,6 +130,7 @@
                 scale: 1
             },
             selindex: '',
+            defaultIndex: '',
             bgcolor: '',
             time: '',
             endTime: '',
@@ -194,6 +201,10 @@
                     })
                 }
             },
+            goDefault () {
+                // this.selindex = this.defaultIndex
+                this.$refs['wxc-ep-slider'].manualSetPage(this.defaultIndex);
+            },
             openM () {
                 if (!this.loginS) {
                    this.redirectLogin()
@@ -247,12 +258,14 @@
                     for (let i = 0; i < this.cardArr.length; i++) {
                         if (this.cardArr[i].drawStatus === 'Ongoing') {
                             this.selindex = i
+                            this.defaultIndex = i
                             // this.$notice.alert({
                             //     message: this.selindex
                             // })
                             break
                         } else {
                             this.selindex = 2
+                            this.defaultIndex = 2
                         }
                     }
                     this.bgcolor = this.cardArr[this.selindex].background
@@ -329,6 +342,7 @@
                     this.$notice.toast({
                         message: 'success'
                     })
+                    this.cardArr[this.selindex] = res
                     this.wxcMaskSetShareHidden()
                 }).catch((res) => {
                     // this.$notice.loading.hide();
@@ -392,12 +406,14 @@
                     for (let i = 0; i < this.cardArr.length; i++) {
                         if (this.cardArr[i].drawStatus === 'Ongoing') {
                             this.selindex = i
+                            this.defaultIndex = i
                             // this.$notice.alert({
                             //     message: this.selindex
                             // })
                             break
                         } else {
                             this.selindex = 2
+                            this.defaultIndex = 2
                         }
                     }
                     this.bgcolor = this.cardArr[this.selindex].background
@@ -488,6 +504,9 @@
 
 <style scoped>
     .wrapper{}
+    .iconfont{
+        font-family: iconfont;
+    }
     .blackheader{
         position: fixed;
         top: 0;
@@ -548,6 +567,18 @@
     }
     .th-left{
         margin-top: 25px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .th-l-div-icon{
+       margin-right: 14px;
+    }
+    .th-l-icon{
+        color: white;
+        font-size: 60px;
+        opacity: 0.8;
 
     }
     .th-l-w1 {
