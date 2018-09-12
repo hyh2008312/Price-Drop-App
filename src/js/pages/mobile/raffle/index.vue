@@ -363,6 +363,7 @@
                         // this.$notice.alert({
                         //     message: res.imageSet
                         // })
+                        this.$event.emit('raffle')
                         this.wxcMaskSetShareHidden()
                     }).catch((res) => {
                         // this.$notice.loading.hide();

@@ -195,6 +195,9 @@
             this.$event.on('readR', parmas => {
                 this.unreadR = 0
             })
+            this.$event.on('raffle', parmas => {
+                this.getUserData()
+            })
         },
         destory () {
             this.$event.off('login')
@@ -365,6 +368,7 @@
                     //     message: parmas
                     // })
                 })
+
 
                 this.$storage.get('token').then(resData => {
                     this.token = resData

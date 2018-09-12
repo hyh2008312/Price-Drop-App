@@ -21,15 +21,22 @@
         <div v-if="item.drawStatus == 'Ongoing'|| item.drawStatus == 'Ended'" style="margin-left: 48px">
             <div class="goods-p">
                 <text class="goods-num">1st Prize</text>
-                <text class="goods-pri">Free Product - 1 Participant</text>
+                <div class="goods-pri">
+                    <text class="goods-p-b">Free Product - </text><text class="goods-p-o">1</text> <text class="goods-p-b"> Participant</text>
+                </div>
             </div>
             <div class="goods-p" style="margin: 8px 0;">
                 <text class="goods-num">2nd Prize</text>
-                <text class="goods-pri">{{item.secondPrize}} Voucher - {{item.discountSecond}}% of Panticipants</text>
+                <div class="goods-pri">
+                    <text class="goods-p-b">{{item.secondPrize}} Voucher - </text><text class="goods-p-o">{{item.discountSecond}}%</text> <text class="goods-p-b"> of Panticipants</text>
+                </div>
             </div>
             <div class="goods-p">
                 <text class="goods-num">3rd Prize</text>
-                <text class="goods-pri">{{item.thirdPrize}} Voucher - {{item.discountThird}}% of Panticipants</text>
+                <div class="goods-pri">
+                    <text class="goods-p-b">{{item.thirdPrize}} Voucher - </text><text class="goods-p-o">{{item.discountThird}}%</text> <text class="goods-p-b"> of Panticipants</text>
+                </div>
+
             </div>
 
             <div class="goods-p" v-if="item.drawStatus == 'Ongoing'"  style="margin-bottom: 48px">
@@ -309,9 +316,21 @@
         margin-right: 16px;
     }
     .goods-pri{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+    .goods-p-o{
         font-family: ProximaNova-Regular;
         font-size: 24px;
-        color: #000000;
+        color: #EF8A31;
+        letter-spacing: 0;
+        text-align: left;
+    }
+    .goods-p-b{
+        font-family: ProximaNova-Regular;
+        font-size: 24px;
+        color: black;
         letter-spacing: 0;
         text-align: left;
     }

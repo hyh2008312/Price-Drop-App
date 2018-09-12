@@ -10,9 +10,9 @@
             <text class="total-points">{{totalPoints||0}}</text>
             <div class="point-item" @click="openDialog">
                 <text class="point-num">{{availablePoints||0}}</text>
-                <text class="point-word">points available</text>
-                <text class="point-num">{{pendingPoints||0}}</text>
-                <text class="point-word">points pending</text>
+                <text class="point-word">Available Points</text>
+                <text class="point-num">&nbsp;{{pendingPoints||0}}</text>
+                <text class="point-word">Pending Points</text>
                 <text class="iconfont point-icon" >&#xe71d;</text>
             </div>
         </div>
@@ -215,7 +215,7 @@
         font-size: 24px;
         color: white;
         margin-left: 12px;
-        margin-top: 4px;
+        margin-top: 2px;
     }
 
     .overflow-points-head{
