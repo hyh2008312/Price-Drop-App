@@ -200,7 +200,7 @@
             appeared (params, options) {
                 this.id = params.id
                 if (params.id == 1) {
-                    this.title = 'Drop Notifications'
+                    this.title = 'Drops Notifications'
                     // this.params = 'drop'
                 } else if (params.id == 2) {
                     this.title = 'Orders Notifications'
