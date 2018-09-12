@@ -28,13 +28,13 @@
             <div class="goods-p" style="margin: 8px 0;">
                 <text class="goods-num">2nd Prize</text>
                 <div class="goods-pri">
-                    <text class="goods-p-b">{{item.secondPrize}} Voucher - </text><text class="goods-p-o">{{item.discountSecond}}%</text> <text class="goods-p-b"> of Panticipants</text>
+                    <text class="goods-p-b">{{item.secondPrize}} Voucher - </text><text class="goods-p-o">{{item.discountSecond}}%</text> <text class="goods-p-b"> of Participants</text>
                 </div>
             </div>
             <div class="goods-p">
                 <text class="goods-num">3rd Prize</text>
                 <div class="goods-pri">
-                    <text class="goods-p-b">{{item.thirdPrize}} Voucher - </text><text class="goods-p-o">{{item.discountThird}}%</text> <text class="goods-p-b"> of Panticipants</text>
+                    <text class="goods-p-b">{{item.thirdPrize}} Voucher - </text><text class="goods-p-o">{{item.discountThird}}%</text> <text class="goods-p-b"> of Participants</text>
                 </div>
 
             </div>
