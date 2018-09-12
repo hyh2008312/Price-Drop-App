@@ -5,12 +5,12 @@
             <text class="close" @click="$router.finish();" >&#xe6f6;</text>
             <text class="center-word"  >My Points</text>
             <text class="total-points">{{totalPoints||0}}</text>
-            <div class="point-item">
+            <div class="point-item" @click="openDialog">
                 <text class="point-num">{{availablePoints||0}}</text>
                 <text class="point-word">points available</text>
                 <text class="point-num">{{pendingPoints||0}}</text>
                 <text class="point-word">points pending</text>
-                <text class="iconfont point-icon" @click="openDialog">&#xe71d;</text>
+                <text class="iconfont point-icon" >&#xe71d;</text>
             </div>
         </div>
         <div class="overflow-points-head">
@@ -82,7 +82,7 @@
                 pArr: false,
                 show: false,
                 isChecked: false,
-                content: 'All “Pending" points cannot be used until they' +
+                content: 'All “Pending" points cannot be used until they ' +
                 'change to “Available" status. \n' +
                 'These points will become “Available" on the ' +
                 '10th' + ' day after you confirm the receipt of your ' +

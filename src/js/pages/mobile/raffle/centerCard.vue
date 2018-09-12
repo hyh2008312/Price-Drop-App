@@ -180,7 +180,9 @@
                 })
             },
             tranDateM (tmp) {
-                return dayjs(new Date(tmp)).format('HH:mm a, MMM DD')
+                if (tmp) {
+                    return dayjs(new Date(tmp).getTime() + 2 * 60 * 60 * 1000).format('HH:mm a, MMM DD')
+                }
             },
             countDate (time) {
                 // this.$notice.toast({

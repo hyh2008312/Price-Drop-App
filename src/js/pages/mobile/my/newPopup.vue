@@ -83,8 +83,14 @@
         height: 90px;
         margin-right: 32px;
         margin-bottom: 32px;
+
+
     }
-    .footer-btn1 {
+    .footer-btn {
+        padding-top: 25px;
+        padding-right: 25px;
+        padding-bottom: 35px;
+        padding-left: 25px;
         margin-left: 32px;
     }
 

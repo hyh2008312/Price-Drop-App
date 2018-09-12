@@ -143,7 +143,8 @@
             loginS: false,
             user: false,
             myPoints: false,
-            dotNum: 0
+            dotNum: 0,
+            isF: true
         }),
         created () {
             this.user = this.$storage.getSync('user')
@@ -342,31 +343,34 @@
             },
 
             getResult () {
-                this.$fetch({
-                    method: 'POST',
-                    name: 'lottery.draw',
-                    data: {
-                        id: this.cardArr[this.selindex].id
-                    },
-                    header: {
-                        needAuth: true
-                    }
-                }).then((res) => {
-                    this.$notice.toast({
-                        message: 'success'
-                    })
-                    this.cardArr[this.selindex] = res
+                if (this.isF) {
+                    this.isF = false
+                    this.$fetch({
+                        method: 'POST',
+                        name: 'lottery.draw',
+                        data: {
+                            id: this.cardArr[this.selindex].id
+                        },
+                        header: {
+                            needAuth: true
+                        }
+                    }).then((res) => {
+                        this.$notice.toast({
+                            message: 'success'
+                        })
+                        this.cardArr[this.selindex] = res
 
-                    // this.$notice.alert({
-                    //     message: res.imageSet
-                    // })
-                    this.wxcMaskSetShareHidden()
-                }).catch((res) => {
-                    // this.$notice.loading.hide();
-                    this.$notice.toast({
-                        message: res.errorMsg
+                        // this.$notice.alert({
+                        //     message: res.imageSet
+                        // })
+                        this.wxcMaskSetShareHidden()
+                    }).catch((res) => {
+                        // this.$notice.loading.hide();
+                        this.$notice.toast({
+                            message: res.errorMsg
+                        })
                     })
-                })
+                }
             },
 
             getDot () {
@@ -503,8 +507,9 @@
             tranDateM (tmp) {
                 if (tmp == '') {
                     return ''
+                } else {
+                    return dayjs(new Date(tmp).getTime() + 2 * 60 * 60 * 1000).format('MMM DD, HH:mm a')
                 }
-                return dayjs(new Date(tmp)).format('MMM DD, HH:mm a')
             },
             tranDateY (tmp) {
                 if (tmp == '') {
