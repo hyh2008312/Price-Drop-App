@@ -2,8 +2,11 @@
     <div class="wrapper">
         <div class="blackheader"></div>
         <div class="overflow-box" >
-            <text class="close" @click="$router.finish();" >&#xe6f6;</text>
-            <text class="center-word"  >My Points</text>
+            <div class="header-div">
+                <text class="close" @click="$router.finish();" >&#xe6f6;</text>
+                <text class="center-word"  >My Points</text>
+                <text class="center-word"  >&nbsp;</text>
+            </div>
             <text class="total-points">{{totalPoints||0}}</text>
             <div class="point-item" @click="openDialog">
                 <text class="point-num">{{availablePoints||0}}</text>
@@ -151,7 +154,6 @@
     .iconfont{
         font-family: iconfont;
     }
-
     .overflow-box{
         background-color: #EF8A31;
         height: 446px;
@@ -160,19 +162,20 @@
         border-bottom-right-radius: 100%;
         /*border-radius: 100%;*/
     }
+    .header-div{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
     .close{
         font-family: iconfont;
         font-size: 32px;
         color: white;
-        margin-top: 46px;
-        margin-left: 32px;
-    }
-    .close1{
-        font-family: iconfont;
-        font-size: 32px;
-        color: black;
-        margin-top: 44px;
-        margin-left: 32px;
+        padding-top: 46px;
+        padding-left: 32px;
+        padding-right: 32px;
+        margin-right: 220px;
+        /*background-color: black;*/
     }
     .center-word{
         font-family: ProximaNova;
@@ -180,7 +183,8 @@
         color: white;
         font-size: 32px;
         font-weight: 700;
-        margin-top: -36px;
+        margin-top: 46px;
+        /*background-color: black;*/
     }
     .total-points{
         font-family: ProximaNova;
