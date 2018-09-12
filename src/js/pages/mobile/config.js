@@ -13,7 +13,8 @@ export const tabConfig = [{
 }, {
     icon: '&#xe74a;',
     name: 'Luckydraw',
-    key: 'raffle',
+    key: 'luckydraw',
+    redPoint: true,
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/raffle/index.js`,
     visibility: 'hidden'
 }, {

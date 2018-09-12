@@ -3,6 +3,7 @@
         <div v-for="(i,index) in items" :key="index" class="bar-item" @click="tabTo(i.key)">
             <text class="bar-ic iconfont" :class="[pIndexKey == i.key ? 'bar-active' : '']">{{i.icon | myFilter}}</text>
             <text class="bar-txt" :class="[pIndexKey == i.key ? 'bar-active' : '']">{{i.name}}</text>
+            <div class="bar-red" v-if="i.redPoint"></div>
         </div>
     </div>
 </template>
@@ -99,5 +100,15 @@ export default {
     font-size: 24px;
     padding-top: 4px;
     color: rgba(0,0,0,.38);
+}
+
+.bar-red{
+    position: absolute;
+    right: 36px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    background-color: red;
 }
 </style>
