@@ -13,7 +13,10 @@
                     <image class="product-image" :src="firstPrize.product.image"></image>
                 </div>
                 <text class="product-title">{{firstPrize.product.productTitle}}</text>
-                <text class="title-1">Winner ({{firstPrize.drawer.length}})</text>
+                <div class="content-5 border-top">
+                    <text class="title-1">{{firstPrize.drawer.length > 1 ? 'Winners' : 'Winner'}} ({{firstPrize.drawer.length}})</text>
+                    <text v-if="firstPrize.isLongArr" class="btn" @click="changeIsShow(firstPrize)">VIEW MORE</text>
+                </div>
                 <list :style="{height: firstHeight}">
                     <cell class="content-2" v-for="item in firstPrize.drawer">
                         <div class="avatar-bg">
@@ -23,9 +26,6 @@
                         <text class="content-3">won a free product</text>
                     </cell>
                 </list>
-                <div class="content-5" v-if="firstIsLongArr" @click="changeIsShow(firstPrize)">
-                    <text v-if="!firstPrize.isShow" class="btn">SEE ALL</text>
-                </div>
             </cell>
             <cell class="content-4">
                 <div class="title-bg">
@@ -36,7 +36,10 @@
                     <image class="product-image-1" :src="secondPrize.voucher.image"></image>
                     <text class="product-title-1">{{secondPrize.voucher.name}} Gift Voucher</text>
                 </div>
-                <text class="title-2">Winner ({{secondPrize.drawer.length}})</text>
+                <div class="content-5">
+                    <text class="title-2">{{secondPrize.drawer.length > 1 ? 'Winners' : 'Winner'}} ({{secondPrize.drawer.length}})</text>
+                    <text v-if="secondPrize.isLongArr" class="btn" @click="changeIsShow(secondPrize)">VIEW MORE</text>
+                </div>
                 <list :style="{height: secondHeight}">
                     <cell class="content-2" v-for="item in secondPrize.drawer">
                         <div class="avatar-bg">
@@ -46,9 +49,6 @@
                         <text class="content-3">won a gift voucher</text>
                     </cell>
                 </list>
-                <div class="content-5" v-if="secondIsLongArr" @click="changeIsShow(secondPrize)">
-                    <text v-if="!secondPrize.isShow" class="btn">SEE ALL</text>
-                </div>
             </cell>
             <cell class="content-4 md-padding-bottom">
                 <div class="title-bg">
@@ -59,7 +59,10 @@
                     <image class="product-image-1" :src="thirdPrize.voucher.image"></image>
                     <text class="product-title-1">{{thirdPrize.voucher.name}} Gift Voucher</text>
                 </div>
-                <text class="title-2">Winner ({{thirdPrize.drawer.length}})</text>
+                <div class="content-5">
+                    <text class="title-2">{{thirdPrize.drawer.length > 1 ? 'Winners' : 'Winner'}} ({{thirdPrize.drawer.length}})</text>
+                    <text v-if="thirdPrize.isLongArr" class="btn" @click="changeIsShow(thirdPrize)">VIEW MORE</text>
+                </div>
                 <list :style="{height: thirdHeight}">
                     <cell class="content-2" v-for="item in thirdPrize.drawer">
                         <div class="avatar-bg">
@@ -69,7 +72,7 @@
                         <text class="content-3">won a gift voucher</text>
                     </cell>
                 </list>
-                <div class="content-5" v-if="thirdIsLongArr" @click="changeIsShow(thirdPrize)">
+                <div class="content-5" v-if="thirdPrize.isLongArr" @click="changeIsShow(thirdPrize)">
                     <text v-if="!thirdPrize.isShow" class="btn" >SEE ALL</text>
                 </div>
             </cell>
@@ -236,7 +239,9 @@
         font-size: 24px;
         line-height: 28px;
         font-weight: bold;
-        padding-top: 24px;
+    }
+
+    .border-top {
         border-top-width: 1px;
         border-top-color: rgba(0,0,0,.08);
         border-top-style: solid;
@@ -247,7 +252,6 @@
         font-size: 24px;
         line-height: 28px;
         font-weight: bold;
-        padding-top: 24px;
     }
 
     .product-bg{
@@ -339,16 +343,16 @@
 
     .content-5{
         width: 686px;
+        padding-top: 24px;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
     }
 
     .btn{
         font-family: ProximaNova;
         font-size: 24px;
-        line-height: 60px;
-        width: 120px;
+        line-height: 28px;
         text-align: center;
         color: #EF8A31;
         font-weight: 700;

@@ -22,7 +22,7 @@
             <div class="goods-p">
                 <text class="goods-num">1st Prize</text>
                 <div class="goods-pri">
-                    <text class="goods-p-b">Free Product - </text><text class="goods-p-o">1</text> <text class="goods-p-b"> Participant</text>
+                    <text class="goods-p-b">Free Product - </text><text class="goods-p-o">{{item.quantity}}</text> <text class="goods-p-b"> {{item.quantity > 1 ? 'Participants' : 'Participant'}}</text>
                 </div>
             </div>
             <div class="goods-p" style="margin: 8px 0;">
