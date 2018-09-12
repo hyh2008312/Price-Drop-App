@@ -131,7 +131,7 @@
             },
             selindex: '',
             defaultIndex: '',
-            bgcolor: '',
+            bgcolor: '#F1F1F1',
             time: '',
             endTime: '',
             cardArr: false,
@@ -143,7 +143,7 @@
             loginS: false,
             user: false,
             myPoints: false,
-            dotNum: false
+            dotNum: 0
         }),
         created () {
             this.user = this.$storage.getSync('user')
@@ -257,6 +257,10 @@
                         page_size: this.pageSize
                     }
                 }).then((res) => {
+                    if (res.results.length === 0) {
+                        this.$notice.loading.hide();
+                        return
+                    }
                     this.cardArr = (res.results).reverse()
                     let tmp = ''
                     for (let i = 0; i < this.cardArr.length; i++) {
@@ -281,9 +285,10 @@
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    this.$notice.toast({
-                        message: res
-                    })
+
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             // prePullMore () {
@@ -414,6 +419,10 @@
                         needAuth: true
                     }
                 }).then((res) => {
+                    if (res.results.length === 0) {
+                        this.$notice.loading.hide();
+                        return
+                    }
                     this.cardArr = (res.results).reverse()
                     let tmp = ''
                     for (let i = 0; i < this.cardArr.length; i++) {
@@ -480,12 +489,21 @@
                 })
             },
             tranDate (tmp) {
+                if (tmp == '') {
+                    return ''
+                }
                 return dayjs(new Date(tmp)).format('MMM DD')
             },
             tranDateM (tmp) {
+                if (tmp == '') {
+                    return ''
+                }
                 return dayjs(new Date(tmp)).format('MMM DD, HH:mm a')
             },
             tranDateY (tmp) {
+                if (tmp == '') {
+                    return ''
+                }
                 return dayjs(new Date(tmp)).format('YYYY')
             },
             onClick () {

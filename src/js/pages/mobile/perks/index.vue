@@ -300,6 +300,7 @@
     .gift-card{
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
         border-radius: 24px;
+        background-color: white;
     }
     .gift-card-img{
         width: 686px;
