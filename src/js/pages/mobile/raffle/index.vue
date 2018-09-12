@@ -258,19 +258,21 @@
                     }
                 }).then((res) => {
                     this.cardArr = (res.results).reverse()
+                    let tmp = ''
                     for (let i = 0; i < this.cardArr.length; i++) {
                         if (this.cardArr[i].drawStatus === 'Ongoing') {
-                            this.selindex = i
-                            this.defaultIndex = i
-                            // this.$notice.alert({
-                            //     message: this.selindex
-                            // })
+                            tmp = i
                             break
                         } else {
-                            this.selindex = 2
-                            this.defaultIndex = 2
+                            tmp = 2
+                            tmp = 2
                         }
                     }
+                    this.selindex = tmp
+                    this.defaultIndex = tmp
+                    // this.$notice.alert({
+                    //     message: this.selindex
+                    // })
                     this.bgcolor = this.cardArr[this.selindex].background
                     this.time = this.cardArr[this.selindex].startTime
                     this.endTime = this.cardArr[this.selindex].endTime
@@ -346,6 +348,10 @@
                         message: 'success'
                     })
                     this.cardArr[this.selindex] = res
+
+                    // this.$notice.alert({
+                    //     message: res.imageSet
+                    // })
                     this.wxcMaskSetShareHidden()
                 }).catch((res) => {
                     // this.$notice.loading.hide();
@@ -409,19 +415,19 @@
                     }
                 }).then((res) => {
                     this.cardArr = (res.results).reverse()
+                    let tmp = ''
                     for (let i = 0; i < this.cardArr.length; i++) {
                         if (this.cardArr[i].drawStatus === 'Ongoing') {
-                            this.selindex = i
-                            this.defaultIndex = i
-                            // this.$notice.alert({
-                            //     message: this.selindex
-                            // })
+                            tmp = i
                             break
                         } else {
-                            this.selindex = 2
-                            this.defaultIndex = 2
+                            tmp = 2
+                            tmp = 2
                         }
                     }
+                    this.selindex = tmp
+                    this.defaultIndex = tmp
+
                     this.bgcolor = this.cardArr[this.selindex].background
                     this.time = this.cardArr[this.selindex].startTime
                     this.endTime = this.cardArr[this.selindex].endTime

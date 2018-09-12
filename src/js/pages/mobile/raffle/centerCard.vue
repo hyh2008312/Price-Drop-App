@@ -50,7 +50,7 @@
             </div>
 
             <div class="goods-people" v-if="item.drawCount>0" style="margin-bottom: 50px">
-                <div class="goods-a" v-for="i in userAvatar.slice(0,6).reverse()">
+                <div class="goods-a" v-for="i in item.images.slice(0,6).reverse()">
                     <image class="goods-a-i" :src="i"></image>
                 </div>
                 <text class="goods-w">{{item.drawCount}} people joined</text>
@@ -117,7 +117,6 @@
         props: ['item', 'itemIndex', 'selindex'],
         created () {
             this.cItem = this.item
-            this.userAvatar = JSON.parse(this.cItem.imageSet);
             if (this.selindex == this.itemIndex) {
                 if (this.item.drawStatus == 'Ongoing') {
                     if (this.item.isDraw) {
