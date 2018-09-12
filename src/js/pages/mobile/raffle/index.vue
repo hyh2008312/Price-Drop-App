@@ -129,7 +129,7 @@
                 spacing: 42,
                 scale: 1
             },
-            selindex: '',
+            selindex: false,
             defaultIndex: '',
             bgcolor: '#F1F1F1',
             time: '',
@@ -273,6 +273,9 @@
                         }
                     }
                     this.selindex = tmp
+                    if (this.selindex == 0) {
+                        this.selindex = '0'
+                    } // 组建不能直接设置数字的0 需要改成字符串的0
                     this.defaultIndex = tmp
                     // this.$notice.alert({
                     //     message: this.selindex
@@ -419,7 +422,7 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    if (res.results.length === 0) {
+                    if (res.results.length == 0) {
                         this.$notice.loading.hide();
                         return
                     }
@@ -435,6 +438,9 @@
                         }
                     }
                     this.selindex = tmp
+                    if (this.selindex == 0) {
+                        this.selindex = '0'
+                    }
                     this.defaultIndex = tmp
 
                     this.bgcolor = this.cardArr[this.selindex].background
