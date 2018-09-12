@@ -10,7 +10,7 @@
             <text class="goods-t">{{item.product}}</text>
             <div class="goods-p">
                 <text class="goods-p1">Rs.0.00</text>
-                <text class="goods-p2">Rs.{{item.saleUnitPrice}}</text>
+                <text class="goods-p2">Rs.{{item.saleUnitPrice+'.00'}}</text>
                 <text class="goods-p3">Free Shipping</text>
             </div>
         </div>
@@ -31,6 +31,7 @@
                 <text class="goods-num">3rd Prize</text>
                 <text class="goods-pri">{{item.thirdPrize}} Voucher - {{item.discountThird}}% of Panticipants</text>
             </div>
+
             <div class="goods-p" v-if="item.drawStatus == 'Ongoing'"  style="margin-bottom: 48px">
                 <div v-if="!item.isDraw" class="goods-p margin-top-0">
                     <text class="goods-num">Time Left to Join</text>
