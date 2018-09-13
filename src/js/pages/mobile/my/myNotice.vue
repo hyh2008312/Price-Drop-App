@@ -192,9 +192,9 @@
                     if (Object.keys(res.refund).length !== 0) {
                         this.refund = res.refund
                     }
-                    // if (Object.keys(res.raffle).length !== 0) {
-                    //     this.raffle = res.raffle
-                    // }
+                    if (Object.keys(res.raffle).length !== 0) {
+                        this.raffle = res.raffle
+                    }
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res
