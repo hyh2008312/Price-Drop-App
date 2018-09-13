@@ -17,7 +17,7 @@
                                 <!--<text class="header1-word">Your DROP has ended!</text>-->
                                 <text class="header1-word">{{i.title}}</text>
                             </div>
-                            <text class="name">{{user}}-{{i.id}}</text>
+                            <text class="name">{{user}}</text>
                             <div class="pro-content">
                                 <!--<text class="pro-word">Your DROP has ended and now you have 24 hours left to purchase your item at the final price.</text>-->
                                 <text class="pro-word">{{i.context.text}}</text>
