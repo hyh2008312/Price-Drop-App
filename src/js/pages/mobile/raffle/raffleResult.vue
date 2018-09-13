@@ -72,9 +72,6 @@
                         <text class="content-3">won a gift voucher</text>
                     </cell>
                 </list>
-                <div class="content-5" v-if="thirdPrize.isLongArr" @click="changeIsShow(thirdPrize)">
-                    <text v-if="!thirdPrize.isShow" class="btn" >SEE ALL</text>
-                </div>
             </cell>
         </list>
 
