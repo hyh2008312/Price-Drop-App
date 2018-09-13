@@ -38,8 +38,7 @@
                 </div>
 
             </div>
-
-            <div class="goods-p" v-if="item.drawStatus == 'Ongoing'"  style="margin-bottom: 48px">
+            <div class="goods-p"   style="margin-bottom: 48px">
                 <div v-if="!item.isDraw" class="goods-p margin-top-0">
                     <text class="goods-num">Time Left to Join</text>
                     <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
@@ -49,11 +48,6 @@
                     <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
                     <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
                 </div>
-            </div>
-
-            <div class="goods-p" v-if="item.drawStatus == 'Ended'"  style="margin-top: 24px;margin-bottom: 48px">
-                <text class="goods-num">&nbsp;</text>
-                <text class="goods-time">&nbsp;</text>
             </div>
 
             <div class="goods-people" v-if="item.drawCount>0" style="margin-bottom: 50px">
@@ -95,7 +89,7 @@
                 <text class="goods-btn-sword"  >Share to Your Friends</text>
             </div>
         </div>
-        <div class="goods-btn" v-if="item.drawStatus == 'Ended'&&item.namesList">
+        <div class="goods-btn" v-if="item.drawStatus == 'Ended'&&item.prizePublic">
             <text class="goods-btn-w" style="background-color:#00CFE3;" @click="openNewPage()">See the Winners</text>
         </div>
     </div>

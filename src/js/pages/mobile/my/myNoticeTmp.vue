@@ -152,11 +152,11 @@
                             <text class="card-bottom-word" >Click to Submit Your Address</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
-                        <div class="card-bottom" v-if="i.noticeType==='lottery_second'||i.noticeType==='lottery_third'" @click="openRaffle(2)" >
+                        <div class="card-bottom" v-if="i.noticeType==='lottery_second'||i.noticeType==='lottery_third'" @click="openRaffle(2,i)" >
                             <text class="card-bottom-word" >Click to Use Your Voucher</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
-                        <div class="card-bottom" v-if="i.noticeType==='lottery_no_prize'" @click="openRaffle(4)" >
+                        <div class="card-bottom" v-if="i.noticeType==='lottery_no_prize'" @click="openRaffle(4,i)" >
                             <text class="card-bottom-word" >Click to See Prize Winners</text>
                             <text class="card-bottom-more" >&#xe626;</text>
                         </div>
@@ -382,7 +382,7 @@
                         name: 'order.confirm',
                         type: 'PUSH',
                         params: {
-                                title: item.context.title,
+                                title: item.context.prize,
                                 mainImage: item.context.image,
                                 salePrice: '0',
                                 currentPrice: '0', // 计算价钱的金额
@@ -393,8 +393,13 @@
                                 shippingTimeMin: item.context.shippingTimeMin,
                                 shippingTimeMax: item.context.shippingTimeMax,
                                 proId: 'lottery'
-                            }
+                        }
                     })
+
+                    // this.$router.open({
+                    //     name: 'my.raffle.draws',
+                    //     type: 'PUSH'
+                    // })
                 } else if (par === 2) {
                     this.$router.open({
                         name: 'my.card',
