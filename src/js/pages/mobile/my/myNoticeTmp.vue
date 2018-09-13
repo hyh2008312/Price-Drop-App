@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="price-div" v-if="i.noticeType==='lottery_no_prize'">
                                     <!--<text class="item-1" >Your Prize: </text>-->
-                                    <!--<text class="item-2">{{i.context.deadline}}</text>-->
+                                    <text class="item-2">{{i.context.item}}</text>
                                 </div>
                             </div>
 
