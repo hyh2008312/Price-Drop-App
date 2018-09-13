@@ -95,7 +95,7 @@
                 <text class="goods-btn-sword"  >Share to Your Friends</text>
             </div>
         </div>
-        <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
+        <div class="goods-btn" v-if="item.drawStatus == 'Ended'&&item.namesList">
             <text class="goods-btn-w" style="background-color:#00CFE3;" @click="openNewPage()">See the Winners</text>
         </div>
     </div>
