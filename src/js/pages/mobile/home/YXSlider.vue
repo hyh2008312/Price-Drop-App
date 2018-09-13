@@ -34,6 +34,10 @@ export default {
                     //     card: id
                     // }
                 })
+            } else if (img.title == 'lotterydraw') {
+                this.$event.emit('changeTab', {
+                    tab: 'luckydraw'
+                });
             }
         }
     }
