@@ -178,11 +178,11 @@ export default {
             }
         },
         getVersion () {
-            commonUtils.getAppVersionCode((params) => {
-                if (params.code === 200 && Number(params.versionCode) < 138) {
-                    this.openDialog()
-                }
-            })
+            // commonUtils.getAppVersionCode((params) => {
+            //     if (params.code === 200 && Number(params.versionCode) < 138) {
+            //         this.openDialog()
+            //     }
+            // })
         },
         openDialog () {
             // if (this.user == null) {

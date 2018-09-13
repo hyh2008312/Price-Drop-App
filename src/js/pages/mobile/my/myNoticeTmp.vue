@@ -317,9 +317,9 @@
                     this.page++;
                     this.isLoading = false;
 
-                    this.$notice.alert({
-                        message: data.results[0]
-                    })
+                    // this.$notice.alert({
+                    //     message: data.results[0]
+                    // })
                     // if (!isFirst) {
                     //     this.isLoading = false;
                     // }
@@ -378,28 +378,28 @@
 
             openRaffle (par, item) {
                 if (par == 1) {
-                    this.$router.open({
-                        name: 'order.confirm',
-                        type: 'PUSH',
-                        params: {
-                                title: item.context.prize,
-                                mainImage: item.context.image,
-                                salePrice: '0',
-                                currentPrice: '0', // 计算价钱的金额
-                                quantity: '1',
-                                id: item.context.variantId,
-                                drawId: item.context.drawId,
-                                shippingPrice: '',
-                                shippingTimeMin: item.context.shippingTimeMin,
-                                shippingTimeMax: item.context.shippingTimeMax,
-                                proId: 'lottery'
-                        }
-                    })
-
                     // this.$router.open({
-                    //     name: 'my.raffle.draws',
-                    //     type: 'PUSH'
+                    //     name: 'order.confirm',
+                    //     type: 'PUSH',
+                    //     params: {
+                    //             title: item.context.prize,
+                    //             mainImage: item.context.image,
+                    //             salePrice: '0',
+                    //             currentPrice: '0', // 计算价钱的金额
+                    //             quantity: '1',
+                    //             id: item.context.variantId,
+                    //             drawId: item.context.drawId,
+                    //             shippingPrice: '',
+                    //             shippingTimeMin: item.context.shippingTimeMin,
+                    //             shippingTimeMax: item.context.shippingTimeMax,
+                    //             proId: 'lottery'
+                    //     }
                     // })
+
+                    this.$router.open({
+                        name: 'my.raffle.draws',
+                        type: 'PUSH'
+                    })
                 } else if (par === 2) {
                     this.$router.open({
                         name: 'my.card',
