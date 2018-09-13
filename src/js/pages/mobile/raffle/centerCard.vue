@@ -453,13 +453,14 @@
     .triangle-topright{
         position: absolute;
         border-radius: 24px;
+
         top:-11px;
         right:0;
     }
     .tick{
         position: relative;
-        top:-90px;
-        right:-45px;
+        top:-105px;
+        right:-58px;
         color: white;
         font-size: 24px;
     }
@@ -468,7 +469,7 @@
         top:10px;
         left:0;
         font-family: iconfont;
-        font-size: 120px;
+        font-size: 140px;
         color: #00CFE3;
     }
     .margin-top-0{
