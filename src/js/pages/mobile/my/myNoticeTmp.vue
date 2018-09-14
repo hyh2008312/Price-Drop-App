@@ -40,7 +40,7 @@
                             <div v-if="id==2">
                                 <div class="price-div" v-if="i.noticeType=='flash_15_left_for_pay'||i.noticeType=='flash_expire_for_pay'">
                                     <text class="item-1 coloro" >Flash Sale Price: </text>
-                                    <text class="item-2 colorb">{{i.context.flashSalePrice}}</text>
+                                    <text class="item-2 colorb">Rs.{{i.context.flashSalePrice}}</text>
                                 </div>
 
                                 <div class="price-div" v-if="i.noticeType=='payment_success'||i.noticeType=='order_canceled'"> <!--付款成功 和 取消订单审核通过-->
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="price-div" v-if="i.noticeType=='payment_success'">
                                     <text class="item-1 coloro" >Payment Amount: </text>
-                                    <text class="item-2 colorb">{{i.context.paymentAmount}}</text>
+                                    <text class="item-2 colorb">Rs.{{i.context.paymentAmount}}</text>
                                 </div>
                                 <div class="price-div" v-if="i.noticeType=='paid_to_packing'||i.noticeType=='already_shipped'"> <!--付款成功到发货 和 shipped-->
                                     <!--<text class="item-1" >Payment Amount: </text>-->
