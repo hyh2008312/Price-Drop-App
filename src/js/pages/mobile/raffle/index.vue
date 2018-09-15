@@ -42,7 +42,7 @@
                          :class="['slider']"
                          :accessible="true"
                     >
-                        <CenterCard :item="v"  :itemIndex="index" :selindex="selindex"  v-on:openMask="openM" v-on:openShare="openS" ></CenterCard>
+                        <CenterCard :item="v"  :itemIndex="index" :selindex="selindex" :loginS="loginS"  v-on:openMask="openM" v-on:openShare="openS" ></CenterCard>
                         <!--<text class="text">这里是第{{index + 1}}个滑块</text>-->
                     </div>
                 </NewS>
@@ -154,6 +154,7 @@
                 this.getCardA()
                 this.getDot()
             } else {
+                this.loginS = false
                 this.getCard()
             }
             // this.$event.on('login', parmas => {
@@ -278,13 +279,12 @@
                         this.selindex = '0'
                     } // 组建不能直接设置数字的0 需要改成字符串的0
                     this.defaultIndex = tmp
-                    // this.$notice.alert({
-                    //     message: this.selindex
-                    // })
                     this.bgcolor = this.cardArr[this.selindex].background
                     this.time = this.cardArr[this.selindex].startTime
                     this.endTime = this.cardArr[this.selindex].endTime
-
+                    // this.$notice.alert({
+                    //     message: this.loginS
+                    // })
                     this.page++
                     this.$notice.loading.hide();
                 }).catch((res) => {

@@ -38,12 +38,24 @@
                 </div>
 
             </div>
-            <div class="goods-p"   style="margin-bottom: 48px">
+            <div class="goods-p" v-if="loginS"  style="margin-bottom: 48px">
                 <div v-if="!item.isDraw" class="goods-p margin-top-0">
                     <text class="goods-num">Time Left to Join</text>
                     <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
                 </div>
                 <div v-if="item.isDraw" class="goods-p margin-top-0">
+                    <text class="goods-num">Winner Announcement Time:</text>
+                    <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                    <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
+                </div>
+            </div>
+
+            <div class="goods-p" v-if="!loginS"  style="margin-bottom: 48px">
+                <div v-if="item.drawStatus == 'Ongoing'" class="goods-p margin-top-0">
+                    <text class="goods-num">Time Left to Join</text>
+                    <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
+                </div>
+                <div   v-if="item.drawStatus == 'Ended'" class="goods-p margin-top-0">
                     <text class="goods-num">Winner Announcement Time:</text>
                     <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
                     <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
@@ -90,7 +102,7 @@
             </div>
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Ended'&&item.prizePublic">
-            <text class="goods-btn-w" style="background-color:#00CFE3;" @click="openNewPage()">See the Winners</text>
+            <text class="goods-btn-b" style="" @click="openNewPage()">See the Winners</text>
         </div>
     </div>
 </template>
@@ -115,7 +127,7 @@
                 userAvatar: []
             }
         },
-        props: ['item', 'itemIndex', 'selindex'],
+        props: ['item', 'itemIndex', 'selindex', 'loginS'],
         created () {
             this.cItem = this.item
             if (this.selindex == this.itemIndex) {
@@ -372,6 +384,20 @@
         font-weight: 700;
         background-color: #EF8A31;
         color: white;
+        padding: 0 32px;
+        line-height: 64px;
+        text-align: center;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);
+        border-radius: 32px;
+    }
+    .goods-btn-b{
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+        background-color:#00CFE3;
         padding: 0 32px;
         line-height: 64px;
         text-align: center;
