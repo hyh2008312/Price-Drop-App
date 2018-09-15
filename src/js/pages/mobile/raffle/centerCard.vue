@@ -39,15 +39,25 @@
 
             </div>
             <div class="goods-p" v-if="loginS"  style="margin-bottom: 48px">
-                <div v-if="!item.isDraw" class="goods-p margin-top-0">
-                    <text class="goods-num">Time Left to Join</text>
-                    <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
+                <div v-if="item.drawStatus == 'Ongoing'">
+                    <div v-if="!item.isDraw" class="goods-p margin-top-0">
+                        <text class="goods-num">Time Left to Join</text>
+                        <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
+                    </div>
+                    <div v-if="item.isDraw" class="goods-p margin-top-0">
+                        <text class="goods-num">Winner Announcement Time:</text>
+                        <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                        <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
+                    </div>
                 </div>
-                <div v-if="item.isDraw" class="goods-p margin-top-0">
-                    <text class="goods-num">Winner Announcement Time:</text>
-                    <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
-                    <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
+                <div v-if="item.drawStatus == 'Ended'">
+                    <div  class="goods-p margin-top-0">
+                        <text class="goods-num">Winner Announcement Time:</text>
+                        <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                        <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
+                    </div>
                 </div>
+
             </div>
 
             <div class="goods-p" v-if="!loginS"  style="margin-bottom: 48px">
