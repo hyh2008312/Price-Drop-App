@@ -30,7 +30,7 @@
                    height="583">
             <div class="popup-content">
                 <div class="popup-content-top">
-                    <text class="popup-content-title">Select a Cancelled Reason</text>
+                    <text class="popup-content-title">Select a Cancellation Reason</text>
                     <div class="popup-content-mt">
                         <text class="popup-content-title-1" :class="[reasonActive == index ? 'popup-content-active': '']"
                               v-for="(item, index) in reason" @click="changeReason(index)">{{item}}</text>
