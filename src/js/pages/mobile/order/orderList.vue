@@ -51,7 +51,7 @@
                    height="583">
             <div class="popup-cancel">
                 <div class="popup-cancel-top">
-                    <text class="popup-cancel-title">Select a Cancelled Reason</text>
+                    <text class="popup-cancel-title">Select a Cancellation Reason</text>
                     <div class="popup-cancel-mt">
                         <text class="popup-cancel-title-1"
                               :class="[reasonActive == i ? 'popup-cancel-active': '']"
