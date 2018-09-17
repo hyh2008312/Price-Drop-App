@@ -419,11 +419,14 @@
         background-color: white;
         color: #00CFE3;
         padding: 0 32px;
-        line-height: 64px;
+        line-height: 60px;
         text-align: center;
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        border-width: 1px ;
+        border-style: solid ;
+        border-color: #00CFE3;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);
         border-radius: 32px;
     }
