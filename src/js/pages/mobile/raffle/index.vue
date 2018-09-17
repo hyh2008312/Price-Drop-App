@@ -109,6 +109,7 @@
                 </div>
             </div>
         </wxc-popup>
+        <no-wifi v-if="!hasWifi" @onReload="loadingDown"></no-wifi>
     </div>
 </template>
 <script>
@@ -117,8 +118,12 @@
     import NewS from './test'
     import CenterCard from './centerCard'
     import dayjs from 'dayjs';
+    import noWifi from '../common/noWifi';
     export default {
-        components: { WxcEpSlider, WxcPanItem, WxcMask, WxcPopup, NewS, CenterCard },
+        components: {
+            WxcEpSlider, WxcPanItem,
+            WxcMask, WxcPopup, NewS,
+            CenterCard, noWifi },
         data: () => ({
             sliderId: 1,
             autoSliderId: 2,
@@ -140,6 +145,7 @@
             show: false,
             isLoading: false,
             isBottomShow: false,
+            hasWifi: true,
             loginS: false,
             user: false,
             myPoints: false,
@@ -289,7 +295,7 @@
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
-
+                    this.hasWifi = false
                     // this.$notice.toast({
                     //     message: res
                     // })
@@ -456,6 +462,7 @@
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
+                    this.hasWifi = false
                     this.$notice.toast({
                         message: res
                     })

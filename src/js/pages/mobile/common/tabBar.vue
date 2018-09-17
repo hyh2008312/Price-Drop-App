@@ -83,6 +83,7 @@ export default {
 .bar-txt,
 .bar-ic {
     color: #666;
+    font-size: 48px;
     text-align: center;
 }
 
