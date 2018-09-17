@@ -134,19 +134,20 @@
                     //     message: data
                     // });
                     this.$notice.loading.hide();
-                    this.length = Math.ceil(data.count / this.pageSize);
+                    // this.length = Math.ceil(data.count / this.pageSize);
+                    this.length = 0;
                     this.page++;
                     if (isfirst) {
                         this.order = []
                     }
-                    this.order.push(...data)
+                    this.order.push(...data);
                     if (!isfirst) {
                         this.$nextTick(() => {
                             this.isLoading = false;
                         });
                     }
 
-                    this.refreshApiFinished()
+                    this.refreshApiFinished();
                     this.$notice.loading.hide();
                 }, error => {
                     this.$notice.loading.hide();

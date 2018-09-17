@@ -17,7 +17,7 @@
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
                         <div class="mid-card-text">
-                            <text class="mid-card-text1">Start Your Drop Campagin</text>
+                            <text class="mid-card-text1">Make a Successful Purchase</text>
                             <div class="count-div">
                                 <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.50</text><text class="mid-card-text2"> you spend</text>
                             </div>

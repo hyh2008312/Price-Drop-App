@@ -116,7 +116,7 @@
         <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
             <text class="goods-btn-w-bw" v-if="!item.prizePublic" @click="openNewPage()">See the Winners</text>
 
-            <text class="goods-btn-b" v-if="item.prizePublic||btnS" @click="openNewPage()">See the Winners</text>
+            <text class="goods-btn-b" v-if="item.prizePublic||btnS" @click="openPage()">See the Winners</text>
         </div>
     </div>
 </template>
@@ -160,17 +160,6 @@
                 clearInterval(this.tranTime)
             }
         },
-        computed: {
-            // show: {
-            //     get: function () {
-            //         return this.show
-            //     },
-            //     set: function (v) {
-            //         this.show = v
-            //     }
-            // }
-
-        },
         watch: {
             'selindex': {
                 handler: function (val, oldVal) {
@@ -198,6 +187,15 @@
             openshare () {
                 this.$emit('openShare')
             },
+            openPage () {
+                this.$router.open({
+                    name: 'raffle.result',
+                    type: 'PUSH',
+                    params: {
+                        id: this.item.id
+                    }
+                });
+            },
             openNewPage () {
                 this.$fetch({
                     method: 'GET',
@@ -206,10 +204,11 @@
                         needAuth: true
                     }
                 }).then((res) => {
+                    this.item = res;
                     if (!res.prizePublic) {
                         this.$notice.toast({
-                            message: " The prize winners have not been annouced yet! Please check it at the annoucement time. Thanks! "
-                        })
+                            message: 'The prize winners have not been annouced yet! Please check it at the annoucement time. Thanks! '
+                        });
                     } else {
                         this.btnS = true
                         this.$router.open({
