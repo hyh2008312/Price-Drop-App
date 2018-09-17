@@ -1,9 +1,8 @@
 <template>
     <div class="wrapper">
+        <div class="blackheader"></div>
+        <topic-header title="Prize Winners" leftBtn="icon"  ref="ref1" ></topic-header>
         <list class="content">
-            <cell>
-                <topic-header title="Prize Winners" leftBtn="icon"  ref="ref1" ></topic-header>
-            </cell>
             <cell class="content-4">
                 <div class="title-bg">
                     <text class="icon-first">&#xe747;</text>
@@ -14,7 +13,7 @@
                 </div>
                 <text class="product-title">{{firstPrize.product.productTitle}}</text>
                 <div class="content-5 border-top">
-                    <text class="title-1">{{firstPrize.drawer.length > 1 ? 'Winners' : 'Winner'}} ({{firstPrize.drawer.length}})</text>
+                    <text class="title-1">{{firstPrize.count > 1 ? 'Winners' : 'Winner'}} ({{firstPrize.count}})</text>
                     <text v-if="firstPrize.isLongArr" class="btn" @click="changeIsShow(firstPrize)">VIEW MORE</text>
                 </div>
                 <list :style="{height: firstHeight}">
@@ -37,7 +36,7 @@
                     <text class="product-title-1">{{secondPrize.voucher.name}} Gift Voucher</text>
                 </div>
                 <div class="content-5">
-                    <text class="title-2">{{secondPrize.drawer.length > 1 ? 'Winners' : 'Winner'}} ({{secondPrize.drawer.length}})</text>
+                    <text class="title-2">{{secondPrize.count > 1 ? 'Winners' : 'Winner'}} ({{secondPrize.count}})</text>
                     <text v-if="secondPrize.isLongArr" class="btn" @click="changeIsShow(secondPrize)">VIEW MORE</text>
                 </div>
                 <list :style="{height: secondHeight}">
@@ -60,7 +59,7 @@
                     <text class="product-title-1">{{thirdPrize.voucher.name}} Gift Voucher</text>
                 </div>
                 <div class="content-5">
-                    <text class="title-2">{{thirdPrize.drawer.length > 1 ? 'Winners' : 'Winner'}} ({{thirdPrize.drawer.length}})</text>
+                    <text class="title-2">{{thirdPrize.count > 1 ? 'Winners' : 'Winner'}} ({{thirdPrize.count}})</text>
                     <text v-if="thirdPrize.isLongArr" class="btn" @click="changeIsShow(thirdPrize)">VIEW MORE</text>
                 </div>
                 <list :style="{height: thirdHeight}">
@@ -74,8 +73,6 @@
                 </list>
             </cell>
         </list>
-
-        <div class="blackheader"></div>
     </div>
 </template>
 
@@ -105,6 +102,7 @@
                         image: '',
                         productTitle: ''
                     },
+                    count: 0,
                     drawer: [],
                     isLongArr: false,
                     isShow: false
@@ -117,6 +115,7 @@
                         image: '',
                         name: ''
                     },
+                    count: 0,
                     drawer: [],
                     isLongArr: false,
                     isShow: false
@@ -129,6 +128,7 @@
                         image: '',
                         name: ''
                     },
+                    count: 0,
                     drawer: [],
                     isLongArr: false,
                     isShow: false
@@ -188,12 +188,13 @@
                 })
             },
             changeIsShow (item) {
+                item.id = this.id;
                 this.$router.open({
                     name: 'raffle.result.detail',
                     type: 'PUSH',
                     params: item
 
-                })
+                });
             }
         }
     }
@@ -201,16 +202,12 @@
 
 <style scoped>
     .blackheader{
-        position: fixed;
-        top: 0;
-        left: 0;
         width: 750px;
         height: 48px;
         background-color: black;
     }
 
     .content{
-        margin-top: 48px;
         background-color: #fff;
         width: 750px;
     }

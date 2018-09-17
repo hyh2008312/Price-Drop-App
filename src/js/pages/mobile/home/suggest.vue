@@ -71,6 +71,7 @@ import block3 from './block3';
 import block4 from './block4';
 import block5 from './block5';
 import block6 from './block6';
+import block7 from './block7';
 import { TAB, CHANNELLIST } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
@@ -88,6 +89,7 @@ export default {
         'block-5': block5,
         'block-1': block1,
         'block-6': block6,
+        'block-7': block7,
         noWifi
     },
     created () {
@@ -280,6 +282,7 @@ export default {
                         arr = [];
                     }
                 }
+                // this.goods3.push(...data.results);
                 if(!isfirst) {
                     this.isLoading = false;
                 }

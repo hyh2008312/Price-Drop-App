@@ -103,7 +103,8 @@
                     text: 'New Arrivals'
                 },
                 isTrue: true,
-                isCancelBottomShow: false
+                isCancelBottomShow: false,
+                isFirstLoad: false
             }
         },
         methods: {
@@ -133,7 +134,12 @@
             },
             getActivityProduct (isfirst, arrange) {
                 if (isfirst) {
-                    this.page = 1
+                    if (!this.isFirstLoad) {
+                        this.isFirstLoad = true;
+                    } else {
+                        return;
+                    }
+                    this.page = 1;
                 }
                 if (this.page > this.length) {
                     this.$refs.refresh.refreshEnd();
@@ -155,6 +161,7 @@
                     this.$notice.loading.hide();
                     this.length = Math.ceil(data.count / this.pageSize);
                     if (isfirst) {
+                        this.isFirstLoad = false;
                         this.goods = [];
                     }
                     this.page++;

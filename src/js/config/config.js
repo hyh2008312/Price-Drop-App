@@ -47,5 +47,6 @@ export const apis = {
     'lottery.draw': '/lottery/draw/',
     'lottery.draw.prize.list': '/lottery/draw/prize/list/',
     'lottery.draw.prize.unread': '/lottery/draw/prize/unread/',
-    'order.lottery.pure': '/order/lottery/pure/'
+    'order.lottery.pure': '/order/lottery/pure/',
+    'lottery.draw.prize.roster': '/lottery/draw/prize/roster/'
 }

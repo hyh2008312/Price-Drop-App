@@ -5,11 +5,13 @@
                 <preload class="gd-img-image" :src="item.mainImage"></preload>
             </div>
             <div class="gd-bg-right">
+                <text class="gd-title">{{item.title}}</text>
+                <text class="gd-price">Rs.{{item.unitPrice}}</text>
                 <div class="gd-sm">
-                    <text class="gd-price">Rs.{{item.unitPrice}}</text>
+                    <text class="gd-info">Rs.{{item.saleUnitPrice}}</text>
                     <text class="gd-price-1">{{countOff(item.unitPrice, item.saleUnitPrice)}}</text>
                 </div>
-                <text class="gd-info">Rs.{{item.saleUnitPrice}}</text>
+
             </div>
         </div>
     </div>
@@ -77,8 +79,6 @@ export default {
 
 .gd-bg-right {
     width: 327px;
-    flex-direction: column;
-    align-items: center;
 }
 
 .gd-img-image {
@@ -105,9 +105,10 @@ export default {
 
 .gd-price {
     font-family: ProximaNova;
+    margin-top: 8px;
     font-size: 28px;
     line-height: 34px;
-    font-weight: bold;
+    font-weight: 700;
     color: rgba(0,0,0,0.87);
 }
 
@@ -115,14 +116,26 @@ export default {
     font-family: ProximaNova;
     font-size: 20px;
     line-height: 24px;
-    margin-left: 8px;
+    margin-left: 16px;
     color: #EF8A31;
 }
 
 .gd-sm {
-    margin-top: 6px;
     flex-direction: row;
     justify-content: start;
     align-items: center;
+}
+
+.gd-title{
+    margin-top: 12px;
+    opacity: 0.54;
+    font-family: ProximaNova-Regular;
+    font-size: 20px;
+    line-height: 24;
+    color: rgba(0,0,0,0.87);
+    letter-spacing: 0;
+    lines: 2;
+    height: 48px;
+    text-overflow: ellipsis;
 }
 </style>

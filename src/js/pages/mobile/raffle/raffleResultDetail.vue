@@ -1,21 +1,21 @@
 <template>
     <div class="wrapper">
-        <list class="content">
-            <cell>
-                <topic-header :title="name" leftBtn="icon"  ref="ref1" ></topic-header>
-            </cell>
+        <div class="blackheader"></div>
+        <topic-header :title="name" leftBtn="icon"  ref="ref1" ></topic-header>
+        <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore" v-if="hasWifi" >
+            <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="content-4" v-if="index == 0">
                 <div class="product-bg">
                     <image class="product-image" :src="firstPrize.product.image"></image>
                 </div>
                 <text class="product-title">{{firstPrize.product.productTitle}}</text>
-                <text class="title-1">Winner ({{firstPrize.drawer.length}})</text>
+                <text class="title-1">{{count > 1 ? 'Winners' : 'Winner'}} ({{count}})</text>
             </cell>
-            <cell v-if="index == 0" class="content-2" v-for="item in firstPrize.drawer">
+            <cell v-if="index == 0" class="content-2" v-for="item in drawer">
                 <div class="avatar-bg">
                     <image class="avatar" :src="item.avatar"></image>
                 </div>
-                <text class="content-1">{{item.userName}}</text>
+                <text class="content-1">{{item.drawerFullName}}</text>
                 <text class="content-3">won a free product</text>
             </cell>
             <cell class="content-4" v-if="index == 1">
@@ -23,13 +23,13 @@
                     <image class="product-image-1" :src="secondPrize.voucher.image"></image>
                     <text class="product-title-1">{{secondPrize.voucher.name}} Gift Voucher</text>
                 </div>
-                <text class="title-2">Winner ({{secondPrize.drawer.length}})</text>
+                <text class="title-2">{{count > 1 ? 'Winners' : 'Winner'}} ({{count}})</text>
             </cell>
-            <cell v-if="index == 1" class="content-2" v-for="item in secondPrize.drawer">
+            <cell v-if="index == 1" class="content-2" v-for="item in drawer">
                 <div class="avatar-bg">
                     <image class="avatar" :src="item.avatar"></image>
                 </div>
-                <text class="content-1">{{item.userName}}</text>
+                <text class="content-1">{{item.drawerFullName}}</text>
                 <text class="content-3">won a gift voucher</text>
             </cell>
             <cell class="content-4 md-padding-bottom" v-if="index == 2">
@@ -37,34 +37,44 @@
                     <image class="product-image-1" :src="thirdPrize.voucher.image"></image>
                     <text class="product-title-1">{{thirdPrize.voucher.name}} Gift Voucher</text>
                 </div>
-                <text class="title-2">Winner ({{thirdPrize.drawer.length}})</text>
+                <text class="title-2">{{count > 1 ? 'Winners' : 'Winner'}} ({{count}})</text>
             </cell>
-            <cell v-if="index == 2" class="content-2" v-for="item in thirdPrize.drawer">
+            <cell v-if="index == 2" class="content-2" v-for="item in drawer">
                 <div class="avatar-bg">
                     <image class="avatar" :src="item.avatar"></image>
                 </div>
-                <text class="content-1">{{item.userName}}</text>
+                <text class="content-1">{{item.drawerFullName}}</text>
                 <text class="content-3">won a gift voucher</text>
             </cell>
-            <cell class="md-padding-bottom"></cell>
-        </list>
 
-        <div class="blackheader"></div>
+            <cell class="md-padding-bottom"></cell>
+            <cell class="loading" v-if="isLoading">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
+            <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </loading>
+        </list>
+        <no-wifi v-if="!hasWifi" @onReload="loadingDown"></no-wifi>
     </div>
 </template>
 
 <script>
     import header from './header';
+    import refresher from '../common/refresh';
+    import { Utils } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
-            'topic-header': header
+            'topic-header': header,
+            refresher
         },
         eros: {
             appeared (params, options) {
                 this.index = params.index;
                 this.name = params.name;
+                this.id = params.id;
                 switch (this.index) {
                     case 0:
                         this.firstPrize = params;
@@ -78,6 +88,7 @@
                         this.thirdVoucher = params.voucher.name;
                         break;
                 }
+                this.init();
                 googleAnalytics.trackingScreen('Raffle/Result/Detail');
             }
         },
@@ -117,25 +128,113 @@
                     isLongArr: false,
                     isShow: false
                 },
-                thirdVoucher: ''
+                thirdVoucher: '',
+                count: 0,
+                isLoading: false,
+                drawer: [],
+                pageNew: 1,
+                pageSize: 12,
+                lengthNew: 2,
+                hasWifi: true,
+                isPlatformAndroid: Utils.env.isAndroid(),
+                isFirstLoad: false
             }
         },
-        methods: {}
+        methods: {
+            init () {
+                this.getNewGoods(true);
+            },
+            getNewGoods (isfirst) {
+                if (isfirst) {
+                    if (!this.isFirstLoad) {
+                        this.isFirstLoad = true;
+                    } else {
+                        return;
+                    }
+                    this.pageNew = 1
+                }
+                if (this.pageNew > this.lengthNew) {
+                    this.$refs.refresh.refreshEnd();
+                    this.$nextTick(() => {
+                        this.isLoading = false;
+                    });
+                    return;
+                }
+                let type = 'first';
+                switch (this.index) {
+                    case 0:
+                        type = 'first';
+                        break;
+                    case 1:
+                        type = 'second';
+                        break;
+                    case 2:
+                        type = 'third';
+                        break;
+                }
+                this.$fetch({
+                    method: 'GET', // 大写
+                    name: 'lottery.draw.prize.roster', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
+                    data: {
+                        type,
+                        id: this.id,
+                        page: this.pageNew,
+                        page_size: this.pageSize
+                    }
+                }).then((data) => {
+                    this.$notice.loading.hide();
+                    if (isfirst) {
+                        this.drawer = [];
+                        this.isFirstLoad = false;
+                    }
+                    this.count = data.count;
+                    this.lengthNew = Math.ceil(data.count / this.pageSize);
+                    this.pageNew++;
+                    this.drawer.push(...data.results);
+                    if (!isfirst) {
+                        this.isLoading = false;
+                    }
+                    this.refreshApiFinished();
+                }, (error) => {
+                    if (error.status == 10) {
+                        this.hasWifi = false;
+                    }
+                });
+            },
+            onLoadingMore () {
+                if (!this.isLoading) {
+                    this.isLoading = true;
+                    this.getNewGoods(false);
+                }
+            },
+            onloading () {
+                if (!this.isPlatformAndroid) {
+                    this.isLoading = true;
+                    this.getNewGoods(false);
+                }
+            },
+            loadingDown () {
+                if (this.hasWifi) {
+                    this.$refs.refresh.refreshEnd();
+                }
+                this.isLoading = false;
+                this.init();
+            },
+            refreshApiFinished () {
+                this.$refs.refresh.refreshEnd();
+            }
+        }
     }
 </script>
 
 <style scoped>
     .blackheader{
-        position: fixed;
-        top: 0;
-        left: 0;
         width: 750px;
         height: 48px;
         background-color: black;
     }
 
     .content{
-        margin-top: 48px;
         background-color: #fff;
         width: 750px;
     }
@@ -169,8 +268,9 @@
     }
 
     .product-bg{
+        padding-top: 32px;
         width: 686px;
-        height: 320px;
+        height: 352px;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -206,12 +306,13 @@
     }
 
     .voucher-bg{
+        padding-top: 32px;
         position: relative;
         flex-direction: column;
         justify-content: start;
         align-items: start;
         width: 686px;
-        height: 372px;
+        height: 404px;
         border-radius: 24px;
         border-bottom-style: solid;
         border-bottom-color: rgba(0,0,0,0.12);
@@ -264,5 +365,17 @@
 
     .md-padding-bottom{
         padding-bottom: 32px;
+    }
+
+    .loading{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 0;
+    }
+
+    .loading-icon{
+        width: 64px;
+        height: 64px;
     }
 </style>

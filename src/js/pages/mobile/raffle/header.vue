@@ -51,7 +51,6 @@ export default {
 </script>
 <style scoped>
 .wrapper {
-    position: relative;
     left: 0;
     right: 0;
     height: 112px;
@@ -61,9 +60,7 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     background-color: white;
-    /*box-shadow: 0 0 4px 0 rgba(0,0,7,0.12);*/
-    /*border-bottom-width: 1px;*/
-    /*border-bottom-color: #d9d9d9;*/
+    box-shadow: 0 0 4px 0 rgba(0,0,7,0.12);
 }
 .left{
     font-family: iconfont;
