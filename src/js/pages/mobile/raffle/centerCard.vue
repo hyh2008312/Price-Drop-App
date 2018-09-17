@@ -98,10 +98,12 @@
         <div class="goods-btn" v-if="item.drawStatus == 'Ongoing' ">
 
             <!--<div class="goods-btn-s " @click="openshare()" v-if="item.isDraw" >-->
-            <div class="goods-btn-s " @click="openshare()" v-if="false" >
-                <text class="iconfont goods-btn-sicon" >&#xe74b;</text>
-                <text class="goods-btn-sword"  >Share to Your Friends</text>
-            </div>
+            <!--<div class="goods-btn-s " @click="openshare()">-->
+                <!--<text class="iconfont goods-btn-sicon" >&#xe74b;</text>-->
+                <!--<text class="goods-btn-sword"  >Share to Your Friends</text>-->
+            <!--</div>-->
+            <text class="goods-btn-w-bw" @click="openNewPage()" v-if="item.isDraw">See the Winners</text>
+
             <text class="goods-btn-w" @click="opendialog()" v-if="!item.isDraw">Join Now & Win Prize</text>
 
         </div>
@@ -111,8 +113,10 @@
                 <text class="goods-btn-sword"  >Share to Your Friends</text>
             </div>
         </div>
-        <div class="goods-btn" v-if="item.drawStatus == 'Ended'&&item.prizePublic">
-            <text class="goods-btn-b" style="" @click="openNewPage()">See the Winners</text>
+        <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
+            <text class="goods-btn-w-bw" v-if="!item.prizePublic" @click="openNewPage()">See the Winners</text>
+
+            <text class="goods-btn-b" v-if="item.prizePublic||btnS" @click="openNewPage()">See the Winners</text>
         </div>
     </div>
 </template>
@@ -120,6 +124,7 @@
 <script>
     const common = weex.requireModule('CommonUtils');
     import { WxcMask } from 'weex-ui';
+    import { baseUrl } from '../../../config/apis';
     import dayjs from 'dayjs';
     export default {
         components: { WxcMask },
@@ -134,6 +139,7 @@
                 amin: '',
                 asecond: '',
                 tranTime: false,
+                btnS: false,
                 userAvatar: []
             }
         },
@@ -193,13 +199,31 @@
                 this.$emit('openShare')
             },
             openNewPage () {
-                this.$router.open({
-                    name: 'raffle.result',
-                    type: 'PUSH',
-                    params: {
-                        id: this.cItem.id
+                this.$fetch({
+                    method: 'GET',
+                    url: `${baseUrl}/lottery/draw/detail/${this.item.id}`,
+                    header: {
+                        needAuth: true
                     }
-
+                }).then((res) => {
+                    if (!res.prizePublic) {
+                        this.$notice.toast({
+                            message: " The prize winners have not been annouced yet! Please check it at the annoucement time. Thanks! "
+                        })
+                    } else {
+                        this.btnS = true
+                        this.$router.open({
+                            name: 'raffle.result',
+                            type: 'PUSH',
+                            params: {
+                                id: this.item.id
+                            }
+                        })
+                    }
+                }).catch((res) => {
+                    this.$notice.alert({
+                        message: res
+                    })
                 })
             },
             tranDateM (tmp) {
@@ -388,6 +412,23 @@
         margin-bottom: 64px;
         margin-left: 15px;
         /*background-color: #689de5;*/
+    }
+    .goods-btn-w-bw{
+        font-size: 24px;
+        font-weight: 700;
+        background-color: white;
+        color: #00CFE3;
+        padding: 0 32px;
+        line-height: 60px;
+        text-align: center;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border-width: 1px ;
+        border-style: solid ;
+        border-color: #00CFE3;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);
+        border-radius: 32px;
     }
     .goods-btn-w{
         font-size: 24px;

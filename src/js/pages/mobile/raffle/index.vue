@@ -109,7 +109,7 @@
                 </div>
             </div>
         </wxc-popup>
-        <no-wifi v-if="!hasWifi" @onReload="loadingDown"></no-wifi>
+        <no-wifi v-if="!hasWifi" @onReload="initPage"></no-wifi>
     </div>
 </template>
 <script>
@@ -141,7 +141,7 @@
             endTime: '',
             cardArr: false,
             page: 1,
-            pageSize: 10,
+            pageSize: 20,
             show: false,
             isLoading: false,
             isBottomShow: false,
@@ -153,33 +153,7 @@
             isF: true
         }),
         created () {
-            this.user = this.$storage.getSync('user')
-            if (this.user) {
-                this.loginS = true
-                this.myPoints = this.user.pointsAvailable
-                this.getCardA()
-                this.getDot()
-            } else {
-                this.loginS = false
-                this.getCard()
-            }
-            // this.$event.on('login', parmas => {
-            //     this.getCardA()
-            // });
-            this.$event.on('readR', parmas => {
-                this.dotNum = 0
-            })
-            // this.$storage.get('user').then(resData => {
-            //     this.user = resData
-            //     if (this.user) {
-            //         this.loginS = true
-            //         this.myPoints = this.user.pointsAvailable
-            //         this.getCardA()
-            //     } else {
-            //         this.getCard()
-            //     }
-            // })
-           this.initBack()
+            this.initPage()
         },
         computed: {
             // bgcolor: {
@@ -194,11 +168,41 @@
 
         },
         methods: {
+            initPage () {
+                this.user = this.$storage.getSync('user')
+                if (this.user) {
+                    this.loginS = true
+                    this.myPoints = this.user.pointsAvailable
+                    this.getCardA()
+                    this.getDot()
+                } else {
+                    this.loginS = false
+                    this.getCard()
+                }
+                // this.$event.on('login', parmas => {
+                //     this.getCardA()
+                // });
+                this.$event.on('readR', parmas => {
+                    this.dotNum = 0
+                })
+                // this.$storage.get('user').then(resData => {
+                //     this.user = resData
+                //     if (this.user) {
+                //         this.loginS = true
+                //         this.myPoints = this.user.pointsAvailable
+                //         this.getCardA()
+                //     } else {
+                //         this.getCard()
+                //     }
+                // })
+                this.initBack()
+            },
             initBack () {
+                // this.$notice.toast({ message: '1111' })
                 common.setAndroidCanBack(true, (params) => {
-                    if (this.show) {
+                    // if (this.show) {
                         this.wxcMaskSetShareHidden();
-                    }
+                    // }
                     common.changeAndroidCanBack(true)
                 })
             },
