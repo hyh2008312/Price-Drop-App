@@ -434,7 +434,8 @@
                         page_size: this.pageSize
                     },
                     header: {
-                        needAuth: true
+                        needAuth: true,
+                        isLoginPop: true
                     }
                 }).then((res) => {
                     if (res.results.length == 0) {
