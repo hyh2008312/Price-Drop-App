@@ -13,7 +13,7 @@
                 <div class="b-tlt" @click="openMydetail(1)">
                     <text class="i-name">{{fname}} {{lname}}</text>
                     <div class="txt-tag ">
-                        <text class="txt-tag-txt" >{{email}}</text>&nbsp;&nbsp;<text class="txt-icon iconfont">&#xe74f;</text>
+                        <text class="txt-tag-txt" >{{email}}</text>&nbsp;<text class="txt-icon iconfont">&#xe74f;</text>
 
                     </div>
                 </div>
