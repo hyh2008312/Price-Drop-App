@@ -25,6 +25,7 @@ export const apis = {
     'get.card': '/point/voucher/list/',
     'point.exchange': '/point/exchange/voucher/',
     'point.detail': '/point/point/detail/',
+    'point.voucher.owner.list': '/point/voucher/owner/list/',
     'address.get.default': '/address/get/default/',
     'notice.list': '/notice/list/ ',
     'notice.detail': '/notice/detail/',

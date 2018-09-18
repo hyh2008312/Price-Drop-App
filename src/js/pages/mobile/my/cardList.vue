@@ -55,6 +55,7 @@
                 order: false,
                 page: 1,
                 pageSize: 6,
+
                 channelIndex: '',
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid(),
@@ -106,41 +107,38 @@
                 this.getOrder(true);
             },
             getOrder (isfirst) {
+
                 if (isfirst) {
                     this.page = 1
                 }
+
                 if (this.page > this.length) {
-                    if (this.order.length > 0) {
-                        // this.$refs.refresh.refreshEnd()
-                    }
+                    this.$notice.loading.hide();
                     this.$nextTick(() => {
                         this.isLoading = false
                     });
                     return
                 }
+
                 this.$fetch({
                     method: 'GET',
-                    name: 'point.exchange', // 通过get 获取我自己的积分卡
+                    name: 'point.voucher.owner.list', // 通过get 获取我自己的积分卡
                     header: {
                         needAuth: true
                     },
                     data: {
                         page: this.page,
-                        pageSize: this.pageSize,
+                        page_size: this.pageSize,
                         status: this.proId
                     }
                 }).then(data => {
-                    // this.$notice.alert({
-                    //     message: data
-                    // });
                     this.$notice.loading.hide();
-                    // this.length = Math.ceil(data.count / this.pageSize);
-                    this.length = 0;
+                    this.length = Math.ceil(data.count / this.pageSize);
                     this.page++;
                     if (isfirst) {
                         this.order = []
                     }
-                    this.order.push(...data);
+                    this.order.push(...data.results);
                     if (!isfirst) {
                         this.$nextTick(() => {
                             this.isLoading = false;
