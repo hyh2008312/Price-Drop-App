@@ -214,13 +214,19 @@
                             message: ' Please check it at the annoucement time. Thanks! '
                         });
                     } else {
-                        this.$router.open({
-                            name: 'raffle.result',
-                            type: 'PUSH',
-                            params: {
-                                id: this.item.id
-                            }
-                        })
+                        if (res.drawStatus == 'Ended') {
+                            this.$router.open({
+                                name: 'raffle.result',
+                                type: 'PUSH',
+                                params: {
+                                    id: this.item.id
+                                }
+                            })
+                        } else {
+                            this.$notice.toast({
+                                message: ' Please check it at the annoucement time. Thanks! '
+                            });
+                        }
                     }
                 }).catch((res) => {
                     this.$notice.alert({
