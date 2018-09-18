@@ -6,7 +6,7 @@
                     <preload class="header-image" :src="message.avatar"></preload>
                 </div>
                 <text class="tlt">{{message.username}} started a new Price Drop! </text>
-                <!--<text class="tlt">Reshme redeemed a Rs.150 gift card!</text>-->
+                <!--<text class="tlt">Reshme redeemed a ₹150 gift card!</text>-->
             </div>
         </div>
     </div>

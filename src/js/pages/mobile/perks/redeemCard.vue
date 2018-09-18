@@ -13,7 +13,7 @@
 
                         <div class="top-card-txt2">
                             <text style="line-height: 42px;">• Points needed: {{card.pointNumber}}</text>
-                            <text >• Only vaild for order above Rs.{{card.lowestAmount}}</text>
+                            <text >• Only vaild for order above ₹{{card.lowestAmount}}</text>
                             <text >• The gift voucher doesn't apply to any Drops order. </text>
                         </div>
                     </div>

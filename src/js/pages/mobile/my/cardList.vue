@@ -10,7 +10,7 @@
                         <div class="gift-card-txt">
                             <div class="gift-card-right-txt">
                                 <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
-                                <text class="gift-card-txt2">Only vaild for order above Rs.{{i.lowestAmount}}</text>
+                                <text class="gift-card-txt2">Only vaild for order above ₹{{i.lowestAmount}}</text>
                             </div>
                             <text class="gift-card-txt3">Expire in&nbsp;{{tranDate(i.expiredTimestamp)}}&nbsp;days</text>
                         </div>

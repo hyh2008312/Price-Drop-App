@@ -8,7 +8,7 @@
             <!--<text class="gd-txt">50% OFF</text> -->
             <div class="gd-bg-right">
                 <div class="gd-sm">
-                    <text class="gd-price">Rs.{{countPrice(item.unitPrice, item.discount)}}</text>
+                    <text class="gd-price">₹{{countPrice(item.unitPrice, item.discount)}}</text>
                     <text class="gd-price-1">{{item.saleUnitPrice}}</text>
                 </div>
 

@@ -29,14 +29,14 @@
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-purchase.png"></image></div>
                         <div class="mid-card-text">
-                            <text class="mid-card-text2">Purchase any item from our App, you earn 200 reward points for every Rs.50 you spend.
+                            <text class="mid-card-text2">Purchase any item from our App, you earn 200 reward points for every ₹50 you spend.
                             </text>
                         </div>
                     </div>
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-help.png"></image></div>
                         <div class="mid-card-text">
-                            <text class="mid-card-text2">Help your friends make successful purchases by supporting their DROP, you earn 100 point for every Rs.50 your friends spend.</text>
+                            <text class="mid-card-text2">Help your friends make successful purchases by supporting their DROP, you earn 100 point for every ₹50 your friends spend.</text>
                         </div>
                     </div>
                     <text>&nbsp;</text>

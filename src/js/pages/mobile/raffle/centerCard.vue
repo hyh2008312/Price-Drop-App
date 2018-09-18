@@ -9,8 +9,8 @@
             <!--<text class="goods-h">{{item.}}</text>-->
             <text class="goods-t">{{item.product}}</text>
             <div class="goods-p">
-                <text class="goods-p1">Rs.0.00</text>
-                <text class="goods-p2">Rs.{{item.saleUnitPrice+'.00'}}</text>
+                <text class="goods-p1">₹0.00</text>
+                <text class="goods-p2">₹{{item.saleUnitPrice+'.00'}}</text>
                 <text class="goods-p3">Free Shipping</text>
             </div>
         </div>

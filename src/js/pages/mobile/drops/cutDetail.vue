@@ -19,7 +19,7 @@
                  <div class="drop-detail-card">
                      <div class="wrapper-head-word">
                      <div class="share-content-top">
-                    <text class="wrapper-tip">You have dropped Rs.{{((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }} off the price!</text>
+                    <text class="wrapper-tip">You have dropped ₹{{((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }} off the price!</text>
                     <text class="wrapper-tip" v-if="goodsDetail.cutStatus=='progressing'">Invite more friends to help you reach the lowest price!</text>
                 </div>
                  </div>
@@ -50,7 +50,7 @@
                        <div class="wrapper-progress">
                         <div class="current-price" :style="{'margin-left': distance+'px'}">
                             <text class="current-price-1-current">Current Price</text>
-                            <text class="current-price-2">Rs.{{goodsDetail.currentPrice}}</text>
+                            <text class="current-price-2">₹{{goodsDetail.currentPrice}}</text>
                             <image class="current-indicator" :style="{'margin-left': indicatorDistance+'px'}" src="bmlocal://assets/drop_indicator.png"></image>
                         </div>
                         <div class="wrapper-progress-line">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="wrapper-price">
                             <div class="wrapper-price-regular">
-                                <text class="wrapper-price-3">Rs.{{goodsDetail.salePrice}}</text>
+                                <text class="wrapper-price-3">₹{{goodsDetail.salePrice}}</text>
                                 <text class="current-price-1">Original Price</text>
                             </div>
                             <div class="wrapper-price-lowest" :style="{'margin-left': '50px'}">
@@ -77,18 +77,18 @@
                             <div class="wrapper-price-lowest">
                                 <text class="icon-key" v-if="dropStatus < 4">&#xe73e;</text>
                                 <text class="icon-unlock" v-else>&#xe73d;</text>
-                                <text class="wrapper-price-2" v-if="dropStatus < 4">Rs.{{goodsDetail.lowestPrice}}</text>
-                                <text class="wrapper-price-2-1" v-else >Rs.{{goodsDetail.lowestPrice}}</text>
+                                <text class="wrapper-price-2" v-if="dropStatus < 4">₹{{goodsDetail.lowestPrice}}</text>
+                                <text class="wrapper-price-2-1" v-else >₹{{goodsDetail.lowestPrice}}</text>
                             </div>
                         </div>
                     </div>
                        <text class="wrapper-share" @click="showSharePanel">Share to Drop Your Price Further</text>
-                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite friends to unlock 50% OFF, 70% OFF and Rs.0 price!</text>
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite friends to unlock 50% OFF, 70% OFF and ₹0 price!</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 2" @click="showBuyNow">Buy Now At 50% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 3" @click="showBuyNow">Buy Now At 70% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 4" @click="showBuyNow">Click to Get It For Free</text>
-                        <text class="wrapper-unlock-tip" v-if="dropStatus ==2">Invite friends to unlock 50% OFF, 70% OFF and Rs.0 price!</text>
-                        <text class="wrapper-unlock-tip" v-else-if="dropStatus ==3">Invite friends to unlock 50% OFF, 70% OFF and Rs.0 price!</text>
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==2">Invite friends to unlock 50% OFF, 70% OFF and ₹0 price!</text>
+                        <text class="wrapper-unlock-tip" v-else-if="dropStatus ==3">Invite friends to unlock 50% OFF, 70% OFF and ₹0 price!</text>
                         <div class="wrapper-timer-con">
                             <div class="wrapper-timer">
                                 <wxc-countdown tpl="{h}:{m}:{s}"
@@ -111,9 +111,9 @@
                             </div>
                             <div class="cut-end-total-price-final" v-if="dropStatus != 1">
                                 <text class="cut-end-total-price-word">Final Price Unlocked:</text>
-                                <text class="cut-end-total-price-2" v-if="dropStatus ==2"> Rs.{{(goodsDetail.salePrice/2).toFixed(2)}}</text>
-                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==3"> Rs.{{(goodsDetail.salePrice * 0.3).toFixed(2)}}</text>
-                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==4"> Rs.0.00</text>
+                                <text class="cut-end-total-price-2" v-if="dropStatus ==2"> ₹{{(goodsDetail.salePrice/2).toFixed(2)}}</text>
+                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==3"> ₹{{(goodsDetail.salePrice * 0.3).toFixed(2)}}</text>
+                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==4"> ₹0.00</text>
                             </div>
                         </div>
                         <div class="cut-end-item-unlock" v-if="dropStatus == 1">
@@ -126,7 +126,7 @@
                             </div>
                             <div class="wrapper-price">
                                 <div class="wrapper-price-regular">
-                                    <text class="wrapper-price-3">Rs.{{goodsDetail.salePrice}}</text>
+                                    <text class="wrapper-price-3">₹{{goodsDetail.salePrice}}</text>
                                     <text class="current-price-1">Original Price</text>
                                 </div>
                                 <div class="wrapper-price-lowest" :style="{'margin-left': '50px'}">
@@ -144,8 +144,8 @@
                                 <div class="wrapper-price-lowest">
                                     <text class="icon-key" v-if="dropStatus < 4">&#xe73e;</text>
                                     <text class="icon-unlock" v-else>&#xe73d;</text>
-                                    <text class="wrapper-price-2" v-if="dropStatus < 4">Rs.{{goodsDetail.lowestPrice}}</text>
-                                    <text class="wrapper-price-2-1" v-else >Rs.{{goodsDetail.lowestPrice}}</text>
+                                    <text class="wrapper-price-2" v-if="dropStatus < 4">₹{{goodsDetail.lowestPrice}}</text>
+                                    <text class="wrapper-price-2-1" v-else >₹{{goodsDetail.lowestPrice}}</text>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                             </div>
                             <div class="contributors-content-right">
                                 <text class="contributors-content-right-1">Dropped  </text>
-                                <text class="contributors-content-right-2">Rs.{{i.cutAmount}}</text>
+                                <text class="contributors-content-right-2">₹{{i.cutAmount}}</text>
                             </div>
 
                         </div>
@@ -227,7 +227,7 @@
                     <div class="share-content-top">
                         <div class="share-content-text">
                             <text class="share-content-text-1">You have dropped </text>
-                            <text class="share-content-text-2">Rs.{{ ((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }}</text>
+                            <text class="share-content-text-2">₹{{ ((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }}</text>
                             <text class="share-content-text-1"> off the price!</text>
                         </div>
                         <text class="share-content-text-1">Share to invite more friends to drop price for you!</text>
@@ -288,7 +288,7 @@
                 <div class="n-share-des">
                     <div class="share-content-text">
                         <text class="share-content-text-1">You have dropped </text>
-                        <text class="share-content-text-2">Rs.{{ ((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }}</text>
+                        <text class="share-content-text-2">₹{{ ((goodsDetail.salePrice * 100 - goodsDetail.currentPrice * 100) / 100).toFixed(2) }}</text>
                         <text class="share-content-text-1"> off the price!</text>
                     </div>
                     <text class="share-content-text-4">Share to invite more friends to drop price for you!</text>
@@ -442,7 +442,7 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = 'Top Brand sneakers, earphones, t-shirts & featured products at Rs. 0 on #PriceDropAPP! Click this link to help me drop the price';
+                const detail = 'Top Brand sneakers, earphones, t-shirts & featured products at ₹0 on #PriceDropAPP! Click this link to help me drop the price';
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
@@ -457,7 +457,7 @@
             shareFacebookMessenger () {
                 const that = this;
                 const detail = this.goodsDetail.title;
-                const title = `Come join me to get this product at Rs.${this.goodsDetail.lowestPrice} only!`;
+                const title = `Come join me to get this product at ₹${this.goodsDetail.lowestPrice} only!`;
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebookMessenger(title, detail, 'Join Now', url, imageUrl,

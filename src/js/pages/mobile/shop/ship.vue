@@ -40,7 +40,7 @@
                         <div><image class="img-icon" src="bmlocal://assets/pic-discount.png"></image></div>
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Step 4</text>
-                            <text class="mid-card-text2">After the DROP ends, you can get the item at the final discount you have unlocked - 50% OFF, 70% OFF or Rs.0!</text>
+                            <text class="mid-card-text2">After the DROP ends, you can get the item at the final discount you have unlocked - 50% OFF, 70% OFF or ₹0!</text>
                             <text>&nbsp;</text>
                             <text class="mid-card-text3">Please Note: Any fake users or spam activities will make your account blocked. We can cancel and refund any suspicious orders at any time.</text>
                         </div>
@@ -74,9 +74,9 @@
             </div>
 
             <div class="container-1">
-                <div class="item" v-if="drop==true"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.0.00</text>  </div>
-                <div class="item" v-if="drop==''"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.{{time.priceItem}}</text>  </div>
-                <!--<div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">Rs.0.00</text>  </div>-->
+                <div class="item" v-if="drop==true"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">₹0.00</text>  </div>
+                <div class="item" v-if="drop==''"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">₹{{time.priceItem}}</text>  </div>
+                <!--<div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">₹0.00</text>  </div>-->
                 <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
                 <div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword"> {{getNowDay(time.shippingTimeMin)}} - {{getNowDay(time.shippingTimeMax)}} </text> </div>
                 <div class="item"><text class="shipname">Order Preparing Before Shipping:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">5 - 7 days</text>  </div>

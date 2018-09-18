@@ -19,7 +19,7 @@
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Make a Successful Purchase</text>
                             <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.50</text><text class="mid-card-text2"> you spend</text>
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> ₹50</text><text class="mid-card-text2"> you spend</text>
                             </div>
 
                             <div class="count-div" style="margin-top: 6px;">
@@ -38,7 +38,7 @@
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Help Your Friends Drop Price</text>
                             <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 100 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> Rs.50</text><text class="mid-card-text2"> your friends spend</text>
+                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 100 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> ₹50</text><text class="mid-card-text2"> your friends spend</text>
                             </div>
 
                         </div>
@@ -58,11 +58,11 @@
                         <text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>
                     </div>
                     <!--<div class="gift-card-txt" v-if="i.id==1">-->
-                        <!--<text class="gift-card-txt1">Rs.150 Gift Card</text>-->
+                        <!--<text class="gift-card-txt1">₹.150 Gift Card</text>-->
                         <!--<text class="gift-card-txt2">1,500 Points Needed</text>-->
                     <!--</div>-->
                     <!--<div class="gift-card-txt" v-if="i.id==2">-->
-                        <!--<text class="gift-card-txt1">Rs.200 Gift Card</text>-->
+                        <!--<text class="gift-card-txt1">₹200 Gift Card</text>-->
                         <!--<text class="gift-card-txt2">2,000 Points Needed</text>-->
                     <!--</div>-->
                 </div>

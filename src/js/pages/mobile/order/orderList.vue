@@ -37,7 +37,7 @@
                 </div>
                 <div class="popup-content-bottom">
                     <text class="popup-content-text">Total:  </text>
-                    <text class="popup-content-price">Rs.{{selectedOrder.saleUnitPrice}}</text>
+                    <text class="popup-content-price">₹{{selectedOrder.saleUnitPrice}}</text>
                     <text class="popup-content-button" @click="payResult">Pay Now</text>
                 </div>
             </div>

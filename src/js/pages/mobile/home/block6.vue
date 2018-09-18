@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="inner-box" @click="jumpActivity(i)">
-            <text class="title">Invite Friends to Unlock Rs.0 Price!</text>
+            <text class="title">Invite Friends to Unlock ₹0 Price!</text>
             <div class="drop-bg">
                 <div class="i-good" v-for="i in drops" >
                     <div class="gd-bg">
@@ -9,8 +9,8 @@
                             <preload class="gd-img-image" :src="i.mainImage"></preload>
                         </div>
                     </div>
-                    <text class="gd-tlt">Rs.{{i.lowestPrice}}</text>
-                    <text class="gd-price">Rs.{{i.saleUnitPrice}}</text>
+                    <text class="gd-tlt">₹{{i.lowestPrice}}</text>
+                    <text class="gd-price">₹{{i.saleUnitPrice}}</text>
                 </div>
             </div>
         </div>

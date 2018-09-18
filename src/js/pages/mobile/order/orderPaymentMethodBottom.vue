@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">Rs.{{order.paymentAmount}}</text>
+        <text class="od-text-1">₹{{order.paymentAmount}}</text>
         <text class="od-button" @click="confirm">Pay Now</text>
     </div>
 </template>

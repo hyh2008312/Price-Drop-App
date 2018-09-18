@@ -33,14 +33,14 @@
                             <div v-if="id==1">
                                 <div class="price-div" v-if="i.context.priceUnlocked">
                                     <text class="item-1 coloro" >Price Unlocked: </text>
-                                    <text class="item-2 colorb" >Rs.{{i.context.priceUnlocked}}</text>
+                                    <text class="item-2 colorb" >₹{{i.context.priceUnlocked}}</text>
                                 </div>
                             </div>
 
                             <div v-if="id==2">
                                 <div class="price-div" v-if="i.noticeType=='flash_15_left_for_pay'||i.noticeType=='flash_expire_for_pay'">
                                     <text class="item-1 coloro" >Flash Sale Price: </text>
-                                    <text class="item-2 colorb">Rs.{{i.context.flashSalePrice}}</text>
+                                    <text class="item-2 colorb">₹{{i.context.flashSalePrice}}</text>
                                 </div>
 
                                 <div class="price-div" v-if="i.noticeType=='payment_success'||i.noticeType=='order_canceled'"> <!--付款成功 和 取消订单审核通过-->
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="price-div" v-if="i.noticeType=='payment_success'">
                                     <text class="item-1 coloro" >Payment Amount: </text>
-                                    <text class="item-2 colorb">Rs.{{i.context.paymentAmount}}</text>
+                                    <text class="item-2 colorb">₹{{i.context.paymentAmount}}</text>
                                 </div>
                                 <div class="price-div" v-if="i.noticeType=='paid_to_packing'||i.noticeType=='already_shipped'"> <!--付款成功到发货 和 shipped-->
                                     <!--<text class="item-1" >Payment Amount: </text>-->
@@ -64,11 +64,11 @@
                                 <!--</div>-->
                                 <div class="price-div" v-if="i.noticeType==='point_increase_owner'||i.noticeType==='point_increase_friend'||i.noticeType==='cut_down_to'">
                                     <!--<text class="item-1" >Final Drop: </text>-->
-                                    <!--<text class="item-2">Rs.{{i.context.price}}</text>-->
+                                    <!--<text class="item-2">₹{{i.context.price}}</text>-->
                                 </div>
                                 <div class="price-div" v-if="i.noticeType==='card_expired_reminder'||i.noticeType==='card_expired_notice'">
                                     <text class="item-1 coloro" >Gift Voucher: </text>
-                                    <text class="item-2 colorb">Rs.{{i.context.giftVoucher}}</text>
+                                    <text class="item-2 colorb">₹{{i.context.giftVoucher}}</text>
                                 </div>
                                 <div class="price-div" v-if="i.noticeType==='card_expired_reminder'||i.noticeType==='card_expired_notice'">
                                     <text class="item-1 coloro" >Deadline: </text>

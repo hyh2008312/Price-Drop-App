@@ -11,10 +11,10 @@
                     <div>
                         <text class="gd-tlt">{{goods.title}}</text>
                         <div class="gd-sm">
-                            <text class="gd-price">Rs.{{goods.unitPrice}}</text>
+                            <text class="gd-price">₹{{goods.unitPrice}}</text>
                             <text class="gd-price-1">{{countOff(goods.unitPrice, goods.saleUnitPrice)}}</text>
                         </div>
-                        <text class="gd-info">Rs.{{goods.saleUnitPrice}}</text>
+                        <text class="gd-info">₹{{goods.saleUnitPrice}}</text>
                     </div>
                     <text class="gd-button">Buy Now</text>
                 </div>

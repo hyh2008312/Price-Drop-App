@@ -4,8 +4,8 @@
             <!--<text class="flash-sales-word">Flash Sales</text> <text class="flash-sales-time">12:00:00</text>-->
             <div class="flash-sales-left">
                 <text class="flash-icon" >&#xe745;</text>
-                <text class="flash-sales-word">Rs.{{calc(unitPrice,discount)}}</text>
-                <text class="flash-sales-word1">Rs.{{saleUnitPrice}}</text>
+                <text class="flash-sales-word">₹{{calc(unitPrice,discount)}}</text>
+                <text class="flash-sales-word1">₹{{saleUnitPrice}}</text>
             </div>
             <image class="flash-triangle" src="bmlocal://assets/right-01.png"></image>
             <div class="flash-sales-right">
@@ -26,8 +26,8 @@
         <div class="flash-saless" v-if="fstatus== 'Scheduled'">
             <div class="flash-sales-lefts">
                 <text class="flash-icon" >&#xe745;</text>
-                <text class="flash-sales-words">Rs.{{calc(unitPrice,discount)}}</text>
-                <!--<text class="flash-sales-words">Rs.{{unitPrice}}-{{discount}}</text>-->
+                <text class="flash-sales-words">₹{{calc(unitPrice,discount)}}</text>
+                <!--<text class="flash-sales-words">₹{{unitPrice}}-{{discount}}</text>-->
             </div>
 
             <div class="flash-sales-rights">

@@ -24,7 +24,7 @@
                     <div class="gift-card-txt">
                         <div class="gift-card-right-txt">
                             <!--<text class="gift-card-txt1">{{i.name}} Gift Card </text>-->
-                            <text class="gift-card-txt2">Order above Rs.{{i.lowestAmount}} </text>
+                            <text class="gift-card-txt2">Order above ₹{{i.lowestAmount}} </text>
                         </div>
                         <text class="gift-card-txt3" style="color: rgba(0,0,0,0.38)" v-if="cardMoney<i.lowestAmount" >Not Applicable</text>
                         <text class="gift-card-txt3" v-if="cardMoney>=i.lowestAmount">Expire in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>

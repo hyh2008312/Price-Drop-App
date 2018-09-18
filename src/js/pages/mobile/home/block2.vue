@@ -34,10 +34,10 @@
 
 
                 <div class="gd-tlt-bg">
-                    <text class="gd-tlt">Rs.{{countPrice(i.unitPrice, i.discount)}}</text>
+                    <text class="gd-tlt">₹{{countPrice(i.unitPrice, i.discount)}}</text>
                     <text class="gd-info">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
                 </div>
-                <text class="gd-price">Rs.{{i.saleUnitPrice}}</text>
+                <text class="gd-price">₹{{i.saleUnitPrice}}</text>
             </div>
         </scroller>
     </div>
