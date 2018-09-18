@@ -116,7 +116,7 @@
         <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
             <text class="goods-btn-w-bw" v-if="!item.prizePublic" @click="openNewPage()">See the Winners</text>
 
-            <text class="goods-btn-b" v-if="item.prizePublic||btnS" @click="openPage()">See the Winners</text>
+            <text class="goods-btn-b" v-if="item.prizePublic" @click="openPage()">See the Winners</text>
         </div>
     </div>
 </template>
@@ -140,11 +140,13 @@
                 asecond: '',
                 tranTime: false,
                 btnS: false,
-                userAvatar: []
+                userAvatar: [],
+                user: ''
             }
         },
         props: ['item', 'itemIndex', 'selindex', 'loginS'],
         created () {
+            this.user = this.$storage.getSync('user')
             this.cItem = this.item
             if (this.selindex == this.itemIndex) {
                 if (this.item.drawStatus == 'Ongoing') {
@@ -197,20 +199,21 @@
                 });
             },
             openNewPage () {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     url: `${baseUrl}/lottery/draw/detail/${this.item.id}`,
-                    header: {
-                        needAuth: true
+                    data: {
+                        user_id: this.user.id
                     }
                 }).then((res) => {
                     this.item = res;
+                    this.$notice.loading.hide();
                     if (!res.prizePublic) {
                         this.$notice.toast({
-                            message: 'The prize winners have not been annouced yet! Please check it at the annoucement time. Thanks! '
+                            message: ' Please check it at the annoucement time. Thanks! '
                         });
                     } else {
-                        this.btnS = true
                         this.$router.open({
                             name: 'raffle.result',
                             type: 'PUSH',

@@ -13,7 +13,7 @@
                 <div class="b-tlt" @click="openMydetail(1)">
                     <text class="i-name">{{fname}} {{lname}}</text>
                     <div class="txt-tag ">
-                        <text class="txt-tag-txt" >{{email}}</text>&nbsp;&nbsp;<text class="txt-icon iconfont">&#xe626;</text>
+                        <text class="txt-tag-txt" >{{email}}</text>&nbsp;&nbsp;<text class="txt-icon iconfont">&#xe74f;</text>
 
                     </div>
                 </div>
@@ -369,7 +369,6 @@
                     // })
                 })
 
-
                 this.$storage.get('token').then(resData => {
                     this.token = resData
                     // this.$notice.alert({
@@ -428,6 +427,13 @@
                     this.fname = resData.firstName
                     this.lname = resData.lastName
                 })
+            },
+            tranString (s) {
+                // const a = s.split()
+                // if (a.length > 18) {
+                //     a.splice(18, a.length)
+                // }
+                return s.substring(0,18) + '...'
             }
         }
     }

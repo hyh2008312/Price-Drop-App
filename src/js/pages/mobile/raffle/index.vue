@@ -405,14 +405,18 @@
             },
             redirectLogin () {
                 this.$event.on('login', params => {
-                    this.$storage.get('user').then(resData => {
-                        this.user = resData
+                    this.user = this.$storage.getSync('user')
+                    // this.$storage.get('user').then(resData => {
+                    //     this.user = resData
+                    if (this.user) {
                         this.myPoints = this.user.pointsAvailable
                         this.loginS = true
                         this.selindex = false
                         this.page = 1
                         this.getCardA()
-                    })
+                    }
+
+                    // })
                 });
                 this.$router.open({
                     name: 'login',
@@ -430,12 +434,9 @@
                     name: 'lottery.draw.list',
                     // url: `${baseUrl}/lottery/draw/list/`,
                     data: {
+                        id: this.user.id,
                         page: this.page,
                         page_size: this.pageSize
-                    },
-                    header: {
-                        needAuth: true,
-                        isLoginPop: true
                     }
                 }).then((res) => {
                     if (res.results.length == 0) {

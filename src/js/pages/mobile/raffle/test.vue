@@ -25,7 +25,7 @@
         position: absolute;
         top: 0;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
-        border-radius: 8px;
+        border-radius: 16px;
     }
 </style>
 
