@@ -23,6 +23,9 @@ export default {
     'goods.ship': {
         url: '/pages/mobile/shop/ship.js'
     },
+    'goods.dec': {
+        url: '/pages/mobile/shop/goodsDec.js'
+    },
     'my': {
         url: '/pages/mobile/my/index.js'
     },

@@ -62,7 +62,7 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     background-color: #000;
-    opacity: 0;
+    opacity: 1;
     /*border-bottom-width: 1px;*/
     /*border-bottom-color: #d9d9d9;*/
 }

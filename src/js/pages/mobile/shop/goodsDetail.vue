@@ -50,8 +50,21 @@
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
                 </div>
+
+                <div class="reward-points" v-if="!isDrop">
+                    <div class="r-p-t" @click="openRuler">
+                        <text class="r-p-t1">Reward Points</text>
+                        <text class="r-p-t2" >Details</text>
+                    </div>
+                    <div class="r-p-c">
+                        <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
+                        <div class="r-p-w">
+                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b"> 50 </text> <text class="r-p-w1"> points by purchasing this product </text>
+                        </div>
+                    </div>
+                </div>
             </div>
-                 <div class="learn-drop" @click="openShip(1)" v-if="isDrop">
+            <div class="learn-drop" @click="openShip(1)" v-if="isDrop">
                      <div class="learn-drop-itme1">
                          <text class="learn-drop-itmeh">How It Works</text>
                          <div class="learn-drop-itmed">
@@ -78,11 +91,9 @@
                          <div class="progress-line-right"></div>
                      </div>
                  </div>
-                 <div v-if="tabshow" style="position: sticky">
-
-                    <tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>
-
-                </div>
+                 <!--<div v-if="tabshow" style="position: sticky">-->
+                    <!--<tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>-->
+                 <!--</div>-->
 
             <div class="mid">
                 <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >
@@ -121,16 +132,19 @@
 
 
 
-                <div style="width: 750px; background-color: white ; padding-top: 20px">
-                    <div v-for="(i, index) in newDescription ">
-                        <div v-if="i.type=='text'">
-                            <text class="bottom-text">{{i.context}}</text>
-                        </div>
-                        <cimg v-if="i.type=='image'" :imgsrc="i.context"></cimg>
+            <div style="width: 750px; background-color: white ; padding-top: 20px;height: 568px">
+                <div v-for="(i, index) in newDescription ">
+                    <div v-if="i.type=='text'">
+                        <text class="bottom-text">{{i.context}}</text>
                     </div>
+                    <cimg v-if="i.type=='image'" :imgsrc="i.context"></cimg>
                 </div>
+            </div>
+            <div class="dec-see-more" @click="opendec">
+                <text class="d-sm-w">SEE MORE</text>
+            </div>
 
-            <div>
+            <div >
                 <div class="bottom-div" >
                     <text class="bottom-head" >Return Policy</text>
 
@@ -140,23 +154,43 @@
                     </text>
                     <text class="bottom-text" v-if="isDrop">Currently we are not able to offer item exchange service for any shipped orders. If you want a new item, please apply for a refund and start to drop the price again. If this product is no longer available for a Drop, we will fully refund you.
                     </text>
-
                     <text class="bottom-text" >To learn more about our return policy, please visit our FAQ page.
                     </text>
 
                 </div>
             </div>
-            <div style="display: none" ref="policy"></div>
+
+            <div class="dec-see-return">
+                <text class="d-sm-w">SEE MORE</text>
+            </div>
+
+
+
+            <!--<div class="bottom-goods">-->
+                <!--<text>You Might Also Like</text>-->
+
+                <!--<div>-->
+                    <!--<image></image>-->
+                    <!--<div>-->
+                        <!--<text>₹150.00</text>-->
+                        <!--<text>90%OFF</text>-->
+                    <!--</div>-->
+                    <!--<text>₹150.00</text>-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<div style="display: none" ref="policy"></div>-->
 
             <div class="bottom-btn" v-if="purchaseMethod === 'drop'" >
-            <div v-if="productStatus==='unpublished'">
-                <text class="button-gray"  >Unavailable</text>
+                <div v-if="productStatus==='unpublished'">
+                    <text class="button-gray"  >Unavailable</text>
+                </div>
+                <div v-if="productStatus==='published'">
+                    <text class="button" @click="openCutPrice" v-if="canBuy">Invite Friends to Drop Price</text>
+                    <text class="button-gray"  v-if="!canBuy">Out of Stock</text>
+                </div>
             </div>
-            <div v-if="productStatus==='published'">
-                <text class="button" @click="openCutPrice" v-if="canBuy">Invite Friends to Drop Price</text>
-                <text class="button-gray"  v-if="!canBuy">Out of Stock</text>
-            </div>
-        </div>
 
             <div class="bottom-btn" v-if="purchaseMethod !== 'drop'">
                 <div v-if="productStatus==='unpublished'">
@@ -219,6 +253,65 @@
                 <div class="popup-btn">
                     <text class="button" @click="confirm()" v-if="canBuy==true" >Confirm</text>
                     <text class="button-gray"               v-if="canBuy==false" >Out of Stock</text>
+                </div>
+
+            </div>
+        </wxc-popup>
+
+        <wxc-popup :have-overlay="isTrue"
+                   popup-color="rgb(255, 255, 255)"
+                   :show="isRulerShow"
+                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
+                   pos="bottom"
+                   ref="wxcRulerPopup"
+                   height="718">
+            <div class="popup-ruler-content">
+                <div class="pr-c1">
+                    <div>
+                        <text>Reward Points</text>
+                        <text>&#xe632;</text>
+                    </div>
+                    <div class="r-p-c">
+                        <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
+                        <div class="r-p-w">
+                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b"> 50 </text> <text class="r-p-w1"> points by purchasing this product </text>
+                        </div>
+                    </div>
+                </div>
+                <div class="pr-c2">
+                    <text>The Benefits of Points</text>
+                    <div>
+                        <div>
+                            <image></image>
+                            <text>Join lucky draw to win free product</text>
+                        </div>
+                        <text>Details</text>
+                    </div>
+                    <div>
+                        <div>
+                            <image></image>
+                            <text>Redeem for free gift vouchers</text>
+                        </div>
+                        <text>Details</text>
+                    </div>
+
+                </div>
+                <div class="pr-c3">
+                    <text>Earn Points by Shopping!</text>
+                    <div>
+                        <image></image>
+                        <div>
+                            <text>Points will be added to your account as “</text> <text>Pending</text> <text> ”once</text>
+                        </div>
+                    </div>
+                    <div>
+                        <image></image>
+                        <text>Join lucky draw to win free product</text>
+                    </div>
+                    <div>
+                        <image></image>
+                        <text>Join lucky draw to win free product</text>
+                    </div>
                 </div>
 
             </div>
@@ -320,6 +413,7 @@
                 sactiveId: '',
                 isBottomShow: false,
                 isCardShow: false,
+                isRulerShow: false,
                 overlayCardCanClose: true,
                 isCardFalse: false,
                 hasCardAnimation: true,
@@ -712,6 +806,7 @@
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
                 this.isCardShow = false;
+                this.isRulerShow = false;
             },
 
             popupCloseClick () {
@@ -897,7 +992,18 @@
                     })
                 }
             },
-
+            opendec () {
+                this.$router.open({
+                    name: 'goods.dec',
+                    type: 'PUSH',
+                    params: {
+                        dec: this.newDescription
+                    }
+                })
+            },
+            openRuler () {
+                this.isRulerShow = true;
+            },
             countOff (s, o) {
                 if (o > 0) {
                     return Math.floor((o - s) / o * 100) + '% OFF'
@@ -952,7 +1058,9 @@
     }
 </script>
 <style scoped>
-
+    .wrapper{
+        background-color: white;
+    }
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }
@@ -1256,10 +1364,12 @@
     }
     .bottom-div{
         width: 750px;
-        box-shadow: 0 1px 1px 0;
+        height: 200px;
+        /*box-shadow: 0 1px 1px 0;*/
         background-color: #fff;
         padding-top: 16px;
-        margin-bottom: 100px;
+        /*margin-bottom: 300px;*/
+        border: 0;
     }
     .bottom-text{
         margin-left: 32px;
@@ -1461,4 +1571,84 @@
         font-size: 30px;
         margin-top: 20px;
     }
+    .reward-points{
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 32px;
+        border-top-style:dashed ;
+        border-top-color: grey;
+        border-top-width:1px ;
+    }
+    .r-p-t{
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 24px;
+    }
+    .r-p-t1{
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+        font-weight: 700;
+    }
+    .r-p-t2{
+        font-size: 24px;
+        color: #00CFE3;
+        letter-spacing: 0;
+        text-align: center;
+    }
+    .r-p-c{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        margin-top: 16px;
+        margin-bottom: 48px;
+    }
+    .r-p-i{
+        width:28px;
+        height:28px;
+        margin-right: 16px;
+    }
+    .r-p-w{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .r-p-w1{
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+    }
+    .r-p-w1b{
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: 0;
+        font-weight: 700;
+    }
+    .dec-see-more{
+        flex-direction: row;
+        justify-content: center;
+        background-color: white;
+        margin-bottom: 16px;
+    }
+    .dec-see-return{
+        flex-direction: row;
+        justify-content: center;
+        background-color: white;
+        margin-bottom: 316px;
+    }
+    .d-sm-w{
+        font-size: 24px;
+        color: #00CFE3;
+        letter-spacing: 0;
+        margin-top: 16px;
+        padding: 30px  290px;
+        border-top-style:dashed ;
+        border-top-color: grey;
+        border-top-width:1px ;
+    }
+    .popup-ruler-content{
+        margin: 48px 32px;
+    }
+    /*.bottom-goods{*/
+        /*margin-top: 18px;*/
+    /*}*/
 </style>
