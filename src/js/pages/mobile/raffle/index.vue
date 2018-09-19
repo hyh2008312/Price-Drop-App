@@ -42,7 +42,8 @@
                          :class="['slider']"
                          :accessible="true"
                     >
-                        <CenterCard :item="v"  :itemIndex="index" :selindex="selindex" :loginS="loginS"  v-on:openMask="openM" v-on:openShare="openS" ></CenterCard>
+                        <CenterCard :item="v"  :itemIndex="index" :selindex="selindex" :loginS="loginS"
+                                    v-on:openMask="openM" v-on:openShare="openS" @changeItem="changeItem" ></CenterCard>
                         <!--<text class="text">这里是第{{index + 1}}个滑块</text>-->
                     </div>
                 </NewS>
@@ -540,7 +541,8 @@
                     name: 'raffle.guide',
                     type: 'PUSH'
                 });
-            }
+            },
+
             // wxcPanItemPan (e) {
             //     if (BindEnv.supportsEBForAndroid()) {
             //         this.$refs['wxc-ep-slider'].clearAutoPlay();
@@ -553,6 +555,9 @@
             //         duration: 1
             //     })
             // }
+            changeItem ($event) {
+                this.cardArr[$event.data.index] = $event.data.item;
+            }
         }
     }
 </script>

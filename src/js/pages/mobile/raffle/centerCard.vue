@@ -208,6 +208,13 @@
                     }
                 }).then((res) => {
                     this.item = res;
+                    this.$emit('changeItem', {
+                        status: 'changeItem',
+                        data: {
+                            index: this.itemIndex,
+                            item: this.item
+                        }
+                    });
                     this.$notice.loading.hide();
                     if (!res.prizePublic) {
                         this.$notice.toast({
