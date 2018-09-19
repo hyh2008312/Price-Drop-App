@@ -145,7 +145,7 @@
             </div>
 
             <div >
-                <div class="bottom-div" >
+                <div class="bottom-div" :style="{height: firstHeight}" >
                     <text class="bottom-head" >Return Policy</text>
 
                     <text class="bottom-text">You may return all items sold by PriceDrop within 9 days of delivery for a refund, as long as it is unused and in a good condition.
@@ -160,10 +160,12 @@
                 </div>
             </div>
 
-            <div class="dec-see-return">
+            <div class="dec-see-return" v-if="!returnPolicy" @click="policyShow">
                 <text class="d-sm-w">SEE MORE</text>
             </div>
-
+            <div class="dec-see-return" v-if="returnPolicy" @click="policyShow">
+                <text class="d-sm-w">SEE LESS</text>
+            </div>
 
 
             <!--<div class="bottom-goods">-->
@@ -442,7 +444,9 @@
                 amin: '',
                 asecond: '',
                 tmp: '',
-                tmpArray: []
+                tmpArray: [],
+                returnPolicy: false,
+                firstHeight: '200px'
             }
         },
         mounted () {
@@ -460,8 +464,16 @@
                 set: function (v) {
                     this.opacity = v
                 }
-            }
+            },
+            firstHeight: {
+                get: function () {
+                    return this.firstHeight
+                },
 
+                set: function (v) {
+                    this.firstHeight = v
+                }
+            }
         },
         created () {
             this.$notice.loading.show();
@@ -1079,8 +1091,16 @@
                     // })
                 }, 1000);
                 // }
-            }
+            },
 
+            policyShow () {
+                this.returnPolicy = !this.returnPolicy;
+                if(!this.returnPolicy) {
+                    this.firstHeight = '200px';
+                } else {
+                    this.firstHeight = 'auto';
+                }
+            }
         }
     }
 </script>
@@ -1391,7 +1411,6 @@
     }
     .bottom-div{
         width: 750px;
-        height: 200px;
         /*box-shadow: 0 1px 1px 0;*/
         background-color: #fff;
         padding-top: 16px;
