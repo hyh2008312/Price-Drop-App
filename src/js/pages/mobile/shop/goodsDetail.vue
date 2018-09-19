@@ -259,17 +259,17 @@
         </wxc-popup>
 
         <wxc-popup :have-overlay="isTrue"
-                   popup-color="rgb(255, 255, 255)"
+                   popup-color="rgba(255, 255, 255, 0)"
                    :show="isRulerShow"
                    @wxcPopupOverlayClicked="popupOverlayBottomClick"
                    pos="bottom"
                    ref="wxcRulerPopup"
-                   height="718">
+                   height="786">
             <div class="popup-ruler-content">
                 <div class="pr-c1">
-                    <div>
-                        <text>Reward Points</text>
-                        <text>&#xe632;</text>
+                    <div class="r-p-t3">
+                        <text class="r-p-t4">Reward Points</text>
+                        <text class="iconfont r-icon" @click="popupRulerClick">&#xe632;</text>
                     </div>
                     <div class="r-p-c">
                         <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
@@ -278,39 +278,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="pr-c2">
-                    <text>The Benefits of Points</text>
-                    <div>
-                        <div>
-                            <image></image>
-                            <text>Join lucky draw to win free product</text>
+                <div class="pr-c2 r-p-c-l">
+                    <text class="r-p-t4">The Benefits of Points</text>
+                    <div class="r-p-w r-p-c-l1">
+                        <div class="r-p-c-4">
+                            <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
+                            <text class="r-p-w1">Join lucky draw to win free product</text>
                         </div>
-                        <text>Details</text>
+                        <text class="r-p-t2" @click="jumpLuckDraw">Details</text>
                     </div>
-                    <div>
-                        <div>
-                            <image></image>
-                            <text>Redeem for free gift vouchers</text>
+                    <div class="r-p-w r-p-c-2">
+                        <div class="r-p-c-4">
+                            <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
+                            <text class="r-p-w1">Redeem for free gift vouchers</text>
                         </div>
-                        <text>Details</text>
+                        <text class="r-p-t2" @click="jumpPerks()">Details</text>
                     </div>
 
                 </div>
-                <div class="pr-c3">
-                    <text>Earn Points by Shopping!</text>
-                    <div>
-                        <image></image>
-                        <div>
-                            <text>Points will be added to your account as “</text> <text>Pending</text> <text> ”once</text>
-                        </div>
+                <div class="pr-c3 r-p-c-l">
+                    <text class="r-p-t4">Earn Points by Shopping!</text>
+                    <div class="r-p-c-3 r-p-m">
+                        <image class="r-p-i1" src="bmlocal://assets/dot.png"></image>
+                        <bmrichtext class="r-p-c-1">
+                            <bmspan class="r-p-t5" value='Points will be added to your account as "'></bmspan>
+                            <bmspan class="r-p-t6" value='Pending'></bmspan>
+                            <bmspan class="r-p-t5" value='" once you Confirm Receipt of your order.'></bmspan>
+                        </bmrichtext>
                     </div>
-                    <div>
-                        <image></image>
-                        <text>Join lucky draw to win free product</text>
+                    <div class="r-p-c-3 r-p-m-1">
+                        <image class="r-p-i1" src="bmlocal://assets/dot.png"></image>
+                        <bmrichtext class="r-p-c-1">
+                            <bmspan class="r-p-t5" value='The pending points will become “'></bmspan>
+                            <bmspan class="r-p-t6" value='Available'></bmspan>
+                            <bmspan class="r-p-t5" value='" to use after 9-day return period.'></bmspan>
+                        </bmrichtext>
                     </div>
-                    <div>
-                        <image></image>
-                        <text>Join lucky draw to win free product</text>
+                    <div class="r-p-c-3 r-p-m-1">
+                        <image class="r-p-i1" src="bmlocal://assets/dot.png"></image>
+                        <text class="r-p-t5">Please note the points will be removed if the order is returned. </text>
                     </div>
                 </div>
 
@@ -475,7 +481,7 @@
         methods: {
             initBack () {
                 common.setAndroidCanBack(true, (params) => {
-                    this.popupCloseClick();
+                    this.popupOverlayBottomClick();
                     common.changeAndroidCanBack(true)
                 })
             },
@@ -815,6 +821,12 @@
                 common.changeAndroidCanBack(true)
             },
 
+            popupRulerClick () {
+                // this.$refs.wxcPopup.hide();
+                this.isRulerShow = false;
+                common.changeAndroidCanBack(true)
+            },
+
             operateData (data) {
                 for (let i = 0; i < data.length; i++) {
                     for (let j = 0; j < data[i].value.length; j++) {
@@ -959,6 +971,20 @@
                     type: 'PUSH'
                 })
             },
+            jumpLuckDraw () {
+                this.$router.setBackParams({ tab: 'luckydraw' })
+                this.$router.back({
+                    length: 9999,
+                    type: 'PUSH'
+                })
+            },
+            jumpPerks () {
+                this.$router.setBackParams({ tab: 'perks' })
+                this.$router.back({
+                    length: 9999,
+                    type: 'PUSH'
+                })
+            },
             scrollHandler (e) {
                 if (Math.abs(e.contentOffset.y) >= 112) {
                    this.opacity = (Math.abs(e.contentOffset.y) - 112) / 200 > 1 ? 1 : (Math.abs(e.contentOffset.y) - 112) / 200
@@ -1003,6 +1029,7 @@
             },
             openRuler () {
                 this.isRulerShow = true;
+                common.changeAndroidCanBack(false);
             },
             countOff (s, o) {
                 if (o > 0) {
@@ -1579,6 +1606,9 @@
         border-top-color: grey;
         border-top-width:1px ;
     }
+    .r-icon{
+        font-size: 40px;
+    }
     .r-p-t{
         flex-direction: row;
         justify-content: space-between;
@@ -1596,17 +1626,62 @@
         letter-spacing: 0;
         text-align: center;
     }
+    .r-p-t3{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .r-p-t4{
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 34px;
+        font-family: ProximaNova;
+    }
     .r-p-c{
         flex-direction: row;
         justify-content: start;
         align-items: center;
-        margin-top: 16px;
-        margin-bottom: 48px;
+        margin-top: 32px;
+        padding-bottom: 32px;
+    }
+    .r-p-c-1{
+        font-size: 24px;
+        line-height: 36px;
+        lines: 2;
+        width: 646px;
+    }
+    .r-p-c-2{
+        padding: 0 0 32px;
+    }
+    .r-p-c-3{
+        flex-direction: row;
+        justify-content: start;
+        align-items: start;
+    }
+    .r-p-c-4{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+    .r-p-c-l{
+        border-top-style: dashed;
+        border-top-color: grey;
+        border-top-width: 1px;
+        padding-top: 32px;
+    }
+    .r-p-c-l1{
+        padding: 24px 0 32px;
     }
     .r-p-i{
         width:28px;
         height:28px;
         margin-right: 16px;
+    }
+    .r-p-i1{
+        margin-top: 8px;
+        width: 20px;
+        height: 20px;
+        margin-right: 24px;
     }
     .r-p-w{
         flex-direction: row;
@@ -1622,6 +1697,27 @@
         color: #000000;
         letter-spacing: 0;
         font-weight: 700;
+    }
+    .r-p-t5{
+        font-family: ProximaNova;
+        font-size: 24px;
+        color: #000000;
+        line-height: 36px;
+        width: 646px;
+        lines: 2;
+    }
+    .r-p-t6{
+        font-family: ProximaNova;
+        font-size: 24px;
+        color: #000000;
+        line-height: 36px;
+        font-weight: bold;
+    }
+    .r-p-m{
+        margin-top: 24px;
+    }
+    .r-p-m-1{
+        margin-top: 16px;
     }
     .dec-see-more{
         flex-direction: row;
@@ -1646,7 +1742,11 @@
         border-top-width:1px ;
     }
     .popup-ruler-content{
-        margin: 48px 32px;
+        padding: 48px 32px;
+        width: 750px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        background-color: #fff;
     }
     /*.bottom-goods{*/
         /*margin-top: 18px;*/
