@@ -3,16 +3,20 @@ package com.benmu.framework.extend.hook.ui.components;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.benmu.framework.extend.hook.HookConstants;
 import com.taobao.weex.WXSDKInstance;
+import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.dom.WXDomObject;
 import com.taobao.weex.ui.component.WXComponentProp;
 import com.taobao.weex.ui.component.WXInput;
 import com.taobao.weex.ui.component.WXVContainer;
+import com.taobao.weex.ui.view.WXEditText;
 import com.taobao.weex.utils.WXResourceUtils;
 
 import java.lang.reflect.Field;
@@ -66,5 +70,23 @@ public class HookInput extends WXInput {
 
     //benmu.org
 
+    @JSMethod
+    public void clear() {
+        WXEditText host = getHostView();
+        if (host != null && host.getText().length() > 0) {
+            host.getText().clear();
+        }
+    }
 
+    @JSMethod
+    public void show(boolean isShowPassWord){
+        WXEditText editText = getHostView();
+        if (editText != null){
+            if (isShowPassWord){
+                editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }else {
+                editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        }
+    }
 }

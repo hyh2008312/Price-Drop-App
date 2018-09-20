@@ -136,5 +136,11 @@ export default {
     },
     'welcome': {
         url: '/pages/mobile/welcome/guide.js'
+    },
+    'search': {
+        url: '/pages/mobile/search/index.js'
+    },
+    'search.result': {
+        url: '/pages/mobile/search/result.js'
     }
 }

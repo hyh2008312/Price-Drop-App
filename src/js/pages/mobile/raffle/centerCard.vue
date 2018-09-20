@@ -241,6 +241,30 @@
                     })
                 })
             },
+            changeStates () {
+                this.$notice.loading.show();
+                this.$fetch({
+                    method: 'GET',
+                    url: `${baseUrl}/lottery/draw/detail/${this.item.id}`,
+                    data: {
+                        user_id: this.user.id
+                    }
+                }).then((res) => {
+                    this.item = res;
+                    this.$emit('changeItem', {
+                        status: 'changeItem',
+                        data: {
+                            index: this.itemIndex,
+                            item: this.item
+                        }
+                    });
+                    this.$notice.loading.hide();
+                }).catch((res) => {
+                    this.$notice.alert({
+                        message: res
+                    })
+                });
+            },
             tranDateM (tmp) {
                 if (tmp) {
                     return dayjs(new Date(tmp).getTime() + 2 * 60 * 60 * 1000).format('HH:mm a, MMM DD')
@@ -250,12 +274,18 @@
                 // this.$notice.toast({
                 //     message: '1111'
                 // })
-                const self = this
+                const self = this;
                 // if (this.purchaseMethod == 'flash') {
                 self.tranTime = setInterval(() => {
                     self.NOW_DATE = new Date().getTime();
 
                     const total = (new Date(time).getTime() - self.NOW_DATE) / 1000
+
+                    if (total <= 0) {
+                        clearInterval(self.tranTime);
+                        self.changeStates();
+                        return;
+                    }
 
                     const day = Math.floor(total / (24 * 60 * 60))// 整天
 

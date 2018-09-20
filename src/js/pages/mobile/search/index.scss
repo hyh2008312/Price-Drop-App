@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+  color: #333;
+}
+.header{
+  position: sticky;
+  width: 750px;
+  height: 112px;
+  margin-bottom: 1px;
+  overflow: hidden;
+  background-color: #fff;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.19);
+}
+
+.header-search{
+  margin-left: 32px;
+  width: 622px;
+  height: 80px;
+  border-radius: 16px;
+  background-color: rgba(0,0,0,0.08);
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+.header-title{
+  font-family: ProximaNova;
+  font-size: 24px;
+  line-height: 40px;
+  placeholder-color: rgba(0,0,0,0.38);
+  color: #000;
+  letter-spacing: 0;
+  width: 526px;
+  tintColor: rgba(0,0,0,0.54);
+}
+
+.header-icon{
+  font-size: 32px;
+  margin-left: 32px;
+}
+
+.header-icon-1{
+  font-size: 32px;
+  margin: 0 16px;
+}
+
+.header-icon-2{
+  position: absolute;
+  font-size: 32px;
+  right: 16px;
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: rgba(0,0,0,.38);
+  line-height: 40px;
+  text-align: center;
+}
+
+.status-bar{
+  position: sticky;
+  top: 0;
+  height: 48px;
+  background-color: #000;
+  width: 750px;
+}
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f1f1f1;
+}
+
+.iconfont {
+  font-family: iconfont;
+}
+
+.search-line{
+  width: 750px;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  background-color: #fff;
+}
+
+.search-icon {
+  margin-left: 32px;
+  font-size: 32px;
+  margin-right: 16px;
+  color: rgba(0,0,0,0.38);
+}
+
+.search-bg{
+  width: 670px;
+  padding: 30px 0;
+}
+
+.search-border-bottom{
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0,0,0,0.08);
+  border-bottom-style: solid;
+}
+
+.search-text{
+  font-family: ProximaNova;
+  font-size: 24px;
+  line-height: 34px;
+  color: #000000;
+  letter-spacing: 0;
+  width: 638px;
+}
+
+.search-text-1{
+  border-top-width: 1px;
+  border-top-color: rgba(0,0,0,0.08);
+  border-top-style: solid;
+  font-family: ProximaNova;
+  font-size: 24px;
+  line-height: 96px;
+  color: #000000;
+  letter-spacing: 0;
+  background-color: #fff;
+  text-align: center;
+}

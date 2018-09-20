@@ -3,7 +3,10 @@
         <!--<home-header></home-header>-->
         <div class="status-bar"></div>
         <div class="header">
-            <text class="header-title">PriceDrop</text>
+            <div class="header-search" @click="jumpSearch">
+                <text class="header-icon iconfont">&#xe621;</text>
+                <text class="header-title">What are you looking for?</text>
+            </div>
             <div class="box-bg" @click="openNotification">
                 <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
@@ -185,6 +188,12 @@ export default {
                     type: 'PUSH'
                 });
             }
+        },
+        jumpSearch () {
+            this.$router.open({
+                name: 'search',
+                type: 'PUSH'
+            });
         }
     }
 }

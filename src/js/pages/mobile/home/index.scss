@@ -12,17 +12,35 @@ body {
   overflow: hidden;
   background-color: #fff;
   flex-direction: row;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.19);
 }
 
+.header-search{
+  margin-left: 32px;
+  width: 606px;
+  height: 80px;
+  border-radius: 16px;
+  background-color: rgba(0,0,0,0.08);
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
 .header-title{
   font-family: ProximaNova;
+  font-size: 24px;
+  line-height: 32px;
+  color: rgba(0,0,0,0.38);
+  letter-spacing: 0;
+}
+
+.header-icon{
   font-size: 32px;
-  line-height: 48px;
-  font-weight: bold;
-  color: #000000;
+  color: rgba(0,0,0,0.38);
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .mask {
