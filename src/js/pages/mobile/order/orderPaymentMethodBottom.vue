@@ -35,9 +35,6 @@
                             that.$event.emit('cutDetail');
                             if (resData.order.paymentAmount <= 0) {
                                 that.$router.finish();
-                                that.$event.once('paySuccess', () => {
-                                    that.init()
-                                });
                                 that.$router.open({
                                     name: 'order.success',
                                     type: 'PUSH',
@@ -68,9 +65,6 @@
                                         }).then(resData => {
                                             that.$notice.loading.hide();
                                             that.$router.finish();
-                                            that.$event.once('paySuccess', () => {
-                                                that.init()
-                                            });
                                             that.$router.open({
                                                 name: 'order.success',
                                                 type: 'PUSH',
@@ -144,9 +138,6 @@
                             const payAmount = price[0] + price[1];
                             if (payAmount <= 0) {
                                 that.$router.finish();
-                                that.$event.once('paySuccess', () => {
-                                    that.init()
-                                });
                                 that.$router.open({
                                     name: 'order.success',
                                     type: 'PUSH',
@@ -176,9 +167,6 @@
                                     }).then(resData => {
                                         that.$notice.loading.hide();
                                         that.$router.finish();
-                                        that.$event.once('paySuccess', () => {
-                                            that.init()
-                                        });
                                         that.$router.open({
                                             name: 'order.success',
                                             type: 'PUSH',

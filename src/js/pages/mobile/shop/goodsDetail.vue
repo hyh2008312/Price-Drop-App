@@ -587,6 +587,7 @@
                         }
                         this.$notice.loading.hide();
                         googleAnalytics.trackingScreen(`Product Detail/${this.proId}/${this.purchaseMethod}`);
+                        googleAnalytics.recordEvent('ProductViewCategory', this.purchaseMethod, this.category, 0);
                         googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
                     }).catch((res) => {
                         this.$notice.loading.hide();
@@ -649,7 +650,7 @@
                             }
                         })
                         this.dropGoods += 1
-                        googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.variantsId, 0);
+                        googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.category + '-' + this.variantsId, 0);
                     }
                     this.$notice.loading.hide();
                 }).catch((res) => {

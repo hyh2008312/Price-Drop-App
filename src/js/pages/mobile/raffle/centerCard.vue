@@ -279,11 +279,13 @@
                 self.tranTime = setInterval(() => {
                     self.NOW_DATE = new Date().getTime();
 
-                    const total = (new Date(time).getTime() - self.NOW_DATE) / 1000
+                    const total = (new Date(time).getTime() - self.NOW_DATE) / 1000;
 
                     if (total <= 0) {
                         clearInterval(self.tranTime);
-                        self.changeStates();
+                        if (self.item.drawStatus == 'Ongoing') {
+                            self.changeStates();
+                        }
                         return;
                     }
 

@@ -541,6 +541,8 @@
                 if (this.dropStatus === 2) {
                     googleAnalytics.recordEvent('DropStart', 'Buy Now At 50% OFF', '', 0);
                 } else if (this.dropStatus === 3) {
+                    googleAnalytics.recordEvent('DropStart', 'Buy Now At 70% OFF', '', 0);
+                } else if (this.dropStatus === 4) {
                     googleAnalytics.recordEvent('DropStart', 'Click to Get It For Free', '', 0);
                 }
                 this.goodsDetail.proId = 'drop';
