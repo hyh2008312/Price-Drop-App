@@ -51,15 +51,18 @@
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
                 </div>
 
-                <div class="reward-points" v-if="!isDrop">
-                    <div class="r-p-t" @click="openRuler">
+                <div class="reward-points" v-if="!isDrop" @click="openRuler">
+                    <div class="r-p-t" >
                         <text class="r-p-t1">Reward Points</text>
                         <text class="r-p-t2" >Details</text>
                     </div>
                     <div class="r-p-c">
                         <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
-                        <div class="r-p-w">
-                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b"> 50 </text> <text class="r-p-w1"> points by purchasing this product </text>
+                        <div class="r-p-w" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">
+                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b">{{countPoints(goods.unitPrice,divider,dividend)}}</text> <text class="r-p-w1"> points by purchasing this product </text>
+                        </div>
+                        <div class="r-p-w" v-if="flashSale.flashStatus=='Ongoing'">
+                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b"> {{countPoints(calc(goods.unitPrice,flashSale.discount),divider,dividend)}} </text> <text class="r-p-w1"> points by purchasing this product </text>
                         </div>
                     </div>
                 </div>
@@ -166,21 +169,12 @@
             <div class="dec-see-return" v-if="returnPolicy" @click="policyShow">
                 <text class="d-sm-w">SEE LESS</text>
             </div>
-
-
-            <!--<div class="bottom-goods">-->
-                <!--<text>You Might Also Like</text>-->
-
-                <!--<div>-->
-                    <!--<image></image>-->
-                    <!--<div>-->
-                        <!--<text>₹150.00</text>-->
-                        <!--<text>90%OFF</text>-->
-                    <!--</div>-->
-                    <!--<text>₹150.00</text>-->
-                <!--</div>-->
-            <!--</div>-->
-
+            <div class="bottom-goods">
+                <text class="bottom-head" >You Might Also Like</text>
+                <div   v-for="(i, index) in someGoodsList" :key="i.id"  >
+                    <somegoods :goods="i"  ></somegoods>
+                </div>
+            </div>
 
             <!--<div style="display: none" ref="policy"></div>-->
 
@@ -275,7 +269,10 @@
                     </div>
                     <div class="r-p-c">
                         <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
-                        <div class="r-p-w">
+                        <div class="r-p-w" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">
+                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b">{{countPoints(goods.unitPrice,divider,dividend)}}</text> <text class="r-p-w1"> points by purchasing this product </text>
+                        </div>
+                        <div class="r-p-w" v-if="flashSale.flashStatus=='Ongoing'">
                             <text class="r-p-w1">Earn</text> <text class="r-p-w1b"> 50 </text> <text class="r-p-w1"> points by purchasing this product </text>
                         </div>
                     </div>
@@ -284,14 +281,14 @@
                     <text class="r-p-t4">The Benefits of Points</text>
                     <div class="r-p-w r-p-c-l1">
                         <div class="r-p-c-4">
-                            <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
+                            <text class="r-p-i iconfont" style="color: #EF8A31" >&#xe74a;</text>
                             <text class="r-p-w1">Join lucky draw to win free product</text>
                         </div>
                         <text class="r-p-t2" @click="jumpLuckDraw">Details</text>
                     </div>
                     <div class="r-p-w r-p-c-2">
                         <div class="r-p-c-4">
-                            <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
+                            <text class="r-p-i iconfont" style="color: green;font-size: 20px" >&#xe752;</text>
                             <text class="r-p-w1">Redeem for free gift vouchers</text>
                         </div>
                         <text class="r-p-t2" @click="jumpPerks()">Details</text>
@@ -334,6 +331,8 @@
     import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
+    import somegoods from './someGoods';
+
     const dom = weex.requireModule('dom');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const common = weex.requireModule('CommonUtils');
@@ -349,6 +348,7 @@
             WxcCell, WxcButton, WxcPopup, WxcMask,
             'tab': tab,
             'cimg': cimg,
+            'somegoods': somegoods,
             preload
             // 'refresher': refresher,
             // 'block': block
@@ -429,6 +429,8 @@
                 tabshow: false,
                 headerShow: true,
                 isDrop: false,
+                divider: '',
+                dividend: '',
                 productStatus: '',
                 positionX: 0,
                 positionY: 0,
@@ -446,6 +448,7 @@
                 tmp: '',
                 tmpArray: [],
                 returnPolicy: false,
+                someGoodsList: [],
                 firstHeight: '200px'
             }
         },
@@ -481,6 +484,7 @@
                 this.proId = resData.id
                 this.isDrop = resData.isDrop
                 this.getGoodsDetail(resData)
+                this.getSomeGoods(resData)
                 this.getDropGoods()
             })
             if (this.$storage.getSync('user')) {
@@ -499,9 +503,9 @@
             },
             getGoodsDetail (id) {
                 if (id) {
-                    // this.$notice.toast({
-                    //     message: id
-                    // })
+                    this.$notice.toast({
+                        message: id
+                    })
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id.id}/`,
@@ -568,6 +572,8 @@
                             // this.nextPage.mainImage =
                         }
                         this.shipObj = res.shipping
+                        this.divider = res.divider
+                        this.dividend = res.dividend
                         this.productStatus = res.status
                         this.dectxt = []
                         this.nextPage.title = res.title;
@@ -596,6 +602,37 @@
                         })
                     })
                 }
+            },
+            getSomeGoods (id) {
+                this.$fetch({
+                    methods: 'GET',
+                    url: `${baseUrl}/product/relations/recommend/list/`,
+                    // url: `${baseUrl}/product/customer/detail/654/`,
+                    data: {
+                        id: id.id
+                    }
+                }).then((res) => {
+                    // this.someGoodsList = res
+                    // this.$notice.alert({
+                    //     message: res.length
+                    // })
+                    let arr = [];
+                    for (let i = 0; i < res.length; i++) {
+                        const item = res[i];
+                        arr.push(item);
+                        if ((i > 0 && i % 2 === 1) || i === res.length - 1) {
+                            this.someGoodsList.push(arr);
+                            arr = [];
+                        }
+                    }
+                    // this.$notice.alert({
+                    //     message: this.someGoodsList
+                    // })
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: res
+                    })
+                })
             },
             getDropGoods () {
                 this.$fetch({
@@ -775,6 +812,7 @@
             redirectLogin () {
                 this.$event.on('login', params => {
                     this.getGoodsDetail(this.proId)
+                    this.getSomeGoods(this.proId)
                     this.$storage.get('user').then(resData => {
                         this.user = resData
                     })
@@ -1058,6 +1096,12 @@
                     return ''
                 }
             },
+            countPoints (p, a, b) {
+                return Math.round(parseInt(p) / a * b);
+            },
+            calc (a, b) {
+                return ((a * b) / 100).toFixed(2)
+            },
 
             countDate (time) {
                 const self = this
@@ -1096,7 +1140,7 @@
 
             policyShow () {
                 this.returnPolicy = !this.returnPolicy;
-                if(!this.returnPolicy) {
+                if (!this.returnPolicy) {
                     this.firstHeight = '200px';
                 } else {
                     this.firstHeight = 'auto';
@@ -1696,6 +1740,7 @@
         width:28px;
         height:28px;
         margin-right: 16px;
+        font-size: 28px;
     }
     .r-p-i1{
         margin-top: 8px;
@@ -1717,6 +1762,7 @@
         color: #000000;
         letter-spacing: 0;
         font-weight: 700;
+        margin: 0 10px;
     }
     .r-p-t5{
         font-family: ProximaNova;
@@ -1749,7 +1795,7 @@
         flex-direction: row;
         justify-content: center;
         background-color: white;
-        margin-bottom: 316px;
+        margin-bottom: 11px;
     }
     .d-sm-w{
         font-size: 24px;
@@ -1768,7 +1814,8 @@
         border-top-right-radius: 8px;
         background-color: #fff;
     }
-    /*.bottom-goods{*/
-        /*margin-top: 18px;*/
-    /*}*/
+    .bottom-goods{
+        background-color: white;
+        margin-bottom: 120px;
+    }
 </style>

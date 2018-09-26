@@ -33,6 +33,7 @@ module.exports = {
         'js/pages/mobile/shop/simpleGoodsDetail.vue',
         'js/pages/mobile/shop/ship.vue',
         'js/pages/mobile/shop/goodsDec.vue',
+        'js/pages/mobile/shop/someGoods.vue',
         'js/pages/mobile/activity/index.vue',
         'js/pages/mobile/order/index.vue',
         'js/pages/mobile/order/orderGiftCard.vue',
