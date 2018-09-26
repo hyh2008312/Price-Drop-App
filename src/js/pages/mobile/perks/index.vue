@@ -39,7 +39,7 @@
             <div class="overflow-mid"  style="margin-bottom: 100px">
 
                 <div class="top-card">
-                    <image src="bmlocal://assets/perks/egg2_1.gif" class="bg-tangle" ></image>
+                    <image src="bmlocal://assets/perks/egg2_2.gif" class="bg-tangle" ></image>
                     <text class="t-c-h">Daily Gift Box</text>
 
                     <div class="t-cm">
