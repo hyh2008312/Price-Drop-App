@@ -84,6 +84,15 @@
         </div>
         <div class="overflow-box">
             <div class="mid-cell">
+                <div class="box-tlt "  v-if="user">
+                    <div class="box-left">
+                        <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
+                        <text class="box-txt">My Wallet</text>
+                        <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
+                    </div>
+                    <text class="i-box wallet-num">₹ 0</text>
+                </div>
+
                 <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
                     <div class="box-left">
                         <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
@@ -93,6 +102,7 @@
                     <text class="i-box iconfont">&#xe626;</text>
 
                 </div>
+
             </div>
         </div>
         <div class="overflow-box">

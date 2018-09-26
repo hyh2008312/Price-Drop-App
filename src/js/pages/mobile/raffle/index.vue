@@ -155,6 +155,9 @@
         }),
         created () {
             this.initPage()
+            this.$event.on('logout', parmas => {
+                this.initPage()
+            })
         },
         computed: {
             // bgcolor: {
