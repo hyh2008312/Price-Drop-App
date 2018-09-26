@@ -273,7 +273,7 @@
                             <text class="r-p-w1">Earn</text> <text class="r-p-w1b">{{countPoints(goods.unitPrice,divider,dividend)}}</text> <text class="r-p-w1"> points by purchasing this product </text>
                         </div>
                         <div class="r-p-w" v-if="flashSale.flashStatus=='Ongoing'">
-                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b"> 50 </text> <text class="r-p-w1"> points by purchasing this product </text>
+                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b">{{countPoints(calc(goods.unitPrice,flashSale.discount),divider,dividend)}}</text> <text class="r-p-w1"> points by purchasing this product </text>
                         </div>
                     </div>
                 </div>

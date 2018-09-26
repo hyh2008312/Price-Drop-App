@@ -11,7 +11,7 @@
                     </div>
                     <div class="top-bottom-txtdiv">
                         <text class="top-bottom-txt">The perks program is designed to reward our users for starting their DROP campaigns and helping their friends to drop the price on products they love.</text>
-                        <text class="top-bottom-txt" style="padding-top: 5px"> With all reward points you earn from your participation, you can redeem for FREE gift vouchers!</text>
+                        <text class="top-bottom-txt" style="padding-top: 5px">With all reward points you earn from your participation, you can redeem for FREE gift vouchers!</text>
                     </div>
                 </div>
             </div>

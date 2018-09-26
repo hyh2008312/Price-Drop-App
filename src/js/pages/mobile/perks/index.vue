@@ -480,6 +480,7 @@
                         setTimeout(() => {
                             this.shake2()
                         }, 500)
+                        this.isCash = true
                         // this.$notice.alert({
                         //     message: res.amount
                         // })
