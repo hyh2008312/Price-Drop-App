@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">₹{{order.paymentAmount}}</text>
+        <text class="od-text-1">₹{{((order.paymentAmount * 100 - (checked ? balance : 0 ) * 100) / 100).toFixed(2)}}</text>
         <text class="od-button" @click="confirm">Pay Now</text>
     </div>
 </template>
@@ -9,7 +9,7 @@
     const pay = weex.requireModule('PayModule');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
-        props: ['order', 'method', 'source'],
+        props: ['order', 'method', 'source', 'balance', 'checked'],
         data: {
             isFirst: false
         },

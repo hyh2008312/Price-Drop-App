@@ -54,4 +54,5 @@ export const apis = {
     'product.search.product.list': '/product/search/product/list/',
     'point.cashing.prize': '/point/cashing/prize/',
     'point.whether.cashing.prize': '/point/whether/cashing/prize/',
+    'point.cashing.amount': '/point/cashing/amount/'
 }

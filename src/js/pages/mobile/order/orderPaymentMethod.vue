@@ -32,13 +32,20 @@
                 <div class="balance-bg">
                     <div class="balance-bg-left">
                         <text class="title-3">Wallet Balance</text>
-                        <text class="title-4">₹{{order.paymentAmount}}</text>
+                        <text class="title-4">₹{{balance.toFixed(2)}}</text>
                     </div>
-                    <switch class="balance-switch" :checked="checked"></switch>
+                    <div class="switch-bg" v-if="!checked" @click="changeSwitch">
+                        <div class="circle-no-checked-bg"></div>
+                        <div class="circle-no-checked"></div>
+                    </div>
+                    <div class="switch-bg" v-if="checked" @click="changeSwitch">
+                        <div class="circle-checked-bg"></div>
+                        <div class="circle-checked"></div>
+                    </div>
                 </div>
             </cell>
         </list>
-        <order-payment-method-bottom :order="order" :method="method" :source="source"></order-payment-method-bottom>
+        <order-payment-method-bottom :order="order" :method="method" :source="source" :balance="balance" :checked="checked"></order-payment-method-bottom>
     </div>
 </template>
 <script>
@@ -60,6 +67,7 @@ export default {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         googleAnalytics.trackingScreen('Payment Method');
+        this.getBalance();
         this.$event.on('closePayment', params => {
             this.$router.finish();
         });
@@ -82,7 +90,8 @@ export default {
                 'shippingPrice': false,
                 'total': '0.00'
             },
-            checked: false
+            checked: false,
+            balance: 0
         }
     },
     methods: {
@@ -97,8 +106,28 @@ export default {
                 this.$router.finish();
             }
         },
+        changeSwitch () {
+            this.checked = !this.checked;
+        },
         chooseMethod (e) {
             this.method = e;
+        },
+        getBalance () {
+            this.$fetch({
+                method: 'GET', // 大写
+                name: 'point.cashing.amount',
+                header: {
+                    needAuth: true
+                }
+            }).then(resData => {
+                // 成功回调
+                this.balance = resData.amount;
+            }, error => {
+                // 错误回调
+                this.$notice.toast({
+                    message: error
+                })
+            })
         }
     }
 }
@@ -267,8 +296,53 @@ export default {
         justify-content: start;
     }
 
-    .balance-switch{
-        background-color: #f1f1f1;
-        margin-right: 20px;
+    .switch-bg{
+        padding: 16px 32px;
+        width: 124px;
+        height: 64px;
+    }
+
+    .circle-no-checked{
+        background-color: #FFFFFF;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.24);
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        position: absolute;
+        left: 32px;
+        top: 16px;
+    }
+
+    .circle-no-checked-bg{
+        background-color: #D9D9D9;
+        box-shadow: inset 0 0 2px 0 rgba(0,0,0,0.12);
+        border-radius: 16px;
+        width: 60px;
+        height: 24px;
+        position: absolute;
+        right: 32px;
+        top: 20px;
+    }
+
+    .circle-checked{
+        background-color: #EF8A31;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.24);
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        position: absolute;
+        right: 32px;
+        top: 16px;
+    }
+
+    .circle-checked-bg{
+        background-color: #F6DCC5;
+        box-shadow: inset 0 0 2px 0 rgba(0,0,0,0.12);
+        border-radius: 16px;
+        width: 60px;
+        height: 24px;
+        position: absolute;
+        right: 32px;
+        top: 20px;
     }
 </style>
