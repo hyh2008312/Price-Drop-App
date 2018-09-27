@@ -38,10 +38,19 @@
                         <div  style="height: 328px;">
                             <image ref="pG1" src="bmlocal://assets/perks/hat.png" class="gif-icon" ></image>
                             <!--<image ref="pG1" src="bmlocal://assets/perks/watch.png" class="gif-icon" ></image>-->
-
                             <image ref="pG2" src="bmlocal://assets/perks/dress.png" class="gif-icon1" ></image>
 
-                            <image ref="pG3" src="bmlocal://assets/perks/package.png" class="gif-icon" ></image>
+                            <image ref="pG3" src="bmlocal://assets/perks/package.png" class="gif-icon2" ></image>
+
+                            <image ref="pG4" src="bmlocal://assets/perks/gift.png" class="gif-icon3" ></image>
+
+
+                            <image ref="pG5" src="bmlocal://assets/perks/bikini.png" class="gif-icon4" ></image>
+                            <image ref="pG6" src="bmlocal://assets/perks/y-headset.png" class="gif-icon5" ></image>
+                            <image ref="pG7" src="bmlocal://assets/perks/shoe.png" class="gif-icon6" ></image>
+                            <image ref="pG8" src="bmlocal://assets/perks/headset.png" class="gif-icon7" ></image>
+                            <image ref="pG9" src="bmlocal://assets/perks/watch.png" class="gif-icon8" ></image>
+                            <!--<image ref="pG10" src="bmlocal://assets/perks/gift.png" class="gif-icon9" ></image>-->
 
                         </div>
                     </div>
@@ -276,9 +285,16 @@
               ruleShow: false,
               user: false,
               loadingAR: [
-                  { ref: 'pG1', p: [-140, -120], delay: 0 },
-                  { ref: 'pG2', p: [-140, -120], delay: 0 },
-                  { ref: 'pG3', p: [-120, -120], delay: 0 }
+                  { ref: 'pG1', p: [-140, -100], delay: 0 },
+                  { ref: 'pG2', p: [-110, -70], delay: 0 },
+                  { ref: 'pG3', p: [-130, -10], delay: 0 },
+                  { ref: 'pG4', p: [-130, 20], delay: 0 },
+
+                  { ref: 'pG5', p: [160, -120], delay: 0 },
+                  { ref: 'pG6', p: [90, -70], delay: 0 },
+                  { ref: 'pG7', p: [100, -20], delay: 0 },
+                  { ref: 'pG8', p: [120, 10], delay: 0 },
+                  { ref: 'pG9', p: [120, 10], delay: 0 }
               ]
           }
         },
