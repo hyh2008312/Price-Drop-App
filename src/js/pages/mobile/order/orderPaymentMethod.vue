@@ -6,10 +6,10 @@
             <text class="title">{{title}}</text>
         </div>
         <list class="container" :style="height">
-            <cell>
+            <cell class="container-bg">
                 <text class="title-1">Payment Method</text>
             </cell>
-            <cell class="cell-bottom" @click="chooseMethod('paytm')">
+            <cell class="cell-bottom container-bg" @click="chooseMethod('paytm')">
                 <div>
                     <image class="item-image" resize="contain" :src="paytmSrc"></image>
                     <text class="item-text">Wallet / UPI / Credit&Debit Card / Net Banking </text>
@@ -17,7 +17,7 @@
                 <text class="iconfont item-checked" v-if="method == 'paytm'">&#xe6fb;</text>
                 <text class="iconfont item-no-checked" v-if="method != 'paytm'">&#xe73f;</text>
             </cell>
-            <cell v-if="false" class="cell-bottom" @click="chooseMethod('razorpay')">
+            <cell v-if="false" class="cell-bottom container-bg" @click="chooseMethod('razorpay')">
                 <div>
                     <image class="item-image-1" resize="contain" :src="razorpaySrc"></image>
                     <text class="item-text">UPI / Credit&Debit Card / Net Banking </text>
@@ -27,6 +27,15 @@
             </cell>
             <cell>
                 <text class="title-2">Order#:{{order.number}}</text>
+            </cell>
+            <cell>
+                <div class="balance-bg">
+                    <div class="balance-bg-left">
+                        <text class="title-3">Wallet Balance</text>
+                        <text class="title-4">₹{{order.paymentAmount}}</text>
+                    </div>
+                    <switch class="balance-switch" :checked="checked"></switch>
+                </div>
             </cell>
         </list>
         <order-payment-method-bottom :order="order" :method="method" :source="source"></order-payment-method-bottom>
@@ -72,7 +81,8 @@ export default {
                 'id': -1,
                 'shippingPrice': false,
                 'total': '0.00'
-            }
+            },
+            checked: false
         }
     },
     methods: {
@@ -165,6 +175,23 @@ export default {
         border-bottom-left-radius: 4px;
     }
 
+    .title-3{
+        font-family: ProximaNova;
+        font-size: 28px;
+        line-height: 34px;
+        font-weight: bold;
+        color: rgba(0,0,0,0.87);
+        margin-left: 32px;
+    }
+
+    .title-4{
+        font-family: ProximaNova;
+        font-size: 24px;
+        line-height: 28px;
+        color: rgba(0,0,0,0.87);
+        margin-left: 20px;
+    }
+
     .status-bar{
         position: fixed;
         top: 0;
@@ -176,7 +203,11 @@ export default {
     .container{
         margin-top: 2px;
         width: 750px;
-        background-color: #ffffff;
+        background-color: #f1f1f1;
+    }
+
+    .container-bg{
+        background-color: #fff;
     }
 
     .cell-bottom{
@@ -217,5 +248,27 @@ export default {
         font-size: 32px;
         line-height: 32px;
         color: rgba(0,0,0,0.32);
+    }
+
+    .balance-bg{
+        margin-top: 32px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+        width: 750px;
+        height: 96px;
+        background-color: #ffffff;
+    }
+
+    .balance-bg-left{
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+    }
+
+    .balance-switch{
+        background-color: #f1f1f1;
+        margin-right: 20px;
     }
 </style>

@@ -45,7 +45,7 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
 
-                            googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
+                            googleAnalytics.recordEvent('Payment', 'Add to Cart', 'normal', 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
 
                             const order = resData;
@@ -88,7 +88,7 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
+                            googleAnalytics.recordEvent('Payment', 'Add to Cart', 'drop', 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
                             // that.$router.finish();
@@ -134,7 +134,7 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
+                            googleAnalytics.recordEvent('Payment', 'Add to Cart', 'flash sale', 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, 'flash sale', 'Rs', that.order.currentPrice);
                             const order = resData;
                             // that.$router.finish();
@@ -178,7 +178,7 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
 
-                            googleAnalytics.recordEvent('PayStart', 'Pay Now', resData.id, 0);
+                            googleAnalytics.recordEvent('Payment', 'Add to Cart', 'lottery', 0);
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, 'lucky draw', 'Rs', that.order.currentPrice);
 
                             if (resData.orderId != null) {

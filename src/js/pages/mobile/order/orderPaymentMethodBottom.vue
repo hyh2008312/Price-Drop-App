@@ -20,7 +20,7 @@
                     this.isFirst = true;
                     that.$notice.loading.show();
                     if (that.method == 'paytm') {
-                        googleAnalytics.recordEvent('Paytm', 'Pay Now Start', that.order.id, 0);
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm', 0);
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'payment.paytm.checksum',
@@ -47,7 +47,7 @@
                             pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
-                                    googleAnalytics.recordEvent('Paytm', 'Pay Now Success', that.order.id, 0);
+                                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm sdk success return', 0);
                                     if (data.code == 200) {
                                         that.$router.finish();
                                         that.$notice.loading.show();
@@ -109,11 +109,11 @@
                                         }
                                     }
                                 });
-                            that.isFirst = true;
+                            that.isFirst = false;
                         }, error => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            that.isFirst = true;
+                            that.isFirst = false;
                             that.$notice.toast({
                                 message: error
                             });
@@ -210,11 +210,11 @@
                                         }
                                     }
                                 });
-                            that.isFirst = true;
+                            that.isFirst = false;
                         }, error => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            that.isFirst = true;
+                            that.isFirst = false;
                             that.$notice.toast({
                                 message: error
                             });
