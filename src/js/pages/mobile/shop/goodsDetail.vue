@@ -1097,7 +1097,7 @@
                 }
             },
             countPoints (p, a, b) {
-                return Math.round(parseInt(p) / a * b);
+                return (Math.floor(parseInt(p) / a)) * b;
             },
             calc (a, b) {
                 return ((a * b) / 100).toFixed(2)

@@ -7,39 +7,45 @@
                 <text class="header-word" >Earn Points & Cash Bonus Every Day!</text>
             </div>
             <!--<div class="overflow-mid"  style="margin-bottom: 100px">-->
-
                 <!--<div class="top-card">-->
                     <!--<div>-->
                         <!--<text>Daily Gift Box</text>-->
                     <!--</div>-->
                     <!--<image src="bmlocal://assets/bg.png" class="bg-tangle" @click="shake" ></image>-->
                     <!--<div  style="height: 328px;">-->
-                        <!--<image ref="pG1" src="bmlocal://assets/perks/hat-01.png" class="gif-icon" ></image>-->
+                        <!--<image ref="pG1" src="bmlocal://assets/perks/hat.png" class="gif-icon" ></image>-->
 
-                        <!--<image ref="pG2" src="bmlocal://assets/perks/dress-4.png" class="gif-icon" ></image>-->
+                        <!--<image ref="pG2" src="bmlocal://assets/perks/dress.png" class="gif-icon" ></image>-->
 
-                        <!--<image ref="pG3" src="bmlocal://assets/perks/package-01.png" class="gif-icon" ></image>-->
+                        <!--<image ref="pG3" src="bmlocal://assets/perks/package.png" class="gif-icon" ></image>-->
 
                     <!--</div>-->
-
                     <!--<div class="t-cb">-->
-
                         <!--<div class="t-cb-c">-->
                             <!--<text>Earn up to 200 cash bonus</text>-->
                             <!--<text class="iconfont">&#xe626;</text>-->
                         <!--</div>-->
                         <!--<image class="t-cb-i" src="bmlocal://assets/perks/cup.png" ></image>-->
-
                     <!--</div>-->
-
-
                 <!--</div>-->
             <!--</div>-->
 
             <div class="overflow-mid"  style="margin-bottom: 100px">
 
                 <div class="top-card">
-                    <image src="bmlocal://assets/perks/egg2_2.gif" class="bg-tangle" ></image>
+                    <div>
+                        <image src="bmlocal://assets/bg.png" class="bg-tangle" @click="shake" ></image>
+                        <div  style="height: 328px;">
+                            <image ref="pG1" src="bmlocal://assets/perks/hat.png" class="gif-icon" ></image>
+                            <!--<image ref="pG1" src="bmlocal://assets/perks/watch.png" class="gif-icon" ></image>-->
+
+                            <image ref="pG2" src="bmlocal://assets/perks/dress.png" class="gif-icon1" ></image>
+
+                            <image ref="pG3" src="bmlocal://assets/perks/package.png" class="gif-icon" ></image>
+
+                        </div>
+                    </div>
+                    <!--<image src="bmlocal://assets/perks/egg2_2.gif" class="bg-tangle" ></image>-->
                     <text class="t-c-h">Daily Gift Box</text>
 
                     <div class="t-cm">
@@ -390,7 +396,7 @@
                 }, 2000)
             },
             shake (_ref, _x, _y) {
-                // this.$notcie.alert({ message: 'animation finished.' })
+                // this.$notice.alert({ message: 'animation finished.' })
                 animation.transition(_ref, {
                     styles: {
                         transform: 'translate(' + _x + 'px, ' + _y + 'px)'
@@ -528,6 +534,7 @@
         }
     }
 </script>
+<style lang="sass" src="./iconPosition.scss"></style>
 
 <style scoped>
     .wrapper {
@@ -920,11 +927,5 @@
         line-height: 30px;
         margin-bottom: 16px;
     }
-    .gif-icon{
-        width: 80px;
-        height: 80px;
-        position: relative;
-        top: 90px;
-        left: 120px;
-    }
+
 </style>
