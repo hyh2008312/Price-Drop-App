@@ -75,6 +75,37 @@
 
                 </div>
             </div>
+
+            <div class="overflow-mid" style="margin-bottom: 100px">
+
+                <div class="mid-card">
+                   <div>
+                       <image  src="bmlocal://assets/perks/bg-1.jpg" style="width: 686px;height:490px"></image>
+                       <image class="center-img"  src="bmlocal://assets/perks/bg-3.png" style="width: 420px;height:247px"></image>
+                   </div>
+                    <div class="center-word">
+                        <text :class="[signObj.isSign?'c-w-hs':'c-w-h',]">Check In & Earn Points</text>
+                        <div class="c-wb" v-if="signObj.isSign">
+                            <div style="width: 30px;height: 30px;border-radius:15px">
+                                <image :src="user.avatar" style="width: 30px;height: 30px"></image>
+                            </div>
+                            <text class="c-wb-w">{{user.firstName}}</text>
+                            <image src="bmlocal://assets/gold-coin.png" style="width: 16px;height: 16px"></image>
+                            <text class="c-wb-wn">{{centerPoints||user.points}}</text>
+                            <text class="c-wb-wn iconfont">&#xe626;</text>
+                        </div>
+
+                        <text class="c-w-r">Rules to Know</text>
+                    </div>
+
+                    <div class="c-w-b" ref="getBtn" @click="getSign">
+                        <text class="c-w-bw" v-if="signObj.isSign">Get {{signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints)}} Points Tomorrow</text>
+                        <text class="c-w-bw" v-if="!signObj.isSign">Claim {{(signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints))||0}} Daily Points</text>
+                        <text class="c-w-bwa iconfont">&#xe626;</text>
+                    </div>
+                </div>
+            </div>
+
             <div class="overflow-mid">
 
                 <div class="mid-card">
@@ -233,13 +264,43 @@
                     <text style="text-align: center;margin-bottom: 10px;font-size: 36px">Rules to Know</text>
                 </div>
                 <div>
-                   <text class="r-cw">The daily cash bonus will expire after 12:00 PM every day. Please spend your bonus before it expires!</text>
-                   <text class="r-cw">Your order can be paid with cash bonus at your checkout page.</text>
-                   <text class="r-cw">You can get FREE cash bonus for 3 times. After that, you need to spend 250 points to unlock a gift box.</text>
-                   <text class="r-cw">The cash bonus cannot be withdrawn.</text>
+                   <text class="r-cw">1. The daily cash bonus will expire after 12:00 PM every day. Please spend your bonus before it expires!</text>
+                   <text class="r-cw">2. You can apply your cash bonus to your payment at the checkout page.</text>
+                   <text class="r-cw">3. You will be asked to spend 300 points to unlock your gift box after the first time.</text>
+                   <text class="r-cw">4. The cash bonus can only be used for shopping, which cannot be withdrawn.</text>
                 </div>
                 <div>
                     <text style="text-align: right;color: #EF8A31;">OK</text>
+                </div>
+            </div>
+        </WxcMask>
+
+        <WxcMask
+            height="364"
+            width="592"
+            border-radius="16"
+            duration="200"
+            mask-bg-color="#FFFFFF"
+            :has-animation="hasAnimation"
+            :has-overlay="true"
+            :show-close="false"
+            :show="secShow"
+            @wxcMaskSetHidden="wxcMaskSetShareHidden">
+            <div class="mask-p-content">
+                <div class="mask-p" >
+                    <text>&nbsp;</text>
+                    <text class="iconfont mask-p-c">&#xe632;</text>
+                </div>
+                <div class="mask-pw">
+                    <text class="mask-pw1" >You need {{miniPoints}} points to open a gift box for bonus!</text>
+                    <div class="mask-pw2">
+                        <text  class="mask-pw21">Your current available points:</text><text class="mask-pw22">{{user.pointsAvailable}}</text>
+                    </div>
+
+                </div>
+                <div class="mask-p-btn">
+                    <text class="mask-p-btnw" v-if="user.pointsAvailable<miniPoints">Earn More Points</text>
+                    <text class="mask-p-btnw" v-if="user.pointsAvailable>=miniPoints" @click="requestP()">Get Cash Bonus Now</text>
                 </div>
             </div>
         </WxcMask>
@@ -269,7 +330,6 @@
                       pointNumber: ''
                   }
               ],
-              backup: [],
               block1: {
                   title: '',
                   url: '',
@@ -278,10 +338,23 @@
               stopAnimation: false,
               hasAnimation: false,
               show: false,
+              secShow: false,
               giftBox: true,
               loginS: false,
               points: '',
+              miniPoints: '',
+              centerPoints: '',
+              signObj: {
+                  isSign: '',
+                  signTimes: '',
+                  gradientPoints: '',
+                  isContinue: '',
+                  originalPoints: 150
+              },
+              signT: '',
+              stopShake: false,
               isCash: false,
+              isFirstGet: false,
               ruleShow: false,
               user: false,
               loadingAR: [
@@ -300,17 +373,29 @@
         },
         created () {
             googleAnalytics.trackingScreen('Perks');
-            this.getCard()
-            this.getBtnStatus()
-            this.user = this.$storage.getSync('user')
-            this.setTime()
+            this.initPage()
             this.$event.on('logout', parmas => {
-                this.getCard()
-                this.getBtnStatus()
+                this.initPage()
+                this.signObj.isSign = false
+                this.signObj.signTimes = 0
+                this.stopShake = false
+            })
+            this.$event.on('login', parmas => {
+                this.initPage()
             })
         },
         methods: {
-            // get.card
+            initPage () {
+                this.user = this.$storage.getSync('user')
+                this.getCard()
+                this.getBtnStatus()
+                this.getSignTime()
+                this.setTime()
+                this.shakeBtn()
+                // this.$notice.alert({
+                //     message: this.user
+                // })
+            },
             getCard () {
                 this.$notice.loading.show();
                 this.$fetch({
@@ -329,28 +414,6 @@
                     })
                 })
             },
-            noNoticeFinished (e) {
-                if (this.backup.length > 0) {
-                    const newArr = this.backup.splice(0, 4);
-                    this.block1.items = [...newArr];
-                } else {
-                    this.block1.items = [];
-                    this.$fetch({
-                        method: 'GET',
-                        name: 'promotion.get.list',
-                        data: {}
-                    }).then(resData => {
-                        this.backup = [...resData];
-                        const newArr = this.backup.splice(0, 4);
-                        this.block1.items = [];
-                        this.block1.items = [...newArr];
-                    }, error => {
-                        // if(error.status == 10) {
-                        //     this.hasWifi = false;
-                        // }
-                    })
-                }
-            },
             getBtnStatus () {
                 this.$fetch({
                     method: 'GET',
@@ -360,8 +423,10 @@
                     }
                 }).then((res) => {
                     this.isCash = res.isCash
+                    this.isFirstGet = res.isFirst
+                    this.miniPoints = res.points
                     // this.$notice.alert({
-                    //     message: res.isCash
+                    //     message: res
                     // })
                 }).catch((res) => {
                     this.$notice.toast({
@@ -370,6 +435,27 @@
                     // this.$notice.toast({
                     //     message: res
                     // })
+                })
+            },
+            getSignTime () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'point.sign.times',
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                    this.signObj = res
+                    if (this.signObj.isSign) {
+                        this.stopShake = true
+                    }
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: res
+                    })
                 })
             },
             openDetail () {
@@ -386,6 +472,83 @@
                         card: id
                     }
                 })
+            },
+            getPoints () {
+                if (!this.isCash && this.user && this.isFirstGet) {
+                    this.show = true
+                    this.requestP()
+                } else if (!this.user) {
+                    this.redirectLogin()
+                } else if (!this.isFirstGet) {
+                    this.secShow = true
+                }
+            },
+            requestP () {
+                this.secShow = false
+                if (!this.show) {
+                    this.show = true
+                }
+                if (!this.secShow) {
+                    this.$fetch({
+                        method: 'GET',
+                        name: 'point.cashing.prize',
+                        header: {
+                            needAuth: true
+                        }
+                    }).then((res) => {
+                        this.points = res.amount
+                        this.isCash = true
+                        setTimeout(() => {
+                            this.shake2()
+                        }, 500)
+                        // this.$notice.alert({
+                        //     message: res.amount
+                        // })
+                    }).catch((res) => {
+                        this.$notice.toast({
+                            message: res
+                        })
+                    })
+                }
+            },
+
+            getSign () {
+                if (!this.signObj.isSign) {
+                    if (this.user) {
+                        this.$fetch({
+                            method: 'GET',
+                            name: 'point.punch.clock',
+                            header: {
+                                needAuth: true
+                            }
+                        }).then((res) => {
+                            this.signObj.signTimes = res.signTimes
+                            this.signObj.isSign = true
+                            this.stopShake = true
+                            this.centerPoints = res.points
+                            this.user.points = res.totalPoints;
+                            this.user.pointsAvailable = res.availablePoints;
+                            this.$storage.setSync('user', this.user)
+                            // this.$storage.setSync(user.pointsAvailable, 'weex-eros')
+                            this.$notice.toast({
+                                message: 'You’ve get ' + this.signObj.originalPoints + (this.signObj.signTimes * this.signObj.gradientPoints) + ' points successfully today!'
+                            })
+                        }).catch((res) => {
+                            this.$notice.toast({
+                                message: res
+                            })
+                        })
+                    } else {
+                        this.redirectLogin()
+                    }
+                } else {
+                    this.$notice.toast({
+                        message: 'These points will be available to claim tomorrow!'
+                    })
+                }
+            },
+            openRuler () {
+                this.ruleShow = true
             },
             openNewPage () {
                 this.$router.open({
@@ -408,7 +571,7 @@
                 this.loadingAni()
                 setInterval(() => {
                     this.loadingAni()
-                    // this.shake2()
+                    this.shakeBtn()
                 }, 2000)
             },
             shake (_ref, _x, _y) {
@@ -430,10 +593,27 @@
                         delay: 0 // ms
                     })
                 })
-
-                // this.$notice.alert({
-                //     message: this.$refs.pG1
-                // })
+            },
+            shakeBtn () {
+                if (!this.stopShake) {
+                    animation.transition(this.$refs.getBtn, {
+                        styles: {
+                            transform: 'translate(0px, 15px)'
+                        },
+                        duration: 800, // ms
+                        timingFunction: 'ease',
+                        delay: 0 // ms
+                    }, function () {
+                        animation.transition(this.$refs.getBtn, {
+                            styles: {
+                                transform: 'translate(0px, 0px)'
+                            },
+                            duration: 1000, // ms
+                            timingFunction: 'ease',
+                            delay: 0 // ms
+                        })
+                    }.bind(this))
+                }
             },
             shake2 () {
                 // this.$notice.alert({ message: '1111' })
@@ -488,36 +668,6 @@
                 //     message: this.$refs.pG1
                 // })
             },
-            getPoints () {
-                if (!this.isCash && this.user) {
-                    this.show = true
-                    this.$fetch({
-                        method: 'GET',
-                        name: 'point.cashing.prize',
-                        header: {
-                            needAuth: true
-                        }
-                    }).then((res) => {
-                        this.points = res.amount
-                        setTimeout(() => {
-                            this.shake2()
-                        }, 500)
-                        this.isCash = true
-                        // this.$notice.alert({
-                        //     message: res.amount
-                        // })
-                    }).catch((res) => {
-                        this.$notice.toast({
-                            message: res
-                        })
-                    })
-                } else if (!this.user) {
-                    this.redirectLogin()
-                }
-            },
-            openRuler () {
-                this.ruleShow = true
-            },
             redirectLogin () {
                 this.$event.on('login', params => {
                     this.user = this.$storage.getSync('user')
@@ -545,6 +695,7 @@
             wxcMaskSetShareHidden () {
                 this.show = false;
                 this.ruleShow = false;
+                this.secShow = false;
                 common.changeAndroidCanBack(true)
             }
         }
@@ -616,7 +767,7 @@
     }
     .mid-card{
         width: 686px;
-        height: 520px;
+        /*height: 520px;*/
         background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
         border-radius: 16px;
@@ -662,7 +813,7 @@
     .bottom-btn{
         align-items: center;
         margin-top: 48px;
-
+        margin-bottom: 38px;
     }
     .bottom-btn-txt{
         background-color: #EF8A31;
@@ -840,108 +991,90 @@
         width: 686px;
         height:328px;
     }
-    .mask-content{
+    .center-img{
+        position: absolute;
+        top: 40px;
+        left: 120px;
+    }
+    .center-word{
+        position: absolute;
+        top: 108px;
+        left: 150px;
+        /*background-color: salmon;*/
         flex-direction: column;
         justify-content: center;
-        /*align-items: center;*/
+        align-items: start;
     }
-    .mask-h{
+    .c-w-b{
+        position: absolute;
+        top: 300px;
+        left: 150px;
+        width: 380px;
+        background-color: #F6C312;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        /*box-shadow: 0 10px 0 #DBAE12;*/
+        /*border-width: 2px ;*/
+        /*border-style: solid;*/
+        /*border-color: #DBAE12;*/
+    }
+    .c-w-h{
+        width: 200px;
+        font-size: 32px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        text-align: center;
+        font-weight: bold;
+        margin-left: 80px;
+    }
+    .c-w-hs{
+        /*width: 200px;*/
+        margin-left: 20px;
+        font-size: 32px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        text-align: center;
+        font-weight: bold;
+    }
+    .c-w-r{
+        font-size: 20px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        margin-top: 30px;
+        margin-left: 120px;
+        text-align: center;
+        text-decoration: underline;
+    }
+    .c-wb{
+        width: 160px;
         flex-direction: row;
         justify-content: space-between;
-        /*align-items: ;*/
-    }
-    .mask-h-c{
-        font-size: 40px;
-        margin-top:36px;
-        margin-right:36px;
-    }
-    .mask-t{
-        flex-direction: column;
         align-items: center;
+        margin-left: 100px;
+        margin-top: 18px;
     }
-    .mask-t-w1{
-        /*margin-top: 66px;*/
-        font-size: 40px;
-        color: rgba(0,0,0,0.87);
-        font-weight: 700;
-    }
-    .mask-t-w2-d{
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-        margin-top: 16px;
-        margin-bottom: 10px;
-    }
-    .mask-t-w2{
-        font-size: 28px;
-        color: rgba(0,0,0,0.87);
-    }
-    .mask-t-w2b{
-        font-size: 28px;
-        font-weight: 700;
-        color: rgba(0,0,0,0.87);
-    }
-    .mask-t-w3{
-        font-size: 24px;
-        color: #000000;
-        line-height: 30px;
-    }
-    .mask-t-w3b{
-        font-size: 24px;
-        color: #000000;
-        font-weight: 700;
-        line-height: 30px;
-        margin-bottom: 34px;
-    }
-    .mask-t-w4{
-        background-color: #EF8A31;
-        padding: 14px 40px;
-        border-radius: 50%;
-
-    }
-    .mask-t-w4w{
-        color: white;
-        font-size: 24px;
-    }
-    .mask-tn{
-        background-color: #EF8A31;
-        width: 150px;
-        position: absolute;
-        top: 190px;
-        left: 270px;
-        transform: scale(0.3);
-        border-radius: 8px;
-    }
-    .mask-tnw{
-        font-weight: 700;
-        margin: 10px;
-        font-size: 40px;
-        color: white;
-        border-radius: 8px;
-        border-width:7px ;
-        border-style:solid ;
-        border-color:white ;
-    }
-    .g-b-h{
-        width: 203px;
-        height: 104px;
-        margin-top: 90px;
-        margin-left: 240px;
-    }
-    .g-b-c{
-        width: 175px;
-        height: 126px;
-        margin-left: 252px;
-    }
-    .mask-ruler-content{
-        margin: 50px;
-    }
-    .r-cw{
-        font-size: 28px;
-        color: rgba(0,0,0,0.87);
+    .c-wb-w{
+        font-size: 20px;
+        color: #FFFFFF;
         letter-spacing: 0;
-        line-height: 30px;
-        margin-bottom: 16px;
     }
-
+    .c-wb-wn{
+        font-size: 20px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        font-weight: 700;
+    }
+    .c-w-bw{
+        padding: 18px 9px 18px 18px;
+        color: white;
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .c-w-bwa{
+        color: white;
+        font-size: 24px;
+        font-weight: 700;
+    }
 </style>

@@ -90,7 +90,7 @@
                         <text class="box-txt">My Wallet</text>
                         <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
                     </div>
-                    <text class="i-box wallet-num">₹ 0</text>
+                    <text class="i-box wallet-num">₹ {{myWallet||0}}</text>
                 </div>
 
                 <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
@@ -228,6 +228,7 @@
                 points: '0',
                 cardNumber: '0',
                 setsign: '',
+                myWallet: '',
                 unread: 0,
                 unreadR: 0
             }
@@ -419,6 +420,23 @@
                             }
                         }).then((res) => {
                             this.unreadR = res.count
+                        }).catch((res) => {
+                            // this.$notice.loading.hide();
+                            this.$notice.toast({
+                                message: res
+                            })
+                        })
+                        this.$fetch({
+                            method: 'GET',
+                            name: 'point.cashing.amount',
+                            header: {
+                                needAuth: true
+                            }
+                        }).then((res) => {
+                            this.myWallet = res.amount
+                            // this.$notice.alert({
+                            //     message: res.amount
+                            // })
                         }).catch((res) => {
                             // this.$notice.loading.hide();
                             this.$notice.toast({

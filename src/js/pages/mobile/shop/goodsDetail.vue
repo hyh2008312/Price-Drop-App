@@ -503,9 +503,9 @@
             },
             getGoodsDetail (id) {
                 if (id) {
-                    this.$notice.toast({
-                        message: id
-                    })
+                    // this.$notice.toast({
+                    //     message: id
+                    // })
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id.id}/`,
