@@ -644,7 +644,8 @@
                         status: 'progressing'
                     },
                     header: {
-                        needAuth: true
+                        needAuth: true,
+                        isLoginPop: true
                     }
 
                 }).then(data => {
