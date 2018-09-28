@@ -8,7 +8,7 @@
                 <text class="header-title">What are you looking for?</text>
             </div>
             <div class="box-bg" @click="openNotification">
-                <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
+                <text class="box-txt-icon iconfont">&#xe753;</text>
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
         </div>

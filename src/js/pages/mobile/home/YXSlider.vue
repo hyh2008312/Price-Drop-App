@@ -54,6 +54,7 @@ export default {
     width: 750px;
     height: 333px;
     overflow: hidden;
+    border-radius: 16px;
 }
 
 .frame {
@@ -62,6 +63,7 @@ export default {
     position: relative;
     overflow: hidden;
     background-color: #fff;
+    border-radius: 16px;
 }
 
 .indicator {

@@ -32,11 +32,21 @@ export const TABCAT = [{
 }];
 
 export const CHANNELLIST = [{
+    name: 'Electronics'
+}, {
+    name: 'Men'
+}, {
+    name: 'Women'
+}, {
+    name: 'Shoes'
+}];
+
+export const CHANNELLIST1 = [{
+    name: 'Bag'
+}, {
     name: 'Home'
 }, {
-    name: 'Electronic'
+    name: 'Beauty'
 }, {
-    name: 'Fashion'
-}, {
-    name: 'Lifestyle'
+    name: 'Kids'
 }];

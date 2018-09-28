@@ -4,10 +4,12 @@
         <list offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="slider-wrap">
+                <div class="slider-bg-1"></div>
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
             </cell>
             <cell>
                 <block-1 :category="category"></block-1>
+                <block-1 :category="category1"></block-1>
             </cell>
             <cell class="cell-top" v-if="false"></cell>
             <cell class="home-drop" v-if="false">
@@ -72,7 +74,7 @@ import block4 from './block4';
 import block5 from './block5';
 import block6 from './block6';
 import block7 from './block7';
-import { TAB, CHANNELLIST } from './config';
+import { TAB, CHANNELLIST, CHANNELLIST1 } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
@@ -337,6 +339,7 @@ export default {
         },
         getChannel () {
             this.category = [...CHANNELLIST];
+            this.category1 = [...CHANNELLIST1];
             this.$fetch({
                 method: 'GET', // 大写
                 name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
@@ -349,7 +352,13 @@ export default {
                         }
                     }
                 }
-
+                for (let i = 0; i < this.category1.length; i++) {
+                    for (let j = 0; j < data.length; j++) {
+                        if(this.category1[i].name == data[j].name) {
+                            this.category1[i].id = data[j].id;
+                        }
+                    }
+                }
             }, error => {})
         },
         getDrops() {

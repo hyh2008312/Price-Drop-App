@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="tlt-box" v-for="item in category" @click="jumpActivity(item)">
             <image class="tlt-image" :src="'bmlocal://assets/category_' + item.name.toLowerCase() + '.png'"></image>
-            <text class="tlt-bg">{{item.name}}</text>
+            <text class="tlt-bg" v-if="">{{item.name == 'Electronic'?'Electronics' : item.name}}</text>
         </div>
     </div>
 </template>
@@ -53,7 +53,7 @@ export default {
 }
 
 .tlt-bg{
-    margin-top: 16px;
+    margin-top: 6px;
     text-align: center;
     font-size: 24px;
     line-height: 28px;
