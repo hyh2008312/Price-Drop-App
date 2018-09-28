@@ -66,7 +66,7 @@ export default {
     created () {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
-        googleAnalytics.trackingScreen('Payment Method');
+        googleAnalytics.trackingScreen('Confirm Billing and Shipping');
         this.getBalance();
         this.$event.on('closePayment', params => {
             this.$router.finish();

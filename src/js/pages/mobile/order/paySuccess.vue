@@ -35,7 +35,7 @@ export default {
     created () {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 48 - 4) + 'px' };
-        googleAnalytics.trackingScreen('Payment Result Success');
+        googleAnalytics.trackingScreen('Order Completed');
         googleAnalytics.recordEvent('Payment', 'Purchase Success', '', 0);
         googleAnalytics.facebookRecordEvent('fb_mobile_purchase', '', '', 'Rs', '');
     },

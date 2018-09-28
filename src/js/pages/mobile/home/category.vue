@@ -128,7 +128,7 @@
             getActivityParam (resData) {
                 this.id = resData.id;
                 this.name = resData.name;
-                googleAnalytics.trackingScreen(`Activity/${this.name}`);
+                googleAnalytics.trackingScreen(`Product/${this.name}`);
                 this.$notice.loading.show();
                 this.getActivityProduct(true, false);
             },

@@ -44,6 +44,7 @@
                                 });
                                 return;
                             }
+                            googleAnalytics.trackingScreen('Select Payment');
                             pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
@@ -147,6 +148,7 @@
                                 });
                                 return;
                             }
+                            googleAnalytics.trackingScreen('Select Payment');
                             pay.startPayRequest(order.razorpayOrderId, order.order.lines[0].title, 'Order#: ' + order.orderNumber,
                                 that.order.lines[0].mainImage, parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {

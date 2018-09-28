@@ -94,7 +94,6 @@ export default {
     },
     created () {
         this.init();
-        googleAnalytics.trackingScreen('Home/Featured');
     },
     data () {
         return {

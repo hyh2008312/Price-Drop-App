@@ -592,14 +592,14 @@
                             this.category = res.categories[0].name;
                         }
                         this.$notice.loading.hide();
-                        googleAnalytics.trackingScreen(`Product Detail/${this.proId}/${this.purchaseMethod}`);
+                        googleAnalytics.trackingScreen(`Product Detail/${this.category}`);
                         googleAnalytics.recordEvent('ProductViewCategory', this.purchaseMethod, this.category, 0);
                         googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
                     }).catch((res) => {
                         this.$notice.loading.hide();
                         this.$notice.toast({
                             message: res
-                        })
+                        });
                     })
                 }
             },
