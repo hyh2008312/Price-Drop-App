@@ -38,6 +38,10 @@ export default {
                 this.$event.emit('changeTab', {
                     tab: 'luckydraw'
                 });
+            } else if (img.title == 'rewards') {
+                this.$event.emit('changeTab', {
+                    tab: 'rewards'
+                });
             }
         },
         change (event) {

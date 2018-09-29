@@ -398,7 +398,8 @@
                     method: 'GET',
                     name: 'point.whether.cashing.prize',
                     header: {
-                        needAuth: true
+                        needAuth: true,
+                        isLoginPop: true
                     }
                 }).then((res) => {
                     this.isCash = res.isCash
@@ -421,7 +422,8 @@
                     method: 'GET',
                     name: 'point.sign.times',
                     header: {
-                        needAuth: true
+                        needAuth: true,
+                        isLoginPop: true
                     }
                 }).then((res) => {
                     // this.$notice.alert({
@@ -530,7 +532,8 @@
                             method: 'GET',
                             name: 'point.punch.clock',
                             header: {
-                                needAuth: true
+                                needAuth: true,
+                                isLoginPop: true
                             }
                         }).then((res) => {
                             this.signObj.signTimes = res.signTimes

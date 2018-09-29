@@ -20,7 +20,7 @@ export const tabConfig = [{
 }, {
     icon: '&#xe733;',
     name: 'Rewards',
-    key: 'perks',
+    key: 'rewards',
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/perks/index.js`,
     visibility: 'hidden'
 }, {
