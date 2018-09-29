@@ -41,6 +41,10 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    border-top-width: 1px;
+    border-top-color: rgba(0,0,0,0.12);
+    border-top-style: solid;
+    margin-top: 1px;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
 }
 

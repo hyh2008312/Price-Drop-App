@@ -46,8 +46,8 @@
             <header>
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
-            <cell v-for="item in products" v-if="products.length > 0">
-                <block-8 :item="item"></block-8>
+            <cell v-for="item in products" :ref="item.name">
+                <block-8 :item="item" ></block-8>
             </cell>
             <cell v-if="goods3.length > 0">
                 <text class="home-title">Featured</text>
@@ -391,14 +391,17 @@ export default {
                 }
             })
         },
-        scrollToHeader() {
+        scrollToHeader(tab) {
             this.$nextTick(() => {
-                dom.scrollToElement(this.$refs['tab'], { animated: false });
+                dom.scrollToElement(this.$refs[tab][0], {
+                    offset: -96,
+                    animated: false
+                });
             });
         },
         onTabTo (event) {
             this.tabKey = event.data.key;
-            this.scrollToHeader();
+            this.scrollToHeader(this.tabKey);
         },
         refreshApiFinished() {
             this.countApi++;
@@ -425,13 +428,6 @@ export default {
                 });
             }
 
-
-
-            if (Math.abs(e.contentOffset.y) > 1200) {
-                this.tabshow = true
-            } else if (Math.abs(e.contentOffset.y) < 1100) {
-                this.tabshow = false
-            }
             if (e.contentSize.height + e.contentOffset.y < 1350) {
                 this.defaultTab = 'policy'
             } else {

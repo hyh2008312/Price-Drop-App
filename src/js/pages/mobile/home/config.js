@@ -22,8 +22,8 @@ export const TAB = [{
     name: 'Home',
     key: 'Home'
 }, {
-    name: 'Bag',
-    key: 'Bag'
+    name: 'Bags',
+    key: 'Bags'
 }];
 
 export const TABCAT = [{
@@ -45,19 +45,19 @@ export const CHANNELLIST = [{
 }, {
     name: 'Men'
 }, {
-    name: 'Women'
-}, {
     name: 'Shoes'
+}, {
+    name: 'Home'
 }];
 
 export const CHANNELLIST1 = [{
-    name: 'Bag'
+    name: 'Bags'
 }, {
-    name: 'Home'
+    name: ''
 }, {
-    name: 'Beauty'
+    name: ''
 }, {
-    name: 'Kids'
+    name: ''
 }];
 
 export const PRODUCTS = [{
@@ -142,7 +142,7 @@ export const PRODUCTS = [{
     }]
 }, {
     id: 1,
-    name: 'Bag',
+    name: 'Bags',
     src: 'http://image.getpricedrop.com/category/bag.jpg',
     goodsList: [{
         id: 1,
