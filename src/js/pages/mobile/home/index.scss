@@ -42,6 +42,45 @@ body {
   margin-right: 16px;
 }
 
+.header-new{
+  position: fixed;
+  top: 48px;
+  width: 750px;
+  height: 112px;
+  overflow: hidden;
+  background-color: #fff;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+}
+
+.header-search-new{
+  margin-left: 32px;
+  width: 606px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: rgba(0,0,0,0.08);
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+.header-title-new{
+  font-family: ProximaNova;
+  font-size: 24px;
+  line-height: 32px;
+  color: rgba(0,0,0,0.54);
+  letter-spacing: 0;
+}
+
+.header-icon-new{
+  font-size: 32px;
+  color: rgba(0,0,0,0.54);
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
 .mask {
   position: absolute;
   top: 0;
@@ -99,6 +138,7 @@ body {
 .cell-top{
   height: 16px;
   width: 750px;
+  background-color: #fff;
 }
 
 .cell-button {
@@ -308,6 +348,15 @@ body {
   width: 40px;
   height: 40px;
   color: #fff;
+  font-size: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.box-txt-icon-new {
+  width: 40px;
+  height: 40px;
+  color: rgba(239,138,49,0.54);
   font-size: 40px;
   line-height: 40px;
   text-align: center;

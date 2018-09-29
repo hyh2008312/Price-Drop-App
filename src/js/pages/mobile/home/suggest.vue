@@ -7,10 +7,12 @@
                 <div class="slider-bg-1"></div>
                 <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
             </cell>
+            <cell class="cell-top"></cell>
             <cell>
                 <block-1 :category="category"></block-1>
                 <block-1 :category="category1"></block-1>
             </cell>
+            <cell class="cell-top"></cell>
             <cell class="cell-top" v-if="false"></cell>
             <cell class="home-drop" v-if="false">
                 <div class="drop-bg"></div>

@@ -35,7 +35,7 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    padding: 48px 16px;
+    padding: 16px 16px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -43,7 +43,7 @@ export default {
 }
 
 .tlt-box {
-    width: 110px;
+    width: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
