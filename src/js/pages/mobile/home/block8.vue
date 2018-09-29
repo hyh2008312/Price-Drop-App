@@ -84,7 +84,7 @@ export default {
     height: 82px;
     border-style: solid;
     border-width: 6px;
-    border-color: #fff;
+    border-color: rgba(255,255,255,0.8);
 }
 
 .img-inner-tlt{
@@ -94,7 +94,7 @@ export default {
     padding: 0 14px;
     font-weight: bold;
     margin: 8px;
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.8);
 }
 
 .gd-bg-bottom {

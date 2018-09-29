@@ -43,7 +43,7 @@
                 <block-5 :logo="block5.items"></block-5>
             </cell>
             <header>
-                <tab @tabTo="onTabTo" :items="tabsItems" :activeTab=""></tab>
+                <tab @tabTo="onTabTo" :items="tabsItems" :activeTab="activeTab"></tab>
             </header>
             <cell v-for="item in products" :ref="item.name">
                 <block-8 :item="item" ></block-8>
@@ -419,6 +419,14 @@ export default {
                         isHeaderBg: true
                     }
                 });
+
+                for(let item of this.products) {
+                    dom.getComponentRect(this.$refs[item.name][0], option => {
+                        if(option.size.top <= 254 && option.size.top > 96) {
+                            this.activeTab = item.name;
+                        }
+                    });
+                }
             } else {
                 this.$emit('colorChange', {
                     status: 'colorChange',
@@ -427,15 +435,6 @@ export default {
                     }
                 });
             }
-
-            for(let item of this.products) {
-                dom.getComponentRect(this.$refs[item.name][0], option => {
-                    if(option.top <= 96) {
-                        this.activeTab = item.name;
-                    }
-                })
-            }
-
         },
     }
 }
