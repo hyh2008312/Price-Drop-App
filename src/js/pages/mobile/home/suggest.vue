@@ -224,7 +224,7 @@ export default {
                 this.$emit({
                     status: 'bannerColor',
                     data: {
-                        bgColor: this.YXBanners[0].avatar
+                        bgColor: this.YXBanners[0].color
                     }
                 });
             }, error => {
