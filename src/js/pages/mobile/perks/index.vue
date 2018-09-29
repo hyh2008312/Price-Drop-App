@@ -64,7 +64,7 @@
                             <text class="t-cm-ca iconfont">&#xe626;</text>
                         </div>
                         <div class="t-cm-cr" v-if="isCash" >
-                            <text class="t-cm-cwr" >Get Your Next Gift Tomorrow</text>
+                            <text class="t-cm-cwr">Get Your Next Gift Tomorrow</text>
                             <text class="t-cm-car iconfont">&#xe6ed;</text>
                         </div>
                         <image class="t-cm-i" src="bmlocal://assets/perks/cup.png" ></image>
@@ -115,7 +115,7 @@
                         <image class="top-right" src="bmlocal://assets/anger.png"></image>
                     </div>
 
-                    <div>
+                    <div  class="mid-card-h">
                         <text class="g-ch-w"  style="">More Ways to Earn Points</text>
                     </div>
                     <div class="mid-card-item1">
@@ -178,32 +178,6 @@
                     </div>
                 </div>
             </div>
-
-
-            <!--<div class="overflow-gift"  v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">-->
-                <!--<div >-->
-                    <!---->
-                    <!--<div class="gift-card" @click="redeemCard(i)">-->
-                        <!--<image class="gift-card-img"  :src="i.image"></image>-->
-                        <!--<div class="gift-card-txt">-->
-                            <!--<text class="gift-card-txt1">{{i.name}} Gift Voucher</text>-->
-                            <!--<text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>-->
-                        <!--</div>-->
-
-
-                        <!--<div class="gift-card-txt" v-if="i.id==1">-->
-                            <!--<text class="gift-card-txt1">₹.150 Gift Card</text>-->
-                            <!--<text class="gift-card-txt2">1,500 Points Needed</text>-->
-                        <!--</div>-->
-                        <!--<div class="gift-card-txt" v-if="i.id==2">-->
-                            <!--<text class="gift-card-txt1">₹200 Gift Card</text>-->
-                            <!--<text class="gift-card-txt2">2,000 Points Needed</text>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-            <!--</div>-->
-
         </scroller>
 
 
@@ -244,7 +218,7 @@
                     </div>
                     <text class="mask-t-w3">Your cash bonus will expire</text>
                     <text class="mask-t-w3b">by end of today. </text>
-                    <div class="mask-t-w4">
+                    <div class="mask-t-w4" @click="openIndex">
                         <text class="mask-t-w4w">Spend Your Bonus Now</text>
                     </div>
                 </div>
@@ -489,6 +463,11 @@
                     type: 'PUSH'
                 })
             },
+            openIndex () {
+                this.$event.emit('changeTab', {
+                    tab: 'home'
+                });
+            },
             redeemCard (id) {
                 this.$router.open({
                     name: 'redeem.card',
@@ -526,6 +505,7 @@
                         setTimeout(() => {
                             this.shake2()
                         }, 500)
+                        this.$event.emit('getMyWallet')
                         // this.$notice.alert({
                         //     message: res.amount
                         // })
@@ -858,7 +838,6 @@
         align-items: center;
         background-color: white;
         border-radius: 8px;
-
     }
     .g-ch-w{
         margin-bottom: 50px;
@@ -874,6 +853,11 @@
     .top-right {
         width: 204px;
         height: 100px;
+    }
+    .mid-card-h{
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: -70px;
     }
     .gift-card{
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
