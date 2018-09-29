@@ -1,7 +1,7 @@
 <!--suppress ALL -->
 <template>
     <div class="wrapper">
-        <list offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore" v-if="hasWifi" >
+        <list offset-accuracy="10" loadmoreoffset="400" @scroll="scrollHandler" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="slider-wrap">
                 <div class="slider-bg-1"></div>
@@ -46,6 +46,9 @@
             <header>
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
+            <cell v-for="item in products" v-if="products.length > 0">
+                <block-8 :item="item"></block-8>
+            </cell>
             <cell v-if="goods3.length > 0">
                 <text class="home-title">Featured</text>
             </cell>
@@ -76,7 +79,8 @@ import block4 from './block4';
 import block5 from './block5';
 import block6 from './block6';
 import block7 from './block7';
-import { TAB, CHANNELLIST, CHANNELLIST1 } from './config';
+import block8 from './block8';
+import { TAB, CHANNELLIST, CHANNELLIST1, PRODUCTS } from './config';
 
 const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
@@ -94,6 +98,7 @@ export default {
         'block-1': block1,
         'block-6': block6,
         'block-7': block7,
+        'block-8': block8,
         noWifi
     },
     props: ['isHeaderBg'],
@@ -132,7 +137,8 @@ export default {
             isActiveLoading: false,
             hasWifi: true,
             category: [],
-            drops: []
+            drops: [],
+            products: []
         }
     },
     methods: {
@@ -190,11 +196,12 @@ export default {
         },
         init () {
             this.getYXBanners();
+            this.getTabName();
+            this.getProductCategory();
             this.getChannel();
             this.getBlock4();
             this.getDrops();
             this.getActivity();
-            // this.getTabName();
             this.getBlock5();
             if(this.tabKey == 'new') {
                 this.getNewGoods(true);
@@ -233,6 +240,9 @@ export default {
         },
         getTabName () {
             this.tabsItems = TAB;
+        },
+        getProductCategory() {
+            this.products = PRODUCTS;
         },
         getBlock4 () {
             this.block1.items = [];
@@ -382,19 +392,13 @@ export default {
             })
         },
         scrollToHeader() {
-            return this.$nextTick(() => {
+            this.$nextTick(() => {
                 dom.scrollToElement(this.$refs['tab'], { animated: false });
             });
         },
-        async onTabTo (event) {
+        onTabTo (event) {
             this.tabKey = event.data.key;
-            await this.scrollToHeader();
-            this.$notice.loading.show();
-            if(event.data.key == 'new') {
-                this.getNewGoods(true);
-            } else {
-                this.getHotGoods(true);
-            }
+            this.scrollToHeader();
         },
         refreshApiFinished() {
             this.countApi++;
@@ -403,7 +407,37 @@ export default {
                 this.$refs.refresh.refreshEnd();
                 this.countApi = 0;
             }
-        }
+        },
+        scrollHandler (e) {
+            if (Math.abs(e.contentOffset.y) >= 488) {
+                this.$emit('colorChange', {
+                    status: 'colorChange',
+                    data: {
+                        isHeaderBg: true
+                    }
+                });
+            } else {
+                this.$emit('colorChange', {
+                    status: 'colorChange',
+                    data: {
+                        isHeaderBg: false
+                    }
+                });
+            }
+
+
+
+            if (Math.abs(e.contentOffset.y) > 1200) {
+                this.tabshow = true
+            } else if (Math.abs(e.contentOffset.y) < 1100) {
+                this.tabshow = false
+            }
+            if (e.contentSize.height + e.contentOffset.y < 1350) {
+                this.defaultTab = 'policy'
+            } else {
+                this.defaultTab = 'dec'
+            }
+        },
     }
 }
 

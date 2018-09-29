@@ -16,14 +16,14 @@ export const TAB = [{
     name: 'Men',
     key: 'Men'
 }, {
-    name: 'Women',
-    key: 'Women'
-}, {
     name: 'Shoes',
     key: 'Shoes'
 }, {
     name: 'Home',
     key: 'Home'
+}, {
+    name: 'Bag',
+    key: 'Bag'
 }];
 
 export const TABCAT = [{
@@ -58,4 +58,106 @@ export const CHANNELLIST1 = [{
     name: 'Beauty'
 }, {
     name: 'Kids'
+}];
+
+export const PRODUCTS = [{
+    id: 1,
+    name: 'Electronics',
+    src: 'http://image.getpricedrop.com/category/electronics.jpg',
+    goodsList: [{
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }]
+}, {
+    id: 1,
+    name: 'Men',
+    src: 'http://image.getpricedrop.com/category/men.jpg',
+    goodsList: [{
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }]
+}, {
+    id: 1,
+    name: 'Shoes',
+    src: 'http://image.getpricedrop.com/category/shoes.jpg',
+    goodsList: [{
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }]
+}, {
+    id: 1,
+    name: 'Home',
+    src: 'http://image.getpricedrop.com/category/home.jpg',
+    goodsList: [{
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }]
+}, {
+    id: 1,
+    name: 'Bag',
+    src: 'http://image.getpricedrop.com/category/bag.jpg',
+    goodsList: [{
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }, {
+        id: 1,
+        mainImage: '',
+        unitPrice: '15.00',
+        saleUnitPrice: '150.00'
+    }]
 }];

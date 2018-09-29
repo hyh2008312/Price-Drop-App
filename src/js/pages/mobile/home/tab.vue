@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <div v-for="(i) in items" :key="i.key" class="tab-item" @click="tabTo(i.key)">
+        <div v-for="i in items" class="tab-item" @click="tabTo(i.key)">
             <text class="tab-txt" :class="[pIndexKey === i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
             <div class="tab-underline-active" v-if="pIndexKey === i.key"></div>
         </div>
@@ -15,7 +15,7 @@ export default {
     },
     data () {
         return {
-            pIndexKey: 'new'
+            pIndexKey: 'Electronics'
         }
     },
     methods: {
@@ -27,7 +27,7 @@ export default {
                 data: {
                     key: _key
                 }
-            })
+            });
         }
     }
 }
@@ -45,25 +45,32 @@ export default {
 }
 
 .tab-item {
-    width: 375px;
-    height: 96px;
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    height: 96px;
+    margin-left: 32px;
+    margin-right: 32px;
 }
 
 .tab-txt {
+    font-family: ProximaNova;
     margin-top: 38px;
-    width: 100px;
     text-align: center;
     font-size: 24px;
     line-height: 28px;
     margin-bottom: 8px;
+    color: #000;
+}
+
+.tab-txt-active{
+    font-weight: bold;
+    color: #EF8A31;
 }
 
 .tab-underline-active {
     background-color: #EF8A31;
-    width: 52px;
+    width: 42px;
     height: 4px;
 }
 

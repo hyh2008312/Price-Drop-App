@@ -2,7 +2,7 @@
     <div class="wrapper" ref="header">
         <!--<home-header></home-header>-->
         <div class="status-bar"></div>
-        <div class="header" v-if="isHeaderBg">
+        <div class="header" v-if="!isHeaderBg">
             <div class="header-search" @click="jumpSearch">
                 <text class="header-icon iconfont">&#xe621;</text>
                 <text class="header-title">What are you looking for?</text>
@@ -12,7 +12,7 @@
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
         </div>
-        <div class="header-new" v-if="!isHeaderBg">
+        <div class="header-new" v-if="isHeaderBg">
             <div class="header-search-new" @click="jumpSearch">
                 <text class="header-icon-new iconfont">&#xe621;</text>
                 <text class="header-title-new">What are you looking for?</text>
