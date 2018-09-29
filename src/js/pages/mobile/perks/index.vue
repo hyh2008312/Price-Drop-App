@@ -481,7 +481,7 @@
                 })
             },
             getPoints () {
-                googleAnalytics.recordEvent('get Cash');
+                googleAnalytics.recordEvent('get Cash', '', '', 0);
                 if (!this.isCash && this.user && this.isFirstGet) {
                     this.show = true
                     this.requestP()
@@ -513,7 +513,7 @@
                         // this.$notice.alert({
                         //     message: res.amount
                         // })
-                        googleAnalytics.recordEvent('Cash Success');
+                        googleAnalytics.recordEvent('Cash Success', '', '', 0);
                     }).catch((res) => {
                         this.$notice.toast({
                             message: res
@@ -523,9 +523,9 @@
             },
 
             getSign () {
-                googleAnalytics.recordEvent('get Sign');
-                if (!this.signObj.isSign) {
-                    if (this.user) {
+                if (this.user) {
+                    googleAnalytics.recordEvent('get Sign', '', '', 0);
+                    if (!this.signObj.isSign) {
                         this.$fetch({
                             method: 'GET',
                             name: 'point.punch.clock',
@@ -544,19 +544,19 @@
                             this.$notice.toast({
                                 message: 'You’ve get ' + this.signObj.originalPoints + (this.signObj.signTimes * this.signObj.gradientPoints) + ' points successfully today!'
                             })
-                            googleAnalytics.recordEvent('sign Success');
+                            googleAnalytics.recordEvent('sign Success', '', '', 0);
                         }).catch((res) => {
                             this.$notice.toast({
                                 message: res
                             })
                         })
                     } else {
-                        this.redirectLogin()
+                        this.$notice.toast({
+                            message: 'These points will be available to claim tomorrow!'
+                        })
                     }
                 } else {
-                    this.$notice.toast({
-                        message: 'These points will be available to claim tomorrow!'
-                    })
+                    this.redirectLogin()
                 }
             },
             openRuler () {
