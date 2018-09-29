@@ -28,14 +28,14 @@
                     <div class="gd-img">
                         <preload class="gd-img-image" :src="i.mainImage"></preload>
                     </div>
-                    <text class="gd-txt">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
+                    <text class="gd-txt">-{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
                     <!--<text class="gd-txt"></text>-->
                 </div>
 
 
                 <div class="gd-tlt-bg">
                     <text class="gd-tlt">₹{{countPrice(i.unitPrice, i.discount)}}</text>
-                    <text class="gd-info">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
+                    <!--<text class="gd-info">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>-->
                 </div>
                 <text class="gd-price">₹{{i.saleUnitPrice}}</text>
             </div>
@@ -93,7 +93,7 @@ export default {
         },
         countOff (s, o) {
             if (o > 0) {
-                return Math.floor((o - s) / o * 100) + '% OFF'
+                return Math.floor((o - s) / o * 100) + '%'
             } else {
                 return ''
             }
@@ -252,15 +252,16 @@ export default {
     top: 0;
     left: 0;
     background-color: #00CFE3 ;
-    width: 66px;
-    height: 66px;
+    width: 80px;
+    height: 33px;
     font-size: 24px;
     font-weight: 700;
     color: #FFFFFF;
     letter-spacing: 0;
     text-align: center;
     line-height: 28px;
-    border-radius: 8px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
     padding-top: 4px;
 }
 .gd-img {
@@ -280,7 +281,7 @@ export default {
 .gd-tlt {
     font-size: 28px;
     font-weight: bold;
-    color: rgba(0,0,0,0.87);
+    color: #EF8A31;
     line-height: 34px;
 }
 

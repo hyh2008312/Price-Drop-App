@@ -467,6 +467,7 @@
                 this.$event.emit('changeTab', {
                     tab: 'home'
                 });
+                this.wxcMaskSetShareHidden()
             },
             redeemCard (id) {
                 this.$router.open({
