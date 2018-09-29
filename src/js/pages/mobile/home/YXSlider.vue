@@ -1,5 +1,5 @@
 <template>
-    <slider class="slider" auto-play="true" interval="5000">
+    <slider class="slider" auto-play="true" interval="5000" @change='change' :index="index">
         <div class="frame" v-for="img in imageList"  @click="jumpDetail(img)">
             <image class="image" resize="cover" :src="img.image"></image>
         </div>
@@ -8,7 +8,7 @@
 </template>
 <script>
 export default {
-    props: ['imageList'],
+    props: ['imageList', 'index'],
     data () {
         return {
             src: 'https://cdn.dribbble.com/users/179241/screenshots/1829868/nerfwarrior_dribbble.png'
@@ -39,6 +39,15 @@ export default {
                     tab: 'luckydraw'
                 });
             }
+        },
+        change (event) {
+            this.index = event.index;
+            this.$emit({
+                status: 'changeColor',
+                data: {
+                    color: this.imageList[event.index].avatar
+                }
+            })
         }
     }
 }
@@ -46,20 +55,20 @@ export default {
 <style scoped>
 
 .image {
-    width: 750px;
-    height: 333px;
+    width: 686px;
+    height: 303px;
 }
 
 .slider {
-    width: 750px;
-    height: 333px;
+    width: 686px;
+    height: 303px;
     overflow: hidden;
     border-radius: 16px;
 }
 
 .frame {
-    width: 750px;
-    height: 333px;
+    width: 686px;
+    height: 303px;
     position: relative;
     overflow: hidden;
     background-color: #fff;
@@ -67,7 +76,7 @@ export default {
 }
 
 .indicator {
-    width: 718px;
+    width: 686px;
     height: 12px;
     item-color: rgba(0,0,0,.24);
     item-selected-color: #EF8A31;

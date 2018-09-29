@@ -46,7 +46,7 @@
                                 return;
                             }
                             googleAnalytics.trackingScreen('Select Payment');
-                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount,
+                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount - resData.order.bonus,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
                                     googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm sdk success return', 0);

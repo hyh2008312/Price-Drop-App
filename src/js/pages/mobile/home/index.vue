@@ -2,7 +2,7 @@
     <div class="wrapper" ref="header">
         <!--<home-header></home-header>-->
         <div class="status-bar"></div>
-        <div class="header" v-if="!isHeaderBg">
+        <div class="header" v-if="!isHeaderBg" :style="{ backgroundColor: bgColor}">
             <div class="header-search" @click="jumpSearch">
                 <text class="header-icon iconfont">&#xe621;</text>
                 <text class="header-title">What are you looking for?</text>
@@ -11,8 +11,9 @@
                 <text class="box-txt-icon iconfont">&#xe753;</text>
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
+
         </div>
-        <div class="header-new" v-if="isHeaderBg">
+        <div class="header-new" :style="{visibility : isHeaderBg? 'visible': 'hidden'}">
             <div class="header-search-new" @click="jumpSearch">
                 <text class="header-icon-new iconfont">&#xe621;</text>
                 <text class="header-title-new">What are you looking for?</text>
@@ -22,8 +23,11 @@
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
         </div>
+        <div class="slider-wrap-1">
+            <div class="slider-bg-1" :style="{ backgroundColor: bgColor}"></div>
+        </div>
         <div :style="height" class="box">
-            <suggest :isHeaderBg="isHeaderBg" @colorChange="colorChange"></suggest>
+            <suggest :isHeaderBg="isHeaderBg" @colorChange="colorChange" @bannerColor="bannerColor"></suggest>
         </div>
     </div>
 </template>
@@ -66,8 +70,21 @@ export default {
             headAni: false,
             unread: 0,
             isFirstLoad: false,
-            isHeaderBg: false
+            isHeaderBg: false,
+            bgColor: '#EF8A31'
         }
+    },
+    computed: {
+        bgColor: {
+            get: function () {
+                return this.bgColor
+            },
+
+            set: function (v) {
+                this.bgColor = v
+            }
+        }
+
     },
     methods: {
         initGoogleAnalytics () {
@@ -180,6 +197,9 @@ export default {
         },
         colorChange (event) {
             this.isHeaderBg = event.data.isHeaderBg;
+        },
+        bannerColor (event) {
+            this.bgColor = event.data.bgColor;
         }
     }
 }

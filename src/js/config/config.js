@@ -56,5 +56,6 @@ export const apis = {
     'point.whether.cashing.prize': '/point/whether/cashing/prize/',
     'point.punch.clock': '/point/punch/clock/',
     'point.sign.times': '/point/sign/times/',
-    'point.cashing.amount': '/point/cashing/amount/'
+    'point.cashing.amount': '/point/cashing/amount/',
+    'product.category.product.list': '/product/category/product/list/'
 }

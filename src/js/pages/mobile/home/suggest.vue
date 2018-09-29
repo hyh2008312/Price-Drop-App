@@ -1,11 +1,10 @@
 <!--suppress ALL -->
 <template>
-    <div class="wrapper">
-        <list offset-accuracy="10" loadmoreoffset="400" @scroll="scrollHandler" @loadmore="onLoadingMore" v-if="hasWifi" >
+    <div class="app-wrapper">
+        <list class="transparent" offset-accuracy="10" loadmoreoffset="400" @scroll="scrollHandler" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="slider-wrap">
-                <div class="slider-bg-1"></div>
-                <yx-slider class="slider-container" :imageList="YXBanners"></yx-slider>
+                <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor"></yx-slider>
             </cell>
             <cell class="cell-top"></cell>
             <cell>
@@ -36,7 +35,7 @@
             <cell class="cell-button">
                 <text> </text>
             </cell>
-            <cell v-if="activity">
+            <cell class="cell-button" v-if="activity">
                 <block-2 :goodsList="activity" :time="time" class="cell-margin-button"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
@@ -48,6 +47,7 @@
             <cell v-for="item in products" :ref="item.name">
                 <block-8 :item="item" ></block-8>
             </cell>
+            <cell class="cell-button"></cell>
             <cell v-if="goods3.length > 0">
                 <text class="home-title">Featured</text>
             </cell>
@@ -216,13 +216,30 @@ export default {
                 data: {}
             }).then(resData => {
                 this.YXBanners = [...resData];
+                this.$notice.alert({
+                    message: this.YXBanners
+                })
                 this.refreshing = false;
                 this.refreshApiFinished();
+                this.$emit({
+                    status: 'bannerColor',
+                    data: {
+                        bgColor: this.YXBanners[0].avatar
+                    }
+                });
             }, error => {
                 if(error.status == 10) {
                     this.hasWifi = false;
                 }
             })
+        },
+        changeColor(event) {
+            this.$emit({
+                status: 'bannerColor',
+                data: {
+                    bgColor: event.data.color
+                }
+            });
         },
         getActivity() {
             this.$fetch({
@@ -243,6 +260,26 @@ export default {
         },
         getProductCategory() {
             this.products = PRODUCTS;
+            this.$fetch({
+                method: 'GET',
+                name: 'product.category.product.list',
+                data: {}
+            }).then(resData => {
+                for(let item of this.products) {
+                    for(let m of resData) {
+                        if(item.name == m.name) {
+                            item.id = m.id;
+                            if(m.product.length > 0) {
+                                item.goodsList = [...m.product];
+                            }
+                        }
+                    }
+                }
+            }, error => {
+                if(error.status == 10) {
+                    this.hasWifi = false;
+                }
+            });
         },
         getBlock4 () {
             this.block1.items = [];
@@ -422,7 +459,7 @@ export default {
 
                 for(let item of this.products) {
                     dom.getComponentRect(this.$refs[item.name][0], option => {
-                        if(option.size.top <= 254 && option.size.top > 96) {
+                        if(option.size.top <= 333 && option.size.top > 96) {
                             this.activeTab = item.name;
                         }
                     });

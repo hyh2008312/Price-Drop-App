@@ -129,6 +129,9 @@
             }
             this.$event.on('login', params => {
                 this.init()
+            });
+            this.$event.on('balanceUsed', params => {
+                this.init();
             })
         },
         destory () {

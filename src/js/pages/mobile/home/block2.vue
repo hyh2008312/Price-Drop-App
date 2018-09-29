@@ -45,7 +45,6 @@
 <script>
 import preload from '../common/preloadImg';
 import { WxcCountdown } from 'weex-ui';
-import { baseUrl } from '../../../config/apis'
 export default {
     components: {
         preload,
@@ -115,7 +114,6 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    padding-bottom: 16px;
 }
 
 .gd-top{

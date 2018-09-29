@@ -122,10 +122,13 @@ export default {
                 }
             }).then(resData => {
                 // 成功回调
-                if (resData.isCash) {
-                    this.balance = resData.amount;
+                this.balance = resData.amount;
+                if (this.order.bonus > 0) {
+                    this.checked = true;
                 }
-                this.isShowBalance = resData.isCash;
+                if (resData.amount > 0 && this.order.paymentAmount > 0) {
+                    this.isShowBalance = true;
+                }
             }, error => {
                 // 错误回调
                 this.$notice.toast({

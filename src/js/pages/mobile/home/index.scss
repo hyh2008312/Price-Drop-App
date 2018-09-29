@@ -10,7 +10,7 @@ body {
   width: 750px;
   height: 112px;
   overflow: hidden;
-  background-color: #1842B6;
+  background-color: #EF8A31;
   flex-direction: row;
   justify-content: start;
   align-items: center;
@@ -48,7 +48,7 @@ body {
   width: 750px;
   height: 112px;
   overflow: hidden;
-  background-color: #fff;
+  background-color: #ffffff;
   flex-direction: row;
   justify-content: start;
   align-items: center;
@@ -91,7 +91,11 @@ body {
 }
 
 .app-wrapper {
-  background-color: #f1f1f1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .r-box {
@@ -120,7 +124,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #f1f1f1;
+  background-color: #fff;
 }
 
 .wrapper-bottom{
@@ -143,6 +147,7 @@ body {
 
 .cell-button {
   padding-bottom: 16px;
+  background-color: #f1f1f1;
 }
 
 .cell-margin-button {
@@ -179,6 +184,17 @@ body {
   align-items: start;
   width: 750px;
   height: 319px;
+  position: relative;
+}
+
+.slider-wrap-1 {
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  width: 750px;
+  height: 319px;
+  position: absolute;
+  top: 160px;
   background-color: #fff;
 }
 
@@ -209,7 +225,7 @@ body {
   height: 600px;
   border-bottom-left-radius: 760px;
   border-bottom-right-radius: 760px;
-  background-color: #1842B6;
+  background-color: #EF8A31;
   left: -385px;
 }
 
@@ -218,6 +234,10 @@ body {
   left: 0;
   right: 0;
   width: 750px;
+}
+
+.transparent{
+  background-color: transparent;
 }
 
 .slider{
