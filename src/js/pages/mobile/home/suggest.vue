@@ -42,9 +42,8 @@
             <cell class="cell-button" v-if="false">
                 <block-5 :logo="block5.items"></block-5>
             </cell>
-            <cell ref="tab"></cell>
             <header>
-                <tab @tabTo="onTabTo" :items="tabsItems"></tab>
+                <tab @tabTo="onTabTo" :items="tabsItems" :activeTab=""></tab>
             </header>
             <cell v-for="item in products" :ref="item.name">
                 <block-8 :item="item" ></block-8>
@@ -123,6 +122,7 @@ export default {
             activity: false,
             time: false,
             tabsItems: [],
+            activeTab: 'Electronics',
             goods3: [],
             showLoading: 'hide',
             tabKey: 'new',
@@ -400,8 +400,8 @@ export default {
             });
         },
         onTabTo (event) {
-            this.tabKey = event.data.key;
-            this.scrollToHeader(this.tabKey);
+            this.activeTab = event.data.key;
+            this.scrollToHeader(this.activeTab);
         },
         refreshApiFinished() {
             this.countApi++;
@@ -428,11 +428,14 @@ export default {
                 });
             }
 
-            if (e.contentSize.height + e.contentOffset.y < 1350) {
-                this.defaultTab = 'policy'
-            } else {
-                this.defaultTab = 'dec'
+            for(let item of this.products) {
+                dom.getComponentRect(this.$refs[item.name][0], option => {
+                    if(option.top <= 96) {
+                        this.activeTab = item.name;
+                    }
+                })
             }
+
         },
     }
 }

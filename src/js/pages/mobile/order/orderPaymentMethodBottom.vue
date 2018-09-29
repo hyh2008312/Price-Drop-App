@@ -25,7 +25,8 @@
                             method: 'POST', // 大写
                             name: 'payment.paytm.checksum',
                             data: {
-                                orderId: that.order.id
+                                orderId: that.order.id,
+                                bonus: this.checked ? this.checked : null
                             },
                             header: {
                                 needAuth: true
@@ -125,7 +126,8 @@
                             method: 'POST', // 大写
                             name: 'payment.razorpay.create',
                             data: {
-                                orderId: that.order.id
+                                orderId: that.order.id,
+                                bonus: this.checked ? this.checked : null
                             },
                             header: {
                                 needAuth: true

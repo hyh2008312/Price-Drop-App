@@ -1,8 +1,8 @@
 <template>
     <div class="wrapper">
         <div v-for="i in items" class="tab-item" @click="tabTo(i.key)">
-            <text class="tab-txt" :class="[pIndexKey === i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
-            <div class="tab-underline-active" v-if="pIndexKey === i.key"></div>
+            <text class="tab-txt" :class="[activeTab === i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
+            <div class="tab-underline-active" v-if="activeTab === i.key"></div>
         </div>
     </div>
 </template>
@@ -11,17 +11,14 @@ export default {
     props: {
         items: {
             type: Array
-        }
-    },
-    data () {
-        return {
-            pIndexKey: 'Electronics'
+        },
+        activeTab: {
+            type: String
         }
     },
     methods: {
         tabTo (_key) {
-            if (this.pIndexKey == _key) return;
-            this.pIndexKey = _key;
+            if (this.activeTab == _key) return;
             this.$emit('tabTo', {
                 status: 'tabTo',
                 data: {

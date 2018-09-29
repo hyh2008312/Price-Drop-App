@@ -28,7 +28,7 @@
             <cell>
                 <text class="title-2">Order#:{{order.number}}</text>
             </cell>
-            <cell>
+            <cell v-if="isShowBalance">
                 <div class="balance-bg">
                     <div class="balance-bg-left">
                         <text class="title-3">Wallet Balance</text>
@@ -91,7 +91,8 @@ export default {
                 'total': '0.00'
             },
             checked: false,
-            balance: 0
+            balance: 0,
+            isShowBalance: false
         }
     },
     methods: {
@@ -121,7 +122,10 @@ export default {
                 }
             }).then(resData => {
                 // 成功回调
-                this.balance = resData.amount;
+                if (resData.isCash) {
+                    this.balance = resData.amount;
+                }
+                this.isShowBalance = resData.isCash;
             }, error => {
                 // 错误回调
                 this.$notice.toast({

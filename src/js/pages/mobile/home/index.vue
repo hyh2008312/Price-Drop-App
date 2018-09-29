@@ -48,7 +48,6 @@ export default {
     created () {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 112 - 48) + 'px' };
-        this.getChannel();
         this.initGoogleAnalytics();
         this.$event.on('getRead', param => {
             this.unread = param.unread
@@ -107,33 +106,6 @@ export default {
             } else {
                 this.activeIndex = event.index;
             }
-        },
-        getChannel () {
-            this.channelList = [...CHANNELLIST];
-            this.$fetch({
-                method: 'GET', // 大写
-                name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
-                data: {}
-            }).then(data => {
-                this.channelList = [];
-                let index = 0;
-                const channel = CHANNELLIST;
-                this.channelList.push({
-                    name: 'Featured',
-                    width: 56,
-                    left: 0,
-                    id: '0'
-                });
-
-                for (const item of data) {
-                    index++;
-                    this.channelList.push({
-                        name: item.fullName,
-                        left: channel[index].left,
-                        id: item.id
-                    });
-                }
-            }, error => {})
         },
         changeHeader () {
             if (!this.headAni) {
