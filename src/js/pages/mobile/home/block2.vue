@@ -24,15 +24,15 @@
         </div>
         <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
             <div class="i-good" v-for="i in goodsList" :key="i.id" @click="jumpWeb(i.productId)">
-                <div class="gd-bg">
-                    <div class="gd-img">
-                        <preload class="gd-img-image" :src="i.mainImage"></preload>
+                <div style="height:310px;padding-top: 15px">
+                    <div class="gd-bg">
+                        <div class="gd-img">
+                            <preload class="gd-img-image" :src="i.mainImage"></preload>
+                        </div>
+                        <!--<text class="gd-txt"></text>-->
                     </div>
                     <text class="gd-txt">-{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
-                    <!--<text class="gd-txt"></text>-->
                 </div>
-
-
                 <div class="gd-tlt-bg">
                     <text class="gd-tlt">₹{{countPrice(i.unitPrice, i.discount)}}</text>
                     <!--<text class="gd-info">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>-->
@@ -111,11 +111,9 @@ export default {
 .iconfont {
     font-family: iconfont;
 }
-
 .wrapper {
     background-color: #fff;
 }
-
 .gd-top{
     width: 750px;
     height: 90px;
@@ -147,7 +145,7 @@ export default {
 }
 
 .tlt-box {
-    height: 375px;
+    height: 380px;
     width: 750px;
     display: flex;
     align-items: center;
@@ -212,7 +210,7 @@ export default {
 
 .box {
     width: 750px;
-    height: 394px;
+    height: 404px;
     padding-top: 8px;
     padding-left: 24px;
     padding-right: 24px;
@@ -230,7 +228,7 @@ export default {
     height: 288px;
     width: 288px;
     border-radius: 8px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: rgba(0,0,0,.08);
@@ -255,7 +253,6 @@ export default {
     font-size: 24px;
     font-weight: 700;
     color: #FFFFFF;
-    letter-spacing: 0;
     text-align: center;
     line-height: 28px;
     border-top-right-radius: 50%;
