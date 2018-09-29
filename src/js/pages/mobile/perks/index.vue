@@ -80,29 +80,31 @@
 
                 <div class="mid-card">
                    <div>
-                       <image  src="bmlocal://assets/perks/bg-1.jpg" style="width: 686px;height:490px"></image>
-                       <image class="center-img"  src="bmlocal://assets/perks/bg-3.png" style="width: 420px;height:247px"></image>
+                       <image  src="bmlocal://assets/perks/bg-1.jpg" style="width: 686px;height:520px"></image>
+                       <image class="center-img"  src="bmlocal://assets/perks/bg-3.png" style="width: 500px;height:294px"></image>
                    </div>
                     <div class="center-word">
                         <text :class="[signObj.isSign?'c-w-hs':'c-w-h',]">Check In & Earn Points</text>
-                        <div class="c-wb" v-if="signObj.isSign">
+                        <div class="c-wb" v-if="signObj.isSign" @click="openMyPoints">
                             <div style="width: 30px;height: 30px;border-radius:15px">
                                 <image :src="user.avatar" style="width: 30px;height: 30px"></image>
                             </div>
-                            <text class="c-wb-w">{{user.firstName}}</text>
-                            <image src="bmlocal://assets/gold-coin.png" style="width: 16px;height: 16px"></image>
+                            <!--<text class="c-wb-w">{{tranString('oioioioioi1234567')}}</text>-->
+                            <text class="c-wb-w">{{tranString(user.firstName)}}</text>
+                            <image src="bmlocal://assets/gold-coin.png" style="width: 16px;height: 16px;margin-right: 4px"></image>
                             <text class="c-wb-wn">{{centerPoints||user.points}}</text>
                             <text class="c-wb-wn iconfont">&#xe626;</text>
                         </div>
-
-                        <text class="c-w-r">Rules to Know</text>
+                        <text class="c-w-r" @click="openRulerPage">Rules</text>
+                    </div>
+                    <div class="over-flow-cwb" ref="getBtn">
+                        <div class="c-w-b"  @click="getSign">
+                            <text class="c-w-bw" v-if="signObj.isSign">Get {{signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints)}} Points Tomorrow</text>
+                            <text class="c-w-bw" v-if="!signObj.isSign">Claim {{(signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints))||0}} Daily Points</text>
+                            <text class="c-w-bwa iconfont" v-if="!signObj.isSign" >&#xe626;</text>
+                        </div>
                     </div>
 
-                    <div class="c-w-b" ref="getBtn" @click="getSign">
-                        <text class="c-w-bw" v-if="signObj.isSign">Get {{signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints)}} Points Tomorrow</text>
-                        <text class="c-w-bw" v-if="!signObj.isSign">Claim {{(signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints))||0}} Daily Points</text>
-                        <text class="c-w-bwa iconfont">&#xe626;</text>
-                    </div>
                 </div>
             </div>
 
@@ -113,13 +115,12 @@
                         <image class="top-right" src="bmlocal://assets/anger.png"></image>
                     </div>
 
-                    <!--<div class="notice-wrapper">-->
-                        <!--<div class="notice-bg">-->
-                            <!--<slider :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></slider>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                    <div>
+                        <text class="g-ch-w"  style="">More Ways to Earn Points</text>
+                    </div>
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
+
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Make a Successful Purchase</text>
                             <div class="count-div">
@@ -171,6 +172,7 @@
                             <div class="gift-card-txt">
                                 <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
                                 <text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>
+                                <text class=" iconfont">&#xe626;</text>
                             </div>
                         </div>
                     </div>
@@ -248,8 +250,9 @@
                 </div>
             </div>
         </WxcMask>
+
         <WxcMask
-            height="498"
+            height="535"
             width="592"
             border-radius="16"
             duration="200"
@@ -347,7 +350,7 @@
               signObj: {
                   isSign: '',
                   signTimes: '',
-                  gradientPoints: '',
+                  gradientPoints: 50,
                   isContinue: '',
                   originalPoints: 150
               },
@@ -464,6 +467,28 @@
                     type: 'PUSH'
                 })
             },
+            openRulerPage () {
+                this.$router.open({
+                    name: 'points.ruler',
+                    type: 'PUSH',
+                    params: {
+                        originalPoints: this.signObj.originalPoints,
+                        gradientPoints: this.signObj.gradientPoints
+                    }
+                })
+            },
+            openMyPoints () {
+                this.$router.open({
+                    name: 'my.points',
+                    type: 'PUSH',
+                })
+            },
+            openNewPage () {
+                this.$router.open({
+                    name: 'raffle',
+                    type: 'PUSH'
+                })
+            },
             redeemCard (id) {
                 this.$router.open({
                     name: 'redeem.card',
@@ -550,13 +575,6 @@
             openRuler () {
                 this.ruleShow = true
             },
-            openNewPage () {
-                this.$router.open({
-                    name: 'raffle',
-                    type: 'PUSH'
-                })
-            },
-
             loadingAni () {
                 for (let i = 0; i < this.loadingAR.length; i++) {
                     this.shake(this.$refs[this.loadingAR[i].ref], this.loadingAR[i].p[0], this.loadingAR[i].p[1]);
@@ -697,6 +715,13 @@
                 this.ruleShow = false;
                 this.secShow = false;
                 common.changeAndroidCanBack(true)
+            },
+            tranString (s) {
+                if (s.length > 8) {
+                    return s.substring(0, 8) + '...'
+                } else {
+                    return s
+                }
             }
         }
     }
@@ -981,7 +1006,7 @@
         position: absolute;
         bottom: 40px;
         left: 274px;
-        font-weight: 700;
+        font-size: 24px;
         text-decoration: underline;
     }
     .bg-tangle{
@@ -994,22 +1019,31 @@
     .center-img{
         position: absolute;
         top: 40px;
-        left: 120px;
+        left: 90px;
     }
     .center-word{
         position: absolute;
-        top: 108px;
+        top: 135px;
         left: 150px;
         /*background-color: salmon;*/
         flex-direction: column;
         justify-content: center;
         align-items: start;
     }
-    .c-w-b{
+    .over-flow-cwb{
         position: absolute;
-        top: 300px;
-        left: 150px;
-        width: 380px;
+        top: 340px;
+        left: 128px;
+        width: 435px;
+        padding:0 0px 10px 0px;
+        background-color: #DBAE12;
+        border-radius: 50%;
+    }
+    .c-w-b{
+        /*position: absolute;*/
+        /*top: 340px;*/
+        /*left: 128px;*/
+        /*width: 435px;*/
         background-color: #F6C312;
         flex-direction: row;
         justify-content: center;
@@ -1022,16 +1056,16 @@
     }
     .c-w-h{
         width: 200px;
-        font-size: 32px;
+        font-size: 36px;
         color: #FFFFFF;
         letter-spacing: 0;
         text-align: center;
         font-weight: bold;
-        margin-left: 80px;
+        margin-left: 90px;
     }
     .c-w-hs{
         /*width: 200px;*/
-        margin-left: 20px;
+        margin-left: 30px;
         font-size: 32px;
         color: #FFFFFF;
         letter-spacing: 0;
@@ -1039,29 +1073,31 @@
         font-weight: bold;
     }
     .c-w-r{
-        font-size: 20px;
+        font-size: 24px;
         color: #FFFFFF;
         letter-spacing: 0;
-        margin-top: 30px;
-        margin-left: 120px;
+        margin-top: 40px;
+        margin-left: 160px;
         text-align: center;
         text-decoration: underline;
     }
     .c-wb{
-        width: 160px;
+        /*width: 160px;*/
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         margin-left: 100px;
         margin-top: 18px;
+        /*background-color: black;*/
     }
     .c-wb-w{
-        font-size: 20px;
+        font-size: 24px;
         color: #FFFFFF;
         letter-spacing: 0;
+        padding: 0 4px;
     }
     .c-wb-wn{
-        font-size: 20px;
+        font-size: 24px;
         color: #FFFFFF;
         letter-spacing: 0;
         font-weight: 700;

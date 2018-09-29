@@ -97,6 +97,7 @@
         },
         methods: {
             getPoints () {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     name: 'point.detail', // 通过get 获取我自己的积分
@@ -112,6 +113,7 @@
                     this.availablePoints = res.availablePoints
                     this.pendingPoints = this.totalPoints - this.availablePoints
                     // this.pArr = []
+                    this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res

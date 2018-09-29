@@ -47,7 +47,7 @@
                     </div>
                     <div class="word">
                         <div class="title-time">
-                            <text class="title">Perks Notifications</text>
+                            <text class="title">Rewards Notifications</text>
                             <text class="time">{{tranDate(perk.created)}}</text>
                         </div>
 

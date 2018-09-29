@@ -216,7 +216,7 @@
                     this.title = 'Orders Notifications'
                     // this.params = 'order'
                 } else if (params.id == 3) {
-                    this.title = 'Perks Notifications'
+                    this.title = 'Rewards Notifications'
                     // this.params = 'perk'
                 } else if (params.id == 4) {
                     this.title = 'Refunds Notifications'

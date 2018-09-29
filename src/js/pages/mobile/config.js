@@ -19,7 +19,7 @@ export const tabConfig = [{
     visibility: 'hidden'
 }, {
     icon: '&#xe733;',
-    name: 'Perks',
+    name: 'Rewards',
     key: 'perks',
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/perks/index.js`,
     visibility: 'hidden'

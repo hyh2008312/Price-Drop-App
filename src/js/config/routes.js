@@ -110,6 +110,9 @@ export default {
     'perks': {
         url: '/pages/mobile/perks/index.js'
     },
+    'points.ruler': {
+        url: '/pages/mobile/perks/pointsRuler.js'
+    },
     'flash': {
         url: '/pages/mobile/flash-sale/index.js'
     },

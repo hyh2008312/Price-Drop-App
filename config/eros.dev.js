@@ -48,6 +48,7 @@ module.exports = {
         'js/pages/mobile/perks/index.vue',
         'js/pages/mobile/perks/redeemCard.vue',
         'js/pages/mobile/perks/pointsCardDetail.vue',
+        'js/pages/mobile/perks/pointsRuler.vue',
         'js/pages/mobile/flash-sale/index.vue',
         'js/pages/mobile/raffle/index.vue',
         'js/pages/mobile/raffle/raffleResult.vue',
