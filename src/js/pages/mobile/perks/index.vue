@@ -116,7 +116,7 @@
                     </div>
 
                     <div  class="mid-card-h">
-                        <text class="g-ch-w"  style="">More Ways to Earn Points</text>
+                        <text class="g-ch-w"  ref="dec" >More Ways to Earn Points</text>
                     </div>
                     <div class="mid-card-item1">
                         <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
@@ -276,7 +276,7 @@
 
                 </div>
                 <div class="mask-p-btn">
-                    <text class="mask-p-btnw" v-if="user.pointsAvailable<miniPoints">Earn More Points</text>
+                    <text class="mask-p-btnw" v-if="user.pointsAvailable<miniPoints" @click="scroller">Earn More Points</text>
                     <text class="mask-p-btnw" v-if="user.pointsAvailable>=miniPoints" @click="requestP()">Get Cash Bonus Now</text>
                 </div>
             </div>
@@ -287,6 +287,7 @@
 
 <script>
     const animation = weex.requireModule('animation')
+    const dom = weex.requireModule('dom');
     import slider from './slider';
     import { WxcMask } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
@@ -369,6 +370,7 @@
                 this.getSignTime()
                 this.setTime()
                 this.shakeBtn()
+                googleAnalytics.trackingScreen('perks');
                 // this.$notice.alert({
                 //     message: this.user
                 // })
@@ -479,6 +481,7 @@
                 })
             },
             getPoints () {
+                googleAnalytics.recordEvent('get Cash', '', '', 0);
                 if (!this.isCash && this.user && this.isFirstGet) {
                     this.show = true
                     this.requestP()
@@ -510,6 +513,7 @@
                         // this.$notice.alert({
                         //     message: res.amount
                         // })
+                        googleAnalytics.recordEvent('Cash Success', '', '', 0);
                     }).catch((res) => {
                         this.$notice.toast({
                             message: res
@@ -519,8 +523,9 @@
             },
 
             getSign () {
-                if (!this.signObj.isSign) {
-                    if (this.user) {
+                if (this.user) {
+                    googleAnalytics.recordEvent('get Sign', '', '', 0);
+                    if (!this.signObj.isSign) {
                         this.$fetch({
                             method: 'GET',
                             name: 'point.punch.clock',
@@ -539,18 +544,19 @@
                             this.$notice.toast({
                                 message: 'You’ve get ' + this.signObj.originalPoints + (this.signObj.signTimes * this.signObj.gradientPoints) + ' points successfully today!'
                             })
+                            googleAnalytics.recordEvent('sign Success', '', '', 0);
                         }).catch((res) => {
                             this.$notice.toast({
                                 message: res
                             })
                         })
                     } else {
-                        this.redirectLogin()
+                        this.$notice.toast({
+                            message: 'These points will be available to claim tomorrow!'
+                        })
                     }
                 } else {
-                    this.$notice.toast({
-                        message: 'These points will be available to claim tomorrow!'
-                    })
+                    this.redirectLogin()
                 }
             },
             openRuler () {
@@ -690,7 +696,14 @@
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
             },
-
+            scroller () {
+                this.secShow = false
+                const el = this.$refs.dec
+                dom.scrollToElement(el, { offset: -140 })
+                // this.$nextTick(() => {
+                //     dom.scrollToElement(this.$refs['tab'], { animated: false })
+                // })
+            },
             wxcMaskSetShareHidden () {
                 this.show = false;
                 this.ruleShow = false;

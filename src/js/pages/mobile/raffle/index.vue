@@ -115,6 +115,7 @@
 </template>
 <script>
     const common = weex.requireModule('CommonUtils');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { WxcEpSlider, WxcPanItem, WxcMask, WxcPopup } from 'weex-ui';
     import NewS from './test'
     import CenterCard from './centerCard'
@@ -229,6 +230,7 @@
                    this.redirectLogin()
                 } else {
                     this.show = true
+                    googleAnalytics.recordEvent('Join Raffle', '', '', 0);
                 }
                 common.changeAndroidCanBack(false);
             },
@@ -378,6 +380,7 @@
                         //     message: res.imageSet
                         // })
                         this.$event.emit('raffle')
+                        googleAnalytics.recordEvent('Join Raffle Success', '', '', 0);
                         this.wxcMaskSetShareHidden()
                     }).catch((res) => {
                         // this.$notice.loading.hide();
