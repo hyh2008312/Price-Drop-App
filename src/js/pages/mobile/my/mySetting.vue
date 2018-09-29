@@ -41,7 +41,7 @@
 
 <script>
     import header from './header';
-
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const commonUtils = weex.requireModule('CommonUtils');
     import { WxcDialog } from 'weex-ui';
 
@@ -112,6 +112,7 @@
                 })
             },
             logOut () {
+                googleAnalytics.recordEvent('logOut');
                 const self = this
                 this.$storage.deleteSync('user')
                 this.$storage.deleteSync('token')
