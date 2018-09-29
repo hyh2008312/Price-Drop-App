@@ -230,7 +230,7 @@
                    this.redirectLogin()
                 } else {
                     this.show = true
-                    googleAnalytics.recordEvent('Join Raffle');
+                    googleAnalytics.recordEvent('Join Raffle', '', '', 0);
                 }
                 common.changeAndroidCanBack(false);
             },
@@ -380,7 +380,7 @@
                         //     message: res.imageSet
                         // })
                         this.$event.emit('raffle')
-                        googleAnalytics.recordEvent('Join Raffle Success');
+                        googleAnalytics.recordEvent('Join Raffle Success', '', '', 0);
                         this.wxcMaskSetShareHidden()
                     }).catch((res) => {
                         // this.$notice.loading.hide();
