@@ -2,7 +2,6 @@
     <div class="wrapper">
         <div v-for="(i) in items" :key="i.key" class="tab-item" @click="tabTo(i.key)">
             <text class="tab-txt" :class="[pIndexKey === i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
-            <div class="tab-underline" v-if="pIndexKey !== i.key"></div>
             <div class="tab-underline-active" v-if="pIndexKey === i.key"></div>
         </div>
     </div>
@@ -40,7 +39,7 @@ export default {
     height: 96px;
     width: 750px;
     flex-direction: row;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
 }
@@ -48,34 +47,24 @@ export default {
 .tab-item {
     width: 375px;
     height: 96px;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
 
 .tab-txt {
-    margin-top: 10px;
+    margin-top: 38px;
     width: 100px;
     text-align: center;
     font-size: 24px;
-    line-height: 34px;
-    padding-bottom: 4px;
-}
-.tab-txt-active{
-    color: #EF8A31;
-    font-weight: bold;
-}
-.tab-underline{
-    width: 56px;
-    height: 6px;
-    background-color: #fff;
-    border-radius: 4px;
+    line-height: 28px;
+    margin-bottom: 8px;
 }
 
 .tab-underline-active {
     background-color: #EF8A31;
-    width: 56px;
-    height: 6px;
-    border-radius: 4px;
+    width: 52px;
+    height: 4px;
 }
 
 </style>

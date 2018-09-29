@@ -43,7 +43,7 @@
                 <block-5 :logo="block5.items"></block-5>
             </cell>
             <cell ref="tab"></cell>
-            <header v-if="activity != false && false">
+            <header>
                 <tab @tabTo="onTabTo" :items="tabsItems"></tab>
             </header>
             <cell v-if="goods3.length > 0">
@@ -96,6 +96,7 @@ export default {
         'block-7': block7,
         noWifi
     },
+    props: ['isHeaderBg'],
     created () {
         this.init();
     },
