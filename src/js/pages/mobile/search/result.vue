@@ -150,6 +150,7 @@
                         return;
                     }
                     this.page = 1;
+                    this.length = 2;
                 }
                 if (this.page > this.length) {
                     this.$refs.refresh.refreshEnd();

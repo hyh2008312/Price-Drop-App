@@ -25,7 +25,7 @@
             </div>
             <div class="gb-center" @click="jumpWeb()">
                 <text class="gd-text">Total: </text>
-                <text class="gb-price-2">₹{{((order.paymentAmount * 100 - order.bonus * 100) / 100).toFixed(2)}}</text>
+                <text class="gb-price-2">₹{{order.paymentAmount}}</text>
             </div>
             <div class="gb-bottom" v-if="order.orderStatus == 'Unpaid' && order">
                 <div class="gb-bottom-left">

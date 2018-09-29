@@ -42,10 +42,7 @@ export default {
         },
         change (event) {
             this.index = event.index;
-            this.$notice.toast({
-                message: this.imageList
-            })
-            this.$emit({
+            this.$emit('changeColor', {
                 status: 'changeColor',
                 data: {
                     color: this.imageList[event.index].color

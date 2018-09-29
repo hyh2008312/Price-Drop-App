@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">₹{{((order.paymentAmount * 100 - (checked ? balance : 0 ) * 100) / 100).toFixed(2)}}</text>
+        <text class="od-text-1">₹{{((order.paymentAmount * 100 - (checked ? balance : 0 ) * 100 < 0 ? 0 : (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100)) / 100).toFixed(2)}}</text>
         <text class="od-button" @click="confirm">Pay Now</text>
     </div>
 </template>
@@ -25,8 +25,7 @@
                             method: 'POST', // 大写
                             name: 'payment.paytm.checksum',
                             data: {
-                                orderId: that.order.id,
-                                bonus: this.checked ? this.checked : null
+                                orderId: that.order.id
                             },
                             header: {
                                 needAuth: true
@@ -46,7 +45,7 @@
                                 return;
                             }
                             googleAnalytics.trackingScreen('Select Payment');
-                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount - resData.order.bonus,
+                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount - that.balance > 0 ? resData.order.paymentAmount - that.balance : 0,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
                                     googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm sdk success return', 0);
@@ -59,7 +58,8 @@
                                             data: {
                                                 paytmOrderId: data.orderId,
                                                 checksum: data.checkSumHash,
-                                                orderId: resData.order.id
+                                                orderId: resData.order.id,
+                                                bonus: that.checked ? that.checked : null
                                             },
                                             header: {
                                                 needAuth: true

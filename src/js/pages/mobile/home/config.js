@@ -48,6 +48,8 @@ export const CHANNELLIST = [{
     name: 'Shoes'
 }, {
     name: 'Home'
+}, {
+    name: 'Bags'
 }];
 
 export const CHANNELLIST1 = [{

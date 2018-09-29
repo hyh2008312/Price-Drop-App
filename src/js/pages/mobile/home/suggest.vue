@@ -9,7 +9,6 @@
             <cell class="cell-top"></cell>
             <cell>
                 <block-1 :category="category"></block-1>
-                <block-1 :category="category1"></block-1>
             </cell>
             <cell class="cell-top"></cell>
             <cell class="cell-top" v-if="false"></cell>
@@ -36,7 +35,7 @@
                 <text> </text>
             </cell>
             <cell class="cell-button" v-if="activity">
-                <block-2 :goodsList="activity" :time="time" class="cell-margin-button"></block-2>
+                <block-2 :goodsList="activity" :time="time"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
                 <block-5 :logo="block5.items"></block-5>
@@ -216,12 +215,9 @@ export default {
                 data: {}
             }).then(resData => {
                 this.YXBanners = [...resData];
-                this.$notice.alert({
-                    message: this.YXBanners
-                })
                 this.refreshing = false;
                 this.refreshApiFinished();
-                this.$emit({
+                this.$emit('bannerColor', {
                     status: 'bannerColor',
                     data: {
                         bgColor: this.YXBanners[0].color
@@ -234,7 +230,7 @@ export default {
             })
         },
         changeColor(event) {
-            this.$emit({
+            this.$emit('bannerColor', {
                 status: 'bannerColor',
                 data: {
                     bgColor: event.data.color

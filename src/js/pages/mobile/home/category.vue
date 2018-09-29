@@ -140,6 +140,7 @@
                         return;
                     }
                     this.page = 1;
+                    this.length = 2;
                 }
                 if (this.page > this.length) {
                     this.$refs.refresh.refreshEnd();
@@ -150,7 +151,7 @@
                 }
                 this.$fetch({
                     method: 'GET',
-                    name: 'product.customer.list',
+                    name: 'product.app.category.product',
                     data: {
                         cat: this.id,
                         page: this.page,
