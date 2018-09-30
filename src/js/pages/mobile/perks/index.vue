@@ -93,7 +93,7 @@
                             <!--<text class="c-wb-w">{{tranString(user.firstName)}}</text>-->
                             <!--<image src="bmlocal://assets/gold-coin.png" style="width: 16px;height: 16px;margin-right: 4px"></image>-->
                             <text class="c-wb-wn">Got </text>
-                            <text class="c-wb-wn">{{(signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints))}}</text>
+                            <text class="c-wb-wn">{{(signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints))-50}}</text>
                             <text class="c-wb-wn"> Points! </text>
                             <!--<text class="c-wb-wn iconfont">&#xe626;</text>-->
                         </div>
@@ -334,6 +334,7 @@
               },
               signT: '',
               stopShake: false,
+              topStopShake: false,
               isCash: false,
               isFirstGet: false,
               ruleShow: false,
@@ -409,6 +410,12 @@
                     this.isFirstGet = res.isFirst
                     this.miniPoints = res.points
                     this.points = res.amount
+                    if (this.isCash) {
+                        this.topStopShake = true
+                    } else {
+                        this.topStopShake = false
+
+                    }
                     // this.$notice.alert({
                     //     message: res
                     // })
@@ -519,6 +526,7 @@
                         setTimeout(() => {
                             this.shake2()
                         }, 500)
+                        this.topStopShake = true
                         this.$event.emit('getMyWallet')
                         // this.$notice.alert({
                         //     message: res.amount
@@ -588,7 +596,6 @@
                 }, 2000)
             },
             shake (_ref, _x, _y) {
-                // this.$notice.alert({ message: 'animation finished.' })
                 animation.transition(_ref, {
                     styles: {
                         transform: 'translate(' + _x + 'px, ' + _y + 'px)'
@@ -597,15 +604,17 @@
                     timingFunction: 'ease',
                     delay: 0 // ms
                 }, function () {
-                    animation.transition(_ref, {
-                        styles: {
-                            transform: 'translate(0px, 0px)'
-                        },
-                        duration: 1000, // ms
-                        timingFunction: 'ease',
-                        delay: 0 // ms
-                    })
-                })
+                    if (!this.topStopShake) {
+                        animation.transition(_ref, {
+                            styles: {
+                                transform: 'translate(0px, 0px)'
+                            },
+                            duration: 1000, // ms
+                            timingFunction: 'ease',
+                            delay: 0 // ms
+                        })
+                    }
+                }.bind(this))
             },
             shakeBtn () {
                 if (!this.stopShake) {
