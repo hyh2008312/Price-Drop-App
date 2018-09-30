@@ -123,9 +123,6 @@ export default {
             }).then(resData => {
                 // 成功回调
                 this.balance = resData.amount;
-                if (this.order.bonus > 0) {
-                    this.checked = true;
-                }
                 if (resData.amount > 0 && this.order.paymentAmount > 0) {
                     this.isShowBalance = true;
                 }

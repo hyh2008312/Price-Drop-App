@@ -25,7 +25,8 @@
                             method: 'POST', // 大写
                             name: 'payment.paytm.checksum',
                             data: {
-                                orderId: that.order.id
+                                orderId: that.order.id,
+                                bonus: that.checked ? that.checked : null
                             },
                             header: {
                                 needAuth: true
@@ -33,6 +34,10 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
+                            that.$notice.alert({
+                                message: resData
+                            });
+                            return;
                             if (resData.order.paymentAmount <= 0) {
                                 that.$router.finish();
                                 that.$router.open({
@@ -45,7 +50,7 @@
                                 return;
                             }
                             googleAnalytics.trackingScreen('Select Payment');
-                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.order.paymentAmount - that.balance > 0 ? resData.order.paymentAmount - that.balance : 0,
+                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.amount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
                                     googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm sdk success return', 0);
