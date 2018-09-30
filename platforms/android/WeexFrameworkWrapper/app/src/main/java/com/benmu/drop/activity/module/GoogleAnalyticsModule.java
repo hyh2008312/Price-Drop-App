@@ -13,6 +13,9 @@ import com.google.android.gms.analytics.Tracker;
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.common.WXModule;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+
 
 /**
  * google Analytics for web
@@ -67,8 +70,11 @@ public class GoogleAnalyticsModule extends WXModule {
             logger.logEvent(AppEventsConstants.EVENT_NAME_INITIATED_CHECKOUT, parameters);
             //Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_initiated_checkout", Toast.LENGTH_SHORT).show();
         }else if (AppEventsConstants.EVENT_NAME_PURCHASED.equals(recordType)){
-            logger.logEvent(AppEventsConstants.EVENT_NAME_PURCHASED, parameters);
-            //Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_purchase", Toast.LENGTH_SHORT).show();
+            logger.logPurchase(new BigDecimal(valueToSum), Currency.getInstance(currency));
+            //logger.logEvent(AppEventsConstants.EVENT_NAME_PURCHASED, parameters);
+            Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_purchase", Toast.LENGTH_SHORT).show();
+        }else if (AppEventsConstants.EVENT_NAME_ADDED_TO_CART.equals(recordType)){
+            logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_CART, parameters);
         }
     }
 }
