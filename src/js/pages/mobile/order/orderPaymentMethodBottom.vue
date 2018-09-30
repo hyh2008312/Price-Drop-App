@@ -34,10 +34,6 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            that.$notice.alert({
-                                message: resData
-                            });
-                            return;
                             if (resData.order.paymentAmount <= 0) {
                                 that.$router.finish();
                                 that.$router.open({
