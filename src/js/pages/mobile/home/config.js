@@ -70,18 +70,18 @@ export const PRODUCTS = [{
     goodsList: [{
         id: 1,
         mainImage: '',
-        unitPrice: '15.00',
-        saleUnitPrice: '150.00'
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }, {
         id: 1,
         mainImage: '',
-        unitPrice: '15.00',
-        saleUnitPrice: '150.00'
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }, {
         id: 1,
         mainImage: '',
-        unitPrice: '15.00',
-        saleUnitPrice: '150.00'
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }]
 }, {
     id: 1,
@@ -91,18 +91,18 @@ export const PRODUCTS = [{
     goodsList: [{
         id: 1,
         mainImage: '',
-        unitPrice: '15.00',
-        saleUnitPrice: '150.00'
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }, {
         id: 1,
         mainImage: '',
-        unitPrice: '15.00',
-        saleUnitPrice: '150.00'
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }, {
         id: 1,
         mainImage: '',
-        unitPrice: '15.00',
-        saleUnitPrice: '150.00'
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }]
 }, {
     id: 1,
