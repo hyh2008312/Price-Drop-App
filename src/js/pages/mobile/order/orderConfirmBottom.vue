@@ -66,11 +66,11 @@
                                     that.$event.emit('closePayment');
                                 }
                             });
-                            that.isFirst = true;
+                            that.isFirst = false;
                         }, error => {
+                            that.isFirst = false;
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            that.isFirst = true;
                             that.$notice.toast({
                                 message: error
                             });
@@ -108,11 +108,11 @@
                                     that.$event.emit('closePayment');
                                 }
                             });
-                            that.isFirst = true;
+                            that.isFirst = false;
                         }, error => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            that.isFirst = true;
+                            that.isFirst = false;
                             that.$notice.toast({
                                 message: error
                             });
@@ -154,11 +154,11 @@
                                     that.$event.emit('closePayment');
                                 }
                             });
-                            that.isFirst = true;
+                            that.isFirst = false;
                         }, error => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            that.isFirst = true;
+                            that.isFirst = false;
                             that.$notice.toast({
                                 message: error
                             });
@@ -196,10 +196,10 @@
                                 name: 'order',
                                 type: 'PUSH'
                             });
-                            that.isFirst = true;
+                            that.isFirst = false;
                         }, error => {
                             that.$notice.loading.hide();
-                            that.isFirst = true;
+                            that.isFirst = false;
                             that.$notice.toast({
                                 message: error
                             });
