@@ -408,6 +408,7 @@
                     this.isCash = res.isCash
                     this.isFirstGet = res.isFirst
                     this.miniPoints = res.points
+                    this.points = res.amount
                     // this.$notice.alert({
                     //     message: res
                     // })
