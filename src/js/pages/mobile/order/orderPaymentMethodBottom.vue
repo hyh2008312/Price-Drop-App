@@ -46,6 +46,7 @@
                                 return;
                             }
                             googleAnalytics.trackingScreen('Select Payment');
+                            const paymenAmount = resData.amount;
                             pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.amount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
@@ -66,6 +67,7 @@
                                                 needAuth: true
                                             }
                                         }).then(resData => {
+                                            googleAnalytics.facebookRecordEvent('fb_mobile_purchase', '', '', 'Rs', paymenAmount);
                                             that.$notice.loading.hide();
                                             that.$router.finish();
                                             that.$router.open({

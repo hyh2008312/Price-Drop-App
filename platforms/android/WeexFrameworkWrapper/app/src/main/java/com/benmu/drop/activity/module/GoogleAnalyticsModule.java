@@ -70,9 +70,10 @@ public class GoogleAnalyticsModule extends WXModule {
             logger.logEvent(AppEventsConstants.EVENT_NAME_INITIATED_CHECKOUT, parameters);
             //Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_initiated_checkout", Toast.LENGTH_SHORT).show();
         }else if (AppEventsConstants.EVENT_NAME_PURCHASED.equals(recordType)){
-            logger.logPurchase(new BigDecimal(valueToSum), Currency.getInstance(currency));
+
+            logger.logPurchase(new BigDecimal(valueToSum), Currency.getInstance("INR"));
             //logger.logEvent(AppEventsConstants.EVENT_NAME_PURCHASED, parameters);
-            Toast.makeText(mWXSDKInstance.getContext(), "fb_mobile_purchase", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mWXSDKInstance.getContext(), "valueToSum"+valueToSum, Toast.LENGTH_SHORT).show();
         }else if (AppEventsConstants.EVENT_NAME_ADDED_TO_CART.equals(recordType)){
             logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_CART, parameters);
         }
