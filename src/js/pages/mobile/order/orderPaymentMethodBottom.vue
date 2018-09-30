@@ -34,7 +34,7 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            if (resData.order.paymentAmount <= 0) {
+                            if (resData.amount <= 0) {
                                 that.$router.finish();
                                 that.$router.open({
                                     name: 'order.success',
