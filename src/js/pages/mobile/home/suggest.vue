@@ -263,7 +263,7 @@ export default {
             }).then(resData => {
                 for(let item of this.products) {
                     for(let m of resData) {
-                        if(item.name == m.name) {
+                        if(item.value == m.name) {
                             item.id = m.id;
                             if(m.product.length > 0) {
                                 item.goodsList = [...m.product];

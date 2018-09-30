@@ -1,8 +1,8 @@
 <template>
     <div class="wrapper">
         <div class="tlt-box" v-for="item in category" @click="jumpActivity(item)">
-            <image class="tlt-image"  v-if="item.name" :src="'bmlocal://assets/category_' + item.name.toLowerCase() + '.png'"></image>
-            <text class="tlt-bg">{{item.name == 'Electronic'?'Electronics' : item.name}}</text>
+            <image class="tlt-image"  v-if="item.name" :src="'bmlocal://assets/category_' + (item.name == 'Electronic'? 'electronics':item.name.toLowerCase()) + '.png'"></image>
+            <text class="tlt-bg">{{item.name == 'Electronic' ?'Electronics' : item.name}}</text>
         </div>
     </div>
 </template>

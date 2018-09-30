@@ -3,7 +3,7 @@
         <div class="state"></div>
         <div class="navigation">
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
-            <text class="title">{{name}}</text>
+            <text class="title">{{name == 'Electronic' ? 'Electronics': name}}</text>
         </div>
         <list class="main-list" ref="list" offset-accuracy="10" loadmoreoffset="400"
                    @loadmore="onLoadingMore">
