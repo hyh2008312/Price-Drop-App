@@ -1,11 +1,11 @@
 <template>
     <div class="wrapper">
 
-        <div class="i-good" v-for="i in goods" :key="i.id" >
+        <div class="i-good" v-for="i in goods" :key="i.id"  @click="openNewDetail(i.id)">
             <div class="gd-bg">
-            <div class="gd-img">
-                <preload class="gd-img-image" :src="i.mainImage"></preload>
-            </div>
+                <div class="gd-img">
+                    <preload class="gd-img-image" :src="i.mainImage"></preload>
+                </div>
             <!--<text class="gd-txt">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}} 111</text>-->
             <!--<text class="gd-txt">11111111</text>-->
             <!--<text class="gd-txt"></text>-->
@@ -43,6 +43,15 @@
                 } else {
                     return ''
                 }
+            },
+            openNewDetail (id) {
+                this.$router.open({
+                    name: 'goods.details',
+                    type: 'PUSH',
+                    params: {
+                        id: id
+                    }
+                })
             }
         }
     }
