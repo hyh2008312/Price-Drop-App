@@ -64,13 +64,13 @@
                             <text class="t-cm-ca iconfont">&#xe626;</text>
                         </div>
                         <div class="t-cm-cr" v-if="isCash" >
-                            <text class="t-cm-cwr">Get Your Next Gift Tomorrow</text>
+                            <text class="t-cm-cwr">Earned ₹ {{points}} Bonus!</text>
                             <text class="t-cm-car iconfont">&#xe6ed;</text>
                         </div>
                         <image class="t-cm-i" src="bmlocal://assets/perks/cup.png" ></image>
 
                     </div>
-                    <text class="t-cb" @click="openRuler">Details >></text>
+                    <text class="t-cb" @click="openRulerPage(1)">Rules >></text>
 
 
                 </div>
@@ -85,17 +85,19 @@
                    </div>
                     <div class="center-word">
                         <text :class="[signObj.isSign?'c-w-hs':'c-w-h',]">Check In & Earn Points</text>
-                        <div class="c-wb" v-if="signObj.isSign" @click="openMyPoints">
-                            <div style="width: 30px;height: 30px;border-radius:15px">
-                                <image :src="user.avatar" style="width: 30px;height: 30px"></image>
-                            </div>
-                            <!--<text class="c-wb-w">{{tranString('oioioioioi1234567')}}</text>-->
-                            <text class="c-wb-w">{{tranString(user.firstName)}}</text>
-                            <image src="bmlocal://assets/gold-coin.png" style="width: 16px;height: 16px;margin-right: 4px"></image>
-                            <text class="c-wb-wn">{{centerPoints||user.points}}</text>
-                            <text class="c-wb-wn iconfont">&#xe626;</text>
+                        <div class="c-wb" v-if="signObj.isSign" >
+                            <!--<div style="width: 30px;height: 30px;border-radius:15px">-->
+                                <!--<image :src="user.avatar" style="width: 30px;height: 30px"></image>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;<text class="c-wb-w">{{tranString('oioioioioi1234567')}}</text>&ndash;&gt;-->
+                            <!--<text class="c-wb-w">{{tranString(user.firstName)}}</text>-->
+                            <!--<image src="bmlocal://assets/gold-coin.png" style="width: 16px;height: 16px;margin-right: 4px"></image>-->
+                            <text class="c-wb-wn">Got </text>
+                            <text class="c-wb-wn">{{(signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints))}}</text>
+                            <text class="c-wb-wn"> Points! </text>
+                            <!--<text class="c-wb-wn iconfont">&#xe626;</text>-->
                         </div>
-                        <text class="c-w-r" @click="openRulerPage">Rules</text>
+                        <text class="c-w-r" @click="openRulerPage(2)">Rules</text>
                     </div>
                     <div class="over-flow-cwb" ref="getBtn">
                         <div class="c-w-b"  @click="getSign">
@@ -247,6 +249,7 @@
                    <text class="r-cw">4. The cash bonus can only be used for shopping, which cannot be withdrawn.</text>
                 </div>
                 <div>
+
                     <text style="text-align: right;color: #EF8A31;">OK</text>
                 </div>
             </div>
@@ -319,7 +322,7 @@
               secShow: false,
               giftBox: true,
               loginS: false,
-              points: '',
+              points: '00',
               miniPoints: '',
               centerPoints: '',
               signObj: {
@@ -445,22 +448,26 @@
                     type: 'PUSH'
                 })
             },
-            openRulerPage () {
+            openRulerPage (p) {
                 this.$router.open({
                     name: 'points.ruler',
                     type: 'PUSH',
                     params: {
                         originalPoints: this.signObj.originalPoints,
-                        gradientPoints: this.signObj.gradientPoints
+                        gradientPoints: this.signObj.gradientPoints,
+                        type: p
                     }
                 })
             },
-            openMyPoints () {
-                this.$router.open({
-                    name: 'my.points',
-                    type: 'PUSH',
-                })
+            openRuler () {
+                this.ruleShow = true
             },
+            // openMyPoints () {
+            //     this.$router.open({
+            //         name: 'my.points',
+            //         type: 'PUSH',
+            //     })
+            // },
             openNewPage () {
                 this.$router.open({
                     name: 'raffle',
@@ -561,9 +568,6 @@
                 } else {
                     this.redirectLogin()
                 }
-            },
-            openRuler () {
-                this.ruleShow = true
             },
             loadingAni () {
                 for (let i = 0; i < this.loadingAR.length; i++) {
@@ -992,7 +996,7 @@
         margin-top: 10px;
     }
     .t-cm-cwr{
-        margin-left: 80px;
+        margin-left: 130px;
         font-size: 24px;
         color: white;
         font-weight: 700;
@@ -1006,7 +1010,7 @@
     .t-cb{
         position: absolute;
         bottom: 40px;
-        left: 274px;
+        left: 304px;
         font-size: 24px;
         text-decoration: underline;
     }
@@ -1077,10 +1081,12 @@
         font-size: 24px;
         color: #FFFFFF;
         letter-spacing: 0;
-        margin-top: 40px;
-        margin-left: 160px;
+        margin-top: 25px;
+        margin-left: 145px;
         text-align: center;
         text-decoration: underline;
+        /*background-color: black;*/
+        padding: 15px;
     }
     .c-wb{
         /*width: 160px;*/

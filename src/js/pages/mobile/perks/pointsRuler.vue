@@ -2,7 +2,22 @@
     <div class="wrapper">
         <topic-header title="Rules to Know" leftBtn="icon"  ref="ref1" ></topic-header>
         <div class="blackheader"></div>
-        <div style=" height:1200px;background-color: #FFE9D5;margin-top: 160px">
+        <div v-if="type=1" class="overflow-box" >
+
+            <text class="first-word">1. The daily cash bonus will expire after 12:00 PM every day. </text>
+            <text class="second-word">Please spend your bonus before it expires!</text>
+            <text class="first-word">2. You can apply your cash bonus to your payment at the </text>
+            <text class="second-word">checkout page.</text>
+            <text class="first-word">3. You will be asked to spend 300 points to unlock your gift </text>
+            <text class="second-word">box after the first time.</text>
+            <text class="first-word">4. The cash bonus can only be used for shopping, which </text>
+            <text class="second-word">cannot be withdrawn.</text>
+
+            <!--<text class="second-word">have to start with {{originalPoints}} points a day again.  </text>-->
+
+        </div>
+
+        <div v-else class="overflow-box" >
 
             <text class="first-word">1. You can only check-in once a day.</text>
             <text class="first-word">2. You will earn 450 points a day from the 8th day to the 15th</text>
@@ -42,12 +57,14 @@
                 if (params) {
                     this.originalPoints = params.originalPoints
                     this.gradientPoints = params.gradientPoints
+                    this.type = params.type
                 }
             }
         },
         data () {
             return {
                 card: '',
+                type: false,
                 rowArr: [0, 1, 2, 3, 4, 5, 6, 7],
                 originalPoints: '',
                 gradientPoints: ''
@@ -74,6 +91,11 @@
         width: 750px;
         height: 48px;
         background-color: black;
+    }
+    .overflow-box{
+        height:1200px;
+        background-color: #FFE9D5;
+        margin-top: 160px
     }
     .first-word{
         margin-left: 32px;
