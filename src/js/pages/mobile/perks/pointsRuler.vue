@@ -2,7 +2,7 @@
     <div class="wrapper">
         <topic-header title="Rules to Know" leftBtn="icon"  ref="ref1" ></topic-header>
         <div class="blackheader"></div>
-        <div v-if="type=1" class="overflow-box" >
+        <div v-if="type==1" class="overflow-box" >
 
             <text class="first-word">1. The daily cash bonus will expire after 12:00 PM every day. </text>
             <text class="second-word">Please spend your bonus before it expires!</text>
@@ -17,7 +17,7 @@
 
         </div>
 
-        <div v-else class="overflow-box" >
+        <div v-if="type==2" class="overflow-box" >
 
             <text class="first-word">1. You can only check-in once a day.</text>
             <text class="first-word">2. You will earn 450 points a day from the 8th day to the 15th</text>

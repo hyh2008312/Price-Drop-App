@@ -483,9 +483,9 @@
                 })
             },
             openIndex () {
-                this.$event.emit('changeTab', {
-                    tab: 'home'
-                });
+                // this.$event.emit('changeTab', {
+                //     tab: 'home'
+                // });
                 this.wxcMaskSetShareHidden()
             },
             redeemCard (id) {
