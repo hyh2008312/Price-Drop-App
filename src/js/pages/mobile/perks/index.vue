@@ -60,11 +60,11 @@
                     <div class="t-cm">
 
                         <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
-                            <text class="t-cm-cw" >Earn up to 200 cash bonus</text>
+                            <text class="t-cm-cw" >Earn up to ₹200 cash bonus</text>
                             <text class="t-cm-ca iconfont">&#xe626;</text>
                         </div>
                         <div class="t-cm-cr" v-if="isCash" >
-                            <text class="t-cm-cwr">Earned ₹ {{points}} Bonus!</text>
+                            <text class="t-cm-cwr">Earned ₹{{points}} Bonus!</text>
                             <text class="t-cm-car iconfont">&#xe6ed;</text>
                         </div>
                         <image class="t-cm-i" src="bmlocal://assets/perks/cup.png" ></image>
@@ -204,7 +204,7 @@
 
                         <div  style="height: 400px;" >
                             <div class="mask-tn" ref="giftW">
-                                <text class="mask-tnw">&nbsp;₹ {{points||0}}</text>
+                                <text class="mask-tnw">&nbsp;₹{{points||0}}</text>
                             </div>
                             <image v-if="giftBox" ref="giftH" class="g-b-h"   src="bmlocal://assets/perks/cover.png" ></image>
                             <image v-if="giftBox" ref="giftC" class="g-b-c" src="bmlocal://assets/perks/open-box.png"></image>
@@ -216,7 +216,7 @@
 
                     <text class="mask-t-w1">Congrats</text>
                     <div class="mask-t-w2-d">
-                        <text class="mask-t-w2">You just received</text><text class="mask-t-w2b"> ₹ {{points||0}} </text><text class="mask-t-w2">cash bonus!</text>
+                        <text class="mask-t-w2">You just received</text><text class="mask-t-w2b"> ₹{{points||0}} </text><text class="mask-t-w2">cash bonus!</text>
                     </div>
                     <text class="mask-t-w3">Your cash bonus will expire</text>
                     <text class="mask-t-w3b">by end of today. </text>
