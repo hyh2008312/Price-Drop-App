@@ -236,6 +236,7 @@
                 this.selectedSort = {};
                 this.selectedSort.text = item.text;
                 this.selectedSort.value = item.value;
+                this.$notice.loading.show();
                 this.getActivityProduct(true);
                 this.$refs.wxcCancelPopup.hide();
             }
