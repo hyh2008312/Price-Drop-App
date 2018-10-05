@@ -71,6 +71,7 @@
     }
 
     .wrapper {
+        font-family: ProximaNova;
         background-color: #fff;
         width: 750px;
     }

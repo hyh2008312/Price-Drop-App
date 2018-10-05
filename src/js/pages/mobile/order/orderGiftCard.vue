@@ -222,19 +222,19 @@
         justify-content: flex-start;
     }
     .gift-card-txt1{
-        font-family: ProximaNova-Bold;
+        font-family: ProximaNova;
         font-weight: 700;
         font-size: 24px;
         margin-bottom: 16px;
         color: rgba(0,0,0,0.87);
     }
     .gift-card-txt2{
-        font-family: ProximaNova-Regular;
+        font-family: ProximaNova;
         font-size: 24px;
         color: rgba(0,0,0,0.87);
     }
     .gift-card-txt3{
-        font-family: ProximaNova-Regular;
+        font-family: ProximaNova;
         font-size: 24px;
         color: #EF8A31;
     }
@@ -271,7 +271,7 @@
     }
     .empty-txt{
         opacity: 0.54;
-        font-family: ProximaNova-Bold;
+        font-family: ProximaNova;
         font-size: 24px;
         color: #000000;
     }

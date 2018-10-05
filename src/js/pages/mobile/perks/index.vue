@@ -93,7 +93,7 @@
                             <!--<text class="c-wb-w">{{tranString(user.firstName)}}</text>-->
                             <!--<image src="bmlocal://assets/gold-coin.png" style="width: 16px;height: 16px;margin-right: 4px"></image>-->
                             <text class="c-wb-wn">Got </text>
-                            <text class="c-wb-wn">{{(signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints))-50}}</text>
+                            <text class="c-wb-wn">{{(signObj.originalPoints + (((signObj.signTimes - 1) % 15) <= 6 ? ((signObj.signTimes - 1) % 15) : 6)*signObj.gradientPoints) }}</text>
                             <text class="c-wb-wn"> Points! </text>
                             <!--<text class="c-wb-wn iconfont">&#xe626;</text>-->
                         </div>
@@ -101,8 +101,8 @@
                     </div>
                     <div class="over-flow-cwb" ref="getBtn">
                         <div class="c-w-b"  @click="getSign">
-                            <text class="c-w-bw" v-if="signObj.isSign">Get {{signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints)}} Points Tomorrow</text>
-                            <text class="c-w-bw" v-if="!signObj.isSign">Claim {{(signObj.originalPoints+(signObj.signTimes*signObj.gradientPoints))||0}} Daily Points</text>
+                            <text class="c-w-bw" v-if="signObj.isSign">Get {{signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)* signObj.gradientPoints)}} Points Tomorrow</text>
+                            <text class="c-w-bw" v-if="!signObj.isSign">Claim {{(signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)*signObj.gradientPoints))||0}} Daily Points</text>
                             <text class="c-w-bwa iconfont" v-if="!signObj.isSign" >&#xe626;</text>
                         </div>
                     </div>
@@ -327,7 +327,7 @@
               centerPoints: '',
               signObj: {
                   isSign: '',
-                  signTimes: '',
+                  signTimes: 0,
                   gradientPoints: 50,
                   isContinue: '',
                   originalPoints: 150
@@ -414,7 +414,6 @@
                         this.topStopShake = true
                     } else {
                         this.topStopShake = false
-
                     }
                     // this.$notice.alert({
                     //     message: res
@@ -561,7 +560,7 @@
                             this.$storage.setSync('user', this.user)
                             // this.$storage.setSync(user.pointsAvailable, 'weex-eros')
                             this.$notice.toast({
-                                message: 'You’ve get ' + this.signObj.originalPoints + (this.signObj.signTimes * this.signObj.gradientPoints) + ' points successfully today!'
+                                message: 'You’ve get ' + (this.signObj.originalPoints + (((this.signObj.signTimes - 1) % 15) <= 6 ? ((this.signObj.signTimes - 1) % 15) : 6) * this.signObj.gradientPoints) + ' points successfully today!'
                             })
                             googleAnalytics.recordEvent('sign Success', '', '', 0);
                         }).catch((res) => {

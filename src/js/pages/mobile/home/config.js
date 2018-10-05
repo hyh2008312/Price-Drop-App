@@ -63,106 +63,86 @@ export const CHANNELLIST1 = [{
 }];
 
 export const PRODUCTS = [{
-    id: 1,
     name: 'Electronics',
     value: 'Electronic',
     src: 'http://image.getpricedrop.com/category/electronics.jpg',
     goodsList: [{
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }]
 }, {
-    id: 1,
     name: 'Men',
     value: 'Men',
     src: 'http://image.getpricedrop.com/category/men.jpg',
     goodsList: [{
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }]
 }, {
-    id: 1,
     name: 'Shoes',
     value: 'Shoes',
     src: 'http://image.getpricedrop.com/category/shoes.jpg',
     goodsList: [{
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }]
 }, {
-    id: 1,
     name: 'Home',
     value: 'Home',
     src: 'http://image.getpricedrop.com/category/home.jpg',
     goodsList: [{
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }]
 }, {
-    id: 1,
     name: 'Bags',
     value: 'Bags',
     src: 'http://image.getpricedrop.com/category/bag.jpg',
     goodsList: [{
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
     }, {
-        id: 1,
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'

@@ -31,7 +31,7 @@ export default {
     props: ['item'],
     methods: {
         jumpCategory (item) {
-            // if (!url) return;
+            if (!item.id) return;
             this.$router.open({
                 name: 'goods.category',
                 type: 'PUSH',
