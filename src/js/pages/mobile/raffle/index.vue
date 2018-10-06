@@ -143,7 +143,7 @@
             endTime: '',
             cardArr: false,
             page: 1,
-            pageSize: 20,
+            pageSize: 12,
             show: false,
             isLoading: false,
             isBottomShow: false,
