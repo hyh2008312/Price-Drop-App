@@ -410,3 +410,80 @@ body {
   width: 64px;
   height: 64px;
 }
+
+.gd-bg {
+  width: 750px;
+  height: 375px;
+  overflow: hidden;
+}
+
+.img-tlt-bg{
+  position: absolute;
+  left: 32px;
+  top: 48px;
+  height: 82px;
+  border-style: solid;
+  border-width: 6px;
+  border-color: rgba(255,255,255,0.8);
+}
+
+.img-inner-tlt{
+  font-family: ProximaNova;
+  font-size: 24px;
+  line-height: 54px;
+  padding: 0 14px;
+  font-weight: bold;
+  margin: 8px;
+  background-color: rgba(255,255,255,0.8);
+}
+
+.gd-button {
+  position: absolute;
+  right: 32px;
+  top: 150px;
+  width: 162px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+  border-radius: 24px;
+  background-color: #fff;
+}
+
+.gd-button-1{
+  font-family: ProximaNova;
+  font-size: 24px;
+  line-height: 28px;
+  color: #EF8A31;
+  font-weight: bold;
+}
+
+.gd-button-2{
+  font-family: ProximaNova;
+  font-size: 24px;
+  line-height: 28px;
+  color: #EF8A31;
+}
+
+.gd-img-image {
+  width: 750px;
+  height: 375px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gd-bg-mrt{
+  margin-top: -140px;
+  height: 316px;
+}
+
+.gd-bg-white{
+  background-color: #fff;
+}
+
+.gd-bg-white-gray{
+  background-color: #f1f1f1;
+  height: 16px;
+  width: 750px;
+}

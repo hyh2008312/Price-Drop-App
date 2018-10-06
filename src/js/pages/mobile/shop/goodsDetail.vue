@@ -1031,7 +1031,7 @@
                 })
             },
             jumpPerks () {
-                this.$router.setBackParams({ tab: 'perks' })
+                this.$router.setBackParams({ tab: 'rewards' })
                 this.$router.back({
                     length: 9999,
                     type: 'PUSH'

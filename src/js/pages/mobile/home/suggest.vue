@@ -43,10 +43,26 @@
             <header>
                 <tab @tabTo="onTabTo" :items="tabsItems" :activeTab="activeTab"></tab>
             </header>
-            <cell v-for="item in products" :ref="item.name">
-                <block-8 :item="item" ></block-8>
+            <cell class="gd-bg-white" v-for="item in products" :ref="item.name">
+                <list class="gd-bg">
+                    <cell class="gd-bg" @click="jumpCategory(item)">
+                        <preload class="gd-img-image" :src="item.src"></preload>
+                        <div class="img-tlt-bg">
+                            <text class="img-inner-tlt">{{item.name}}</text>
+                        </div>
+                        <div class="gd-button">
+                            <text class="gd-button-1">See More</text>
+                            <text class="gd-button-2"> ></text>
+                        </div>
+                    </cell>
+                </list>
+                <list class="gd-bg-mrt">
+                    <cell>
+                        <block-8 :item="item" ></block-8>
+                    </cell>
+                </list>
             </cell>
-            <cell class="cell-button"></cell>
+            <cell class="gd-bg-white-gray"></cell>
             <cell v-if="goods3.length > 0">
                 <text class="home-title">Featured</text>
             </cell>
@@ -79,6 +95,7 @@ import block6 from './block6';
 import block7 from './block7';
 import block8 from './block8';
 import { TAB, CHANNELLIST, CHANNELLIST1, PRODUCTS } from './config';
+import preload from '../common/preloadImg';
 
 const SCROLL_FULL_WIDTH = 750;
 const dom = weex.requireModule('dom');
@@ -97,7 +114,8 @@ export default {
         'block-6': block6,
         'block-7': block7,
         'block-8': block8,
-        noWifi
+        noWifi,
+        preload
     },
     props: ['isHeaderBg'],
     created () {
@@ -141,6 +159,17 @@ export default {
         }
     },
     methods: {
+        jumpCategory (item) {
+            if (!item.id) return;
+            this.$router.open({
+                name: 'goods.category',
+                type: 'PUSH',
+                params: {
+                    id: item.id,
+                    name: item.name
+                }
+            })
+        },
         noNoticeFinished (e) {
             if(this.backup.length > 0) {
                 const newArr = this.backup.splice(0, 4);

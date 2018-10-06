@@ -53,7 +53,7 @@ export default {
         },
         appeared (params, option) {
             this.order = params;
-            this.order.card = false;
+            this.card = false;
             if (this.order.proId == 'drop') {
                 this.order.shippingPrice = '0.00';
                 if (this.order.currentPrice - this.order.lowestPrice <= 0) {

@@ -51,12 +51,12 @@
         },
         name: 'myCard',
         eros: {
-            beforeAppear (a) {
+            appeared (a) {
                 this.cardMoney = a.cardMoney
                 if (a.card) {
                     this.selCard = a.card
                     this.selCardId = a.card.id  // 已经选择上一页传回来的
-                    this.flag = ''
+                    this.flag = a.card.flag
                 }
             }
         },
@@ -134,6 +134,7 @@
                     } else {
                         googleAnalytics.recordEvent('PayGiftCard', 'Choose a Gift Voucher', this.selCard.share, 0);
                         this.$router.back();
+                        this.card.flag = this.flag;
                         this.$router.setBackParams({
                             card: this.selCard
                         })
