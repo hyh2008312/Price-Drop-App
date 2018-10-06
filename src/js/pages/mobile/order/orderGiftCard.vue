@@ -51,12 +51,12 @@
         },
         name: 'myCard',
         eros: {
-            appeared (a) {
+            beforeAppear (a) {
                 this.cardMoney = a.cardMoney
                 if (a.card) {
                     this.selCard = a.card
                     this.selCardId = a.card.id  // 已经选择上一页传回来的
-                    this.flag = a.card.flag
+                    this.flag = ''
                 }
             }
         },
@@ -104,6 +104,9 @@
                     }
                     if (this.cardArr.length === 0) {
                         this.card = ''
+                    } else {
+                        this.selCard = this.cardArr[0]
+                        this.selCardId = this.cardArr[0].id
                     }
                 }).catch((res) => {
                     this.$notice.toast({
@@ -134,7 +137,6 @@
                     } else {
                         googleAnalytics.recordEvent('PayGiftCard', 'Choose a Gift Voucher', this.selCard.share, 0);
                         this.$router.back();
-                        this.card.flag = this.flag;
                         this.$router.setBackParams({
                             card: this.selCard
                         })
