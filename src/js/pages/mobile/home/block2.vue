@@ -22,9 +22,12 @@
             </div>
             <text class="iconfont tlt-tri">&#xe6ff;</text>
         </div>
-        <scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>
+
+        <!--<scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>-->
+        <div class="box">
+
             <div class="i-good" v-for="i in goodsList" :key="i.id" @click="jumpWeb(i.productId)">
-                <div style="height:310px;padding-top: 15px">
+                <div >
                     <div class="gd-bg">
                         <div class="gd-img">
                             <preload class="gd-img-image" :src="i.mainImage"></preload>
@@ -39,7 +42,10 @@
                 </div>
                 <text class="gd-price">₹{{i.saleUnitPrice}}</text>
             </div>
-        </scroller>
+        </div>
+
+        <!--</scroller>-->
+
     </div>
 </template>
 <script>
@@ -150,8 +156,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
+
 }
 
 .tlt-bg{
@@ -209,26 +214,20 @@ export default {
 }
 
 .box {
-    width: 750px;
-    height: 404px;
     padding-top: 8px;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 32px;
+    margin-bottom: 32px;
     flex-direction: row;
 }
 
 .i-good {
-    padding-left: 8px;
-    padding-right: 8px;
-    width: 304px;
+    width: 230px;
     align-items: center;
+    justify-content: start;
 }
 
 .gd-bg {
-    height: 288px;
-    width: 288px;
     border-radius: 8px;
-    /*overflow: hidden;*/
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: rgba(0,0,0,.08);
@@ -260,17 +259,16 @@ export default {
     padding-top: 4px;
 }
 .gd-img {
-    width: 284px;
-    height: 284px;
+    width: 208px;
+    height: 208px;
     border-radius: 8px;
     overflow: hidden;
 }
 .gd-img-image {
-    width: 284px;
-    height: 284px;
+    width: 208px;
+    height: 208px;
     border-radius: 8px;
     overflow: hidden;
-    position: relative;
 }
 
 .gd-tlt {
@@ -281,8 +279,8 @@ export default {
 }
 
 .gd-tlt-bg{
-    margin-top: 16px;
-    width: 288px;
+    width: 208px;
+    margin-top: 8px;
     flex-direction: row;
     align-items: center;
     justify-content: center;

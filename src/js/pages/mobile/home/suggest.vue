@@ -271,7 +271,7 @@ export default {
                 method: 'GET',
                 name: `flashsale.flash.customer.home`
             }).then((res) => {
-                this.activity = res.splice(0, 8);
+                this.activity = res.splice(0, 3);
                 this.time = new Date(this.activity[0].flashPromotionEndtime).getTime();
                 this.refreshApiFinished();
             }).catch((res) => {

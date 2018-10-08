@@ -230,7 +230,8 @@
                    this.redirectLogin()
                 } else {
                     this.show = true
-                    googleAnalytics.recordEvent('Join Raffle', '', '', 0);
+                    // googleAnalytics.recordEvent('Join Raffle', '', '', 0);
+                    googleAnalytics.recordEvent('LuckyDraw', 'JoinNow & WinPrize', '', 0);
                 }
                 common.changeAndroidCanBack(false);
             },
@@ -380,7 +381,8 @@
                         //     message: res.imageSet
                         // })
                         this.$event.emit('raffle')
-                        googleAnalytics.recordEvent('Join Raffle Success', '', '', 0);
+                        googleAnalytics.recordEvent('LuckyDraw', 'JoinNow & WinPrize Success', '', 0);
+
                         this.wxcMaskSetShareHidden()
                     }).catch((res) => {
                         // this.$notice.loading.hide();
