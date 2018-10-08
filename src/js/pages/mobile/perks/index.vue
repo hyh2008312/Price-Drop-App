@@ -354,7 +354,7 @@
           }
         },
         created () {
-            googleAnalytics.trackingScreen('Perks');
+            googleAnalytics.trackingScreen('Rewards');
             this.initPage()
             this.$event.on('logout', parmas => {
                 this.initPage()
@@ -374,7 +374,7 @@
                 this.getSignTime()
                 this.setTime()
                 this.shakeBtn()
-                googleAnalytics.trackingScreen('perks');
+                googleAnalytics.trackingScreen('Rewards');
                 // this.$notice.alert({
                 //     message: this.user
                 // })
@@ -497,7 +497,7 @@
                 })
             },
             getPoints () {
-                googleAnalytics.recordEvent('get Cash', '', '', 0);
+                googleAnalytics.recordEvent('Rewards', 'DailyGiftBox', 'EarnCashBonus', 0);
                 if (!this.isCash && this.user && this.isFirstGet) {
                     this.show = true
                     this.requestP()
@@ -530,7 +530,7 @@
                         // this.$notice.alert({
                         //     message: res.amount
                         // })
-                        googleAnalytics.recordEvent('Cash Success', '', '', 0);
+                        googleAnalytics.recordEvent('Rewards', 'DailyGiftBox', 'EarnCashBonusSuccess', 0);
                     }).catch((res) => {
                         this.$notice.toast({
                             message: res
@@ -541,7 +541,9 @@
 
             getSign () {
                 if (this.user) {
-                    googleAnalytics.recordEvent('get Sign', '', '', 0);
+                    // googleAnalytics.recordEvent('get Sign', '', '', 0);
+                    googleAnalytics.recordEvent('Rewards', 'CheckIn', 'CheckIn', 0);
+
                     if (!this.signObj.isSign) {
                         this.$fetch({
                             method: 'GET',
@@ -562,7 +564,9 @@
                             this.$notice.toast({
                                 message: 'You’ve get ' + (this.signObj.originalPoints + (((this.signObj.signTimes - 1) % 15) <= 6 ? ((this.signObj.signTimes - 1) % 15) : 6) * this.signObj.gradientPoints) + ' points successfully today!'
                             })
-                            googleAnalytics.recordEvent('sign Success', '', '', 0);
+                            // googleAnalytics.recordEvent('sign Success', '', '', 0);
+                            googleAnalytics.recordEvent('Rewards', 'CheckIn', 'CheckInSuccess', 0);
+
                         }).catch((res) => {
                             this.$notice.toast({
                                 message: res
@@ -862,12 +866,12 @@
     }
     .overflow-gift-card{
         width: 686px;
-        margin:  60px 32px 140px 32px;
+        margin:  30px 32px 140px 32px;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         background-color: white;
-        border-radius: 8px;
+        border-radius: 16px;
     }
     .g-ch-w{
         margin-bottom: 50px;
