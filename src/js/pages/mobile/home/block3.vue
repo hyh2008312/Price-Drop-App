@@ -129,7 +129,7 @@ export default {
 .gd-title{
     margin-top: 12px;
     opacity: 0.54;
-    font-family: ProximaNova-Regular;
+    font-family: ProximaNova;
     font-size: 20px;
     line-height: 24;
     color: rgba(0,0,0,0.87);

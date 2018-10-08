@@ -9,6 +9,10 @@ const utilFunc = {
             'fontFamily': 'iconfont',
             'src': 'url(\'https://at.alicdn.com/t/font_568686_xla332j7lv.ttf\')'
         });
+        domModule.addRule('fontFace', {
+            'fontFamily': 'ProximaNova',
+            'src': 'url(\'bmlocal://assets/font/Proxima—Nova-Rg-Regular.ttf\')'
+        });
     },
     setBundleUrl (url, jsFile) {
         const bundleUrl = url;

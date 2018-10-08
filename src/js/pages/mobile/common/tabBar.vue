@@ -80,7 +80,13 @@ export default {
     background-color: #fff;
 }
 
-.bar-txt,
+.bar-txt{
+    color: #666;
+    font-size: 48px;
+    text-align: center;
+    font-family: ProximaNova;
+}
+
 .bar-ic {
     color: #666;
     font-size: 48px;
