@@ -89,7 +89,7 @@
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             googleAnalytics.recordEvent('Payment', 'Add to Cart', 'drop', 0);
-                            googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
+                            googleAnalytics.facebookRecordEvent('fb_mobile_add_to_cart', that.order.productId, '', 'Rs', that.order.currentPrice);
                             const order = resData;
                             // that.$router.finish();
                             that.$router.open({
@@ -135,7 +135,7 @@
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             googleAnalytics.recordEvent('Payment', 'Add to Cart', 'flash sale', 0);
-                            googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, 'flash sale', 'Rs', that.order.currentPrice);
+                            googleAnalytics.facebookRecordEvent('fb_mobile_add_to_cart', that.order.productId, 'flash sale', 'Rs', that.order.currentPrice);
                             const order = resData;
                             // that.$router.finish();
                             that.$router.open({

@@ -73,7 +73,7 @@ public class GoogleAnalyticsModule extends WXModule {
 
             logger.logPurchase(new BigDecimal(valueToSum), Currency.getInstance("INR"));
             //logger.logEvent(AppEventsConstants.EVENT_NAME_PURCHASED, parameters);
-            Toast.makeText(mWXSDKInstance.getContext(), "valueToSum"+valueToSum, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mWXSDKInstance.getContext(), "valueToSum"+valueToSum, Toast.LENGTH_SHORT).show();
         }else if (AppEventsConstants.EVENT_NAME_ADDED_TO_CART.equals(recordType)){
             logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_CART, parameters);
         }

@@ -20,6 +20,7 @@
                     this.isFirst = true;
                     that.$notice.loading.show();
                     if (that.method == 'paytm') {
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'paytm', 'Rs', 0);
                         googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm', 0);
                         that.$fetch({
                             method: 'POST', // 大写
@@ -52,7 +53,6 @@
                                 resData.paytmChecksum, (data) => {
                                     googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm sdk success return', 0);
                                     if (data.code == 200) {
-                                        that.$router.finish();
                                         that.$notice.loading.show();
                                         that.$fetch({
                                             method: 'POST', // 大写
@@ -125,7 +125,8 @@
                             });
                         });
                     } else if (that.method == 'razorpay') {
-                        googleAnalytics.recordEvent('Razorpay', 'Pay Now Start', that.order.id, 0);
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'razorpay', 'Rs', 0);
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'razorpay sdk success return', 0);
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'payment.razorpay.create',
