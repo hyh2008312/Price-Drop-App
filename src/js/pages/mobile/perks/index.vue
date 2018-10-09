@@ -97,7 +97,7 @@
                             <text class="c-wb-wn"> Points! </text>
                             <!--<text class="c-wb-wn iconfont">&#xe626;</text>-->
                         </div>
-                        <text class="c-w-r" @click="openRulerPage(2)">Rules</text>
+                        <text class="c-w-r" @click="openRulerPage(2)">Rules >></text>
                     </div>
                     <div class="over-flow-cwb" ref="getBtn">
                         <div class="c-w-b"  @click="getSign">

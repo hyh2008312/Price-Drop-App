@@ -114,17 +114,26 @@
                 <div class="slogan" v-if="!isDrop">
                     <div class="slg">
                         <text class="i-slg-icon">&#xe714;</text>
-                        <text class="i-slg"> Quality Guaranteed </text>
+                        <text class="i-slg-1" > Quality  </text>
+                        <text class="i-slg-2" > Guaranteed </text>
                     </div>
 
                     <div class="slg">
-                        <text class="i-slg-icon">&#xe715;</text>
-                        <text class="i-slg"> 9 Days Return </text>
+                        <text class="i-slg-icon">&#xe751;</text>
+                        <text class="i-slg-1" > Worldwide  </text>
+                        <text class="i-slg-2"  > Brands </text>
                     </div>
 
                     <div class="slg">
                         <text class="i-slg-icon">&#xe713;</text>
-                        <text class="i-slg"> Secured Payments </text>
+                        <text class="i-slg-1" > Secured  </text>
+                        <text class="i-slg-2"  > Payments </text>
+                    </div>
+
+                    <div class="slg">
+                        <text class="i-slg-icon">&#xe715;</text>
+                        <text class="i-slg-1" > Easy </text>
+                        <text class="i-slg-2" > Return </text>
                     </div>
                 </div>
 
@@ -1332,16 +1341,25 @@
         font-family: iconfont;
         opacity: 0.54;
         text-align: center;
-        font-size: 50px;
+        font-size: 60px;
         margin-bottom:16px ;
     }
-    .i-slg{
+    .i-slg-1{
         font-size: 20px;
         opacity: 0.87;
         flex: 1;
         text-align: center;
         color: black;
-        margin-bottom: 48px;
+        margin-top: 14px;
+        margin-bottom: 7px
+    }
+    .i-slg-2{
+        font-size: 20px;
+        opacity: 0.87;
+        flex: 1;
+        text-align: center;
+        color: black;
+        margin-bottom: 48px
     }
     .learn-drop{
         width: 750px;
