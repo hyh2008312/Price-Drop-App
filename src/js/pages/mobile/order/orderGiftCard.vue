@@ -67,7 +67,7 @@
                 selCardId: '',
                 cardArr: false,
                 cardMoney: '',
-                flag: 0,
+                flag: '',
                 PS: '',
                 emptyImg: {
                     point100: 'bmlocal://assets/100-min-no.png',
@@ -105,8 +105,11 @@
                     if (this.cardArr.length === 0) {
                         this.card = ''
                     } else {
-                        this.selCard = this.cardArr[0]
-                        this.selCardId = this.cardArr[0].id
+                        if (this.cardArr[0].lowestAmount <= this.cardMoney){
+                            this.flag = 0;
+                            this.selCard = this.cardArr[0]
+                            this.selCardId = this.cardArr[0].id
+                        }
                     }
                 }).catch((res) => {
                     this.$notice.toast({
