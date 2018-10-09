@@ -116,6 +116,7 @@
     }
     .row1{
         font-size: 24px;
+        width: 328px;
         color: rgba(0,0,0,0.87);
         background-color: #FFF6ED;
         padding: 18px 132px;
@@ -129,6 +130,7 @@
     }
     .row1b{
         font-size: 24px;
+        width: 328px;
         color: rgba(0,0,0,0.87);
         background-color: #FFFFFF;
         padding: 18px 132px;
@@ -141,6 +143,7 @@
         border-right-color:#FFD9B7;
     }
     .rowl{
+        width: 328px;
         font-size: 24px;
         color: rgba(0,0,0,0.87);
         background-color: #FFFFFF;
@@ -155,6 +158,7 @@
     }
     .row2{
         font-size: 24px;
+        width: 328px;
         color: rgba(0,0,0,0.87);
         background-color: #FFFFFF;
         padding: 18px 132px;

@@ -439,9 +439,14 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
+                    // if (!res.isContinue) {
+                    //     this.signObj.isSign
+                    // }
                     this.signObj = res
                     if (this.signObj.isSign) {
                         this.stopShake = true
+                    } else {
+                        !this.signObj.isContinue ? this.signObj.signTimes = 0 : ''
                     }
                 }).catch((res) => {
                     this.$notice.toast({
