@@ -58,5 +58,6 @@ export const apis = {
     'point.sign.times': '/point/sign/times/',
     'point.cashing.amount': '/point/cashing/amount/',
     'product.category.product.list': '/product/category/product/list/',
-    'product.app.category.product': '/product/app/category/product/'
+    'product.app.category.product': '/product/app/category/product/',
+    'statistics.record.search.key': '/statistics/record/search/key/'
 }

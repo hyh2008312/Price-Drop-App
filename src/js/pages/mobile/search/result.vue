@@ -139,9 +139,9 @@
                 this.name = resData.key;
 
                 this.$notice.loading.show();
-                this.getActivityProduct(true, false);
+                this.getActivityProduct(true, false, true);
             },
-            getActivityProduct (isfirst, arrange) {
+            getActivityProduct (isfirst, arrange, isSearch) {
                 if (isfirst) {
                     if (!this.isFirstLoad) {
                         googleAnalytics.trackingScreen(`Search/${this.name}`);
@@ -174,6 +174,20 @@
                     if (isfirst) {
                         this.isFirstLoad = false;
                         this.goods = [];
+                        if (isSearch) {
+                            this.$fetch({
+                                method: 'POST',
+                                name: 'statistics.record.search.key',
+                                data: {
+                                    key: this.name,
+                                    productCount: data.count
+                                }
+                            }).then((res) => {
+                                this.$notice.alert({
+                                    message: res
+                                });
+                            });
+                        }
                     }
                     this.page++;
                     if (arrange) {

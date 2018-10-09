@@ -74,19 +74,19 @@
             },
             search (event) {
                 if (event.value) {
-                    this.key = event.value;
+                    this.key = event.value.replace(/(^\s*)|(\s*$)/g, '');
                     const index = this.searchList.findIndex((e) => {
                         return e == this.key;
                     }).toString();
                     if (index >= 0) {
                         this.searchList.splice(index, 1);
-                        this.searchList.unshift(event.value);
+                        this.searchList.unshift(this.key);
                     } else {
                         if (this.searchList.length == 6) {
                             this.searchList.pop();
-                            this.searchList.unshift(event.value);
+                            this.searchList.unshift(this.key);
                         } else {
-                            this.searchList.unshift(event.value);
+                            this.searchList.unshift(this.key);
                         }
                     }
                     this.$storage.setSync('search', this.searchList);
@@ -101,7 +101,7 @@
                         name: 'search.result',
                         type: 'PUSH',
                         params: {
-                            key: event.value
+                            key: this.key
                         }
                     });
                 }
@@ -112,13 +112,13 @@
                 else this.deletestatus = true;
             },
             searchKeywords (e) {
-                this.key = e;
+                this.key = e.replace(/(^\s*)|(\s*$)/g, '');
                 this.$router.finish();
                 this.$router.open({
                     name: 'search.result',
                     type: 'PUSH',
                     params: {
-                        key: e
+                        key: this.key
                     }
                 });
             },
