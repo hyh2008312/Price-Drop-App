@@ -95,7 +95,7 @@
             <div class="popup-receipt-container" @click="prevent($event)">
                 <text class="popup-delete-title">Once you confirm the receipt of your order, it will be marked as completed.</text>
                 <div class="popup-delete-bottom">
-                    <text class="popup-delete-button" @click="receiptOrderConfirm">Confirm Receipt</text>
+                    <text class="popup-delete-button" @click="receiptOrderConfirm">Confirm Delivery</text>
                     <text class="popup-delete-button-1" @click="closeReceiptPop">Not Yet</text>
                 </div>
             </div>
