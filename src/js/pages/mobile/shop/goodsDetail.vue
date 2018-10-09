@@ -269,7 +269,7 @@
                    @wxcPopupOverlayClicked="popupOverlayBottomClick"
                    pos="bottom"
                    ref="wxcRulerPopup"
-                   height="786">
+                   height="770">
             <div class="popup-ruler-content">
                 <div class="pr-c1">
                     <div class="r-p-t3">
@@ -1829,6 +1829,7 @@
     .popup-ruler-content{
         padding: 48px 32px;
         width: 750px;
+        height: 770px;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
         background-color: #fff;
