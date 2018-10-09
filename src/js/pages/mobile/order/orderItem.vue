@@ -56,7 +56,7 @@
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Shipped'">
                 <text class="od-button-1 gt-mr" @click="tracking">Track Package</text>
-                <text class="gd-button" @click="receipt">Confirm Receipt</text>
+                <text class="gd-button" @click="receipt">Confirm Delivery</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Canceled'">
                 <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
