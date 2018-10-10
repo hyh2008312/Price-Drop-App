@@ -238,20 +238,18 @@
 
                     <text class="popup-close" @click="popupCloseClick">&#xe632;</text>
                 </div>
-                <scroller  class="scroller">
-
+                <scroller  class="scroller" >
                     <div class="popup-bottom">
-                        <div v-for="(val, index) in goodsType" :key="index">
+                        <div v-for="(val, index) in goodsType" :key="index" >
                             <text class="popup-color">{{val.name}}</text>
-
-                            <div  class="popup-color-chd" >
+                            <scroller  class="popup-color-chd"  scroll-direction="horizontal" flex-direction="row" show-scrollbar="true">
                                 <text class="popup-color-chdname"
                                       v-for="(val1, key1) in val.value"
                                       :key="key1"
                                       :class="[val1.isActive ?'popup-color-chdname-active':'',
                                       val1.seldisable ?'popup-color-chdname-disable':'']"
                                       @click="clickColor(val1, val.value)">{{val1.value}}</text>
-                            </div>
+                            </scroller>
                         </div>
                     </div>
                 </scroller>
@@ -1596,24 +1594,30 @@
         padding-left: 32px;
         padding-bottom: 32px;
     }
-    .popup-bottom{
 
-    }
     .popup-color{
         font-size: 24px;
         font-weight: 700;
         margin-top: 27px;
         margin-left: 32px;
+    }
+    .popup-bottom{
+        flex-direction: column;
+        justify-content: center;
+        /*background-color: #689de5;*/
+
+        width: 750px;
 
     }
     .popup-color-chd{
         width: 750px;
-        font-weight: 700;
+        /*height: 200px;*/
         font-size: 24px;
-        margin-left: -16px;
+        /*margin-left: -16px;*/
         margin-top: 16px;
         flex-direction: row;
-        display: flex;
+        justify-content: start;
+        align-items: center;
     }
     .popup-color-chdname{
         font-size: 20px;
