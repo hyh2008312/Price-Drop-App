@@ -182,11 +182,7 @@
                                     key: this.name,
                                     productCount: data.count
                                 }
-                            }).then((res) => {
-                                this.$notice.alert({
-                                    message: res
-                                });
-                            });
+                            }).then((res) => {});
                         }
                     }
                     this.page++;
