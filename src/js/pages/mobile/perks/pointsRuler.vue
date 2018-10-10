@@ -27,9 +27,10 @@
                     <text class="rowl" v-if="i==7">Day {{i+1}} - Day 15</text>
                     <text :class="[index%2==0?'row1':'row1b']" v-if="" v-else >Day {{i+1}}</text>
 
-                    <text class="row2" v-if="i==7">{{originalPoints+(i-1)*gradientPoints}}</text>
 
-                    <text  :class="[index%2==0?'row1':'row1b']" v-else>{{originalPoints+i*gradientPoints}}</text>
+
+                    <text class="row2" v-if="i==7">{{originalPoints+(i-1)*gradientPoints}}</text>
+                    <text :class="[index%2==0?'row1':'row1b']" v-else>{{originalPoints+i*gradientPoints}}</text>
                 </div>
 
             </div>
@@ -165,5 +166,9 @@
         border-bottom-width:2px ;
         border-bottom-style: solid;
         border-bottom-color:#FFD9B7;
+
+        border-right-width:2px ;
+        border-right-style: solid;
+        border-right-color:#FFD9B7;
     }
 </style>

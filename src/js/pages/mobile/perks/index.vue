@@ -173,8 +173,12 @@
                             <image class="gift-card-img"  :src="i.image"></image>
                             <div class="gift-card-txt">
                                 <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
-                                <text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>
-                                <text class="gift-card-icon iconfont">&#xe626;</text>
+                                <div class="gift-card-txtr">
+
+                                    <text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>
+                                    <text class="gift-card-icon iconfont">&#xe626;</text>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -911,7 +915,7 @@
     .gift-card-txt{
         width: 594px;
         flex-direction: row;
-        justify-content: start;
+        justify-content: space-between;
         background-color: white;
         padding-top:26px ;
         padding-bottom:26px ;
@@ -924,17 +928,17 @@
         font-size: 24px;
         color: rgba(0,0,0,0.87);
     }
+    .gift-card-txtr{
+        flex-direction: row;
+        justify-content: space-between;
+    }
     .gift-card-txt2{
         font-family: ProximaNova-Regular;
         font-size: 24px;
-        padding-left: 80px;
-        padding-right: 10px;
         color: rgba(0,0,0,0.87);
-        /*background-color: #b4282d;*/
     }
     .gift-card-icon{
         color: #333333;
-        /*background-color: #EF8A31;*/
     }
     .count-div{
         display: flex;
