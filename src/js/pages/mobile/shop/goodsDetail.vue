@@ -45,7 +45,7 @@
                     <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
-                    <text class="price-name price-off" v-if="this.shipObj.priceItem === '0.00'">Free Shipping</text>
+                    <text class="price-name price-off" >Free Shipping</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->

@@ -75,7 +75,7 @@
 
             <div class="container-1">
                 <div class="item" v-if="drop==true"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">₹0.00</text>  </div>
-                <div class="item" v-if="drop==''"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">₹{{time.priceItem}}</text>  </div>
+                <div class="item" v-if="drop==''"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword" style="text-decoration: line-through;">₹{{time.priceItem}}</text>  </div>
                 <!--<div class="item"><text class="shipname">Shipping Cost:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">₹0.00</text>  </div>-->
                 <div class="item margin-btn"><text class="shipname">Shipping Carrier:</text>&nbsp;&nbsp;&nbsp;<text class="shipword">{{time.shippingName}}</text>  </div>
                 <div class="item"> <text class="shipname">Estimated Arrival:</text>&nbsp;&nbsp;&nbsp;<text class="shipword"> {{getNowDay(time.shippingTimeMin)}} - {{getNowDay(time.shippingTimeMax)}} </text> </div>
@@ -171,6 +171,7 @@
         font-weight: 700;
         line-height: 28px;
         color: #000000;
+
     }
     .container-1{
         margin-top: 48px;
