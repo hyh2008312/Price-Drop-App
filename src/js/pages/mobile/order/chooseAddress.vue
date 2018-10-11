@@ -52,9 +52,6 @@ export default {
         WxcMask
     },
     eros: {
-        backAppeared (params, options) {
-            this.getAddress()
-        },
         appeared (params, options) {
             if (params) {
                 this.source = params.source
@@ -67,8 +64,11 @@ export default {
         googleAnalytics.trackingScreen('My Address');
         this.getAddress();
         this.$event.on('login', params => {
-            this.getAddress()
-        })
+            this.getAddress();
+        });
+        this.$event.on('editAddress', params => {
+            this.getAddress();
+        });
     },
     destory () {
         this.$event.off('login')

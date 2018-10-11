@@ -31,7 +31,8 @@
                         }
                     }).then(resData => {
                         // 成功回调
-                        this.$router.finish()
+                        this.$event.emit('editAddress');
+                        this.$router.finish();
                     }, error => {
                         // 错误回调
                         this.$notice.toast({
@@ -48,7 +49,8 @@
                         }
                     }).then(resData => {
                         // 成功回调
-                        this.$router.finish()
+                        this.$event.emit('editAddress');
+                        this.$router.finish();
                     }, error => {
                         // 错误回调
                         this.$notice.toast({
