@@ -14,18 +14,18 @@
         </div>
         <div class="gb-box" v-if="order">
             <div class="gb-box-left">
-                <text class="gb-text-2">{{getYear(order.Date)}}</text>
-                <text class="gb-text-2">{{getMonth(order.Date)}}</text>
-                <text class="gb-text-3">{{getHour(order.Date)}}</text>
+                <text class="gb-text-2">{{getYear(order.DateTime)}}</text>
+                <text class="gb-text-2">{{getMonth(order.DateTime)}}</text>
+                <text class="gb-text-3">{{getHour(order.DateTime)}}</text>
             </div>
             <div class="gb-box-line"></div>
             <div class="gb-box-center">
-                <text class="iconfont gb-box-icon" v-if="order.checkpointStatus == 'delivered'">&#xe6fb;</text>
-                <div class="gb-icon" v-if="order.checkpointStatus == 'transit' || order.checkpointStatus == 'pickup' "></div>
+                <text class="iconfont gb-box-icon" v-if="order.Info == 'Delivered. Signed for by satter'">&#xe6fb;</text>
+                <div class="gb-icon" v-if="order.Info == 'Out for next station' || order.Info == 'In Transit' ||  order.Info == 'Arrived' ||  order.Info == 'Check in'"></div>
             </div>
             <div class="gb-box-right">
-                <text class="gb-text" :class="[order.checkpointStatus == 'transit'? 'gb-text-color': '']">{{order.StatusDescription}}</text>
-                <text class="gb-text-1" :class="[order.checkpointStatus == 'transit'? 'gb-text-color': '']">{{order.Details}}</text>
+                <text class="gb-text" :class="[order.Info == 'Out for next station' || order.Info == 'In Transit'? 'gb-text-color': '']">{{order.Info}}</text>
+                <text class="gb-text-1" :class="[order.Info == 'Out for next station' || order.Info == 'In Transit'? 'gb-text-color': '']">{{order.Place}}</text>
             </div>
         </div>
         <div class="gb-box" v-if="shippedTime">
@@ -53,7 +53,7 @@
                 <text class="iconfont gb-box-icon">&#xe6fb;</text>
             </div>
             <div class="gb-box-right">
-                <text class="gb-text">The manufacturer is preparing for your order now. Your products will be shipped to our warehouse in 2-3 days.</text>
+                <text class="gb-text">The manufacturer is preparing for your order now. Your products will be shipped to our warehouse in 3 days.</text>
             </div>
         </div>
         <div class="gb-box" v-if="paidTime">

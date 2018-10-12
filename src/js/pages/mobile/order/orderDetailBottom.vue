@@ -71,7 +71,8 @@
                     type: 'PUSH',
                     params: {
                         id: this.order.id,
-                        status: this.order.orderStatus
+                        status: this.order.orderStatus,
+                        carrierCode: this.order.carrierCode
                     }
                 })
             },
