@@ -20,7 +20,7 @@
             </div>
             <div class="gb-box-line"></div>
             <div class="gb-box-center">
-                <text class="iconfont gb-box-icon" v-if="order.Info == 'Delivered. Signed for by satter'">&#xe6fb;</text>
+                <text class="iconfont gb-box-icon" v-if="getDelivered(order.Info)">&#xe6fb;</text>
                 <div class="gb-icon" v-if="order.Info == 'Out for next station' || order.Info == 'In Transit' ||  order.Info == 'Arrived' ||  order.Info == 'Check in'"></div>
             </div>
             <div class="gb-box-right">
@@ -116,6 +116,13 @@
                 return (new Date(str).getHours() < 10 ? '0' + new Date(str).getHours() : new Date(str).getHours()) + ':' +
                     (new Date(str).getMinutes() < 10 ? '0' + new Date(str).getMinutes() : new Date(str).getMinutes()) + ':' +
                     (new Date(str).getSeconds() < 10 ? '0' + new Date(str).getSeconds() : new Date(str).getSeconds());
+            },
+            getDelivered (info) {
+                if (info.split('Delivered').length >= 2) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
     }
