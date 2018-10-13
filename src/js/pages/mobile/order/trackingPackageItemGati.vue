@@ -26,6 +26,7 @@
             <div class="gb-box-right">
                 <text class="gb-text" :class="[order.Info == 'Out for next station' || order.Info == 'In Transit'? 'gb-text-color': '']">{{order.Info}}</text>
                 <text class="gb-text-1" :class="[order.Info == 'Out for next station' || order.Info == 'In Transit'? 'gb-text-color': '']">{{order.Place}}</text>
+                <text class="gb-text-1" v-if="order.Info == 'Check in'">Your package has arrived at the carrier's pickup station. It will be dispatched in 24 - 36 hours. The package will arrive at your place in 8-12 days after dispatch.  </text>
             </div>
         </div>
         <div class="gb-box" v-if="shippedTime">
