@@ -2,13 +2,13 @@
     <div class="wrapper">
         <div class="left">
             <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe632;</text>
-            <text class="leftTxt" v-else>{{leftBtn}}</text>
+            <text class="leftTxty" v-else @click="$router.back">&#xe6f6;</text>
 
         </div>
         <text class="tlt">{{title}}</text>
         <div class="right">
             <text class="rightTxt" v-if="iconSign==true" @click="setting" >&#xe71e;</text>
-            <text class="rightword " v-else @click="savedata">{{rightBtn}}</text>
+            <text class="rightword " v-else @click="edit()">{{rBtn}}</text>
         </div>
     </div>
 </template>
@@ -18,7 +18,8 @@ export default {
     data () {
       return {
           leftSign: '',
-          iconSign: ''
+          iconSign: '',
+          rBtn: ''
       }
     },
     created () {
@@ -26,25 +27,32 @@ export default {
     },
     methods: {
         editRight () {
-            if (this.rightBtn == 'icon') {
+            this.rBtn = this.rightBtn
+            if (this.rBtn == 'n') {
                 this.iconSign = true
-            } else {
+            } else if (this.rBtn == 'Edit') {
                 this.iconSign = false
             }
 
             // this.$notice.toast({message: this.leftBtn})
 
-            if (this.leftBtn == 'icon') {
+            if (this.leftBtn == 'n') {
                 this.leftSign = true
             } else {
                 this.leftSign = false
             }
         },
-        savedata () {
-           this.$emit('onsave',1)
+        edit () {
+            if (this.rBtn == 'Edit') {
+                this.rBtn = 'Done'
+                this.$emit('change', 1)
+            } else {
+                this.rBtn = 'Edit'
+                this.$emit('change', 2)
+            }
         },
         setting () {
-           this.$emit('setting',1)
+           this.$emit('setting', 1)
         }
     }
 }
@@ -91,6 +99,13 @@ export default {
     padding: 10px;
     text-align: left;
 }
+.leftTxty{
+    font-family: iconfont;
+    color: black;
+    font-size: 32px;
+    padding: 10px;
+    text-align: left;
+}
 
 .rightTxt {
     font-family: iconfont;
@@ -102,9 +117,10 @@ export default {
 .rightword {
     color: #EF8A31;
     margin-top: 4px;
-    font-size: 24px;
+    font-size: 28px;
     padding: 10px;
     /*line-height: 28px;*/
     text-align: center;
+
 }
 </style>

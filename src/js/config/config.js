@@ -59,5 +59,10 @@ export const apis = {
     'point.cashing.amount': '/point/cashing/amount/',
     'product.category.product.list': '/product/category/product/list/',
     'product.app.category.product': '/product/app/category/product/',
-    'statistics.record.search.key': '/statistics/record/search/key/'
+    'statistics.record.search.key': '/statistics/record/search/key/',
+    'cart.list': '/cart/list/',
+    'cart.add': '/cart/add/',
+    'cart.delete': '/cart/delete/',
+    'cart.count': '/cart/count/',
+    'cart.update.quantity': '/cart/update/quantity/'
 }

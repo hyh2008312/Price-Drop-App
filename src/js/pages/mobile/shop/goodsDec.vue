@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="blackheader"></div>
         <!--<text>111</text>-->
-        <topic-header title="Description" leftBtn="icon"  ></topic-header>
+        <topic-header title="Description" leftBtn="n"  ></topic-header>
         <list class="content">
             <cell >
                 <div v-for="(i, index) in decData ">
