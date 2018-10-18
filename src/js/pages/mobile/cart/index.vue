@@ -2,14 +2,14 @@
     <div class="wrapper">
         <topic-header class="t-h1" title="Cart" leftBtn="y" :rightBtn="rightBtnWord" v-on:change="changeBtn($event)" ></topic-header>
         <div class="blackheader"></div>
-        <div>
-            <text>Buy</text>
-            <text>₹ 100</text>
-            <text>more to use your a</text>
-            <text>₹ 100</text>
-            <text>voucher!</text>
-            <text>Add Item >></text>
-        </div>
+        <!--<div>-->
+            <!--<text>Buy</text>-->
+            <!--<text>₹ 100</text>-->
+            <!--<text>more to use your a</text>-->
+            <!--<text>₹ 100</text>-->
+            <!--<text>voucher!</text>-->
+            <!--<text>Add Item >></text>-->
+        <!--</div>-->
 
         <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <cell  v-for="(i,index) in goodsList"
@@ -92,8 +92,8 @@
 
                 <div class="bb-d-l">
                     <text class="bb-dl-p" v-if="bottomWord=='Checkout'">₹ {{allPrice}}</text>
-                    <div class="bb-dl-b">
-                        <text class="bb-dl-bf" @click="handleGoods">{{bottomWord}}</text>
+                    <div class="bb-dl-b" @click="handleGoods">
+                        <text class="bb-dl-bf" >{{bottomWord}}</text>
                     </div>
 
                 </div>
@@ -105,12 +105,10 @@
 
 <script>
     import header from './witheHeader';
-    import cimg from './customImg';
     import { WxcCountdown, WxcRadio } from 'weex-ui';
     export default {
         components: {
             'topic-header': header,
-            'cimg': cimg,
             WxcCountdown,
             WxcRadio
         },
@@ -127,7 +125,7 @@
                 allPrice: '0.00',
                 bottomWord: 'Checkout',
                 rightBtnWord: 'Edit',
-                nextPage: {}
+                nextPage: []
             }
         },
         created () {
@@ -178,9 +176,9 @@
                     // this.goodsList = [...res.results]
                     this.goodsList.push(...res.results);
 
-                    // for (let i = 0; i < this.goodsList.length; i++) {
-                    //     this.goodsList[i].sel = false
-                    // }
+                    for (let i = 0; i < this.goodsList.length; i++) {
+                        this.goodsList[i].sel = false
+                    }
                     this.page++;
                     this.isLoading = false;
                     // this.$notice.alert({
@@ -271,7 +269,7 @@
             handleGoods () {
                 const idArr = []
                 const arr = [...this.goodsList];
-                if ((this.bottomWord = 'Delete')) {
+                if ((this.bottomWord === 'Delete')) {
                     for (let j = 0; j < arr.length; j++) {
                         if (arr[j].sel) {
                             idArr.push(arr[j].id)
@@ -303,8 +301,14 @@
                         })
                     }
                 } else {
+                    this.nextPage = [];
+                    for (let i = 0; i < this.goodsList.length; i++) {
+                        if (this.goodsList[i].sel) {
+                            this.nextPage.push(this.goodsList[i])
+                        }
+                    }
                     this.$router.open({
-                        name: 'order.confirm',
+                        name: 'cart.order',
                         type: 'PUSH',
                         params: this.nextPage
                     })
@@ -364,7 +368,7 @@
                         }
                     }
                 }
-                if (priceArr == 0) {
+                if (priceArr.length == 0) {
                     this.allPrice = '0.00'
                 } else if (priceArr.length >= 1) {
                     this.allPrice = 0
@@ -490,7 +494,7 @@
     .lc-tw2{
         font-family: ProximaNova-Regular;
         font-size: 20px;
-        width: 288px;
+        width: 400px;
         color: rgba(0,0,0,0.87);
         line-height: 28px;
         /*margin-bottom: 8px;*/

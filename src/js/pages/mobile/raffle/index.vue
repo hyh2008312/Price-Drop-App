@@ -155,13 +155,10 @@
             isF: true
         }),
         created () {
-            if(){
+            this.initPage()
+            this.$event.on('logout', parmas => {
                 this.initPage()
-                this.$event.on('logout', parmas => {
-                    this.initPage()
-                })
-            }
-
+            })
         },
         computed: {
             // bgcolor: {
@@ -299,10 +296,10 @@
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    this.hasWifi = false
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
+                    // this.hasWifi = false
+                    this.$notice.toast({
+                        message: res
+                    })
                 })
             },
             // prePullMore () {
