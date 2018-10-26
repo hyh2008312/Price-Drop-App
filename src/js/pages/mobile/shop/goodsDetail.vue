@@ -201,8 +201,18 @@
                 <div v-if="productStatus==='unpublished'">
                     <text class="button-gray"  >Unavailable</text>
                 </div>
+
                 <div v-if="productStatus==='published'">
-                    <text class="button" @click="openBuyNow" v-if="canBuy" >Buy Now</text>
+                    <!--<text class="button" @click="openBuyNow" v-if="canBuy" >Buy Now</text>-->
+                    <div class="over-flow-cart">
+                        <div class="c-i-d" @click="openMyCart">
+                            <div class="cart-red-dot"><text style="color: white;font-size: 15px">{{cartNum}}</text></div>
+                            <text class="cart-icon iconfont">&#xe754;</text>
+                        </div>
+                        <text class="a-t-c" @click="addCart">Add to Cart</text>
+                        <text class="b-n" @click="openBuyNow">Buy Now</text>
+                    </div>
+
                     <text class="button-gray"  v-if="!canBuy" >Out of Stock</text>
                 </div>
             </div>
@@ -456,7 +466,9 @@
                 tmpArray: [],
                 returnPolicy: false,
                 someGoodsList: [],
-                firstHeight: '200px'
+                firstHeight: '200px',
+                isAddCart: false,
+                cartNum: ''
             }
         },
         mounted () {
@@ -493,6 +505,7 @@
                 this.getGoodsDetail(resData)
                 this.getSomeGoods(resData)
                 this.getDropGoods()
+                this.getCartNum()
             })
             if (this.$storage.getSync('user')) {
                 this.user = this.$storage.getSync('user')
@@ -559,6 +572,7 @@
                                 this.goodsType = [];
                                 this.canBuy = res.variants[0].isCanBuy;
                                 this.variantsId = res.variants[0].id;
+
                                 this.nextPage.id = res.variants[0].id;
                                 this.nextPage.salePrice = res.variants[0].saleUnitPrice;
                                 this.nextPage.currentPrice = res.variants[0].unitPrice;
@@ -573,7 +587,6 @@
                             this.canBuy = res.variants[0].isCanBuy;
                             this.variantsId = res.variants[0].id;
                             this.nextPage.id = res.variants[0].id;
-
                             this.nextPage.salePrice = res.variants[0].saleUnitPrice;
                             this.nextPage.currentPrice = res.variants[0].unitPrice;
                             // this.nextPage.mainImage =
@@ -662,6 +675,22 @@
                    // })
                 }, error => {})
             },
+            getCartNum () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'cart.count',
+                    header: {
+                        needAuth: true,
+                        isLoginPop: true
+                    }
+
+                }).then(data => {
+                    this.cartNum = data.count
+                   // this.$notice.toast({
+                   //     message: data
+                   // })
+                }, error => {})
+            },
             createCut () {
                 this.$notice.loading.show();
                 this.$fetch({
@@ -722,7 +751,7 @@
                     this.isBottomShow = true;
                     common.changeAndroidCanBack(false)
 
-                    if (this.variantsId != '') {
+                    if (this.variantsId !== '') {
                         if (this.isDrop == true) {
                             if (!this.checkedSelected()) {
                                 return;
@@ -785,11 +814,15 @@
                             if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
                                 this.nextPage.proId = 'direct'
                             }
-                            this.$router.open({
-                                name: 'order.confirm',
-                                type: 'PUSH',
-                                params: this.nextPage
-                            })
+                            if (this.isAddCart) {
+                                this.postGoodsCart()
+                            } else {
+                                this.$router.open({
+                                    name: 'order.confirm',
+                                    type: 'PUSH',
+                                    params: this.nextPage
+                                })
+                            }
                         }
 
                     // } else {
@@ -866,7 +899,56 @@
                     }
                 }
             },
+            addCart () {
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    if (this.hasVariants === false) {
+                        if (this.variantsId !== '' && this.isDrop == false) {
+                            this.postGoodsCart()
+                        }
+                    } else {
+                        this.isAddCart = true;
+                        this.isBottomShow = true;
+                        common.changeAndroidCanBack(false)
+                    }
+                }
+            },
+            postGoodsCart () {
+                // this.$notice.alert({
+                //     message: this.variantsId
+                // })
+                this.$fetch({
+                    method: 'POST',
+                    name: 'cart.add',
+                    data: {
+                        'variantId': this.variantsId,
+                        'attribute': this.selcolor + ' ' + this.selsize
+                    },
+                    header: {
+                        needAuth: true,
+                        isLoginPop: true
+                    }
 
+                }).then(data => {
+                    if (data.result === 'success') {
+                        this.cartNum += 1
+                        this.$notice.toast({
+                            message: 'Added to Cart Successfully!'
+                        })
+                        this.isBottomShow = false
+                    } else {
+                        this.$notice.toast({
+                            message: data
+                        })
+                    }
+
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: res.errorMsg
+                    })
+                })
+            },
             // 非状态组件，需要在这里关闭
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
@@ -949,15 +1031,7 @@
                         }
                     }
                 }
-                // this.$notice.alert({
-                //     message: color
-                // })
-
                 this.changeDom(item, color)
-                // this.$notice.toast({
-                //     message: item
-                // })
-                // this.cactiveId = id
             },
             changeDom (item, color) {
                 if (color.length !== 0) {
@@ -1084,6 +1158,12 @@
                     params: {
                         dec: this.newDescription
                     }
+                })
+            },
+            openMyCart () {
+                this.$router.open({
+                    name: 'cart',
+                    type: 'PUSH'
                 })
             },
             openRuler () {
@@ -1528,6 +1608,54 @@
         text-align: center;
         font-weight: 700;
     }
+    .over-flow-cart{
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+    }
+    .c-i-d{
+        background-color: #FFFFFF;
+        padding: 0 50px;
+    }
+    .cart-icon{
+        text-align: center;
+        font-size: 42px;
+    }
+    .cart-red-dot{
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        position: absolute;
+        top:0;
+        right:32px;
+        border-radius:24px ;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .a-t-c{
+        padding-top: 38px;
+        padding-bottom: 45px;
+        padding-right: 85px;
+        padding-left: 85px;
+        font-size: 28px;
+        color: #EF8A31;
+        text-align: center;
+        background-color: rgba(239,138,49,.16);
+        font-weight: 700;
+    }
+    .b-n{
+        padding-right: 94px;
+        padding-left: 94px;
+        padding-top: 38px;
+        padding-bottom: 45px;
+        font-size: 28px;
+        color: white;
+        text-align: center;
+        background-color: rgba(239,138,49,1);
+        font-weight: 700;
+    }
+
     .scroller{
         max-height: 500px;
     }
@@ -1604,16 +1732,11 @@
     .popup-bottom{
         flex-direction: column;
         justify-content: center;
-        /*background-color: #689de5;*/
-
         width: 750px;
-
     }
     .popup-color-chd{
         width: 750px;
-        /*height: 200px;*/
         font-size: 24px;
-        /*margin-left: -16px;*/
         margin-top: 16px;
         flex-direction: row;
         justify-content: start;
@@ -1690,7 +1813,7 @@
         justify-content: space-between;
         margin: 0 32px;
         border-top-style:dashed ;
-        border-top-color: grey;
+        border-top-color: rgba(0,0,0,.08);
         border-top-width:1px ;
     }
     .r-icon{
@@ -1752,7 +1875,7 @@
     }
     .r-p-c-l{
         border-top-style: dashed;
-        border-top-color: grey;
+        border-top-color: rgba(0,0,0,.08);
         border-top-width: 1px;
         padding-top: 32px;
     }
@@ -1827,7 +1950,7 @@
         margin-top: 16px;
         padding: 30px  290px;
         border-top-style:dashed ;
-        border-top-color: grey;
+        border-top-color: rgba(0,0,0,.08);
         border-top-width:1px ;
     }
     .popup-ruler-content{

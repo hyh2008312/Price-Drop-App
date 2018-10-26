@@ -190,16 +190,6 @@
                 this.$event.on('readR', parmas => {
                     this.dotNum = 0
                 })
-                // this.$storage.get('user').then(resData => {
-                //     this.user = resData
-                //     if (this.user) {
-                //         this.loginS = true
-                //         this.myPoints = this.user.pointsAvailable
-                //         this.getCardA()
-                //     } else {
-                //         this.getCard()
-                //     }
-                // })
                 this.initBack()
             },
             initBack () {
@@ -306,10 +296,10 @@
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    this.hasWifi = false
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
+                    // this.hasWifi = false
+                    this.$notice.toast({
+                        message: res
+                    })
                 })
             },
             // prePullMore () {
@@ -477,7 +467,6 @@
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    this.hasWifi = false
                     this.$notice.toast({
                         message: res
                     })
@@ -515,7 +504,6 @@
                     this.page++
                     this.isLoading = false
                 }).catch((res) => {
-                    this.isLoading = false
                     this.$notice.toast({
                         message: res
                     })

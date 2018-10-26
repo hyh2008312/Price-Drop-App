@@ -103,6 +103,16 @@
 
                 </div>
 
+                <div class="box-tlt " @click="openMyCart()" v-if="user">
+                    <div class="box-left">
+                        <image class="box-txt-icon" src="bmlocal://assets/my-cart.png"></image>
+                        <text class="box-txt">My Cart</text>
+                        <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
+                    </div>
+                    <text class="i-box iconfont">&#xe626;</text>
+
+                </div>
+
             </div>
         </div>
         <div class="overflow-box">
@@ -237,6 +247,12 @@
             openMyRaffleDraws () {
                 this.$router.open({
                     name: 'my.raffle.draws',
+                    type: 'PUSH'
+                })
+            },
+            openMyCart () {
+                this.$router.open({
+                    name: 'cart',
                     type: 'PUSH'
                 })
             },

@@ -17,6 +17,12 @@ export default {
     'goods.details': {
         url: '/pages/mobile/shop/goodsDetail.js'
     },
+    'cart': {
+        url: '/pages/mobile/cart/index.js'
+    },
+    'cart.order': {
+        url: '/pages/mobile/cart/cartOrder.js'
+    },
     'simple.details': {
         url: '/pages/mobile/shop/simpleGoodsDetail.js'
     },

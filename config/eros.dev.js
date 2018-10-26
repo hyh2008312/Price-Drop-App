@@ -29,6 +29,8 @@ module.exports = {
         'js/pages/mobile/my/myNotice.vue',
         'js/pages/mobile/my/myNoticeTmp.vue',
         'js/pages/mobile/my/myRaffleDraws.vue',
+        'js/pages/mobile/cart/index.vue',
+        'js/pages/mobile/cart/cartOrder.vue',
         'js/pages/mobile/shop/goodsDetail.vue',
         'js/pages/mobile/shop/simpleGoodsDetail.vue',
         'js/pages/mobile/shop/ship.vue',

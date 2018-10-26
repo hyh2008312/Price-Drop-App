@@ -426,9 +426,9 @@
                 }
             },
             tranDateD (str) {
-                this.$notice.alert({
-                    message: new Date(str)
-                })
+                // this.$notice.alert({
+                //     message: new Date(str)
+                // })
                 if (str != null) {
                     return dayjs(new Date(str)).format('MMM DD')
                 } else {
