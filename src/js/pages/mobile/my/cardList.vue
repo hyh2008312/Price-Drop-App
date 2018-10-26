@@ -13,6 +13,7 @@
                                 <text class="gift-card-txt2">Only vaild for order above ₹{{i.lowestAmount}}</text>
                             </div>
                             <text class="gift-card-txt3">Expire in&nbsp;{{tranDate(i.expiredTimestamp)}}&nbsp;days</text>
+                            <text class="gift-card-txt3" v-if="tranDate(i.expiredTimestamp)<=0"> Expired </text>
                         </div>
                     </div>
                 </div>

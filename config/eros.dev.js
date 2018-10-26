@@ -59,6 +59,7 @@ module.exports = {
         'js/pages/mobile/login/index.vue',
         'js/pages/mobile/welcome/guide.vue',
         'js/pages/mobile/order/orderPaymentMethod.vue',
+        'js/pages/mobile/cart/cartOrderPaymentMethod.vue',
         'js/pages/mobile/search/index.vue',
         'js/pages/mobile/search/result.vue'
     ],

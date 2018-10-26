@@ -98,6 +98,9 @@ export default {
     'order.payment': {
         url: '/pages/mobile/order/orderPaymentMethod.js'
     },
+    'cart.order.payment': {
+        url: '/pages/mobile/cart/cartOrderPaymentMethod.js'
+    },
     'order.address': {
         url: '/pages/mobile/order/chooseAddress.js'
     },

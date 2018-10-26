@@ -42,9 +42,9 @@
                         <div>
                             <div class="cod-d">
                                 <image class="item-image-2"  :src="codSrc"></image>
-                                <text class="cod-text">Cash on Delivery</text>
+                                <text class="cod-text">Cash/Card on Delivery</text>
                             </div>
-                            <text class="item-text">Only available for COD Member</text>
+                            <text class="item-text">Cash / Debit Card / Credit Card at your doorstep</text>
                         </div>
                         <div v-if="!order.cod">
                             <text class="iconfont item-checked" v-if="method == 'cod'">&#xe6fb;</text>
@@ -105,7 +105,7 @@
                         <text :class="[successS?'p-t3-success':'p-t3-err']">{{errMsg||'&nbsp;&nbsp;&nbsp;&nbsp;'}}</text>
                     </div>
 
-                    <div class="popup-item4" @click="checkItem">
+                    <div class="popup-item4">
                         <div :class="[selItem4?'lc-t-dot-select':'lc-t-dot']" >
                             <text class="dot-sel">&radic;</text>
                         </div>
@@ -123,7 +123,7 @@
     </div>
 </template>
 <script>
-import orderPaymentMethodBottom from './orderPaymentMethodBottom';
+import orderPaymentMethodBottom from './cartOrderPaymentMethodBottom';
 import { Utils, WxcPopup } from 'weex-ui';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 const common = weex.requireModule('CommonUtils');
@@ -152,9 +152,6 @@ export default {
         } else {
             this.user = null
         }
-        this.$notice.alert({
-            message: this.user
-        })
         this.$event.on('closePayment', params => {
             this.$router.finish();
         });
@@ -167,17 +164,7 @@ export default {
             razorpaySrc: 'bmlocal://assets/razorpay.png',
             codSrc: 'bmlocal://assets/COD-01.png',
             source: 'confirm',
-            order: {
-                'title': '',
-                'mainImage': '',
-                'salePrice': '',
-                'currentPrice': '',
-                'attributes': '',
-                'quantity': 1,
-                'id': -1,
-                'shippingPrice': false,
-                'total': '0.00'
-            },
+            order: {},
             checked: false,
             balance: 0,
             isShowBalance: false,
@@ -219,7 +206,7 @@ export default {
         },
         chooseMethod (e) {
             if (e =="cod") {
-                if (!this.order.cod && this.user.phoneMobile == '') { // todo 需要改 cod相反的状态
+                if (!this.order.cod && this.user.phoneMobile == '') { // todo 需要改 cod的状态
                     this.method = e;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)
@@ -260,8 +247,8 @@ export default {
             if (this.second > 0) {
                 return
             }
-            if (this.phone=='') {
-                this.errMsg = 'phoneNumber is empty'
+            if (this.phone.length<10) {
+                this.errMsg = 'Your phone number is in wrong format.'
             } else {
                 this.time()
                 this.$fetch({
@@ -629,6 +616,7 @@ export default {
     }
     .popup-content{
         width: 750px;
+        /*height: 522px;*/
         flex-direction: row;
         justify-content: center;
     }
@@ -759,6 +747,14 @@ export default {
         width: 146px;
         text-align: center;
     }
+    /*.p-t3-t1-d{*/
+        /*font-size: 24px;*/
+        /*color: #FFFFFF;*/
+        /*font-weight: 700;*/
+        /*padding: 21px;*/
+        /*border-radius: 8px;*/
+        /*background-color: grey;*/
+    /*}*/
     .popup-item4{
         flex-direction: row;
         justify-content: start;
@@ -770,6 +766,7 @@ export default {
         color: rgba(0,0,0,.54);
         width: 580px;
         line-height: 34px;
+        margin-top: 16px;
     }
     .dot-sel{
         color: white;
@@ -820,4 +817,5 @@ export default {
         letter-spacing: 0;
         font-weight: 700;
     }
+
 </style>

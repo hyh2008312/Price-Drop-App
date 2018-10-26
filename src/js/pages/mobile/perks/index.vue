@@ -78,7 +78,7 @@
 
             <div class="overflow-mid" style="margin-bottom: 100px">
 
-                <div class="mid-card">
+                <div class="mid-card-noShadow">
                    <div>
                        <image  src="bmlocal://assets/perks/bg-1.jpg" style="width: 686px;height:520px"></image>
                        <image class="center-img"  src="bmlocal://assets/perks/bg-3.png" style="width: 500px;height:294px"></image>
@@ -406,8 +406,7 @@
                     method: 'GET',
                     name: 'point.whether.cashing.prize',
                     header: {
-                        needAuth: true,
-                        isLoginPop: true
+                        needAuth: true
                     }
                 }).then((res) => {
                     this.isCash = res.isCash
@@ -436,8 +435,7 @@
                     method: 'GET',
                     name: 'point.sign.times',
                     header: {
-                        needAuth: true,
-                        isLoginPop: true
+                        needAuth: true
                     }
                 }).then((res) => {
                     // this.$notice.alert({
@@ -558,8 +556,7 @@
                             method: 'GET',
                             name: 'point.punch.clock',
                             header: {
-                                needAuth: true,
-                                isLoginPop: true
+                                needAuth: true
                             }
                         }).then((res) => {
                             this.signObj.signTimes = res.signTimes
@@ -575,7 +572,6 @@
                             })
                             // googleAnalytics.recordEvent('sign Success', '', '', 0);
                             googleAnalytics.recordEvent('Rewards', 'CheckIn', 'CheckInSuccess', 0);
-
                         }).catch((res) => {
                             this.$notice.toast({
                                 message: res
@@ -821,7 +817,15 @@
         border-radius: 16px;
         flex-direction: column;
         align-items: stretch;
-
+    }
+    .mid-card-noShadow{
+        width: 686px;
+        /*height: 520px;*/
+        background-color: white;
+        /*box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);*/
+        border-radius: 16px;
+        flex-direction: column;
+        align-items: stretch;
     }
     .mid-card-item1{
         margin-top: 64px;
@@ -956,11 +960,10 @@
         width: 686px;
         height: 328px;
         background-color: white;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+        /*box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);*/
         border-radius: 16px;
         flex-direction: column;
         align-items: stretch;
-
     }
     .t-c-h{
         position: absolute;

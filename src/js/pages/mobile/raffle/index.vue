@@ -158,20 +158,10 @@
             this.initPage()
             this.$event.on('logout', parmas => {
                 this.initPage()
+
             })
         },
-        computed: {
-            // bgcolor: {
-            //     get: function () {
-            //         return this.bgcolor
-            //     },
-            //
-            //     set: function (v) {
-            //         this.bgcolor = v
-            //     }
-            // }
-
-        },
+        computed: {},
         methods: {
             initPage () {
                 this.user = this.$storage.getSync('user')
@@ -294,6 +284,7 @@
                     // })
                     this.page++
                     this.$notice.loading.hide();
+                    this.hasWifi = true
                 }).catch((res) => {
                     this.$notice.loading.hide();
                     // this.hasWifi = false
@@ -465,11 +456,12 @@
 
                     this.page++
                     this.$notice.loading.hide();
+                    this.hasWifi = true
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             pullMoreA () {

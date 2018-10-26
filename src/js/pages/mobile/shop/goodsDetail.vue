@@ -32,38 +32,62 @@
                 <text class="onetitle">{{goods.title}}</text>
                 <div class="count-div" >
                     <text class=" count" v-if="purchaseMethod==='drop'" >Get it at</text>
-                    <text class=" price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Exclusive Price:</text>
-                    <text class="count-bold" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">₹{{goods.unitPrice}}</text>
+                    <!--<text class=" price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Exclusive Price:</text>-->
+                    <!--<text class="count-bold" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">₹{{goods.unitPrice}}</text>-->
+                    <!--注释为老版-->
 
                     <text class="count-bold" v-if="purchaseMethod==='drop'">₹{{lowestPrice}}</text>
                     <text class="count-1" v-if="purchaseMethod==='drop'">by inviting your friends!</text>
                 </div>
                 <div class="count-div">
-
-                    <text class=" price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Original Price: </text>
+                    <!--<text class="price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Original Price: </text>-->
+                    <!--注释为老版-->
+                    <text class="price-name-1"  v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >₹{{goods.unitPrice}} </text>
                     <text class="price" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >₹{{goods.price}}</text>
                     <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
-                    <text class="price-name price-off" >Free Shipping</text>
+                    <text class="price-name price-off-tax" >Tax Included</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
                 </div>
 
-                <div class="reward-points" v-if="!isDrop" @click="openRuler">
-                    <div class="r-p-t" >
-                        <text class="r-p-t1">Reward Points</text>
-                        <text class="r-p-t2" >Details</text>
+                <div class="ship-item" @click="openShipPopup">
+                    <div class="s-i-1">
+                        <div class="s-i-2">
+                            <image class="s-i-img" src="bmlocal://assets/express-01.png"></image>
+                            <text class="s-i-t">Estimated Arrival: {{getNowDay1(shipObj.shippingTimeMin)}} - {{getNowDay1(shipObj.shippingTimeMax)}}</text>
+                        </div>
+                        <text class="s-i-t1" >Details</text>
                     </div>
-                    <div class="r-p-c">
-                        <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
-                        <div class="r-p-w" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">
-                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b">{{countPoints(goods.unitPrice,divider,dividend)}}</text> <text class="r-p-w1"> points by purchasing this product </text>
+                    <text class="s-i-icon">Free Shipping</text>
+                </div>
+
+                <div class="ship-item mg-b36" @click="openCODPopup">
+                    <div class="s-i-1">
+                        <div class="s-i-2">
+                            <image class="s-i-img" src="bmlocal://assets/COD-01.png"></image>
+                            <text class="s-i-t">Cash/Card on Delivery availability check</text>
                         </div>
-                        <div class="r-p-w" v-if="flashSale.flashStatus=='Ongoing'">
-                            <text class="r-p-w1">Earn</text> <text class="r-p-w1b"> {{countPoints(calc(goods.unitPrice,flashSale.discount),divider,dividend)}} </text> <text class="r-p-w1"> points by purchasing this product </text>
-                        </div>
+                        <text class="s-i-t1" >Check</text>
+                    </div>
+                    <!--<text class="s-i-icon">Free Shipping</text>-->
+                </div>
+            </div>
+
+            <div class="reward-points" v-if="!isDrop" @click="openRuler">
+                <div class="r-p-t" >
+                    <text class="r-p-t1">Reward Points</text>
+                    <text class="r-p-t2" >Details</text>
+                </div>
+                <div class="r-p-c">
+                    <image class="r-p-i" src="bmlocal://assets/gold-coin.png"></image>
+                    <div class="r-p-w" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">
+                        <text class="r-p-w1">Earn</text> <text class="r-p-w1b">{{countPoints(goods.unitPrice,divider,dividend)}}</text> <text class="r-p-w1"> points by purchasing this product </text>
+                    </div>
+                    <div class="r-p-w" v-if="flashSale.flashStatus=='Ongoing'">
+                        <text class="r-p-w1">Earn</text> <text class="r-p-w1b"> {{countPoints(calc(goods.unitPrice,flashSale.discount),divider,dividend)}} </text> <text class="r-p-w1"> points by purchasing this product </text>
                     </div>
                 </div>
             </div>
@@ -105,11 +129,10 @@
 
                 </div>
 
-                <div class="dec-word" @click="openShip(2)"   >
-                    <text class="dec">Shipping Time & Cost</text>
-                    <text class="iconfont dec-arrows">&#xe626;</text>
-
-                </div>
+                <!--<div class="dec-word" @click="openShip(2)"   >-->
+                    <!--<text class="dec">Shipping Time & Cost</text>-->
+                    <!--<text class="iconfont dec-arrows">&#xe626;</text>-->
+                <!--</div>-->
 
                 <div class="slogan" v-if="!isDrop">
                     <div class="slg">
@@ -144,8 +167,18 @@
 
 
 
-            <div style="width: 750px; background-color: white ; padding-top: 20px;height: 568px">
+            <div @click="opendec" style="width: 750px; background-color: white ; padding-top: 20px;height: 568px">
+                <div   v-for="(i, index) in goods.productSpecification" >
+                    <div class="p-s" v-if="i.content!=''" :class="[index%2==0?'rowGray':'rowWithe']">
+
+                        <text class="p-s-t1">{{i.name}}</text>
+                        <text class="p-s-t2">{{i.content}}</text>
+                    </div>
+
+                    <!--goods.productSpecification-->
+                </div>
                 <div v-for="(i, index) in newDescription ">
+
                     <div v-if="i.type=='text'">
                         <text class="bottom-text">{{i.context}}</text>
                     </div>
@@ -338,6 +371,84 @@
 
             </div>
         </wxc-popup>
+
+        <wxc-popup :have-overlay="isTrue"
+                   popup-color="rgba(255, 255, 255, 1)"
+                   :show="isShipShow"
+                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
+                   pos="bottom"
+                   height="414">
+            <div class="popup-ship-content">
+                <div class="pShip-item">
+                    <text class="s-item-b">Buy Now to Enjoy Free Shipping!</text>
+                    <text class="s-item-i iconfont" @click="popupOverlayBottomClick">&#xe632;</text>
+                </div>
+                <div class="pShip-item1">
+                    <text class="s-item-t">Shipping Cost:</text>
+                    <text class="s-item-t1">₹ 0 </text>
+                    <text class="s-item-t2">₹ 100</text>
+                </div>
+                <div class="pShip-item1 mg-b44">
+                    <text class="s-item-t">Shipping Carrier:</text>
+                    <text class="s-item-t1">{{shipObj.shippingName}}</text>
+                </div>
+                <div class="pShip-item1">
+                    <text class="s-item-t">Order Processing Before Shipping:</text>
+                    <text class="s-item-t1">5-7 days</text>
+                </div>
+                <div class="pShip-item1">
+                    <text class="s-item-t">Shipping Time After Processing:</text>
+                    <text class="s-item-t1">{{shipObj.shippingTimeMin}} - {{shipObj.shippingTimeMax}} days</text>
+                </div>
+                <div class="pShip-item1 mg-b32">
+                    <text class="s-item-t">Estimated Arrival Date:</text>
+                    <text class="s-item-t1"> {{getNowDay(shipObj.shippingTimeMin)}} - {{getNowDay(shipObj.shippingTimeMax)}}</text>
+                </div>
+
+            </div>
+        </wxc-popup>
+
+        <wxc-popup :have-overlay="isTrue"x
+                   popup-color="rgba(255, 255, 255, 1)"
+                   :show="isCODShow"
+                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
+                   pos="bottom"
+                   :height="sHeight">
+            <div class="popup-COD-content">
+                <div class="cod-head">
+                    <div class="cod-head-1">
+                        <image class="c-h-i" src="bmlocal://assets/check-01.png"></image>
+                        <text class="c-h-t"> Enter Pincode to check COD availability</text>
+                    </div>
+                    <text class="s-item-i iconfont" @click="popupOverlayBottomClick">&#xe632;</text>
+                </div>
+                <div class="cod-item">
+                    <div class="cod-item-d">
+                        <input class="cod-input" placeholder="Enter Pincode" type="number" :value="pinCode" @input="oninput">
+                        <text v-if="!pinCodeLoad" class="c-i-t" @click="checkPinCode">Check</text>
+                        <div class="c-i-load" v-if="pinCodeLoad">
+                            <image style="width: 50px;height: 50px" src="bmlocal://assets/loading-white.gif"></image>
+                        </div>
+                    </div>
+                    <text class="c-it-err"  v-if="pinCodeStatus==2">COD is not available for this area now. But we will support it later!</text>
+                    <text class="c-it-err1" v-if="pinCodeStatus==1">COD is available for your area!</text>
+                    <text class="c-it-err"  v-if="pinCodeStatus==0">&nbsp;</text>
+                </div>
+                <div class="cod-item1">
+                    <image class="c-h-i" src="bmlocal://assets/rules-01.png"></image>
+                    <text class="c-h-t">Read Our COD Policy</text>
+                </div>
+                <div class="c-it1-d">
+                    <text class="c-it1-t">1.COD service is only available for certain locations now. We will expand to more locations very soon.</text>
+                    <text class="c-it1-t">2.If you place a COD order, you cannot cancel or reject the package after it ships out.</text>
+                    <text class="c-it1-t">3.If you refuse your COD package, you would be blocked by the carrier and cannot use COD service any more. </text>
+                    <text class="c-it1-t">4.You can only place your next COD order after you complete your last COD order successfully.</text>
+                    <text class="c-it1-t">5.Each COD order will be limited to Rs.1500.  </text>
+                </div>
+            </div>
+        </wxc-popup>
+
+
     </div>
 </template>
 <script>
@@ -345,10 +456,11 @@
     import flash from './flash-item';
     import cimg from './customImg';
     import preload from '../common/preloadImg';
-    import { WxcCell, WxcButton, WxcPopup, WxcMask } from 'weex-ui'
+    import { WxcCell, WxcButton, WxcPopup, WxcMask, Utils } from 'weex-ui'
     import tab from './tab';
     import { baseUrl } from '../../../config/apis';
     import somegoods from './someGoods';
+    import dayjs from 'dayjs';
 
     const dom = weex.requireModule('dom');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
@@ -371,9 +483,6 @@
             // 'block': block
         },
         eros: {
-          // appeared (a) {
-          //     this.proId = a
-          // },
           backAppeared (params) {
               //   this.$notice.toast({
               //     message: 111111
@@ -393,7 +502,8 @@
                     unitPrice: '0.00',
                     priceoff: '0.00',
                     cut_get: '',
-                    brandLogo: ''
+                    brandLogo: '',
+                    productSpecification:[]
                 },
                 dropGoods: 0,
                 nextPage: {
@@ -439,10 +549,13 @@
                 isBottomShow: false,
                 isCardShow: false,
                 isRulerShow: false,
+                isShipShow: false,
+                isCODShow: false,
                 overlayCardCanClose: true,
                 isCardFalse: false,
                 hasCardAnimation: true,
                 height: 400,
+                sHeight: '',
                 tabshow: false,
                 headerShow: true,
                 isDrop: false,
@@ -468,7 +581,10 @@
                 someGoodsList: [],
                 firstHeight: '200px',
                 isAddCart: false,
-                cartNum: ''
+                cartNum: '',
+                pinCode: '',
+                pinCodeStatus: 0,
+                pinCodeLoad: false
             }
         },
         mounted () {
@@ -498,6 +614,8 @@
             }
         },
         created () {
+            const pageHeight = Utils.env.getScreenHeight();
+            this.sHeight = pageHeight - 48
             this.$notice.loading.show();
             this.$router.getParams().then(resData => {
                 this.proId = resData.id
@@ -532,6 +650,10 @@
                         // url: `${baseUrl}/product/customer/detail/654/`,
                         data: {}
                     }).then((res) => {
+                        // this.$notice.alert({
+                        //     message: res.productSpecification
+                        // })
+                        this.goods.productSpecification = res.productSpecification
                         this.purchaseMethod = res.purchaseMethod;
                         if (this.purchaseMethod === 'flash') {
                             this.flashSale = res.flashSale;
@@ -894,6 +1016,7 @@
                             })
                         }
                     } else {
+                        this.isAddCart = false;
                         this.isBottomShow = true;
                         common.changeAndroidCanBack(false)
                     }
@@ -942,7 +1065,6 @@
                             message: data
                         })
                     }
-
                 }).catch((res) => {
                     this.$notice.toast({
                         message: res.errorMsg
@@ -954,10 +1076,14 @@
                 this.isBottomShow = false;
                 this.isCardShow = false;
                 this.isRulerShow = false;
+                this.isShipShow = false;
+                this.isCODShow = false;
+                common.changeAndroidCanBack(true)
             },
 
             popupCloseClick () {
                 // this.$refs.wxcPopup.hide();
+                this.isAddCart = false
                 this.isBottomShow = false;
                 common.changeAndroidCanBack(true)
             },
@@ -1156,7 +1282,8 @@
                     name: 'goods.dec',
                     type: 'PUSH',
                     params: {
-                        dec: this.newDescription
+                        dec: this.newDescription,
+                        productSpecification: this.goods.productSpecification
                     }
                 })
             },
@@ -1169,6 +1296,40 @@
             openRuler () {
                 this.isRulerShow = true;
                 common.changeAndroidCanBack(false);
+            },
+
+            openShipPopup () {
+                this.isShipShow = true;
+                common.changeAndroidCanBack(false);
+            },
+            openCODPopup () {
+                this.isCODShow = true;
+                common.changeAndroidCanBack(false);
+            },
+            oninput (e) {
+                this.pinCode = e.value
+                this.pinCodeStatus = 0
+            },
+            checkPinCode () {
+                this.pinCodeLoad = true
+                this.$fetch({
+                    method: 'POST',
+                    name: 'order.cod.check',
+                    data: {
+                        postcode: parseInt(this.pinCode)
+                    }
+                }).then((res) => {
+                    if (res.enable) {
+                        this.pinCodeStatus = 1
+                    } else {
+                        this.pinCodeStatus = 2
+                    }
+                    this.pinCodeLoad = false
+                }).catch((res) => {
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
+                })
             },
             countOff (s, o) {
                 if (o > 0) {
@@ -1190,7 +1351,20 @@
             calc (a, b) {
                 return ((a * b) / 100).toFixed(2)
             },
-
+            getNowDay (str) {
+                if (str) {
+                    const date = new Date().valueOf();
+                    const tmp = (date + ((24 * 60 * 60 * 1000) * (7 + str)))
+                    return dayjs(new Date(tmp)).format('MMMM DD')
+                }
+            },
+            getNowDay1 (str) {
+                if (str) {
+                    const date = new Date().valueOf();
+                    const tmp = (date + ((24 * 60 * 60 * 1000) * (7 + str)))
+                    return dayjs(new Date(tmp)).format('YYYY.MM.DD')
+                }
+            },
             countDate (time) {
                 const self = this
                 // if (this.purchaseMethod == 'flash') {
@@ -1237,6 +1411,8 @@
         }
     }
 </script>
+<style lang="sass" src="./popup.scss"></style>
+
 <style scoped>
     .wrapper{
         background-color: white;
@@ -1307,13 +1483,12 @@
     .onetitle{
         width:586px;
         /*height: 120px;*/
-        font-weight: 700;
+        /*font-weight: 700;*/
         margin-top: 32px;
         margin-bottom: 32px;
         margin-left: 32px;
-        font-family: PingFangSC-Light;
         font-size: 28px;
-        color: #000;
+        color: rgba(0,0,0,.87);
         line-height: 48px;
         letter-spacing: 0;
     }
@@ -1323,6 +1498,15 @@
         margin-bottom: 26px;
         font-size:24px;
     }
+    .price-name-1{
+        color: #EF8A31;
+        letter-spacing: 0;
+        text-align: left;
+        margin-left: 32px;
+        margin-bottom: 26px;
+        font-size:40px;
+        font-weight: 700;
+    }
     .price-off{
         border-width: 1px;
         border-style: solid ;
@@ -1331,6 +1515,16 @@
         border-radius: 8px;
         padding: 4px 16px;
         color: #00CFE3;
+    }
+
+    .price-off-tax{
+        border-width: 1px;
+        border-style: solid ;
+        border-color: #3461AD;
+        font-size: 20px;
+        border-radius: 8px;
+        padding: 4px 16px;
+        color: #3461AD;
     }
     .price-price{
         border-width: 1px;
@@ -1659,278 +1853,17 @@
     .scroller{
         max-height: 500px;
     }
-
-    .popup-content{
-        height: 718px;
-        width: 750px;
-        flex-direction: column;
-
-    }
-    .popup-image {
-        width: 200px;
-        height: 200px;
-        margin-bottom: 27px;
-        margin-top: 32px;
-        margin-left: 32px;
-    }
-    .popup-top{
-        flex-direction: row;
-    }
-    .popup-py{
-        flex-direction: column;
-
-    }
-    .popup-price{
-        font-size: 28px;
-        font-weight: 600;
-        margin-top: 75px;
-        margin-left: 32px;
-        text-decoration: line-through;
-    }
-    .popup-lowprice-word{
-        font-size: 24px;
-        margin-top: 16px;
-        margin-left: 32px;
-        margin-bottom: 4px;
-
-    }
-    .popup-lowprice{
-        font-size: 32px;
-        font-weight: 600;
-        color: #EF8A31;
-        margin-left: 32px;
-
-    }
-    .popup-yet{
-        font-size: 24px;
-        opacity: 0.54;
-        margin-top: 16px;
-        margin-right: 12px;
-    }
-    .popup-yet-bg{
-        padding: 0 32px;
-        flex-direction: row;
-    }
-    .popup-close{
-        font-family: iconfont;
-        font-size: 32px;
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding-right:32px ;
-        padding-top: 32px;
-        padding-left: 32px;
-        padding-bottom: 32px;
-    }
-
-    .popup-color{
-        font-size: 24px;
-        font-weight: 700;
-        margin-top: 27px;
-        margin-left: 32px;
-    }
-    .popup-bottom{
-        flex-direction: column;
-        justify-content: center;
-        width: 750px;
-    }
-    .popup-color-chd{
-        width: 750px;
-        font-size: 24px;
-        margin-top: 16px;
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-    }
-    .popup-color-chdname{
-        font-size: 20px;
-        height:48px;
-        line-height: 45px;
-        text-align:center;
-        margin-left: 48px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: rgba(0,0,0,0.12);
-        border-radius: 4px;
-
-    }
-    .popup-color-chdname-active{
-        font-size: 20px;
-        height:48px ;
-        line-height: 45px;
-        text-align:center;
-        margin-left: 48px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-width: 1px;
-        border-style: solid;
-        color: white;
-        background-color: #EF8A31;
-        border-radius: 4px;
-
-    }
-    .popup-color-chdname-disable{
-        font-size: 20px;
-        background-color: #dcdcdc;
-        color: #fff;
-        height:48px ;
-        line-height: 45px;
-        text-align:center;
-        margin-left: 48px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: rgba(0,0,0,0.12);
-        border-radius: 4px;
-
-    }
-    .popup-btn{
-        position: relative;
-        bottom: 0;
-    }
-    .mask-content {
-        padding: 30px;
-    }
-    .mask-head {
-        align-items: center;
-        margin-bottom: 20px;
-        margin-top: 40px;
-    }
-    .mask-title {
-        color: #333333;
-        font-size: 40px;
-    }
-    .mask-text {
-        color: #333333;
-        font-size: 30px;
-        margin-top: 20px;
-    }
     .reward-points{
         flex-direction: column;
         justify-content: space-between;
-        margin: 0 32px;
+        background-color: white;
+        padding: 0 32px;
         border-top-style:dashed ;
         border-top-color: rgba(0,0,0,.08);
         border-top-width:1px ;
-    }
-    .r-icon{
-        font-size: 40px;
-    }
-    .r-p-t{
-        flex-direction: row;
-        justify-content: space-between;
-        margin-top: 24px;
-    }
-    .r-p-t1{
-        font-size: 24px;
-        color: #000000;
-        letter-spacing: 0;
-        font-weight: 700;
-    }
-    .r-p-t2{
-        font-size: 24px;
-        color: #00CFE3;
-        letter-spacing: 0;
-        text-align: center;
-    }
-    .r-p-t3{
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .r-p-t4{
-        font-weight: 700;
-        font-size: 28px;
-        line-height: 34px;
-        font-family: ProximaNova;
-    }
-    .r-p-c{
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-        margin-top: 32px;
-        padding-bottom: 32px;
-    }
-    .r-p-c-1{
-        font-size: 24px;
-        line-height: 36px;
-        lines: 2;
-        width: 646px;
-    }
-    .r-p-c-2{
-        padding: 0 0 32px;
-    }
-    .r-p-c-3{
-        flex-direction: row;
-        justify-content: start;
-        align-items: start;
-    }
-    .r-p-c-4{
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-    }
-    .r-p-c-l{
-        border-top-style: dashed;
-        border-top-color: rgba(0,0,0,.08);
-        border-top-width: 1px;
-        padding-top: 32px;
-    }
-    .r-p-c-l1{
-        padding: 24px 0 32px;
-    }
-    .r-p-i{
-        width:28px;
-        height:28px;
-        margin-right: 16px;
-        font-size: 28px;
-    }
-    .r-p-i1{
-        margin-top: 8px;
-        width: 20px;
-        height: 20px;
-        margin-right: 24px;
-    }
-    .r-p-w{
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    .r-p-w1{
-        font-size: 24px;
-        color: #000000;
-        letter-spacing: 0;
-    }
-    .r-p-w1b{
-        font-size: 24px;
-        color: #000000;
-        letter-spacing: 0;
-        font-weight: 700;
-        margin: 0 10px;
-    }
-    .r-p-t5{
-        font-family: ProximaNova;
-        font-size: 24px;
-        color: #000000;
-        line-height: 36px;
-        width: 646px;
-        lines: 2;
-    }
-    .r-p-t6{
-        font-family: ProximaNova;
-        font-size: 24px;
-        color: #000000;
-        line-height: 36px;
-        font-weight: bold;
-    }
-    .r-p-m{
-        margin-top: 24px;
-    }
-    .r-p-m-1{
         margin-top: 16px;
     }
+
     .dec-see-more{
         flex-direction: row;
         justify-content: center;
@@ -1953,16 +1886,92 @@
         border-top-color: rgba(0,0,0,.08);
         border-top-width:1px ;
     }
-    .popup-ruler-content{
-        padding: 48px 32px;
-        width: 750px;
-        height: 770px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        background-color: #fff;
-    }
     .bottom-goods{
         background-color: white;
         margin-bottom: 120px;
+    }
+    .ship-item{
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        padding-top: 30px;
+        margin-left: 32px;
+        margin-right: 32px;
+        border-top-color: rgba(0,0,0,.24);
+        border-top-width: 2px;
+        border-top-style: dashed;
+    }
+    .s-i-img{
+        width:38px;
+        height:32px;
+        margin-right: 24px;
+    }
+    .s-i-t{
+        font-size: 24px;
+        color: rgba(0,0,0,.87);
+    }
+    .s-i-1{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .s-i-2{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .s-i-t1{
+        font-size: 24px;
+        color: #1D7CD4;
+    }
+    .s-i-icon{
+        border-width: 1px;
+        border-style: solid ;
+        border-color: #00CFE3;
+        width: 156px;
+        font-size: 20px;
+        border-radius: 8px;
+        padding: 4px 16px;
+        color: #00CFE3;
+        margin-left: 62px;
+        margin-top: 16px;
+        margin-bottom: 32px;
+    }
+    .p-s{
+        flex-direction: row;
+        justify-content:start;
+        align-items: center;
+        margin: 0 32px;
+    }
+    .p-s-t1{
+        width:234px;
+        margin-left: 32px;
+        font-size: 24px;
+        color: rgba(0,0,0,.54);
+
+    }
+    .p-s-t2{
+        width:234px;
+        margin-left: 32px;
+        font-size: 24px;
+        color: rgba(0,0,0,.54);
+
+    }
+    .rowWithe{
+        padding: 22px 32px 22px 0 ;
+        background-color: white;
+    }
+    .rowGray{
+        padding: 22px 32px 22px 0 ;
+        background-color: rgba(0,0,0,.08);
+    }
+    .mg-b36{
+        margin-bottom: 36px;
+    }
+    .mg-b32{
+        margin-bottom: 32px;
+    }
+    .mg-b44{
+        margin-bottom: 44px;
     }
 </style>

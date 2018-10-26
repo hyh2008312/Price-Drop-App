@@ -18,12 +18,13 @@
                     <div class="line-card">
                         <div class="lc-top">
                             <div  @click="selGoods(i)">
-                                <div :class="[i.sel?'lc-t-dot-select':'lc-t-dot']" >
+                                <div :class="[i.sel?'lc-t-dot-select':'lc-t-dot',i.sumStock==0?'lc-t-dot-disable':'']" >
                                     <text class="dot-sel">&radic;</text>
                                 </div>
                             </div>
                             <div class="overflow-img">
                                 <image class="lc-t-img" :src="i.mainImage" ></image>
+                                <image class="lc-sold-out" v-if="i.sumStock==0" src="bmlocal://assets/sold-out.png"></image>
                                 <!--<div>-->
                                 <text class="blue-word" v-if="i.productType=='flash'">Flash Sale</text>
                                 <!--</div>-->
@@ -73,9 +74,12 @@
             </cell>
             <cell class="container-1" v-if="goodsList.length == 0">
                 <div class="container-2">
-                    <image class="pay-image" src="bmlocal://assets/empty.png"></image>
+                    <text class="empty-icon iconfont">&#xe755;</text>
                 </div>
-                <text class="address-title">There is no notification to show. </text>
+                <text class="address-title">Your cart is empty.</text>
+                <div class="container-2">
+                    <text class="empty-btn" @click="jumpHome">Go Shopping</text>
+                </div>
             </cell>
             <cell class="loading" v-if="isLoading">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
@@ -152,6 +156,7 @@
                 this.getCartList(isFirst);
             },
             getCartList (isFirst) {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     name: 'cart.list',
@@ -181,14 +186,24 @@
                     }
                     this.page++;
                     this.isLoading = false;
-                    // this.$notice.alert({
-                    //     message: this.goodsList
-                    // })
-                }).catch((res) => {
-                    this.isLoading = false;
-                    this.$notice.toast({
-                        message: res
+                    this.$notice.alert({
+                        message: this.goodsList[0]
                     })
+                    this.$notice.loading.hide();
+                    // this.goodsList = [];
+                }).catch((res) => {
+                    this.$notice.loading.hide();
+                    this.isLoading = false;
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
+                })
+            },
+            jumpHome () {
+                this.$router.setBackParams({ tab: 'home' })
+                this.$router.back({
+                    length: 9999,
+                    type: 'PUSH'
                 })
             },
             calc (a, b) {
@@ -267,6 +282,7 @@
                 p === 1 ? [this.bottomWord = 'Delete', this.allPrice = '0.00'] : this.bottomWord = 'Checkout'
             },
             handleGoods () {
+                this.$notice.loading.show();
                 const idArr = []
                 const arr = [...this.goodsList];
                 if ((this.bottomWord === 'Delete')) {
@@ -294,19 +310,25 @@
                             this.$nextTick(() => {
                                 this.goodsList = [...arr];
                             })
+                            this.allPrice = "0.00"
+                            this.$notice.loading.hide();
                         }).catch((res) => {
+                            this.$notice.loading.hide();
                             this.$notice.toast({
                                 message: res
                             })
                         })
                     }
                 } else {
+                    // this.getCartList(false)
                     this.nextPage = [];
                     for (let i = 0; i < this.goodsList.length; i++) {
                         if (this.goodsList[i].sel) {
                             this.nextPage.push(this.goodsList[i])
                         }
                     }
+                    this.$notice.loading.hide();
+                    // TODO 需要重新请求一下列表 获取最新的库存 进行判断是否有库存可以使用
                     this.$router.open({
                         name: 'cart.order',
                         type: 'PUSH',
@@ -315,24 +337,27 @@
                 }
             },
             selGoods (item) {
-                item.sel = !item.sel
-                const arr = [...this.goodsList];
-                let trueCount = 0
-                for (let i = 0; i < arr.length; i++) {
-                    if (!arr[i].sel) {
-                        this.selAllStatus = false
-                    } else {
-                        this.allPrice = arr[i].unitPrice
-                        trueCount++
+                if (item.sumStock > 0) {
+                    item.sel = !item.sel
+                    const arr = [...this.goodsList];
+                    let trueCount = 0
+                    for (let i = 0; i < arr.length; i++) {
+                        if (!arr[i].sel) {
+                            this.selAllStatus = false
+                        } else {
+                            this.allPrice = arr[i].unitPrice
+                            trueCount++
+                        }
+                        if (trueCount == arr.length) {
+                            this.selAllStatus = true
+                        }
                     }
-                    if (trueCount == arr.length) {
-                        this.selAllStatus = true
-                    }
+                    this.$nextTick(() => {
+                        this.goodsList = [...arr];
+                    })
+                    this.countPrice()
                 }
-                this.$nextTick(() => {
-                    this.goodsList = [...arr];
-                })
-                this.countPrice()
+
                 // // this.goodList[index].sel = !this.goodList[index].sel
                 // this.$notice.alert({
                 //     message: item
@@ -342,7 +367,7 @@
                 this.selAllStatus = !this.selAllStatus
                 const arr = [...this.goodsList];
                 for (let i = 0; i < arr.length; i++) {
-                    if (this.selAllStatus) {
+                    if (this.selAllStatus && arr[i].sumStock > 0) {
                         arr[i].sel = true
                     } else {
                         arr[i].sel = false
@@ -385,6 +410,9 @@
 <style scoped>
     .wrapper{
         width: 750px;
+    }
+    .iconfont{
+        font-family:iconfont;
     }
     .t-h1{
         margin-top: 48px;
@@ -442,7 +470,8 @@
         border-radius: 50%;
         border-width:  1px;
         border-style:  solid ;
-        border-color:  grey;
+        border-color:  rgba(104,104,104,.19);
+
     }
     .lc-t-dot-select{
         width: 32px;
@@ -475,6 +504,13 @@
     .lc-t-img{
         width: 176px;
         height: 176px;
+    }
+    .lc-sold-out{
+        width: 176px;
+        height: 176px;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
     .lc-tw{
         flex-direction: column;
@@ -639,6 +675,41 @@
         color: white;
         font-weight: 700;
         font-size: 28px;
+    }
+    .container-1{
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background-color: #f4f4f4;
+    }
+    .container-2{
+        margin-top: 86px;
+        width: 750px;
+        align-items: center;
+    }
+
+    .empty-icon{
+        margin-top: 100px;
+        opacity: 0.45;
+        font-size: 200px;
+    }
+    .empty-btn{
+        font-size: 24px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        background-color: #EF8A31;
+        padding:18px 40px;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 8px;
+    }
+    .address-title{
+        margin-top: 32px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
     }
     .loading{
         flex-direction: row;

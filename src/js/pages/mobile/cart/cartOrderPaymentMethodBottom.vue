@@ -18,6 +18,9 @@
         methods: {
             confirm () {
                 const that = this;
+                // that.$notice.alert({
+                //     message: that.order.id
+                // });
                 if (!this.isFirst) {
                     this.isFirst = true;
                     if (that.method == 'paytm') {
@@ -26,7 +29,7 @@
                         googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm', 0);
                         that.$fetch({
                             method: 'POST', // 大写
-                            name: 'payment.paytm.checksum',
+                            name: 'payment.sum.paytmc.checksum',
                             data: {
                                 orderId: that.order.id,
                                 bonus: that.checked ? that.checked : null
@@ -50,7 +53,7 @@
                             }
                             googleAnalytics.trackingScreen('Select Payment');
                             const paymentAmount = resData.amount;
-                            pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.amount,
+                            pay.startPaytmRequest(resData.paytmOrderId, resData.order.number, resData.amount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
                                     googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm sdk success return', 0);
@@ -58,7 +61,7 @@
                                         that.$notice.loading.show();
                                         that.$fetch({
                                             method: 'POST', // 大写
-                                            name: 'payment.paytm.get.status',
+                                            name: 'payment.sum.paytmc.get.status',
                                             data: {
                                                 paytmOrderId: data.orderId,
                                                 checksum: data.checkSumHash,

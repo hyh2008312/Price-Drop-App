@@ -46,7 +46,7 @@
                 <div class="bb-d-l">
                     <text class="bb-dl" >Total：</text>
                     <text class="bb-dl-p" >₹ {{allPrice}}</text>
-                    <div class="bb-dl-b" @click="handleGoods">
+                    <div class="bb-dl-b" @click="postOrder">
                         <text class="bb-dl-bf" >Place Order</text>
                     </div>
 
@@ -61,6 +61,7 @@
     import header from './witheHeader';
     import cartOrderShipping from './cartOrderShipping';
     import goodsItem from './cartGoods';
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { WxcCountdown } from 'weex-ui';
     export default {
         components: {
@@ -121,9 +122,9 @@
                 }).then(resData => {
                     this.address = resData;
                 }, error => {
-                    this.$notice.alert({
-                        message: error
-                    })
+                    // this.$notice.alert({
+                    //     message: error
+                    // })
                 });
             },
             jumpCard () {
@@ -134,6 +135,92 @@
                         card: this.card
                     }
                 });
+            },
+            postOrder () {
+                if (!this.address.id) {
+                    this.$notice.toast('Please add address first!');
+                    return
+                }
+                this.$notice.loading.show();
+                let arr = []
+                for (let i = 0; i < this.orderList.length; i++) {
+                    if (this.orderList[i].productType === 'direct') {
+                        arr.push({
+                            class: 'direct',
+                            order: {
+                                vid: this.orderList[i].variantId,
+                                quantity: this.orderList[i].quantity
+                            }
+                        })
+                    } else if (this.orderList[i].productType === 'flash') {
+                        arr.push({
+                            class: 'flash',
+                            order: {
+                                vid: this.orderList[i].variantId,
+                                quantity: this.orderList[i].quantity,
+                                fpId: this.orderList[i].flashId
+                            }
+                        })
+                    }
+                }
+                // if (this.card == null) {
+                //     this.card.id = ''
+                // }
+                // let aa = {
+                //         amount: this.allPrice,
+                //         voucherId: this.card.id,
+                //         cartData: arr
+                //     }
+                // this.$notice.alert({
+                //     message: aa
+                // })
+                // return
+                this.$fetch({
+                    method: 'POST', // 大写
+                    name: 'order.cart.create',
+                    data: {
+                        amount: this.allPrice,
+                        voucherId: this.card.id,
+                        cartData: arr
+                    },
+                    header: {
+                        needAuth: true
+                    }
+                }).then(resData => {
+                    // this.$notice.alert({
+                    //     message: resData
+                    // })
+                    // return
+                    this.$notice.loading.hide();
+
+                    // googleAnalytics.recordEvent('Payment', 'Add to Cart', 'normal', 0);
+                    // googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', this.order.productId, '', 'Rs', this.order.currentPrice);
+                    const order = resData;
+                    order.paymentAmount = parseInt(this.allPrice)
+                    // that.$router.finish();
+                    this.$router.open({
+                        name: 'cart.order.payment',
+                        type: 'PUSH',
+                        params: {
+                            source: 'confirm',
+                            data: order
+                        },
+                        backCallback: () => {
+                            this.$router.finish();
+                            this.$router.open({
+                                name: 'order',
+                                type: 'PUSH'
+                            });
+                            this.$event.emit('closePayment');
+                        }
+
+                    });
+                    // this.isFirst = false;
+                }).catch((res) => {
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
+                })
             },
             countPrice (arr) {
                 const priceArr = []
@@ -151,12 +238,15 @@
                     this.allPrice = '0.00'
                 } else if (priceArr.length >= 1) {
                     this.allPrice = 0;
-                    for (let i = 0; i < priceArr.length; i++) {
-                        this.allPrice += parseInt(priceArr[i])
+                        for (let i = 0; i < priceArr.length; i++) {
+                            this.allPrice += parseInt(priceArr[i])
+                        }
+                        this.allPrice /= 100
                     }
-                    this.allPrice /= 100
                 }
-                }
+            },
+            calc (a, b) {
+                return ((a * b) / 100).toFixed(2)
             }
         }
     }
