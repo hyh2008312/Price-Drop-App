@@ -19,7 +19,13 @@
                     this.$notice.toast({
                         message: 'Please fill in all the required fields.'
                     });
-                    return
+                    return;
+                }
+                if (this.address.phoneNumber.length < 10) {
+                    this.$notice.toast({
+                        message: 'The phone number is in wrong format.'
+                    });
+                    return;
                 }
                 if (!this.id) {
                     this.$fetch({

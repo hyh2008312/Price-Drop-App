@@ -15,6 +15,7 @@
                     <div class="input-bg-1">
                         <text class="input-title-1">+91</text>
                         <input type="tel" placeholder="" class="input-1" :value="address.phoneNumber"
+                               maxlength="10"
                                @input="onInputPhone" @return="onInputPhone" :autofocus="inputIndex==1"
                                @focus="changeColor(1)" @blur="changeColor(-1)"/>
                     </div>
