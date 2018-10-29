@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="gd-bg-bottom">
-            <div class="i-good" v-for="i in item.goodsList" @click="jumpItem(i.id)">
+            <div class="i-good" v-for="i in item" @click="jumpItem(i.id)">
                 <div class="item-bg">
                     <preload class="gd-img" :src="i.mainImage"></preload>
                 </div>
@@ -51,7 +51,7 @@ export default {
 
 .gd-bg-bottom {
     width: 750px;
-    padding-bottom: 48px;
+    margin-top: 24px;
     padding-left: 32px;
     padding-right: 32px;
     flex-direction: row;
@@ -60,21 +60,18 @@ export default {
 }
 
 .item-bg{
-    width: 202px;
-    height: 186px;
-    padding-top: 16px;
-    padding-left: 16px;
-    padding-right: 16px;
+    width: 218px;
+    height: 218px;
 }
 
 .gd-img {
-    width: 170px;
-    height: 170px;
+    width: 218px;
+    height: 218px;
     overflow: hidden;
 }
 
 .i-good{
-    width: 202px;
+    width: 218px;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
     border-radius: 8px;
     background-color: #fff;
@@ -106,7 +103,7 @@ export default {
     text-overflow: ellipsis;
     padding: 0 16px;
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 </style>

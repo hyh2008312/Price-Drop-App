@@ -40,11 +40,11 @@
             <cell class="cell-button" v-if="false">
                 <block-5 :logo="block5.items"></block-5>
             </cell>
-            <header>
+            <header v-if="false">
                 <tab @tabTo="onTabTo" :items="tabsItems" :activeTab="activeTab"></tab>
             </header>
-            <cell class="gd-bg-white" v-for="item in products" :ref="item.name">
-                <list class="gd-bg">
+            <cell class="gd-bg-gray" v-for="item in products" :ref="item.name">
+                <list class="gd-bg gd-bg-mt">
                     <cell class="gd-bg" @click="jumpCategory(item)">
                         <preload class="gd-img-image" :src="item.src"></preload>
                         <div class="img-tlt-bg">
@@ -58,7 +58,12 @@
                 </list>
                 <list class="gd-bg-mrt">
                     <cell>
-                        <block-8 :item="item" ></block-8>
+                        <block-8 :item="item.goodsList" ></block-8>
+                    </cell>
+                </list>
+                <list class="gd-bg-mrt">
+                    <cell>
+                        <block-8 :item="item.goodsList1" ></block-8>
                     </cell>
                 </list>
             </cell>
@@ -290,12 +295,28 @@ export default {
                 name: 'product.category.product.list',
                 data: {}
             }).then(resData => {
+                this.$notice.alert({
+                    message: resData
+                })
                 for(let item of this.products) {
                     for(let m of resData) {
                         if(item.value == m.name) {
                             item.id = m.id;
                             if(m.product.length > 0) {
-                                item.goodsList = [...m.product];
+                                for(let i = 0; i < m.product.length; i++) {
+                                    const itm = m.product[i];
+                                    if(i < 3) {
+                                        if(i == 0) {
+                                            item.goodsList = [];
+                                        }
+                                        item.goodsList.push(itm);
+                                    } else if(i >= 3 && i < 6) {
+                                        if(i == 3) {
+                                            item.goodsList1 = [];
+                                        }
+                                        item.goodsList1.push(itm);
+                                    }
+                                }
                             }
                         }
                     }
@@ -474,29 +495,29 @@ export default {
             }
         },
         scrollHandler (e) {
-            if (Math.abs(e.contentOffset.y) >= 488) {
-                this.$emit('colorChange', {
-                    status: 'colorChange',
-                    data: {
-                        isHeaderBg: true
-                    }
-                });
-
-                for(let item of this.products) {
-                    dom.getComponentRect(this.$refs[item.name][0], option => {
-                        if(option.size.top <= 333 && option.size.top > 96) {
-                            this.activeTab = item.name;
-                        }
-                    });
-                }
-            } else {
-                this.$emit('colorChange', {
-                    status: 'colorChange',
-                    data: {
-                        isHeaderBg: false
-                    }
-                });
-            }
+            // if (Math.abs(e.contentOffset.y) >= 488) {
+            //     this.$emit('colorChange', {
+            //         status: 'colorChange',
+            //         data: {
+            //             isHeaderBg: true
+            //         }
+            //     });
+            //
+            //     for(let item of this.products) {
+            //         dom.getComponentRect(this.$refs[item.name][0], option => {
+            //             if(option.size.top <= 333 && option.size.top > 96) {
+            //                 this.activeTab = item.name;
+            //             }
+            //         });
+            //     }
+            // } else {
+            //     this.$emit('colorChange', {
+            //         status: 'colorChange',
+            //         data: {
+            //             isHeaderBg: false
+            //         }
+            //     });
+            // }
         },
     }
 }

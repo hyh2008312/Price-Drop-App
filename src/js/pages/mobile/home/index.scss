@@ -412,8 +412,12 @@ body {
 
 .gd-bg {
   width: 750px;
-  height: 375px;
+  height: 112px;
   overflow: hidden;
+}
+
+.gd-bg-mt{
+  margin-top: 24px;
 }
 
 .img-tlt-bg{
@@ -471,14 +475,12 @@ body {
   overflow: hidden;
   position: relative;
 }
-
-.gd-bg-mrt{
-  margin-top: -140px;
-  height: 316px;
-}
-
 .gd-bg-white{
   background-color: #fff;
+}
+
+.gd-bg-gray{
+  background-color: #f1f1f1;
 }
 
 .gd-bg-white-gray{

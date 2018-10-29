@@ -78,10 +78,23 @@ export const PRODUCTS = [{
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
+    }],
+    goodsList1: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }]
 }, {
-    name: 'Men',
-    value: 'Men',
+    name: 'Jewellery & Watches',
+    value: 'Jewellery & Watches',
     src: 'http://image.getpricedrop.com/category/men.jpg',
     goodsList: [{
         mainImage: '',
@@ -95,12 +108,38 @@ export const PRODUCTS = [{
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
+    }],
+    goodsList1: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }]
 }, {
-    name: 'Shoes',
-    value: 'Shoes',
+    name: 'Bags',
+    value: 'Bags',
     src: 'http://image.getpricedrop.com/category/shoes.jpg',
     goodsList: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }],
+    goodsList1: [{
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
@@ -129,12 +168,68 @@ export const PRODUCTS = [{
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
+    }],
+    goodsList1: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
     }]
 }, {
-    name: 'Bags',
-    value: 'Bags',
+    name: 'Men',
+    value: 'Men',
     src: 'http://image.getpricedrop.com/category/bag.jpg',
     goodsList: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }],
+    goodsList1: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }]
+}, {
+    name: 'Shoes',
+    value: 'Shoes',
+    src: 'http://image.getpricedrop.com/category/bag.jpg',
+    goodsList: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }],
+    goodsList1: [{
         mainImage: '',
         unitPrice: '0.00',
         saleUnitPrice: '0.00'
