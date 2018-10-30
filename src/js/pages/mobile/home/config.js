@@ -65,7 +65,10 @@ export const CHANNELLIST1 = [{
 export const PRODUCTS = [{
     name: 'Electronics',
     value: 'Electronic',
-    src: 'http://image.getpricedrop.com/category/electronics.jpg',
+    width: 162,
+    color: '#f8b233',
+    src: 'http://image.getpricedrop.com/banner/20181029/electronics-2.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181029/electronics-2-bg.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -95,7 +98,10 @@ export const PRODUCTS = [{
 }, {
     name: 'Jewellery & Watches',
     value: 'Jewellery & Watches',
-    src: 'http://image.getpricedrop.com/category/men.jpg',
+    width: 163,
+    color: '#6822d3',
+    src: 'http://image.getpricedrop.com/banner/20181029/jewellery.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181029/jewellery-bg.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -125,7 +131,11 @@ export const PRODUCTS = [{
 }, {
     name: 'Bags',
     value: 'Bags',
-    src: 'http://image.getpricedrop.com/category/shoes.jpg',
+    width: 170,
+
+    color: '#ff4d76',
+    src: 'http://image.getpricedrop.com/banner/20181029/bags.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181029/bags-bg.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -155,7 +165,10 @@ export const PRODUCTS = [{
 }, {
     name: 'Home',
     value: 'Home',
-    src: 'http://image.getpricedrop.com/category/home.jpg',
+    width: 120,
+    color: '#00dfdb',
+    src: 'http://image.getpricedrop.com/banner/20181029/home.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181029/home-bg.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -185,7 +198,10 @@ export const PRODUCTS = [{
 }, {
     name: 'Men',
     value: 'Men',
-    src: 'http://image.getpricedrop.com/category/bag.jpg',
+    width: 163,
+    color: '#006de6',
+    src: 'http://image.getpricedrop.com/banner/20181029/men.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181029/men-bg.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -215,7 +231,10 @@ export const PRODUCTS = [{
 }, {
     name: 'Shoes',
     value: 'Shoes',
-    src: 'http://image.getpricedrop.com/category/bag.jpg',
+    width: 209,
+    color: '#ffc05b',
+    src: 'http://image.getpricedrop.com/banner/20181029/shoes.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181029/shoe-bg.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',

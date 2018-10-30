@@ -412,22 +412,26 @@ body {
 
 .gd-bg {
   width: 750px;
-  height: 112px;
+  height: 108px;
+  padding: 0 32px;
   overflow: hidden;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
 }
 
 .gd-bg-mt{
   margin-top: 24px;
 }
 
-.img-tlt-bg{
-  position: absolute;
-  left: 32px;
-  top: 48px;
-  height: 82px;
-  border-style: solid;
-  border-width: 6px;
-  border-color: rgba(255,255,255,0.8);
+.img-tlt{
+  margin-left: 16px;
+  margin-top: 56px;
+  font-family: ProximaNova;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #FFFFFF;
 }
 
 .img-inner-tlt{
@@ -442,39 +446,51 @@ body {
 
 .gd-button {
   position: absolute;
-  right: 32px;
-  top: 150px;
-  width: 162px;
+  right: 64px;
+  top: 52px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 48px;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-  border-radius: 24px;
-  background-color: #fff;
 }
 
 .gd-button-1{
   font-family: ProximaNova;
   font-size: 24px;
   line-height: 28px;
-  color: #EF8A31;
-  font-weight: bold;
+  color: #FFF;
+  margin-right: 16px;
 }
 
 .gd-button-2{
   font-family: ProximaNova;
   font-size: 24px;
-  line-height: 28px;
-  color: #EF8A31;
+  line-height: 36px;
+  width: 36px;
+  height: 36px;
+  color: rgba(0,0,0,0);
+  background-color: #fff;
+  border-radius: 18px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .gd-img-image {
-  width: 750px;
-  height: 375px;
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  bottom: 0;
+  width: 686px;
+  height: 90px;
+  overflow: hidden;
+}
+
+.gd-img-image-1 {
+  margin-left: 32px;
+  height: 108px;
   overflow: hidden;
   position: relative;
 }
+
 .gd-bg-white{
   background-color: #fff;
 }

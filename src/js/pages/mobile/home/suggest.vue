@@ -34,7 +34,7 @@
             <cell class="cell-button">
                 <text> </text>
             </cell>
-            <cell class="cell-button" v-if="activity">
+            <cell v-if="activity">
                 <block-2 :goodsList="activity" :time="time"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
@@ -44,15 +44,14 @@
                 <tab @tabTo="onTabTo" :items="tabsItems" :activeTab="activeTab"></tab>
             </header>
             <cell class="gd-bg-gray" v-for="item in products" :ref="item.name">
-                <list class="gd-bg gd-bg-mt">
+                <list class="gd-bg-mt">
                     <cell class="gd-bg" @click="jumpCategory(item)">
-                        <preload class="gd-img-image" :src="item.src"></preload>
-                        <div class="img-tlt-bg">
-                            <text class="img-inner-tlt">{{item.name}}</text>
-                        </div>
+                        <preload class="gd-img-image" :src="item.bgSrc"></preload>
+                        <preload class="gd-img-image-1" :src="item.src" :style="{width: item.width}"></preload>
+                        <text class="img-tlt">{{item.name}}</text>
                         <div class="gd-button">
-                            <text class="gd-button-1">See More</text>
-                            <text class="gd-button-2"> ></text>
+                            <text class="gd-button-1">VIEW MORE</text>
+                            <text class="gd-button-2 iconfont" :style="{color: item.color}">&#xe626;</text>
                         </div>
                     </cell>
                 </list>
@@ -295,9 +294,6 @@ export default {
                 name: 'product.category.product.list',
                 data: {}
             }).then(resData => {
-                this.$notice.alert({
-                    message: resData
-                })
                 for(let item of this.products) {
                     for(let m of resData) {
                         if(item.value == m.name) {

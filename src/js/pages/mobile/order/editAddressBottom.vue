@@ -27,6 +27,12 @@
                     });
                     return;
                 }
+                if (this.address.postcode.length < 6) {
+                    this.$notice.toast({
+                        message: 'Your Pincode is in a wrong format.'
+                    });
+                    return;
+                }
                 if (!this.id) {
                     this.$fetch({
                         method: 'POST', // 大写

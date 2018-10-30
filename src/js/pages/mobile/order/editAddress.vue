@@ -24,6 +24,7 @@
             <cell class="input-bg">
                 <text class="input-title" :class="[inputIndex==2?'input-title-active':'']">Pincode</text>
                 <input type="number" placeholder="" class="input" :value="address.postcode"
+                       maxlength="6"
                        @input="onInputPostcode" @return="onInputPostcode" :autofocus="inputIndex==2"
                        @focus="changeColor(2)" @blur="changeColor(-1)"/>
             </cell>
