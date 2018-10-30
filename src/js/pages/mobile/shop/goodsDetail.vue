@@ -408,7 +408,7 @@
             </div>
         </wxc-popup>
 
-        <wxc-popup :have-overlay="isTrue"x
+        <wxc-popup :have-overlay="isTrue"
                    popup-color="rgba(255, 255, 255, 1)"
                    :show="isCODShow"
                    @wxcPopupOverlayClicked="popupOverlayBottomClick"
@@ -432,6 +432,7 @@
                     </div>
                     <text class="c-it-err"  v-if="pinCodeStatus==2">COD is not available for this area now. But we will support it later!</text>
                     <text class="c-it-err1" v-if="pinCodeStatus==1">COD is available for your area!</text>
+                    <text class="c-it-err"  v-if="pinCodeStatus==3">Please enter your Pincode!</text>
                     <text class="c-it-err"  v-if="pinCodeStatus==0">&nbsp;</text>
                 </div>
                 <div class="cod-item1">
@@ -1318,25 +1319,30 @@
                 this.pinCodeStatus = 0
             },
             checkPinCode () {
-                this.pinCodeLoad = true
-                this.$fetch({
-                    method: 'POST',
-                    name: 'order.cod.check',
-                    data: {
-                        postcode: parseInt(this.pinCode)
-                    }
-                }).then((res) => {
-                    if (res.enable) {
-                        this.pinCodeStatus = 1
-                    } else {
-                        this.pinCodeStatus = 2
-                    }
-                    this.pinCodeLoad = false
-                }).catch((res) => {
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
-                })
+                if (this.pinCode.length == 0) {
+                    this.pinCodeStatus = 3    // 1支持 2不支持 3 输入的pincode为空
+                    return
+                } else {
+                    this.pinCodeLoad = true
+                    this.$fetch({
+                        method: 'POST',
+                        name: 'order.cod.check',
+                        data: {
+                            postcode: parseInt(this.pinCode)
+                        }
+                    }).then((res) => {
+                        if (res.enable) {
+                            this.pinCodeStatus = 1
+                        } else {
+                            this.pinCodeStatus = 2
+                        }
+                        this.pinCodeLoad = false
+                    }).catch((res) => {
+                        // this.$notice.toast({
+                        //     message: res
+                        // })
+                    })
+                }
             },
             countOff (s, o) {
                 if (o > 0) {
@@ -1813,10 +1819,12 @@
         flex-direction: row;
         align-items: center;
         justify-content: start;
+        width: 750px;
     }
     .c-i-d{
         background-color: #FFFFFF;
-        padding: 0 50px;
+        /*padding: 0 50px;*/
+        width: 124px;
     }
     .cart-icon{
         text-align: center;
@@ -1828,7 +1836,7 @@
         background-color: red;
         position: absolute;
         top:0;
-        right:32px;
+        right:24px;
         border-radius:24px ;
         flex-direction: row;
         justify-content: center;
@@ -1837,13 +1845,14 @@
     .a-t-c{
         padding-top: 38px;
         padding-bottom: 45px;
-        padding-right: 85px;
-        padding-left: 85px;
+        /*padding-right: 85px;*/
+        /*padding-left: 85px;*/
         font-size: 28px;
         color: #EF8A31;
         text-align: center;
         background-color: rgba(239,138,49,.16);
         font-weight: 700;
+        width: 318px;
     }
     .b-n{
         padding-right: 94px;
@@ -1855,6 +1864,7 @@
         text-align: center;
         background-color: rgba(239,138,49,1);
         font-weight: 700;
+        width: 318px;
     }
 
     .scroller{
