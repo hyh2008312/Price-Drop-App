@@ -860,9 +860,9 @@
                         //         type: 'PUSH'
                         //     })
                         // }
-                        this.$notice.toast({
-                            message: res.errorMsg
-                        })
+                        // this.$notice.toast({
+                        //     message: res.errorMsg
+                        // })
                     }
                 })
             },
@@ -1066,9 +1066,9 @@
                         })
                     }
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res.errorMsg
-                    })
+                    // this.$notice.toast({
+                    //     message: res.errorMsg
+                    // })
                 })
             },
             // 非状态组件，需要在这里关闭

@@ -151,9 +151,9 @@
                 }, error => {
                     this.$notice.loading.hide();
                     // 错误回调
-                    this.$notice.toast({
-                        message: error
-                    });
+                    // this.$notice.toast({
+                    //     message: error
+                    // });
                 })
             },
             refreshApiFinished () {

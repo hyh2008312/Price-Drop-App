@@ -215,6 +215,9 @@
             this.$event.on('raffle', parmas => {
                 this.getUserData()
             })
+            this.$event.on('mySign', parmas => {
+                this.getUserData()
+            })
             this.$event.on('getMyWallet', parmas => {
                 this.getMyWallet()
             })
@@ -424,9 +427,9 @@
                                 unread: this.unread
                             });
                         }).catch((res) => {
-                            this.$notice.toast({
-                                message: res
-                            })
+                            // this.$notice.toast({
+                            //     message: res
+                            // })
                         })
                         this.$fetch({
                             method: 'GET',
@@ -438,9 +441,9 @@
                             this.unreadR = res.count
                         }).catch((res) => {
                             // this.$notice.loading.hide();
-                            this.$notice.toast({
-                                message: res
-                            })
+                            // this.$notice.toast({
+                            //     message: res
+                            // })
                         })
                         this.getMyWallet()
                     } else {
@@ -470,9 +473,9 @@
                     // })
                 }).catch((res) => {
                     // this.$notice.loading.hide();
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             tranString (s) {
