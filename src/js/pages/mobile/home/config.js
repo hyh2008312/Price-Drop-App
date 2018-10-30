@@ -132,7 +132,6 @@ export const PRODUCTS = [{
     name: 'Bags',
     value: 'Bags',
     width: 170,
-
     color: '#ff4d76',
     src: 'http://image.getpricedrop.com/banner/20181029/bags.png',
     bgSrc: 'http://image.getpricedrop.com/banner/20181029/bags-bg.png',

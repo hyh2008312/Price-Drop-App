@@ -33,6 +33,14 @@
                     });
                     return;
                 }
+
+                if (!this.id && this.address.phoneNumber != this.address.phoneNumberConfirm) {
+                    this.$notice.toast({
+                        message: 'There is something wrong with your phone number!'
+                    });
+                    this.changeInput(1);
+                    return;
+                }
                 if (!this.id) {
                     this.$fetch({
                         method: 'POST', // 大写
@@ -73,7 +81,7 @@
             },
             isChecked () {
                 for (const k in this.address) {
-                    if (k != 'line3') {
+                    if (k != 'line3' && k != 'phoneNumberConfirm') {
                         if (this.address[k] == '' || this.address[k] == null) {
                             this.changeInput(k);
                             this.$notice.toast({

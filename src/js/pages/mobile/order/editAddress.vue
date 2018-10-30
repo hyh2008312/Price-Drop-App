@@ -21,6 +21,16 @@
                     </div>
                 </div>
             </cell>
+            <cell class="input-bg" v-if="!id">
+                <text class="input-title" :class="[inputIndex==7?'input-title-active':'']">Double Confirm Your Phone</text>
+                <div class="input-bg-2">
+                    <text class="input-title-1">+91</text>
+                    <input type="number" placeholder="" class="input" :value="address.phoneNumberConfirm"
+                           maxlength="10"
+                           @input="onInputphoneNumberConfirm" @return="onInputphoneNumberConfirm" :autofocus="inputIndex==7"
+                           @focus="changeColor(7)" @blur="changeColor(-1)"/>
+                </div>
+            </cell>
             <cell class="input-bg">
                 <text class="input-title" :class="[inputIndex==2?'input-title-active':'']">Pincode</text>
                 <input type="number" placeholder="" class="input" :value="address.postcode"
@@ -113,7 +123,8 @@ export default {
                 line2: '',
                 line3: '',
                 city: '',
-                stateId: ''
+                stateId: '',
+                phoneNumberConfirm: ''
             },
             indexList: {
                 firstName: '0',
@@ -175,6 +186,9 @@ export default {
         },
         onInputCity (event) {
             this.address.city = event.value;
+        },
+        onInputphoneNumberConfirm (event) {
+            this.address.phoneNumberConfirm = event.value;
         },
         getAddress (id) {
             this.$fetch({
@@ -248,6 +262,13 @@ export default {
     .input-bg-1{
         flex-direction: row;
         width: 333px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .input-bg-2{
+        flex-direction: row;
+        width: 686px;
         justify-content: space-between;
         align-items: center;
     }
