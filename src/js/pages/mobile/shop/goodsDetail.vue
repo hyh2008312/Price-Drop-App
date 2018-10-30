@@ -814,57 +814,64 @@
                 }, error => {})
             },
             createCut () {
-                this.$notice.loading.show();
-                this.$fetch({
-                    method: 'POST',
-                    url: `${baseUrl}/promotion/cut/down/create/`,
-                    data: {
-                        variant_id: this.variantsId,
-                        version: 1
-                    },
-                    header: {
-                        needAuth: true
-                    }
-                }).then((res) => {
-                    this.$event.emit('createCut');
-                    if (res.cutId) {
-                        this.$router.open({
-                            name: 'drops.cutDetail',
-                            type: 'PUSH',
-                            params: {
-                                isShowSharePanel: false,
-                                id: res.cutId
-                            }
-                        })
-                    } else {
-                        this.$router.open({
-                            name: 'drops.cutDetail',
-                            type: 'PUSH',
-                            params: {
-                                isShowSharePanel: false,
-                                id: res.id
-                            }
-                        })
-                        this.dropGoods += 1
-                        googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.category + '-' + this.variantsId, 0);
-                    }
-                    this.$notice.loading.hide();
-                }).catch((res) => {
-                    if (res.status == 409) {
+                if (this.variantsId == '') {
+                    this.$notice.toast({
+                        message: 'please select variant'
+                    });
+                    return
+                } else {
+                    this.$notice.loading.show();
+                    this.$fetch({
+                        method: 'POST',
+                        url: `${baseUrl}/promotion/cut/down/create/`,
+                        data: {
+                            variant_id: this.variantsId,
+                            version: 1
+                        },
+                        header: {
+                            needAuth: true
+                        }
+                    }).then((res) => {
+                        this.$event.emit('createCut');
+                        if (res.cutId) {
+                            this.$router.open({
+                                name: 'drops.cutDetail',
+                                type: 'PUSH',
+                                params: {
+                                    isShowSharePanel: false,
+                                    id: res.cutId
+                                }
+                            })
+                        } else {
+                            this.$router.open({
+                                name: 'drops.cutDetail',
+                                type: 'PUSH',
+                                params: {
+                                    isShowSharePanel: false,
+                                    id: res.id
+                                }
+                            })
+                            this.dropGoods += 1
+                            googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.category + '-' + this.variantsId, 0);
+                        }
                         this.$notice.loading.hide();
-                        // if (res.errorMsg == 'You are bargaining for this item, you cannot add it repeatedly') {
-                        //     this.$event.emit('jumpMyDrop');
-                        //     this.$router.setBackParams({ tab: 'drops' })
-                        //     this.$router.back({
-                        //         length: 9999,
-                        //         type: 'PUSH'
-                        //     })
-                        // }
-                        // this.$notice.toast({
-                        //     message: res.errorMsg
-                        // })
-                    }
-                })
+                    }).catch((res) => {
+                        if (res.status == 409) {
+                            this.$notice.loading.hide();
+                            // if (res.errorMsg == 'You are bargaining for this item, you cannot add it repeatedly') {
+                            //     this.$event.emit('jumpMyDrop');
+                            //     this.$router.setBackParams({ tab: 'drops' })
+                            //     this.$router.back({
+                            //         length: 9999,
+                            //         type: 'PUSH'
+                            //     })
+                            // }
+                            // this.$notice.toast({
+                            //     message: res.errorMsg
+                            // })
+                        }
+                    })
+                }
             },
             wxcCellClick () {
                 if (this.user == null) {

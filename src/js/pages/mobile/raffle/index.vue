@@ -158,10 +158,13 @@
             this.initPage()
             this.$event.on('logout', parmas => {
                 this.initPage()
-
+            })
+            this.$event.on('readR', parmas => {
+                this.dotNum = 0
             })
             this.$event.on('mySign', parmas => {
-                this.initPage()
+                this.user = this.$storage.getSync('user')
+                this.myPoints = this.user.pointsAvailable
             })
         },
         computed: {},
@@ -177,13 +180,10 @@
                     this.loginS = false
                     this.getCard()
                 }
+                this.initBack()
                 // this.$event.on('login', parmas => {
                 //     this.getCardA()
                 // });
-                this.$event.on('readR', parmas => {
-                    this.dotNum = 0
-                })
-                this.initBack()
             },
             initBack () {
                 // this.$notice.toast({ message: '1111' })
