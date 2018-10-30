@@ -142,9 +142,9 @@
                         })
                 }, error => {
                     // 错误回调
-                    this.$notice.toast({
-                        message: error
-                    })
+                    // this.$notice.toast({
+                    //     message: error
+                    // })
                 })
             },
             saveData () {
@@ -171,9 +171,9 @@
                     })
                     this.setback(params)
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             openGender () {

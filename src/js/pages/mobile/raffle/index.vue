@@ -160,6 +160,9 @@
                 this.initPage()
 
             })
+            this.$event.on('mySign', parmas => {
+                this.initPage()
+            })
         },
         computed: {},
         methods: {
@@ -388,9 +391,9 @@
                     // })
                 }).catch((res) => {
                     // this.$notice.loading.hide();
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             redirectLogin () {
@@ -496,9 +499,9 @@
                     this.page++
                     this.isLoading = false
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             tranDate (tmp) {

@@ -99,9 +99,9 @@ export default {
             }, error => {
                 this.isShow = false;
                 // 错误回调
-                this.$notice.toast({
-                    message: error
-                })
+                // this.$notice.toast({
+                //     message: error
+                // })
             })
         },
         back () {
@@ -147,9 +147,9 @@ export default {
                 }
                 that.addressList.splice(that.deleteIndex, 1)
             }, error => {
-                this.$notice.toast({
-                    message: error
-                })
+                // this.$notice.toast({
+                //     message: error
+                // })
             })
         },
         closeDeletePop () {

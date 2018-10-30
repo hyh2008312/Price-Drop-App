@@ -84,9 +84,9 @@
                                                 }
                                             });
                                         }, error => {
-                                            that.$notice.toast({
-                                                message: error
-                                            });
+                                            // that.$notice.toast({
+                                            //     message: error
+                                            // });
                                         })
                                     }
                                 }, (data) => {
@@ -125,9 +125,9 @@
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             that.isFirst = false;
-                            that.$notice.toast({
-                                message: error
-                            });
+                            // that.$notice.toast({
+                            //     message: error
+                            // });
                         });
                     } else if (that.method == 'razorpay') {
                         that.$notice.loading.show();
@@ -192,9 +192,9 @@
                                             }
                                         });
                                     }, error => {
-                                        that.$notice.toast({
-                                            message: error
-                                        });
+                                        // that.$notice.toast({
+                                        //     message: error
+                                        // });
                                     })
                                 }, function (param) {
                                     if (that.source == 'confirm') {
@@ -232,9 +232,9 @@
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             that.isFirst = false;
-                            that.$notice.toast({
-                                message: error
-                            });
+                            // that.$notice.toast({
+                            //     message: error
+                            // });
                         });
                     } else if (that.method == 'cod') {
                         this.$emit('change', 1)

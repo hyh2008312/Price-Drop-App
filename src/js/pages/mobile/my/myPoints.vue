@@ -115,9 +115,9 @@
                     // this.pArr = []
                     this.$notice.loading.hide();
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             openDialog () {

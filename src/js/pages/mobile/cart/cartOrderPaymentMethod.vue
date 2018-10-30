@@ -232,9 +232,9 @@ export default {
                 }
             }, error => {
                 // 错误回调
-                this.$notice.toast({
-                    message: error
-                })
+                // this.$notice.toast({
+                //     message: error
+                // })
             })
         },
         oninput (e) {

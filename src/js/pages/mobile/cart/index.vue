@@ -1,15 +1,31 @@
 <template>
     <div class="wrapper">
-        <topic-header class="t-h1" title="Cart" leftBtn="y" :rightBtn="rightBtnWord" v-on:change="changeBtn($event)" ></topic-header>
+        <topic-header class="t-h1" title="Cart" leftBtn="y" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
         <div class="blackheader"></div>
-        <!--<div>-->
-            <!--<text>Buy</text>-->
-            <!--<text>₹ 100</text>-->
-            <!--<text>more to use your a</text>-->
-            <!--<text>₹ 100</text>-->
-            <!--<text>voucher!</text>-->
-            <!--<text>Add Item >></text>-->
-        <!--</div>-->
+        <div class="top-buy-overflow">
+            <div class="top-buy1" v-if="parseInt(allPrice)>300" >
+                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600">₹ 300 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900">₹ 600 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>900">₹ 900</text>
+                <text class="t-b-t" > voucher unlocked!</text>
+            </div>
+            <div class="top-buy2" v-if="parseInt(allPrice)<900&&parseInt(allPrice)!=0" @click="jumpHome">
+                <text class="t-b-t">Buy </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)<300">₹ {{300-parseInt(allPrice)}} </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600" >₹ {{600-parseInt(allPrice)}} </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900" >₹ {{900-parseInt(allPrice)}} </text>
+
+
+                <text class="t-b-t">more to use your </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹ 300 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600" >₹ 600 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900" >₹ 900 </text>
+
+                <text class="t-b-t">voucher! </text>
+                <text class="t-b-tc">Add Item >></text>
+            </div>
+
+        </div>
 
         <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <cell  v-for="(i,index) in goodsList"
@@ -129,11 +145,14 @@
                 allPrice: '0.00',
                 bottomWord: 'Checkout',
                 rightBtnWord: 'Edit',
-                nextPage: []
+                nextPage: [],
+                myCard: [],
+                tmpArr: []
             }
         },
         created () {
             this.requestProduct(true);
+            this.getMyCard()
         },
         methods: {
             onLoadingMore () {
@@ -186,9 +205,9 @@
                     }
                     this.page++;
                     this.isLoading = false;
-                    this.$notice.alert({
-                        message: this.goodsList[0]
-                    })
+                    // this.$notice.alert({
+                    //     message: this.goodsList[0]
+                    // })
                     this.$notice.loading.hide();
                     // this.goodsList = [];
                 }).catch((res) => {
@@ -197,6 +216,33 @@
                     // this.$notice.toast({
                     //     message: res
                     // })
+                })
+            },
+            getMyCard () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'point.voucher.owner.list', // 通过get 获取我自己的积分卡
+                    header: {
+                        needAuth: true
+                    },
+                    data: {
+                        page: 1,
+                        page_size: 12,
+                        status: 'available'
+                    }
+                }).then(data => {
+                    this.myCard.push(...data.results);
+                    let tmp = []
+                    for (let i = 0; i < this.myCard.length; i++) {
+                        tmp.push(parseInt(this.myCard[i].lowestAmount))
+                    }
+                    this.tmpArr = this.unique(tmp)
+                    this.$notice.alert({
+                        message: this.tmpArr
+                    })
+                    this.$notice.loading.hide();
+                }, error => {
+                    this.$notice.loading.hide();
                 })
             },
             jumpHome () {
@@ -273,9 +319,9 @@
                         this.countPrice()
                     }
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             changeBtn (p) {
@@ -314,9 +360,9 @@
                             this.$notice.loading.hide();
                         }).catch((res) => {
                             this.$notice.loading.hide();
-                            this.$notice.toast({
-                                message: res
-                            })
+                            // this.$notice.toast({
+                            //     message: res
+                            // })
                         })
                     }
                 } else {
@@ -380,6 +426,16 @@
                 })
                 this.countPrice()
             },
+            unique (arr) {
+                arr.sort();
+                let res = [];
+                for (let i = 0; i < arr.length; i++) {
+                    if (res.indexOf(arr[i]) == -1) {
+                        res.push(arr[i]);
+                    }
+                }
+                return res;
+            },
             countPrice () {
                 const priceArr = []
                 for (let j = 0; j < this.goodsList.length; j++) {
@@ -429,6 +485,38 @@
         margin-bottom: 112px;
         width: 750px;
         /*background-color: black;*/
+    }
+    .top-buy-overflow{
+        background-color:#FCEACF;
+    }
+    .top-buy1{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        margin-left: 32px;
+        margin-top: 8px;
+        margin-bottom: 4px;
+    }
+    .top-buy2{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        margin-left: 32px;
+        margin-bottom: 8px;
+        margin-top: 4px;
+    }
+    .t-b-t{
+        font-size: 24px;
+        color: #000000;
+    }
+    .t-b-tb{
+        font-size: 24px;
+        color: #000000;
+        font-weight: 700;
+    }
+    .t-b-tc{
+        font-size: 24px;
+        color: #EF8A31;
     }
     .line-card{
         /*width: 750px;*/

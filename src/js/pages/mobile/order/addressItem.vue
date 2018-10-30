@@ -95,9 +95,9 @@
                             this.$router.finish()
                         })
                     }, error => {
-                        this.$notice.toast({
-                            message: error
-                        })
+                        // this.$notice.toast({
+                        //     message: error
+                        // })
                     })
                 } else {
                     this.$emit('chooseAddress', {
@@ -119,9 +119,9 @@
                             this.$storage.set('user', user)
                         })
                     }, error => {
-                        this.$notice.toast({
-                            message: error
-                        })
+                        // this.$notice.toast({
+                        //     message: error
+                        // })
                     })
                 }
             }

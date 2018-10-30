@@ -422,9 +422,6 @@
                     //     message: res
                     // })
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
                     // this.$notice.toast({
                     //     message: res
                     // })
@@ -451,9 +448,9 @@
                         !this.signObj.isContinue ? this.signObj.signTimes = 0 : ''
                     }
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             openDetail () {
@@ -539,9 +536,9 @@
                         // })
                         googleAnalytics.recordEvent('Rewards', 'DailyGiftBox', 'EarnCashBonusSuccess', 0);
                     }).catch((res) => {
-                        this.$notice.toast({
-                            message: res
-                        })
+                        // this.$notice.toast({
+                        //     message: res
+                        // })
                     })
                 }
             },
@@ -571,11 +568,12 @@
                                 message: 'You’ve get ' + (this.signObj.originalPoints + (((this.signObj.signTimes - 1) % 15) <= 6 ? ((this.signObj.signTimes - 1) % 15) : 6) * this.signObj.gradientPoints) + ' points successfully today!'
                             })
                             // googleAnalytics.recordEvent('sign Success', '', '', 0);
+                            this.$event.emit('mySign')
                             googleAnalytics.recordEvent('Rewards', 'CheckIn', 'CheckInSuccess', 0);
                         }).catch((res) => {
-                            this.$notice.toast({
-                                message: res
-                            })
+                            // this.$notice.toast({
+                            //     message: res
+                            // })
                         })
                     } else {
                         this.$notice.toast({

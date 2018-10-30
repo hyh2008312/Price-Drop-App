@@ -196,9 +196,9 @@
                         this.raffle = res.raffle
                     }
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             tranDate (str) {
