@@ -51,12 +51,13 @@ export default {
 
 .gd-bg-bottom {
     width: 750px;
-    margin-top: 24px;
+    margin-top: 22px;
     padding-left: 32px;
     padding-right: 32px;
     flex-direction: row;
     align-items: start;
     justify-content: space-between;
+    padding-bottom: 2px;
 }
 
 .item-bg{

@@ -6,11 +6,9 @@
             <cell class="slider-wrap">
                 <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor"></yx-slider>
             </cell>
-            <cell class="cell-top"></cell>
-            <cell>
+            <cell v-if="false">
                 <block-1 :category="category"></block-1>
             </cell>
-            <cell class="cell-top"></cell>
             <cell class="cell-top" v-if="false"></cell>
             <cell class="home-drop" v-if="false">
                 <div class="drop-bg"></div>
@@ -430,28 +428,28 @@ export default {
             });
         },
         getChannel () {
-            this.category = [...CHANNELLIST];
-            this.category1 = [...CHANNELLIST1];
-            this.$fetch({
-                method: 'GET', // 大写
-                name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
-                data: {}
-            }).then(data => {
-                for (let i = 0; i < this.category.length; i++) {
-                    for (let j = 0; j < data.length; j++) {
-                        if(this.category[i].name == data[j].name) {
-                            this.category[i].id = data[j].id;
-                        }
-                    }
-                }
-                for (let i = 0; i < this.category1.length; i++) {
-                    for (let j = 0; j < data.length; j++) {
-                        if(this.category1[i].name == data[j].name) {
-                            this.category1[i].id = data[j].id;
-                        }
-                    }
-                }
-            }, error => {})
+            // this.category = [...CHANNELLIST];
+            // this.category1 = [...CHANNELLIST1];
+            // this.$fetch({
+            //     method: 'GET', // 大写
+            //     name: 'category.list', // 当前是在apis中配置的别名，你也可以直接绝对路径请求 如：url:http://xx.xx.com/xxx/xxx
+            //     data: {}
+            // }).then(data => {
+            //     for (let i = 0; i < this.category.length; i++) {
+            //         for (let j = 0; j < data.length; j++) {
+            //             if(this.category[i].name == data[j].name) {
+            //                 this.category[i].id = data[j].id;
+            //             }
+            //         }
+            //     }
+            //     for (let i = 0; i < this.category1.length; i++) {
+            //         for (let j = 0; j < data.length; j++) {
+            //             if(this.category1[i].name == data[j].name) {
+            //                 this.category1[i].id = data[j].id;
+            //             }
+            //         }
+            //     }
+            // }, error => {})
         },
         getDrops() {
             this.$fetch({
