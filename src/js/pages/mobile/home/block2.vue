@@ -28,7 +28,7 @@
         <div class="box">
 
             <div class="i-good" v-for="i in goodsList" :key="i.id" @click="jumpWeb(i.productId)">
-                <div style="height:210px;padding-top: 15px">
+                <div style="height:230px;padding-top: 15px">
                     <div class="gd-bg">
                         <div class="gd-img">
                             <preload class="gd-img-image" :src="i.mainImage"></preload>
