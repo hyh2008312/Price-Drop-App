@@ -2,6 +2,7 @@
     <div class="wrapper">
         <div class="gd-top">
             <div class="gd-top-left">
+                <text class="title-icon iconfont">&#xe745;</text>
                 <text class="title">Flash Sale</text>
                 <wxc-countdown tpl="{h}:{m}:{s}"
                                :time="time"
@@ -27,7 +28,7 @@
         <div class="box">
 
             <div class="i-good" v-for="i in goodsList" :key="i.id" @click="jumpWeb(i.productId)">
-                <div >
+                <div style="height:210px;padding-top: 15px">
                     <div class="gd-bg">
                         <div class="gd-img">
                             <preload class="gd-img-image" :src="i.mainImage"></preload>
@@ -135,12 +136,20 @@ export default {
     height: 38px;
 }
 
+.title-icon{
+    font-family: ProximaNova;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 38px;
+    color: #00CFE3 ;
+    margin-left: 6px;
+}
 .title{
     font-family: ProximaNova;
     font-weight: bold;
     font-size: 32px;
     line-height: 38px;
-    margin-right: 24px;
+
 }
 
 .title-1{
