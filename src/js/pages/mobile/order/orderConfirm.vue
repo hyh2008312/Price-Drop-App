@@ -61,15 +61,15 @@ export default {
                     this.order.currentPrice = '0.00';
                 } else {
                     if ((this.order.salePrice - this.order.currentPrice) / (this.order.salePrice - this.order.lowestPrice) >= 0.7) {
-                        this.order.currentPrice = ((this.order.salePrice * 100 * 0.3) / 100).toFixed(2);
+                        this.order.currentPrice = parseInt((this.order.salePrice * 100 * 0.3) / 100).toFixed(2);
                     } else if ((this.order.salePrice - this.order.currentPrice) / (this.order.salePrice - this.order.lowestPrice) >= 0.5) {
-                        this.order.currentPrice = ((this.order.salePrice * 100 * 0.5) / 100).toFixed(2);
+                        this.order.currentPrice = parseInt((this.order.salePrice * 100 * 0.5) / 100).toFixed(2);
                     } else {
-                        this.order.currentPrice = this.order.salePrice;
+                        this.order.currentPrice = parseInt(this.order.salePrice).toFixed(2);
                     }
                 }
             }
-            this.order.total = ((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100).toFixed(2);
+            this.order.total = parseInt((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100).toFixed(2);
         }
     },
     created () {

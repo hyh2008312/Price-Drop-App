@@ -9,8 +9,8 @@
                             <preload class="gd-img-image" :src="i.mainImage"></preload>
                         </div>
                     </div>
-                    <text class="gd-tlt">₹{{i.lowestPrice}}</text>
-                    <text class="gd-price">₹{{i.saleUnitPrice}}</text>
+                    <text class="gd-tlt">₹{{parseInt(i.lowestPrice)}}</text>
+                    <text class="gd-price">₹{{parseInt(i.saleUnitPrice)}}</text>
                 </div>
             </div>
         </div>

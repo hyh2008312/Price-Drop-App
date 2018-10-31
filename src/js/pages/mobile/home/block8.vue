@@ -5,8 +5,8 @@
                 <div class="item-bg">
                     <preload class="gd-img" :src="i.mainImage"></preload>
                 </div>
-                <text class="gd-tlt">₹{{i.unitPrice}}</text>
-                <text class="gd-price">₹{{i.saleUnitPrice}}</text>
+                <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                <text class="gd-price">₹{{parseInt(i.saleUnitPrice)}}</text>
             </div>
         </div>
     </div>

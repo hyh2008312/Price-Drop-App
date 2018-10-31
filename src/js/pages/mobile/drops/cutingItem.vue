@@ -11,9 +11,9 @@
                     <div class="gd-bg-right-1">
                         <text class="gd-tlt-1">{{goods.title}}</text>
                         <div class="gd-sm-1">
-                            <text class="gd-price-1">₹{{goods.lowestPrice}}</text>
+                            <text class="gd-price-1">₹{{parseInt(goods.lowestPrice)}}</text>
                         </div>
-                        <text class="gd-info-1">₹{{goods.saleUnitPrice}}</text>
+                        <text class="gd-info-1">₹{{parseInt(goods.saleUnitPrice)}}</text>
                         <text class="gd-button-1">Drop Price</text>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         <text class="gd-tlt">{{goods.title}}</text>
                         <div class="gb-price">
                             <!--<text class="gd-price-sale">₹{{goods.currentPrice}}</text>-->
-                            <text class="gd-price-original">₹{{goods.salePrice}}</text>
+                            <text class="gd-price-original">₹{{parseInt(goods.salePrice)}}</text>
                         </div>
                         <text class="gd-price-show" v-if="goods.cutStatus=='progressing'">Dropped ₹{{ ((goods.salePrice * 100 - goods.currentPrice * 100)/100).toFixed(2) }} by {{goods.cutTimes}} people</text>
                         <div class="gd-cut" v-if="goods.cutStatus=='progressing'">
@@ -117,13 +117,13 @@
                     return 'You didn\'t unlock any discount.'
                 } else if (percentage >= 0.5 && percentage < 0.7) {
                     this.dropStatus = 2;
-                    return `Final price unlocked: ₹${(originalPrice * 0.5).toFixed(2)}`;
+                    return `Final price unlocked: ₹${parseInt(originalPrice * 0.5)}`;
                 } else if (percentage >= 0.7 && percentage < 1) {
                     this.dropStatus = 3;
-                    return `Final price unlocked: ₹${(originalPrice * 0.3).toFixed(2)}`;
+                    return `Final price unlocked: ₹${parseInt(originalPrice * 0.3)}`;
                 } else if (percentage === 1) {
                     this.dropStatus = 4;
-                    return `Final price unlocked: ₹${(lowestPrice)}`;
+                    return `Final price unlocked: ₹${parseInt(lowestPrice)}`;
                 }
             },
             jumpWeb () {
