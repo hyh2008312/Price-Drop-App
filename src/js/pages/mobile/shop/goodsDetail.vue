@@ -271,8 +271,8 @@
                         <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
                         <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
                         <text class="popup-lowprice"      v-if="isDrop">₹{{parseInt(lowestPrice)}}</text>
-                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">₹{{ (selunitPrice*(flashSale.discount/100)).toFixed(2) || (goods.unitPrice*(flashSale.discount/100)).toFixed(2)}}</text>
-                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">₹{{selunitPrice||goods.unitPrice}}</text>
+                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">₹{{ parseInt(selunitPrice*(flashSale.discount/100)) || parseInt(goods.unitPrice*(flashSale.discount/100))}}</text>
+                        <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">₹{{parseInt(selunitPrice)||parseInt(goods.unitPrice)}}</text>
                         <div class="popup-yet-bg" v-if="hasVariants==true">
                             <text class="popup-yet" v-if="selcolor != ''">{{selcolor}}</text>
                             <text class="popup-yet" v-if="selsize != ''">{{selsize}}</text>
