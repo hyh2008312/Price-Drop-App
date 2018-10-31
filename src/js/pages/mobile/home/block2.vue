@@ -26,7 +26,6 @@
 
         <!--<scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>-->
         <div class="box">
-
             <div class="i-good" v-for="i in goodsList" :key="i.id" @click="jumpWeb(i.productId)">
                 <div style="height:230px;padding-top: 15px">
                     <div class="gd-bg">
@@ -38,7 +37,7 @@
                     <text class="gd-txt">-{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>
                 </div>
                 <div class="gd-tlt-bg">
-                    <text class="gd-tlt">₹{{countPrice(i.unitPrice, i.discount)}}</text>
+                    <text class="gd-tlt">₹{{parseInt(countPrice(i.unitPrice, i.discount))}}</text>
                     <!--<text class="gd-info">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}}</text>-->
                 </div>
                 <text class="gd-price">₹{{parseInt(i.saleUnitPrice)}}</text>
