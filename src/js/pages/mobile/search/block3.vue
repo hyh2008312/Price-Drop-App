@@ -7,9 +7,9 @@
             </div>
             <div class="gd-bg-right">
                 <text class="gd-title">{{item.title}}</text>
-                <text class="gd-price">₹{{item.unitPrice}}</text>
+                <text class="gd-price">₹{{parseInt(item.unitPrice)}}</text>
                 <div class="gd-sm">
-                    <text class="gd-info">₹{{item.saleUnitPrice}}</text>
+                    <text class="gd-info">₹{{parseInt(item.saleUnitPrice)}}</text>
                     <text class="gd-price-1">{{countOff(item.unitPrice, item.saleUnitPrice)}}</text>
                 </div>
 
