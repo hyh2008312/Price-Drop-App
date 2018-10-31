@@ -45,7 +45,7 @@
 
                 <div class="bb-d-l">
                     <text class="bb-dl" >Total：</text>
-                    <text class="bb-dl-p" >₹ {{allPrice}}</text>
+                    <text class="bb-dl-p" >₹ {{parseInt(allPrice)}}</text>
                     <div class="bb-dl-b" @click="postOrder">
                         <text class="bb-dl-bf" >Place Order</text>
                     </div>
@@ -82,7 +82,7 @@
                 if (params.card) {
                     this.card = params.card;
                     this.countPrice(this.orderList)
-                    this.allPrice = ((parseInt((this.allPrice * 100)) - (parseInt(this.card.share) * 100)) / 100)
+                    this.allPrice = (parseInt(this.allPrice) - parseInt(this.card.share))
                 }
             }
         },
@@ -203,7 +203,8 @@
                         type: 'PUSH',
                         params: {
                             source: 'confirm',
-                            data: order
+                            data: order,
+                            phone: this.address.phoneNumber
                         },
                         backCallback: () => {
                             this.$router.finish();

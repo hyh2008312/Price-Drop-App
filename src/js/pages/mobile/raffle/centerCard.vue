@@ -286,6 +286,9 @@
                         if (self.item.drawStatus == 'Ongoing') {
                             self.changeStates();
                         }
+                        if (self.item.drawStatus == 'Scheduled') {
+                            self.changeStates();
+                        }
                         return;
                     }
 

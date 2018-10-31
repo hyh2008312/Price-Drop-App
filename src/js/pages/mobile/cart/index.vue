@@ -4,9 +4,9 @@
         <div class="blackheader"></div>
         <div class="top-buy-overflow">
             <div class="top-buy1" v-if="parseInt(allPrice)>300" >
-                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600">₹ 300 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900">₹ 600 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>900">₹ 900</text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600">₹ 100 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900">₹ 150 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>900">₹ 200</text>
                 <text class="t-b-t" > voucher unlocked!</text>
             </div>
             <div class="top-buy2" v-if="parseInt(allPrice)<900&&parseInt(allPrice)!=0" @click="jumpHome">
@@ -17,9 +17,9 @@
 
 
                 <text class="t-b-t">more to use your </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹ 300 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600" >₹ 600 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900" >₹ 900 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹ 100 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600" >₹ 150 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900" >₹ 200 </text>
 
                 <text class="t-b-t">voucher! </text>
                 <text class="t-b-tc">Add Item >></text>
@@ -53,8 +53,8 @@
                                     <text class="lc-tw-b">{{i.attributes}}</text>
                                     <div class="lc-tw-p">
                                         <text class="lc-tw-p1" v-if="i.productType=='flash'">₹{{calc(i.unitPrice,i.flashDiscount)}}</text>
-                                        <text class="lc-tw-p1" v-if="i.productType=='direct'">₹{{i.unitPrice}}</text>
-                                        <text class="lc-tw-p2">₹{{i.saleUnitPrice+'.00'}}</text>
+                                        <text class="lc-tw-p1" v-if="i.productType=='direct'">₹{{parseInt(i.unitPrice)}}</text>
+                                        <text class="lc-tw-p2">₹{{parseInt(i.saleUnitPrice)}}</text>
                                         <text class="lc-tw-p3">{{countOff(calc(i.unitPrice,i.flashDiscount), i.saleUnitPrice)}}</text>
                                     </div>
                                 </div>
@@ -111,9 +111,12 @@
                 </div>
 
                 <div class="bb-d-l">
-                    <text class="bb-dl-p" v-if="bottomWord=='Checkout'">₹ {{allPrice}}</text>
-                    <div class="bb-dl-b" @click="handleGoods">
+                    <text class="bb-dl-p" v-if="bottomWord=='Checkout'">₹ {{parseInt(allPrice)}}</text>
+                    <div class="bb-dl-b" @click="handleGoods" v-if="parseInt(allPrice)>0">
                         <text class="bb-dl-bf" >{{bottomWord}}</text>
+                    </div>
+                    <div class="bb-dl-b-no" v-else>
+                        <text class="bb-dl-bf-no" >{{bottomWord}}</text>
                     </div>
 
                 </div>
@@ -237,9 +240,9 @@
                         tmp.push(parseInt(this.myCard[i].lowestAmount))
                     }
                     this.tmpArr = this.unique(tmp)
-                    this.$notice.alert({
-                        message: this.tmpArr
-                    })
+                    // this.$notice.alert({
+                    //     message: this.tmpArr
+                    // })
                     this.$notice.loading.hide();
                 }, error => {
                     this.$notice.loading.hide();
@@ -659,29 +662,40 @@
 
     .lc-b{
         flex-direction: row;
+        align-items: center;
+        /*background-color: #333333;*/
     }
     .lc-b-1{
-        font-size: 40px;
-        padding: 14px 32px;
+        font-size: 48px;
+        /*padding: 14px 32px;*/
+        height: 48px;
+        width: 48px;
         background-color: rgba(239,138,49,.12);
         border-radius: 8px;
         margin-right: 6px;
+        line-height: 42;
+        text-align: center;
     }
     .lc-b-n{
         font-size: 24px;
-        padding: 23px 10px;
+        /*padding: 23px 10px;*/
+        height: 48px;
+        /*width: 48px;*/
         text-align: center;
         width: 100px;
         background-color: rgba(0,0,0,.08);
         border-radius: 8px;
         margin-right: 6px;
+        line-height: 45;
     }
     .lc-b-2{
         font-size: 40px;
-        padding: 14px 28px;
+        height: 48px;
+        width: 48px;
+        /*padding: 14px 28px;*/
         background-color: rgba(239,138,49,.12);
         border-radius: 8px;
-
+        text-align: center;
     }
     .lc-tt{
         flex-direction: row;
@@ -748,11 +762,27 @@
         text-align: left;
         font-weight: 700;
     }
+    .bb-dl-b-no{
+        height: 80px;
+        width: 160px;
+        background-color: rgba(128,128,128,.74);
+        border-radius: 8px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-right: 32px;
+        margin-left: 20px;
+    }
+    .bb-dl-bf-no{
+        color: white;
+        font-weight: 700;
+        font-size: 28px;
+    }
     .bb-dl-b{
         height: 80px;
         width: 160px;
         background-color: #EF8A31;
-        border-radius: 4px;
+        border-radius: 8px;
         flex-direction: row;
         justify-content: center;
         align-items: center;

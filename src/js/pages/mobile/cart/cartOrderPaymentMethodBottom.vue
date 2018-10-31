@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">₹{{((order.paymentAmount * 100 - (checked ? balance : 0 ) * 100 < 0 ? 0 : (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100)) / 100).toFixed(2)}}</text>
+        <text class="od-text-1">₹{{parseInt( (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100 < 0 ? 0 : (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100)) / 100) }}</text>
         <text class="od-button" @click="confirm">Pay Now</text>
     </div>
 </template>
@@ -238,6 +238,29 @@
                         });
                     } else if (that.method == 'cod') {
                         this.$emit('change', 1)
+                        this.$fetch({
+                            method: 'POST',
+                            name: 'order.cod.create',
+                            header: {
+                                needAuth: true
+                            },
+                            data: {
+                                orderId: that.order.id,
+                                type: 'cart'
+                            }
+                        }).then((res) => {
+                            that.$router.open({
+                                name: 'order.success',
+                                type: 'PUSH'
+                                // params: {
+                                //     source: that.source
+                                // }
+                            });
+                        }).catch((res) => {
+                            // this.$notice.toast({
+                            //     message: res
+                            // })
+                        })
                     }
                 }
             }

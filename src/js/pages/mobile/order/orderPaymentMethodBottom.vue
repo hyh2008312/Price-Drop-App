@@ -235,6 +235,29 @@
                         });
                     } else if (that.method == 'cod') {
                         this.$emit('change', 1)
+                        this.$fetch({
+                            method: 'POST',
+                            name: 'order.cod.create',
+                            header: {
+                                needAuth: true
+                            },
+                            data: {
+                                orderId: that.order.id,
+                                type: 'normal'
+                            }
+                        }).then((res) => {
+                            that.$router.open({
+                                name: 'order.success',
+                                type: 'PUSH',
+                                // params: {
+                                //     source: that.source
+                                // }
+                            });
+                        }).catch((res) => {
+                            // this.$notice.toast({
+                            //     message: res
+                            // })
+                        })
                     }
                 }
             }

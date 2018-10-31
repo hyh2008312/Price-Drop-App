@@ -29,8 +29,8 @@
                             <div class="goods-top-word">
                                 <text class="goods-title">{{i.title}}</text>
                                 <div class="goods-top-price" >
-                                    <text class="goods-low-price">₹{{calc(i.unitPrice,i.discount)}}</text>
-                                    <text class="goods-regular-price">₹{{i.saleUnitPrice}}</text>
+                                    <text class="goods-low-price">₹{{parseInt(calc(i.unitPrice,i.discount))}}</text>
+                                    <text class="goods-regular-price">₹{{parseInt(i.saleUnitPrice)}}</text>
                                     <text class="goods-off-price">{{countOff(calc(i.unitPrice,i.discount),i.saleUnitPrice)}}</text>
                                 </div>
                             </div>

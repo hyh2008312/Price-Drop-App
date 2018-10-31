@@ -36,14 +36,14 @@
                     <!--<text class="count-bold" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">₹{{goods.unitPrice}}</text>-->
                     <!--注释为老版-->
 
-                    <text class="count-bold" v-if="purchaseMethod==='drop'">₹{{lowestPrice}}</text>
+                    <text class="count-bold" v-if="purchaseMethod==='drop'">₹{{parseInt(lowestPrice)}}</text>
                     <text class="count-1" v-if="purchaseMethod==='drop'">by inviting your friends!</text>
                 </div>
                 <div class="count-div">
                     <!--<text class="price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Original Price: </text>-->
                     <!--注释为老版-->
-                    <text class="price-name-1"  v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >₹{{goods.unitPrice}} </text>
-                    <text class="price" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >₹{{goods.price}}</text>
+                    <text class="price-name-1"  v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >₹{{parseInt(goods.unitPrice)}} </text>
+                    <text class="price" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >₹{{parseInt(goods.price)}}</text>
                     <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
@@ -267,10 +267,10 @@
                            class="popup-image"></image>
 
                     <div class="popup-py">
-                        <text class="popup-price">₹{{selsaleUnitPrice}}</text>
+                        <text class="popup-price">₹{{parseInt(selsaleUnitPrice)}}</text>
                         <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
                         <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
-                        <text class="popup-lowprice"      v-if="isDrop">₹{{lowestPrice}}</text>
+                        <text class="popup-lowprice"      v-if="isDrop">₹{{parseInt(lowestPrice)}}</text>
                         <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">₹{{ (selunitPrice*(flashSale.discount/100)).toFixed(2) || (goods.unitPrice*(flashSale.discount/100)).toFixed(2)}}</text>
                         <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">₹{{selunitPrice||goods.unitPrice}}</text>
                         <div class="popup-yet-bg" v-if="hasVariants==true">
@@ -388,13 +388,13 @@
                     <text class="s-item-t1">₹ 0 </text>
                     <text class="s-item-t2">₹ 100</text>
                 </div>
-                <div class="pShip-item1 mg-b44">
-                    <text class="s-item-t">Shipping Carrier:</text>
-                    <text class="s-item-t1">{{shipObj.shippingName}}</text>
-                </div>
+                <!--<div class="pShip-item1 mg-b44">-->
+                    <!--<text class="s-item-t">Shipping Carrier:</text>-->
+                    <!--<text class="s-item-t1">{{shipObj.shippingName}}</text>-->
+                <!--</div>-->
                 <div class="pShip-item1">
                     <text class="s-item-t">Order Processing Before Shipping:</text>
-                    <text class="s-item-t1">5-7 days</text>
+                    <text class="s-item-t1">5 - 7 days</text>
                 </div>
                 <div class="pShip-item1">
                     <text class="s-item-t">Shipping Time After Processing:</text>
@@ -402,7 +402,7 @@
                 </div>
                 <div class="pShip-item1 mg-b32">
                     <text class="s-item-t">Estimated Arrival Date:</text>
-                    <text class="s-item-t1"> {{getNowDay(shipObj.shippingTimeMin)}} - {{getNowDay(shipObj.shippingTimeMax)}}</text>
+                    <text class="s-item-t1"> {{getNowDay1(shipObj.shippingTimeMin)}} - {{getNowDay1(shipObj.shippingTimeMax)}}</text>
                 </div>
 
             </div>

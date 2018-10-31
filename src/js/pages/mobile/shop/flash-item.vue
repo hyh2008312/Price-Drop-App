@@ -4,8 +4,8 @@
             <!--<text class="flash-sales-word">Flash Sales</text> <text class="flash-sales-time">12:00:00</text>-->
             <div class="flash-sales-left">
                 <text class="flash-icon" >&#xe745;</text>
-                <text class="flash-sales-word">₹{{calc(unitPrice,discount)}}</text>
-                <text class="flash-sales-word1">₹{{saleUnitPrice}}</text>
+                <text class="flash-sales-word">₹{{parseInt(calc(unitPrice,discount))}}</text>
+                <text class="flash-sales-word1">₹{{parseInt(saleUnitPrice)}}</text>
             </div>
             <image class="flash-triangle" src="bmlocal://assets/right-01.png"></image>
             <div class="flash-sales-right">

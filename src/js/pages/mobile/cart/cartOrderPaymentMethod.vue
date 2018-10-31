@@ -46,11 +46,11 @@
                             </div>
                             <text class="item-text">Cash / Debit Card / Credit Card at your doorstep</text>
                         </div>
-                        <div v-if="!order.cod">
+                        <div v-if="order.cod && (CODStatus==1||CODStatus==2)">
                             <text class="iconfont item-checked" v-if="method == 'cod'">&#xe6fb;</text>
                             <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
                         </div>
-                        <text class="iconfont item-checked-disable" v-if="order.cod">&#xe73f;</text>
+                        <text class="iconfont item-checked-disable" v-if="!order.cod ||CODStatus==3">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
@@ -62,7 +62,7 @@
                 <div class="balance-bg">
                     <div class="balance-bg-left">
                         <text class="title-3">Wallet Balance</text>
-                        <text class="title-4">₹{{balance.toFixed(2)}}</text>
+                        <text class="title-4">₹{{balance}}</text>
                     </div>
                     <div class="switch-bg" v-if="!checked" @click="changeSwitch">
                         <div class="circle-no-checked-bg"></div>
@@ -92,7 +92,8 @@
                         <text class="p-i2-t">Mobile Phone</text>
                         <div class="p-i2-d">
                             <text class="p-i2-dt">+91</text>
-                            <input class="p-t2-i" type="number" :value="phone" @input="oninput"  />
+                            <!--<input class="p-t2-i" type="number" :value="phone" @input="oninput"  />-->
+                            <text class="p-t2-i" >{{prePhone}}</text>
                         </div>
                     </div>
                     <div class="popup-item3">
@@ -136,6 +137,11 @@ export default {
     eros: {
         appeared (params, option) {
             this.order = params.data;
+            this.$notice.alert({
+                message: params.data
+            })
+            this.prePhone = params.phone;
+            this.checkCODStatus();
             this.source = params.source;
         }
     },
@@ -147,6 +153,7 @@ export default {
         googleAnalytics.trackingScreen('Confirm Billing and Shipping');
         this.getBalance();
         this.initBack();
+        // this.checkCODStatus();
         if (this.$storage.getSync('user')) {
             this.user = this.$storage.getSync('user')
         } else {
@@ -165,6 +172,7 @@ export default {
             codSrc: 'bmlocal://assets/COD-01.png',
             source: 'confirm',
             order: {},
+            prePhone: '',
             checked: false,
             balance: 0,
             isShowBalance: false,
@@ -177,7 +185,8 @@ export default {
             errMsg: '',
             successS: false,
             user: '',
-            selItem4: true
+            selItem4: true,
+            CODStatus: ''
         }
     },
     methods: {
@@ -204,15 +213,43 @@ export default {
         checkItem () {
             this.selItem4 = !this.selItem4
         },
+        checkCODStatus () {
+            // this.$notice.alert({
+            //     message: this.prePhone
+            // })
+            this.$fetch({
+                method: 'POST', // 大写
+                name: 'user.check.mobile.status',
+                header: {
+                    needAuth: true
+                },
+                data: {
+                    mobile: this.prePhone
+                }
+            }).then((res) => {
+                // 成功回调
+                if (res.code == 30000) {
+                    this.CODStatus = 1     // 1 可以绑定 2 已经绑定 3黑名单手机号
+                } else if (res.code == 30003) {
+                    this.CODStatus = 2
+                } else if (res.code == 30002) {
+                    this.CODStatus = 3
+                }
+            }).catch((res) => {
+                // this.$notice.toast({
+                //     message: res
+                // })
+            })
+        },
         chooseMethod (e) {
-            if (e =="cod") {
-                if (!this.order.cod && this.user.phoneMobile == '') { // todo 需要改 cod的状态
+            if (e == 'cod') {
+                if (this.order.cod && this.CODStatus==1) {
                     this.method = e;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)
-                } else if (this.user.phoneMobile !== '') {
+                } else if (this.CODStatus==2) {
                     this.method = e;
-                }
+                } else if (this.CODStatus==3) {}
             } else {
                 this.method = e;
             }
@@ -247,7 +284,7 @@ export default {
             if (this.second > 0) {
                 return
             }
-            if (this.phone.length<10) {
+            if (this.prePhone.length < 10) {
                 this.errMsg = 'Your phone number is in wrong format.'
             } else {
                 this.time()
@@ -258,7 +295,7 @@ export default {
                         needAuth: true
                     },
                     data: {
-                        phoneMobile: this.phone,
+                        phoneMobile: this.prePhone,
                         internationalCode: 86
                     }
                 }).then((res) => {
@@ -286,18 +323,11 @@ export default {
                     needAuth: true
                 },
                 data: {
-                    mobile: this.phone,
+                    mobile: this.prePhone,
                     code: this.verifyCode
                 }
             }).then((res) => {
                 if (res.code == 30000) {
-                    this.user.phoneMobile = this.phone;
-                    this.$storage.setSync('user', this.user)
-                    if (this.$storage.getSync('user')) {
-                        this.user = this.$storage.getSync('user')
-                    } else {
-                        this.user = null
-                    } // 重新获取一遍user
                     tool.resignKeyboard((resData) => {});
                     this.$notice.toast({
                         message: 'success'
@@ -690,6 +720,8 @@ export default {
         border-bottom-right-radius: 8px;
         color: black;
         padding-left: 16px;
+        padding-top: 14px;
+        background-color: rgba(0,0,0,.12);
         border-style: solid;
         border-color: rgba(0,0,0,.12);
         border-width:1px ;

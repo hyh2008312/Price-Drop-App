@@ -66,9 +66,11 @@ export const apis = {
     'cart.count': '/cart/count/',
     'cart.update.quantity': '/cart/update/quantity/',
     'order.cart.create': '/order/cart/create/',
+    'order.cod.create': '/order/cod/create/',
     'order.cod.check': '/order/cod/check/',
     'payment.sum.paytmc.checksum': '/payment/sum/paytm/checksum/',
     'payment.sum.paytmc.get.status': '/payment/sum/paytm/get/status/',
     'user.send.mobile.message': '/user/send/mobile/message/',
-    'user.verify.mobile.code': '/user/verify/mobile/code/'
+    'user.verify.mobile.code': '/user/verify/mobile/code/',
+    'user.check.mobile.status': '/user/check/mobile/status/'
 }

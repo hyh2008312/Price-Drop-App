@@ -46,11 +46,11 @@
                             </div>
                             <text class="item-text">Only available for COD Member</text>
                         </div>
-                        <div v-if="!order.cod">
+                        <div v-if="order.cod && (CODStatus==1||CODStatus==2)">
                             <text class="iconfont item-checked" v-if="method == 'cod'">&#xe6fb;</text>
                             <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
                         </div>
-                        <text class="iconfont item-checked-disable" v-if="order.cod">&#xe73f;</text>
+                        <text class="iconfont item-checked-disable" v-if="!order.cod ||CODStatus==3">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
@@ -92,7 +92,8 @@
                         <text class="p-i2-t">Mobile Phone</text>
                         <div class="p-i2-d">
                             <text class="p-i2-dt">+91</text>
-                            <input class="p-t2-i" type="number" :value="phone" @input="oninput"  />
+                            <!--<input class="p-t2-i" type="number" :value="phone" @input="oninput"  />-->
+                            <text class="p-t2-i" >{{prePhone}}</text>
                         </div>
                     </div>
                     <div class="popup-item3">
@@ -135,7 +136,12 @@ export default {
     },
     eros: {
         appeared (params, option) {
+            this.$notice.alert({
+                message: params.data.cod.toString()
+            })
             this.order = params.data;
+            this.prePhone = params.data.phoneNumber;
+            this.checkCODStatus();
             this.source = params.source;
         }
     },
@@ -152,9 +158,6 @@ export default {
         } else {
             this.user = null
         }
-        this.$notice.alert({
-            message: this.user
-        })
         this.$event.on('closePayment', params => {
             this.$router.finish();
         });
@@ -179,6 +182,7 @@ export default {
                 'total': '0.00'
             },
             checked: false,
+            prePhone: '',
             balance: 0,
             isShowBalance: false,
             isShow: false,
@@ -190,7 +194,8 @@ export default {
             errMsg: '',
             successS: false,
             user: '',
-            selItem4: true
+            selItem4: true,
+            CODStatus: false
         }
     },
     methods: {
@@ -217,15 +222,40 @@ export default {
         checkItem () {
             this.selItem4 = !this.selItem4
         },
+        checkCODStatus () {
+            this.$fetch({
+                method: 'POST', // 大写
+                name: 'user.check.mobile.status',
+                header: {
+                    needAuth: true
+                },
+                data: {
+                    mobile: this.prePhone
+                }
+            }).then((res) => {
+                // 成功回调
+                if (res.code == 30000) {
+                    this.CODStatus = 1     // 1 可以绑定 2 已经绑定 3黑名单手机号
+                } else if (res.code == 30003) {
+                    this.CODStatus = 2
+                } else if (res.code == 30002) {
+                    this.CODStatus = 3
+                }
+            }).catch((res) => {
+                // this.$notice.toast({
+                //     message: res
+                // })
+            })
+        },
         chooseMethod (e) {
-            if (e =="cod") {
-                if (!this.order.cod && this.user.phoneMobile == '') { // todo 需要改 cod相反的状态
+            if (e == 'cod') {
+                if (this.order.cod && this.CODStatus==1) {
                     this.method = e;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)
-                } else if (this.user.phoneMobile !== '') {
+                } else if (this.CODStatus==2) {
                     this.method = e;
-                }
+                } else if (this.CODStatus==3) {}
             } else {
                 this.method = e;
             }
@@ -701,6 +731,8 @@ export default {
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
         color: black;
+        padding-top: 14px;
+        background-color: rgba(0,0,0,.12);
         padding-left: 16px;
         border-style: solid;
         border-color: rgba(0,0,0,.12);
