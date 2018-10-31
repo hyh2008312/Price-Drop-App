@@ -52,7 +52,7 @@
                                 <div class="lc-tw2">
                                     <text class="lc-tw-b">{{i.attributes}}</text>
                                     <div class="lc-tw-p">
-                                        <text class="lc-tw-p1" v-if="i.productType=='flash'">₹{{calc(i.unitPrice,i.flashDiscount)}}</text>
+                                        <text class="lc-tw-p1" v-if="i.productType=='flash'">₹{{parseInt(calc(i.unitPrice,i.flashDiscount))}}</text>
                                         <text class="lc-tw-p1" v-if="i.productType=='direct'">₹{{parseInt(i.unitPrice)}}</text>
                                         <text class="lc-tw-p2">₹{{parseInt(i.saleUnitPrice)}}</text>
                                         <text class="lc-tw-p3">{{countOff(calc(i.unitPrice,i.flashDiscount), i.saleUnitPrice)}}</text>

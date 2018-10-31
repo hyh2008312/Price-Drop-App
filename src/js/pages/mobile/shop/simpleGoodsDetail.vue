@@ -18,10 +18,10 @@
                 <text class="onetitle">{{goods.title}}</text>
 
                 <div class="count-div">
-                    <text class=" count" >Get it at</text><text class="count-bold">₹{{lowestPrice}}</text><text class="count-1">by inviting friends!</text>
+                    <text class=" count" >Get it at</text><text class="count-bold">₹{{parseInt(lowestPrice)}}</text><text class="count-1">by inviting friends!</text>
                 </div>
                 <div class="count-div">
-                    <text class=" price-name" >Original Price:</text><text class="price">₹{{goods.price}}</text>
+                    <text class=" price-name" >Original Price:</text><text class="price">₹{{parseInt(goods.price)}}</text>
 
                 </div>
 
