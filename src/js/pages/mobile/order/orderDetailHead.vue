@@ -10,12 +10,13 @@
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Completed'">&#xe6ed;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Fully Refunded'">&#xe758;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Partially Refunded'">&#xe758;</text>
-                <text class="gb-text" v-if="order.orderStatus != 'Unpaid' && order.orderStatus != 'Canceled' && order.orderStatus != 'Packing'">{{order.orderStatus == 'Audit canceled' ? 'Paid': order.orderStatus}}</text>
+                <text class="gb-text" v-if="order.orderStatus != 'Unpaid' && order.orderStatus != 'Canceled' && order.orderStatus != 'Audit canceled' && order.orderStatus != 'Completed' && order.orderStatus != 'Packing'">{{order.orderStatus}}</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Audit canceled'">Pending Cancel</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Paid'">Confirmed</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Unpaid'">Pending</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Packing'">Preparing</text>
-                <text class="gb-text" v-if="order.orderStatus == 'Fully Refunded'">Fully Refunded</text>
-                <text class="gb-text" v-if="order.orderStatus == 'Partially Refunded'">Partially Refunded</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Completed'">Delivered</text>
             </div>
             <div class="gb-bg-1" v-if="order.orderStatus == 'Unpaid'">
                 <text class="gb-icon iconfont gd-text-color">&#xe703;</text>
