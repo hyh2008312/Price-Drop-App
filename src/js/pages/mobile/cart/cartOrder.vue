@@ -187,11 +187,13 @@
                         needAuth: true
                     }
                 }).then(resData => {
+
+                    this.$notice.loading.hide();
                     // this.$notice.alert({
                     //     message: resData
                     // })
+                    //
                     // return
-                    this.$notice.loading.hide();
 
                     // googleAnalytics.recordEvent('Payment', 'Add to Cart', 'normal', 0);
                     // googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', this.order.productId, '', 'Rs', this.order.currentPrice);

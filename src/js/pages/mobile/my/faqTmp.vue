@@ -100,7 +100,7 @@
         ShippingQA, CustomsQA,
         ReturnsQA, PaymentQA,
         TermAndCondittions, Privacy,
-        Return, Contact } from './config'
+        Return, Contact, VoucherQA, CODDeliveryQA } from './config'
 
     export default {
         components: {
@@ -127,51 +127,58 @@
         methods: {
             check (p) {
                 if (p.type == 1) {
-                    this.title = 'My Drops FAQs'
+                    this.title = 'My Drops FAQs';
                     this.QAArr = DropsQA
                 } else if (p.type == 2) {
-                    this.title = 'My Orders FAQs'
+                    this.title = 'My Orders FAQs';
                     this.QAArr = OrderQA
                 } else if (p.type == 3) {
-                    this.title = 'Shipping FAQs'
+                    this.title = 'Shipping FAQs';
                     this.QAArr = ShippingQA
                 } else if (p.type == 4) {
-                    this.title = 'Customs Duty FAQs'
+                    this.title = 'Customs Duty FAQs';
                     this.QAArr = CustomsQA
                 } else if (p.type == 5) {
-                    this.title = 'Returns FAQs'
+                    this.title = 'Returns FAQs';
                     this.QAArr = ReturnsQA
                 } else if (p.type == 6) {
-                    this.title = 'Payment FAQs'
+                    this.title = 'Payment FAQs';
                     this.QAArr = PaymentQA
                 } else if (p.type == 7) {
-                    this.title = 'Privacy Policy'
-                    this.settingPage = 1
+                    this.title = 'Privacy Policy';
+                    this.settingPage = 1;
                     this.term = TermAndCondittions
                 } else if (p.type == 8) {
-                    this.title = 'Terms & Conditions'
-                    this.settingPage = 2
+                    this.title = 'Terms & Conditions';
+                    this.settingPage = 2;
                     this.QAArr = Privacy
                 } else if (p.type == 9) {
-                    this.title = 'About Us'
+                    this.title = 'About Us';
                     this.settingPage = 3
                 } else if (p.type == 10) {
-                    this.title = 'Shipping Policy'
+                    this.title = 'Shipping Policy';
                     this.settingPage = 4
                 } else if (p.type == 11) {
-                    this.title = 'Return Policy'
-                    this.settingPage = 5
+                    this.title = 'Return Policy';
+                    this.settingPage = 5;
                     this.QAArr = Return
                 } else if (p.type == 12) {
-                    this.title = 'Cancellation Policy'
+                    this.title = 'Cancellation Policy';
                     this.settingPage = 6
                 } else if (p.type == 13) {
-                    this.title = 'Disclaimer'
+                    this.title = 'Disclaimer';
                     this.settingPage = 7
                 } else if (p.type == 14) {
-                    this.title = 'Contact Us'
-                    this.settingPage = 8
+                    this.title = 'Contact Us';
+                    this.settingPage = 8;
                     this.QAArr = Contact
+                } else if (p.type == 15) {
+                    this.title = 'Voucher FAQs'
+                    this.QAArr = VoucherQA
+                } else if (p.type == 16) {
+                    this.title = 'COD Delivery FAQs'
+                    // this.settingPage = 8
+                    this.QAArr = CODDeliveryQA
                 }
             }
         }

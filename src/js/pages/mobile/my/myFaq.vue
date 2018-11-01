@@ -31,6 +31,24 @@
                 </div>
 
             </div>
+            <div class="box-tlt "  @click="openNew(15)">
+                <div class="box-left">
+                    <text class="box-txt">Voucher FAQs</text>
+                </div>
+                <div class="box-right">
+                    <text class="i-box iconfont">&#xe626;</text>
+                </div>
+
+            </div>
+            <div class="box-tlt "  @click="openNew(16)">
+                <div class="box-left">
+                    <text class="box-txt">COD Delivery FAQs</text>
+                </div>
+                <div class="box-right">
+                    <text class="i-box iconfont">&#xe626;</text>
+                </div>
+
+            </div>
             <div class="box-tlt "  @click="openNew(4)">
                 <div class="box-left">
                     <text class="box-txt">Customs Duty FAQs</text>

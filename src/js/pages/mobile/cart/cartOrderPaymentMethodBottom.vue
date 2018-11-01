@@ -249,13 +249,12 @@
                                 type: 'cart'
                             }
                         }).then((res) => {
-                            that.$router.open({
-                                name: 'order.success',
+                            this.$router.finish();
+                            this.$router.open({
+                                name: 'order',
                                 type: 'PUSH'
-                                // params: {
-                                //     source: that.source
-                                // }
                             });
+                            this.$event.emit('closePayment');
                         }).catch((res) => {
                             // this.$notice.toast({
                             //     message: res

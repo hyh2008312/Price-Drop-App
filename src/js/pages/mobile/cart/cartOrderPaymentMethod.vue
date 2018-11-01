@@ -137,9 +137,6 @@ export default {
     eros: {
         appeared (params, option) {
             this.order = params.data;
-            this.$notice.alert({
-                message: params.data
-            })
             this.prePhone = params.phone;
             this.checkCODStatus();
             this.source = params.source;
@@ -171,7 +168,16 @@ export default {
             razorpaySrc: 'bmlocal://assets/razorpay.png',
             codSrc: 'bmlocal://assets/COD-01.png',
             source: 'confirm',
-            order: {},
+            order: {
+                number: '',
+                cod: false,
+                id: '',
+                ownerEmail: '',
+                paymentAmount: '',
+                phoneNumber: '',
+                postcode: '',
+                owner: ''
+            },
             prePhone: '',
             checked: false,
             balance: 0,
@@ -214,9 +220,7 @@ export default {
             this.selItem4 = !this.selItem4
         },
         checkCODStatus () {
-            // this.$notice.alert({
-            //     message: this.prePhone
-            // })
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'POST', // 大写
                 name: 'user.check.mobile.status',
@@ -235,7 +239,9 @@ export default {
                 } else if (res.code == 30002) {
                     this.CODStatus = 3
                 }
+                this.$notice.loading.hide();
             }).catch((res) => {
+                this.$notice.loading.hide();
                 // this.$notice.toast({
                 //     message: res
                 // })
