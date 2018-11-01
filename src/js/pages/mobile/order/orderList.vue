@@ -254,9 +254,6 @@
                         needAuth: true
                     }
                 }).then(data => {
-                    this.$notice.alert({
-                        message: data.results[0]
-                    });
                     this.$notice.loading.hide();
                     this.length = Math.ceil(data.count / this.pageSize);
                     this.page++;
