@@ -32,12 +32,12 @@
             </div>
             <div class="gb-bg-1" v-if="order.refundAmount">
                 <text class="gb-icon iconfont gd-text-color"></text>
-                <text class="gd-text gd-text-color">Refund Amount</text>
+                <text class="gd-text gd-text-color">Refund Amount: </text>
                 <text>{{order.refundAmount}}</text>
             </div>
             <div class="gb-bg-1" v-if="order.refundDate">
                 <text class="gb-icon iconfont gd-text-color"></text>
-                <text class="gd-text gd-text-color">Refund Date</text>
+                <text class="gd-text gd-text-color">Refund Date: </text>
                 <text>{{formatMinDate(order.refundDate,  'MMMM DD, YYYY')}}</text>
             </div>
         </div>
