@@ -80,10 +80,9 @@ export default {
 
 .gd-tlt {
     margin-top: 8px;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 700;
     line-height: 34px;
-    width: 202px;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
