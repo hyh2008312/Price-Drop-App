@@ -267,7 +267,7 @@
         font-size: 28px;
         font-weight: bold;
         line-height: 40px;
-        width: 518px;
+        width: 438px;
         overflow: hidden;
         lines: 2;
         white-space: nowrap;
@@ -281,6 +281,7 @@
     }
 
     .gd-info {
+        font-family: ProximaNova;
         font-size: 24px;
         line-height: 28px;
         color: rgba(0,0,0,0.54);
