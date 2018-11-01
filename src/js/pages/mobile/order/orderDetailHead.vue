@@ -8,10 +8,14 @@
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Packing' || order.orderStatus == 'Audit canceled'">&#xe70d;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Shipped'">&#xe712;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Completed'">&#xe6ed;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Fully Refunded'">&#xe758;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Partially Refunded'">&#xe758;</text>
                 <text class="gb-text" v-if="order.orderStatus != 'Unpaid' && order.orderStatus != 'Canceled' && order.orderStatus != 'Packing'">{{order.orderStatus == 'Audit canceled' ? 'Paid': order.orderStatus}}</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Unpaid'">Pending</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Packing'">Preparing</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Fully Refunded'">Fully Refunded</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Partially Refunded'">Partially Refunded</text>
             </div>
             <div class="gb-bg-1" v-if="order.orderStatus == 'Unpaid'">
                 <text class="gb-icon iconfont gd-text-color">&#xe703;</text>
@@ -25,12 +29,23 @@
                                :style="{justifyContent: 'center'}">
                 </wxc-countdown>
             </div>
+            <div class="gb-bg-1" v-if="order.refundAmount">
+                <text class="gb-icon iconfont gd-text-color"></text>
+                <text class="gd-text gd-text-color">Refund Amount</text>
+                <text>{{order.refundAmount}}</text>
+            </div>
+            <div class="gb-bg-1" v-if="order.refundDate">
+                <text class="gb-icon iconfont gd-text-color"></text>
+                <text class="gd-text gd-text-color">Refund Date</text>
+                <text>{{formatMinDate(order.refundDate,  'MMMM DD, YYYY')}}</text>
+            </div>
         </div>
     </div>
 </template>
 <script>
     import line from './orderDetailLine';
     import { WxcCountdown } from 'weex-ui';
+    import dayjs from 'dayjs';
 
     export default {
         components: {
@@ -43,7 +58,11 @@
                 src: 'bmlocal://assets/occupy.png'
             }
         },
-        methods: {}
+        methods: {
+            formatDate (str, hmr) {
+                return dayjs(new Date(str)).format(hmr)
+            }
+        }
     }
 </script>
 <style scoped>

@@ -29,9 +29,6 @@
                     <block-6 :drops="drops"></block-6>
                 </div>
             </cell>
-            <cell class="cell-button">
-                <text> </text>
-            </cell>
             <cell v-if="activity">
                 <block-2 :goodsList="activity" :time="time"></block-2>
             </cell>

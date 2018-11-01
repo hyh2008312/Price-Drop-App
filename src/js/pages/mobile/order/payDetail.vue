@@ -152,6 +152,9 @@ export default {
                     needAuth: true
                 }
             }).then(data => {
+                this.$notice.alert({
+                    message: data
+                });
                 this.$notice.loading.hide();
                 this.order = data;
             }, error => {

@@ -75,7 +75,7 @@ export default {
     height: 303px;
     position: relative;
     overflow: hidden;
-    background-color: #fff;
+    background-color: #f4f3f2;
     border-radius: 16px;
 }
 

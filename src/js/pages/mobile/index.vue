@@ -227,43 +227,11 @@ body {
     right: 0;
     bottom: 0;
     margin-top: 0;
-    background-color: #f1f1f1;
+    background-color: #f5f4f3;
     /*margin-bottom: 100;*/
 }
 
 .app-wrapper {
-    background-color: #f1f1f1;
+    background-color: #f5f4f3;
 }
-
-.r-box {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.iconfont {
-    font-family: iconfont;
-}
-
-.wrapper {}
-
-
-.slogan {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    background-color: #fff;
-}
-
-.i-slg {
-    height: 66px;
-    font-size: 26px;
-    padding-top: 16px;
-    flex: 1;
-    text-align: center;
-    color: #b4282d;
-}
-
 </style>

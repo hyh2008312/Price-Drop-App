@@ -7,11 +7,7 @@ const utilFunc = {
         const domModule = weex.requireModule('dom');
         domModule.addRule('fontFace', {
             'fontFamily': 'iconfont',
-            'src': 'url(\'https://at.alicdn.com/t/font_568686_vmybx3iy7l8.ttf\')'
-        });
-        domModule.addRule('fontFace', {
-            'fontFamily': 'ProximaNova',
-            'src': 'url(\'bmlocal://assets/font/Proxima—Nova-Rg-Regular.ttf\')'
+            'src': 'url(\'https://at.alicdn.com/t/font_568686_f64bmcq6v6j.ttf\')'
         });
     },
     setBundleUrl (url, jsFile) {
