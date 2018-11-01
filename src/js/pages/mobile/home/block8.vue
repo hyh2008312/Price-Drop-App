@@ -6,7 +6,9 @@
                     <preload class="gd-img" :src="i.mainImage"></preload>
                 </div>
                 <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
-                <text class="gd-price">₹{{parseInt(i.saleUnitPrice)}}</text>
+                <div class="gd-price-bg">
+                    <text class="gd-price">{{countOff(i.saleUnitPrice, i.unitPrice)}}</text>
+                </div>
             </div>
         </div>
     </div>
@@ -76,6 +78,9 @@ export default {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
     border-radius: 8px;
     background-color: #fff;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 }
 
 .gd-tlt {
@@ -88,21 +93,21 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 0 16px;
-    color: #EF8A31;
     text-align: center;
 }
 
 .gd-price {
     font-size: 20px;
-    line-height: 24px;
-    color: #000;
-    text-decoration: line-through;
-    overflow: hidden;
-    lines: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    line-height: 28px;
+    color: #fff;
+    background-color: #00CFE3;
+    border-radius: 14px;
     padding: 0 16px;
     text-align: center;
+}
+
+.gd-price-bg{
+    height: 28px;
     margin-bottom: 24px;
 }
 

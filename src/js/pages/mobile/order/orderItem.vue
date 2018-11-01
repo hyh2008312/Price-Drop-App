@@ -20,13 +20,14 @@
                     <div class="gd-bg-bottom">
                         <text class="gd-info">{{order.lines[0].attributes}}</text>
                         <div class="gd-bg-bottom-right">
+                            <text class="gd-tlt-1">₹{{order.lines[0].paymentPrice / order.lines[0].quantity}}</text>
                             <text class="gd-count"> x {{order.lines[0].quantity}}</text>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="gb-center" @click="jumpWeb()">
-                <text class="gd-text">Total: </text>
+                <text class="gd-text">Final: </text>
                 <text class="gb-price-2">₹{{order.paymentAmount}}</text>
             </div>
             <div class="gb-bottom" v-if="order.orderStatus == 'Unpaid' && order">
@@ -86,7 +87,7 @@
     import dayjs from 'dayjs'
     Vue.filter('formatDate', function (str, hmr) {
         return dayjs(new Date(str)).format(hmr)
-    })
+    });
 
     export default {
         components: { WxcCountdown, WxcPopup, preload },
@@ -172,11 +173,24 @@
 
     .wrapper {
         background-color: #fff;
-        width: 750px;
+        width: 686px;
+        border-radius: 16px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
 
     .gb-top{
-        height: 80px;
+        height: 66px;
+        padding-left: 32px;
+        padding-right: 32px;
+        padding-top: 8px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .gb-bottom{
+        width: 686px;
+        padding-bottom: 24px;
         padding-left: 32px;
         padding-right: 32px;
         flex-direction: row;
@@ -184,27 +198,11 @@
         align-items: center;
     }
 
-    .gb-bottom{
-        border-top-width: 1px;
-        border-top-color: rgba(0,0,0,0.08);
-        border-top-style: solid;
-        width: 750px;
-        height: 98px;
-        padding-left: 16px;
-        padding-right: 16px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
     .gb-bottom-1{
-        border-top-width: 1px;
-        border-top-color: rgba(0,0,0,0.08);
-        border-top-style: solid;
-        width: 750px;
-        height: 98px;
-        padding-left: 16px;
-        padding-right: 16px;
+        width: 686px;
+        padding-bottom: 24px;
+        padding-left: 32px;
+        padding-right: 32px;
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
@@ -225,7 +223,7 @@
 
     .gb-center{
         height: 80px;
-        width: 750px;
+        width: 686px;
         padding-left: 32px;
         padding-right: 32px;
         flex-direction: row;
@@ -233,18 +231,13 @@
         align-items: center;
     }
 
-    .gb-box {
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-        border-radius: 8px;
-    }
+    .gb-box {}
 
     .i-gd {
-        width: 718px;
+        width: 622px;
         height: 160px;
-        margin-left: 16px;
-        margin-right: 16px;
-        background-color: rgba(0,0,0,.04);
-        border-radius: 10px;
+        margin-left: 32px;
+        margin-right: 32px;
         flex-direction: row;
         justify-content: flex-start;
         align-items: stretch;
@@ -257,7 +250,7 @@
 
     .gd-bg-right {
         margin-left: 24px;
-        width: 534px;
+        width: 438px;
         height: 160px;
         justify-content: space-between;
         align-items: start;
@@ -271,7 +264,6 @@
     }
 
     .gd-tlt {
-        margin-top: 16px;
         font-size: 28px;
         font-weight: bold;
         line-height: 40px;
@@ -280,6 +272,12 @@
         lines: 2;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+
+    .gd-tlt-1{
+        font-family: ProximaNova;
+        font-size: 24px;
+        line-height: 28px;
     }
 
     .gd-info {
@@ -312,15 +310,11 @@
     }
 
     .gd-bg-bottom{
-        margin-bottom: 16px;
-        font-size: 24px;
-        line-height: 28px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        padding-bottom: 8px;
     }
 
     .gd-bg-bottom-right{
+        margin-top: 8px;
         flex-direction: row;
         justify-content: start;
         align-items: center;
@@ -331,25 +325,21 @@
         line-height: 24px;
     }
 
-    .gb-price-1{
-        font-size: 24px;
-        line-height: 28px;
-        color: #EF8A31;
-        margin-right: 24px;
-    }
+
 
     .gb-price-2{
+        font-family: ProximaNova;
         font-size: 30px;
         line-height: 36px;
-        font-weight: bold;
+        font-weight: 700;
     }
 
     .gd-button {
         text-align: center;
         font-size: 24px;
         line-height: 56px;
+        border-radius: 28px;
         font-weight: bold;
-        border-radius: 4px;
         padding-left: 26px;
         padding-right: 26px;
         background-color: #EF8A31;
@@ -364,10 +354,10 @@
     .od-button-1{
         font-size: 24px;
         line-height: 52px;
+        border-radius: 28px;
         text-align: center;
         padding: 0 24px;
         background-color: #fff;
-        border-radius: 4px;
         color: #EF8A31;
         border-color: #EF8A31;
         border-style: solid;
