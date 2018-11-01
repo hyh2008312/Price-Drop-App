@@ -440,11 +440,11 @@
                     <text class="c-h-t">Read Our COD Policy</text>
                 </div>
                 <div class="c-it1-d">
-                    <text class="c-it1-t">1.COD service is only available for certain locations now. We will expand to more locations very soon.</text>
-                    <text class="c-it1-t">2.If you place a COD order, you cannot cancel or reject the package after it ships out.</text>
-                    <text class="c-it1-t">3.If you refuse your COD package, you would be blocked by the carrier and cannot use COD service any more. </text>
-                    <text class="c-it1-t">4.You can only place your next COD order after you complete your last COD order successfully.</text>
-                    <text class="c-it1-t">5.Each COD order will be limited to Rs.1500.  </text>
+                    <text class="c-it1-t">1. COD service is only available for certain locations now. We will expand to more locations very soon.</text>
+                    <text class="c-it1-t">2. If you place a COD order, you cannot cancel or reject the package after it ships out.</text>
+                    <text class="c-it1-t">3. If you refuse your COD package, you would be blocked by the carrier and cannot use COD service any more. </text>
+                    <text class="c-it1-t">4. You can only place your next COD order after you complete your last COD order successfully.</text>
+                    <text class="c-it1-t">5. COD delivery is currently not available for order above Rs.1000. </text>
                 </div>
             </div>
         </wxc-popup>

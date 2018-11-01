@@ -5,21 +5,21 @@
         <div class="top-buy-overflow">
             <div class="top-buy1" v-if="parseInt(allPrice)>300" >
                 <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600">₹ 100 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900">₹ 150 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>900">₹ 200</text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900">₹ 150 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=900">₹ 200</text>
                 <text class="t-b-t" > voucher unlocked!</text>
             </div>
             <div class="top-buy2" v-if="parseInt(allPrice)<900&&parseInt(allPrice)!=0" @click="jumpHome">
                 <text class="t-b-t">Buy </text>
                 <text class="t-b-tb" v-if="parseInt(allPrice)<300">₹ {{300-parseInt(allPrice)}} </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600" >₹ {{600-parseInt(allPrice)}} </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900" >₹ {{900-parseInt(allPrice)}} </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹ {{600-parseInt(allPrice)}} </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹ {{900-parseInt(allPrice)}} </text>
 
 
                 <text class="t-b-t">more to use your </text>
                 <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹ 100 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600" >₹ 150 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>600&&parseInt(allPrice)<900" >₹ 200 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹ 150 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹ 200 </text>
 
                 <text class="t-b-t">voucher! </text>
                 <text class="t-b-tc">Add Item >></text>
@@ -328,7 +328,7 @@
                 })
             },
             changeBtn (p) {
-                p === 1 ? [this.bottomWord = 'Delete', this.allPrice = '0.00'] : this.bottomWord = 'Checkout'
+                p === 1 ? [this.bottomWord = 'Delete', this.allPrice = 0] : this.bottomWord = 'Checkout'
             },
             handleGoods () {
                 this.$notice.loading.show();
@@ -359,7 +359,7 @@
                             this.$nextTick(() => {
                                 this.goodsList = [...arr];
                             })
-                            this.allPrice = "0.00"
+                            this.allPrice = 0
                             this.$notice.loading.hide();
                         }).catch((res) => {
                             this.$notice.loading.hide();
@@ -453,7 +453,7 @@
                     }
                 }
                 if (priceArr.length == 0) {
-                    this.allPrice = '0.00'
+                    this.allPrice = 0
                 } else if (priceArr.length >= 1) {
                     this.allPrice = 0
                     for (let i = 0; i < priceArr.length; i++) {

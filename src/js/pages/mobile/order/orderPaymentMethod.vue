@@ -136,12 +136,12 @@ export default {
     },
     eros: {
         appeared (params, option) {
-            this.$notice.alert({
-                message: params.data.cod.toString()
-            })
             this.order = params.data;
             this.prePhone = params.data.phoneNumber;
             this.checkCODStatus();
+            // this.$notice.alert({
+            //     message: params.data.cod.toString()
+            // })
             this.source = params.source;
         }
     },
@@ -223,6 +223,7 @@ export default {
             this.selItem4 = !this.selItem4
         },
         checkCODStatus () {
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'POST', // 大写
                 name: 'user.check.mobile.status',
@@ -241,7 +242,9 @@ export default {
                 } else if (res.code == 30002) {
                     this.CODStatus = 3
                 }
+                this.$notice.loading.hide();
             }).catch((res) => {
+                this.$notice.loading.hide();
                 // this.$notice.toast({
                 //     message: res
                 // })
@@ -275,9 +278,9 @@ export default {
                 }
             }, error => {
                 // 错误回调
-                this.$notice.toast({
-                    message: error
-                })
+                // this.$notice.toast({
+                //     message: error
+                // })
             })
         },
         oninput (e) {
@@ -290,8 +293,8 @@ export default {
             if (this.second > 0) {
                 return
             }
-            if (this.phone=='') {
-                this.errMsg = 'phoneNumber is empty'
+            if (this.prePhone.length < 10) {
+                this.errMsg = 'Your phone number is in wrong format.'
             } else {
                 this.time()
                 this.$fetch({
@@ -301,7 +304,7 @@ export default {
                         needAuth: true
                     },
                     data: {
-                        phoneMobile: this.phone,
+                        phoneMobile: this.prePhone,
                         internationalCode: 86
                     }
                 }).then((res) => {
@@ -321,6 +324,7 @@ export default {
                 })
             }
         },
+
         postCode () {
             this.$fetch({
                 method: 'POST',
@@ -329,18 +333,11 @@ export default {
                     needAuth: true
                 },
                 data: {
-                    mobile: this.phone,
+                    mobile: this.prePhone,
                     code: this.verifyCode
                 }
             }).then((res) => {
                 if (res.code == 30000) {
-                    this.user.phoneMobile = this.phone;
-                    this.$storage.setSync('user', this.user)
-                    if (this.$storage.getSync('user')) {
-                        this.user = this.$storage.getSync('user')
-                    } else {
-                        this.user = null
-                    } // 重新获取一遍user
                     tool.resignKeyboard((resData) => {});
                     this.$notice.toast({
                         message: 'success'

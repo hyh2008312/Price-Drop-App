@@ -49,6 +49,10 @@
                             googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', that.order.productId, '', 'Rs', that.order.currentPrice);
 
                             const order = resData;
+                            // that.$notice.alert({
+                            //     message: order
+                            // });
+                            // return
                             // that.$router.finish();
                             that.$router.open({
                                 name: 'order.payment',
