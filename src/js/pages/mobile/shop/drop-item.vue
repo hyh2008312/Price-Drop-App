@@ -2,12 +2,12 @@
     <div>
         <div class="overflow">
             <div class="purple">
-                <text class="p-t1">₹{{lowestPrice}}</text>
+                <text class="p-t1">₹{{parseInt(lowestPrice)}}</text>
                 <text class="p-t2">by inviting NEW friends</text>
             </div>
             <div class="pink">
                 <text class="p-t3">Original Price</text>
-                <text class="p-t4">₹{{saleUnitPrice}}</text>
+                <text class="p-t4">₹{{parseInt(saleUnitPrice)}}</text>
                 <!--<text class="p-t4">₹{{'11111'}}</text>-->
             </div>
         </div>

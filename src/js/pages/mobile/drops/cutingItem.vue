@@ -13,7 +13,7 @@
                         <div class="gd-sm-1">
                             <text class="gd-price-1">₹{{parseInt(goods.lowestPrice)}}</text>
                         </div>
-                        <text class="gd-info-1">₹{{parseInt(goods.saleUnitPrice)}}</text>
+                        <text class="gd-info-1">₹{{parseInt(goods.unitPrice)}}</text>
                         <text class="gd-button-1">Drop Price</text>
                     </div>
                 </div>

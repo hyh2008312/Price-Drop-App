@@ -67,7 +67,11 @@
                         </div>
                         <text class="s-i-t1" >Details</text>
                     </div>
-                    <text class="s-i-icon">Free Shipping</text>
+                    <div class="ship-label">
+                        <text class="s-i-icon">Free Shipping</text>
+                        <text class="s-i-icon-imp">Imported</text>
+                    </div>
+
                 </div>
 
                 <div class="ship-item mg-b36" @click="openCODPopup" v-if="purchaseMethod==='direct'||purchaseMethod==='flash'">
@@ -157,9 +161,9 @@
                     </div>
 
                     <div class="slg">
-                        <text class="i-slg-icon">&#xe751;</text>
-                        <text class="i-slg-1" > Worldwide  </text>
-                        <text class="i-slg-2"  > Brands </text>
+                        <text class="i-slg-icon">&#xe75d;</text>
+                        <text class="i-slg-1" > Direct From </text>
+                        <text class="i-slg-2"  > Manufacturers </text>
                     </div>
 
                     <div class="slg">
@@ -1534,7 +1538,7 @@
         font-size: 24px;
         color: rgba(0,0,0,.87);
         line-height: 38px;
-        margin-bottom: 8px;
+        margin-bottom: 16px;
     }
     .drop-label{
         flex-direction: row;
@@ -1549,7 +1553,7 @@
         border-radius: 8px;
         padding: 4px 16px;
         color: #00CFE3;
-        margin-right: -25px;
+        margin-right: -15px;
     }
     .price-off-imp{
         border-width: 1px;
@@ -1559,7 +1563,7 @@
         border-radius: 8px;
         padding: 4px 16px;
         color: #E0064E;
-        margin-right: -25px;
+        margin-right: -15px;
     }
     .price-off-tax{
         border-width: 1px;
@@ -2045,6 +2049,11 @@
         border-top-width: 2px;
         border-top-style: dashed;
     }
+    .ship-label{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
     .s-i-img{
         width:38px;
         height:32px;
@@ -2078,6 +2087,18 @@
         padding: 4px 16px;
         color: #00CFE3;
         margin-left: 62px;
+        margin-top: 16px;
+        margin-bottom: 32px;
+    }
+    .s-i-icon-imp{
+        border-width: 1px;
+        border-style: solid ;
+        border-color: #E0064E;
+        font-size: 20px;
+        border-radius: 8px;
+        padding: 4px 16px;
+        color: #E0064E;
+        margin-left: 12px;
         margin-top: 16px;
         margin-bottom: 32px;
     }
