@@ -272,7 +272,7 @@ export default {
                     this.method = e;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)
-                } else if (this.CODStatus==2) {
+                } else if (this.order.cod.exist && this.CODStatus==2) {
                     this.method = e;
                 } else if (this.CODStatus==3) {}
             } else {
