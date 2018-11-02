@@ -58,7 +58,7 @@
                         <image class="i-box-icon" src="bmlocal://assets/ic-paid.png"></image>
 
                         <!--<text class="i-box-icon iconfont">&#xe717;</text>-->
-                        <text class="i-box-tlt">Paid</text>
+                        <text class="i-box-tlt">Confirmed</text>
                     </div>
                     <div class="i-box-l" @click="jumpWeb(2)">
                         <image class="i-box-icon" src="bmlocal://assets/ic-packed.png"></image>
@@ -76,7 +76,7 @@
                         <image class="i-box-icon" src="bmlocal://assets/ic-delivered.png"></image>
 
                         <!--<text class="i-box-icon iconfont">&#xe71a;</text>-->
-                        <text class="i-box-tlt">Completed</text>
+                        <text class="i-box-tlt">Delivered</text>
                     </div>
                 </div>
             </div>
@@ -93,21 +93,22 @@
                     <text class="i-box wallet-num">₹ {{myWallet||0}}</text>
                 </div>
 
-                <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
-                        <text class="box-txt">My Lucky Draws</text>
-                        <text class=" box-dot" v-if="unreadR>0"></text>
-                    </div>
-                    <text class="i-box iconfont">&#xe626;</text>
-
-                </div>
 
                 <div class="box-tlt " @click="openMyCart()" v-if="user">
                     <div class="box-left">
                         <image class="box-txt-icon" src="bmlocal://assets/my-cart.png"></image>
                         <text class="box-txt">My Cart</text>
-                        <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
+                        <text class=" box-dot" v-if="true"></text>
+                    </div>
+                    <text class="i-box iconfont">&#xe626;</text>
+
+                </div>
+
+                <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
+                    <div class="box-left">
+                        <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
+                        <text class="box-txt">My Lucky Draws</text>
+                        <text class=" box-dot" v-if="unreadR>0"></text>
                     </div>
                     <text class="i-box iconfont">&#xe626;</text>
 

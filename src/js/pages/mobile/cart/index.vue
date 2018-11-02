@@ -160,7 +160,7 @@
                 goodsSel: true,
                 page: 1,
                 length: 2,
-                pageSize: 4,
+                pageSize: 100,
                 goodsList: false,
                 data: '',
                 selAllStatus: false,

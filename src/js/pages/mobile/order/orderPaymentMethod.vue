@@ -42,7 +42,7 @@
                         <div>
                             <div class="cod-d">
                                 <image class="item-image-2"  :src="codSrc"></image>
-                                <text class="cod-text">Cash on Delivery</text>
+                                <text class="cod-text">Cash/Card on Delivery</text>
                             </div>
                             <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
 
