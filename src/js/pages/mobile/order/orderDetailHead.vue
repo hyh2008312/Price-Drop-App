@@ -30,7 +30,7 @@
                                :style="{justifyContent: 'center'}">
                 </wxc-countdown>
             </div>
-            <div class="gb-bg-2" v-if="order.refundAmount">
+            <div class="gb-bg-2" v-if="order.refundAmount > 0">
                 <text class="gb-icon iconfont gd-text-color"></text>
                 <text class="gd-text gd-text-color">Refund Amount: </text>
                 <text class="gd-text">₹{{order.refundAmount.toFixed(2)}}</text>
