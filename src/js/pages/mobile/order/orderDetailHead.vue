@@ -30,15 +30,15 @@
                                :style="{justifyContent: 'center'}">
                 </wxc-countdown>
             </div>
-            <div class="gb-bg-1" v-if="order.refundAmount">
+            <div class="gb-bg-2" v-if="order.refundAmount">
                 <text class="gb-icon iconfont gd-text-color"></text>
                 <text class="gd-text gd-text-color">Refund Amount: </text>
-                <text>{{order.refundAmount}}</text>
+                <text class="gd-text">₹{{order.refundAmount.toFixed(2)}}</text>
             </div>
-            <div class="gb-bg-1" v-if="order.refundDate">
+            <div class="gb-bg-2" v-if="order.refundDate">
                 <text class="gb-icon iconfont gd-text-color"></text>
                 <text class="gd-text gd-text-color">Refund Date: </text>
-                <text>{{formatMinDate(order.refundDate,  'MMMM DD, YYYY')}}</text>
+                <text class="gd-text">{{formatDate(order.refundDate, 'MMMM DD, YYYY hh:mm:ss')}}</text>
             </div>
         </div>
     </div>
@@ -104,6 +104,12 @@
 
     .gb-bg-1{
         margin-top: 22px;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .gb-bg-2{
+        margin-top: 12px;
         flex-direction: row;
         align-items: center;
     }
