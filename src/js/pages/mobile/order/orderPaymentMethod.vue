@@ -149,7 +149,7 @@ export default {
             this.prePhone = params.data.phoneNumber;
             this.checkCODStatus();
             // this.$notice.alert({
-            //     message: params.data.cod.toString()
+            //     message: params.data.cod
             // })
             this.source = params.source;
         }
@@ -161,11 +161,6 @@ export default {
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         googleAnalytics.trackingScreen('Confirm Billing and Shipping');
         this.getBalance();
-        if (this.$storage.getSync('user')) {
-            this.user = this.$storage.getSync('user')
-        } else {
-            this.user = null
-        }
         this.$event.on('closePayment', params => {
             this.$router.finish();
         });
@@ -179,15 +174,14 @@ export default {
             codSrc: 'bmlocal://assets/COD-01.png',
             source: 'confirm',
             order: {
-                'title': '',
-                'mainImage': '',
-                'salePrice': '',
-                'currentPrice': '',
-                'attributes': '',
-                'quantity': 1,
-                'id': -1,
-                'shippingPrice': false,
-                'total': '0.00'
+                number: '',
+                cod: false,
+                id: '',
+                ownerEmail: '',
+                paymentAmount: '',
+                phoneNumber: '',
+                postcode: '',
+                owner: ''
             },
             checked: false,
             prePhone: '',
