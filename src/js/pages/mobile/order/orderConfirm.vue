@@ -61,7 +61,7 @@ export default {
             if (this.order.proId == 'drop') {
                 this.order.shippingPrice = '0.00';
                 if (this.order.currentPrice - this.order.lowestPrice <= 0) {
-                    this.order.currentPrice = '0.00';
+                    this.order.currentPrice = this.order.lowestPrice;
                 } else {
                     if ((this.order.salePrice - this.order.currentPrice) / (this.order.salePrice - this.order.lowestPrice) >= 0.7) {
                         this.order.currentPrice = parseInt((this.order.salePrice * 100 * 0.3) / 100).toFixed(2);
