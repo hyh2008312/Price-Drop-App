@@ -29,22 +29,23 @@
                             <text class="mid-card-text2">Invite friends to support your DROP by sharing to Facebook & WhatsAPP. </text>
                         </div>
                     </div>
-                    <div class="mid-card-item1">
+                    <div class="mid-card-item1 mid-card-btm">
                         <div><image class="img-icon" src="bmlocal://assets/pic-crowed.png"></image></div>
                         <div class="mid-card-text">
                             <text class="mid-card-text1">Step 3</text>
                             <text class="mid-card-text2">The more people click the “Drop Price” button for you, the lower price you can reach.</text>
-                        </div>
-                    </div>
-                    <div class="mid-card-item1 mid-card-btm">
-                        <div><image class="img-icon" src="bmlocal://assets/pic-discount.png"></image></div>
-                        <div class="mid-card-text">
-                            <text class="mid-card-text1">Step 4</text>
-                            <text class="mid-card-text2">After the DROP ends, you can buy the item at the final discount you have unlocked!</text>
                             <text>&nbsp;</text>
                             <text class="mid-card-text3">Please Note: Any fake users or spam activities will make your account blocked. We can cancel and refund any suspicious orders at any time.</text>
+
                         </div>
                     </div>
+                    <!--<div class="mid-card-item1 mid-card-btm">-->
+                        <!--<div><image class="img-icon" src="bmlocal://assets/pic-discount.png"></image></div>-->
+                        <!--<div class="mid-card-text">-->
+                            <!--<text class="mid-card-text1">Step 4</text>-->
+                            <!--<text class="mid-card-text2">After the DROP ends, you can buy the item at the final discount you have unlocked!</text>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>

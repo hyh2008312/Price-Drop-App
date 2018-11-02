@@ -564,7 +564,7 @@
                             this.$storage.setSync('user', this.user)
                             // this.$storage.setSync(user.pointsAvailable, 'weex-eros')
                             this.$notice.toast({
-                                message: 'You’ve get ' + (this.signObj.originalPoints + (((this.signObj.signTimes - 1) % 15) <= 6 ? ((this.signObj.signTimes - 1) % 15) : 6) * this.signObj.gradientPoints) + ' points successfully today!'
+                                message: 'Congrats! You’ve got ' + (this.signObj.originalPoints + (((this.signObj.signTimes - 1) % 15) <= 6 ? ((this.signObj.signTimes - 1) % 15) : 6) * this.signObj.gradientPoints) + ' points today!'
                             })
                             // googleAnalytics.recordEvent('sign Success', '', '', 0);
                             this.$event.emit('mySign')
