@@ -110,6 +110,7 @@
         },
         created () {
             this.getAddress()
+            googleAnalytics.trackingScreen('CartOrder');
         },
         methods: {
             getAddress () {
@@ -195,8 +196,8 @@
                     //
                     // return
 
-                    // googleAnalytics.recordEvent('Payment', 'Add to Cart', 'normal', 0);
-                    // googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', this.order.productId, '', 'Rs', this.order.currentPrice);
+                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'PlaceOrder', 0);
+                    googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'PlaceOrder', '', 'Rs', this.allPrice);
                     const order = resData;
                     order.paymentAmount = parseInt(this.allPrice)
                     // that.$router.finish();
@@ -302,8 +303,8 @@
         font-size: 28px;
         color: #000000;
         font-weight: 700;
-        padding: 30px 36px;
-        margin-left: 36px;
+        padding: 30px 36px 30px 36px;
+        /*margin-left: 6px;*/
     }
     .gift-vw{
         flex-direction: row;
@@ -320,6 +321,7 @@
         text-align: left;
         font-weight: 900;
         margin-right: 30px;
+        margin-left: 15px;
     }
     .bottom-btn{
         background-color: #fff;
@@ -380,7 +382,7 @@
         height: 80px;
         width: 220px;
         background-color: #EF8A31;
-        border-radius: 4px;
+        border-radius: 8px;
         flex-direction: row;
         justify-content: center;
         align-items: center;

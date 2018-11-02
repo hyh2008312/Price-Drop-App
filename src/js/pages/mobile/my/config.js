@@ -5,18 +5,12 @@ export const DropsQA = [{
     question: 'How to reach the lowest price?',
     answer: 'Once you start a Price Drop campaign, share it with your friends and invite them to drop the price for you. When they click the “Drop” button on the page of your campaign, the price will be dropped automatically. Once you get a certain number of clicks from your friends, the lowest price will be unlocked! '
 }, {
-    question: 'Can I make a purchase before the Drop ends?',
-    answer: 'No. You can only make a purchase when the campaign ends.'
-}, {
     question: 'Is there a time frame for a Price Drop campaign?',
     answer: 'A Price Drop campaign only lasts for 24 hours. Once the drop reaches the lowest price, the campaign will end automatically.'
 }, {
     question: 'How many times can a user help others drop the price?',
     answer: 'Each user can only help others drop the price up to 10 times a day for different products.'
-}, {
-    question: 'How many free products can I get from Drops every month?',
-    answer: 'Due to the limited quantity of products, each user can only get one free product through Drops every month.'
-} ];
+}];
 export const OrderQA = [{
     question: 'How do I check on the status of my order?',
     answer: 'Please log into your account, and check your order status by going to Account -> My Orders'
@@ -167,8 +161,8 @@ export const VoucherQA = [{
     question: 'Can I use multiple Vouchers at the same time?',
     answer: 'No, you can only use one voucher for each order.'
 }, {
-    question: 'Does the Vouchers apply to every product?',
-    answer: 'The voucher is not available for any Drop’s orders.'
+    question: 'Does the Voucher apply to every product?',
+    answer: 'No. The voucher is not available for Drop’s orders.'
 }];
 export const CODDeliveryQA = [{
     question: 'Which area is available for COD delivery?',

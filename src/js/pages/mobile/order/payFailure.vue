@@ -8,7 +8,7 @@
             </div>
             <div class="pay-failure-bg">
                 <text class="iconfont pay-failure-icon">&#xe632;</text>
-                <text class="pay-failure-title">Your Payment Failed.</text>
+                <text class="pay-failure-title">Your Payment Failed</text>
             </div>
             <text class="pay-failure-title-1">Please try again or change your payment method. Thanks!</text>
             <text class="pay-failure-button" @click="back">Retry Payment</text>

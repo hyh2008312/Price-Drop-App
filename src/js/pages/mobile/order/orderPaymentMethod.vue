@@ -44,20 +44,25 @@
                                 <image class="item-image-2"  :src="codSrc"></image>
                                 <text class="cod-text">Cash on Delivery</text>
                             </div>
-                            <text class="item-text">Only available for COD Member</text>
+                            <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
+
+                            <div v-if="!order.cod.exist ||CODStatus==3">
+                                <text class="item-text" v-if="codMsg1!=''" >{{codMsg1}}</text>
+                                <text class="item-text" v-else >{{codMsg}}</text>
+                            </div>
                         </div>
-                        <div v-if="order.cod && (CODStatus==1||CODStatus==2)">
+                        <div v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">
                             <text class="iconfont item-checked" v-if="method == 'cod'">&#xe6fb;</text>
                             <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
                         </div>
-                        <text class="iconfont item-checked-disable" v-if="!order.cod ||CODStatus==3">&#xe73f;</text>
+                        <text class="iconfont item-checked-disable" v-if="!order.cod.exist ||CODStatus==3">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
 
-            <cell>
-                <text class="title-2">Order#:{{order.number}}</text>
-            </cell>
+            <!--<cell>-->
+                <!--<text class="title-2">Order#:{{order.number}}</text>-->
+            <!--</cell>-->
             <cell v-if="isShowBalance">
                 <div class="balance-bg">
                     <div class="balance-bg-left">
@@ -107,9 +112,13 @@
                     </div>
 
                     <div class="popup-item4" @click="checkItem">
-                        <div :class="[selItem4?'lc-t-dot-select':'lc-t-dot']" >
-                            <text class="dot-sel">&radic;</text>
+                        <!--<div :class="[selItem4?'lc-t-dot-select':'lc-t-dot']" >-->
+                            <!--<text class="dot-sel">&radic;</text>-->
+                        <div  style="margin-right: 22px;">   <!--可选-->
+                            <text class="iconfont item-checked" v-if="selItem4">&#xe6fb;</text>
+                            <text class="iconfont item-no-checked" v-if="!selItem4">&#xe73f;</text>
                         </div>
+                        <!--</div>-->
                         <text class="p-i4-t">By confirming this order, you agree to our COD Policy & Terms of Service.</text>
                     </div>
                     <div class="popup-item5" v-if="selItem4" @click="postCode">
@@ -152,7 +161,6 @@ export default {
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         googleAnalytics.trackingScreen('Confirm Billing and Shipping');
         this.getBalance();
-        this.initBack();
         if (this.$storage.getSync('user')) {
             this.user = this.$storage.getSync('user')
         } else {
@@ -195,7 +203,9 @@ export default {
             successS: false,
             user: '',
             selItem4: true,
-            CODStatus: false
+            CODStatus: false,
+            codMsg1: false,
+            codMsg: false
         }
     },
     methods: {
@@ -241,8 +251,10 @@ export default {
                     this.CODStatus = 2
                 } else if (res.code == 30002) {
                     this.CODStatus = 3
+                    this.codMsg1 = 'Your account cannot use COD due to bad record'
                 }
                 this.$notice.loading.hide();
+                this.initBack();
             }).catch((res) => {
                 this.$notice.loading.hide();
                 // this.$notice.toast({
@@ -252,7 +264,7 @@ export default {
         },
         chooseMethod (e) {
             if (e == 'cod') {
-                if (this.order.cod && this.CODStatus==1) {
+                if (this.order.cod.exist && this.CODStatus==1) {
                     this.method = e;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)

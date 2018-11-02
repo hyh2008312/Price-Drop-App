@@ -47,7 +47,7 @@
                     <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
-                    <text class="price-name price-off-tax" >Tax Included</text>
+                    <text class="price-name price-off-tax" v-if="!isDrop">Tax Included</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
@@ -1067,6 +1067,8 @@
                         this.$notice.toast({
                             message: 'Added to Cart Successfully!'
                         })
+                        googleAnalytics.recordEvent('Payment', 'Add to Cart', this.purchaseMethod, 0);
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', this.proId, '', 'Rs', this.selunitPrice);
                         this.isBottomShow = false
                     } else {
                         this.$notice.toast({
@@ -1496,7 +1498,7 @@
     .onetitle{
         width:586px;
         /*height: 120px;*/
-        /*font-weight: 700;*/
+        font-weight: 700;
         margin-top: 32px;
         margin-bottom: 32px;
         margin-left: 32px;
@@ -1775,7 +1777,10 @@
     }
     .bottom-btn{
         background-color: #fff;
-        box-shadow:  0 -2px 3px 0 rgba(0,0,0,0.24);
+        /*box-shadow:  0 -2px 3px 0 rgba(0,0,0,0.24);*/
+        border-top-style: solid ;
+        border-top-color:rgba(0,0,0,.08) ;
+        border-top-width:1px ;
         width: 750px;
         height: 112px;
         position: fixed;
@@ -1895,12 +1900,12 @@
     }
     .d-sm-w{
         font-size: 24px;
-        color: #00CFE3;
+        color: #1D7CD4;
         letter-spacing: 0;
         margin-top: 16px;
         padding: 30px  290px;
         border-top-style:dashed ;
-        border-top-color: rgba(0,0,0,.08);
+        border-top-color: rgba(0,0,0,.32);
         border-top-width:1px ;
     }
     .bottom-goods{

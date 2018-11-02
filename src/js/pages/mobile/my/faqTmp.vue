@@ -6,7 +6,7 @@
         <scroller>
             <text class="header1">&nbsp;</text>
                 <div v-if="settingPage==0" class="content" v-for="(i,index) in QAArr ">
-                    <text class="question">{{index+1}}.{{i.question}}</text>
+                    <text class="question">{{index+1}}. {{i.question}}</text>
                     <text class="answer">{{i.answer}}</text>
                 </div>
             <div v-if="settingPage==1" class="content">     <!--term & conditions-->

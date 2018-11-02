@@ -26,7 +26,7 @@
                     if (that.method == 'paytm') {
                         that.$notice.loading.show();
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'paytm', 'Rs', 0);
-                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm', 0);
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-paytm', 0);
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'payment.sum.paytmc.checksum',
@@ -56,7 +56,7 @@
                             pay.startPaytmRequest(resData.paytmOrderId, resData.order.number, resData.amount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
-                                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm sdk success return', 0);
+                                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-paytm sdk success return', 0);
                                     if (data.code == 200) {
                                         that.$notice.loading.show();
                                         that.$fetch({
@@ -80,7 +80,8 @@
                                                 name: 'order.success',
                                                 type: 'PUSH',
                                                 params: {
-                                                    source: that.source
+                                                    source: that.source,
+                                                    order: that.order
                                                 }
                                             });
                                         }, error => {
@@ -237,6 +238,7 @@
                             // });
                         });
                     } else if (that.method == 'cod') {
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-COD', 0);
                         this.$emit('change', 1)
                         this.$fetch({
                             method: 'POST',
@@ -249,10 +251,15 @@
                                 type: 'cart'
                             }
                         }).then((res) => {
-                            this.$router.finish();
-                            this.$router.open({
-                                name: 'order',
-                                type: 'PUSH'
+                            googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-COD success return', 0);
+                            that.$router.finish();
+                            that.$router.open({
+                                name: 'order.success',
+                                type: 'PUSH',
+                                params: {
+                                    source: that.source,
+                                    order: that.order
+                                }
                             });
                             this.$event.emit('closePayment');
                         }).catch((res) => {

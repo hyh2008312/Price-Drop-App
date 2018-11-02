@@ -77,7 +77,8 @@
                                                 name: 'order.success',
                                                 type: 'PUSH',
                                                 params: {
-                                                    source: that.source
+                                                    source: that.source,
+                                                    order: that.order
                                                 }
                                             });
                                         }, error => {
@@ -246,10 +247,14 @@
                                 type: 'normal'
                             }
                         }).then((res) => {
-                            this.$router.finish();
-                            this.$router.open({
-                                name: 'order',
-                                type: 'PUSH'
+                            that.$router.finish();
+                            that.$router.open({
+                                name: 'order.success',
+                                type: 'PUSH',
+                                params: {
+                                    source: that.source,
+                                    order: that.order
+                                }
                             });
                             this.$event.emit('closePayment');
                         }).catch((res) => {

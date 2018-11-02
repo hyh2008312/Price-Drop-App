@@ -34,7 +34,7 @@
                         <text class="gd-price-show" v-if="goods.cutStatus=='progressing'">Dropped ₹{{ ((goods.salePrice * 100 - goods.currentPrice * 100)/100).toFixed(2) }} by {{goods.cutTimes}} people</text>
                         <div class="gd-cut" v-if="goods.cutStatus=='progressing'">
                             <text class="gd-cut-price">₹{{ Math.floor((goods.currentPrice - goods.lowestPrice)*100)/100 }}</text>
-                            <text class="gd-cut-price-tip"> left to reach ₹0 price</text>
+                            <text class="gd-cut-price-tip"> left to reach Lowest price</text>
                         </div>
                         <div class="gd-cut-end"v-if="goods.cutStatus=='end'">
                             <text class="gd-price-show-end">{{computeLockMoney(goods.salePrice,goods.currentPrice,goods.lowestPrice)}}</text>

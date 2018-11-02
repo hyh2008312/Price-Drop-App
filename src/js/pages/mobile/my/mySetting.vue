@@ -112,7 +112,7 @@
                 })
             },
             logOut () {
-                googleAnalytics.recordEvent('logOut');
+                googleAnalytics.recordEvent('logOut', 'logOut', '', '');
                 const self = this
                 this.$storage.deleteSync('user')
                 this.$storage.deleteSync('token')

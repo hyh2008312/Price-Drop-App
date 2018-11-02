@@ -3,26 +3,32 @@
         <topic-header class="t-h1" title="Cart" leftBtn="y" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
         <div class="blackheader"></div>
         <div class="top-buy-overflow">
-            <div class="top-buy1" v-if="parseInt(allPrice)>300" >
-                <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600">₹ 100 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900">₹ 150 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=900">₹ 200</text>
-                <text class="t-b-t" > voucher unlocked!</text>
-            </div>
-            <div class="top-buy2" v-if="parseInt(allPrice)<900&&parseInt(allPrice)!=0" @click="jumpHome">
+            <div :class="[parseInt(allPrice)>0?'mg-tb16':'']" @click="jumpHome">
+
+                <div class="top-buy1" v-if="parseInt(allPrice)>300" >
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600">₹ 100 </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900">₹ 150 </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>=900">₹ 200</text>
+
+                    <text class="t-b-t" > voucher unlocked!</text>
+                </div>
+                <div class="top-buy2" v-if="parseInt(allPrice)<900&&parseInt(allPrice)!=0" >
                 <text class="t-b-t">Buy </text>
+
                 <text class="t-b-tb" v-if="parseInt(allPrice)<300">₹ {{300-parseInt(allPrice)}} </text>
                 <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹ {{600-parseInt(allPrice)}} </text>
                 <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹ {{900-parseInt(allPrice)}} </text>
 
 
                 <text class="t-b-t">more to use your </text>
+
                 <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹ 100 </text>
                 <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹ 150 </text>
                 <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹ 200 </text>
 
                 <text class="t-b-t">voucher! </text>
                 <text class="t-b-tc">Add Item >></text>
+            </div>
             </div>
 
         </div>
@@ -34,8 +40,13 @@
                     <div class="line-card">
                         <div class="lc-top">
                             <div  @click="selGoods(i)">
-                                <div :class="[i.sel?'lc-t-dot-select':'lc-t-dot',i.sumStock==0?'lc-t-dot-disable':'']" >
-                                    <text class="dot-sel">&radic;</text>
+                                <div style="margin-left:16px;margin-right:16px" >
+                                    <!--<text class="dot-sel">&radic;</text>-->
+                                    <div v-if="i.sumStock!==0">   <!--可选-->
+                                        <text class="iconfont item-checked" v-if="i.sel">&#xe6fb;</text>
+                                        <text class="iconfont item-no-checked" v-if="!i.sel">&#xe73f;</text>
+                                    </div>
+                                    <text class="iconfont item-checked-disable" v-if="i.sumStock==0">&#xe73f;</text> <!--不可选-->
                                 </div>
                             </div>
                             <div class="overflow-img">
@@ -104,8 +115,10 @@
         <div class="bottom-btn" >
             <div class="bb-d">
                 <div class="bb-d-r" @click="selAll">
-                    <div :class="[selAllStatus?'lc-t-dot-select':'lc-t-dot']">
-                        <text class="dot-sel">&radic;</text>
+                    <div style="margin-right: 18px">
+                        <!--<text class="dot-sel">&radic;</text>-->
+                        <text class="iconfont item-checked" v-if="selAllStatus">&#xe6fb;</text>
+                        <text class="iconfont item-no-checked" v-if="!selAllStatus">&#xe73f;</text>
                     </div>
                     <text class="bb-dr-t">Select All</text>
                 </div>
@@ -129,6 +142,8 @@
 <script>
     import header from './witheHeader';
     import { WxcCountdown, WxcRadio } from 'weex-ui';
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+
     export default {
         components: {
             'topic-header': header,
@@ -156,6 +171,7 @@
         created () {
             this.requestProduct(true);
             this.getMyCard()
+            googleAnalytics.trackingScreen('Cart');
         },
         methods: {
             onLoadingMore () {
@@ -376,6 +392,10 @@
                             this.nextPage.push(this.goodsList[i])
                         }
                     }
+                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Checkout', 0);
+                    // googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'Checkout', '', 'Rs', 0);
+
+
                     this.$notice.loading.hide();
                     // TODO 需要重新请求一下列表 获取最新的库存 进行判断是否有库存可以使用
                     this.$router.open({
@@ -491,6 +511,7 @@
     }
     .top-buy-overflow{
         background-color:#FCEACF;
+        /*padding: 8px 0 ;*/
     }
     .top-buy1{
         flex-direction: row;
@@ -498,7 +519,7 @@
         align-items: center;
         margin-left: 32px;
         margin-top: 8px;
-        margin-bottom: 4px;
+        margin-bottom: 8px;
     }
     .top-buy2{
         flex-direction: row;
@@ -506,7 +527,7 @@
         align-items: center;
         margin-left: 32px;
         margin-bottom: 8px;
-        margin-top: 4px;
+        margin-top: 8px;
     }
     .t-b-t{
         font-size: 24px;
@@ -542,6 +563,24 @@
         align-items: center;
         margin-bottom: 24px;
         margin-top: 32px;
+    }
+    .item-checked{
+        font-size: 32px;
+        line-height: 32px;
+        color: #EF8A31;
+    }
+
+    .item-no-checked{
+        font-size: 32px;
+        line-height: 32px;
+        color: rgba(0,0,0,0.32);
+    }
+    .item-checked-disable{
+        font-size: 32px;
+        line-height: 32px;
+        color:rgba(0,0,0,.19);
+        background-color: rgba(0,0,0,.19);
+        border-radius: 50%;
     }
     .lc-t-dot{
         width: 32px;
@@ -807,7 +846,10 @@
         width: 750px;
         align-items: center;
     }
-
+    .mg-tb16{
+        margin-bottom: 16px;
+        margin-top: 16px;
+    }
     .empty-icon{
         margin-top: 100px;
         opacity: 0.45;

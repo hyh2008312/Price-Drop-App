@@ -8,9 +8,9 @@
             </div>
             <div class="pay-failure-bg">
                 <text class="iconfont pay-success-icon">&#xe6e7;</text>
-                <text class="pay-failure-title">Payment Successfully Completed!</text>
+                <text class="pay-failure-title">Order Placed Successfully!</text>
             </div>
-            <text class="pay-failure-title-1">Thank you for your order. Your item will be shipped in 3-5 days!</text>
+            <text class="pay-failure-title-1">Thank you for your order. Your package will be shipped out in 5-7 days!</text>
             <text class="pay-failure-button" @click="back">View Order</text>
             <text class="pay-failure-button-1" @click="jumpHome">Back to Home Page</text>
         </div>
@@ -29,6 +29,7 @@ export default {
         appeared (params, options) {
             if (params && params.source) {
                 this.source = params.source
+                this.order = params.order
             }
         }
     },
@@ -36,13 +37,16 @@ export default {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 48 - 4) + 'px' };
         googleAnalytics.trackingScreen('Order Completed');
-        googleAnalytics.recordEvent('Payment', 'Purchase Success', '', 0);
+        googleAnalytics.recordEvent('Payment', 'Purchase Success', this.order.number, 0);
+        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'Purchase Success', '', 'Rs', 0);
+
     },
     data () {
         return {
             title: 'Payment Result',
             isBack: false,
-            source: false
+            source: false,
+            order: false
         }
     },
     methods: {

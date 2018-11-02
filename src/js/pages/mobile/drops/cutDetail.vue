@@ -83,12 +83,13 @@
                         </div>
                     </div>
                        <text class="wrapper-share" @click="showSharePanel">Share to Drop Your Price Further</text>
-                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite friends to unlock 50% OFF, 70% OFF and ₹0 price!</text>
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==1">Invite NEW friends to reach lowest price! Super easy!</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 2" @click="showBuyNow">Buy Now At 50% OFF</text>
                        <text class="wrapper-share-1" v-else-if="dropStatus == 3" @click="showBuyNow">Buy Now At 70% OFF</text>
-                       <text class="wrapper-share-1" v-else-if="dropStatus == 4" @click="showBuyNow">Click to Get It For Free</text>
-                        <text class="wrapper-unlock-tip" v-if="dropStatus ==2">Invite friends to unlock 50% OFF, 70% OFF and ₹0 price!</text>
-                        <text class="wrapper-unlock-tip" v-else-if="dropStatus ==3">Invite friends to unlock 50% OFF, 70% OFF and ₹0 price!</text>
+                       <text class="wrapper-share-1" v-else-if="dropStatus == 4" @click="showBuyNow">Buy Now At Lowest Price</text>
+
+                        <text class="wrapper-unlock-tip" v-if="dropStatus ==2">50% OFF unlocked! Continue to get 70% OFF and save more!</text>
+                        <text class="wrapper-unlock-tip" v-else-if="dropStatus ==3">70% OFF unlocked! You're very closed to the lowest price!</text>
                         <div class="wrapper-timer-con">
                             <div class="wrapper-timer">
                                 <wxc-countdown tpl="{h}:{m}:{s}"
@@ -153,10 +154,10 @@
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='paid' && dropStatus !=1" @click="jumpProductDetail">Click to Drop It Again</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==2" @click="jumpConfirmOrder">Buy Now At 50% OFF</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==3" @click="jumpConfirmOrder">Buy Now At 70% OFF</text>
-                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==4" @click="jumpConfirmOrder">Click to Get It For Free</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='pending' && dropStatus ==4" @click="jumpConfirmOrder">Buy Now At Lowest Price</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==2" @click="jumpOrderDetail">Buy Now At 50% OFF</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==3" @click="jumpOrderDetail">Buy Now At 70% OFF</text>
-                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==4" @click="jumpOrderDetail">Click to Get It For Free</text>
+                        <text class="wrapper-share" v-if="goodsDetail.operationStatus=='unpaid'  && dropStatus ==4" @click="jumpOrderDetail">Buy Now At Lowest Price</text>
                         <text class="wrapper-share" v-if="goodsDetail.operationStatus=='overdue' && dropStatus !=1" @click="jumpProductDetail">Click to Drop It Again</text>
 
                         <div class="cut-end-item-column"
@@ -442,7 +443,7 @@
             },
             shareFacebook () {
                 const that = this;
-                const detail = 'Top Brand sneakers, earphones, t-shirts & featured products at ₹0 on #PriceDropAPP! Click this link to help me drop the price';
+                const detail = `Top Brand sneakers, earphones, t-shirts & featured products at ₹${this.goodsDetail.lowestPrice} on #PriceDropAPP! Click this link to help me drop the price`;
                 const url = ShareUrlUtil.getShareUrl(that.id);
                 const imageUrl = this.goodsDetail.mainImage;
                 shareModule.shareFacebook(
