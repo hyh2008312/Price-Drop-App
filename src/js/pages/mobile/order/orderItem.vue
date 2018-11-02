@@ -21,7 +21,7 @@
                     <div class="gd-bg-bottom">
                         <text class="gd-info">{{order.lines[0].attributes}}</text>
                         <div class="gd-bg-bottom-right">
-                            <text class="gd-tlt-1">₹{{order.lines[0].paymentPrice / order.lines[0].quantity}}</text>
+                            <text class="gd-tlt-1">₹{{(order.lines[0].paymentPrice / order.lines[0].quantity).toFixed(2)}}</text>
                             <text class="gd-count"> x {{order.lines[0].quantity}}</text>
                         </div>
                     </div>
