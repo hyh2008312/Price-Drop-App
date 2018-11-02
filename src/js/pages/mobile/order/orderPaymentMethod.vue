@@ -146,6 +146,7 @@ export default {
     eros: {
         appeared (params, option) {
             this.order = params.data;
+            this.codMsg = params.data.cod.notes;
             this.prePhone = params.data.phoneNumber;
             this.checkCODStatus();
             // this.$notice.alert({
