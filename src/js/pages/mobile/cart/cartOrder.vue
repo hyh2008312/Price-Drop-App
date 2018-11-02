@@ -77,6 +77,8 @@
             },
             appeared (params, option) {
                 this.card = false;
+            },
+            backAppeared (params, options) {
                 if (params.card) {
                     this.card = params.card;
                     this.countPrice(this.orderList)
