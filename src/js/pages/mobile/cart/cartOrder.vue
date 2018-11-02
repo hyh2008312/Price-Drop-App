@@ -45,7 +45,7 @@
 
                 <div class="bb-d-l">
                     <text class="bb-dl" >Total：</text>
-                    <text class="bb-dl-p" >₹ {{allPrice}}</text>
+                    <text class="bb-dl-p" >₹ {{parseInt(allPrice).toFixed(2)}}</text>
                     <div class="bb-dl-b" @click="postOrder">
                         <text class="bb-dl-bf" >Place Order</text>
                     </div>
@@ -77,8 +77,6 @@
             },
             appeared (params, option) {
                 this.card = false;
-            },
-            backAppeared (params, options) {
                 if (params.card) {
                     this.card = params.card;
                     this.countPrice(this.orderList)

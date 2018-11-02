@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">₹{{parseInt( (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100 < 0 ? 0 : (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100)) / 100) }}</text>
+        <text class="od-text-1">₹{{parseInt( (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100 < 0 ? 0 : (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100)) / 100).toFixed(2) }}</text>
         <text class="od-button" @click="confirm">Pay Now</text>
     </div>
 </template>
