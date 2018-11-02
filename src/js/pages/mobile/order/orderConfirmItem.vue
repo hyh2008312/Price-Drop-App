@@ -96,12 +96,13 @@
 
     .wrapper {
         background-color: #fff;
-        width: 750px;
+        width: 686px;
+        border-radius: 16px;
     }
 
     .gb-center{
         padding: 16px 32px 32px;
-        width: 750px;
+        width: 686px;
         flex-direction: row;
         justify-content: space-between;
         align-items: stretch;
@@ -109,11 +110,11 @@
 
     .gb-gift-bg{
         padding: 0 32px;
-        width: 750px;
+        width: 686px;
     }
 
     .gb-gift{
-        padding: 28px 0 16px;
+        padding: 16px 0 16px;
         flex-direction: row;
         justify-content: space-between;
         align-items: stretch;
@@ -128,13 +129,15 @@
     }
 
     .i-gd {
-        width: 718px;
-        height: 160px;
-        margin-left: 16px;
-        margin-right: 16px;
-        margin-top: 16px;
-        background-color: rgba(0,0,0,.04);
-        border-radius: 10px;
+        width: 622px;
+        height: 176px;
+        margin-left: 32px;
+        margin-right: 32px;
+        margin-top: 32px;
+        padding-bottom: 16px;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: rgba(0,0,0,0.12);
         flex-direction: row;
         justify-content: flex-start;
         align-items: stretch;
@@ -147,7 +150,7 @@
 
     .gd-bg-right {
         margin-left: 24px;
-        width: 534px;
+        width: 438px;
         height: 160px;
         justify-content: space-between;
         align-items: start;
@@ -186,7 +189,7 @@
     }
 
     .gd-bg-bottom{
-        margin-bottom: 16px;
+        margin-bottom: 8px;
         font-size: 24px;
         line-height: 28px;
         flex-direction: row;

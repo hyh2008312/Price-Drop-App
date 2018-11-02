@@ -143,7 +143,7 @@
                     return
                 }
                 this.$notice.loading.show();
-                let arr = []
+                const arr = []
                 for (let i = 0; i < this.orderList.length; i++) {
                     if (this.orderList[i].productType === 'direct') {
                         arr.push({
@@ -188,7 +188,6 @@
                         needAuth: true
                     }
                 }).then(resData => {
-
                     this.$notice.loading.hide();
                     // this.$notice.alert({
                     //     message: resData
@@ -221,9 +220,10 @@
                     });
                     // this.isFirst = false;
                 }).catch((res) => {
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
+                    this.$notice.loading.hide();
+                    this.$notice.toast({
+                        message: res
+                    });
                 })
             },
             countPrice (arr) {

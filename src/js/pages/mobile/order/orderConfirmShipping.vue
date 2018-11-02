@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper">
+        <order-line></order-line>
         <div class="gb-box-1" @click="jumpAddress">
             <text class="gb-title">Shipping To</text>
             <div class="gb-box" v-if="address.id">
@@ -24,7 +25,6 @@
                 <text class="gb-icon-1 iconfont">&#xe626;</text>
             </div>
         </div>
-        <order-line></order-line>
     </div>
 </template>
 <script>
@@ -51,16 +51,16 @@
 
     .wrapper {
         background-color: #fff;
-        width: 750px;
+        width: 686px;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-        border-radius: 8px;
+        border-radius: 16px;
     }
 
     .gb-box{
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        width: 686px;
+        width: 622px;
     }
 
     .gb-box-1{
@@ -68,7 +68,7 @@
     }
 
     .gb-box-2{
-        width: 658px;
+        width: 590px;
     }
 
     .gb-title{

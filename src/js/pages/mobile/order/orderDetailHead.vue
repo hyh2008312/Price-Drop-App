@@ -38,7 +38,7 @@
             <div class="gb-bg-2" v-if="order.refundDate">
                 <text class="gb-icon iconfont gd-text-color"></text>
                 <text class="gd-text gd-text-color">Refund Date: </text>
-                <text class="gd-text">{{formatDate(order.refundDate, 'MMMM DD, YYYY hh:mm:ss')}}</text>
+                <text class="gd-text">{{formatDate(order.refundDate, 'MMM DD, YYYY hh:mm:ss')}}</text>
             </div>
         </div>
     </div>

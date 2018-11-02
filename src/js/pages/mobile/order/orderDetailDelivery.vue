@@ -4,7 +4,7 @@
             <text class="gb-title">Delivery</text>
             <div class="gb-center">
                 <text class="gb-text" v-if="order.orderStatus != 'Canceled'">Estimated Arrival</text>
-                <text class="gb-text gb-text-color" v-if="order.orderStatus != 'Canceled'">{{formatMinDate(order,  'MMMM DD, YYYY')}} - {{formatMaxDate(order,  'MMMM DD, YYYY')}}</text>
+                <text class="gb-text gb-text-color" v-if="order.orderStatus != 'Canceled'">{{formatMinDate(order,  'MMM DD, YYYY')}} - {{formatMaxDate(order,  'MMM DD, YYYY')}}</text>
             </div>
             <div class="gb-center">
                 <text class="gb-text">Order Preparing Before Shipping</text>

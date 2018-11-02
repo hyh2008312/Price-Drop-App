@@ -4,7 +4,7 @@
             <text class="gb-title">Delivery</text>
             <div class="gb-center">
                 <text class="gb-text">Estimated Arrival</text>
-                <text class="gb-text gb-text-color">{{formatMinDate(order,  'MMMM DD, YYYY')}} - {{formatMaxDate(order,  'MMMM DD, YYYY')}}</text>
+                <text class="gb-text gb-text-color">{{formatMinDate(order,  'MMM DD, YYYY')}} - {{formatMaxDate(order,  'MMM DD, YYYY')}}</text>
             </div>
             <div class="gb-center">
                 <text class="gb-text">Order Preparing Before Shipping</text>
@@ -40,9 +40,9 @@
 
     .wrapper {
         background-color: #fff;
-        width: 750px;
+        width: 686px;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-        border-radius: 8px;
+        border-radius: 16px;
     }
 
     .gb-box-1{
@@ -63,7 +63,7 @@
     }
 
     .gb-center{
-        width: 686px;
+        width: 622px;
         flex-direction: row;
         justify-content: space-between;
         align-items: stretch;

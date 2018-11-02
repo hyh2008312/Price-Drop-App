@@ -15,6 +15,9 @@
             <cell class="cell-bottom" v-if="false">
                 <order-confirm-pay-method :list="payList" @radioChecked="radioChecked"></order-confirm-pay-method>
             </cell>
+            <cell class="cell-bottom">
+                <text> </text>
+            </cell>
         </list>
         <order-confirm-bottom :order="order" :address="address" :card="card"></order-confirm-bottom>
     </div>
@@ -168,7 +171,7 @@ export default {
     }
 
     .cell-bottom{
-        padding-bottom: 16px;
+        padding: 24px 32px 0;
     }
 
 </style>

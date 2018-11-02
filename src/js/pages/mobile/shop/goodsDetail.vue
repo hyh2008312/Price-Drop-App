@@ -1377,7 +1377,7 @@
                 if (str) {
                     const date = new Date().valueOf();
                     const tmp = (date + ((24 * 60 * 60 * 1000) * (7 + str)))
-                    return dayjs(new Date(tmp)).format('YYYY.MM.DD')
+                    return dayjs(new Date(tmp)).format('MMM DD, YYYY')
                 }
             },
             countDate (time) {
