@@ -45,7 +45,7 @@
 
                 <div class="bb-d-l">
                     <text class="bb-dl" >Total：</text>
-                    <text class="bb-dl-p" >₹ {{parseInt(allPrice)}}</text>
+                    <text class="bb-dl-p" >₹ {{allPrice}}</text>
                     <div class="bb-dl-b" @click="postOrder">
                         <text class="bb-dl-bf" >Place Order</text>
                     </div>
@@ -143,7 +143,7 @@
                     return
                 }
                 this.$notice.loading.show();
-                const arr = []
+                let arr = []
                 for (let i = 0; i < this.orderList.length; i++) {
                     if (this.orderList[i].productType === 'direct') {
                         arr.push({
@@ -173,7 +173,7 @@
                 //         cartData: arr
                 //     }
                 // this.$notice.alert({
-                //     message: aa
+                //     message: this.card.id
                 // })
                 // return
                 this.$fetch({
@@ -188,6 +188,7 @@
                         needAuth: true
                     }
                 }).then(resData => {
+
                     this.$notice.loading.hide();
                     // this.$notice.alert({
                     //     message: resData
@@ -221,9 +222,9 @@
                     // this.isFirst = false;
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    this.$notice.toast({
-                        message: res
-                    });
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             countPrice (arr) {

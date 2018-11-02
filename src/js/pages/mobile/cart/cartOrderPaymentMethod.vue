@@ -116,8 +116,8 @@
                         <!--<div :class="[selItem4?'lc-t-dot-select':'lc-t-dot']" >-->
                             <!--<text class="dot-sel">&radic;</text>-->
                             <div  style="margin-right: 22px;">   <!--可选-->
-                                <text class="iconfont item-checked" v-if="selItem4">&#xe6fb;</text>
-                                <text class="iconfont item-no-checked" v-if="!selItem4">&#xe73f;</text>
+                                <text class="iconfont item-checked" v-if="selItem4">&#xe75c;</text>
+                                <text class="iconfont item-no-checked" v-if="!selItem4">&#xe75b;</text>
                             </div>
                         <!--</div>-->
                         <text class="p-i4-t">By confirming this order, you agree to our COD Policy & Terms of Service.</text>
@@ -148,9 +148,9 @@ export default {
         appeared (params, option) {
             this.order = params.data;
             this.codMsg = params.data.cod.notes;
-            this.$notice.alert({
-                message: this.order.cod
-            })
+            // this.$notice.alert({
+            //     message: this.order.cod
+            // })
             this.prePhone = params.phone;
             this.checkCODStatus();
             this.source = params.source;

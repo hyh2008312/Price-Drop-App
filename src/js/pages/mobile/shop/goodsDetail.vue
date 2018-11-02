@@ -28,17 +28,23 @@
                        :unitPrice="goods.unitPrice"
                        :discount="flashSale.discount"
                 ></flash>
+                <drop  v-if="purchaseMethod==='drop'"
+                       :saleUnitPrice="goods.unitPrice"
+                       :lowestPrice="lowestPrice"
+                ></drop>
 
-                <text class="onetitle">{{goods.title}}</text>
-                <div class="count-div" >
-                    <text class=" count" v-if="purchaseMethod==='drop'" >Get it at</text>
-                    <!--<text class=" price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Exclusive Price:</text>-->
-                    <!--<text class="count-bold" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')">₹{{goods.unitPrice}}</text>-->
-                    <!--注释为老版-->
-
-                    <text class="count-bold" v-if="purchaseMethod==='drop'">₹{{parseInt(lowestPrice)}}</text>
-                    <text class="count-1" v-if="purchaseMethod==='drop'">by inviting your friends!</text>
+                <text class="onetitle" v-if="purchaseMethod !== 'drop'">{{goods.title}}</text>
+                <div class="count-div"  v-if="purchaseMethod === 'drop'">
+                    <div >
+                        <text class="drop-title">{{goods.title}}</text>
+                        <div class="drop-label">
+                            <text class="price-name price-off-fr">Free Shipping</text>
+                            <text class="price-name price-off-imp">Imported</text>
+                            <text class="price-name price-off-tax">Tax Included</text>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="count-div">
                     <!--<text class="price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Original Price: </text>-->
                     <!--注释为老版-->
@@ -53,7 +59,7 @@
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
                 </div>
 
-                <div class="ship-item" @click="openShipPopup">
+                <div class="ship-item" @click="openShipPopup" v-if="purchaseMethod==='direct'||purchaseMethod==='flash'">
                     <div class="s-i-1">
                         <div class="s-i-2">
                             <image class="s-i-img" src="bmlocal://assets/express-01.png"></image>
@@ -64,7 +70,7 @@
                     <text class="s-i-icon">Free Shipping</text>
                 </div>
 
-                <div class="ship-item mg-b36" @click="openCODPopup">
+                <div class="ship-item mg-b36" @click="openCODPopup" v-if="purchaseMethod==='direct'||purchaseMethod==='flash'">
                     <div class="s-i-1">
                         <div class="s-i-2">
                             <image class="s-i-img" src="bmlocal://assets/COD-01.png"></image>
@@ -91,32 +97,41 @@
                     </div>
                 </div>
             </div>
-            <div class="learn-drop" @click="openShip(1)" v-if="isDrop">
-                     <div class="learn-drop-itme1">
-                         <text class="learn-drop-itmeh">How It Works</text>
-                         <div class="learn-drop-itmed">
-                            <text class="learn-drop-itmem">More Details </text><text class="iconfont learn-drop-itmem" style="padding-top: 2px">&#xe626;</text>
-                         </div>
-                     </div>
-
-                    <div class="learn-drop-itme2">
-                        <div class="progress">
-                            <div class="progress-numdiv"><text  class="progress-num">1</text></div>
-                            <text class="progress-word">Start a Drop</text>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-numdiv"><text  class="progress-num">2</text></div>
-                            <text class="progress-word">Invite Friends</text>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-numdiv"><text  class="progress-num">3</text></div>
-                            <text class="progress-word">Get Lowest Price</text>
-                        </div>
+            <div class="learn-drop"  v-if="isDrop">
+                <div class="learn-drop-itme1">
+                    <text class="learn-drop-itmeh">Invite NEW Friends to Unlock Special Discount!</text>
+                    <!--<div class="learn-drop-itmed">-->
+                    <!--<text class="learn-drop-itmem">More Details </text><text class="iconfont learn-drop-itmem" style="padding-top: 2px">&#xe626;</text>-->
+                    <!--</div>-->
+                </div>
+                <div class="learn-drop-itme2">
+                    <div class="progress">
+                        <text class="progress-word">5 new referrals</text>
+                        <div class="progress-numdiv"><text  class="progress-num"></text></div>
+                        <text class="progress-word1">50% OFF</text>
                     </div>
-                     <div class="learn-drop-line">
-                         <div class="progress-line-left"></div>
-                         <div class="progress-line-right"></div>
-                     </div>
+                    <div class="progress">
+                        <text class="progress-word">10 new referrals</text>
+                        <div class="progress-numdiv"><text  class="progress-num"></text></div>
+                        <text class="progress-word1">70% OFF</text>
+                    </div>
+                    <div class="progress">
+                        <text class="progress-word" style="color: #492799">13 new referrals</text>
+                        <div class="progress-numdiv"><text  class="progress-num-right"></text></div>
+                        <text class="progress-word1"  style="color: #492799" >75% OFF</text>
+                        <!--<text class="progress-word">Lowest Price</text>-->
+                    </div>
+                </div>
+                <div class="learn-drop-line">
+                    <div class="progress-line-left-last"></div>
+                    <div class="progress-line-left"></div>
+                    <div class="progress-line-right"></div>
+                    <div class="progress-line-right-last"></div>
+                </div>
+                <text class="l-d-lp">Lowest Price</text>
+                    <div class="learn-see-more" @click="openShip(1)">
+                        <text class="d-sm-w">SEE MORE</text>
+                    </div>
                  </div>
                  <!--<div v-if="tabshow" style="position: sticky">-->
                     <!--<tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>-->
@@ -125,14 +140,14 @@
             <div class="mid">
                 <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >
                     <text class="dec">Size/Color</text>
-                    <text class="iconfont dec-arrows">&#xe626;</text>
+                    <text class="s-c-s">Select</text>
 
                 </div>
 
-                <!--<div class="dec-word" @click="openShip(2)"   >-->
-                    <!--<text class="dec">Shipping Time & Cost</text>-->
-                    <!--<text class="iconfont dec-arrows">&#xe626;</text>-->
-                <!--</div>-->
+                <div class="dec-word" @click="openShipPopup"  v-if="purchaseMethod==='drop'" >
+                    <text class="dec">Shipping Time & Cost</text>
+                    <text class="iconfont dec-arrows">&#xe626;</text>
+                </div>
 
                 <div class="slogan" v-if="!isDrop">
                     <div class="slg">
@@ -225,7 +240,7 @@
                     <text class="button-gray"  >Unavailable</text>
                 </div>
                 <div v-if="productStatus==='published'">
-                    <text class="button" @click="openCutPrice" v-if="canBuy">Invite Friends to Drop Price</text>
+                    <text class="button-purple" @click="openCutPrice" v-if="canBuy">Invite Friends to Drop Price</text>
                     <text class="button-gray"  v-if="!canBuy">Out of Stock</text>
                 </div>
             </div>
@@ -455,6 +470,7 @@
 <script>
     import header from './header';
     import flash from './flash-item';
+    import drop from './drop-item';
     import cimg from './customImg';
     import preload from '../common/preloadImg';
     import { WxcCell, WxcButton, WxcPopup, WxcMask, Utils } from 'weex-ui'
@@ -475,6 +491,7 @@
         components: {
             'topic-header': header,
             'flash': flash,
+            'drop': drop,
             WxcCell, WxcButton, WxcPopup, WxcMask,
             'tab': tab,
             'cimg': cimg,
@@ -1491,7 +1508,7 @@
         border-radius:24px ;
         top:75px;
         right:38px;
-       flex-direction: row;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
     }
@@ -1506,6 +1523,52 @@
         color: rgba(0,0,0,.87);
         line-height: 48px;
         letter-spacing: 0;
+    }
+    .drop-title{
+        width:586px;
+        /*height: 120px;*/
+        font-weight: 700;
+        margin-top: 16px;
+        /*margin-bottom: 32px;*/
+        margin-left: 32px;
+        font-size: 24px;
+        color: rgba(0,0,0,.87);
+        line-height: 38px;
+        margin-bottom: 8px;
+    }
+    .drop-label{
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .price-off-fr{
+        border-width: 1px;
+        border-style: solid ;
+        border-color: #00CFE3;
+        font-size: 20px;
+        border-radius: 8px;
+        padding: 4px 16px;
+        color: #00CFE3;
+        margin-right: -25px;
+    }
+    .price-off-imp{
+        border-width: 1px;
+        border-style: solid ;
+        border-color: #E0064E;
+        font-size: 20px;
+        border-radius: 8px;
+        padding: 4px 16px;
+        color: #E0064E;
+        margin-right: -25px;
+    }
+    .price-off-tax{
+        border-width: 1px;
+        border-style: solid ;
+        border-color: #3461AD;
+        font-size: 20px;
+        border-radius: 8px;
+        padding: 4px 16px;
+        color: #3461AD;
     }
     .price-name{
         color: rgba(0,0,0,1);
@@ -1532,15 +1595,7 @@
         color: #00CFE3;
     }
 
-    .price-off-tax{
-        border-width: 1px;
-        border-style: solid ;
-        border-color: #3461AD;
-        font-size: 20px;
-        border-radius: 8px;
-        padding: 4px 16px;
-        color: #3461AD;
-    }
+
     .price-price{
         border-width: 1px;
         border-style: solid ;
@@ -1575,10 +1630,11 @@
         font-family: iconfont;
     }
     .count-div{
-        display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
+    }
+    .c-dd{
     }
     .count{
         color: rgba(0,0,0,1);
@@ -1650,7 +1706,7 @@
     }
     .learn-drop{
         width: 750px;
-        height: 208px;
+        /*height: 350px;*/
         border-top-style:solid ;
         border-top-width:1px ;
         border-top-color:rgba(0,0,0,0.08) ;
@@ -1658,6 +1714,13 @@
         flex-direction: column;
         margin-top: 12px;
         /*justify-content: space-around;*/
+    }
+    .l-d-lp{
+        position: absolute;
+        right: 52px;
+        top: 220px;
+        color: rgba(0,0,0,.38);
+        font-size: 20px;
     }
     .learn-drop-itme1{
         flex-direction: row;
@@ -1683,6 +1746,7 @@
     .learn-drop-itme2{
         flex-direction: row;
         justify-content:space-between ;
+        /*margin-bottom: 22px;*/
     }
     .progress{
         /*background-color: #f4f4f4;*/
@@ -1694,12 +1758,12 @@
     }
     .progress-numdiv{
         flex-direction: row;
-        justify-content:center ;
-
+        justify-content:center;
+        margin-top: 20px;
     }
     .progress-num{
-        width: 32px;
-        height: 32px;
+        width: 16px;
+        height: 16px;
         text-align: center;
         padding-top: 5px;
         color: white;
@@ -1707,28 +1771,65 @@
         font-size: 20px;
         border-radius: 50%;
     }
+    .progress-num-right{
+        width: 16px;
+        height: 16px;
+        text-align: center;
+        padding-top: 5px;
+        color: white;
+        background-color: #492799;
+        font-size: 20px;
+        border-radius: 50%;
+    }
     .learn-drop-line{
         flex-direction: row;
         justify-content:space-around ;
-        margin-top: -50px;
+        margin-top: -60px;
+    }
+    .progress-line-left-last{
+        height: 3px;
+        width: 580px;
+        background-color: #EF8A31;
+        margin-left: 45px;
     }
     .progress-line-left{
-        height: 3px;
-        width: 225px;
-        background-color: rgba(0,0,0,0.12);
-        margin-left: 125px;
+        /*height: 3px;*/
+        /*width: 285px;*/
+        /*width: 10px;*/
+        /*background-color: #EF8A31;*/
+        /*margin-left: -135px;*/
     }
-    .progress-line-right{
+    /*.progress-line-right{*/
+        /*height: 3px;*/
+        /*width: 170px;*/
+        /*background-color: #EF8A31;*/
+        /*margin-right: -53px;*/
+    /*}*/
+    .progress-line-right-last{
         height: 3px;
-        width: 225px;
-        background-color: rgba(0,0,0,0.12);
-        margin-right: 113px;
+        width: 80px;
+        background-color: #492799;
+        margin-right: 25px;
     }
     .progress-word{
         flex-direction: row;
         text-align: center;
         font-size: 24px;
         margin-top: 6px;
+    }
+    .progress-word1{
+        flex-direction: row;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        margin-top: 22px;
+    }
+    .learn-see-more{
+        flex-direction: row;
+        justify-content: center;
+        background-color: white;
+        margin-bottom: 16px;
+        margin-top: 96px;
     }
     .dec-word{
         width: 750px;
@@ -1741,6 +1842,11 @@
         border-bottom-width: 1px ;
         border-bottom-style: solid ;
         background-color: white;
+    }
+    .s-c-s{
+        font-size: 24px;
+        color: #1D7CD4;
+        margin-right: 32px;
     }
     .dec{
         font-size: 24px;
@@ -1792,6 +1898,22 @@
         color: #fff;
         height: 80px;
         background-color: #EF8A31;
+        border-color: #2e6da4;
+        border-radius: 12px;
+        padding-top: 22px;
+        padding-bottom: 10px;
+        margin-top: 16px;
+        margin-left: 12px;
+        margin-right: 12px;
+        margin-bottom: 16px;
+        font-size: 28px;
+        text-align: center;
+        font-weight: 700;
+    }
+    .button-purple{
+        color: #fff;
+        height: 80px;
+        background-color: #492799;
         border-color: #2e6da4;
         border-radius: 12px;
         padding-top: 22px;

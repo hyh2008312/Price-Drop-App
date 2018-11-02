@@ -39,8 +39,8 @@
                 <div :class="[index == goodsList.length-1?'mg-b10':'']">
                     <div class="line-card">
                         <div class="lc-top">
-                            <div  @click="selGoods(i)">
-                                <div style="margin-left:16px;margin-right:16px" >
+                            <div  @click="selGoods(i)" >
+                                <div style="margin:16px" >
                                     <!--<text class="dot-sel">&radic;</text>-->
                                     <div v-if="i.sumStock!==0">   <!--可选-->
                                         <text class="iconfont item-checked" v-if="i.sel">&#xe6fb;</text>
@@ -123,15 +123,20 @@
                     <text class="bb-dr-t">Select All</text>
                 </div>
 
-                <div class="bb-d-l">
+                <div class="bb-d-l" v-if="bottomWord=='Checkout'">
                     <text class="bb-dl-p" v-if="bottomWord=='Checkout'">₹ {{parseInt(allPrice)}}</text>
                     <div class="bb-dl-b" @click="handleGoods" v-if="parseInt(allPrice)>0">
-                        <text class="bb-dl-bf" >{{bottomWord}}</text>
+                        <text class="bb-dl-bf" >Checkout</text>
                     </div>
-                    <div class="bb-dl-b-no" v-else>
+                    <div class="bb-dl-b-no" v-if="allPrice==0">
                         <text class="bb-dl-bf-no" >{{bottomWord}}</text>
                     </div>
+                </div>
 
+                <div class="bb-d-l" v-if="bottomWord=='Delete'">
+                    <div class="bb-dl-b" @click="handleGoodsDel">
+                        <text class="bb-dl-bf" >Delete</text>
+                    </div>
                 </div>
             </div>
         </div>
@@ -344,13 +349,29 @@
                 })
             },
             changeBtn (p) {
-                p === 1 ? [this.bottomWord = 'Delete', this.allPrice = 0] : this.bottomWord = 'Checkout'
+                p === 1 ? this.bottomWord = 'Delete' : this.bottomWord = 'Checkout'
             },
             handleGoods () {
                 this.$notice.loading.show();
+                    this.nextPage = [];
+                    for (let i = 0; i < this.goodsList.length; i++) {
+                        if (this.goodsList[i].sel) {
+                            this.nextPage.push(this.goodsList[i])
+                        }
+                    }
+                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Checkout', 0);
+                    // googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'Checkout', '', 'Rs', 0);
+                    this.$notice.loading.hide();
+                    this.$router.open({
+                        name: 'cart.order',
+                        type: 'PUSH',
+                        params: this.nextPage
+                    })
+            },
+            handleGoodsDel () {
+                this.$notice.loading.show();
                 const idArr = []
                 const arr = [...this.goodsList];
-                if ((this.bottomWord === 'Delete')) {
                     for (let j = 0; j < arr.length; j++) {
                         if (arr[j].sel) {
                             idArr.push(arr[j].id)
@@ -384,26 +405,6 @@
                             // })
                         })
                     }
-                } else {
-                    // this.getCartList(false)
-                    this.nextPage = [];
-                    for (let i = 0; i < this.goodsList.length; i++) {
-                        if (this.goodsList[i].sel) {
-                            this.nextPage.push(this.goodsList[i])
-                        }
-                    }
-                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Checkout', 0);
-                    // googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'Checkout', '', 'Rs', 0);
-
-
-                    this.$notice.loading.hide();
-                    // TODO 需要重新请求一下列表 获取最新的库存 进行判断是否有库存可以使用
-                    this.$router.open({
-                        name: 'cart.order',
-                        type: 'PUSH',
-                        params: this.nextPage
-                    })
-                }
             },
             selGoods (item) {
                 if (item.sumStock > 0) {

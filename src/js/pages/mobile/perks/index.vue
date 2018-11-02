@@ -164,7 +164,7 @@
                     <image class="top-right" src="bmlocal://assets/anger.png"></image>
                 </div>
                 <div>
-                    <text class="g-ch-w"  style="">Redeem Gift Card</text>
+                    <text class="g-ch-w"  style="">Redeem Gift Voucher</text>
                 </div>
                 <div >
                     <div v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'mg-b5':'mg-b3',]">
@@ -178,7 +178,6 @@
                                     <text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>
                                     <text class="gift-card-icon iconfont">&#xe626;</text>
                                 </div>
-
                             </div>
                         </div>
                     </div>
