@@ -47,8 +47,8 @@
                             <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
 
                             <div v-if="!order.cod.exist ||CODStatus==3">
-                                <text class="item-text" v-if="codMsg1!=''" >{{codMsg1}}</text>
-                                <text class="item-text" v-else >{{codMsg}}</text>
+                                <text class="item-text" v-if="codMsg1!=''" >{{codMsg1}}</text> <!--黑名单-->
+                                <text class="item-text" v-else >{{codMsg}}</text>  <!--cod-->
                             </div>
                         </div>
 
