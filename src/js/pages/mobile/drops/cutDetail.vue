@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="state"></div>
         <div class="wrapper-background">
-            <image class="wrapper-background-image" src="bmlocal://assets/drop_detail_bg.jpg"></image>
+            <div class="wrapper-background-image"></div>
         </div>
         <scroller>
             <div class="wrapper-head">
@@ -51,7 +51,7 @@
                         <div class="current-price" :style="{'margin-left': distance+'px'}">
                             <text class="current-price-1-current">Current Price</text>
                             <text class="current-price-2">₹{{goodsDetail.currentPrice}}</text>
-                            <image class="current-indicator" :style="{'margin-left': indicatorDistance+'px'}" src="bmlocal://assets/drop_indicator.png"></image>
+                            <image class="current-indicator" :style="{'margin-left': indicatorDistance+'px'}" src="bmlocal://assets/drop_indicators.png"></image>
                         </div>
                         <div class="wrapper-progress-line">
                             <div class="progress-line-bottom"></div>
@@ -190,8 +190,8 @@
                         <div class="cut-end-blank"></div>
                     </div>
                 </div>
-                <image class="drop-middle-line-left" src="bmlocal://assets/drop_line.png"></image>
-                <image class="drop-middle-line-right" src="bmlocal://assets/drop_line.png"></image>
+                <image class="drop-middle-line-left" src="bmlocal://assets/drop_lines.png"></image>
+                <image class="drop-middle-line-right" src="bmlocal://assets/drop_lines.png"></image>
             </div>
             <div class="contributors">
                 <text class="contributors-people">Price Drop Contributors</text>
@@ -633,7 +633,7 @@
     .icon-unlock{
         font-family: iconfont;
         font-size: 24px;
-        color: #EF8A31;
+        color: #492799;
         text-align: center;
 
     }
@@ -651,8 +651,6 @@
         position: absolute;
         top:0;
         left: 20px;
-
-
     }
     .drop-middle-line-right{
         width: 18px;
@@ -735,7 +733,7 @@
 
     .cut-end-item-icon-1 {
         font-family: iconfont;
-        color: #EF8A31;
+        color: #492799;
         font-size: 28px;
     }
 
@@ -951,7 +949,7 @@
     }
 
     .share-content-text-2 {
-        color: #EF8A31;
+        color: #492799;
         font-size: 28px;
         font-weight: bold;
         font-family: ProximaNova-Bold;
@@ -961,7 +959,7 @@
         width: 622px;
         text-align: center;
         font-family: ProximaNova-Bold;
-        color: #EF8A31;
+        color: #492799;
         font-size: 24px;
         font-weight: bold;
         line-height: 36px;
@@ -1061,7 +1059,7 @@
         height: 80px;
         font-size: 24px;
         border-radius: 8px;
-        background-color: #EF8A31;
+        background-color: #492799;
         line-height: 80px;
         text-align: center;
         margin-left: 56px;
@@ -1078,12 +1076,12 @@
         border-radius: 8px;
         border-width: 2px;
         border-style: solid;
-        border-color: #EF8A31;
+        border-color: #492799;
         line-height: 80px;
         text-align: center;
         margin-left: 56px;
         margin-right: 56px;
-        color: #EF8A31;
+        color: #492799;
         font-weight: bold;
         margin-top: 24px;
     }
@@ -1129,7 +1127,7 @@
         font-family: ProximaNova-Bold;
         font-weight: bold;
         font-size: 20px;
-        color: #EF8A31;
+        color: #492799;
         line-height: 24px;
     }
     .wrapper-price-3 {
@@ -1159,7 +1157,7 @@
         width: 200px;
         top: 5px;
         position: absolute;
-        background-color: #EF8A31;
+        background-color: #492799;;
         height: 20px;
     }
 
@@ -1194,7 +1192,7 @@
         font-weight: bold;
         color: black;
         border-radius: 16px;
-        background-color: #FFCC9E;
+        background-color: #D0C7E4;
     }
 
     .current-price-1 {
@@ -1228,7 +1226,7 @@
 
     .product-content-people {
         font-size: 20px;
-        color: #EF8A31;
+        color: #492799;
         margin-top: 48px;
         font-weight: bold;
     }
@@ -1384,6 +1382,7 @@
     .wrapper-background-image{
         width: 750px;
         height: 1440px;
+        background-color: #D1C8E8 ;
     }
     .wrapper-background{
         position: absolute;
