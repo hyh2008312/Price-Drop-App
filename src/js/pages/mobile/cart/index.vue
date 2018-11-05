@@ -6,25 +6,25 @@
             <div :class="[parseInt(allPrice)>0?'mg-tb16':'']" @click="jumpHome">
 
                 <div class="top-buy1" v-if="parseInt(allPrice)>300" >
-                    <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600">₹ 100 </text>
-                    <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900">₹ 150 </text>
-                    <text class="t-b-tb" v-if="parseInt(allPrice)>=900">₹ 200</text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>300&&parseInt(allPrice)<600">₹100 </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900">₹150 </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>=900">₹200</text>
 
                     <text class="t-b-t" > voucher unlocked!</text>
                 </div>
                 <div class="top-buy2" v-if="parseInt(allPrice)<900&&parseInt(allPrice)!=0" >
                 <text class="t-b-t">Buy </text>
 
-                <text class="t-b-tb" v-if="parseInt(allPrice)<300">₹ {{300-parseInt(allPrice)}} </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹ {{600-parseInt(allPrice)}} </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹ {{900-parseInt(allPrice)}} </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)<300">₹{{300-parseInt(allPrice)}} </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹{{600-parseInt(allPrice)}} </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹{{900-parseInt(allPrice)}} </text>
 
 
                 <text class="t-b-t">more to use your </text>
 
-                <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹ 100 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹ 150 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹ 200 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹100 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹150 </text>
+                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹200 </text>
 
                 <text class="t-b-t">voucher! </text>
                 <text class="t-b-tc">Add Item >></text>
@@ -124,7 +124,7 @@
                 </div>
 
                 <div class="bb-d-l" v-if="bottomWord=='Checkout'">
-                    <text class="bb-dl-p" v-if="bottomWord=='Checkout'">₹ {{parseInt(allPrice)}}</text>
+                    <text class="bb-dl-p" v-if="bottomWord=='Checkout'">₹{{parseInt(allPrice)}}</text>
                     <div class="bb-dl-b" @click="handleGoods" v-if="parseInt(allPrice)>0">
                         <text class="bb-dl-bf" >Checkout</text>
                     </div>
@@ -134,8 +134,11 @@
                 </div>
 
                 <div class="bb-d-l" v-if="bottomWord=='Delete'">
-                    <div class="bb-dl-b" @click="handleGoodsDel">
+                    <div class="bb-dl-b" v-if="isSelected" @click="handleGoodsDel">
                         <text class="bb-dl-bf" >Delete</text>
+                    </div>
+                    <div class="bb-dl-b-no" v-if="!isSelected">
+                        <text class="bb-dl-bf-no" >Delete</text>
                     </div>
                 </div>
             </div>
@@ -170,7 +173,8 @@
                 rightBtnWord: 'Edit',
                 nextPage: [],
                 myCard: [],
-                tmpArr: []
+                tmpArr: [],
+                isSelected: false
             }
         },
         created () {
@@ -256,7 +260,7 @@
                     }
                 }).then(data => {
                     this.myCard.push(...data.results);
-                    let tmp = []
+                    const tmp = []
                     for (let i = 0; i < this.myCard.length; i++) {
                         tmp.push(parseInt(this.myCard[i].lowestAmount))
                     }
@@ -370,12 +374,14 @@
             },
             handleGoodsDel () {
                 this.$notice.loading.show();
-                const idArr = []
+                const idArr = [];
                 const arr = [...this.goodsList];
+                const arr1 = [];
                     for (let j = 0; j < arr.length; j++) {
                         if (arr[j].sel) {
-                            idArr.push(arr[j].id)
-                            arr.splice(j, 1)
+                            idArr.push(arr[j].id);
+                        } else {
+                            arr1.push(arr[j]);
                         }
                     }
                     if (arr.length !== 0) {
@@ -390,11 +396,8 @@
                                 isLoginPop: true
                             }
                         }).then((res) => {
-                            this.$notice.toast({
-                                message: res.result
-                            })
                             this.$nextTick(() => {
-                                this.goodsList = [...arr];
+                                this.goodsList = [...arr1];
                             })
                             this.allPrice = 0
                             this.$notice.loading.hide();
@@ -424,7 +427,8 @@
                     }
                     this.$nextTick(() => {
                         this.goodsList = [...arr];
-                    })
+                        this.getSelectStatus();
+                    });
                     this.countPrice()
                 }
 
@@ -447,12 +451,22 @@
 
                 this.$nextTick(() => {
                     this.goodsList = [...arr];
-                })
+                    this.getSelectStatus();
+                });
                 this.countPrice()
+            },
+            getSelectStatus () {
+                for (const item of this.goodsList) {
+                    if (item.sel) {
+                        this.isSelected = true;
+                        return;
+                    }
+                }
+                this.isSelected = false;
             },
             unique (arr) {
                 arr.sort();
-                let res = [];
+                const res = [];
                 for (let i = 0; i < arr.length; i++) {
                     if (res.indexOf(arr[i]) == -1) {
                         res.push(arr[i]);

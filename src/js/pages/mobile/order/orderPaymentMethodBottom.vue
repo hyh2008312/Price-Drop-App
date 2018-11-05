@@ -235,7 +235,7 @@
                             });
                         });
                     } else if (that.method == 'cod') {
-                        this.$emit('change', 1)
+                        this.$emit('change', 1);
                         this.$fetch({
                             method: 'POST',
                             name: 'order.cod.create',
@@ -244,7 +244,8 @@
                             },
                             data: {
                                 orderId: that.order.id,
-                                type: 'normal'
+                                type: 'normal',
+                                bonus: this.checked ? this.checked : null
                             }
                         }).then((res) => {
                             that.$router.finish();

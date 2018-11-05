@@ -36,7 +36,7 @@
                 <!--</div>-->
             <!--</cell>-->
 
-            <cell  class="cell-bottom" @click="chooseMethod('cod')">
+            <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode == 'gati'">
                 <div  class="overflow-box b-bottom-r">
                     <div class="overflow-box1" >
                         <div>
@@ -56,6 +56,23 @@
                             <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
                         </div>
                         <text class="iconfont item-checked-disable" v-if="!order.cod.exist ||CODStatus==3">&#xe73f;</text>
+                    </div>
+                </div>
+            </cell>
+
+            <cell  class="cell-bottom" v-if="order.carrierCode != 'gati'">
+                <div  class="overflow-box b-bottom-r">
+                    <div class="overflow-box1" >
+                        <div>
+                            <div class="cod-d">
+                                <image class="item-image-2"  :src="codSrc"></image>
+                                <text class="cod-text">Cash/Card on Delivery</text>
+                            </div>
+                            <div>
+                                <text class="item-text">This item is not available for COD delivery. </text>
+                            </div>
+                        </div>
+                        <text class="iconfont item-checked-disable">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
@@ -182,7 +199,8 @@ export default {
                 paymentAmount: '',
                 phoneNumber: '',
                 postcode: '',
-                owner: ''
+                owner: '',
+                carrierCode: ''
             },
             checked: false,
             prePhone: '',
@@ -240,13 +258,16 @@ export default {
                 }
             }).then((res) => {
                 // 成功回调
+                // 1 可以绑定 2 已经绑定 3黑名单手机号 4已经绑定，且是别人的手机号
                 if (res.code == 30000) {
-                    this.CODStatus = 1     // 1 可以绑定 2 已经绑定 3黑名单手机号
+                    this.CODStatus = 1
                 } else if (res.code == 30003) {
                     this.CODStatus = 2
                 } else if (res.code == 30002) {
                     this.CODStatus = 3
                     this.codMsg1 = 'Your account cannot use COD due to bad record'
+                } else if (res.code == 30004) {
+                    this.CODStatus = 4
                 }
                 this.$notice.loading.hide();
                 this.initBack();
@@ -259,13 +280,13 @@ export default {
         },
         chooseMethod (e) {
             if (e == 'cod') {
-                if (this.order.cod.exist && this.CODStatus==1) {
+                if (this.order.cod.exist && this.CODStatus == 1) {
                     this.method = e;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)
-                } else if (this.CODStatus==2) {
+                } else if (this.order.cod.exist && this.CODStatus == 2) {
                     this.method = e;
-                } else if (this.CODStatus==3) {}
+                } else if (this.CODStatus == 3) {}
             } else {
                 this.method = e;
             }
