@@ -116,12 +116,12 @@
                 const self = this
                 this.$storage.deleteSync('user')
                 this.$storage.deleteSync('token')
+                this.$event.emit('logout')
                 this.$router.back({
                     length: 1,
                     type: 'PUSH',
                     callback () {
                         // 返回成功回调
-                        self.$event.emit('logout')
                     }
                 })
                 // TODO 请求接口没有返回body 无法走回调

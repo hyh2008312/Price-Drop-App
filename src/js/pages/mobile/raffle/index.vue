@@ -285,7 +285,7 @@
                     // this.$notice.alert({
                     //     message: this.loginS
                     // })
-                    this.page++
+                    // this.page++
                     this.$notice.loading.hide();
                     this.hasWifi = true
                 }).catch((res) => {
@@ -333,7 +333,7 @@
                         this.selindex = 0 + res.results.length - 1;
                     })
                     this.length = Math.ceil(res.count / this.pageSize);
-                    this.page++
+                    // this.page++
                     this.isLoading = false
                 }).catch((res) => {
                     this.isLoading = false
