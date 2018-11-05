@@ -2,14 +2,15 @@
     <div class="wrapper">
         <text class="od-text">Total:  </text>
         <text class="od-text-1">₹{{((order.paymentAmount * 100 - (checked ? balance : 0 ) * 100 < 0 ? 0 : (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100)) / 100).toFixed(2)}}</text>
-        <text class="od-button" @click="confirm">Pay Now</text>
+        <text class="od-button" v-if="isCanPay" @click="confirm">Pay Now</text>
+        <text class="od-button-no" v-if="!isCanPay">Pay Now</text>
     </div>
 </template>
 <script>
     const pay = weex.requireModule('PayModule');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
-        props: ['order', 'method', 'source', 'balance', 'checked'],
+        props: ['order', 'method', 'isCanPay', 'source', 'balance', 'checked'],
         data () {
             return {
                 isFirst: false
@@ -294,6 +295,18 @@
         text-align: center;
         padding: 0 24px;
         background-color: #EF8A31;
+        border-radius: 4px;
+        color: #fff;
+    }
+
+    .od-button-no{
+        margin-left: 24px;
+        margin-right: 16px;
+        font-size: 28px;
+        line-height: 80px;
+        text-align: center;
+        padding: 0 24px;
+        background-color: rgba(128,128,128,.74);
         border-radius: 4px;
         color: #fff;
     }
