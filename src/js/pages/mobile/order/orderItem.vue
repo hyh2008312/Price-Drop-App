@@ -21,14 +21,13 @@
                     <div class="gd-bg-bottom">
                         <text class="gd-info">{{order.lines[0].attributes}}</text>
                         <div class="gd-bg-bottom-right">
-                            <text class="gd-tlt-1">₹{{(order.lines[0].paymentPrice / order.lines[0].quantity).toFixed(2)}}</text>
                             <text class="gd-count"> x {{order.lines[0].quantity}}</text>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="gb-center" @click="jumpWeb()">
-                <text class="gd-text">Final: </text>
+                <text class="gd-text">Total: </text>
                 <text class="gb-price-2">₹{{order.paymentAmount}}</text>
             </div>
             <div class="gb-bottom" v-if="order.orderStatus == 'Unpaid' && order">
@@ -239,6 +238,8 @@
         height: 160px;
         margin-left: 32px;
         margin-right: 32px;
+        background-color: rgba(0,0,0,.04);
+        border-radius: 10px;
         flex-direction: row;
         justify-content: flex-start;
         align-items: stretch;
@@ -265,6 +266,7 @@
     }
 
     .gd-tlt {
+        margin-top: 16px;
         font-size: 28px;
         font-weight: bold;
         line-height: 40px;
@@ -296,7 +298,7 @@
     .gd-count{
         font-size: 24px;
         line-height: 28px;
-        color: rgba(0,0,0,0.38);
+        color: rgba(0,0,0,0.54);
         margin-right: 16px;
     }
 
@@ -312,11 +314,15 @@
     }
 
     .gd-bg-bottom{
-        padding-bottom: 8px;
+        margin-bottom: 16px;
+        font-size: 24px;
+        line-height: 28px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .gd-bg-bottom-right{
-        margin-top: 8px;
         flex-direction: row;
         justify-content: start;
         align-items: center;

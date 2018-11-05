@@ -81,7 +81,7 @@
                 </div>
             </cell>
         </list>
-        <order-payment-method-bottom :order="order" :method="method" :source="source" :balance="balance" :checked="checked" ></order-payment-method-bottom>
+        <order-payment-method-bottom :order="order" :method="method" :isCanPay="isCanPay" :source="source" :balance="balance" :checked="checked" ></order-payment-method-bottom>
 
         <wxc-popup width="750"
                    :height="sHeight"
@@ -208,7 +208,8 @@ export default {
             selItem4: true,
             CODStatus: '',
             codMsg: '',
-            codMsg1: ''
+            codMsg1: '',
+            isCanPay: true
         }
     },
     methods: {
@@ -276,13 +277,16 @@ export default {
             if (e == 'cod') {
                 if (this.order.cod.exist && this.CODStatus == 1) {
                     this.method = e;
+                    this.isCanPay = false;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)
                 } else if (this.order.cod.exist && this.CODStatus == 2) {
                     this.method = e;
+                    this.isCanPay = true;
                 } else if (this.CODStatus == 3) {}
             } else {
                 this.method = e;
+                this.isCanPay = true;
             }
         },
         getBalance () {
@@ -331,11 +335,13 @@ export default {
                     }
                 }).then((res) => {
                     if (res.code == 30000) {
-                        this.successS = true
+                        this.successS = true;
+                        this.isCanPay = true;
                     } else {
-                        this.successS = false
+                        this.successS = false;
+                        this.isCanPay = false;
                     }
-                    this.errMsg = res.message
+                    this.errMsg = res.message;
                     // this.$notice.alert({
                     //     message: res
                     // })
