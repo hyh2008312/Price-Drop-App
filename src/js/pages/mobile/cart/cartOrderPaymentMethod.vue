@@ -247,15 +247,21 @@ export default {
                     mobile: this.prePhone
                 }
             }).then((res) => {
+                this.$notice.alert({
+                    message: res
+                })
                 // 成功回调
+                // 1 可以绑定 2 已经绑定 3黑名单手机号 4已经绑定，且是别人的手机号
                 if (res.code == 30000) {
-                    this.CODStatus = 1     // 1 可以绑定 2 已经绑定 3黑名单手机号
+                    this.CODStatus = 1
                 } else if (res.code == 30003) {
                     this.CODStatus = 2
                 } else if (res.code == 30002) {
                     this.CODStatus = 3
                     // this.order.cod.type = -1
                     this.codMsg1 = 'Your account cannot use COD due to bad record'
+                } else if (res.code == 30004) {
+                    this.CODStatus = 4
                 }
                 this.$notice.loading.hide();
                 this.initBack();
@@ -268,13 +274,13 @@ export default {
         },
         chooseMethod (e) {
             if (e == 'cod') {
-                if (this.order.cod.exist && this.CODStatus==1) {
+                if (this.order.cod.exist && this.CODStatus == 1) {
                     this.method = e;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)
-                } else if (this.order.cod.exist && this.CODStatus==2) {
+                } else if (this.order.cod.exist && this.CODStatus == 2) {
                     this.method = e;
-                } else if (this.CODStatus==3) {}
+                } else if (this.CODStatus == 3) {}
             } else {
                 this.method = e;
             }

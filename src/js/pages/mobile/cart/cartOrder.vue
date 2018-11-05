@@ -45,7 +45,7 @@
 
                 <div class="bb-d-l">
                     <text class="bb-dl" >Total：</text>
-                    <text class="bb-dl-p" >₹ {{parseInt(allPrice).toFixed(2)}}</text>
+                    <text class="bb-dl-p" >₹{{parseInt(allPrice).toFixed(2)}}</text>
                     <div class="bb-dl-b" @click="postOrder">
                         <text class="bb-dl-bf" >Place Order</text>
                     </div>
@@ -72,11 +72,12 @@
         },
         eros: {
             beforeAppear (params, options) {
-                this.orderList = params
-                this.countPrice(this.orderList)
+                this.orderList = params;
+                this.countPrice(this.orderList);
             },
             appeared (params, option) {
                 this.card = false;
+                this.getAddress();
             },
             backAppeared (params, options) {
                 if (params.card) {
@@ -84,6 +85,7 @@
                     this.countPrice(this.orderList)
                     this.allPrice = (parseInt(this.allPrice) - parseInt(this.card.share))
                 }
+                this.getAddress();
             }
         },
         data () {
@@ -109,7 +111,6 @@
             }
         },
         created () {
-            this.getAddress()
             googleAnalytics.trackingScreen('CartOrder');
         },
         methods: {

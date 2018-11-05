@@ -248,7 +248,8 @@
                             },
                             data: {
                                 orderId: that.order.id,
-                                type: 'cart'
+                                type: 'cart',
+                                bonus: this.checked ? this.checked : null
                             }
                         }).then((res) => {
                             googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-COD success return', 0);
