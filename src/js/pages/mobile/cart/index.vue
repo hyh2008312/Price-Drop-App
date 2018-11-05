@@ -353,7 +353,13 @@
                 })
             },
             changeBtn (p) {
-                p === 1 ? this.bottomWord = 'Delete' : this.bottomWord = 'Checkout'
+                if (p === 1) {
+                    this.bottomWord = 'Delete'
+                } else {
+                    this.bottomWord = 'Checkout';
+                    this.getSelectStatus();
+                    this.countPrice();
+                }
             },
             handleGoods () {
                 this.$notice.loading.show();
@@ -398,8 +404,9 @@
                         }).then((res) => {
                             this.$nextTick(() => {
                                 this.goodsList = [...arr1];
+                                this.getSelectStatus();
+                                this.countPrice();
                             })
-                            this.allPrice = 0
                             this.$notice.loading.hide();
                         }).catch((res) => {
                             this.$notice.loading.hide();
@@ -428,8 +435,8 @@
                     this.$nextTick(() => {
                         this.goodsList = [...arr];
                         this.getSelectStatus();
+                        this.countPrice();
                     });
-                    this.countPrice()
                 }
 
                 // // this.goodList[index].sel = !this.goodList[index].sel
@@ -452,8 +459,8 @@
                 this.$nextTick(() => {
                     this.goodsList = [...arr];
                     this.getSelectStatus();
+                    this.countPrice();
                 });
-                this.countPrice()
             },
             getSelectStatus () {
                 for (const item of this.goodsList) {
