@@ -40,7 +40,7 @@
                         <div class="drop-label">
                             <text class="price-name price-off-fr">Free Shipping</text>
                             <text class="price-name price-off-imp">Imported</text>
-                            <text class="price-name price-off-tax">Tax Included</text>
+                            <text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')">Tax Included</text>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{goods.priceoff}}% OFF</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
-                    <text class="price-name price-off-tax" v-if="!isDrop">Tax Included</text>
+                    <text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')">Tax Included</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
@@ -1563,7 +1563,7 @@
         border-radius: 8px;
         padding: 4px 16px;
         color: #E0064E;
-        margin-right: -15px;
+       /* margin-right: -15px;*/
     }
     .price-off-tax{
         border-width: 1px;
@@ -1571,12 +1571,18 @@
         border-color: #3461AD;
         font-size: 20px;
         border-radius: 8px;
+        margin-left: 16px;
         padding: 4px 16px;
         color: #3461AD;
     }
     .price-name{
         color: rgba(0,0,0,1);
         margin-left: 32px;
+        margin-bottom: 26px;
+        font-size:24px;
+    }
+    .price-name-16{
+        color: rgba(0,0,0,1);
         margin-bottom: 26px;
         font-size:24px;
     }
@@ -1683,6 +1689,7 @@
     .slg{
         margin-top: 48px;
         align-items:center ;
+        width: 185px;
     }
     .i-slg-icon{
         font-family: iconfont;

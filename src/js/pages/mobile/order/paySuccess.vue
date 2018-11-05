@@ -10,7 +10,8 @@
                 <text class="iconfont pay-success-icon">&#xe6e7;</text>
                 <text class="pay-failure-title">Order Placed Successfully!</text>
             </div>
-            <text class="pay-failure-title-1">Thank you for your order. Your package will be shipped out in 5-7 days!</text>
+            <text class="pay-failure-title-1">Thank you for your order.</text>
+            <text class="pay-failure-title-1-1">Your package will be shipped out in 5-7 days!</text>
             <text class="pay-failure-button" @click="back">View Order</text>
             <text class="pay-failure-button-1" @click="jumpHome">Back to Home Page</text>
         </div>
@@ -141,6 +142,13 @@ export default {
 
     .pay-failure-title-1{
         margin-top: 24px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
+    }
+
+    .pay-failure-title-1-1{
+        margin-top: 8px;
         font-size: 28px;
         line-height: 34px;
         text-align: center;
