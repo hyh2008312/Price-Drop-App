@@ -2,7 +2,7 @@
     <div class="wrapper">
         <topic-header class="t-h1" title="Cart" leftBtn="y" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
         <div class="blackheader"></div>
-        <div class="top-buy-overflow">
+        <div class="top-buy-overflow" v-if="false">
             <div :class="[parseInt(allPrice)>0?'mg-tb16':'']" @click="jumpHome">
 
                 <div class="top-buy1" v-if="parseInt(allPrice)>300" >
