@@ -53,10 +53,6 @@
                                 return;
                             }
                             googleAnalytics.trackingScreen('Select Payment');
-                            this.$notice.alert({
-                                message: resData
-                            });
-                            return;
                             const paymentAmount = resData.amount;
                             pay.startPaytmRequest(resData.paytmOrderId, resData.order.number, resData.amount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,

@@ -124,12 +124,12 @@
                 </div>
 
                 <div class="bb-d-l" v-if="bottomWord=='Checkout'">
-                    <text class="bb-dl-p" v-if="bottomWord=='Checkout'">₹{{parseInt(allPrice)}}</text>
+                    <text class="bb-dl-p" v-if="parseInt(allPrice)>0">₹{{parseInt(allPrice)}}</text>
                     <div class="bb-dl-b" @click="handleGoods" v-if="parseInt(allPrice)>0">
                         <text class="bb-dl-bf" >Checkout</text>
                     </div>
-                    <div class="bb-dl-b-no" v-if="allPrice==0">
-                        <text class="bb-dl-bf-no" >{{bottomWord}}</text>
+                    <div class="bb-dl-b-no" v-if="allPrice<=0">
+                        <text class="bb-dl-bf-no" >Checkout</text>
                     </div>
                 </div>
 
