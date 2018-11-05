@@ -248,9 +248,6 @@ export default {
                     mobile: this.prePhone
                 }
             }).then((res) => {
-                this.$notice.alert({
-                    message: res
-                })
                 // 成功回调
                 // 1 可以绑定 2 已经绑定 3黑名单手机号 4已经绑定，且是别人的手机号
                 if (res.code == 30000) {
