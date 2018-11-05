@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="price-div" v-if="i.noticeType==='card_expired_reminder'||i.noticeType==='card_expired_notice'">
                                     <text class="item-1 coloro" >Deadline: </text>
-                                    <text class="item-2 colorb">{{i.context.deadline}}</text>
+                                    <text class="item-2 colorb">{{tranDeadLineDate(i.context.deadline)}}</text>
                                 </div>
                             </div>
 
@@ -314,6 +314,9 @@
                         this.goods = [];
                     }
                     this.goods.push(...data.results);
+                    this.$notice.alert({
+                        message: this.goods
+                    })
                     this.page++;
                     this.isLoading = false;
 
@@ -421,7 +424,16 @@
                 //     message: str
                 // })
                 if (str != null) {
-                    return dayjs(new Date(str)).format('HH:mm a ,MMMM DD, YYYY')
+                    return dayjs(new Date(str)).format('HH:mm a, MMMM DD, YYYY')
+                } else {
+                }
+            },
+            tranDeadLineDate (str) {
+                // this.$notice.alert({
+                //     message: str
+                // })
+                if (str != null) {
+                    return str.substring(0, str.indexOf('.'))
                 } else {
                 }
             },
