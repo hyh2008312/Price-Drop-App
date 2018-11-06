@@ -1005,9 +1005,6 @@
             },
             redirectLogin () {
                 this.$event.on('login', params => {
-                    this.$notice.alert({
-                        message: this.proId
-                    })
                     this.getGoodsDetail(this.proId)
                     this.getSomeGoods(this.proId)
 

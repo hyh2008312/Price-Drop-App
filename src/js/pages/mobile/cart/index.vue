@@ -502,10 +502,10 @@
                     if (this.goodsList[j].sel) {
                         if (this.goodsList[j].productType == 'flash') {
                             priceArr.push(
-                                (((this.calc(this.goodsList[j].unitPrice, this.goodsList[j].flashDiscount)) * 100) * this.goodsList[j].quantity)
+                                (parseInt(this.calc(this.goodsList[j].unitPrice, this.goodsList[j].flashDiscount)) * this.goodsList[j].quantity)
                             ) // 计算浮点数 乘100
                         } else if (this.goodsList[j].productType == 'direct') {
-                            priceArr.push(((this.goodsList[j].unitPrice * 100) * this.goodsList[j].quantity)) // 计算浮点数 乘100
+                            priceArr.push((parseInt(this.goodsList[j].unitPrice) * this.goodsList[j].quantity)) // 计算浮点数 乘100
                         }
                     }
                 }
@@ -516,7 +516,6 @@
                     for (let i = 0; i < priceArr.length; i++) {
                         this.allPrice += parseInt(priceArr[i])
                     }
-                    this.allPrice /= 100
                 }
             }
         }
