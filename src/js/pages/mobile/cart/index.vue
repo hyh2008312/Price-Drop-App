@@ -141,12 +141,20 @@
                 </div>
 
                 <div class="bb-d-l" v-if="bottomWord=='Delete'">
-                    <div class="bb-dl-b" v-if="isSelected" @click="handleGoodsDel">
-                        <text class="bb-dl-bf" >Delete</text>
+                    <div class="bd-div" v-if="isSelected">
+                        <text class="bb-dl-p" >&nbsp;&nbsp;&nbsp;</text>
+                        <div class="bb-dl-b"  @click="handleGoodsDel">
+                            <text class="bb-dl-bf" >Delete</text>
+                        </div>
                     </div>
-                    <div class="bb-dl-b-no" v-if="!isSelected">
-                        <text class="bb-dl-bf-no" >Delete</text>
+
+                    <div class="bd-div" v-if="!isSelected">
+                        <text class="bb-dl-p" >&nbsp;&nbsp;&nbsp;</text>
+                        <div class="bb-dl-b-no" v-if="!isSelected">
+                            <text class="bb-dl-bf-no" >Delete</text>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -820,12 +828,12 @@
     }
     .bb-d-l{
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: start;
         align-items: center;
     }
     .bd-div{
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: start;
         align-items: center;
     }
     .bb-dl-p{
