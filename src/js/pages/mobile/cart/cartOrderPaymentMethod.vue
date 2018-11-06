@@ -328,7 +328,7 @@ export default {
                     },
                     data: {
                         phoneMobile: this.prePhone,
-                        internationalCode: 86
+                        internationalCode: 91
                     }
                 }).then((res) => {
                     if (res.code == 30000) {
