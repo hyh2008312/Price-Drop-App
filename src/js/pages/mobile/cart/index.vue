@@ -63,10 +63,13 @@
                                 <div class="lc-tw2">
                                     <text class="lc-tw-b">{{i.attributes}}</text>
                                     <div class="lc-tw-p">
-                                        <text class="lc-tw-p1" v-if="i.productType=='flash'">₹{{parseInt(calc(i.unitPrice,i.flashDiscount))}}</text>
-                                        <text class="lc-tw-p1" v-if="i.productType=='direct'">₹{{parseInt(i.unitPrice)}}</text>
+                                        <text class="lc-tw-p1" v-if="i.productType=='flash'" >₹{{parseInt(calc(i.unitPrice,i.flashDiscount))}}</text>
+                                        <text class="lc-tw-p1" v-if="i.productType=='direct'" >₹{{parseInt(i.unitPrice)}}</text>
+
                                         <text class="lc-tw-p2">₹{{parseInt(i.saleUnitPrice)}}</text>
-                                        <text class="lc-tw-p3">{{countOff(calc(i.unitPrice,i.flashDiscount), i.saleUnitPrice)}}</text>
+
+                                        <text class="lc-tw-p3" v-if="i.productType=='flash'" >{{countOff(calc(i.unitPrice,i.flashDiscount), i.saleUnitPrice)}}</text>
+                                        <text class="lc-tw-p3" v-if="i.productType=='direct'" >{{countOff(i.unitPrice , i.saleUnitPrice)}}</text>
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +304,7 @@
             },
             countOff (s, o) {
                 if (o > 0) {
-                    return Math.floor((o - s) / o * 100) + '% OFF'
+                    return Math.floor((parseInt(o) - parseInt(s)) / parseInt(o) * 100) + '% OFF'
                 } else {
                     return ''
                 }
