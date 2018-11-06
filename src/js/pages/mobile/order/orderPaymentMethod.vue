@@ -67,10 +67,10 @@
                         <div>
                             <div class="cod-d">
                                 <image class="item-image-2"  :src="codSrc"></image>
-                                <text class="cod-text">Cash/Card on Delivery</text>
+                                <text class="cod-text">Cash / Card on Delivery</text>
                             </div>
                             <div>
-                                <text class="item-text">This item is not available for COD delivery. </text>
+                                <text class="item-text-err">This item is not available for COD delivery. </text>
                             </div>
                         </div>
                         <text class="iconfont item-checked-disable">&#xe73f;</text>
