@@ -49,6 +49,7 @@
                             <div v-if="!order.cod.exist ||CODStatus==3">
                                 <text class="item-text-err" v-if="codMsg1!=''" >{{codMsg1}}</text>
                                 <text class="item-text-err" v-else >{{codMsg}}</text>
+
                             </div>
                         </div>
                         <div v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">
