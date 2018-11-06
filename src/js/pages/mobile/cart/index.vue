@@ -124,13 +124,20 @@
                 </div>
 
                 <div class="bb-d-l" v-if="bottomWord=='Checkout'">
-                    <text class="bb-dl-p" v-if="parseInt(allPrice)>0">₹{{parseInt(allPrice)}}</text>
-                    <div class="bb-dl-b" @click="handleGoods" v-if="parseInt(allPrice)>0">
-                        <text class="bb-dl-bf" >Checkout</text>
+                    <div class="bd-div" v-if="parseInt(allPrice)>0" >
+                        <text class="bb-dl-p" >₹{{parseInt(allPrice)}}</text>
+                        <div class="bb-dl-b" @click="handleGoods" >
+                            <text class="bb-dl-bf" >Checkout</text>
+                        </div>
                     </div>
-                    <div class="bb-dl-b-no" v-if="allPrice<=0">
-                        <text class="bb-dl-bf-no" >Checkout</text>
+
+                    <div class="bd-div" v-if="parseInt(allPrice)<=0">
+                        <text class="bb-dl-p" >&nbsp;&nbsp;&nbsp;</text>
+                        <div class="bb-dl-b-no" >
+                            <text class="bb-dl-bf-no" >Checkout</text>
+                        </div>
                     </div>
+
                 </div>
 
                 <div class="bb-d-l" v-if="bottomWord=='Delete'">
@@ -812,6 +819,11 @@
         /*margin-left: 18px;*/
     }
     .bb-d-l{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .bd-div{
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
