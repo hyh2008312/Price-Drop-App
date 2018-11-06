@@ -29,7 +29,7 @@
                     <block-6 :drops="drops"></block-6>
                 </div>
             </cell>
-            <cell v-if="activity">
+            <cell v-if="activity && activity.length > 0">
                 <block-2 :goodsList="activity" :time="time"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
