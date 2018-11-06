@@ -286,7 +286,8 @@
                            class="popup-image"></image>
 
                     <div class="popup-py">
-                        <text class="popup-price">₹{{parseInt(selsaleUnitPrice)}}</text>
+                        <text class="popup-price" v-if="!isDrop">₹{{parseInt(selsaleUnitPrice)}}</text>
+                        <text class="popup-price" v-if="isDrop">₹{{parseInt(selunitPrice)}}</text>
                         <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
                         <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
                         <text class="popup-lowprice"      v-if="isDrop">₹{{parseInt(lowestPrice)}}</text>
