@@ -47,8 +47,8 @@
                             <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
 
                             <div v-if="!order.cod.exist ||CODStatus==3">
-                                <text class="item-text" v-if="codMsg1!=''" >{{codMsg1}}</text>
-                                <text class="item-text" v-else >{{codMsg}}</text>
+                                <text class="item-text-err" v-if="codMsg1!=''" >{{codMsg1}}</text>
+                                <text class="item-text-err" v-else >{{codMsg}}</text>
                             </div>
                         </div>
                         <div v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">
@@ -578,6 +578,14 @@ export default {
         font-size: 20px;
         line-height: 24px;
         color: rgba(0,0,0,0.87);
+        letter-spacing: 0;
+    }
+    .item-text-err{
+        margin-top: 16px;
+        font-family: ProximaNova;
+        font-size: 20px;
+        line-height: 24px;
+        color: red;
         letter-spacing: 0;
     }
     .cod-d{
