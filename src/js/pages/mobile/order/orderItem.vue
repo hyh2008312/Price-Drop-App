@@ -29,7 +29,7 @@
             <div class="gb-center" @click="jumpWeb()">
                 <text class="gd-text">Total: </text>
                 <text class="gb-price-2" v-if="!order.balanceUsed">₹{{order.paymentAmount}}</text>
-                <text class="gb-price-2" v-if="!order.balanceUsed && order.balance > 0">₹{{order.realAmount}}</text>
+                <text class="gb-price-2" v-if="order.balanceUsed">₹{{order.realAmount}}</text>
             </div>
             <div class="gb-bottom" v-if="order.orderStatus == 'Unpaid' && order">
                 <div class="gb-bottom-left">

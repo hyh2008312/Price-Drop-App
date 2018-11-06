@@ -33,7 +33,7 @@
                     <text class="gb-text gb-text-color" v-if="order.orderType == 'Cut'">- ₹{{((order.totalExclTax * 100 + order.shippingExclTax * 100 - order.paymentAmount * 100) / 100).toFixed(2)}}</text>
                     <text class="gd-text gb-text-color" v-if="(order.orderType == 'Normal'|| order.orderType == 'Flash') && order.voucherShare > 0">- ₹{{order.voucherShare}}</text>
                     <text class="gd-text gb-text-color" v-if="order.balanceUsed && order.balance > 0">- ₹{{order.balance}}</text>
-                    <text class="gb-text-1" v-if="order.balanceUsed && order.balance > 0">₹{{order.realAmount}}</text>
+                    <text class="gb-text-1" v-if="order.balanceUsed">₹{{order.realAmount}}</text>
                     <text class="gb-text-1" v-if="!order.balanceUsed">₹{{order.paymentAmount}}</text>
                 </div>
             </div>
