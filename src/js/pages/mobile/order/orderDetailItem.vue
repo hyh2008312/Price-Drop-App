@@ -22,7 +22,7 @@
                     <text class="gd-text">Tax</text>
                     <text class="gd-text" v-if="order.orderType == 'Cut'">Price Drop</text>
                     <text class="gd-text" v-if="(order.orderType == 'Normal' || order.orderType == 'Flash') && order.voucherShare > 0">Gift Voucher</text>
-                    <text class="gd-text-1">Total Price</text>
+                    <text class="gd-text-1">Total</text>
                 </div>
                 <div class="gb-center-right">
                     <text class="gb-text" v-if="order.orderType == 'Normal' || order.orderType == 'Flash' || order.orderType == 'Lottery'">₹{{((order.paymentAmount * 100 + order.voucherShare * 100 - order.shippingExclTax * 100) / 100).toFixed(2)}}</text>
