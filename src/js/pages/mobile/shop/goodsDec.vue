@@ -5,7 +5,7 @@
         <topic-header title="Description" leftBtn="n"  ></topic-header>
         <list class="content">
             <cell >
-                <div class="p-s"  v-for="(i, index) in productSpecificationData" :class="[index%2==0?'rowGray':'rowWithe']">
+                <div class="p-s"  v-for="(i, index) in trimNullObj(productSpecificationData)" :class="[index%2==0?'rowGray':'rowWithe']">
                     <text class="p-s-t1">{{i.name}}</text>
                     <text class="p-s-t2">{{i.content}}</text>
                     <!--goods.productSpecification-->
@@ -45,6 +45,17 @@
                 decData: '',
                 productSpecificationData: ''
             }
+        },
+        methods: {
+            trimNullObj (arr) {
+                let tmpArr = []
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].content!='') {
+                        tmpArr.push(arr[i])
+                    }
+                }
+                return tmpArr
+            },
         }
     }
 </script>

@@ -187,8 +187,8 @@
 
 
             <div @click="opendec" style="width: 750px; background-color: white ; padding-top: 20px;height: 568px">
-                <div   v-for="(i, index) in goods.productSpecification" >
-                    <div class="p-s" v-if="i.content!=''" :class="[index%2==0?'rowGray':'rowWithe']">
+                <div   v-for="(i, index) in trimNullObj(goods.productSpecification)" >
+                    <div class="p-s"  :class="[index%2==0?'rowGray':'rowWithe']">
 
                         <text class="p-s-t1">{{i.name}}</text>
                         <text class="p-s-t2">{{i.content}}</text>
@@ -642,8 +642,8 @@
             this.$router.getParams().then(resData => {
                 this.proId = resData.id
                 this.isDrop = resData.isDrop
-                this.getGoodsDetail(resData)
-                this.getSomeGoods(resData)
+                this.getGoodsDetail(this.proId)
+                this.getSomeGoods(this.proId)
                 this.getDropGoods()
                 this.getCartNum()
             })
@@ -653,6 +653,8 @@
                 this.user = null
             }
             this.initBack();
+            this.trimNullObj();
+
         },
         methods: {
             initBack () {
@@ -668,7 +670,7 @@
                     // })
                     this.$fetch({
                         method: 'GET',
-                        url: `${baseUrl}/product/customer/detail/${id.id}/`,
+                        url: `${baseUrl}/product/customer/detail/${id}/`,
                         // url: `${baseUrl}/product/customer/detail/654/`,
                         data: {}
                     }).then((res) => {
@@ -761,9 +763,9 @@
                         googleAnalytics.facebookRecordEvent('fb_mobile_content_view', id.id, this.category, 'Rs', this.lowestPrice)
                     }).catch((res) => {
                         this.$notice.loading.hide();
-                        this.$notice.toast({
-                            message: res
-                        });
+                        // this.$notice.toast({
+                        //     message: res
+                        // });
                     })
                 }
             },
@@ -773,7 +775,7 @@
                     url: `${baseUrl}/product/relations/recommend/list/`,
                     // url: `${baseUrl}/product/customer/detail/654/`,
                     data: {
-                        id: id.id
+                        id: id
                     }
                 }).then((res) => {
                     // this.someGoodsList = res
@@ -793,9 +795,9 @@
                     //     message: this.someGoodsList
                     // })
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
                 })
             },
             getDropGoods () {
@@ -1003,8 +1005,12 @@
             },
             redirectLogin () {
                 this.$event.on('login', params => {
+                    this.$notice.alert({
+                        message: this.proId
+                    })
                     this.getGoodsDetail(this.proId)
                     this.getSomeGoods(this.proId)
+
                     this.$storage.get('user').then(resData => {
                         this.user = resData
                     })
@@ -1434,6 +1440,15 @@
                     // })
                 }, 1000);
                 // }
+            },
+            trimNullObj (arr) {
+                let tmpArr = []
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].content!='') {
+                        tmpArr.push(arr[i])
+                    }
+                }
+                return tmpArr
             },
 
             policyShow () {
