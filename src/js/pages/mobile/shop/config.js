@@ -1,5 +1,5 @@
 export const QA = [{
-    question: 'If your referred user has already joined our Drop before, the dropped price will be become smaller!  Then you may need to invite 20 - 45 people to help you reach the lowest price! ',
+    question: 'If your referred user has already joined our Drop before, the dropped price will become smaller!  Then you may need to invite 20 - 45 people to help you reach the lowest price! ',
     answer: 'All the points will be awarded to your account after the order has been marked as “Completed". The Completed status will be marked when the package is delivered and there’s no refund issue within the period of 9 day return. '
 }, {
     question: 'The duration of a Price Drop campaign is up to 24 hours. The campaign will end automatically once it reaches the lowest price.',

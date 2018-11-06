@@ -24,13 +24,13 @@
                 </div>
                  </div>
                      <div class="wrapper-head-line"></div>
-                     <div class="wrapper-product" @click="openDetail()">
+                     <div class="wrapper-product" >
                       <div class="product-image">
                     <preload class="product-image-in" :src="goodsDetail.mainImage"></preload>
                 </div>
                       <div class="product-content">
                     <text class="product-content-name">{{goodsDetail.title}}</text>
-                    <text class="product-content-people">3500+ people reached the lowest price!</text>
+                    <text class="product-content-people">50,000+ people reached the lowest price!</text>
                 </div>
                  </div>
                  </div>
@@ -114,7 +114,7 @@
                                 <text class="cut-end-total-price-word">Final Price Unlocked:</text>
                                 <text class="cut-end-total-price-2" v-if="dropStatus ==2"> ₹{{(goodsDetail.salePrice/2).toFixed(2)}}</text>
                                 <text class="cut-end-total-price-2" v-else-if="dropStatus ==3"> ₹{{(goodsDetail.salePrice * 0.3).toFixed(2)}}</text>
-                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==4"> ₹0.00</text>
+                                <text class="cut-end-total-price-2" v-else-if="dropStatus ==4"> ₹{{goodsDetail.lowestPrice}}</text>
                             </div>
                         </div>
                         <div class="cut-end-item-unlock" v-if="dropStatus == 1">
@@ -407,7 +407,7 @@
                 isRuleShow: false,
                 distance: 1,
                 indicatorDistance: 91,
-                dropStatus: 1
+                dropStatus: 1  //  1：小于50%  2：大于50% 小于70%   3：大于70% 小于100%   4：100%
             }
         },
         methods: {
@@ -576,15 +576,15 @@
                 this.isShowShare = false;
                 common.changeAndroidCanBack(true)
             },
-            openDetail () {
-                this.$router.open({
-                    name: 'simple.details',
-                    type: 'PUSH',
-                    params: {
-                        id: this.goodsDetail.productId
-                    }
-                })
-            }
+            // openDetail () {
+            //     this.$router.open({
+            //         name: 'simple.details',
+            //         type: 'PUSH',
+            //         params: {
+            //             id: this.goodsDetail.productId
+            //         }
+            //     })
+            // }
 
         }
     }
