@@ -234,10 +234,10 @@
                     for (let j = 0; j < arr.length; j++) {
                         if (arr[j].productType == 'flash') {
                             priceArr.push(
-                                (((this.calc(arr[j].unitPrice, arr[j].flashDiscount)) * 100) * arr[j].quantity)
+                                ((parseInt(this.calc(arr[j].unitPrice, arr[j].flashDiscount))) * arr[j].quantity)
                             ) // 计算浮点数 乘100
                         } else if (arr[j].productType == 'direct') {
-                            priceArr.push(((arr[j].unitPrice * 100) * arr[j].quantity)) // 计算浮点数 乘100
+                            priceArr.push((parseInt(arr[j].unitPrice) * arr[j].quantity)) // 计算浮点数 乘100
                         }
                     }
                     if (priceArr.length == 0) {
@@ -247,7 +247,6 @@
                         for (let i = 0; i < priceArr.length; i++) {
                             this.allPrice += parseInt(priceArr[i])
                         }
-                        this.allPrice /= 100
                     }
                 }
             },

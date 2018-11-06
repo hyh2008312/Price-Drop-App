@@ -54,11 +54,11 @@
         },
         methods: {
             calc (a, b) {
-                return parseInt((a * b) / 100).toFixed(2)
+                return parseInt((parseInt(a) * parseInt(b)) / 100).toFixed(2)
                 // return (('0.00' * 100) / 100).toFixed(2)
             },
             calcPrice (q, p) {
-                return parseInt((q * (p * 100)) / 100).toFixed(2)
+                return parseInt((parseInt(q) * (parseInt(p) * 100)) / 100).toFixed(2)
             }
         }
     }
