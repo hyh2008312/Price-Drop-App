@@ -17,8 +17,8 @@
             <div class="bottom">
                 <div class="b-item">
                     <text class="b-i-w1">Subtotal</text>
-                    <text class="b-i-w1" v-if="item.productType=='flash'">₹{{calc(item.unitPrice,item.flashDiscount).toFixed(2)}}</text>
-                    <text class="b-i-w1" v-if="item.productType=='direct'">₹{{item.unitPrice.toFixed(2)}}</text>
+                    <text class="b-i-w1" v-if="item.productType=='flash'">₹{{calc(item.unitPrice,item.flashDiscount)}}</text>
+                    <text class="b-i-w1" v-if="item.productType=='direct'">₹{{parseInt(item.unitPrice).toFixed(2)}}</text>
                 </div>
                 <div class="b-item">
                     <text class="b-i-w1">Shipping</text>
@@ -30,8 +30,8 @@
                 </div>
                 <div class="b-item">
                     <text class="b-i-w1 fb">Total</text>
-                    <text class="b-i-w1" v-if="item.productType=='flash'">₹{{calcPrice(item.quantity,calc(item.unitPrice,item.flashDiscount)).toFixed(2)}}</text>
-                    <text class="b-i-w1" v-if="item.productType=='direct'">₹{{calcPrice(item.quantity,item.unitPrice).toFixed(2)}}</text>
+                    <text class="b-i-w1" v-if="item.productType=='flash'">₹{{calcPrice(item.quantity,calc(item.unitPrice,item.flashDiscount))}}</text>
+                    <text class="b-i-w1" v-if="item.productType=='direct'">₹{{calcPrice(item.quantity,item.unitPrice)}}</text>
                 </div>
             </div>
         </div>
@@ -54,12 +54,12 @@
         },
         methods: {
             calc (a, b) {
-                return ((a * b) / 100).toFixed(2)
+                return parseInt((a * b) / 100).toFixed(2)
                 // return (('0.00' * 100) / 100).toFixed(2)
             },
             calcPrice (q, p) {
-                return (q * (p * 100)) / 100
-            },
+                return parseInt((q * (p * 100)) / 100).toFixed(2)
+            }
         }
     }
 </script>
