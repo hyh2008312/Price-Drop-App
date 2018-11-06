@@ -7,7 +7,7 @@
                 </div>
                 <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
                 <div class="gd-price-bg">
-                    <text class="gd-price">{{countOff(i.saleUnitPrice, i.unitPrice)}}</text>
+                    <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                 </div>
             </div>
         </div>
