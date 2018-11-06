@@ -15,9 +15,9 @@
         methods: {
             getOrderTotal (order, card) {
                 if (card) {
-                    return ((order.total * 100 - card.share * 100) / 100).toFixed(2);
+                    return parseInt((order.total * 100 - card.share * 100) / 100).toFixed(2);
                 } else {
-                    return order.total;
+                    return parseInt(order.total).toFixed(2);
                 }
             },
             confirm () {
