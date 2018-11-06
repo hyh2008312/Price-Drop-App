@@ -696,6 +696,7 @@
                         this.goods.unitPrice = res.unitPrice;
                         this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
                         this.selsaleUnitPrice = res.saleUnitPrice;
+                        this.selunitPrice = res.unitPrice;
                         this.lowestPrice = res.lowestPrice;
                         this.goods.brandLogo = res.brandLogo;
                         this.goodsImg = res.images;
