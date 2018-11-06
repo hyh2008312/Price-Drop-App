@@ -268,7 +268,10 @@ export default {
         getActivity() {
             this.$fetch({
                 method: 'GET',
-                name: `flashsale.flash.customer.home`
+                name: `flashsale.flash.customer.home`,
+                data: {
+                    version: 2
+                }
             }).then((res) => {
                 this.activity = res.splice(0, 3);
                 this.time = new Date(this.activity[0].flashPromotionEndtime).getTime();
