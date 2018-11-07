@@ -21,10 +21,10 @@ export default {
                 this.$router.open({
                     name: 'mobile.activity',
                     params: {
-                        id: img.id,
-                        imageUrl: img.imageUrl,
-                        name: img.name,
-                        type: img.type
+                        id: params.id,
+                        imageUrl: params.imageUrl,
+                        name: params.name,
+                        type: params.type
                     }
                 });
             } else if (img.title == 'flash') {
