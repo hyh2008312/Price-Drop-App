@@ -87,7 +87,7 @@ export default {
     margin-top: 8px;
     font-size: 28px;
     font-weight: 700;
-    line-height: 34px;
+    line-height: 36px;
     overflow: hidden;
     lines: 1;
     white-space: nowrap;
@@ -107,8 +107,9 @@ export default {
 }
 
 .gd-price-bg{
+    margin-top: 4px;
     height: 28px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 </style>
