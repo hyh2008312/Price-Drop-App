@@ -42,6 +42,19 @@ export default {
                 this.$event.emit('changeTab', {
                     tab: 'rewards'
                 });
+            } else if (img.title == 'category') {
+                this.$notice.alert({
+                    message: img
+                })
+                const params = JSON.parse(img.params);
+                this.$router.open({
+                    name: 'goods.category',
+                    type: 'PUSH',
+                    params: {
+                        id: params.id,
+                        name: params.name
+                    }
+                });
             }
         },
         change (event) {
