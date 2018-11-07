@@ -29,8 +29,12 @@ export default {
     eros: {
         appeared (params, options) {
             if (params && params.source) {
-                this.source = params.source
-                this.order = params.order
+                this.source = params.source;
+                this.order = params.order;
+                if (!this.isLoad) {
+                    this.isLoad = true;
+                    googleAnalytics.recordEvent('Payment', 'Purchase Success', this.order.number, 0);
+                }
             }
         }
     },
@@ -38,16 +42,17 @@ export default {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 48 - 4) + 'px' };
         googleAnalytics.trackingScreen('Order Completed');
-        googleAnalytics.recordEvent('Payment', 'Purchase Success', this.order.number, 0);
         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'Purchase Success', '', 'Rs', 0);
-
     },
     data () {
         return {
             title: 'Payment Result',
             isBack: false,
             source: false,
-            order: false
+            isLoad: false,
+            order: {
+                number: ''
+            }
         }
     },
     methods: {
