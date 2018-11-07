@@ -59,7 +59,7 @@
                             <!--<div class="lc-t-img"  ></div>-->
                             <div class="lc-tw">
                                 <!--<text class="lc-tw1">Toyota’s Latest is an Entire Mobility Service Platform</text>-->
-                                <text class="lc-tw1">{{i.title}}</text>
+                                <text class="lc-tw1" lines="3">{{i.title}}</text>
                                 <div class="lc-tw2">
                                     <text class="lc-tw-b">{{i.attributes}}</text>
                                     <div class="lc-tw-p">
@@ -689,12 +689,13 @@
         /*background-color: red;*/
     }
     .lc-tw1{
-        font-family: ProximaNova-Regular;
+        lines: 3;
+        text-overflow: ellipsis;
         font-size: 24px;
         width: 288px;
         color: rgba(0,0,0,0.87);
         line-height: 28px;
-        /*margin-bottom: 40px;*/
+        /*background-color: black;*/
     }
     .lc-tw2{
         font-family: ProximaNova-Regular;
