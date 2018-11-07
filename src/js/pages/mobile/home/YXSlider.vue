@@ -16,23 +16,21 @@ export default {
     },
     methods: {
         jumpDetail (img) {
-            if (img.title == 'mobile.activity') {
+            if (img.title == 'activity') {
+                const params = JSON.parse(img.params);
                 this.$router.open({
                     name: 'mobile.activity',
                     params: {
-                        id: 2,
-                        imageUrl: 'img.image',
-                        name: '70% OFF',
-                        type: 'activity'
+                        id: img.id,
+                        imageUrl: img.imageUrl,
+                        name: img.name,
+                        type: img.type
                     }
                 });
             } else if (img.title == 'flash') {
                 this.$router.open({
                     name: 'flash',
                     type: 'PUSH'
-                    // params: {
-                    //     card: id
-                    // }
                 })
             } else if (img.title == 'luckydraw') {
                 this.$event.emit('changeTab', {
@@ -42,10 +40,11 @@ export default {
                 this.$event.emit('changeTab', {
                     tab: 'rewards'
                 });
+            } else if (img.title == 'drops') {
+                this.$event.emit('changeTab', {
+                    tab: 'drops'
+                });
             } else if (img.title == 'category') {
-                this.$notice.alert({
-                    message: img
-                })
                 const params = JSON.parse(img.params);
                 this.$router.open({
                     name: 'goods.category',
