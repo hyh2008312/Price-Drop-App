@@ -314,9 +314,9 @@
                         this.goods = [];
                     }
                     this.goods.push(...data.results);
-                    this.$notice.alert({
-                        message: this.goods
-                    })
+                    // this.$notice.alert({
+                    //     message: this.goods
+                    // })
                     this.page++;
                     this.isLoading = false;
 
