@@ -98,14 +98,14 @@ export default {
         },
         countOff (s, o) {
             if (o > 0) {
-                return Math.floor((o - s) / o * 100) + '%'
+                return Math.ceil((o - s) / o * 100) + '%'
             } else {
                 return ''
             }
         },
         countPrice (s, o) {
             if (o > 0) {
-                return Math.floor(s * (o / 100)) + '.00'
+                return Math.ceil(s * (o / 100)) + '.00'
             } else {
                 return ''
             }
