@@ -275,7 +275,7 @@
         <wxc-popup :have-overlay="isTrue"
                    popup-color="rgb(255, 255, 255)"
                    :show="isBottomShow"
-                   @wxcPopupOverlayClicked="popupOverlayBottomClick"
+                   @wxcPopupOverlayClicked="popupCloseClick"
                    pos="bottom"
                    ref="wxcPopup"
                    height="718">
@@ -900,36 +900,36 @@
                 }
             },
             wxcCellClick () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                } else {
+                // if (this.user == null) {
+                //     this.redirectLogin()
+                // } else {
                     this.isBottomShow = true;
                     common.changeAndroidCanBack(false)
 
-                    if (this.variantsId !== '') {
-                        if (this.isDrop == true) {
-                            if (!this.checkedSelected()) {
-                                return;
-                            }
-                            this.createCut()
-                        } else {
-                            if (!this.checkedSelected()) {
-                                return;
-                            }
-                            if (this.flashSale.flashStatus === 'Ongoing') {
-                                this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
-                            }
-                            if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
-                                this.nextPage.proId = 'direct'
-                            }
-                            this.$router.open({
-                                name: 'order.confirm',
-                                type: 'PUSH',
-                                params: this.nextPage
-                            })
-                        }
-                    }
-                }
+                    // if (this.variantsId !== '') {
+                    //     if (this.isDrop == true) {
+                    //         if (!this.checkedSelected()) {
+                    //             return;
+                    //         }
+                    //         this.createCut()
+                    //     } else {
+                    //         if (!this.checkedSelected()) {
+                    //             return;
+                    //         }
+                    //         if (this.flashSale.flashStatus === 'Ongoing') {
+                    //             this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
+                    //         }
+                    //         if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
+                    //             this.nextPage.proId = 'direct'
+                    //         }
+                    //         this.$router.open({
+                    //             name: 'order.confirm',
+                    //             type: 'PUSH',
+                    //             params: this.nextPage
+                    //         })
+                    //     }
+                    // }
+                // }
             },
             confirm () {
                 if (this.user == null) {

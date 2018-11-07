@@ -36,7 +36,7 @@
                 <!--</div>-->
             <!--</cell>-->
 
-            <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode == 'gati'">
+            <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode.toLocaleUpperCase() == 'GATICN'">
                 <div  class="overflow-box b-bottom-r">
                     <div class="overflow-box1" >
                         <div>
@@ -61,13 +61,13 @@
                 </div>
             </cell>
 
-            <cell  class="cell-bottom" v-if="order.carrierCode != 'gati'">
+            <cell  class="cell-bottom" v-if="order.carrierCode.toLocaleUpperCase() != 'GATICN'">
                 <div  class="overflow-box b-bottom-r">
                     <div class="overflow-box1" >
                         <div>
                             <div class="cod-d">
                                 <image class="item-image-2"  :src="codSrc"></image>
-                                <text class="cod-text">Cash / Card on Delivery</text>
+                                <text class="cod-text">Cash / Card on Delivery </text>
                             </div>
                             <div>
                                 <text class="item-text-err">This item is not available for COD delivery. </text>
@@ -76,6 +76,7 @@
                         <text class="iconfont item-checked-disable">&#xe73f;</text>
                     </div>
                 </div>
+
             </cell>
 
             <!--<cell>-->
@@ -338,15 +339,14 @@ export default {
                     },
                     data: {
                         phoneMobile: this.prePhone,
-                        internationalCode: 86
+                        internationalCode: 91
                     }
                 }).then((res) => {
                     if (res.code == 30000) {
                         this.successS = true;
-                        this.isCanPay = true;
+
                     } else {
                         this.successS = false;
-                        this.isCanPay = false;
                     }
                     this.errMsg = res.message
                     // this.$notice.alert({
@@ -361,6 +361,12 @@ export default {
         },
 
         postCode () {
+            if (this.verifyCode.length < 4) {
+                this.$notice.toast({
+                    message: 'Your verify code is in wrong format.'
+                })
+                return
+            }
             this.$fetch({
                 method: 'POST',
                 name: 'user.verify.mobile.code',
@@ -380,8 +386,11 @@ export default {
                     this.isShow = false
                     common.changeAndroidCanBack(true)
                     this.successS = true
+                    this.isCanPay = true;
+
                 } else {
                     this.successS = false
+                    this.isCanPay = false;
                 }
                 this.errMsg = res.message
                 // this.$notice.alert({

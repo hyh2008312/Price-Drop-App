@@ -334,10 +334,8 @@ export default {
                 }).then((res) => {
                     if (res.code == 30000) {
                         this.successS = true;
-                        this.isCanPay = true;
                     } else {
                         this.successS = false;
-                        this.isCanPay = false;
                     }
                     this.errMsg = res.message;
                     // this.$notice.alert({
@@ -351,6 +349,12 @@ export default {
             }
         },
         postCode () {
+            if (this.verifyCode.length < 4) {
+                this.$notice.toast({
+                    message: 'Your verify code is in wrong format.'
+                })
+                return
+            }
             this.$fetch({
                 method: 'POST',
                 name: 'user.verify.mobile.code',
@@ -370,8 +374,10 @@ export default {
                     this.isShow = false
                     common.changeAndroidCanBack(true)
                     this.successS = true
+                    this.isCanPay = true;
                 } else {
                     this.successS = false
+                    this.isCanPay = false;
                 }
                 this.errMsg = res.message
                 // this.$notice.alert({
