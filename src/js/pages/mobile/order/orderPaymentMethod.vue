@@ -344,7 +344,6 @@ export default {
                 }).then((res) => {
                     if (res.code == 30000) {
                         this.successS = true;
-
                     } else {
                         this.successS = false;
                     }
@@ -381,15 +380,14 @@ export default {
                 if (res.code == 30000) {
                     tool.resignKeyboard((resData) => {});
                     this.$notice.toast({
-                        message: 'success'
-                    })
-                    this.isShow = false
+                        message: 'Verify Success'
+                    });
+                    this.isShow = false;
                     common.changeAndroidCanBack(true)
-                    this.successS = true
+                    this.successS = true;
                     this.isCanPay = true;
-
                 } else {
-                    this.successS = false
+                    this.successS = false;
                     this.isCanPay = false;
                 }
                 this.errMsg = res.message
