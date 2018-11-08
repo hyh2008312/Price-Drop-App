@@ -12,7 +12,7 @@
                 </div>
             </cell>
             <cell class="price-drop-banner">
-                <image class="price-drop-banner-image" src="bmlocal://assets/drop-banner.jpg"></image>
+                <image class="price-drop-banner-image" src="bmlocal://assets/drops-banner.png"></image>
             </cell>
             <cell>
                 <cutTab :items="tabsItems" @tabTo="onTabTo" ref="cubTab"></cutTab>
