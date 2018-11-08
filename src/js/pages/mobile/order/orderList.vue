@@ -363,6 +363,7 @@
             },
             deleteOrderConfirm () {
                 this.closeDeletePop();
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'DELETE', // 大写
                     url: `${baseUrl}/order/customer/cancel/${this.deleteId}/`,
@@ -371,6 +372,7 @@
                         needAuth: true
                     }
                 }).then(resData => {
+                    this.$notice.loading.hide();
                     this.$notice.toast('Deleted successfully!');
                     this.order.splice(this.deleteIndex, 1);
                 }, error => {

@@ -212,7 +212,8 @@ export default {
             this.isReceiptShow = false;
         },
         deleteOrderConfirm () {
-            this.closeDeletePop()
+            this.closeDeletePop();
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'DELETE', // 大写
                 url: `${baseUrl}/order/customer/cancel/${this.order.id}/`,
@@ -221,6 +222,7 @@ export default {
                     needAuth: true
                 }
             }).then(resData => {
+                this.$notice.loading.hide();
                 this.$notice.toast('Deleted successfully!');
                 this.$router.setBackParams({
                     status: 'delete'
