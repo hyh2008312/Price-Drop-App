@@ -1,6 +1,6 @@
 // 选择变体
 .popup-content{
-  height: 718px;
+  height: 750px;
   width: 750px;
   flex-direction: column;
 
@@ -82,14 +82,16 @@
   justify-content: start;
   align-items: center;
 }
+
 .popup-color-chdname{
   font-size: 20px;
   height:48px;
   line-height: 45px;
   text-align:center;
-  margin-left: 48px;
-  padding-left: 20px;
-  padding-right: 20px;
+  margin-left: 36px;
+  //padding-left: 20px;
+  //padding-right: 20px;
+  width: 125px;
   border-width: 1px;
   border-style: solid;
   border-color: rgba(0,0,0,0.12);
@@ -101,9 +103,11 @@
   height:48px ;
   line-height: 45px;
   text-align:center;
-  margin-left: 48px;
-  padding-left: 20px;
-  padding-right: 20px;
+  margin-left: 36px;
+  //padding-left: 20px;
+  //padding-right: 20px;
+  width: 125px;
+
   border-width: 1px;
   border-style: solid;
   color: white;
@@ -118,9 +122,11 @@
   height:48px ;
   line-height: 45px;
   text-align:center;
-  margin-left: 48px;
-  padding-left: 20px;
-  padding-right: 20px;
+  //padding-left: 20px;
+  //padding-right: 20px;
+  width: 125px;
+
+
   border-width: 1px;
   border-style: solid;
   border-color: rgba(0,0,0,0.12);

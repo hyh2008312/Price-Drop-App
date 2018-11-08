@@ -8,7 +8,7 @@
 
             <div style="background-color: white" >
 
-                <slider class="slider" interval="8000" auto-play="true" :index="2">
+                <slider class="slider" interval="8000" auto-play="true" :index="2" >
                     <div class="frame" v-for="(img, idx) in goodsImg">
                         <preload class="image" :src="img"></preload>
                         <text style="right:20px;bottom:20px;color:black;position:absolute">{{idx+1}}/{{goodsImg.length}}</text>
@@ -33,7 +33,7 @@
                        :lowestPrice="lowestPrice"
                 ></drop>
 
-                <text class="onetitle" v-if="purchaseMethod !== 'drop'">{{goods.title}}</text>
+                <text class="onetitle" v-if="purchaseMethod !== 'drop'" @click="openReviews">{{goods.title}}</text>
                 <div class="count-div"  v-if="purchaseMethod === 'drop'">
                     <div >
                         <text class="drop-title">{{goods.title}}</text>
@@ -278,7 +278,7 @@
                    @wxcPopupOverlayClicked="popupCloseClick"
                    pos="bottom"
                    ref="wxcPopup"
-                   height="718">
+                   height="750">
             <div class="popup-content">
                 <div class="popup-top">
 
@@ -305,14 +305,15 @@
                     <div class="popup-bottom">
                         <div v-for="(val, index) in goodsType" :key="index" >
                             <text class="popup-color">{{val.name}}</text>
-                            <scroller  class="popup-color-chd"  scroll-direction="horizontal" flex-direction="row" show-scrollbar="true">
-                                <text class="popup-color-chdname"
-                                      v-for="(val1, key1) in val.value"
-                                      :key="key1"
-                                      :class="[val1.isActive ?'popup-color-chdname-active':'',
-                                      val1.seldisable ?'popup-color-chdname-disable':'']"
-                                      @click="clickColor(val1, val.value)">{{val1.value}}</text>
-                            </scroller>
+
+                            <div  class="popup-color-chd"  v-for="(val1, key1) in tranArr(val.value)" :key="key1">
+                                    <text class="popup-color-chdname"
+                                          v-for="(i,key2) in val1"
+                                          :key="key2"
+                                          :class="[i.isActive ?'popup-color-chdname-active':'',
+                                          i.seldisable ?'popup-color-chdname-disable':'']"
+                                          @click="clickColor(i, val.value)">{{i.value}}</text>
+                            </div>
                         </div>
                     </div>
                 </scroller>
@@ -1329,6 +1330,12 @@
                     type: 'PUSH'
                 })
             },
+            openReviews () {
+                this.$router.open({
+                    name: 'goods.reviews',
+                    type: 'PUSH'
+                })
+            },
             openRuler () {
                 this.isRulerShow = true;
                 common.changeAndroidCanBack(false);
@@ -1449,7 +1456,30 @@
                 }
                 return tmpArr
             },
-
+            tranArr (data) {
+                let arr = [];
+                let rArr = [];
+                // this.$notice.alert({
+                //     message: data
+                // })
+                // if (data.length >= 4) {
+                    for (let i = 0; i < data.length; i++) {
+                        const item = data[i];
+                        arr.push(item);
+                        if ((i > 0 && i % 4 == 3) || i == data.length - 1) {
+                            rArr.push(arr);
+                            arr = [];
+                        }
+                    }
+                    // this.$notice.alert({
+                    //     message: rArr[0]
+                    // })
+                    return rArr   //  4个一个的二维数组
+                // } else {
+                //
+                //     return data
+                // }
+            },
             policyShow () {
                 this.returnPolicy = !this.returnPolicy;
                 if (!this.returnPolicy) {
