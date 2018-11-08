@@ -3,23 +3,22 @@
         <div class="wrapper-1" v-if="flag">
             <div class="gb-box-1">
                 <div class="i-gd-1"  @click="jumpWeb()">
-                    <div class="gd-bg-1">
-                        <div class="gd-img-1">
-                            <preload class="gd-img-image-1" :src="goods.mainImage"></preload>
-                        </div>
+                    <div class="gd-img-1">
+                        <preload class="gd-img-image-1" :src="goods.mainImage"></preload>
                     </div>
                     <div class="gd-bg-right-1">
                         <text class="gd-tlt-1">{{goods.title}}</text>
                         <div class="gd-sm-1">
                             <text class="gd-price-1">₹{{parseInt(goods.lowestPrice)}}</text>
+                            <text class="gd-info-1">₹{{parseInt(goods.unitPrice)}}</text>
                         </div>
-                        <text class="gd-info-1">₹{{parseInt(goods.unitPrice)}}</text>
+
                         <text class="gd-button-1">Drop Price</text>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="wrapper"  v-else >
+        <div class="wrapper" v-else >
             <div class="gb-box">
                 <div class="i-gd" @click="jumpCutDetail">
                     <div class="gd-bg">
@@ -46,15 +45,17 @@
             <div class="gb-line"></div>
             <!--正在砍价-->
             <div class="gd-handle" v-if="goods.cutStatus=='progressing'">
-                <text class="gd-handle-tip">Ends in </text>
-                <wxc-countdown tpl="{h}:{m}:{s}"
-                               :time="goods.endTimestamp *1000"
-                               :timeBoxStyle="{backgroundColor: '#000000', height: '36px', width: '36px','border-radius': '4px'}"
-                               :timeTextStyle="{fontSize: '24px', color: '#FFFFFF'}"
-                               :dotTextStyle="{color: '#000000', fontSize: '24px'}"
-                               :dotBoxStyle="{width: '10px'}"
-                               :style="{justifyContent: 'center'}">
-                </wxc-countdown>
+                <div class="gd-end-handle-state">
+                    <text class="gd-handle-tip">Ends in </text>
+                    <wxc-countdown tpl="{h}:{m}:{s}"
+                                   :time="goods.endTimestamp *1000"
+                                   :timeBoxStyle="{backgroundColor: '#000000', height: '36px', width: '36px','border-radius': '4px'}"
+                                   :timeTextStyle="{fontSize: '24px', color: '#FFFFFF'}"
+                                   :dotTextStyle="{color: '#000000', fontSize: '24px'}"
+                                   :dotBoxStyle="{width: '10px'}"
+                                   :style="{justifyContent: 'center'}">
+                    </wxc-countdown>
+                </div>
                 <text class="gd-handle-cut" @click="goingCutPrice">Drop Price</text>
             </div>
             <!--砍价结束-->
@@ -194,7 +195,7 @@
     .icon-expired {
         font-family: iconfont;
         font-size: 24px;
-        margin-left: 16px;
+        margin-left: 32px;
         color: #E93131;
     }
     .icon-paid{
@@ -206,74 +207,60 @@
     .icon-timer{
         font-family: iconfont;
         font-size: 24px;
-        margin-left: 16px;
+        margin-left: 32px;
         color: #EF8A31;
 
     }
     .item {
         display: flex;
-        background-color: #F1F1F1;
-        padding-bottom: 16px;
+        background-color: #EF8A31;
+        width: 686px;
+        margin: 0 32px;
+        padding-top: 24px;
     }
 
     .wrapper {
         background-color: #fff;
-        width: 750px;
+        width: 686px;
         box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-        border-radius: 4px;
+        border-radius: 16px;
     }
 
     .gb-box {
-        margin-top: 32px;
-        padding: 0 16px;
-        display: flex;
+        margin: 32px 32px 0;
     }
 
     .i-gd {
-        width: 718px;
-        height: 270px;
+        width: 686px;
+        height: 212px;
         flex-direction: row;
     }
 
     .gd-bg {
-        width: 240px;
-        height: 240px;
+        width: 180px;
+        height: 180px;
     }
 
     .gd-bg-right {
-        margin-left: 32px;
-        width: 446px;
-        height: 240px;
+        margin-left: 24px;
+        width: 418px;
+        height: 180px;
     }
 
     .gd-img {
-        width: 240px;
-        height: 240px;
+        width: 180px;
+        height: 180px;
         border-radius: 8px;
         border-width: 1px;
         border-style: solid;
         border-color: rgba(0, 0, 0, .12);
     }
 
-    .gd-info {
-        display: block;
-        font-weight: bold;
-        margin-top: 16px;
-        font-size: 28px;
-        width: 446px;
-        line-height: 40px;
-        color: black;
-        overflow: hidden;
-        lines: 1;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
     .gd-tlt {
         line-height: 36px;
         font-size: 24px;
         font-weight: 300;
-        width: 446px;
+        width: 418px;
         overflow: hidden;
         height: 72px;
         lines: 2;
@@ -283,7 +270,7 @@
 
     .gd-cut {
         display: flex;
-        margin-top: 10px;
+        margin-top: 8px;
         flex-direction: row;
         justify-content: flex-start;
     }
@@ -313,14 +300,14 @@
     .gb-price {
         display: flex;
         flex-direction: row;
-        margin-top: 16px;
+        margin-top: 8px;
         justify-content: flex-start;
     }
     .gd-price-show{
         font-size: 24px;
         color: black;
         font-weight: bold;
-        margin-top: 46px;
+        margin-top: 8px;
     }
     .gd-price-show-end{
         font-size: 24px;
@@ -341,62 +328,63 @@
         font-weight: 400;
         color: rgba(0,0,0,0.55);
         text-decoration: line-through;
-        line-height: 36px;
-        height: 36px;
+        line-height: 24px;
     }
 
     .gb-line {
-        width: 750px;
+        width: 622px;
+        margin-left: 32px;
+        margin-right: 32px;
         height: 1px;
-        background-color: black;
-        opacity: 0.08;
+        border-bottom-width: 1px;
+        border-bottom-style: dashed;
+        border-bottom-color: rgba(0,0,0,0.54);
     }
 
     .gd-handle {
         background-color: #FFFFFF;
-        width: 750px;
+        width: 686px;
         height: 96px;
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
     }
 
     .gd-handle-tip {
+        margin-left: 32px;
         font-size: 20px;
         font-weight: 400;
         color: #000000;
     }
 
     .gd-handle-cut {
-        width: 144px;
+        width: 160px;
         text-align: center;
         color: white;
         font-weight: 400;
         font-size: 24px;
-        line-height: 56px;
+        line-height: 48px;
         background-color: #EF8A31;
-        margin-right: 28px;
-        margin-left: 28px;
-        border-radius: 4px;
+        margin-right: 32px;
+        border-radius: 24px;
     }
     .gd-handle-cut-again {
-        width: 144px;
+        width: 160px;
         text-align: center;
         color: #EF8A31;
         font-weight: 400;
         font-size: 24px;
-        line-height: 56px;
+        line-height: 44px;
         border-style: solid;
         border-width: 2px;
         border-color: #EF8A31;
-        margin-right: 28px;
-        margin-left: 28px;
-        border-radius: 4px;
+        margin-right: 32px;
+        border-radius: 24px;
     }
 
     .gd-end-handle {
         background-color: #FFFFFF;
-        width: 750px;
+        width: 686px;
         height: 96px;
         flex-direction: row;
         justify-content: space-between;
@@ -419,67 +407,46 @@
 
     .wrapper-1 {
         background-color: #fff;
-        padding-top: 24px;
-        padding-bottom: 24px;
-        width: 750px;
+        padding-top: 32px;
+        padding-bottom: 32px;
+        width: 686px;
+        border-radius: 16px;
     }
 
     .gb-box-1 {
-        padding: 0 16px;
+        padding: 0 32px;
         display: flex;
     }
 
     .i-gd-1 {
         width: 718px;
-        height: 288px;
+        height: 180px;
         flex-direction: row;
     }
 
-    .gd-bg-1 {
-        width: 288px;
-        height: 288px;
-        border-radius: 8px;
-        overflow: hidden;
-        border-top-width: 1px;
-        border-top-style: solid;
-        border-top-color: rgba(0,0,0,.08);
-        border-left-width: 1px;
-        border-left-style: solid;
-        border-left-color: rgba(0,0,0,.08);
-        border-right-width: 1px;
-        border-right-style: solid;
-        border-right-color: rgba(0,0,0,.08);
-        border-bottom-width: 2px;
-        border-bottom-style: solid;
-        border-bottom-color: rgba(0,0,0,.08);
-    }
-
     .gd-bg-right-1 {
-        margin-left: 32px;
-        width: 398px;
-        height: 288px;
+        margin-left: 24px;
+        width: 418px;
+        height: 180px;
     }
 
     .gd-img-1 {
-        width: 284px;
-        height: 284px;
-        border-radius: 8px;
+        width: 180px;
+        height: 180px;
         overflow: hidden;
     }
     .gd-img-image-1 {
-        width: 284px;
-        height: 284px;
-        border-radius: 8px;
+        width: 180px;
+        height: 180px;
         overflow: hidden;
         position: relative;
     }
 
     .gd-tlt-1 {
-        margin-top: 16px;
         font-size: 24px;
         font-weight: 300;
         line-height: 36px;
-        width: 398px;
+        width: 418px;
         overflow: hidden;
         lines: 2;
         white-space: nowrap;
@@ -487,23 +454,18 @@
     }
 
     .gd-info-1 {
-        display: block;
-        margin-top: 4px;
+        font-family: ProximaNova;
         font-size: 20px;
-        width: 398px;
         line-height: 24px;
-        color: rgba(0,0,0,0.87);
         text-decoration: line-through;
-        overflow: hidden;
-        lines: 1;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        margin-left: 16px;
     }
 
     .gd-price-1 {
+        font-family: ProximaNova;
         font-size: 28px;
         line-height: 34px;
-        font-weight: bold;
+        font-weight: 700;
         color: #000;
     }
 
@@ -515,19 +477,19 @@
     }
 
     .gd-sm-1 {
-        margin-top: 14px;
+        margin-top: 4px;
         flex-direction: row;
         justify-content: start;
         align-items: center;
     }
 
     .gd-button-1 {
-        margin-top: 62px;
+        margin-top: 20px;
         width: 144px;
         text-align: center;
         font-size: 24px;
         line-height: 44px;
-        font-weight: bold;
+        font-weight: 700;
         border-style: solid;
         border-radius: 4px;
         border-width: 2px;

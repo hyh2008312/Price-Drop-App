@@ -95,7 +95,7 @@
     .wrapper{
         width: 750px;
         height: 64px;
-        background-color: #FFF7E1;
+        background-color: #FEA162;
         overflow: hidden;
     }
 
@@ -121,7 +121,7 @@
     }
 
     .tlt {
-        color: rgba(0,0,0,0.87);
+        color: #fff;
         width: 582px;
         padding: 10px;
         font-size: 24px;

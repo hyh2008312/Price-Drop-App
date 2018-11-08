@@ -45,7 +45,9 @@ export default {
 .wrapper {
     background-color: #fff;
     height: 96px;
-    width: 750px;
+    width: 686px;
+    margin: 0 32px;
+    border-radius: 16px;
     flex-direction: row;
     justify-content: start;
     align-items: center;
@@ -56,7 +58,7 @@ export default {
 }
 
 .tab-item {
-    width: 375px;
+    width: 343px;
     height: 96px;
     flex-direction: column;
     align-items: center;
