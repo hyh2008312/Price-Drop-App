@@ -13,7 +13,7 @@
             </cell>
             <cell>
                 <div class="price-drop-banner">
-                    <image class="price-drop-banner-image" src="bmlocal://assets/drop-price-banner.jpg"></image>
+                    <image class="price-drop-banner-image" src="bmlocal://assets/drop-banner.jpg"></image>
                 </div>
             </cell>
             <header>
