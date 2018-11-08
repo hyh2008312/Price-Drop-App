@@ -33,7 +33,7 @@
                        :lowestPrice="lowestPrice"
                 ></drop>
 
-                <text class="onetitle" v-if="purchaseMethod !== 'drop'" @click="openReviews">{{goods.title}}</text>
+                <text class="onetitle" v-if="purchaseMethod !== 'drop'" >{{goods.title}}</text>
                 <div class="count-div"  v-if="purchaseMethod === 'drop'">
                     <div >
                         <text class="drop-title">{{goods.title}}</text>
