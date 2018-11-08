@@ -121,7 +121,7 @@
         text-align: center;
         padding: 0 24px;
         background-color: #EF8A31;
-        border-radius: 4px;
+        border-radius: 40px;
         color: #fff;
     }
 
@@ -132,7 +132,7 @@
         text-align: center;
         padding: 0 24px;
         background-color: #fff;
-        border-radius: 4px;
+        border-radius: 40px;
         color: #EF8A31;
         border-color: #EF8A31;
         border-style: solid;
