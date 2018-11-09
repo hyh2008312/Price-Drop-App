@@ -46,7 +46,7 @@
                             </div>
                             <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
 
-                            <div v-if="!order.cod.exist ||CODStatus==3">
+                            <div v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">
                                 <text class="item-text-err" v-if="codMsg1!=''" >{{codMsg1}}</text>
                                 <text class="item-text-err" v-else >{{codMsg}}</text>
 
@@ -56,7 +56,7 @@
                             <text class="iconfont item-checked" v-if="method == 'cod'">&#xe6fb;</text>
                             <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
                         </div>
-                        <text class="iconfont item-checked-disable" v-if="!order.cod.exist ||CODStatus==3">&#xe73f;</text>
+                        <text class="iconfont item-checked-disable" v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
@@ -271,14 +271,12 @@ export default {
                     this.codMsg1 = 'Your account cannot use COD due to bad record'
                 } else if (res.code == 30004) {
                     this.CODStatus = 4
+                    this.codMsg1 = 'Your phone number has been used by another account'
                 }
                 this.$notice.loading.hide();
                 this.initBack();
             }).catch((res) => {
                 this.$notice.loading.hide();
-                // this.$notice.toast({
-                //     message: res
-                // })
             })
         },
         chooseMethod (e) {

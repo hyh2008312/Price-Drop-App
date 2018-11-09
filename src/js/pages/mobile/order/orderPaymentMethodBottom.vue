@@ -260,9 +260,9 @@
                             });
                             this.$event.emit('closePayment');
                         }).catch((res) => {
-                            // this.$notice.toast({
-                            //     message: res
-                            // })
+                            this.$notice.toast({
+                                message: res.errorMsg
+                            })
                         })
                     }
                 }

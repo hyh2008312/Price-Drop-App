@@ -105,7 +105,7 @@ export default {
         },
         countPrice (s, o) {
             if (o > 0) {
-                return Math.ceil(s * (o / 100)) + '.00'
+                return Math.floor(s * (o / 100))  // 解决多一块钱的问题
             } else {
                 return ''
             }
