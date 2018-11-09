@@ -41,6 +41,7 @@ import { CHANNELLIST } from './config';
 
 const animation = weex.requireModule('animation');
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+const commonUtils = weex.requireModule('CommonUtils');
 
 export default {
     components: {
@@ -57,6 +58,25 @@ export default {
             this.unread = param.unread
         });
         this.getUnread();
+        // const pricedrop = this.$storage.getSync('pricedrop');
+        const that = this;
+        commonUtils.getAndroidData('pricedrop', (data) => {
+            that.$notice.toast({
+                message: `${data}跳转逻辑`
+            })
+            that.jumpWeb()
+            commonUtils.deleteAndroidData('pricedrop')
+        }, (data) => {
+            that.$notice.toast({
+                message: data
+            })
+        })
+//        this.storage.getData('pricedrop', (resData) => {
+//            that.storage.deleteData('pricedrop')
+//            that.$notice.toast({
+//                message: `111111${resData}`
+//            })
+//        })
     },
     data () {
         return {
@@ -87,6 +107,16 @@ export default {
 
     },
     methods: {
+        jumpWeb (id) {
+            id = 2966
+            this.$router.open({
+                name: 'goods.details',
+                type: 'PUSH',
+                params: {
+                    id
+                }
+            })
+        },
         initGoogleAnalytics () {
             googleAnalytics.trackingScreen('Home');
         },
