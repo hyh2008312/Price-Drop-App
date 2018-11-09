@@ -81,6 +81,19 @@ export default {
                 val.visibility = 'hidden';
             })
         });
+        // const pricedrop = this.$storage.getSync('pricedrop');
+        // this.$notice.alert({
+        //     message: pricedrop
+        // });
+        const that = this;
+        commonUtils.getAndroidData('pricedrop', (data) => {
+            that.jumpNativePage(data);
+            commonUtils.deleteAndroidData('pricedrop');
+        }, (data) => {
+            that.$notice.toast({
+                message: data
+            })
+        })
     },
     data () {
         return {
@@ -91,6 +104,44 @@ export default {
         }
     },
     methods: {
+        jumpNativePage (link) {
+            if (link) {
+                const parseUrl = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+                const result = parseUrl.exec(link);
+                // 'url', 'scheme', 'slash', 'host', 'port', 'path', 'query', 'hash';
+                const path = result[5];
+                const query = result[6];
+
+                if (path == 'home') {
+                    const params = this.getParams(query);
+                    this.$event.emit('changeTab', {
+                        tab: params.tab
+                    });
+                } else {
+                    const params = this.getParams(query);
+                    let router = path.split('/');
+                    if (router.length > 0) {
+                        router = router.join('.');
+                    }
+                    this.$router.open({
+                        name: router,
+                        type: 'PUSH',
+                        params: params
+                    });
+                }
+            }
+        },
+        getParams (query) {
+            const reg = /(([^?&=]+)(?:=([^?&=]*))*)/g;
+            const result = {};
+            let match;
+            while (match = reg.exec(query)) {
+                const key = match[2];
+                const value = match[3] || '';
+                result[key] = decodeURIComponent(value);
+            }
+            return result;
+        },
         initPush () {
             bmPush.initPush({});
         },
