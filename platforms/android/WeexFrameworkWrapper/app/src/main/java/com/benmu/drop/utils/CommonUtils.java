@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,6 +13,8 @@ import com.benmu.drop.R;
 import com.benmu.drop.activity.MainActivity;
 import com.benmu.drop.activity.bean.AppDto;
 import com.benmu.drop.service.UpdateService;
+import com.benmu.framework.manager.ManagerFactory;
+import com.benmu.framework.manager.StorageManager;
 import com.benmu.framework.utils.PermissionUtils;
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.bridge.JSCallback;
@@ -72,5 +75,24 @@ public class CommonUtils extends WXModule {
     @JSMethod
     public void changeAndroidCanBack(boolean isCanBack) {
         ((MainActivity) mWXSDKInstance.getContext()).changeCanBack(isCanBack);
+    }
+
+    @JSMethod
+    public void getAndroidData(String key,
+                               JSCallback jsSuccessCallback, JSCallback jsFailedCallback) {
+        StorageManager storageManager = ManagerFactory.getManagerService(StorageManager.class);
+        String result = storageManager.getData(mWXSDKInstance.getContext(), key);
+        if (TextUtils.isEmpty(result)) {
+            jsFailedCallback.invoke("failed");
+        } else {
+            jsSuccessCallback.invoke(result);
+        }
+
+    }
+    @JSMethod(uiThread = false)
+    public void deleteAndroidData(String key) {
+        StorageManager storageManager = ManagerFactory.getManagerService(StorageManager.class);
+        boolean result = storageManager.deleteData(mWXSDKInstance.getContext(), key);
+        Log.d("dddddd", "----delete success----- "+result);
     }
 }

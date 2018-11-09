@@ -61,7 +61,7 @@
                 <category android:name="${APP_ID}.categoty.page" />
 
                 <data android:scheme="http" />
-                <data android:scheme="https" />
+               <!-- <data android:scheme="https" />-->
             </intent-filter>
         </activity>
         <activity
@@ -88,8 +88,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data
-                    android:host="pricedropapp"
-                    android:scheme="pricedrop" />
+                    android:host="pricedrop"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity android:name="com.benmu.framework.activity.GlobalWebViewActivity">
