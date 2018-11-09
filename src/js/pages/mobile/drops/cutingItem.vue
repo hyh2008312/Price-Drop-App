@@ -485,13 +485,13 @@
 
     .gd-button-1 {
         margin-top: 20px;
-        width: 144px;
+        width: 160px;
         text-align: center;
         font-size: 24px;
         line-height: 44px;
+        border-radius: 24px;
         font-weight: 700;
         border-style: solid;
-        border-radius: 4px;
         border-width: 2px;
         border-color: #EF8A31;
         color: #EF8A31;

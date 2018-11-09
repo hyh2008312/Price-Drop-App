@@ -48,14 +48,14 @@ export default {
                 googleAnalytics.trackingScreen(`Tracking Package/${this.id}`);
                 if (!this.isFirstLoad) {
                     this.isFirstLoad = true;
-                   if (this.carrierCode == 'gati') {
+                   if (this.carrierCode == 'gaticn') {
                        this.getGATIOrderTracking();
                    } else {
                        this.getOrderTracking();
                    }
                 }
                 this.$event.once('login', params => {
-                    if (this.carrierCode == 'gati') {
+                    if (this.carrierCode == 'gaticn') {
                         this.getGATIOrderTracking();
                     } else {
                         this.getOrderTracking();
