@@ -50,8 +50,8 @@
                     <!--注释为老版-->
                     <text class="price-name-1"  v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >₹{{parseInt(goods.unitPrice)}} </text>
                     <text class="price" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >₹{{parseInt(goods.price)}}</text>
-                    <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{goods.priceoff}}% OFF</text>
-                    <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{goods.priceoff}}% OFF</text>
+                    <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{countOff(goods.unitPrice, goods.price)}}</text>
+                    <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{countOff(goods.unitPrice, goods.price)}}</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
                     <text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')">Tax Included</text>
                 </div>
@@ -524,7 +524,6 @@
                     title: '',
                     price: '0.00',
                     unitPrice: '0.00',
-                    priceoff: '0.00',
                     cut_get: '',
                     brandLogo: '',
                     productSpecification:[]
@@ -685,7 +684,6 @@
                             this.flashSale = res.flashSale;
                             this.nextPage.flashSale = res.flashSale;
                             if (this.flashSale.flashStatus == 'Ongoing') {
-                                // this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
                                 this.countDate(this.flashSale.endTime)
                             } else {
                                 this.countDate(this.flashSale.startTime)
@@ -695,7 +693,6 @@
                         this.goods.title = res.title;
                         this.goods.price = res.saleUnitPrice;
                         this.goods.unitPrice = res.unitPrice;
-                        this.goods.priceoff = parseInt((((this.goods.price - this.goods.unitPrice) / this.goods.price)) * 100)
                         this.selsaleUnitPrice = res.saleUnitPrice;
                         this.selunitPrice = res.unitPrice;
                         this.lowestPrice = res.lowestPrice;
@@ -1332,7 +1329,7 @@
             },
             openReviews () {
                 this.$router.open({
-                    name: 'goods.reviews',
+                    name: 'write.reviews',
                     type: 'PUSH'
                 })
             },
