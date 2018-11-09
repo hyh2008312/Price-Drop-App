@@ -25,7 +25,7 @@ import NewDialog from './home/newPopup';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 const bmPush = weex.requireModule('bmPush');
-const commonUtils = weex.requireModule('CommonUtils');
+// const commonUtils = weex.requireModule('CommonUtils');
 
 export default {
     bmRouter: {
@@ -81,19 +81,15 @@ export default {
                 val.visibility = 'hidden';
             })
         });
-        // const pricedrop = this.$storage.getSync('pricedrop');
-        // this.$notice.alert({
-        //     message: pricedrop
-        // });
-        const that = this;
-        commonUtils.getAndroidData('pricedrop', (data) => {
-            that.jumpNativePage(data);
-            commonUtils.deleteAndroidData('pricedrop');
-        }, (data) => {
-            that.$notice.toast({
-                message: data
-            })
-        })
+        // const that = this;
+        // commonUtils.getAndroidData('pricedrop', (data) => {
+        //     that.jumpNativePage(data);
+        //     commonUtils.deleteAndroidData('pricedrop');
+        // }, (data) => {
+        //     that.$notice.toast({
+        //         message: data
+        //     })
+        // })
     },
     data () {
         return {
