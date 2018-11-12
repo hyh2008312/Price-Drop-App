@@ -15,7 +15,6 @@
     import header from './header';
     import goodsList from './goodsList';
     import topChannel from './topChannel';
-    // import { CHANNELLIST } from './config';
     import { Utils } from 'weex-ui';
     import { baseUrl } from '../../../config/apis'
 
@@ -43,16 +42,16 @@
                 channelList: [],
                 cardArr: [
                     {
-                        flashStatus: 'Scheduled',
-                        startTime: new Date()
+                        flashStatus: '',
+                        startTime: ''
                     },
                     {
-                        flashStatus: 'Scheduled',
-                        startTime: new Date()
+                        flashStatus: '',
+                        startTime: ''
                     },
                     {
-                        flashStatus: 'Scheduled',
-                        startTime: new Date()
+                        flashStatus: '',
+                        startTime: ''
                     }
                 ]
             }

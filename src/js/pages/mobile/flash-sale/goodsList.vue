@@ -7,13 +7,22 @@
                 <div v-if="channelIndex==0" class="overflow-center-time">
                     <text class="center-time-word" >This round ends in</text>
 
-                    <div class="center-time">
-                        <text class="center-time-hh">{{ahour||'00'}}</text>
+                    <div class="center-time" v-if="asecond!=''">
+                        <text class="center-time-hh">{{ahour}}</text>
                         <text style="font-size: 24px; padding-top: 10px;">:</text>
-                        <text class="center-time-hh">{{amin||'00'}}</text>
+                        <text class="center-time-hh">{{amin}}</text>
                         <text style="font-size: 24px; padding-top: 10px;">:</text>
-                        <text class="center-time-hh">{{asecond||'00'}}</text>
-                    </div>
+                        <text class="center-time-hh">{{asecond}}</text>
+                    </div> <!-- 正常显示的 -->
+
+                    <div class="center-time" v-if="asecond==''">
+                        <text class="center-time-hh-empty"></text>
+
+                        <text style="font-size: 24px; padding-top: 10px;">:</text>
+                        <text class="center-time-hh-empty"></text>
+                        <text style="font-size: 24px; padding-top: 10px;">:</text>
+                        <text class="center-time-hh-empty"></text>
+                    </div>  <!-- 做空白处理的 -->
 
                 </div>
                 <!--<text class="center-time" v-if="channelIndex!==0">New round starts in {{tranTime(startTime)}}</text>-->
@@ -241,12 +250,13 @@
                 }
             },
             calc (a, b) {
-                return ((a * b) / 100).toFixed(2)
+                return ((a * b) / 100)
                 // return (('0.00' * 100) / 100).toFixed(2)
             },
             countOff (s, o) {
                 if (o > 0) {
                     return Math.ceil((o - s) / o * 100) + '% OFF'
+                    // return (o - s) / o * 100 + '% OFF'
                 } else {
                     return ''
                 }
@@ -317,6 +327,17 @@
         padding: 5px;
         margin: 5px;
         font-size: 28px;
+    }
+    .center-time-hh-empty{
+        font-family: ProximaNova;
+        background-color: black;
+        color: white;
+        border-radius: 6px;
+        /*padding: 5px;*/
+        margin: 5px;
+        /*font-size: 28px;*/
+        width: 42px;
+        height: 42px;
     }
     .center-time-space{
         width: 750px;
