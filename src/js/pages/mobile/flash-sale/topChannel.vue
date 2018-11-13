@@ -5,7 +5,8 @@
              index==0?'i-c':'' ,index==1?'i-c1':'',index==2?'i-c2':'']"
 
              @click="chooseChannel(index,item)">
-            <text class="i-b">{{tranTime(item.startTime,1)}}</text>
+            <text class="i-b" v-if="item.startTime!=''">{{tranTime(item.startTime,1)}}</text>
+            <text class="i-b" v-if="item.startTime==''"></text>
             <text class="i-b" v-if="item.flashStatus=='Ongoing'">{{item.flashStatus}}</text>
             <text class="i-b" v-if="item.flashStatus=='Scheduled'">{{tranTime(item.startTime,2)}}</text>
         </div>

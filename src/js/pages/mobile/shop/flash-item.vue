@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flash-sales" v-if="fstatus== 'Ongoing'">
+        <div class="flash-sales" v-if="fstatus== 'Ongoing'">  <!-- 正在进行的-->
             <!--<text class="flash-sales-word">Flash Sales</text> <text class="flash-sales-time">12:00:00</text>-->
             <div class="flash-sales-left">
                 <text class="flash-icon" >&#xe745;</text>
@@ -11,19 +11,27 @@
             <div class="flash-sales-right">
                 <text class="flash-sales-tword">Ends In</text>
 
-                <div class="flash-sales-time">
-                    <text class="flash-sales-hh">{{hour||'00'}}</text>
+                <div class="flash-sales-time" v-if="second!=''">
+                    <text class="flash-sales-hh">{{hour}}</text>
                     <text style="color: #EF8A31;font-size: 24px; padding-top: 10px;">:</text>
-                    <text class="flash-sales-hh">{{min||'00'}}</text>
+                    <text class="flash-sales-hh">{{min}}</text>
                     <text style="color: #EF8A31;font-size: 24px; padding-top: 10px;">:</text>
-                    <text class="flash-sales-hh" >{{second||'00'}}</text>
+                    <text class="flash-sales-hh" >{{second}}</text>
+                </div>
+
+                <div class="flash-sales-time" v-if="second==''">
+                    <text class="flash-sales-hh-empty"></text>
+                    <text style="color: #EF8A31;font-size: 24px; padding-top: 10px;">:</text>
+                    <text class="flash-sales-hh-empty"></text>
+                    <text style="color: #EF8A31;font-size: 24px; padding-top: 10px;">:</text>
+                    <text class="flash-sales-hh-empty" ></text>
                 </div>
 
 
             </div>
         </div>
 
-        <div class="flash-saless" v-if="fstatus== 'Scheduled'">
+        <div class="flash-saless" v-if="fstatus== 'Scheduled'"> <!-- 还未开始的-->
             <div class="flash-sales-lefts">
                 <text class="flash-icon" >&#xe745;</text>
                 <text class="flash-sales-words">₹{{calc(unitPrice,discount)}}</text>
@@ -33,12 +41,20 @@
             <div class="flash-sales-rights">
                 <text class="flash-sales-twords">Start In</text>
 
-                <div class="flash-sales-times">
-                    <text class="flash-sales-hhs">{{hour||'00'}}</text>
+                <div class="flash-sales-times" v-if="second!=''">
+                    <text class="flash-sales-hhs">{{hour}}</text>
                     <text style="color: white;font-size: 24px;">:</text>
-                    <text class="flash-sales-hhs">{{min||'00'}}</text>
+                    <text class="flash-sales-hhs">{{min}}</text>
                     <text style="color: white;font-size: 24px; ">:</text>
-                    <text class="flash-sales-hhs" >{{second||'00'}}</text>
+                    <text class="flash-sales-hhs" >{{second}}</text>
+                </div>
+
+                <div class="flash-sales-times" v-if="second==''">
+                    <text class="flash-sales-hhs-empty"></text>
+                    <text style="color: white;font-size: 24px;">:</text>
+                    <text class="flash-sales-hhs-empty"></text>
+                    <text style="color: white;font-size: 24px; ">:</text>
+                    <text class="flash-sales-hhs-empty" ></text>
                 </div>
 
 
@@ -94,6 +110,7 @@
         justify-content: start;
         align-items: center;
         background-color: #FFEACF;
+        width: 310px;
     }
 
     .flash-triangle{
@@ -144,6 +161,17 @@
         margin: 5px;
         font-size: 28px;
     }
+    .flash-sales-hh-empty {
+        font-family: ProximaNova;
+        background-color: #EF8A31;
+        color: white;
+        border-radius: 6px;
+        /*padding: 5px;*/
+        margin: 5px;
+        /*font-size: 28px;*/
+        width: 42px;
+        height: 42px;
+    }
 
 
 
@@ -188,5 +216,13 @@
         padding: 5px;
         margin: 5px;
         font-size: 28px;
+    }
+    .flash-sales-hhs-empty{
+        color: white;
+        font-family: ProximaNova;
+        /*padding: 5px;*/
+        margin: 5px;
+        width: 42px;
+        height: 42px;
     }
 </style>
