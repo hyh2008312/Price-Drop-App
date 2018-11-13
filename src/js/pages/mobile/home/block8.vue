@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="gd-bg-bottom">
-            <div class="i-good" v-for="i in item" @click="jumpItem(i.id)">
+            <div class="i-good" v-for="i in item" @click="jumpItem(i.productId)">
                 <div class="item-bg">
                     <preload class="gd-img" :src="i.mainImage"></preload>
                 </div>
