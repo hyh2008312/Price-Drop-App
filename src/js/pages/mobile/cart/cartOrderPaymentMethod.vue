@@ -250,9 +250,9 @@ export default {
                 }
             }).then((res) => {
                 // 成功回调
-                // 1 可以绑定 2 已经绑定 3黑名单手机号 4已经绑定，且是别人的手机号
+                // 1 可以绑定 2 已经绑定 3黑名单手机号 4已经绑定，且是别人的手机号   暂时设置为全部不验证手机号设置为2
                 if (res.code == 30000) {
-                    this.CODStatus = 1
+                    this.CODStatus = 2
                 } else if (res.code == 30003) {
                     this.CODStatus = 2
                 } else if (res.code == 30002) {
@@ -260,7 +260,7 @@ export default {
                     // this.order.cod.type = -1
                     this.codMsg1 = 'Your account cannot use COD due to bad record'
                 } else if (res.code == 30004) {
-                    this.CODStatus = 4
+                    this.CODStatus = 2
                     this.codMsg1 = 'Your phone number has been used by another account'
                 }
                 this.$notice.loading.hide();

@@ -38,9 +38,9 @@
                             <div class="goods-top-word">
                                 <text class="goods-title">{{i.title}}</text>
                                 <div class="goods-top-price" >
-                                    <text class="goods-low-price">₹{{parseInt(calc(i.unitPrice,i.discount))}}</text>
+                                    <text class="goods-low-price">₹{{parseInt(countPrice(i.unitPrice,i.discount))}}</text>
                                     <text class="goods-regular-price">₹{{parseInt(i.saleUnitPrice)}}</text>
-                                    <text class="goods-off-price">{{countOff(calc(i.unitPrice,i.discount),i.saleUnitPrice)}}</text>
+                                    <text class="goods-off-price">{{countOff(countPrice(i.unitPrice,i.discount),i.saleUnitPrice)}}</text>
                                 </div>
                             </div>
 
@@ -48,6 +48,8 @@
                         <div class="goods-bottom">
                         <div >
                             <progressbar :value="i.soldStock" :all="i.totalFlashVariantStocks" :pId ="i.productId" v-if="channelIndex==0"></progressbar>
+                            <!--<text>{{i.unitPrice}}&#45;&#45;{{i.discount}}-&#45;&#45;{{i.saleUnitPrice}}</text>-->
+
                             <!--<text class="goods-bottom-word">{{i.totalFlashVariantStocks}} limited</text>-->
                         </div>
                         <div class="goods-bottom-btn">
@@ -249,14 +251,17 @@
                     return dayjs(new Date(str)).format('MM-DD HH:mm:ss')
                 }
             },
-            calc (a, b) {
-                return ((a * b) / 100)
-                // return (('0.00' * 100) / 100).toFixed(2)
-            },
             countOff (s, o) {
                 if (o > 0) {
                     return Math.ceil((o - s) / o * 100) + '% OFF'
                     // return (o - s) / o * 100 + '% OFF'
+                } else {
+                    return ''
+                }
+            },
+            countPrice (s, o) {
+                if (o > 0) {
+                    return Math.floor(s * (o / 100)) + '.00'
                 } else {
                     return ''
                 }

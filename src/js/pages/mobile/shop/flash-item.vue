@@ -81,7 +81,7 @@
                 // this.$notice.toast({
                 //     message: a
                 // })
-                return ((a * b) / 100).toFixed(2)
+                return parseInt((a * b) / 100)
                 // return (('0.00' * 100) / 100).toFixed(2)
             }
         },
