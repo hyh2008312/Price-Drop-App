@@ -45,7 +45,11 @@ export default {
                     tab: 'drops'
                 });
             } else if (img.title == 'category') {
-                const params = JSON.parse(img.params);
+                const params = {};
+                const items = JSON.parse(img.params);
+                for (const item in items) {
+                    params[item] = items[item];
+                }
                 this.$router.open({
                     name: 'goods.category',
                     type: 'PUSH',

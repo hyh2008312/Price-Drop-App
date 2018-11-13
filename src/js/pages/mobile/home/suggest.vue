@@ -286,7 +286,7 @@ export default {
             this.products = PRODUCTS;
             this.$fetch({
                 method: 'GET',
-                name: 'product.category.product.list',
+                name: 'product.category.product.home.new.list',
                 data: {}
             }).then(resData => {
                 for(let item of this.products) {
@@ -299,12 +299,10 @@ export default {
                                     if(i < 3) {
                                         if(i == 0) {
                                             item.goodsList = [];
+                                            item.goodsList1 = [];
                                         }
                                         item.goodsList.push(itm);
                                     } else if(i >= 3 && i < 6) {
-                                        if(i == 3) {
-                                            item.goodsList1 = [];
-                                        }
                                         item.goodsList1.push(itm);
                                     }
                                 }
