@@ -5,6 +5,7 @@ import android.app.Application;
 import com.benmu.framework.BMWXApplication;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * @author luzhenqiang
@@ -17,12 +18,15 @@ public class SocialCommerApplication extends BMWXApplication {
     public Application mInstance;
     private static GoogleAnalytics sAnalytics;
     private static Tracker sTracker;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
         initGoogleAnalytics();
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
     }
 
