@@ -89,6 +89,7 @@ export default {
     },
     methods: {
         getOrderTracking () {
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'GET', // 大写
                 url: `${baseUrl}/order/tracking/${this.id}/`,
@@ -96,6 +97,7 @@ export default {
                     needAuth: true
                 }
             }).then(resData => {
+                this.$notice.loading.hide();
                 this.isFirstLoad = false;
                 // 成功回调
                 this.order = {};
@@ -106,6 +108,7 @@ export default {
             }, error => {});
         },
         getGATIOrderTracking () {
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'GET', // 大写
                 url: `${baseUrl}/order/gati/shipping/${this.id}/`,
@@ -113,6 +116,7 @@ export default {
                     needAuth: true
                 }
             }).then(resData => {
+                this.$notice.loading.hide();
                 this.isFirstLoad = false;
                 // 成功回调
                 this.order = {};
