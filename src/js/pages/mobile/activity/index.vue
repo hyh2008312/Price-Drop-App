@@ -5,7 +5,7 @@
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name}}</text>
         </div>
-        <waterfall class="main-list" column-count="3" column-gap="0" ref="list" loadmoreoffset="30"
+        <waterfall :style="{ backgroundColor: bgColor}" class="main-list" column-count="3" column-gap="0" ref="list" loadmoreoffset="30"
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <header>
@@ -45,7 +45,7 @@
                 </div>
             </cell>
             <header>
-                <text>{{name}}</text>
+                <text class="title-1">{{name}}</text>
             </header>
             <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic1">
                 <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
@@ -77,7 +77,7 @@
                 </div>
             </cell>
             <header>
-                <text>{{name}}</text>
+                <text class="title-1">{{name}}</text>
             </header>
             <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic2">
                 <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
@@ -109,7 +109,7 @@
                 </div>
             </cell>
             <header>
-                <text>{{name}}</text>
+                <text class="title-1">{{name}}</text>
             </header>
             <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic3">
                 <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
@@ -140,7 +140,7 @@
                     </div>
                 </div>
             </cell>
-            <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+            <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
                 <text class="indicator">loading...</text>
             </loading>
         </waterfall>
@@ -169,6 +169,7 @@
         data () {
             return {
                 that: this,
+                bgColor: '#f1f1f1',
                 name: '',
                 id: -1,
                 imageUrl: '',
@@ -189,18 +190,8 @@
                 this.isLoading = false;
                 this.getActivityProduct(true);
             },
-            onLoadingMore () {
-                if (!this.isPlatformAndroid) {
-                    this.isLoading = true;
-                    this.getActivityProduct(false);
-                }
-            },
-            onloading () {
-                if (this.isPlatformAndroid) {
-                    this.isLoading = true;
-                    this.getActivityProduct(false);
-                }
-            },
+            onLoadingMore () {},
+            onloading () {},
             getActivityParam (resData) {
                 this.id = resData.id;
 
@@ -220,6 +211,7 @@
                         this.goodsTopic1 = [];
                         this.goodsTopic2 = [];
                         this.goodsTopic3 = [];
+                        this.page = 1;
                         this.isFirstLoad = false;
                     }
                     for (let i = 0; i < data[0].topicProducts.length; i++) {
@@ -333,6 +325,15 @@
         line: 1;
         text-overflow: ellipsis;
         color: rgba(0,0,0,0.87);
+    }
+
+    .title-1{
+        font-size: 28px;
+        line-height: 34px;
+        width: 750px;
+        padding: 24px 32px 32px;
+        text-align: center;
+        color: #fff;
     }
 
     .homeBack {
