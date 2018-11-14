@@ -8,6 +8,7 @@
                 <text class="gb-status" v-if="order.orderStatus == 'Unpaid'">Pending</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Completed'">Delivered</text>
+                <text class="gb-status" v-if="order.orderStatus == 'Shipped'">Shipped</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Packing'">Preparing</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Partially Refunded'">Partially Refunded</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Fully Refunded'">Fully Refunded</text>
@@ -58,9 +59,12 @@
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Audit canceled'">
                 <text class="od-text-2">Order cancellation pending</text>
             </div>
-            <div class="gb-bottom-1" v-if="order.orderStatus == 'Shipped'">
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Shipped' && order.carrierCode.toUpperCase() != 'GATICN'">
                 <text class="od-button-1 gt-mr" @click="tracking">Track Package</text>
-                <text class="gd-button" @click="receipt">Confirm Delivery</text>
+                <text class="gd-button" @click="receipt">Package Arrival Confirm</text>
+            </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Shipped' && order.carrierCode.toUpperCase() == 'GATICN'">
+                <text class="gd-button" @click="tracking">Track Package</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Canceled'">
                 <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>

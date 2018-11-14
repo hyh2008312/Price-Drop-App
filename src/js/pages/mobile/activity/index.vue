@@ -25,7 +25,7 @@
                         <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                 </div>
-                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.id)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
@@ -57,7 +57,7 @@
                         <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                 </div>
-                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.id)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
@@ -89,7 +89,7 @@
                         <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                 </div>
-                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.id)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
@@ -121,7 +121,7 @@
                         <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                 </div>
-                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.id)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
@@ -236,7 +236,7 @@
                     });
                 });
             },
-            jumpWeb (id) {
+            jumpItem (id) {
                 this.$router.open({
                     name: 'goods.details',
                     type: 'PUSH',

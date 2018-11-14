@@ -17,6 +17,7 @@
                 <text class="gb-text" v-if="order.orderStatus == 'Unpaid'">Pending</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Packing'">Preparing</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Shipped'">Shipped</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Completed'">Delivered</text>
             </div>
             <div class="gb-bg-1" v-if="order.orderStatus == 'Unpaid'">
