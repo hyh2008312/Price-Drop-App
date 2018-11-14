@@ -17,14 +17,15 @@ export default {
     methods: {
         jumpDetail (img) {
             if (img.title == 'activity') {
-                const params = JSON.parse(img.params);
+                const params = {};
+                const items = JSON.parse(img.params);
+                for (const item in items) {
+                    params[item] = items[item];
+                }
                 this.$router.open({
                     name: 'mobile.activity',
                     params: {
-                        id: params.id,
-                        imageUrl: params.imageUrl,
-                        name: params.name,
-                        type: params.type
+                        id: params.id
                     }
                 });
             } else if (img.title == 'flash') {

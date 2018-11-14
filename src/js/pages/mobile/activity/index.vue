@@ -5,7 +5,7 @@
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name}}</text>
         </div>
-        <waterfall class="main-list" column-count="2" column-gap="14" ref="list" loadmoreoffset="30"
+        <waterfall class="main-list" column-count="3" column-gap="0" ref="list" loadmoreoffset="30"
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <header>
@@ -15,19 +15,129 @@
                     <text class="banner-text" v-if="false">{{name}}</text>
                 </div>
             </header>
-            <cell v-for="(i ,index) in goods">
-                <div class="i-gd" :class="[index % 2 ==0 ? 'margin-left16':'magin-right16']" @click="jumpWeb(i.productId)">
-                    <div class="gd-bg">
-                        <div class="gd-img">
-                            <preload class="gd-img-image" :src="i.mainImage"></preload>
-                        </div>
+            <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTop">
+                <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
-                    <div class="gd-tlt-bg">
-                        <text class="gd-tlt">₹{{i.unitPrice}}</text>
-                        <text class="gd-info">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
-                    <text class="gd-price">₹{{i.saleUnitPrice}}</text>
-                    <text class="gd-button">Buy Now</text>
+                </div>
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+                <div class="i-good margin-right32" v-if="index % 3 == 2" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+            </cell>
+            <header>
+                <text>{{name}}</text>
+            </header>
+            <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic1">
+                <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+                <div class="i-good margin-right32" v-if="index % 3 == 2" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+            </cell>
+            <header>
+                <text>{{name}}</text>
+            </header>
+            <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic2">
+                <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+                <div class="i-good margin-right32" v-if="index % 3 == 2" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+            </cell>
+            <header>
+                <text>{{name}}</text>
+            </header>
+            <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic3">
+                <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
+                </div>
+                <div class="i-good margin-right32" v-if="index % 3 == 2" @click="jumpItem(i.productId)">
+                    <div class="item-bg">
+                        <preload class="gd-img" :src="i.mainImage"></preload>
+                    </div>
+                    <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                    <div class="gd-price-bg">
+                        <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
+                    </div>
                 </div>
             </cell>
             <loading class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
@@ -49,8 +159,11 @@
         },
         created () {},
         eros: {
-            beforeAppear (params, options) {
-                this.getActivityParam(params)
+            appeared (params, options) {
+                if (!this.isFirstLoad) {
+                    this.isFirstLoad = true;
+                    this.getActivityParam(params);
+                }
             }
         },
         data () {
@@ -60,11 +173,13 @@
                 id: -1,
                 imageUrl: '',
                 testImage: '',
-                goods: [],
-                length: 2,
                 page: 1,
-                pageSize: 12,
+                goodsTop: [],
+                goodsTopic1: [],
+                goodsTopic2: [],
+                goodsTopic3: [],
                 isLoading: false,
+                isFirstLoad: false,
                 isPlatformAndroid: Utils.env.isAndroid()
             }
         },
@@ -88,74 +203,46 @@
             },
             getActivityParam (resData) {
                 this.id = resData.id;
-                this.name = resData.name;
-                this.imageUrl = resData.imageUrl;
-                this.type = resData.type;
+
                 googleAnalytics.trackingScreen(`Activity/${this.name}`);
                 this.getActivityProduct(true);
             },
             getActivityProduct (isfirst) {
-                if (isfirst) {
-                    this.page = 1
-                }
-                if (this.page > this.length) {
-                    this.$refs.refresh.refreshEnd();
-                    this.$nextTick(() => {
-                        this.isLoading = false
-                    })
-                    return
-                }
-                if (this.type == 'activity') {
-                    this.$fetch({
-                        method: 'GET',
-                        name: 'product.topic.products',
-                        data: {
-                            topicId: this.id,
-                            page: this.page,
-                            page_size: this.pageSize
+                this.$fetch({
+                    method: 'GET',
+                    name: 'product.topic.list'
+                }).then(data => {
+                    this.name = data[0].name;
+                    this.imageUrl = data[0].image;
+                    this.length = Math.ceil(data.count / this.pageSize)
+                    if (isfirst) {
+                        this.goodsTop = [];
+                        this.goodsTopic1 = [];
+                        this.goodsTopic2 = [];
+                        this.goodsTopic3 = [];
+                        this.isFirstLoad = false;
+                    }
+                    for (let i = 0; i < data[0].topicProducts.length; i++) {
+                        const item = data[0].topicProducts[i];
+                        if (i < 3) {
+                            this.goodsTop.push(item);
+                        } else if (i >= 3 && i < 12) {
+                            this.goodsTopic1.push(item);
+                        } else if (i >= 12 && i < 21) {
+                            this.goodsTopic2.push(item);
+                        } else if (i >= 21 && i < 30) {
+                            this.goodsTopic3.push(item);
                         }
-                    }).then(data => {
-                        this.length = Math.ceil(data.count / this.pageSize)
-                        if (isfirst) {
-                            this.goods = []
-                        }
-                        this.page++
-                        this.goods.push(...data.results)
-                        if (!isfirst) {
-                            this.isLoading = false
-                        }
-                        this.refreshApiFinished()
-                    }, error => {
-                        this.$notice.toast({
-                            message: JSON.stringify(error)
-                        });
-                    })
-                } else {
-                    this.$fetch({
-                        method: 'GET',
-                        name: 'product.customer.list',
-                        data: {
-                            brand: this.id,
-                            page: this.page,
-                            page_size: this.pageSize
-                        }
-                    }).then(data => {
-                        this.length = Math.ceil(data.count / this.pageSize)
-                        if (isfirst) {
-                            this.goods = []
-                        }
-                        this.page++
-                        this.goods.push(...data.results)
-                        if (!isfirst) {
-                            this.isLoading = false
-                        }
-                        this.refreshApiFinished()
-                    }, error => {
-                        this.$notice.toast({
-                            message: JSON.stringify(error)
-                        });
-                    })
-                }
+                    }
+                    if (!isfirst) {
+                        this.isLoading = false;
+                    }
+                    this.refreshApiFinished();
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    });
+                });
             },
             jumpWeb (id) {
                 this.$router.open({
@@ -193,7 +280,6 @@
         width: 750px;
         height: 360px;
         display: flex;
-        margin-bottom: 18px;
         align-items: center;
         justify-content: center;
         position: relative;
@@ -261,89 +347,74 @@
         background-color: white;
     }
 
-    .margin-left16 {
+    .i-good{
+        width: 218px;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+        border-radius: 8px;
+        background-color: #fff;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
         margin-left: 16px;
+        margin-right: 16px;
     }
 
-    .magin-right16 {
-        margin-right: 8px;
+    .margin-left32 {
+        margin-left: 32px;
+        margin-right: 0;
     }
 
-    .i-gd {
-        width: 350px;
-        height: 520px;
-        margin-bottom: 20px;
-        align-items: center;
+    .margin-right32 {
+        margin-left: 0;
+        margin-right: 32px;
     }
 
-    .gd-bg {
-        border-radius: 8px;
-        width: 350px;
-        height: 350px;
-        border-top-width: 1px;
-        border-top-style: solid;
-        border-top-color: rgba(0,0,0,.08);
-        border-left-width: 1px;
-        border-left-style: solid;
-        border-left-color: rgba(0,0,0,.08);
-        border-right-width: 1px;
-        border-right-style: solid;
-        border-right-color: rgba(0,0,0,.08);
-        border-bottom-width: 2px;
-        border-bottom-style: solid;
-        border-bottom-color: rgba(0,0,0,.08);
+    .item-bg{
+        width: 218px;
+        height: 218px;
     }
 
     .gd-img {
-        width: 348px;
-        height: 348px;
-    }
-    .gd-img {
-        width: 348px;
-        height: 348px;
-        border-radius: 8px;
+        width: 218px;
+        height: 218px;
         overflow: hidden;
-    }
-    .gd-img-image {
-        width: 348px;
-        height: 348px;
-        border-radius: 8px;
-        overflow: hidden;
-        position: relative;
-    }
-    .gd-tlt {
-        font-size: 28px;
-        font-weight: bold;
-        color: rgba(0,0,0,0.87);
-        line-height: 34px;
     }
 
-    .gd-tlt-bg{
-        margin-top: 16px;
-        width: 350px;
+    .gd-bg-bottom {
+        width: 250px;
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
+        align-items: start;
+        justify-content: space-between;
+        padding-bottom: 24px;
     }
 
-    .gd-info{
-        margin-left: 8px;
-        font-size: 20px;
-        line-height: 24px;
-        color: #EF8A31;
-    }
-
-    .gd-price {
-        font-size: 20px;
-        font-weight: 500;
-        width: 350px;
-        line-height: 24px;
+    .gd-tlt {
+        margin-top: 8px;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 36px;
         overflow: hidden;
         lines: 1;
         white-space: nowrap;
         text-overflow: ellipsis;
+        padding: 0 16px;
         text-align: center;
-        text-decoration: line-through;
+    }
+
+    .gd-price {
+        font-size: 20px;
+        line-height: 28px;
+        color: #fff;
+        background-color: #00CFE3;
+        border-radius: 14px;
+        padding: 0 16px;
+        text-align: center;
+    }
+
+    .gd-price-bg{
+        margin-top: 4px;
+        height: 28px;
+        margin-bottom: 16px;
     }
 
     .gd-button{
