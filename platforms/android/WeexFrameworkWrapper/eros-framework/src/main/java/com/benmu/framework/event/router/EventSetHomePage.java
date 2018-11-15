@@ -50,7 +50,11 @@ public class EventSetHomePage extends EventGate{
         Uri pathUri = Uri.parse(pathUrl);
         if (!TextUtils.equals("http", pathUri.getScheme()) && !TextUtils.equals("https", pathUri
                 .getScheme())) {
-            pathUri = Uri.parse(BMWXEnvironment.mPlatformConfig.getUrl().getJsServer() +
+            String flag = BMWXEnvironment.mPlatformConfig.getUrl().getJsServer();
+            if (flag !=null && flag.contains("https")){
+                flag = flag.replaceFirst("https","http");
+            }
+            pathUri = Uri.parse(flag +
                     "/dist/js" + pathUrl);
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
