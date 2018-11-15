@@ -44,8 +44,8 @@
                     </div>
                 </div>
             </cell>
-            <header>
-                <text class="title-1">{{name}}</text>
+            <header v-if="topicOne">
+                <text class="title-1">{{topicOne}}</text>
             </header>
             <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic1">
                 <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
@@ -76,8 +76,8 @@
                     </div>
                 </div>
             </cell>
-            <header>
-                <text class="title-1">{{name}}</text>
+            <header v-if="topicTwo">
+                <text class="title-1">{{ topicTwo}}</text>
             </header>
             <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic2">
                 <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
@@ -108,8 +108,8 @@
                     </div>
                 </div>
             </cell>
-            <header>
-                <text class="title-1">{{name}}</text>
+            <header v-if="topicThree">
+                <text class="title-1">{{ topicThree}}</text>
             </header>
             <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTopic3">
                 <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
@@ -150,6 +150,7 @@
     import { Utils } from 'weex-ui';
     import refresher from '../common/refresh';
     import preload from '../common/preloadImg';
+    import { baseUrl } from '../../../config/apis';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
@@ -176,6 +177,9 @@
                 testImage: '',
                 page: 1,
                 goodsTop: [],
+                topicOne: '',
+                topicTwo: '',
+                topicThree: '',
                 goodsTopic1: [],
                 goodsTopic2: [],
                 goodsTopic3: [],
@@ -198,14 +202,17 @@
                 googleAnalytics.trackingScreen(`Activity/${this.name}`);
                 this.getActivityProduct(true);
             },
-            getActivityProduct (isfirst) {
+            getActivityProduct (isfirst, id) {
                 this.$fetch({
                     method: 'GET',
-                    name: 'product.topic.list'
+                    url: `${baseUrl}/product/app/topic/detail/${this.id}/`
                 }).then(data => {
-                    this.name = data[0].name;
-                    this.imageUrl = data[0].image;
-                    this.length = Math.ceil(data.count / this.pageSize)
+                    this.name = data.name;
+                    this.imageUrl = data.image;
+                    this.bgColor = data.color;
+                    this.topicOne = data.topicOne;
+                    this.topicTwo = data.topicTwo;
+                    this.topicThree = data.topicThree;
                     if (isfirst) {
                         this.goodsTop = [];
                         this.goodsTopic1 = [];
@@ -214,8 +221,8 @@
                         this.page = 1;
                         this.isFirstLoad = false;
                     }
-                    for (let i = 0; i < data[0].topicProducts.length; i++) {
-                        const item = data[0].topicProducts[i];
+                    for (let i = 0; i < data.products.length; i++) {
+                        const item = data.products[i];
                         if (i < 3) {
                             this.goodsTop.push(item);
                         } else if (i >= 3 && i < 12) {
@@ -334,6 +341,7 @@
         padding: 24px 32px 32px;
         text-align: center;
         color: #fff;
+        font-weight: 700;
     }
 
     .homeBack {
