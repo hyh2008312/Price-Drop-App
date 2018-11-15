@@ -108,6 +108,9 @@
 
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Scheduled'" style="margin-top: 96px" >
+
+            <text class="goods-btn-w" @click="changeStates()" v-if="fakeBtn">Join Now & Win Prize</text>
+
             <div class="goods-btn-s " @click="openshare()"  v-if="false">
                 <text class="iconfont goods-btn-sicon" >&#xe74b;</text>
                 <text class="goods-btn-sword"  >Share to Your Friends</text>
@@ -140,6 +143,7 @@
                 asecond: '',
                 tranTime: false,
                 btnS: false,
+                fakeBtn: false,
                 userAvatar: [],
                 user: ''
             }
@@ -250,7 +254,13 @@
                         user_id: this.user.id
                     }
                 }).then((res) => {
-                    this.item = res;
+                    if (res.drawStatus=='Scheduled') {
+                        this.fakeBtn = true
+                        this.item = res;
+                    } else {
+                        this.fakeBtn = false
+                        this.item = res;
+                    }
                     this.$emit('changeItem', {
                         status: 'changeItem',
                         data: {
@@ -284,10 +294,14 @@
                     if (total <= 0) {
                         clearInterval(self.tranTime);
                         if (self.item.drawStatus == 'Ongoing') {
-                            self.changeStates();
+                            // setTimeout(() => {
+                                self.changeStates();
+                            // }, 2000)
                         }
                         if (self.item.drawStatus == 'Scheduled') {
-                            self.changeStates();
+                            // setTimeout(() => {
+                                self.changeStates();
+                            // }, 2000)
                         }
                         return;
                     }

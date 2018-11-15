@@ -172,7 +172,7 @@ export const CODDeliveryQA = [{
     answer: 'You can only place one COD order each time. Your next COD order will be available only after you complete your last COD order successfully. If you reject your last COD order, you won’t be able to use COD any more.'
 }, {
     question: 'What is the price limit for a COD order?',
-    answer: 'The COD delivery is not available for order above Rs.1000 now.'
+    answer: 'The COD delivery is not available for order above Rs.1500 now.'
 }, {
     question: 'Can I cancel a COD order after it ships out?',
     answer: 'If you place a COD order, you cannot cancel or reject the package after it ships out. Otherwise, you would be blocked by the carrier and cannot use COD service any more.'

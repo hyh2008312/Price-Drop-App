@@ -38,8 +38,8 @@
                     <text class="gd-text-1">Total Price</text>
                 </div>
                 <div class="gb-center-right">
-                    <text class="gb-text" v-if="order.proId == 'direct'">₹{{parseInt(order.currentPrice).toFixed(2)}}</text>
-                    <text class="gb-text" v-if="order.proId == 'flash'">₹{{parseInt(order.currentPrice).toFixed(2)}}</text>
+                    <text class="gb-text" v-if="order.proId == 'direct'">₹{{(parseInt(order.currentPrice)*order.quantity).toFixed(2) }}</text>
+                    <text class="gb-text" v-if="order.proId == 'flash'">₹{{(parseInt(order.currentPrice)*order.quantity).toFixed(2)}}</text>
                     <text class="gb-text" v-if="order.proId == 'lottery'">₹{{parseInt(order.currentPrice).toFixed(2)}}</text>
                     <text class="gb-text" v-if="order.proId == 'drop'">₹{{parseInt(order.salePrice).toFixed(2)}}</text>
                     <text class="gb-text">₹{{order.shippingPrice||'0.00'}}</text>
@@ -81,7 +81,7 @@
             },
             getOrderTotal (order, card) {
                 if (card) {
-                    return ((order.total * 100 - card.share * 100) / 100).toFixed(2);
+                    return (((order.total * 100 - card.share * 100) / 100)).toFixed(2);
                 } else {
                     return order.total;
                 }

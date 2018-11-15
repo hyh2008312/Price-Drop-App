@@ -72,7 +72,7 @@ export default {
                     }
                 }
             }
-            this.order.total = parseInt((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100).toFixed(2);
+            this.order.total = (parseInt((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100)*this.order.quantity).toFixed(2);
         }
     },
     created () {

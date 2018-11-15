@@ -33,7 +33,7 @@
                        :lowestPrice="lowestPrice"
                 ></drop>
 
-                <text class="onetitle" v-if="purchaseMethod !== 'drop'" >{{goods.title}}</text>
+                <text class="onetitle" v-if="purchaseMethod !== 'drop'" @click="openReviews">{{goods.title}}</text>
                 <div class="count-div"  v-if="purchaseMethod === 'drop'">
                     <div >
                         <text class="drop-title">{{goods.title}}</text>
@@ -53,7 +53,8 @@
                     <text class="price-name price-price" v-if="purchaseMethod==='direct'" >{{countOff(goods.unitPrice, goods.price)}}</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{countOff(goods.unitPrice, goods.price)}}</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
-                    <text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')">Tax Included</text>
+                    <!--<text>{{goods.unitPrice}}&#45;&#45;{{flashSale.discount}}-&#45;&#45;{{goods.price}}</text>-->
+                    <text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')" @click="openReviews1">Tax Included</text>
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
@@ -278,10 +279,9 @@
                    @wxcPopupOverlayClicked="popupCloseClick"
                    pos="bottom"
                    ref="wxcPopup"
-                   height="750">
+                   height="850">
             <div class="popup-content">
                 <div class="popup-top">
-
                     <image :src="selimgsrc"
                            class="popup-image"></image>
 
@@ -291,18 +291,20 @@
                         <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
                         <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
                         <text class="popup-lowprice"      v-if="isDrop">₹{{parseInt(lowestPrice)}}</text>
+
                         <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">₹{{ parseInt(selunitPrice*(flashSale.discount/100)) || parseInt(goods.unitPrice*(flashSale.discount/100))}}</text>
                         <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">₹{{parseInt(selunitPrice)||parseInt(goods.unitPrice)}}</text>
+
                         <div class="popup-yet-bg" v-if="hasVariants==true">
+                            <text class="popup-yet">Chose:</text>
                             <text class="popup-yet" v-if="selcolor != ''">{{selcolor}}</text>
                             <text class="popup-yet" v-if="selsize != ''">{{selsize}}</text>
                         </div>
                     </div>
-
                     <text class="popup-close" @click="popupCloseClick">&#xe632;</text>
                 </div>
-                <scroller  class="scroller" >
-                    <div class="popup-bottom">
+                <scroller  class="scroller" show-scrollbar="true" v-if="hasVariants">
+                    <div class="popup-bxottom">
                         <div v-for="(val, index) in goodsType" :key="index" >
                             <text class="popup-color">{{val.name}}</text>
 
@@ -317,6 +319,15 @@
                         </div>
                     </div>
                 </scroller>
+                <div class="popup-quantity" v-if="!isDrop">
+                    <text class="popup-qt">Quantity</text>
+                    <div class="lc-b">
+                        <text class="lc-b-1" @click="delQuantity">-</text>
+                        <text class="lc-b-n">{{selquantity}}</text>
+                        <text class="lc-b-2" @click="addQuantity">+</text>
+                    </div>
+                </div>
+
                 <div class="popup-btn">
                     <text class="button" @click="confirm()" v-if="canBuy==true" >Confirm</text>
                     <text class="button-gray"               v-if="canBuy==false" >Out of Stock</text>
@@ -465,7 +476,7 @@
                     <text class="c-it1-t">2. If you place a COD order, you cannot cancel or reject the package after it ships out.</text>
                     <text class="c-it1-t">3. If you refuse your COD package, you would be blocked by the carrier and cannot use COD service any more. </text>
                     <text class="c-it1-t">4. You can only place your next COD order after you complete your last COD order successfully.</text>
-                    <text class="c-it1-t">5. COD delivery is currently not available for order above Rs.1000. </text>
+                    <text class="c-it1-t">5. COD delivery is currently not available for order above Rs.1500. </text>
                 </div>
             </div>
         </wxc-popup>
@@ -526,7 +537,7 @@
                     unitPrice: '0.00',
                     cut_get: '',
                     brandLogo: '',
-                    productSpecification:[]
+                    productSpecification: []
                 },
                 dropGoods: 0,
                 nextPage: {
@@ -557,6 +568,7 @@
                 goodsType: {},
                 selsize: '',
                 selcolor: '',
+                selquantity: 1,
                 selimgsrc: '',
                 selunitPrice: '',
                 variantsId: '',
@@ -655,7 +667,6 @@
             }
             this.initBack();
             this.trimNullObj();
-
         },
         methods: {
             initBack () {
@@ -672,12 +683,10 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/654/`,
+                        // url: `${baseUrl}/product/customer/detail/1116/`,
                         data: {}
                     }).then((res) => {
-                        // this.$notice.alert({
-                        //     message: res.productSpecification
-                        // })
+
                         this.goods.productSpecification = res.productSpecification
                         this.purchaseMethod = res.purchaseMethod;
                         if (this.purchaseMethod === 'flash') {
@@ -929,6 +938,51 @@
                     // }
                 // }
             },
+            checkedSelected () {
+                this.tmpArray = [];
+                for (let i = 0; i < this.goodsType.length; i++) {
+                    for (let j = 0; j < this.goodsType[i].value.length; j++) {
+                        if (this.goodsType[i].value[j].isActive == true) {
+                            this.tmpArray.push(this.goodsType[i].value[j])
+                            break;
+                        }
+                        if (j == this.goodsType[i].value.length - 1) {
+                            this.$notice.toast({
+                                message: 'Please select a ' + this.goodsType[i].name.toLowerCase() + '!'
+                            });
+                            return false
+                        }
+                    }
+                }
+                return true;
+            },
+            redirectLogin () {
+                this.$event.on('login', params => {
+                    this.getGoodsDetail(this.proId)
+                    this.getSomeGoods(this.proId)
+                    this.getCartNum()
+
+                    this.$storage.get('user').then(resData => {
+                        this.user = resData
+                    })
+                });
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            },
+            openCutPrice () {
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    if (this.hasVariants === false) {
+                        this.createCut()
+                    } else {
+                        this.isBottomShow = true;
+                        common.changeAndroidCanBack(false)
+                    }
+                }
+            },
             confirm () {
                 if (this.user == null) {
                     this.redirectLogin()
@@ -958,25 +1012,27 @@
                         }
                     }
                     this.nextPage.id = this.variantsId;
-                        if (this.isDrop == true) {
-                            this.createCut()
-                        } else {
-                            if (this.flashSale.flashStatus === 'Ongoing') {
-                                this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
-                            }
-                            if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
-                                this.nextPage.proId = 'direct'
-                            }
-                            if (this.isAddCart) {
-                                this.postGoodsCart()
-                            } else {
-                                this.$router.open({
-                                    name: 'order.confirm',
-                                    type: 'PUSH',
-                                    params: this.nextPage
-                                })
-                            }
+                    this.nextPage.quantity = this.selquantity;
+                    // this.nextPage.currentPrice = this.nextPage.currentPric * this.selquantity;
+                    if (this.isDrop == true) {
+                        this.createCut()
+                    } else {
+                        if (this.flashSale.flashStatus === 'Ongoing') {
+                            this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
                         }
+                        if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
+                            this.nextPage.proId = 'direct'
+                        }
+                        if (this.isAddCart) {
+                            this.postGoodsCart()
+                        } else {
+                            this.$router.open({
+                                name: 'order.confirm',
+                                type: 'PUSH',
+                                params: this.nextPage
+                            })
+                        }
+                    }
 
                     // } else {
                     //     this.$notice.toast({
@@ -985,55 +1041,11 @@
                     // }
                 }
             },
-            checkedSelected () {
-                this.tmpArray = [];
-                for (let i = 0; i < this.goodsType.length; i++) {
-                    for (let j = 0; j < this.goodsType[i].value.length; j++) {
-                        if (this.goodsType[i].value[j].isActive == true) {
-                            this.tmpArray.push(this.goodsType[i].value[j])
-                            break;
-                        }
-                        if (j == this.goodsType[i].value.length - 1) {
-                            this.$notice.toast({
-                                message: 'Please select a ' + this.goodsType[i].name.toLowerCase() + '!'
-                            });
-                            return false
-                        }
-                    }
-                }
-                return true;
-            },
-            redirectLogin () {
-                this.$event.on('login', params => {
-                    this.getGoodsDetail(this.proId)
-                    this.getSomeGoods(this.proId)
-
-                    this.$storage.get('user').then(resData => {
-                        this.user = resData
-                    })
-                });
-                this.$router.open({
-                    name: 'login',
-                    type: 'PUSH'
-                })
-            },
-            openCutPrice () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                } else {
-                    if (this.hasVariants === false) {
-                        this.createCut()
-                    } else {
-                        this.isBottomShow = true;
-                        common.changeAndroidCanBack(false)
-                    }
-                }
-            },
             openBuyNow () {
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
-                    if (this.hasVariants === false) {
+                    // if (this.hasVariants === false) {
                         if (this.variantsId != '' && this.isDrop == false) {
                             if (this.flashSale.flashStatus === 'Ongoing') {
                                 this.nextPage.currentPrice = (((this.selunitPrice || this.goods.unitPrice) * this.flashSale.discount) / 100).toFixed(2);
@@ -1041,32 +1053,32 @@
                             if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
                                 this.nextPage.proId = 'direct'
                             }
-                            this.$router.open({
-                                name: 'order.confirm',
-                                type: 'PUSH',
-                                params: this.nextPage
-                            })
+                            // this.$router.open({
+                            //     name: 'order.confirm',
+                            //     type: 'PUSH',
+                            //     params: this.nextPage
+                            // })
                         }
-                    } else {
+                    // } else {
                         this.isAddCart = false;
                         this.isBottomShow = true;
                         common.changeAndroidCanBack(false)
-                    }
+                    // }
                 }
             },
             addCart () {
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
-                    if (this.hasVariants === false) {
-                        if (this.variantsId !== '' && this.isDrop == false) {
-                            this.postGoodsCart()
-                        }
-                    } else {
+                    // if (this.hasVariants === false) {
+                    //     if (this.variantsId !== '' && this.isDrop == false) {
+                    //         this.postGoodsCart()
+                    //     }
+                    // } else {
                         this.isAddCart = true;
                         this.isBottomShow = true;
                         common.changeAndroidCanBack(false)
-                    }
+                    // }
                 }
             },
             postGoodsCart () {
@@ -1078,7 +1090,8 @@
                     name: 'cart.add',
                     data: {
                         'variantId': this.variantsId,
-                        'attribute': this.selcolor + ' ' + this.selsize
+                        'attribute': this.selcolor + ' ' + this.selsize,
+                        'quantity': this.selquantity
                     },
                     header: {
                         needAuth: true,
@@ -1104,6 +1117,28 @@
                     //     message: res.errorMsg
                     // })
                 })
+            },
+            addQuantity () {
+                if ((this.purchaseMethod === 'flash' && this.flashSale.flashStatus == 'Scheduled') || this.purchaseMethod === 'direct') {
+                    if (this.selquantity == 10) {
+                        return
+                    } else {
+                        this.selquantity += 1
+                    }
+                } else if (this.purchaseMethod === 'flash' && this.flashSale.flashStatus == 'Ongoing') {
+                    if (this.selquantity == 3) {
+                        return
+                    } else {
+                        this.selquantity += 1
+                    }
+                }
+            },
+            delQuantity () {
+                if (this.selquantity == 1) {
+                    return
+                } else {
+                    this.selquantity -= 1
+                }
             },
             // 非状态组件，需要在这里关闭
             popupOverlayBottomClick () {
@@ -1322,17 +1357,28 @@
                 })
             },
             openMyCart () {
-                this.$router.open({
-                    name: 'cart',
-                    type: 'PUSH'
-                })
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    this.$router.open({
+                        name: 'cart',
+                        type: 'PUSH'
+                    })
+                }
             },
             openReviews () {
-                this.$router.open({
-                    name: 'write.reviews',
-                    type: 'PUSH'
-                })
+                // this.$router.open({
+                //     name: 'write.reviews',
+                //     type: 'PUSH'
+                // })
             },
+            openReviews1 () {
+                // this.$router.open({
+                //     name: 'goods.reviews',
+                //     type: 'PUSH'
+                // })
+            },
+
             openRuler () {
                 this.isRulerShow = true;
                 common.changeAndroidCanBack(false);
@@ -1352,7 +1398,7 @@
             },
             checkPinCode () {
                 if (this.pinCode.length == 0) {
-                    this.pinCodeStatus = 3    // 1支持 2不支持 3 输入的pincode为空
+                    this.pinCodeStatus = 3 // 1支持 2不支持 3 输入的pincode为空
                     return
                 } else {
                     this.pinCodeLoad = true
@@ -1379,6 +1425,7 @@
             countOff (s, o) {
                 if (o > 0) {
                     return Math.ceil((o - s) / o * 100) + '% OFF'
+                    // return ((o - s) / o * 100)  + '% OFF'
                 } else {
                     return ''
                 }
@@ -1445,9 +1492,9 @@
                 // }
             },
             trimNullObj (arr) {
-                let tmpArr = []
+                const tmpArr = []
                 for (let i = 0; i < arr.length; i++) {
-                    if (arr[i].content!='') {
+                    if (arr[i].content != '') {
                         tmpArr.push(arr[i])
                     }
                 }
@@ -1455,7 +1502,7 @@
             },
             tranArr (data) {
                 let arr = [];
-                let rArr = [];
+                const rArr = [];
                 // this.$notice.alert({
                 //     message: data
                 // })
@@ -1471,7 +1518,7 @@
                     // this.$notice.alert({
                     //     message: rArr[0]
                     // })
-                    return rArr   //  4个一个的二维数组
+                    return rArr //  4个一个的二维数组
                 // } else {
                 //
                 //     return data
@@ -2047,7 +2094,8 @@
     }
 
     .scroller{
-        max-height: 500px;
+        max-height: 355px;
+        /*margin-bottom: 20px;*/
     }
     .reward-points{
         flex-direction: column;
