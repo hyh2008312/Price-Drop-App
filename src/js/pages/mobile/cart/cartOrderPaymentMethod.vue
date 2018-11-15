@@ -44,20 +44,20 @@
                                 <image class="item-image-2"  :src="codSrc"></image>
                                 <text class="cod-text">Cash/Card on Delivery</text>
                             </div>
-                            <text class="item-text" v-if="order.codUsable.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
+                            <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
 
-                            <div v-if="!order.codUsable.exist ||CODStatus==3||CODStatus==4">
+                            <div v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">
                                 <text class="item-text-err" v-if="codMsg1!=''" >{{codMsg1}}</text> <!--黑名单-->
                                 <text class="item-text-err" v-else >{{codMsg}}</text>  <!--cod-->
 
                             </div>
                         </div>
 
-                        <div v-if="order.codUsable.exist && (CODStatus==1||CODStatus==2)">   <!--可选-->
+                        <div v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">   <!--可选-->
                             <text class="iconfont item-checked" v-if="method == 'cod'">&#xe6fb;</text>
                             <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
                         </div>
-                        <text class="iconfont item-checked-disable" v-if="!order.codUsable.exist ||CODStatus==3||CODStatus==4">&#xe73f;</text> <!--不可选-->
+                        <text class="iconfont item-checked-disable" v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">&#xe73f;</text> <!--不可选-->
                     </div>
                 </div>
             </cell>
@@ -148,7 +148,7 @@ export default {
     eros: {
         appeared (params, option) {
             this.order = params.data;
-            this.codMsg = params.data.codUsable.notes;
+            this.codMsg = params.data.cod.notes;
             // this.$notice.alert({
             //     message: this.order.cod
             // })
@@ -274,12 +274,12 @@ export default {
         },
         chooseMethod (e) {
             if (e == 'cod') {
-                if (this.order.codUsable.exist && this.CODStatus == 1) {
+                if (this.order.cod.exist && this.CODStatus == 1) {
                     this.method = e;
                     this.isCanPay = false;
                     this.isShow = true;
                     common.changeAndroidCanBack(false)
-                } else if (this.order.codUsable.exist && this.CODStatus == 2) {
+                } else if (this.order.cod.exist && this.CODStatus == 2) {
                     this.method = e;
                     this.isCanPay = true;
                 } else if (this.CODStatus == 3) {}
