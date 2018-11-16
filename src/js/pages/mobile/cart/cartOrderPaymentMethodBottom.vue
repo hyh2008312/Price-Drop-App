@@ -239,6 +239,7 @@
                             // });
                         });
                     } else if (that.method == 'cod') {
+                        that.$notice.loading.show();
                         googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-COD', 0);
                         this.$emit('change', 1)
                         this.$fetch({
@@ -254,6 +255,7 @@
                             }
                         }).then((res) => {
                             googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-COD success return', 0);
+                            that.$notice.loading.hide();
                             that.$router.finish();
                             that.$router.open({
                                 name: 'order.success',
@@ -265,6 +267,7 @@
                             });
                             this.$event.emit('closePayment');
                         }).catch((res) => {
+                            that.$notice.loading.hide();
                             // this.$notice.toast({
                             //     message: res
                             // })

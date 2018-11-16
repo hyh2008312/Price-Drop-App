@@ -82,6 +82,7 @@
         },
         methods: {
             getCard () {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     url: `${baseUrl}/point/voucher/user/`, // 通过get 获取我自己的积分卡
@@ -111,10 +112,12 @@
                             this.selCardId = this.cardArr[0].id
                         }
                     }
+                    this.$notice.loading.hide();
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    this.$notice.loading.hide();
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             tickCard (i, card) {
