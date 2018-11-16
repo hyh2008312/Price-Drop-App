@@ -180,10 +180,11 @@
                                         method: 'POST', // 大写
                                         name: 'payment.cart.razorpay.check',
                                         data: {
-                                            orderId: order.order.id,
+                                            orderId: that.order.id,
                                             razorpayPaymentId: param.razorPaymentId,
                                             razorpayOrderId: param.razorOrderId,
-                                            razorpaySignature: param.razorSignature
+                                            razorpaySignature: param.razorSignature,
+                                            bonus: that.checked ? that.checked : null
                                         },
                                         header: {
                                             needAuth: true
