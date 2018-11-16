@@ -236,6 +236,7 @@
                             });
                         });
                     } else if (that.method == 'cod') {
+                        that.$notice.loading.show();
                         this.$emit('change', 1);
                         this.$fetch({
                             method: 'POST',
@@ -249,6 +250,7 @@
                                 bonus: this.checked ? this.checked : null
                             }
                         }).then((res) => {
+                            that.$notice.loading.hide();
                             that.$router.finish();
                             that.$router.open({
                                 name: 'order.success',
