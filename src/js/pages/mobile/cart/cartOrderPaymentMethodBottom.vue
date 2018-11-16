@@ -42,12 +42,15 @@
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             if (resData.amount <= 0) {
+                                that.$event.emit('getMyWallet');
+                                that.$event.emit('closePayment');
                                 that.$router.finish();
                                 that.$router.open({
                                     name: 'order.success',
                                     type: 'PUSH',
                                     params: {
-                                        source: that.source
+                                        source: that.source,
+                                        order: that.order
                                     }
                                 });
                                 return;
@@ -75,6 +78,7 @@
                                         }).then(resData => {
                                             googleAnalytics.facebookRecordEvent('fb_mobile_purchase', '', '', 'Rs', paymentAmount);
                                             that.$event.emit('getMyWallet');
+                                            that.$event.emit('closePayment');
                                             that.$notice.loading.hide();
                                             that.$router.finish();
                                             that.$router.open({
@@ -148,24 +152,27 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            const order = resData;
+                            const order = resData.order;
                             const user = that.$storage.getSync('user');
                             const price = resData.amount.split('.');
                             const payAmount = price[0] + price[1];
                             if (payAmount <= 0) {
+                                that.$event.emit('getMyWallet');
+                                that.$event.emit('closePayment');
                                 that.$router.finish();
                                 that.$router.open({
                                     name: 'order.success',
                                     type: 'PUSH',
                                     params: {
-                                        source: that.source
+                                        source: that.source,
+                                        order: that.order
                                     }
                                 });
                                 return;
                             }
                             googleAnalytics.trackingScreen('Select Payment');
-                            pay.startPayRequest(order.razorpayOrderId, order.order.lines[0].title, 'Order#: ' + order.orderNumber,
-                                that.order.lines[0].mainImage, parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
+                            pay.startPayRequest(resData.razorpayOrderId, 'Order#: ' + order.number, 'Order#: ' + order.number,
+                                '', parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
                                     googleAnalytics.recordEvent('Razorpay', 'Pay Now Success', that.order.id, 0);
                                     that.$notice.loading.show();
@@ -191,7 +198,8 @@
                                             name: 'order.success',
                                             type: 'PUSH',
                                             params: {
-                                                source: that.source
+                                                source: that.source,
+                                                order: that.order
                                             }
                                         });
                                     }, error => {
@@ -266,7 +274,8 @@
                                     order: that.order
                                 }
                             });
-                            this.$event.emit('closePayment');
+                            that.$event.emit('getMyWallet');
+                            that.$event.emit('closePayment');
                         }).catch((res) => {
                             that.$notice.loading.hide();
                             // this.$notice.toast({
