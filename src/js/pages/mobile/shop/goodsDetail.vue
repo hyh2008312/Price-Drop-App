@@ -18,7 +18,7 @@
                     <text class="iiileft">&#xe6f6;</text>
                 </div>
                 <text class="iiiright" v-if="purchaseMethod==='direct'||purchaseMethod==='drop'" @click="openLink">&#xe700;</text>
-                <div class="red-dot" v-if="(dropGoods>0)&&(purchaseMethod==='direct'||purchaseMethod==='drop')"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
+                <div class="red-dot" v-if="(dropGoods>0)&&(purchaseMethod==='direct'||purchaseMethod==='drop')"><text style="color: white;font-size: 18px">{{dropGoods}}</text></div>
                 <flash v-if="purchaseMethod==='flash'"
                        :hour="ahour"
                        :min="amin"
@@ -240,38 +240,37 @@
 
             <!--<div style="display: none" ref="policy"></div>-->
 
-            <div class="bottom-btn" v-if="purchaseMethod === 'drop'" >
-                <div v-if="productStatus==='unpublished'">
-                    <text class="button-gray"  >Unavailable</text>
-                </div>
-                <div v-if="productStatus==='published'">
-                    <text class="button-purple" @click="openCutPrice" v-if="canBuy">Invite Friends to Drop Price</text>
-                    <text class="button-gray"  v-if="!canBuy">Out of Stock</text>
-                </div>
-            </div>
-
-            <div class="bottom-btn" v-if="purchaseMethod !== 'drop'">
-                <div v-if="productStatus==='unpublished'">
-                    <text class="button-gray"  >Unavailable</text>
-                </div>
-
-                <div v-if="productStatus==='published'">
-                    <!--<text class="button" @click="openBuyNow" v-if="canBuy" >Buy Now</text>-->
-                    <div class="over-flow-cart">
-                        <div class="c-i-d" @click="openMyCart">
-                            <div class="cart-red-dot"><text style="color: white;font-size: 15px">{{cartNum}}</text></div>
-                            <text class="cart-icon iconfont">&#xe754;</text>
-                        </div>
-                        <text class="a-t-c" @click="addCart">Add to Cart</text>
-                        <text class="b-n" @click="openBuyNow">Buy Now</text>
-                    </div>
-
-                    <text class="button-gray"  v-if="!canBuy" >Out of Stock</text>
-                </div>
-            </div>
-
-
         </scroller>
+
+        <div class="bottom-btn" v-if="purchaseMethod === 'drop'" >
+            <div v-if="productStatus==='unpublished'">
+                <text class="button-gray"  >Unavailable</text>
+            </div>
+            <div v-if="productStatus==='published'">
+                <text class="button-purple" @click="openCutPrice" v-if="canBuy">Invite Friends to Drop Price</text>
+                <text class="button-gray"  v-if="!canBuy">Out of Stock</text>
+            </div>
+        </div>
+
+        <div class="bottom-btn" v-if="purchaseMethod !== 'drop'">
+            <div v-if="productStatus==='unpublished'">
+                <text class="button-gray"  >Unavailable</text>
+            </div>
+
+            <div v-if="productStatus==='published'">
+                <!--<text class="button" @click="openBuyNow" v-if="canBuy" >Buy Now</text>-->
+                <div class="over-flow-cart">
+                    <div class="c-i-d" @click="openMyCart" >
+                        <div class="cart-red-dot"><text style="color: white;font-size: 15px">{{cartNum}}</text></div>
+                        <text class="cart-icon iconfont">&#xe754;</text>
+                    </div>
+                    <text class="a-t-c" @click="addCart">Add to Cart</text>
+                    <text class="b-n" @click="openBuyNow">Buy Now</text>
+                </div>
+
+                <text class="button-gray"  v-if="!canBuy" >Out of Stock</text>
+            </div>
+        </div>
 
         <wxc-popup :have-overlay="isTrue"
                    popup-color="rgb(255, 255, 255)"
@@ -279,7 +278,7 @@
                    @wxcPopupOverlayClicked="popupCloseClick"
                    pos="bottom"
                    ref="wxcPopup"
-                   height="850">
+                   height="870">
             <div class="popup-content">
                 <div class="popup-top">
                     <image :src="selimgsrc"
@@ -677,16 +676,15 @@
             },
             getGoodsDetail (id) {
                 if (id) {
-                    // this.$notice.toast({
+                    // this.$notice.alert({
                     //     message: id
                     // })
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/1116/`,
+                        // url: `${baseUrl}/product/customer/detail/1182/`,
                         data: {}
                     }).then((res) => {
-
                         this.goods.productSpecification = res.productSpecification
                         this.purchaseMethod = res.purchaseMethod;
                         if (this.purchaseMethod === 'flash') {
@@ -2048,20 +2046,22 @@
         width: 750px;
     }
     .c-i-d{
-        background-color: #FFFFFF;
+        background-color: #fff;
         /*padding: 0 50px;*/
+        height: 110px;
         width: 124px;
     }
     .cart-icon{
         text-align: center;
         font-size: 42px;
+        margin-top: 30px;
     }
     .cart-red-dot{
         width: 20px;
         height: 20px;
         background-color: red;
         position: absolute;
-        top:0;
+        top:25px;
         right:24px;
         border-radius:24px ;
         flex-direction: row;
@@ -2094,7 +2094,7 @@
     }
 
     .scroller{
-        max-height: 355px;
+        max-height: 380px;
         /*margin-bottom: 20px;*/
     }
     .reward-points{
