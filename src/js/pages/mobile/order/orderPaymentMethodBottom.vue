@@ -39,12 +39,16 @@
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             if (resData.amount <= 0) {
+                                that.$event.emit('getMyWallet');
+                                that.$event.emit('paid');
+                                that.$event.emit('closePayment');
                                 that.$router.finish();
                                 that.$router.open({
                                     name: 'order.success',
                                     type: 'PUSH',
                                     params: {
-                                        source: that.source
+                                        source: that.source,
+                                        order: that.order
                                     }
                                 });
                                 return;
@@ -72,6 +76,8 @@
                                         }).then(resData => {
                                             googleAnalytics.facebookRecordEvent('fb_mobile_purchase', '', '', 'Rs', paymentAmount);
                                             that.$event.emit('getMyWallet');
+                                            that.$event.emit('paid');
+                                            that.$event.emit('closePayment');
                                             that.$notice.loading.hide();
                                             that.$router.finish();
                                             that.$router.open({
@@ -150,12 +156,16 @@
                             const price = resData.amount.split('.');
                             const payAmount = price[0] + price[1];
                             if (payAmount <= 0) {
+                                that.$event.emit('getMyWallet');
+                                that.$event.emit('paid');
+                                that.$event.emit('closePayment');
                                 that.$router.finish();
                                 that.$router.open({
                                     name: 'order.success',
                                     type: 'PUSH',
                                     params: {
-                                        source: that.source
+                                        source: that.source,
+                                        order: that.order
                                     }
                                 });
                                 return;
@@ -164,7 +174,7 @@
                             pay.startPayRequest(order.razorpayOrderId, order.order.lines[0].title, 'Order#: ' + order.orderNumber,
                                 that.order.lines[0].mainImage, parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
-                                    googleAnalytics.recordEvent('Razorpay', 'Pay Now Success', that.order.id, 0);
+                                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Razorpay sdk success return', 0);
                                     that.$notice.loading.show();
                                     that.$fetch({
                                         method: 'POST', // 大写
@@ -173,7 +183,8 @@
                                             orderId: order.order.id,
                                             razorpayPaymentId: param.razorPaymentId,
                                             razorpayOrderId: param.razorOrderId,
-                                            razorpaySignature: param.razorSignature
+                                            razorpaySignature: param.razorSignature,
+                                            bonus: that.checked ? that.checked : null
                                         },
                                         header: {
                                             needAuth: true
@@ -181,13 +192,16 @@
                                     }).then(resData => {
                                         googleAnalytics.facebookRecordEvent('fb_mobile_purchase', '', '', 'Rs', payAmount);
                                         that.$event.emit('getMyWallet');
+                                        that.$event.emit('paid');
+                                        that.$event.emit('closePayment');
                                         that.$notice.loading.hide();
                                         that.$router.finish();
                                         that.$router.open({
                                             name: 'order.success',
                                             type: 'PUSH',
                                             params: {
-                                                source: that.source
+                                                source: that.source,
+                                                order: that.order
                                             }
                                         });
                                     }, error => {
@@ -258,6 +272,8 @@
                                     order: that.order
                                 }
                             });
+                            that.$event.emit('paid');
+                            that.$event.emit('getMyWallet');
                             this.$event.emit('closePayment');
                         }).catch((res) => {
                             this.$notice.toast({

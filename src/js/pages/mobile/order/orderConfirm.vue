@@ -80,6 +80,9 @@ export default {
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         this.resetPayList();
         googleAnalytics.trackingScreen('Add to Cart');
+        this.$event.on('closePayment', params => {
+            this.$router.finish();
+        });
     },
     data () {
         return {

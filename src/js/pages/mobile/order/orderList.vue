@@ -135,7 +135,12 @@
             });
             this.$event.on('balanceUsed', params => {
                 this.init();
-            })
+            });
+            this.$event.on('paid', params => {
+                if (this.index == this.activeIndex) {
+                    this.init();
+                }
+            });
         },
         destory () {
             this.$event.off('login')
