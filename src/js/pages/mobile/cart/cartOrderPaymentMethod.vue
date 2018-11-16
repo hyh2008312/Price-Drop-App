@@ -23,18 +23,18 @@
                 </div>
             </cell>
 
-            <!--<cell  class="cell-bottom" @click="chooseMethod('razorpay')">-->
-                <!--<div  class="overflow-box">-->
-                    <!--<div class="overflow-box1" >-->
-                        <!--<div>-->
-                            <!--<image class="item-image-1" resize="contain" :src="razorpaySrc"></image>-->
-                            <!--<text class="item-text">UPI / Credit&Debit Card / Net Banking </text>-->
-                        <!--</div>-->
-                        <!--<text class="iconfont item-checked" v-if="method == 'razorpay'">&#xe6fb;</text>-->
-                        <!--<text class="iconfont item-no-checked" v-if="method != 'razorpay'">&#xe73f;</text>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</cell>-->
+            <cell  class="cell-bottom" @click="chooseMethod('razorpay')">
+                <div  class="overflow-box">
+                    <div class="overflow-box1" >
+                        <div>
+                            <image class="item-image-1" resize="contain" :src="razorpaySrc"></image>
+                            <text class="item-text">UPI / Credit&Debit Card / Net Banking </text>
+                        </div>
+                        <text class="iconfont item-checked" v-if="method == 'razorpay'">&#xe6fb;</text>
+                        <text class="iconfont item-no-checked" v-if="method != 'razorpay'">&#xe73f;</text>
+                    </div>
+                </div>
+            </cell>
 
             <cell  class="cell-bottom" @click="chooseMethod('cod')">
                 <div  class="overflow-box b-bottom-r">

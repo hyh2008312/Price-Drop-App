@@ -137,7 +137,7 @@
                         googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'razorpay sdk success return', 0);
                         that.$fetch({
                             method: 'POST', // 大写
-                            name: 'payment.razorpay.create',
+                            name: 'payment.cart.razorpay.create',
                             data: {
                                 orderId: that.order.id,
                                 bonus: this.checked ? this.checked : null
@@ -171,7 +171,7 @@
                                     that.$notice.loading.show();
                                     that.$fetch({
                                         method: 'POST', // 大写
-                                        name: 'payment.razorpay.check',
+                                        name: 'payment.cart.razorpay.check',
                                         data: {
                                             orderId: order.order.id,
                                             razorpayPaymentId: param.razorPaymentId,
@@ -184,6 +184,7 @@
                                     }).then(resData => {
                                         googleAnalytics.facebookRecordEvent('fb_mobile_purchase', '', '', 'Rs', payAmount);
                                         that.$event.emit('getMyWallet');
+                                        that.$event.emit('closePayment');
                                         that.$notice.loading.hide();
                                         that.$router.finish();
                                         that.$router.open({

@@ -34,6 +34,8 @@ export const apis = {
     'product.cut.list': '/product/cut/list/', // 砍价商品的列表
     'promotion.new.cut.list': '/promotion/new/cut/list/', // 我的砍价列表
     'payment.razorpay.check': '/payment/razorpay/check/',
+    'payment.cart.razorpay.check': '/payment/cart/razorpay/check/',
+    'payment.cart.razorpay.create': '/payment/cart/razorpay/create/',
     'order.create.payment': '/order/create/payment/',
     'order.cut.create.payment': '/order/cut/create/payment/',
     'order.create.pure': '/order/create/pure/',
