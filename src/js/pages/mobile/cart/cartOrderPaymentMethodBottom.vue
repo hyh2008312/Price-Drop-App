@@ -171,7 +171,7 @@
                                 return;
                             }
                             googleAnalytics.trackingScreen('Select Payment');
-                            pay.startPayRequest(resData.razorpayOrderId, 'Order#: ' + order.number, 'Order#: ' + order.number,
+                            pay.startPayRequest(resData.razorpayOrderId, order.number, 'Order#: ' + order.number,
                                 '', parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
                                     googleAnalytics.recordEvent('Razorpay', 'Pay Now Success', that.order.id, 0);
