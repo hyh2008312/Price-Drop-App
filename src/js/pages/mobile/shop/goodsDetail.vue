@@ -18,7 +18,7 @@
                     <text class="iiileft">&#xe6f6;</text>
                 </div>
                 <text class="iiiright" v-if="purchaseMethod==='direct'||purchaseMethod==='drop'" @click="openLink">&#xe700;</text>
-                <div class="red-dot" v-if="(dropGoods>0)&&(purchaseMethod==='direct'||purchaseMethod==='drop')"><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
+                <div class="red-dot" v-if="(dropGoods>0)&&(purchaseMethod==='direct'||purchaseMethod==='drop')"><text style="color: white;font-size: 18px">{{dropGoods}}</text></div>
                 <flash v-if="purchaseMethod==='flash'"
                        :hour="ahour"
                        :min="amin"
@@ -279,7 +279,7 @@
                    @wxcPopupOverlayClicked="popupCloseClick"
                    pos="bottom"
                    ref="wxcPopup"
-                   height="850">
+                   height="870">
             <div class="popup-content">
                 <div class="popup-top">
                     <image :src="selimgsrc"
@@ -683,7 +683,7 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/1116/`,
+                        // url: `${baseUrl}/product/customer/detail/1182/`,
                         data: {}
                     }).then((res) => {
 
@@ -2094,7 +2094,7 @@
     }
 
     .scroller{
-        max-height: 355px;
+        max-height: 380px;
         /*margin-bottom: 20px;*/
     }
     .reward-points{
