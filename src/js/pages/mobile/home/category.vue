@@ -55,6 +55,7 @@
     import block7 from './block7';
     import toggle from './toggle';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+    import { baseUrl } from '../../../config/apis';
 
     export default {
         components: {
@@ -127,10 +128,10 @@
             },
             getActivityParam (resData) {
                 this.id = resData.id;
-                this.name = resData.name;
                 googleAnalytics.trackingScreen(`Product/${this.name}`);
                 this.$notice.loading.show();
                 this.getActivityProduct(true, false);
+                this.getActivityCategory();
             },
             getActivityProduct (isfirst, arrange) {
                 if (isfirst) {
@@ -195,6 +196,14 @@
                         message: JSON.stringify(error)
                     });
                 })
+            },
+            getActivityCategory () {
+                this.$fetch({
+                    method: 'GET',
+                    url: `${baseUrl}/product/category/${this.id}/`
+                }).then(data => {
+                    this.name = data.name;
+                }, error => {});
             },
             jumpWeb (id) {
                 this.$router.open({
