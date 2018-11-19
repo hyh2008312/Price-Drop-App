@@ -21,7 +21,11 @@
                 const that = this;
                 if (!this.isFirst) {
                     this.isFirst = true;
-                    if (that.method == 'paytm') {
+                    if (that.method == 'paytU') {
+                        that.$notice.loading.show();
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'payU', 'Rs', 0);
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'payU', 0);
+                    } else if (that.method == 'paytm') {
                         that.$notice.loading.show();
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'paytm', 'Rs', 0);
                         googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm', 0);
