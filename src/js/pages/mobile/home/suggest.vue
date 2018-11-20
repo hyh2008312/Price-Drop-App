@@ -30,7 +30,7 @@
                 </div>
             </cell>
             <cell v-if="activity && activity.length > 0">
-                <block-2 :goodsList="activity" :time="time"></block-2>
+                <block-2 :goodsList="activity" :time="time" v-on:zero="getActivity"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
                 <block-5 :logo="block5.items"></block-5>

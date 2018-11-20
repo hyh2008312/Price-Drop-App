@@ -198,7 +198,8 @@
                     name: 'raffle.result',
                     type: 'PUSH',
                     params: {
-                        id: this.item.id
+                        id: this.item.id,
+                        saleUnitPrice: parseInt(this.item.saleUnitPrice)
                     }
                 });
             },
@@ -230,7 +231,8 @@
                                 name: 'raffle.result',
                                 type: 'PUSH',
                                 params: {
-                                    id: this.item.id
+                                    id: this.item.id,
+                                    saleUnitPrice: parseInt(this.item.saleUnitPrice)
                                 }
                             })
                         } else {
