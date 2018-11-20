@@ -159,6 +159,9 @@
             this.$event.on('logout', parmas => {
                 this.initPage()
             })
+            this.$event.on('login', parmas => {
+                this.initPage()
+            })
             this.$event.on('readR', parmas => {
                 this.dotNum = 0
             })
@@ -457,7 +460,7 @@
                     this.time = this.cardArr[this.selindex].startTime
                     this.endTime = this.cardArr[this.selindex].endTime
 
-                    this.page++
+                    // this.page++
                     this.$notice.loading.hide();
                     this.hasWifi = true
                 }).catch((res) => {
