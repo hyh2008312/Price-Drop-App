@@ -41,4 +41,10 @@ public class PayModule extends WXModule {
         ((MainActivity) mWXSDKInstance.getContext()).onStartTransaction(orderId,custId, txnAmount, mobileNo, email, calllbackUrl,checkSumHash);
 
     }
+    @JSMethod
+    public void startPayUmoneyRequest(String txnId, String amount ,String email ,String phone,
+            String productName , String firstName, String merchantHash, JSCallback PaySuccessCallback, JSCallback PayFailedCallback) {
+        ((MainActivity) mWXSDKInstance.getContext()).setPayUCallBack(PaySuccessCallback, PayFailedCallback);
+        ((MainActivity) mWXSDKInstance.getContext()).startPayUmoneyRequest(txnId,amount, email, phone, productName,firstName,merchantHash);
+    }
 }

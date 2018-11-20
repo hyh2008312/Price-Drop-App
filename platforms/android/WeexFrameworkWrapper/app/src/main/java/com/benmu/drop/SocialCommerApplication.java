@@ -2,6 +2,7 @@ package com.benmu.drop;
 
 import android.app.Application;
 
+import com.benmu.drop.activity.utils.AppEnvironment;
 import com.benmu.framework.BMWXApplication;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -19,15 +20,21 @@ public class SocialCommerApplication extends BMWXApplication {
     private static GoogleAnalytics sAnalytics;
     private static Tracker sTracker;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private AppEnvironment appEnvironment;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
         initGoogleAnalytics();
+        initPayU();
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+    }
+    // 初始化payu参数
+    private void initPayU() {
+        this.appEnvironment = AppEnvironment.PRODUCTION;
     }
 
     /**
@@ -48,8 +55,11 @@ public class SocialCommerApplication extends BMWXApplication {
             sTracker = sAnalytics.newTracker(R.xml.global_tracker);
             sTracker.enableExceptionReporting(true);
         }
-
         return sTracker;
+    }
+
+    public AppEnvironment getAppEnvironment() {
+        return appEnvironment;
     }
 
 }

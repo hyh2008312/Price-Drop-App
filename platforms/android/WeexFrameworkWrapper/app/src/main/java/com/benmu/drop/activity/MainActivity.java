@@ -1,13 +1,17 @@
 package com.benmu.drop.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.benmu.drop.SocialCommerApplication;
 import com.benmu.drop.activity.bean.LoginDto;
 import com.benmu.drop.activity.bean.PayDto;
 
@@ -17,6 +21,7 @@ import com.benmu.drop.activity.module.GoogleAnalyticsModule;
 import com.benmu.drop.activity.module.GoogleLoginModule;
 import com.benmu.drop.activity.module.PayModule;
 import com.benmu.drop.activity.module.ShareModule;
+import com.benmu.drop.activity.utils.AppEnvironment;
 import com.benmu.drop.utils.CommonUtils;
 import com.benmu.framework.activity.AbstractWeexActivity;
 import com.benmu.drop.R;
@@ -39,6 +44,11 @@ import com.google.android.gms.tasks.Task;
 import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
+import com.payumoney.core.PayUmoneyConfig;
+import com.payumoney.core.PayUmoneySdkInitializer;
+import com.payumoney.core.entity.TransactionResponse;
+import com.payumoney.sdkui.ui.utils.PayUmoneyFlowManager;
+import com.payumoney.sdkui.ui.utils.ResultModel;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
@@ -53,6 +63,7 @@ import java.util.HashMap;
 
 
 public class MainActivity extends AbstractWeexActivity implements PaymentResultWithDataListener {
+    public static final String TAG = "MainActivity : ";
     private JSCallback googleSuccessCallback;
     private JSCallback googleFailedCallback;
     // facebook login callback
@@ -61,9 +72,12 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
     // 支付回调
     private JSCallback paySuccessCallback;
     private JSCallback payFailedCallback;
-    // 支付回调
+    // 支付回调paytm
     private JSCallback paytmSuccessCallback;
     private JSCallback paytmFailedCallback;
+    // 支付回调 payU
+    private JSCallback payuSuccessCallback;
+    private JSCallback payuFailedCallback;
     private static final int RC_SIGN_IN = 12321;
 
     private CallbackManager mCallbackManager;
@@ -77,6 +91,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
 
     private boolean isCanBack = true;
     private JSCallback jsCanBackCallback;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +216,50 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
+        // Result Code is -1 send from Payumoney activity
+        Log.d("MainActivity", "request code " + requestCode + " resultcode " + resultCode);
+        if (requestCode == PayUmoneyFlowManager.REQUEST_CODE_PAYMENT && resultCode == RESULT_OK && data !=
+                null) {
+            this.payuResult(data);
+        }else if (requestCode == PayUmoneyFlowManager.REQUEST_CODE_PAYMENT && resultCode == RESULT_CANCELED){
+            this.payuFailedCallback.invoke("failed");
+        }
+    }
+
+    public void payuResult(Intent data){
+        TransactionResponse transactionResponse = data.getParcelableExtra(PayUmoneyFlowManager
+                .INTENT_EXTRA_TRANSACTION_RESPONSE);
+        ResultModel resultModel = data.getParcelableExtra(PayUmoneyFlowManager.ARG_RESULT);
+        // Check which object is non-null
+        if (transactionResponse != null && transactionResponse.getPayuResponse() != null) {
+            if (transactionResponse.getTransactionStatus().equals(TransactionResponse.TransactionStatus.SUCCESSFUL)) {
+                //Success Transaction
+                this.payuSuccessCallback.invoke("success");
+            } else {
+                //Failure Transaction
+                this.payuFailedCallback.invoke("failed");
+            }
+            // Response from Payumoney
+            String payuResponse = transactionResponse.getPayuResponse();
+            Log.d(TAG, "======>"+payuResponse);
+            // Response from SURl and FURL
+            String merchantResponse = transactionResponse.getTransactionDetails();
+            Log.d(TAG, "======>"+merchantResponse);
+            new AlertDialog.Builder(this)
+                    .setCancelable(false)
+                    .setMessage("Payu's Data : " + payuResponse + "\n\n\n Merchant's Data: " + merchantResponse)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        } else if (resultModel != null && resultModel.getError() != null) {
+            this.payuFailedCallback.invoke("failed");
+            Log.d(TAG, "Error response : " + resultModel.getError().getTransactionResponse());
+        } else {
+            this.payuFailedCallback.invoke("failed");
+            Log.d(TAG, "Both objects are null!");
+        }
     }
 
     public void setPayCallBack(JSCallback paySuccessCallback, JSCallback payFailedCallback) {
@@ -211,6 +270,10 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
     public void setPaytmCallBack(JSCallback paySuccessCallback, JSCallback payFailedCallback) {
         this.paytmSuccessCallback = paySuccessCallback;
         this.paytmFailedCallback = payFailedCallback;
+    }
+    public void setPayUCallBack(JSCallback paySuccessCallback, JSCallback payFailedCallback) {
+        this.payuSuccessCallback = paySuccessCallback;
+        this.payuFailedCallback = payFailedCallback;
     }
 
     public void setGoogleCallback(JSCallback googleSuccessCallback, JSCallback googleFailedCallback) {
@@ -442,5 +505,75 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
             this.jsCanBackCallback.invokeAndKeepAlive(new Object());
         }
 
+    }
+
+    // payUmoney支付
+    public void startPayUmoneyRequest(String txnId, String amount ,String email ,String phone,
+                                       String productName , String firstName, String merchantHash) {
+
+        PayUmoneyConfig payUmoneyConfig = PayUmoneyConfig.getInstance();
+
+        //Use this to set your custom text on result screen button
+        payUmoneyConfig.setDoneButtonText("Complete");
+
+        //Use this to set your custom title for the activity
+        payUmoneyConfig.setPayUmoneyActivityTitle("Payment");
+
+        //
+        AppEnvironment appEnvironment = ((SocialCommerApplication) getApplication()).getAppEnvironment();
+
+        payUmoneyConfig.disableExitConfirmation(false);
+
+        PayUmoneySdkInitializer.PaymentParam.Builder builder = new PayUmoneySdkInitializer.PaymentParam.Builder();
+
+        PayUmoneySdkInitializer.PaymentParam mPaymentParams;
+
+        double amountMoney = 0;
+        try {
+            amountMoney = Double.parseDouble(amount);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String udf1 = "";
+        String udf2 = "";
+        String udf3 = "";
+        String udf4 = "";
+        String udf5 = "";
+        String udf6 = "";
+        String udf7 = "";
+        String udf8 = "";
+        String udf9 = "";
+        String udf10 = "";
+        builder.setAmount(amountMoney)
+                .setTxnId(txnId)
+                .setPhone(phone)
+                .setProductName(productName)
+                .setFirstName(firstName)
+                .setEmail(email)
+                .setsUrl(appEnvironment.surl())
+                .setfUrl(appEnvironment.furl())
+                .setUdf1(udf1)
+                .setUdf2(udf2)
+                .setUdf3(udf3)
+                .setUdf4(udf4)
+                .setUdf5(udf5)
+                .setUdf6(udf6)
+                .setUdf7(udf7)
+                .setUdf8(udf8)
+                .setUdf9(udf9)
+                .setUdf10(udf10)
+                .setIsDebug(appEnvironment.debug())
+                .setKey(appEnvironment.merchant_Key())
+                .setMerchantId(appEnvironment.merchant_ID());
+        try {
+            mPaymentParams = builder.build();
+            mPaymentParams.setMerchantHash(merchantHash);
+            PayUmoneyFlowManager.startPayUMoneyFlow(mPaymentParams, MainActivity.this, R.style.AppTheme_Blue, true);
+        } catch (Exception e) {
+            // some exception occurred
+            this.payuFailedCallback.invoke("failed");
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }
