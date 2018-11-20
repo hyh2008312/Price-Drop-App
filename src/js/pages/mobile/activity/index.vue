@@ -25,7 +25,7 @@
                         <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                 </div>
-                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.id)">
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
@@ -57,7 +57,7 @@
                         <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                 </div>
-                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.id)">
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
@@ -89,7 +89,7 @@
                         <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                 </div>
-                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.id)">
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
@@ -121,7 +121,7 @@
                         <text class="gd-price">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
                     </div>
                 </div>
-                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.id)">
+                <div class="i-good" v-if="index % 3 == 1" @click="jumpItem(i.productId)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
                     </div>
@@ -203,10 +203,12 @@
                 this.getActivityProduct(true);
             },
             getActivityProduct (isfirst, id) {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     url: `${baseUrl}/product/app/topic/detail/${this.id}/`
                 }).then(data => {
+                    this.$notice.loading.hide();
                     this.name = data.name;
                     this.imageUrl = data.image;
                     this.bgColor = data.color;

@@ -112,6 +112,9 @@
         },
         created () {
             googleAnalytics.trackingScreen('CartOrder');
+            this.$event.on('closePayment', params => {
+                this.$router.finish();
+            });
         },
         methods: {
             getAddress () {

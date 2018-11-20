@@ -10,8 +10,21 @@
                 <!--<text class="title-1">Payment Method</text>-->
             <!--</cell>-->
 
-            <cell class="cell-bottom "  @click="chooseMethod('paytm')">
+            <cell class="cell-bottom"  @click="chooseMethod('payU')">
                 <div  class="overflow-box b-top-r">
+                    <div class="overflow-box1" >
+                        <div>
+                            <image class="item-image-3" resize="contain" :src="payUSrc"></image>
+                            <text class="item-text">UPI / Card / Net Banking / Wallet / PhonePe / G Pay</text>
+                        </div>
+                        <text class="iconfont item-checked" v-if="method == 'payU'">&#xe6fb;</text>
+                        <text class="iconfont item-no-checked" v-if="method != 'payU'">&#xe73f;</text>
+                    </div>
+                </div>
+            </cell>
+
+            <cell class="cell-bottom "  @click="chooseMethod('paytm')">
+                <div  class="overflow-box">
                     <div class="overflow-box1" >
                         <div>
                             <image class="item-image" resize="contain" :src="paytmSrc"></image>
@@ -192,9 +205,10 @@ export default {
     data () {
         return {
             title: 'Payment',
-            method: 'paytm',
+            method: 'payU',
             paytmSrc: 'bmlocal://assets/paytm.png',
             razorpaySrc: 'bmlocal://assets/razorpay.png',
+            payUSrc: 'bmlocal://assets/payu.png',
             codSrc: 'bmlocal://assets/COD-01.png',
             source: 'confirm',
             order: {
@@ -581,6 +595,11 @@ export default {
     .item-image{
         width: 152px;
         height: 48px;
+    }
+
+    .item-image-3{
+        width: 101px;
+        height: 50px;
     }
 
     .item-text{

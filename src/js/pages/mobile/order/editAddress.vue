@@ -191,6 +191,7 @@ export default {
             this.address.phoneNumberConfirm = event.value;
         },
         getAddress (id) {
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'GET', // 大写
                 url: `${baseUrl}/address/shipping/detail/${id}/`,
@@ -203,7 +204,9 @@ export default {
                     this.address[k] = resData[k]
                 }
                 this.chooseState = resData.stateName
+                this.$notice.loading.hide();
             }, error => {
+                this.$notice.loading.hide();
                 // 错误回调
                 this.$notice.toast({
                     message: error
