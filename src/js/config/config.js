@@ -76,5 +76,8 @@ export const apis = {
     'user.verify.mobile.code': '/user/verify/mobile/code/',
     'user.check.mobile.status': '/user/check/mobile/status/',
     'product.category.product.home.new.list': '/product/category/product/home/new/list/',
-    'payment.payu.checksum': '/payment/payu/checksum/'
+    'payment.payu.checksum': '/payment/payu/checksum/',
+    'payment.payu.status': '/payment/payu/status/',
+    'payment.cart.payu.checksum': '/payment/cart/payu/checksum/',
+    'payment.cart.payu.status': '/payment/cart/payu/status/'
 }

@@ -38,9 +38,7 @@
                         }).then(resData => {
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            const order = resData;
-                            const price = resData.amount.split('.');
-                            const payAmount = price[0] + price[1];
+                            const payAmount = resData.payment.amount;
                             if (payAmount <= 0) {
                                 that.$event.emit('getMyWallet');
                                 that.$event.emit('paid');
@@ -56,18 +54,84 @@
                                 });
                                 return;
                             }
-                        googleAnalytics.trackingScreen('Select Payment');
-                        pay.startPayUmoneyRequest(order.payuTxnid, payAmount, resData.order.email, resData.order.phoneNumber, 'Normal:' + resData.order.number,
-                            resData.order.username, order.payuHash, (data) => {
+                            googleAnalytics.trackingScreen('Select Payment');
+                            pay.startPayUmoneyRequest(resData.posted.txnid, resData.payment.amount, resData.posted.email,
+                                resData.payment.order.phoneNumber, resData.posted.productinfo,
+                                resData.posted.firstname, resData.payment.payuHash, (data) => {
                                 googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'payU sdk success return', 0);
-                                this.$notice.alert({
-                                    message: data
-                                });
+                                    if (data.code == 200) {
+                                        that.$notice.loading.show();
+                                        that.$fetch({
+                                            method: 'POST', // 大写
+                                            name: 'payment.payu.status',
+                                            data: {
+                                                txnid: data.txnid,
+                                                amount: data.amount,
+                                                additionalCharges: data.additionalCharges,
+                                                email: data.email,
+                                                firstname: data.firstname,
+                                                hash: data.hash,
+                                                productinfo: data.productinfo,
+                                                status: data.status,
+                                                key: data.key,
+                                                orderId: resData.payment.order.id,
+                                                bonus: that.checked ? that.checked : null
+                                            },
+                                            header: {
+                                                needAuth: true
+                                            }
+                                        }).then(resData => {
+                                            googleAnalytics.facebookRecordEvent('fb_mobile_purchase', '', '', 'Rs', payAmount);
+                                            that.$event.emit('getMyWallet');
+                                            that.$event.emit('paid');
+                                            that.$event.emit('closePayment');
+                                            that.$notice.loading.hide();
+                                            that.$router.finish();
+                                            that.$router.open({
+                                                name: 'order.success',
+                                                type: 'PUSH',
+                                                params: {
+                                                    source: that.source,
+                                                    order: that.order
+                                                }
+                                            });
+                                        }, error => {
+                                            that.$notice.toast({
+                                                message: error
+                                            });
+                                        })
+                                    }
                                 that.isFirst = false;
                             }, (data) => {
-                                this.$notice.alert({
-                                    message: data
-                                });
+                                if (that.source == 'confirm') {
+                                    that.$router.finish();
+                                    if (data.code == 300) {
+                                        that.$router.open({
+                                            name: 'order.failure',
+                                            type: 'PUSH',
+                                            params: {
+                                                source: that.source
+                                            }
+                                        });
+                                    } else {
+                                        that.$router.open({
+                                            name: 'order',
+                                            type: 'PUSH'
+                                        });
+                                    }
+                                } else {
+                                    if (data.code == 300) {
+                                        that.$router.open({
+                                            name: 'order.failure',
+                                            type: 'PUSH',
+                                            params: {
+                                                source: that.source
+                                            }
+                                        });
+                                    } else {
+                                        that.$router.finish();
+                                    }
+                                }
                                 that.isFirst = false;
                             });
                         }, error => {
