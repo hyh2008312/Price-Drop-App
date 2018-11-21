@@ -305,7 +305,8 @@
                 <scroller  class="scroller" show-scrollbar="true" v-if="hasVariants">
                     <div class="popup-bxottom">
                         <div v-for="(val, index) in goodsType" :key="index" >
-                            <text class="popup-color">{{val.name}}</text>
+                            <text class="popup-color" v-if="val.name=='Color'">{{goods.aliasColor || val.name}}</text>
+                            <text class="popup-color" v-if="val.name=='Size'">{{goods.aliasSize || val.name}}</text>
 
                             <div  class="popup-color-chd"  v-for="(val1, key1) in tranArr(val.value)" :key="key1">
                                     <text class="popup-color-chdname"
@@ -536,7 +537,9 @@
                     unitPrice: '0.00',
                     cut_get: '',
                     brandLogo: '',
-                    productSpecification: []
+                    productSpecification: [],
+                    aliasSize: '',
+                    aliasColor: ''
                 },
                 dropGoods: 0,
                 nextPage: {
@@ -682,10 +685,15 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/1182/`,
+                        // url: `${baseUrl}/product/customer/detail/8402/`,
                         data: {}
                     }).then((res) => {
+                        // this.$notice.alert({
+                        //     message: res.aliasSize
+                        // })
                         this.goods.productSpecification = res.productSpecification
+                        this.goods.aliasSize = res.aliasSize
+                        this.goods.aliasColor = res.aliasColor
                         this.purchaseMethod = res.purchaseMethod;
                         if (this.purchaseMethod === 'flash') {
                             this.flashSale = res.flashSale;
