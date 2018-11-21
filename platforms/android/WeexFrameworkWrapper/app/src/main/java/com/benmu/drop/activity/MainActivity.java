@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import com.benmu.drop.activity.bean.LoginDto;
 import com.benmu.drop.activity.bean.PayDto;
 
 import com.benmu.drop.activity.bean.PaytmBean;
+import com.benmu.drop.activity.bean.PayuBean;
 import com.benmu.drop.activity.module.FacebookLoginModule;
 import com.benmu.drop.activity.module.GoogleAnalyticsModule;
 import com.benmu.drop.activity.module.GoogleLoginModule;
@@ -56,6 +58,7 @@ import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -234,10 +237,35 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         if (transactionResponse != null && transactionResponse.getPayuResponse() != null) {
             if (transactionResponse.getTransactionStatus().equals(TransactionResponse.TransactionStatus.SUCCESSFUL)) {
                 //Success Transaction
-                this.payuSuccessCallback.invoke("success");
+                String payuResponse = transactionResponse.getPayuResponse();
+                if(!TextUtils.isEmpty(payuResponse)){
+                    try {
+                        PayuBean bean = new PayuBean();
+                        JSONObject jsonObject = new JSONObject(payuResponse);
+                        JSONObject result = jsonObject.getJSONObject("result");
+                        bean.setCode(200);
+                        bean.setAmount(result.getString("amount"));
+                        bean.setAdditionalCharges(result.getString("additionalCharges"));
+                        bean.setEmail(result.getString("email"));
+                        bean.setFirstname(result.getString("firstname"));
+                        bean.setHash(result.getString("hash"));
+                        bean.setProductinfo(result.getString("productinfo"));
+                        bean.setStatus(result.getString("status"));
+                        Log.d(TAG,bean.getAmount()+bean.getAdditionalCharges()+
+                                bean.getEmail()+bean.getFirstname()+bean.getStatus());
+                        this.payuSuccessCallback.invoke(bean);
+                    } catch (JSONException e) {
+                        PayuBean bean = new PayuBean();
+                        bean.setCode(300);
+                        this.payuFailedCallback.invoke(bean);
+                        e.printStackTrace();
+                    }
+                }
             } else {
                 //Failure Transaction
-                this.payuFailedCallback.invoke("failed");
+                PayuBean bean = new PayuBean();
+                bean.setCode(300);
+                this.payuFailedCallback.invoke(bean);
             }
             // Response from Payumoney
             String payuResponse = transactionResponse.getPayuResponse();
@@ -245,19 +273,25 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
             // Response from SURl and FURL
             String merchantResponse = transactionResponse.getTransactionDetails();
             Log.d(TAG, "======>"+merchantResponse);
-            new AlertDialog.Builder(this)
+            /*new AlertDialog.Builder(this)
                     .setCancelable(false)
                     .setMessage("Payu's Data : " + payuResponse + "\n\n\n Merchant's Data: " + merchantResponse)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             dialog.dismiss();
                         }
-                    }).show();
+                    }).show();*/
         } else if (resultModel != null && resultModel.getError() != null) {
-            this.payuFailedCallback.invoke("failed");
+            //Failure Transaction
+            PayuBean bean = new PayuBean();
+            bean.setCode(300);
+            this.payuFailedCallback.invoke(bean);
             Log.d(TAG, "Error response : " + resultModel.getError().getTransactionResponse());
         } else {
-            this.payuFailedCallback.invoke("failed");
+            //Failure Transaction
+            PayuBean bean = new PayuBean();
+            bean.setCode(300);
+            this.payuFailedCallback.invoke(bean);
             Log.d(TAG, "Both objects are null!");
         }
     }
@@ -572,7 +606,10 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
             PayUmoneyFlowManager.startPayUMoneyFlow(mPaymentParams, MainActivity.this, R.style.AppTheme_Blue, true);
         } catch (Exception e) {
             // some exception occurred
-            this.payuFailedCallback.invoke("failed");
+            //Failure Transaction
+            PayuBean bean = new PayuBean();
+            bean.setCode(300);
+            this.payuFailedCallback.invoke(bean);
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
