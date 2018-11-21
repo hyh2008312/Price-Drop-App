@@ -57,7 +57,7 @@
                                 return;
                             }
                         googleAnalytics.trackingScreen('Select Payment');
-                        pay.startPayUmoneyRequest(order.order, payAmount, resData.order.email, resData.order.phoneNumber, 'Normal:' + resData.order.number,
+                        pay.startPayUmoneyRequest(order.payuTxnid, payAmount, resData.order.email, resData.order.phoneNumber, 'Normal:' + resData.order.number,
                             resData.order.username, order.payuHash, (data) => {
                                 googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'payU sdk success return', 0);
                                 this.$notice.alert({
