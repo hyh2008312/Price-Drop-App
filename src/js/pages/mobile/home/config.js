@@ -68,7 +68,7 @@ export const PRODUCTS = [{
     width: 162,
     color: '#f8b233',
     src: 'http://image.getpricedrop.com/banner/20181029/electronics-2.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181029/electronics-2-bg.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/1.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -101,7 +101,7 @@ export const PRODUCTS = [{
     width: 163,
     color: '#6822d3',
     src: 'http://image.getpricedrop.com/banner/20181029/jewellery.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181029/jewellery-bg.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/5.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -134,7 +134,7 @@ export const PRODUCTS = [{
     width: 170,
     color: '#ff4d76',
     src: 'http://image.getpricedrop.com/banner/20181029/bags-1.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181029/bags-bg.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/4.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -167,7 +167,7 @@ export const PRODUCTS = [{
     width: 120,
     color: '#00dfdb',
     src: 'http://image.getpricedrop.com/banner/20181029/home.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181029/home-bg.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/3.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -200,7 +200,7 @@ export const PRODUCTS = [{
     width: 163,
     color: '#006de6',
     src: 'http://image.getpricedrop.com/banner/20181029/men.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181029/men-bg.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/2.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -233,7 +233,7 @@ export const PRODUCTS = [{
     width: 209,
     color: '#ffc05b',
     src: 'http://image.getpricedrop.com/banner/20181029/shoes.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181029/shoe-bg.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/6.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
