@@ -14,6 +14,15 @@ public class PayuBean {
     private String email;
     private String additionalCharges;
     private String key;
+    private String txnid;
+
+    public String getTxnid() {
+        return txnid;
+    }
+
+    public void setTxnid(String txnid) {
+        this.txnid = txnid;
+    }
 
     public String getKey() {
         return key;
