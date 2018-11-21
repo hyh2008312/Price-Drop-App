@@ -10,7 +10,9 @@
                                :timeTextStyle="{fontSize: '24px', color: '#FFF'}"
                                :dotTextStyle="{color: '#000', fontSize: '24px'}"
                                :dotBoxStyle="{width: '10px'}"
-                               :style="{justifyContent: 'center'}">
+                               :style="{justifyContent: 'center'}"
+                               @wxcOnComplete="onCompleted"
+                >
                 </wxc-countdown>
             </div>
             <text class="title-1" @click="openNewPage()">VIEW MORE</text>
@@ -65,6 +67,16 @@ export default {
     created () {
       this.getGoodsDetail()
     },
+    watch: {
+        // 'time': {
+        //     handler: function (val, oldVal) {
+        //         if (val==0) {
+        //
+        //         }
+        //     },
+        //     deep: true
+        // }
+    },
     methods: {
         jumpActivity () {
             this.$router.open({
@@ -95,6 +107,9 @@ export default {
                 //     card: id
                 // }
             })
+        },
+        onCompleted () {
+            this.$emit('zero')
         },
         countOff (s, o) {
             if (o > 0) {

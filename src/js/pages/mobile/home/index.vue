@@ -19,7 +19,7 @@
                 <text class="header-title-new">What are you looking for?</text>
             </div>
             <div class="box-bg" @click="openNotification">
-                <text class="box-txt-icon-new iconfont">&#xe753;</text>
+                <text class="box-txt-icon-new iconfont">&#xe754;</text>
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
         </div>
@@ -177,7 +177,7 @@ export default {
             const user = this.$storage.getSync('user');
             if (user) {
                 this.$router.open({
-                    name: 'my.notice',
+                    name: 'cart',
                     type: 'PUSH'
                 });
             } else {
