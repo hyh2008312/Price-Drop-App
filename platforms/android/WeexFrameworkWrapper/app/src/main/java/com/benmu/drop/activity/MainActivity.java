@@ -256,7 +256,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
                         this.payuSuccessCallback.invoke(bean);
                     } catch (JSONException e) {
                         PayuBean bean = new PayuBean();
-                        bean.setCode(300);
+                        bean.setCode(400);
                         this.payuFailedCallback.invoke(bean);
                         e.printStackTrace();
                     }
@@ -264,7 +264,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
             } else {
                 //Failure Transaction
                 PayuBean bean = new PayuBean();
-                bean.setCode(300);
+                bean.setCode(400);
                 this.payuFailedCallback.invoke(bean);
             }
             // Response from Payumoney
@@ -287,12 +287,6 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
             bean.setCode(300);
             this.payuFailedCallback.invoke(bean);
             Log.d(TAG, "Error response : " + resultModel.getError().getTransactionResponse());
-        } else {
-            //Failure Transaction
-            PayuBean bean = new PayuBean();
-            bean.setCode(300);
-            this.payuFailedCallback.invoke(bean);
-            Log.d(TAG, "Both objects are null!");
         }
     }
 
