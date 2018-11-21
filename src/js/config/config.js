@@ -75,5 +75,6 @@ export const apis = {
     'user.send.mobile.message': '/user/send/mobile/message/',
     'user.verify.mobile.code': '/user/verify/mobile/code/',
     'user.check.mobile.status': '/user/check/mobile/status/',
-    'product.category.product.home.new.list': '/product/category/product/home/new/list/'
+    'product.category.product.home.new.list': '/product/category/product/home/new/list/',
+    'payment.payu.checksum': '/payment/payu/checksum/'
 }

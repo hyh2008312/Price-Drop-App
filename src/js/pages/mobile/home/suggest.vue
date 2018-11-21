@@ -226,8 +226,8 @@ export default {
             this.getTabName();
             this.getProductCategory();
             this.getChannel();
-            this.getBlock4();
-            this.getDrops();
+            // this.getBlock4();
+            // this.getDrops();
             this.getActivity();
             this.getBlock5();
             if(this.tabKey == 'new') {

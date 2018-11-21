@@ -21,10 +21,62 @@
                 const that = this;
                 if (!this.isFirst) {
                     this.isFirst = true;
-                    if (that.method == 'paytU') {
+                    if (that.method == 'payU') {
                         that.$notice.loading.show();
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'payU', 'Rs', 0);
                         googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'payU', 0);
+                        that.$fetch({
+                            method: 'POST', // 大写
+                            name: 'payment.payu.checksum',
+                            data: {
+                                orderId: that.order.id,
+                                bonus: this.checked ? this.checked : null
+                            },
+                            header: {
+                                needAuth: true
+                            }
+                        }).then(resData => {
+                            that.$notice.loading.hide();
+                            that.$event.emit('cutDetail');
+                            const order = resData;
+                            const price = resData.amount.split('.');
+                            const payAmount = price[0] + price[1];
+                            if (payAmount <= 0) {
+                                that.$event.emit('getMyWallet');
+                                that.$event.emit('paid');
+                                that.$event.emit('closePayment');
+                                that.$router.finish();
+                                that.$router.open({
+                                    name: 'order.success',
+                                    type: 'PUSH',
+                                    params: {
+                                        source: that.source,
+                                        order: that.order
+                                    }
+                                });
+                                return;
+                            }
+                        googleAnalytics.trackingScreen('Select Payment');
+                        pay.startPayUmoneyRequest(order.order, payAmount, resData.order.email, resData.order.phoneNumber, 'Normal:' + resData.order.number,
+                            resData.order.username, order.payuHash, (data) => {
+                                googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'payU sdk success return', 0);
+                                this.$notice.alert({
+                                    message: data
+                                });
+                                that.isFirst = false;
+                            }, (data) => {
+                                this.$notice.alert({
+                                    message: data
+                                });
+                                that.isFirst = false;
+                            });
+                        }, error => {
+                            that.$notice.loading.hide();
+                            that.isFirst = false;
+                            that.$notice.toast({
+                                message: error
+                            });
+                        });
                     } else if (that.method == 'paytm') {
                         that.$notice.loading.show();
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'paytm', 'Rs', 0);
