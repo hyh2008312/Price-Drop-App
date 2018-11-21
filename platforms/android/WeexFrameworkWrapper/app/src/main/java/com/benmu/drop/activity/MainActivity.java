@@ -527,14 +527,14 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         PayUmoneySdkInitializer.PaymentParam.Builder builder = new PayUmoneySdkInitializer.PaymentParam.Builder();
 
         PayUmoneySdkInitializer.PaymentParam mPaymentParams;
-
-        double amountMoney = 0;
-        try {
-            amountMoney = Double.parseDouble(amount);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+//        double amountMoney = 0;
+//        try {
+//            amountMoney = Double.parseDouble(amount);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         String udf1 = "";
         String udf2 = "";
         String udf3 = "";
@@ -545,7 +545,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         String udf8 = "";
         String udf9 = "";
         String udf10 = "";
-        builder.setAmount(amountMoney)
+        builder.setAmount(amount)
                 .setTxnId(txnId)
                 .setPhone(phone)
                 .setProductName(productName)
