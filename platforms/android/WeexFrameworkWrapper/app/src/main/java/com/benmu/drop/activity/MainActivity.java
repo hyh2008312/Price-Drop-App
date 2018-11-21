@@ -251,6 +251,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
                         bean.setHash(result.getString("hash"));
                         bean.setProductinfo(result.getString("productinfo"));
                         bean.setStatus(result.getString("status"));
+                        bean.setKey(result.getString("key"));
                         Log.d(TAG,bean.getAmount()+bean.getAdditionalCharges()+
                                 bean.getEmail()+bean.getFirstname()+bean.getStatus());
                         this.payuSuccessCallback.invoke(bean);
