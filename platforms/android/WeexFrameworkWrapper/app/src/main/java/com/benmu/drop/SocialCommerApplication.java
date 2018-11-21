@@ -34,7 +34,7 @@ public class SocialCommerApplication extends BMWXApplication {
     }
     // 初始化payu参数
     private void initPayU() {
-        this.appEnvironment = AppEnvironment.PRODUCTION;
+        this.appEnvironment = AppEnvironment.SANDBOX;
     }
 
     /**
