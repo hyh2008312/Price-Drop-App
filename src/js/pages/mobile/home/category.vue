@@ -123,38 +123,32 @@
             loadingDown () {
                 this.$refs.refresh.refreshEnd();
                 this.isLoading = false;
-                this.getActivityProduct(true);
+                this.getActivityProduct(true, false, this.selId);
             },
             onLoadingMore () {
                 if (!this.isLoading) {
                     this.isLoading = true;
-                    this.getActivityProduct(false);
+                    this.getActivityProduct(false, false, this.selId);
                 }
             },
             onloading () {
                 if (this.isPlatformAndroid) {
                     this.isLoading = true;
-                    this.getActivityProduct(false);
+                    this.getActivityProduct(false, false, this.selId);
                 }
             },
             getActivityParam (resData) {
                 this.id = resData.id;
                 googleAnalytics.trackingScreen(`Product/${this.name}`);
                 this.$notice.loading.show();
-                this.getActivityProduct(true, false);
-                this.getActivityCategory();
-                this.$notice.alert({
-                    message: this.isFirstLoad
-                })
-                if (!this.isFirstLoad) {
-                    this.isFirstLoad = true;
-                    this.getSubCategory();
-                }
+                this.getActivityProduct(true, false, this.selId);
             },
             getActivityProduct (isfirst, arrange, id) {
                 if (isfirst) {
                     if (!this.isFirstLoad) {
                         this.isFirstLoad = true;
+                        this.getActivityCategory();
+                        this.getSubCategory();
                     } else {
                         return;
                     }
@@ -260,7 +254,7 @@
             },
             changeArrangement () {
                 this.$notice.loading.show();
-                this.getActivityProduct(true, true);
+                this.getActivityProduct(true, true, this.selId);
             },
             openDialog () {
                 if (this.isCancelBottomShow == false) {
@@ -277,7 +271,7 @@
                 this.selectedSort.text = item.text;
                 this.selectedSort.value = item.value;
                 this.$notice.loading.show();
-                this.getActivityProduct(true);
+                this.getActivityProduct(true, false, this.selId);
                 this.$refs.wxcCancelPopup.hide();
             },
             changeCategory (id) {
@@ -286,6 +280,7 @@
                 } else {
                     this.selId = false;
                 }
+                this.$notice.loading.show();
                 this.getActivityProduct(true, false, this.selId);
             }
         }
@@ -305,11 +300,14 @@
 
     .scroller{
         background: #FFFFFF;
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-        border-bottom-color: #E3E3E3;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: #E3E3E3;
         padding: 24px 16px 16px 16px;
         width: 750px;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
     }
 
     .tab-txt-active{
@@ -320,9 +318,13 @@
     .tab-txt{
         font-family: ProximaNova;
         font-size: 24px;
-        line-height: 28px;
+        line-height: 56px;
+        font-weight: 300;
+        padding: 0 24px;
+        border-radius: 28px;
         background-color: rgba(0,0,0, 0.12);
         color: #000;
+        margin: 0 16px;
     }
 
     .category-header {
