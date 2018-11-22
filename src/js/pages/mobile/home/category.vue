@@ -8,6 +8,12 @@
         <list class="main-list" ref="list" offset-accuracy="10" loadmoreoffset="400"
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
+            <cell v-if="subCategory.length>0">
+                <scroller class="scroller" scroll-direction="horizontal">
+                    <text class="tab-txt" :class="[item.id == selId ? 'tab-txt-active' : '']"
+                          v-for="item in subCategory" @click="changeCategory(item.id)">{{item.name}}</text>
+                </scroller>
+            </cell>
             <header>
                 <div class="category-header">
                     <div class="category-left" @click="openDialog">
@@ -37,7 +43,7 @@
                    @wxcPopupOverlayClicked="popupCancelAutoClick"
                    ref="wxcCancelPopup"
                    pos="top"
-                   height="224">
+                   height="288">
             <div class="popup-cancel">
                 <div v-for="item in sort">
                     <text class="popup-text" :class="[item.value == selectedSort.value?'popup-text-active': '']"
@@ -79,9 +85,11 @@
             return {
                 name: '',
                 id: -1,
+                selId: false,
                 imageUrl: '',
                 testImage: '',
                 goods: [],
+                subCategory: [],
                 length: 2,
                 page: 1,
                 pageSize: 12,
@@ -91,6 +99,9 @@
                 goodsSave: [],
                 sort: [{
                     value: false,
+                    text: 'Pick For You'
+                }, {
+                    value: 'public_date',
                     text: 'New Arrivals'
                 }, {
                     value: 'price_low',
@@ -101,7 +112,7 @@
                 }],
                 selectedSort: {
                     value: false,
-                    text: 'New Arrivals'
+                    text: 'Pick For You'
                 },
                 isTrue: true,
                 isCancelBottomShow: false,
@@ -132,8 +143,15 @@
                 this.$notice.loading.show();
                 this.getActivityProduct(true, false);
                 this.getActivityCategory();
+                this.$notice.alert({
+                    message: this.isFirstLoad
+                })
+                if (!this.isFirstLoad) {
+                    this.isFirstLoad = true;
+                    this.getSubCategory();
+                }
             },
-            getActivityProduct (isfirst, arrange) {
+            getActivityProduct (isfirst, arrange, id) {
                 if (isfirst) {
                     if (!this.isFirstLoad) {
                         this.isFirstLoad = true;
@@ -154,7 +172,7 @@
                     method: 'GET',
                     name: 'product.app.category.product',
                     data: {
-                        cat: this.id,
+                        cat: id || this.id,
                         page: this.page,
                         page_size: this.pageSize,
                         sort: this.selectedSort.value
@@ -205,6 +223,19 @@
                     this.name = data.name;
                 }, error => {});
             },
+            getSubCategory () {
+                this.$fetch({
+                    method: 'GET',
+                    url: `${baseUrl}/product/app/category/${this.id}/`
+                }).then(data => {
+                    this.isFirstLoad = false;
+                    this.subCategory = [...data];
+                    this.subCategory.unshift({
+                        id: false,
+                        name: 'All'
+                    });
+                }, error => {});
+            },
             jumpWeb (id) {
                 this.$router.open({
                     name: 'goods.details',
@@ -248,6 +279,14 @@
                 this.$notice.loading.show();
                 this.getActivityProduct(true);
                 this.$refs.wxcCancelPopup.hide();
+            },
+            changeCategory (id) {
+                if (this.selId != id) {
+                    this.selId = id;
+                } else {
+                    this.selId = false;
+                }
+                this.getActivityProduct(true, false, this.selId);
             }
         }
     }
@@ -262,6 +301,28 @@
         width: 750px;
         margin-top: -1px;
         background-color: #fff;
+    }
+
+    .scroller{
+        background: #FFFFFF;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: #E3E3E3;
+        padding: 24px 16px 16px 16px;
+        width: 750px;
+    }
+
+    .tab-txt-active{
+        background-color: #EF8A31;
+        color: #fff;
+    }
+
+    .tab-txt{
+        font-family: ProximaNova;
+        font-size: 24px;
+        line-height: 28px;
+        background-color: rgba(0,0,0, 0.12);
+        color: #000;
     }
 
     .category-header {
@@ -454,7 +515,7 @@
 
     .popup-cancel {
         margin-left: 32px;
-        height: 224px;
+        height: 288px;
         width: 260px;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
