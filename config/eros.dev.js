@@ -45,6 +45,7 @@ module.exports = {
         'js/pages/mobile/order/orderConfirm.vue',
         'js/pages/mobile/order/chooseAddress.vue',
         'js/pages/mobile/order/editAddress.vue',
+        'js/pages/mobile/order/editOrderAddress.vue',
         'js/pages/mobile/order/state.vue',
         'js/pages/mobile/order/trackingPackage.vue',
         'js/pages/mobile/perks/index.vue',

@@ -32,7 +32,10 @@ export default {
             if (params && params.tab) {
                 this.activeIndex = params.tab
             }
-        })
+        });
+        this.$event.on('changeAddress', params => {
+            this.$notice.toast('"Address changed successfully!');
+        });
     },
     data () {
         return {

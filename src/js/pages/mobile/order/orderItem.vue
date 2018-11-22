@@ -54,7 +54,8 @@
                 <text class="gd-button" @click="tracking">Track Package</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Paid'">
-                <text class="od-button-1" @click="cancel">Cancel Order</text>
+                <text class="od-button-1 gt-mr" @click="cancel">Cancel Order</text>
+                <text class="gd-button" @click="editAddress">Change Address</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Audit canceled'">
                 <text class="od-text-2">Order cancellation pending</text>
@@ -110,7 +111,7 @@
                     params: {
                         id: this.order.id
                     }
-                })
+                });
             },
             openBottomPopup () {
                 this.$emit('pay', {
@@ -118,7 +119,7 @@
                     data: {
                         item: this.order
                     }
-                })
+                });
             },
             cancel () {
                 this.$emit('cancel', {
@@ -127,7 +128,7 @@
                         index: this.index,
                         id: this.order.id
                     }
-                })
+                });
             },
             tracking () {
                 this.$router.open({
@@ -147,7 +148,7 @@
                     params: {
                         id: this.order.lines[0].productId
                     }
-                })
+                });
             },
             deleteOrder () {
                 this.$emit('deleteOrder', {
@@ -156,7 +157,7 @@
                         index: this.index,
                         id: this.order.id
                     }
-                })
+                });
             },
             receipt () {
                 this.$emit('receiptOrder', {
@@ -165,6 +166,14 @@
                         index: this.index,
                         id: this.order.id,
                         orderType: this.order.orderType
+                    }
+                });
+            },
+            editAddress () {
+                this.$router.open({
+                    name: 'order.edit.address',
+                    params: {
+                        id: this.order.id
                     }
                 });
             }
