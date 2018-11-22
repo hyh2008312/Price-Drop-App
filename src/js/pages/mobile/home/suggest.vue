@@ -6,6 +6,12 @@
             <cell class="slider-wrap">
                 <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor"></yx-slider>
             </cell>
+            <cell>
+                <div class="shipping-bg">
+                    <text class="shipping-icon iconfont">&#xe760;</text>
+                    <text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>
+                </div>
+            </cell>
             <cell v-if="false">
                 <block-1 :category="category"></block-1>
             </cell>
