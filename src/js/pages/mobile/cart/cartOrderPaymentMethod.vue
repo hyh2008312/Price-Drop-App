@@ -51,7 +51,7 @@
 
             <cell  class="cell-bottom" @click="chooseMethod('cod')">
                 <div  class="overflow-box b-bottom-r">
-                    <div class="overflow-box1" >
+                    <div class="overflow-box2" >
                         <div>
                             <div class="cod-d">
                                 <image class="item-image-2"  :src="codSrc"></image>
@@ -555,17 +555,16 @@ export default {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
     .b-top-r{
         margin-top: 28px;
-        border-top-right-radius: 8px;
-        border-top-left-radius: 8px;
+        border-top-right-radius: 16px;
+        border-top-left-radius: 16px;
     }
     .b-bottom-r{
         margin-bottom: 28px;
-        border-bottom-right-radius: 8px;
-        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 16px;
+        border-bottom-left-radius: 16px;
     }
     .overflow-box1{
         flex-direction: row;
@@ -577,6 +576,15 @@ export default {
         border-bottom-width:1px ;
         border-bottom-style:solid ;
         border-bottom-color: rgba(0,0,0,.08) ;
+    }
+
+    .overflow-box2{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 620px;
+        margin: 32px 32px 0 32px;
+        padding-bottom: 32px;
     }
 
     .item-image{

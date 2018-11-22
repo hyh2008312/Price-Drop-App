@@ -568,17 +568,16 @@ export default {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
     .b-top-r{
         margin-top: 28px;
-        border-top-right-radius: 8px;
-        border-top-left-radius: 8px;
+        border-top-right-radius: 16px;
+        border-top-left-radius: 16px;
     }
     .b-bottom-r{
         margin-bottom: 28px;
-        border-bottom-right-radius: 8px;
-        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 16px;
+        border-bottom-left-radius: 16px;
     }
     .overflow-box1{
         flex-direction: row;
