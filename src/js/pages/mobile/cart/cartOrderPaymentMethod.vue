@@ -593,8 +593,8 @@ export default {
     }
 
     .item-image-3{
-        width: 101px;
-        height: 50px;
+        width: 111px;
+        height: 60px;
     }
 
     .item-text{
