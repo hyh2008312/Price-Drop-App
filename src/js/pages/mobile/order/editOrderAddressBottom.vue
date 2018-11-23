@@ -41,43 +41,23 @@
                     this.changeInput(1);
                     return;
                 }
-                if (!this.id) {
-                    this.$fetch({
-                        method: 'POST', // 大写
-                        name: 'address.shipping.list',
-                        data: this.address,
-                        header: {
-                            needAuth: true
-                        }
-                    }).then(resData => {
-                        // 成功回调
-                        this.$event.emit('editAddress');
-                        this.$router.finish();
-                    }, error => {
-                        // 错误回调
-                        this.$notice.toast({
-                            message: error
-                        })
-                    })
-                } else {
-                    this.$fetch({
-                        method: 'PUT', // 大写
-                        url: `${baseUrl}/order/customer/update/address/${this.id}/`,
-                        data: this.address,
-                        header: {
-                            needAuth: true
-                        }
-                    }).then(resData => {
-                        // 成功回调
-                        this.$router.finish();
-                        this.$notice.toast('Address changed successfully!');
-                    }, error => {
-                        // 错误回调
-                        this.$notice.toast({
-                            message: error
-                        });
-                    })
-                }
+                this.$fetch({
+                    method: 'POST', // 大写
+                    url: `${baseUrl}/order/customer/update/address/${this.id}/`,
+                    data: this.address,
+                    header: {
+                        needAuth: true
+                    }
+                }).then(resData => {
+                    // 成功回调
+                    this.$router.finish();
+                    this.$event.emit('changeAddress');
+                }, error => {
+                    // 错误回调
+                    this.$notice.toast({
+                        message: error
+                    });
+                });
             },
             isChecked () {
                 for (const k in this.address) {

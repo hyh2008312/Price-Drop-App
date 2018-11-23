@@ -34,7 +34,7 @@ export default {
             }
         });
         this.$event.on('changeAddress', params => {
-            this.$notice.toast('"Address changed successfully!');
+            this.$notice.toast('Address changed successfully!');
         });
     },
     data () {

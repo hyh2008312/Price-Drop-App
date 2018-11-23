@@ -198,7 +198,7 @@ export default {
                 for (const k in this.address) {
                     this.address[k] = resData[k]
                 }
-                this.chooseState = resData.stateName
+                this.chooseState = resData.state;
                 this.$notice.loading.hide();
             }, error => {
                 this.$notice.loading.hide();

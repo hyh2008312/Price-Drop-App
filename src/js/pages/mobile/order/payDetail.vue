@@ -122,7 +122,7 @@ export default {
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         this.initMaskBack();
         this.$event.on('changeAddress', params => {
-            this.$notice.toast('"Address changed successfully!');
+            this.$notice.toast('Address changed successfully!');
         });
     },
     destory () {
