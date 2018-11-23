@@ -4,7 +4,7 @@
             <div class="blackheader"></div>
             <div class="top-header" >
                 <div class="th-right">
-                    <text class="th-r-1" @click="openGuide">Guideline</text>
+                    <text class="th-r-1" @click="openGuide">Check the Rule</text>
                     <div class="th-r-d" @click="openMyRaffleDraws">
                         <image class="th-r-img" src="bmlocal://assets/myprize-01.png"></image>
                     </div>
@@ -582,7 +582,7 @@
     .th-r-1{
         background-color: white;
         height: 64px;
-        width: 168px;
+        padding: 0 16px;
         text-align: center;
         flex-direction: column;
         align-items: center;
