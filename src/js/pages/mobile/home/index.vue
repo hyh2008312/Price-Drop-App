@@ -62,6 +62,9 @@ export default {
         this.$event.on('login', params => {
             this.getCartNumApi();
         });
+        this.$event.on('cartNum', params => {
+            this.getCartNumApi();
+        });
         this.getUnread();
     },
     data () {
