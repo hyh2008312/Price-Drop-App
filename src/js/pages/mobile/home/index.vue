@@ -162,10 +162,9 @@ export default {
             }
         },
         getUnread () {
-            this.$storage.get('token').then((data) => {
-                if (data && !this.isFirstLoad) {
-                    this.isFirstLoad = true;
-                    this.getUreadApi();
+            this.$storage.get('user').then((data) => {
+                if (data) {
+                    // this.getUreadApi();
                     this.getCartNumApi();
                 }
             });
@@ -181,13 +180,6 @@ export default {
                 this.unread = res.unreadNumber;
             }).catch((res) => {});
         },
-        getCartNum () {
-            this.$storage.get('token').then((data) => {
-                if (data && !this.isFirstLoad) {
-                    this.isFirstLoad = true;
-                }
-            });
-        },
         getCartNumApi () {
             this.$fetch({
                 method: 'GET',
@@ -196,13 +188,9 @@ export default {
                     needAuth: true,
                     isLoginPop: true
                 }
-
             }).then(data => {
-                this.cartNum = data.count
-                // this.$notice.toast({
-                //     message: data
-                // })
-            }, error => {});
+                this.cartNum = data.count;
+            });
         },
         openNotification () {
             const user = this.$storage.getSync('user');
