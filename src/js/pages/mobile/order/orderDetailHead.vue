@@ -10,6 +10,7 @@
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Completed'">&#xe6ed;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Fully Refunded'">&#xe758;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Partially Refunded'">&#xe758;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Undelivered'">&#xe761;</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Fully Refunded'">Fully Refunded</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Partially Refunded'">Partially Refunded</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Audit canceled'">Pending Cancel</text>
@@ -19,6 +20,7 @@
                 <text class="gb-text" v-if="order.orderStatus == 'Packing'">Preparing</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Shipped'">Shipped</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Completed'">Delivered</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Undelivered'">Undelivered</text>
             </div>
             <div class="gb-bg-1" v-if="order.orderStatus == 'Unpaid'">
                 <text class="gb-icon iconfont gd-text-color">&#xe703;</text>
@@ -41,6 +43,11 @@
                 <text class="gb-icon iconfont gd-text-color"></text>
                 <text class="gd-text gd-text-color">Refund Date: </text>
                 <text class="gd-text">{{formatDate(order.refundDate, 'MMM DD, YYYY hh:mm:ss')}}</text>
+            </div>
+            <div class="gb-bg-2" v-if="order.undeliveredTime">
+                <text class="gb-icon iconfont gd-text-color"></text>
+                <text class="gd-text gd-text-color">Undelivered Date: </text>
+                <text class="gd-text">{{formatDate(order.undeliveredTime, 'MMM DD, YYYY hh:mm:ss')}}</text>
             </div>
         </div>
     </div>

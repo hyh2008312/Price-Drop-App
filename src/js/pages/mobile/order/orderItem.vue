@@ -9,6 +9,7 @@
                 <text class="gb-status" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Completed'">Delivered</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Shipped'">Shipped</text>
+                <text class="gb-status" v-if="order.orderStatus == 'Undelivered'">Undelivered</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Packing'">Preparing</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Partially Refunded'">Partially Refunded</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Fully Refunded'">Fully Refunded</text>
@@ -83,6 +84,10 @@
                 <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
                 <text class="od-button-1 gt-mr" @click="buyProduct">Buy Again</text>
                 <text class="gd-button" @click="tracking">Track Package</text>
+            </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Undelivered'">
+                <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
+                <text class="gd-button" @click="buyProduct">Buy Again</text>
             </div>
         </div>
     </div>
