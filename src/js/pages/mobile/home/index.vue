@@ -165,8 +165,7 @@ export default {
         },
         getUnread () {
             this.$storage.get('user').then((data) => {
-                if (data && !this.isFirstLoad) {
-                    this.isFirstLoad = true;
+                if (data) {
                     this.getCartNumApi(data.id);
                 }
             });
