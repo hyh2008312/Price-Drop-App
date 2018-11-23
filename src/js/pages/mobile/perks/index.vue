@@ -81,12 +81,12 @@
                         <div class="s-box-c" >
                             <div class="single" v-for="(i,index) in scrollerPoint">
                                 <div class="single-dot">
-                                    <image style=" width: 44px;height: 44px;" v-if="index < signObj.signTimes " src="bmlocal://assets/perks/7.png"></image>
                                     <image style=" width: 44px;height: 44px;" v-if="index >= signObj.signTimes " src="bmlocal://assets/perks/8.png"></image>
+                                    <text class="single-word">{{i.p}}</text>
+                                    <image style=" width: 44px;height: 44px;" v-if="index < signObj.signTimes " src="bmlocal://assets/perks/7.png"></image>
                                     <div :class="[index<14?'single-line':'single-line-last']" ></div>
-                                    <text class="single-word" v-if="index >= signObj.signTimes ">{{i.p}}</text>
                                 </div>
-                                <div v-if="!i.s">
+                                <div>
                                     <text class="single-day" v-if="index==0">1st</text>
                                     <text class="single-day" v-else-if="index==1">2nd</text>
                                     <text class="single-day" v-else-if="index==2">3rd</text>
@@ -97,8 +97,6 @@
                         </div>
                     </scroller>
                 <!--</div>-->
-
-
             </div>
 
             <!--<div class="overflow-mid" style="margin-bottom: 100px">-->
@@ -188,7 +186,7 @@
                     <div v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'mg-b5':'mg-b3',]">
 
                         <div class="gift-card" @click="redeemCard(i)">
-                            <image class="gift-card-img"  :src="i.image"></image>
+                            <image class="gift-card-img"  :src="i.newImageDetail"></image>
                             <div class="gift-card-txt">
                                 <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
                                 <div class="gift-card-txtr">
@@ -428,10 +426,6 @@
                 this.signObj.isSign = false
                 this.signObj.signTimes = 0
                 this.stopShake = false
-                for (let i = 0; i < this.scrollerPoint.length; i++) {
-                    this.scrollerPoint[i].s = false
-                }
-                this.setEmpty()
             })
             this.$event.on('login', parmas => {
                 this.initPage()
@@ -522,7 +516,7 @@
                     } else {
                         for (let i = 0; i < this.scrollerPoint.length ; i++) {
                             if (i < this.signObj.signTimes) {
-                                this.scrollerPoint[i] = true
+                                this.scrollerPoint[i].s = true
                             }
                         }
                     }
@@ -638,7 +632,7 @@
                             this.signObj.signTimes = res.signTimes
                             for (let i = 0; i < this.scrollerPoint.length; i++) {
                                 if (i < this.signObj.signTimes) {
-                                    this.scrollerPoint[i] = true
+                                    this.scrollerPoint[i].s = true
                                 }
                             }
                             this.signObj.isSign = true
@@ -1007,8 +1001,8 @@
         width: 594px;
     }
     .gift-card-img{
-        width: 594px;
-        height: 252px;
+        width: 592px;
+        height: 174px;
     }
     .gift-card-txt{
         width: 594px;
@@ -1021,7 +1015,6 @@
         padding-right:24px ;
     }
     .gift-card-txt1{
-        font-family: ProximaNova-Bold;
         font-weight: 700;
         font-size: 24px;
         color: rgba(0,0,0,0.87);

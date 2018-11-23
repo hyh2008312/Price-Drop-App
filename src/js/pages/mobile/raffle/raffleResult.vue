@@ -44,8 +44,10 @@
                     </div>
 
                     <div class="second">
-                        <image class="s-img" src="bmlocal://assets/raffle/100.png"></image>
-                        <image class="s-img" src="bmlocal://assets/raffle/150.png"></image>
+                        <div style="border-radius: 16px">
+                            <image class="s-img" :src="secondPrize.voucher.newImageDetail"></image>
+                        </div>
+                        <!--<image class="s-img" src="bmlocal://assets/raffle/150.png"></image>-->
                     </div>
                     <div class="bottom-s" @click="changeIsShow(secondPrize)">
                         <div class="b-user-s">
@@ -73,7 +75,10 @@
                     </div>
 
                     <div class="third">
-                        <image class="th-img" src="bmlocal://assets/raffle/100.png"></image>
+                        <div style="border-radius: 16px">
+                            <image class="th-img" :src="thirdPrize.voucher.newImageDetail"></image>
+                        </div>
+
                     </div>
                     <div class="bottom-s" @click="changeIsShow(thirdPrize)">
                         <div class="b-user-s">
@@ -359,7 +364,6 @@
     .s-img{
         width: 592px;
         height: 174px;
-        margin-bottom: 16px;
     }
     .b-u-s{
         border-radius: 50%;

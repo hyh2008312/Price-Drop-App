@@ -6,7 +6,9 @@
             <div class="overflow-top">
                 <div class="top-card">
                     <div class="top-card-imgdiv">
-                        <image class="top-card-img"  :src="card.imageDetail"></image>
+                        <div style="border-radius: 16px">
+                            <image class="top-card-img"  :src="card.newImageDetail"></image>
+                        </div>
                     </div>
                     <div class="top-card-txt" >
                         <text class="top-card-txt1" >{{card.name}} Gift Voucher</text>
@@ -189,8 +191,8 @@
         align-items: center;
     }
     .top-card-img{
-        width: 686px;
-        height: 418px;
+        width: 592px;
+        height: 174px;
     }
     .top-card-txt{
         flex-direction: column;

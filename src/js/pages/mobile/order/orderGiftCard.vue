@@ -13,10 +13,11 @@
 
             <div class="overflow-gift" v-if="cardArr.length!==0" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
                 <div class="gift-card" @click="tickCard(index,i)">
-                    <image class="gift-card-img" v-if="cardMoney>=i.lowestAmount"  :src="i.image" ></image>
-                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===100" :src="emptyImg.point100"></image>
-                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===150" :src="emptyImg.point150"></image>
-                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===200" :src="emptyImg.point200"></image>
+                    <image class="gift-card-img" v-if="cardMoney>=i.lowestAmount"  :src="i.newImageDetail" ></image>
+                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&(i.share===100||i.share===80||i.share===120)" :src="i.newImageExpired"></image>
+
+                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===150" :src="i.newImageExpired"></image>
+                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===200" :src="i.newImageExpired"></image>
                     <div class="triangle-topright" v-if="(index === flag&&cardMoney>=i.lowestAmount)||i.id===selCardId">
                         <text  class="triangle">&#xe741;</text>
                         <text  class="tick">&radic;</text>
@@ -94,6 +95,7 @@
                     //     message: res
                     // })
                     this.cardArr = res
+
                     for (let j = 0; j < this.cardArr.length - 1; j++) {
                         for (let i = 0; i < this.cardArr.length - 1 - j; i++) {
                             if (this.cardArr[i].share > this.cardArr[i + 1].share) {
@@ -212,7 +214,7 @@
     }
     .gift-card-img{
         width: 686px;
-        height: 304px;
+        height: 203px;
     }
 
     .gift-card-txt{

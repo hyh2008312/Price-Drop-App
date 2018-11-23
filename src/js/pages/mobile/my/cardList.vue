@@ -6,11 +6,12 @@
             <cell class="cell-button" v-for="(i, index) in order" :key="i.id" >
                 <div class="overflow-gift">
                     <div class="gift-card">
-                        <image class="gift-card-img"  :src="i.image"></image>
+                        <image class="gift-card-img"  v-if="proId == 'available'||proId == 'used'" :src="i.newImageDetail"></image>
+                        <image class="gift-card-img"  v-if="proId == 'expired'" :src="i.newImageExpired"></image>
                         <div class="gift-card-txt">
                             <div class="gift-card-right-txt">
                                 <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
-                                <text class="gift-card-txt2">Only vaild for order above ₹{{parseInt(i.lowestAmount)}}</text>
+                                <!--<text class="gift-card-txt2">Only vaild for order above ₹{{parseInt(i.lowestAmount)}}</text>-->
                             </div>
                             <text class="gift-card-txt3" v-if="proId == 'available'">Expire in&nbsp;{{tranDate(i.expiredTimestamp)}}&nbsp;days</text>
                             <text class="gift-card-txt3" v-if="proId == 'expired'"> Expired </text>
@@ -212,7 +213,7 @@
     }
     .gift-card-img{
         width: 686px;
-        height: 304px;
+        height: 203px;
     }
 
     .gift-card-txt{
