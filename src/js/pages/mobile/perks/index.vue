@@ -13,7 +13,7 @@
                 </div>
                 <div class="t-cm">
                     <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
-                        <text class="t-cm-cw" >Earn up to ₹200 cash bonus</text>
+                        <text class="t-cm-cw" >Earn up to ₹ 200 cash bonus</text>
                         <text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>
                     </div>
                     <div class="t-cm-cr" v-if="isCash" >
@@ -68,7 +68,8 @@
 
 
                     <div class="m2-c3" v-if="!signObj.isSign">
-                        <image style=" width: 26px;height: 26px;margin-right:10px;" src="bmlocal://assets/perks/goldcoin.png"></image>
+                        <!--<image style=" width: 26px;height: 26px;margin-right:10px;" src="bmlocal://assets/perks/goldcoin.png"></image>-->
+                        <text class="iconfont m2-c3-gift">&#xe75e;</text>
                         <text class="m2-c3w">Check-In every day for up to 5700 points!</text>
                     </div>
                     <div class="m2-c3" v-if="signObj.isSign">
@@ -1119,12 +1120,11 @@
         align-items: center;
         background-color: #6900CB;
         height: 108px;
-        /*width: 686px;*/
         border-radius:50%;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.50);
     }
     .t-cm-cw{
-        font-size: 24px;
+        font-size: 28px;
         color: white;
         font-weight: 700;
         margin-left: 10px;
@@ -1274,6 +1274,11 @@
         justify-content: start;
         margin-top: 12px;
         margin-bottom: 46px;
+    }
+    .m2-c3-gift{
+        font-size: 24px;
+        color: #FBE945 ;
+        margin-right:10px;
     }
     .m2-c3w{
         font-size: 24px;
