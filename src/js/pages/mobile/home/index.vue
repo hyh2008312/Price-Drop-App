@@ -40,11 +40,10 @@ import suggest from './suggest';
 import category from './category';
 import topChannel from './topChannel';
 import { Utils } from 'weex-ui';
-import { CHANNELLIST } from './config';
+import { baseUrl } from '../../../config/apis';
 
 const animation = weex.requireModule('animation');
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
-
 
 export default {
     components: {
@@ -163,9 +162,9 @@ export default {
         },
         getUnread () {
             this.$storage.get('user').then((data) => {
-                if (data) {
-                    // this.getUreadApi();
-                    this.getCartNumApi();
+                if (data && !this.isFirstLoad) {
+                    this.isFirstLoad = true;
+                    this.getCartNumApi(data.id);
                 }
             });
         },
@@ -180,12 +179,11 @@ export default {
                 this.unread = res.unreadNumber;
             }).catch((res) => {});
         },
-        getCartNumApi () {
+        getCartNumApi (id) {
             this.$fetch({
                 method: 'GET',
-                name: 'cart.count',
+                url: `${baseUrl}/cart/count/${id}/`,
                 header: {
-                    needAuth: true,
                     isLoginPop: true
                 }
             }).then(data => {

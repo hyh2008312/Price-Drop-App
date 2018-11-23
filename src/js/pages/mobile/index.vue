@@ -195,7 +195,7 @@ export default {
             }, error => {})
         },
         refreshToken () {
-            const token = this.$storage.getSync('token')
+            const token = this.$storage.getSync('token');
             if (token && !this.isFirstLogin) {
                 this.isFirstLogin = true;
                 this.$fetch({
