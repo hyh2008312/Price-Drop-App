@@ -8,6 +8,12 @@
         <list class="main-list" ref="list" offset-accuracy="10" loadmoreoffset="400"
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
+            <cell>
+                <div class="shipping-bg">
+                    <text class="shipping-icon iconfont">&#xe760;</text>
+                    <text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>
+                </div>
+            </cell>
             <cell v-if="subCategory.length>0">
                 <scroller class="scroller" scroll-direction="horizontal">
                     <text class="tab-txt" :class="[item.id == selId ? 'tab-txt-active' : '']"
@@ -561,4 +567,27 @@
         height: 64px;
     }
 
+    .shipping-bg{
+        background-color: #FCEACF;
+        width: 750px;
+        height: 64px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .shipping-tips{
+        font-family: ProximaNova;
+        font-size: 24px;
+        line-height: 28px;
+        margin-left: 14px;
+        font-weight: 700;
+    }
+
+    .shipping-icon{
+        font-family: ProximaNova;
+        font-size: 32px;
+        line-height: 32px;
+        color: #EF8A31;
+    }
 </style>

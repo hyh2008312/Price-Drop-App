@@ -107,6 +107,9 @@ export default {
     'order.address.edit': {
         url: '/pages/mobile/order/editAddress.js'
     },
+    'order.edit.address': {
+        url: '/pages/mobile/order/editOrderAddress.js'
+    },
     'order.address.state': {
         url: '/pages/mobile/order/state.js'
     },

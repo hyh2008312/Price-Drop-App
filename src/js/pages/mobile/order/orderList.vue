@@ -63,7 +63,7 @@
                 </div>
                 <div class="popup-cancel-bottom">
                     <text class="popup-cancel-button" @click="closeBottomPop">Cancel</text>
-                    <text class="popup-cancel-button-1" @click="cancelOrder()">OK</text>
+                    <text class="popup-cancel-button" :class="[reasonActive >= 0 ? 'popup-cancel-button-1': '']" @click="cancelOrder()">OK</text>
                 </div>
             </div>
         </wxc-popup>
@@ -191,7 +191,7 @@
                 isBottomShow: false,
                 isTrue: true,
                 reason: CANCELREASON,
-                reasonActive: 0,
+                reasonActive: -1,
                 isCancelBottomShow: false,
                 cancelId: -1,
                 cancelIndex: 0,
@@ -326,6 +326,9 @@
                 common.changeAndroidCanBack(false);
             },
             cancelOrder () {
+                if (this.reasonActive < 0) {
+                    return;
+                }
                 this.$refs.wxcCancelPopup.hide();
                 this.$fetch({
                     method: 'PUT', // 大写

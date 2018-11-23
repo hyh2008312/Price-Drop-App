@@ -38,7 +38,8 @@
                 </div>
                 <div class="popup-content-bottom">
                     <text class="popup-content-button" @click="closeBottomPop">Cancel</text>
-                    <text class="popup-content-button-1" @click="cancelOrder">OK</text>
+                    <text class="popup-content-button" :class="[reasonActive >= 0 ? 'popup-content-button-1': '']"
+                          @click="cancelOrder">OK</text>
                 </div>
             </div>
         </wxc-popup>
@@ -121,6 +122,9 @@ export default {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         this.initMaskBack();
+        this.$event.on('changeAddress', params => {
+            this.$notice.toast('Address changed successfully!');
+        });
     },
     destory () {
         this.$event.off('login')
@@ -132,7 +136,7 @@ export default {
             isTrue: true,
             isBottomShow: false,
             reason: CANCELREASON,
-            reasonActive: 0,
+            reasonActive: -1,
             isDeleteShow: false,
             isReceiptShow: false,
             hasAnimation: true
@@ -178,6 +182,9 @@ export default {
             common.changeAndroidCanBack(false);
         },
         cancelOrder () {
+            if (this.reasonActive < 0) {
+                return;
+            }
             this.$refs.wxcPopup.hide()
             this.$fetch({
                 method: 'PUT', // 大写

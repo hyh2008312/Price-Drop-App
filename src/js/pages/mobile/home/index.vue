@@ -7,11 +7,14 @@
                 <text class="header-icon iconfont">&#xe621;</text>
                 <text class="header-title">What are you looking for?</text>
             </div>
-            <div class="box-bg" @click="openNotification">
+            <div class="box-bg" v-if="false" @click="openNotification">
                 <text class="box-txt-icon iconfont">&#xe753;</text>
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
-
+            <div class="box-bg" @click="openCart">
+                <text class="box-txt-icon iconfont">&#xe754;</text>
+                <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
+            </div>
         </div>
         <div class="header-new" :style="{visibility : isHeaderBg? 'visible': 'hidden'}">
             <div class="header-search-new" @click="jumpSearch">
@@ -57,6 +60,9 @@ export default {
         this.$event.on('getRead', param => {
             this.unread = param.unread
         });
+        this.$event.on('login', params => {
+            this.getCartNumApi();
+        });
         this.getUnread();
     },
     data () {
@@ -72,7 +78,8 @@ export default {
             unread: 0,
             isFirstLoad: false,
             isHeaderBg: false,
-            bgColor: '#EF8A31'
+            bgColor: '#EF8A31',
+            cartNum: ''
         }
     },
     computed: {
@@ -155,10 +162,10 @@ export default {
             }
         },
         getUnread () {
-            this.$storage.get('token').then((data) => {
-                if (data && !this.isFirstLoad) {
-                    this.isFirstLoad = true;
-                    this.getUreadApi();
+            this.$storage.get('user').then((data) => {
+                if (data) {
+                    // this.getUreadApi();
+                    this.getCartNumApi();
                 }
             });
         },
@@ -173,7 +180,33 @@ export default {
                 this.unread = res.unreadNumber;
             }).catch((res) => {});
         },
+        getCartNumApi () {
+            this.$fetch({
+                method: 'GET',
+                name: 'cart.count',
+                header: {
+                    needAuth: true,
+                    isLoginPop: true
+                }
+            }).then(data => {
+                this.cartNum = data.count;
+            });
+        },
         openNotification () {
+            const user = this.$storage.getSync('user');
+            if (user) {
+                this.$router.open({
+                    name: 'my.notice',
+                    type: 'PUSH'
+                });
+            } else {
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                });
+            }
+        },
+        openCart () {
             const user = this.$storage.getSync('user');
             if (user) {
                 this.$router.open({
@@ -181,9 +214,6 @@ export default {
                     type: 'PUSH'
                 });
             } else {
-                this.$event.on('login', params => {
-                    this.getUreadApi();
-                });
                 this.$router.open({
                     name: 'login',
                     type: 'PUSH'

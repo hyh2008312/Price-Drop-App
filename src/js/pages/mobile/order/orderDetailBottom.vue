@@ -12,6 +12,7 @@
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Paid'">
             <text class="od-button-1" @click="cancel">Cancel Order</text>
+            <text class="od-button" @click="editAddress">Change Address</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Packing'">
             <text class="od-button-1" @click="tracking">Track Package</text>
@@ -96,6 +97,14 @@
                 this.$emit('receiptOrder', {
                     status: 'receiptOrder'
                 })
+            },
+            editAddress () {
+                this.$router.open({
+                    name: 'order.edit.address',
+                    params: {
+                        id: this.order.id
+                    }
+                });
             }
         }
     }

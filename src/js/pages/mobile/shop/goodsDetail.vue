@@ -1109,7 +1109,7 @@
                         this.cartNum += 1
                         this.$notice.toast({
                             message: 'Added to Cart Successfully!'
-                        })
+                        });
                         googleAnalytics.recordEvent('Payment', 'Add to Cart', this.purchaseMethod, 0);
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', this.proId, '', 'Rs', this.selunitPrice);
                         this.isBottomShow = false
