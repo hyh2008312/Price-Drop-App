@@ -2185,7 +2185,6 @@
         border-width: 1px;
         border-style: solid ;
         border-color: #00CFE3;
-        width: 156px;
         font-size: 20px;
         border-radius: 8px;
         padding: 4px 16px;
