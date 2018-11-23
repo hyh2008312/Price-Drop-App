@@ -1,114 +1,134 @@
 <template>
     <div class="wrapper">
-        <scroller >
+        <div class="blackheader"></div>
 
-            <div class="blackheader"></div>
+        <scroller >
+            <!--<cell><text>111</text></cell>-->
             <div class="header">
                 <text class="header-word" >Earn Points & Cash Bonus Every Day!</text>
             </div>
-            <!--<div class="overflow-mid"  style="margin-bottom: 100px">-->
-                <!--<div class="top-card">-->
-                    <!--<div>-->
-                        <!--<text>Daily Gift Box</text>-->
-                    <!--</div>-->
-                    <!--<image src="bmlocal://assets/bg.png" class="bg-tangle" @click="shake" ></image>-->
-                    <!--<div  style="height: 328px;">-->
-                        <!--<image ref="pG1" src="bmlocal://assets/perks/hat.png" class="gif-icon" ></image>-->
+            <div class="overflow-mid1" >
+                <div class="top-card">
+                    <text class="t-c-h">Daily Cash Reward</text>
+                </div>
+                <div class="t-cm">
+                    <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
+                        <text class="t-cm-cw" >Earn up to ₹200 cash bonus</text>
+                        <text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>
+                    </div>
+                    <div class="t-cm-cr" v-if="isCash" >
+                        <text class="t-cm-cwr">Earned ₹ {{points}} Bonus!</text>
+                        <text class="t-cm-car iconfont" >&#xe6ed;</text>
+                    </div>
+                </div>
+                <div class="t-cb" @click="openRulerPage(1)">
+                    <text class="t-cbw" >Rules </text>
+                    <text class="iconfont" style="color:white;font-size: 18px ">&#xe626;</text>
+                </div>
+                <!--<div class="w-img">-->
+                    <image class="w-i5"  style=" width: 100px;height: 43px;" src="bmlocal://assets/perks/5.png"></image>
+                    <image class="w-i3"  style=" width: 62px;height: 98px;" src="bmlocal://assets/perks/3.png"></image>
+                    <image class="w-i1"  style=" width: 60px;height: 110px;" src="bmlocal://assets/perks/1.png"></image>
 
-                        <!--<image ref="pG2" src="bmlocal://assets/perks/dress.png" class="gif-icon" ></image>-->
+                    <image class="w-i6"  style=" width: 98px;height: 106px;" src="bmlocal://assets/perks/6.png"></image>
 
-                        <!--<image ref="pG3" src="bmlocal://assets/perks/package.png" class="gif-icon" ></image>-->
+                    <image class="w-i2"  style=" width: 100px;height: 102px;" src="bmlocal://assets/perks/2.png"></image>
+                    <image class="w-i4"  style=" width: 80px;height: 96px;" src="bmlocal://assets/perks/4.png"></image>
+                <!--</div>-->
+            </div>
 
-                    <!--</div>-->
-                    <!--<div class="t-cb">-->
-                        <!--<div class="t-cb-c">-->
-                            <!--<text>Earn up to 200 cash bonus</text>-->
-                            <!--<text class="iconfont">&#xe626;</text>-->
+            <div class="overflow-mid2" >
+                <div class="mid-head">
+                    <text class="m-h1">Check In & Earn Points</text>
+                </div>
+                <div class="m2-content">
+                    <div class="m2-r" @click="openRulerPage(2)">
+                        <text class="m2-rw" >Rules </text>
+                        <text class="iconfont" style="color:white;font-size: 18px ">&#xe626;</text>
+                    </div>
+                    <div class="m2-c1">
+                        <image style=" width: 32px;height: 32px;" src="bmlocal://assets/perks/goldcoin.png"></image>
+                        <text class="m2-c1w"> My Points</text>
+                        <text class="m2-c1p">{{user.points||'0'}}</text>
+                    </div>
+
+                    <div class="m2-c2" ref="getBtn1" v-if="!signObj.isSign"  @click="getSign">
+                        <div class="m2-c2-shadow" >
+                            <text class="m2-c2w">Claim {{(signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)*signObj.gradientPoints))||0}} Points Today</text>
+                            <text class="m2-c2a iconfont">&#xe626;</text>
+                        </div>
+                    </div>
+
+                    <div class="m2-c2r"  v-if="signObj.isSign">
+                        <div class="m2-c2-shadowr" >
+                            <text class="m2-c2wr">Claim {{signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)* signObj.gradientPoints)}} Points Tomorrow</text>
+                            <text class="m2-c2ar iconfont"> &#xe6ed;</text>
+                        </div>
+                    </div>
+
+
+                    <div class="m2-c3" v-if="!signObj.isSign">
+                        <image style=" width: 26px;height: 26px;margin-right:10px;" src="bmlocal://assets/perks/goldcoin.png"></image>
+                        <text class="m2-c3w">Check-In every day for up to 5700 points!</text>
+                    </div>
+                    <div class="m2-c3" v-if="signObj.isSign">
+                        <!--<text class="m2-c3w">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>-->
+                    </div>
+                </div>
+
+                <!--<div class="m2-c4">-->
+                    <scroller class="s-box" scroll-direction="horizontal" flex-direction="row">
+                        <div class="s-box-c" >
+                            <div class="single" v-for="(i,index) in scrollerPoint">
+                                <div class="single-dot">
+                                    <image style=" width: 44px;height: 44px;" v-if="index < signObj.signTimes " src="bmlocal://assets/perks/7.png"></image>
+                                    <image style=" width: 44px;height: 44px;" v-if="index >= signObj.signTimes " src="bmlocal://assets/perks/8.png"></image>
+                                    <div :class="[index<14?'single-line':'single-line-last']" ></div>
+                                    <text class="single-word" v-if="index >= signObj.signTimes ">{{i.p}}</text>
+                                </div>
+                                <div v-if="!i.s">
+                                    <text class="single-day" v-if="index==0">1st</text>
+                                    <text class="single-day" v-else-if="index==1">2nd</text>
+                                    <text class="single-day" v-else-if="index==2">3rd</text>
+                                    <text class="single-day" v-else>{{index+1}}th</text>
+                                </div>
+
+                            </div>
+                        </div>
+                    </scroller>
+                <!--</div>-->
+
+
+            </div>
+
+            <!--<div class="overflow-mid" style="margin-bottom: 100px">-->
+
+
+                <!--<div class="mid-card-noShadow">-->
+                   <!--<div>-->
+                       <!--<image  src="bmlocal://assets/perks/bg-1.jpg" style="width: 686px;height:520px"></image>-->
+                       <!--<image class="center-img"  src="bmlocal://assets/perks/bg-3.png" style="width: 500px;height:294px"></image>-->
+                   <!--</div>-->
+                    <!--<div class="center-word">-->
+                        <!--<text :class="[signObj.isSign?'c-w-hs':'c-w-h',]">Check In & Earn Points</text>-->
+                        <!--<div class="c-wb" v-if="signObj.isSign" >-->
+                            <!--<text class="c-wb-wn">Got </text>-->
+                            <!--<text class="c-wb-wn">{{(signObj.originalPoints + (((signObj.signTimes - 1) % 15) <= 6 ? ((signObj.signTimes - 1) % 15) : 6)*signObj.gradientPoints) }}</text>-->
+                            <!--<text class="c-wb-wn"> Points! </text>-->
+                            <!--&lt;!&ndash;<text class="c-wb-wn iconfont">&#xe626;</text>&ndash;&gt;-->
                         <!--</div>-->
-                        <!--<image class="t-cb-i" src="bmlocal://assets/perks/cup.png" ></image>-->
+                        <!--<text class="c-w-r" @click="openRulerPage(2)">Rules >></text>-->
                     <!--</div>-->
+                    <!--<div class="over-flow-cwb" ref="getBtn">-->
+                        <!--<div class="c-w-b"  @click="getSign">-->
+                            <!--<text class="c-w-bw" v-if="signObj.isSign">Get {{signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)* signObj.gradientPoints)}} Points Tomorrow</text>-->
+                            <!--<text class="c-w-bw" v-if="!signObj.isSign">Claim {{(signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)*signObj.gradientPoints))||0}} Daily Points</text>-->
+                            <!--<text class="c-w-bwa iconfont" v-if="!signObj.isSign" >&#xe626;</text>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
                 <!--</div>-->
             <!--</div>-->
-
-            <div class="overflow-mid"  style="margin-bottom: 100px">
-
-                <div class="top-card">
-                    <div>
-                        <image src="bmlocal://assets/bg.png" class="bg-tangle" @click="shake" ></image>
-                        <div  style="height: 328px;">
-                            <image ref="pG1" src="bmlocal://assets/perks/hat.png" class="gif-icon" ></image>
-                            <!--<image ref="pG1" src="bmlocal://assets/perks/watch.png" class="gif-icon" ></image>-->
-                            <image ref="pG2" src="bmlocal://assets/perks/dress.png" class="gif-icon1" ></image>
-
-                            <image ref="pG3" src="bmlocal://assets/perks/package.png" class="gif-icon2" ></image>
-
-                            <image ref="pG4" src="bmlocal://assets/perks/gift.png" class="gif-icon3" ></image>
-
-
-                            <image ref="pG5" src="bmlocal://assets/perks/bikini.png" class="gif-icon4" ></image>
-                            <image ref="pG6" src="bmlocal://assets/perks/y-headset.png" class="gif-icon5" ></image>
-                            <image ref="pG7" src="bmlocal://assets/perks/shoe.png" class="gif-icon6" ></image>
-                            <image ref="pG8" src="bmlocal://assets/perks/headset.png" class="gif-icon7" ></image>
-                            <image ref="pG9" src="bmlocal://assets/perks/watch.png" class="gif-icon8" ></image>
-                            <!--<image ref="pG10" src="bmlocal://assets/perks/gift.png" class="gif-icon9" ></image>-->
-
-                        </div>
-                    </div>
-                    <!--<image src="bmlocal://assets/perks/egg2_2.gif" class="bg-tangle" ></image>-->
-                    <text class="t-c-h">Daily Gift Box</text>
-
-                    <div class="t-cm">
-
-                        <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
-                            <text class="t-cm-cw" >Earn up to ₹200 cash bonus</text>
-                            <text class="t-cm-ca iconfont">&#xe626;</text>
-                        </div>
-                        <div class="t-cm-cr" v-if="isCash" >
-                            <text class="t-cm-cwr">Earned ₹{{points}} Bonus!</text>
-                            <text class="t-cm-car iconfont">&#xe6ed;</text>
-                        </div>
-                        <image class="t-cm-i" src="bmlocal://assets/perks/cup.png" ></image>
-
-                    </div>
-                    <text class="t-cb" @click="openRulerPage(1)">Rules >></text>
-
-
-                </div>
-            </div>
-
-            <div class="overflow-mid" style="margin-bottom: 100px">
-
-                <div class="mid-card-noShadow">
-                   <div>
-                       <image  src="bmlocal://assets/perks/bg-1.jpg" style="width: 686px;height:520px"></image>
-                       <image class="center-img"  src="bmlocal://assets/perks/bg-3.png" style="width: 500px;height:294px"></image>
-                   </div>
-                    <div class="center-word">
-                        <text :class="[signObj.isSign?'c-w-hs':'c-w-h',]">Check In & Earn Points</text>
-                        <div class="c-wb" v-if="signObj.isSign" >
-                            <!--<div style="width: 30px;height: 30px;border-radius:15px">-->
-                                <!--<image :src="user.avatar" style="width: 30px;height: 30px"></image>-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash;<text class="c-wb-w">{{tranString('oioioioioi1234567')}}</text>&ndash;&gt;-->
-                            <!--<text class="c-wb-w">{{tranString(user.firstName)}}</text>-->
-                            <!--<image src="bmlocal://assets/gold-coin.png" style="width: 16px;height: 16px;margin-right: 4px"></image>-->
-                            <text class="c-wb-wn">Got </text>
-                            <text class="c-wb-wn">{{(signObj.originalPoints + (((signObj.signTimes - 1) % 15) <= 6 ? ((signObj.signTimes - 1) % 15) : 6)*signObj.gradientPoints) }}</text>
-                            <text class="c-wb-wn"> Points! </text>
-                            <!--<text class="c-wb-wn iconfont">&#xe626;</text>-->
-                        </div>
-                        <text class="c-w-r" @click="openRulerPage(2)">Rules >></text>
-                    </div>
-                    <div class="over-flow-cwb" ref="getBtn">
-                        <div class="c-w-b"  @click="getSign">
-                            <text class="c-w-bw" v-if="signObj.isSign">Get {{signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)* signObj.gradientPoints)}} Points Tomorrow</text>
-                            <text class="c-w-bw" v-if="!signObj.isSign">Claim {{(signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)*signObj.gradientPoints))||0}} Daily Points</text>
-                            <text class="c-w-bwa iconfont" v-if="!signObj.isSign" >&#xe626;</text>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
 
             <div class="overflow-mid">
 
@@ -156,8 +176,6 @@
 
                 </div>
             </div>
-
-
 
             <div class="overflow-gift-card" >
                 <div class="top-right-div">
@@ -294,7 +312,6 @@
 <script>
     const animation = weex.requireModule('animation')
     const dom = weex.requireModule('dom');
-    import slider from './slider';
     import { WxcMask } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const common = weex.requireModule('CommonUtils');
@@ -302,7 +319,6 @@
     export default {
         name: 'index',
         components: {
-            'slider': slider,
             WxcMask
         },
         data () {
@@ -342,6 +358,54 @@
               isFirstGet: false,
               ruleShow: false,
               user: false,
+              scrollerPoint: [
+                  {
+                      p: 150,
+                      s: false
+                  }, {
+                       p: 200,
+                       s: false
+                  }, {
+                       p: 250,
+                       s: false
+                  }, {
+                       p: 300,
+                       s: false
+                  }, {
+                       p: 350,
+                       s: false
+                  }, {
+                       p: 150,
+                       s: false
+                  }, {
+                       p: 400,
+                       s: false
+                  }, {
+                      p: 450,
+                      s: false
+                  }, {
+                      p: 450,
+                      s: false
+                  }, {
+                      p: 450,
+                      s: false
+                  }, {
+                      p: 450,
+                      s: false
+                  }, {
+                      p: 450,
+                      s: false
+                  }, {
+                      p: 450,
+                      s: false
+                  }, {
+                      p: 450,
+                      s: false
+                  }, {
+                      p: 450,
+                      s: false
+                  }
+              ],
               loadingAR: [
                   { ref: 'pG1', p: [-140, -100], delay: 0 },
                   { ref: 'pG2', p: [-110, -70], delay: 0 },
@@ -364,6 +428,10 @@
                 this.signObj.isSign = false
                 this.signObj.signTimes = 0
                 this.stopShake = false
+                for (let i = 0; i < this.scrollerPoint.length; i++) {
+                    this.scrollerPoint[i].s = false
+                }
+                this.setEmpty()
             })
             this.$event.on('login', parmas => {
                 this.initPage()
@@ -377,6 +445,7 @@
                 this.getSignTime()
                 this.setTime()
                 this.shakeBtn()
+                this.shakeArrow()
                 googleAnalytics.trackingScreen('Rewards');
                 // this.$notice.alert({
                 //     message: this.user
@@ -443,8 +512,19 @@
                     this.signObj = res
                     if (this.signObj.isSign) {
                         this.stopShake = true
+                    }
+
+                    if (!this.signObj.isContinue) {
+                        this.signObj.signTimes = 0
+                        for (let i = 0; i < this.scrollerPoint.length ; i++) {
+                            this.scrollerPoint[i].s = false
+                        }
                     } else {
-                        !this.signObj.isContinue ? this.signObj.signTimes = 0 : ''
+                        for (let i = 0; i < this.scrollerPoint.length ; i++) {
+                            if (i < this.signObj.signTimes) {
+                                this.scrollerPoint[i] = true
+                            }
+                        }
                     }
                 }).catch((res) => {
                     // this.$notice.toast({
@@ -556,6 +636,11 @@
                             }
                         }).then((res) => {
                             this.signObj.signTimes = res.signTimes
+                            for (let i = 0; i < this.scrollerPoint.length; i++) {
+                                if (i < this.signObj.signTimes) {
+                                    this.scrollerPoint[i] = true
+                                }
+                            }
                             this.signObj.isSign = true
                             this.stopShake = true
                             this.centerPoints = res.points
@@ -598,6 +683,7 @@
                 setInterval(() => {
                     this.loadingAni()
                     this.shakeBtn()
+                    this.shakeArrow()
                 }, 2000)
             },
             shake (_ref, _x, _y) {
@@ -623,15 +709,36 @@
             },
             shakeBtn () {
                 if (!this.stopShake) {
-                    animation.transition(this.$refs.getBtn, {
+                    animation.transition(this.$refs.getBtn1, {
                         styles: {
-                            transform: 'translate(0px, 15px)'
+                            transform: 'translate(0px, -15px)'
                         },
                         duration: 800, // ms
                         timingFunction: 'ease',
                         delay: 0 // ms
                     }, function () {
-                        animation.transition(this.$refs.getBtn, {
+                        animation.transition(this.$refs.getBtn1, {
+                            styles: {
+                                transform: 'translate(0px, 0px)'
+                            },
+                            duration: 1000, // ms
+                            timingFunction: 'ease',
+                            delay: 0 // ms
+                        })
+                    }.bind(this))
+                }
+            },
+            shakeArrow () {
+                if (!this.topStopShake) {
+                    animation.transition(this.$refs.getArrow, {
+                        styles: {
+                            transform: 'translate(15px, 0px)'
+                        },
+                        duration: 800, // ms
+                        timingFunction: 'ease',
+                        delay: 0 // ms
+                    }, function () {
+                        animation.transition(this.$refs.getArrow, {
                             styles: {
                                 transform: 'translate(0px, 0px)'
                             },
@@ -755,24 +862,6 @@
         width: 48px;
         height: 48px;
     }
-    .notice-wrapper {
-        width: 750px;
-        height: 50px;
-        justify-content: start;
-        align-items: center;
-        overflow: hidden;
-        margin-top: 32px;
-    }
-    .notice-bg{
-        width: 622px;
-        height: 80px;
-        background-color: #FFFFFF;
-        border-width: 1px;
-        border-style: solid;
-        border-color: rgba(0,0,0,0.12);
-        border-radius: 40px;
-        overflow: hidden;
-    }
     .blackheader{
         position: fixed;
         top: 0;
@@ -782,7 +871,7 @@
         background-color: black;
     }
     .header{
-        background-color: #EF8A31;
+        background-color: white;
         height: 302px;
         border-radius: 50%;
         flex-direction: row;
@@ -790,18 +879,28 @@
         justify-content: center;
     }
     .header-word{
-        font-family: ProximaNova-Bold;
         font-size: 40px;
         font-weight: 700;
         width: 474px;
-        color: #FFFFFF;
+        color: black;
         text-align: center;
         line-height: 64px;
     }
     .overflow-mid{
         flex-direction: row;
         justify-content: center;
+    }
+    .overflow-mid1{
+        flex-direction: row;
+        justify-content: center;
+        height: 340px;
         margin-top: -70px;
+        /*background-color: black*/
+    }
+    .overflow-mid2{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     .overflow-gift-bottom{
         margin-bottom: 150px;
@@ -817,9 +916,7 @@
     }
     .mid-card-noShadow{
         width: 686px;
-        /*height: 520px;*/
         background-color: white;
-        /*box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);*/
         border-radius: 16px;
         flex-direction: column;
         align-items: stretch;
@@ -955,75 +1052,108 @@
     }
     .top-card{
         width: 686px;
-        height: 328px;
-        background-color: white;
-        /*box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);*/
-        border-radius: 16px;
-        flex-direction: column;
-        align-items: stretch;
+        height: 264px;
+        background-color: #31005f;
+        border-radius: 180px;
+    }
+    .w-i5{
+        position: absolute;
+        top: 158px;
+        left: 113px;
+    }
+    .w-i3{
+        position: absolute;
+        top: 102px;
+        left: 210px;
+    }
+    .w-i1{
+        position: absolute;
+        top: 91px;
+        left: 274px;
+    }
+    .w-i6{
+        position: absolute;
+        top: 104px;
+        left: 336px;
+    }
+    .w-i2{
+        position: absolute;
+        top: 98px;
+        left: 435px;
+    }
+    .w-i4{
+        position: absolute;
+        top: 104px;
+        right: 130px;
     }
     .t-c-h{
         position: absolute;
-        top: 34px;
-        left: 0px;
+        top: 32px;
+        left: 0;
         font-size: 36px;
-        color: #000000;
-        letter-spacing: 0;
+        color: white;
         font-weight: 700;
         text-align: center;
     }
+    .t-cb{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 70px;
+        width: 104px;
+        height: 42px;
+        border-top-right-radius: 100%;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+        background-color: #D71D2A ;
+    }
+    .t-cbw{
+        font-size: 20px;
+        color: white;
+    }
     .t-cm{
         position: absolute;
-        top: 112px;
-        left: 0px;
+        top: 200px;
+        left: 32px;
         width: 686px;
-        /*background-color: black;*/
-        flex-direction: row;
-        justify-content: start;
-    }
-    .t-cm-i{
-        position: relative;
-        top: -30px;
-        right: 500px;
-        width: 150px;
-        height: 150px;
+
     }
     .t-cm-c{
         flex-direction: row;
-        justify-content: start;
+        justify-content: center;
         align-items: center;
-        background-color: #EF8A31;
+        background-color: #6900CB;
         height: 108px;
-        width: 460px;
+        /*width: 686px;*/
         border-radius:50%;
-        margin-left:114px;
-        margin-top: 10px;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.50);
     }
     .t-cm-cw{
-        margin-left: 90px;
         font-size: 24px;
         color: white;
         font-weight: 700;
+        margin-left: 10px;
     }
     .t-cm-ca{
         font-size: 36px;
         color: white;
-        margin-left: 20px;
+        margin-left: 10px;
         font-weight: 700;
     }
     .t-cm-cr{
         flex-direction: row;
-        justify-content: start;
+        justify-content: center;
         align-items: center;
-        background-color: #EF8A31;
+        background-color: #6900CB;
         height: 108px;
-        width: 460px;
+        /*width: 460px;*/
         border-radius:50%;
-        margin-left:104px;
-        margin-top: 10px;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.50);
     }
     .t-cm-cwr{
-        margin-left: 130px;
+        margin-left: 10px;
         font-size: 24px;
         color: white;
         font-weight: 700;
@@ -1034,12 +1164,184 @@
         margin-left: 10px;
         /*font-weight: 700;*/
     }
-    .t-cb{
+    .mid-head{
+        height: 96px;
+        width: 502px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-top-right-radius: 100%;
+        border-top-left-radius: 100%;
+        background-color: #FFBD24;
+    }
+    .m-h1{
+        font-size: 36px;
+        color: #FFFFFF;
+        font-weight: 700;
+        margin-top: 16px;
+
+    }
+    .m2-content{
+        background-color:#F1A800;
+        width: 686px;
+        border-radius: 32px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .m2-r{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         position: absolute;
-        bottom: 40px;
-        left: 304px;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 48px;
+        background-color: #389000;
+        border-top-left-radius:100%;
+        border-bottom-left-radius:100%;
+    }
+    .m2-rw{
+        font-size: 20px;
+        color: #FFFFFF;
+    }
+    .m2-c1{
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        margin-top: 30px;
+        margin-bottom: 18px;
+    }
+    .m2-c1w{
+        margin-left: 16px;
+        margin-right: 16px;
+        font-size: 28px;
+        font-weight: 600;
+        color: white;
+    }
+    .m2-c1p{
+        font-size: 48px;
+        font-weight: 700;
+        color: white;
+    }
+    .m2-c2{
+        background-color: #327D03;
+        height: 78px;
+        width: 424px;
+        border-radius: 50%;
+    }
+    .m2-c2-shadow{
+        background-color: #389000;
+        height: 70px;
+        width: 424px;
+        flex-direction: row;
+        justify-content: center;
+        align-items:center;
+    }
+    .m2-c2w{
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+        margin-left: 14px;
+    }
+    .m2-c2a{
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+    }
+    .m2-c2r{
+        /*background-color: #327D03;*/
+        height: 78px;
+        width: 424px;
+        /*border-radius: 50%;*/
+    }
+    .m2-c2-shadowr{
+        /*background-color: #389000;*/
+        height: 70px;
+        width: 424px;
+        flex-direction: row;
+        justify-content: center;
+        align-items:center;
+    }
+    .m2-c2wr{
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+        margin-left: 14px;
+    }
+    .m2-c2ar{
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+    }
+    .m2-c3{
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        margin-top: 12px;
+        margin-bottom: 46px;
+    }
+    .m2-c3w{
         font-size: 24px;
-        text-decoration: underline;
+        font-weight: 700;
+        color: #FFFFFF;
+    }
+    /*.m2-c4{*/
+        /*width: 592px;*/
+        /*height: 122px;*/
+        /*flex-direction: row;*/
+        /*justify-content: center;*/
+        /*align-items: center;*/
+    /*}*/
+    .s-box{
+        padding-top: 8px;
+        padding-left: 32px;
+        margin-bottom: 32px;
+        width: 592px;
+        height: 122px;
+        margin-top: -32px;
+        border-radius: 16px;
+        flex-direction: row;
+        background-color:#FFDD90;
+    }
+    .s-box-c{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center
+    }
+    .single{
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+    }
+    .single-dot{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+    .single-line{
+        width:34px;
+        height: 2px;
+        background-color: #eeb07a
+    }
+    .single-line-last{
+        width:34px;
+        /*height: 2px;*/
+        background-color: #eeb07a
+    }
+    .single-word{
+        position: absolute;
+        top:10px;
+        left:4px;
+        font-size: 20px;
+        color: #717171;
+    }
+    .single-day{
+        font-size: 20px;
+        color: #34260B;
+        margin-top: 4px;
+        margin-left: 6px;
     }
     .bg-tangle{
         position: absolute;
@@ -1072,19 +1374,11 @@
         border-radius: 50%;
     }
     .c-w-b{
-        /*position: absolute;*/
-        /*top: 340px;*/
-        /*left: 128px;*/
-        /*width: 435px;*/
         background-color: #F6C312;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        /*box-shadow: 0 10px 0 #DBAE12;*/
-        /*border-width: 2px ;*/
-        /*border-style: solid;*/
-        /*border-color: #DBAE12;*/
     }
     .c-w-h{
         width: 200px;
