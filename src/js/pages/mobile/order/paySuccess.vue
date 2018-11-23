@@ -11,7 +11,7 @@
                 <text class="pay-failure-title">Order Placed Successfully!</text>
             </div>
             <text class="pay-failure-title-1">Thank you for your order.</text>
-            <text class="pay-failure-title-1-1">Your package will be shipped out in 5-7 days!</text>
+            <text class="pay-failure-title-1-1">Your package will be dispatched in 5-7 days!</text>
             <text class="pay-failure-button" @click="back">View Order</text>
             <text class="pay-failure-button-1" @click="jumpHome">Back to Home Page</text>
         </div>

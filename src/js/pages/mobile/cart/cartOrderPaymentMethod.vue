@@ -15,7 +15,7 @@
                     <div class="overflow-box1" >
                         <div>
                             <image class="item-image-3" resize="contain" :src="payUSrc"></image>
-                            <text class="item-text">UPI / Card / Net Banking / Wallet / PhonePe / G Pay</text>
+                            <text class="item-text">Wallet / Credit&Debit Card / Net Banking</text>
                         </div>
                         <text class="iconfont item-checked" v-if="method == 'payU'">&#xe6fb;</text>
                         <text class="iconfont item-no-checked" v-if="method != 'payU'">&#xe73f;</text>
