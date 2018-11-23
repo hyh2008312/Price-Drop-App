@@ -79,6 +79,7 @@
 
             },
             chooseAddress () {
+                this.$notice.loading.show();
                 if (!this.source) {
                     this.$fetch({
                         method: 'GET', // 大写
@@ -87,7 +88,8 @@
                             needAuth: true
                         }
                     }).then(resData => {
-                        this.address = resData
+                        this.$notice.loading.hide();
+                        this.address = resData;
                         this.$storage.get('user').then((data) => {
                             let user = data
                             user.defaultAddress = resData
@@ -113,10 +115,11 @@
                             needAuth: true
                         }
                     }).then(resData => {
+                        this.$notice.loading.hide();
                         this.$storage.get('user').then((data) => {
-                            let user = data
-                            user.defaultAddress = resData
-                            this.$storage.set('user', user)
+                            let user = data;
+                            user.defaultAddress = resData;
+                            this.$storage.set('user', user);
                         })
                     }, error => {
                         // this.$notice.toast({
