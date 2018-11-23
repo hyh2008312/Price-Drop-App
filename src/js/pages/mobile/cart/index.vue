@@ -363,6 +363,7 @@
                 }).then((res) => {
                     if (res.result == 'success') {
                         this.countPrice()
+                        this.$event.emit('cartNum')
                     }
                 }).catch((res) => {
                     // this.$notice.toast({
