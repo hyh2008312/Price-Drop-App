@@ -22,14 +22,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bottom">
+                    <div class="bottom-s" @click="changeIsShow(firstPrize)" v-if="firstPrize.drawer.length>1" >  <!--1等奖有一个以上中一等奖-->
+                        <div class="b-user-s">
+                            <div v-for="(item,index) in firstPrize.drawer" :class="[index===firstPrize.drawer.length-1?'':'mg-r-10']" >
+                                <div class="b-u-s">
+                                    <image class="b-u-i" :src="item.avatar"></image>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b-i">
+                            <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
+                            <text class="iconfont b-arrow">&#xe626;</text>
+                        </div>
+
+                    </div>
+                    <div class="bottom" @click="changeIsShow(firstPrize)" v-if="firstPrize.drawer.length==1"><!--1等奖只有一个中一等奖-->
                         <div class="b-user" v-for="item in firstPrize.drawer">
                             <div class="b-u">
                                 <image class="b-u-i" :src="item.avatar"></image>
                             </div>
                             <text class="b-u-w">{{item.userName}}</text>
                         </div>
-                        <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
+                        <div class="b-i">
+                            <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
+                            <text class="iconfont b-arrow">&#xe626;</text>
+                        </div>
                     </div>
 
                 </div>

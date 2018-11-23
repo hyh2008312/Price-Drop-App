@@ -374,10 +374,10 @@
                        p: 350,
                        s: false
                   }, {
-                       p: 150,
+                       p: 400,
                        s: false
                   }, {
-                       p: 400,
+                       p: 450,
                        s: false
                   }, {
                       p: 450,
@@ -866,7 +866,7 @@
         background-color: black;
     }
     .header{
-        background-color: white;
+        background-color: #EF8A31;
         height: 302px;
         border-radius: 50%;
         flex-direction: row;
@@ -877,7 +877,7 @@
         font-size: 40px;
         font-weight: 700;
         width: 474px;
-        color: black;
+        color: white;
         text-align: center;
         line-height: 64px;
     }
