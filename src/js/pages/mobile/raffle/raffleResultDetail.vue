@@ -15,7 +15,7 @@
                 <div class="avatar-bg">
                     <image class="avatar" :src="item.avatar"></image>
                 </div>
-                <text class="content-1">{{item.drawerFullName}}</text>
+                <text class="content-1">{{item.firstName}} {{item.lastName}}</text>
                 <text class="content-3">won a free product</text>
             </cell>
             <cell class="content-4" v-if="index == 1">
@@ -29,7 +29,7 @@
                 <div class="avatar-bg">
                     <image class="avatar" :src="item.avatar"></image>
                 </div>
-                <text class="content-1">{{item.drawerFullName}}</text>
+                <text class="content-1">{{item.firstName}} {{item.lastName}}</text>
                 <text class="content-3">won a gift voucher</text>
             </cell>
             <cell class="content-4 md-padding-bottom" v-if="index == 2">
@@ -43,7 +43,7 @@
                 <div class="avatar-bg">
                     <image class="avatar" :src="item.avatar"></image>
                 </div>
-                <text class="content-1">{{item.drawerFullName}}</text>
+                <text class="content-1">{{item.firstName}} {{item.lastName}}</text>
                 <text class="content-3">won a gift voucher</text>
             </cell>
 
@@ -194,6 +194,9 @@
                     if (!isfirst) {
                         this.isLoading = false;
                     }
+                    // this.$notice.alert({
+                    //     message: this.drawer[0]
+                    // })
                     this.refreshApiFinished();
                 }, (error) => {
                     if (error.status == 10) {
