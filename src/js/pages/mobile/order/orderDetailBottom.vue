@@ -42,7 +42,7 @@
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Undelivered'">
             <text class="od-button-1" @click="deleteOrder">Delete</text>
-            <text class="od-button" @click="jumpHome">Buy Again</text>
+            <text class="od-button" @click="tracking">Track Package</text>
         </div>
     </div>
 </template>

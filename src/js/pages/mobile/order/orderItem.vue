@@ -87,7 +87,7 @@
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Undelivered'">
                 <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
-                <text class="gd-button" @click="buyProduct">Buy Again</text>
+                <text class="gd-button" @click="tracking">Track Package</text>
             </div>
         </div>
     </div>

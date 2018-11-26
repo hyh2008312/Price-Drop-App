@@ -9,7 +9,17 @@
                 </div>
                 <div class="gb-box-bg gb-mt" v-if="order.trackingNumber">
                     <text class="gb-text">Tracking Number: </text>
-                    <text class="gb-text-color">{{order.trackingNumber}}</text>
+                    <text class="gb-text-color" @click="setNumber">{{order.trackingNumber}}</text>
+                    <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
+                </div>
+                <div class="gb-box-bg gb-mt" v-if="order.carrierCode == 'GATI'">
+                    <text class="gb-text">Carrier's Contact Number: </text>
+                    <text class="gb-text-color" @click="setNumber">1860 123 4284</text>
+                    <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
+                </div>
+                <div class="gb-box-bg gb-mt" v-if="order.carrierCode == 'GATI'">
+                    <text class="gb-text">Carrier's Support Email: </text>
+                    <text class="gb-text-color" @click="setNumber">ccc_intl@gati.com</text>
                     <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
                 </div>
                 <div class="gb-box-bg gb-mt" v-if="!order.trackingNumber">
@@ -34,7 +44,7 @@
         methods: {
             setNumber () {
                 clipboard.setString(this.order.trackingNumber)
-                this.$notice.toast('Tracking number copied')
+                this.$notice.toast('Successfully Copied')
             }
         }
     }
