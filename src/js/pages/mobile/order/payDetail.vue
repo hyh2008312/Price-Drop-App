@@ -400,7 +400,7 @@ export default {
         font-size: 28px;
         line-height: 80px;
         font-weight: bold;
-        width: 320px;
+        width: 332px;
         height: 80px;
         border-color: #EF8A31 ;
         border-width: 1px;
@@ -415,7 +415,7 @@ export default {
         font-size: 28px;
         line-height: 80px;
         font-weight: bold;
-        width: 320px;
+        width: 332px;
         height: 80px;
         text-align: center;
         color: white;
@@ -429,7 +429,7 @@ export default {
         font-size: 28px;
         line-height: 80px;
         font-weight: bold;
-        width: 320px;
+        width: 332px;
         height: 80px;
         text-align: center;
         color: white;
