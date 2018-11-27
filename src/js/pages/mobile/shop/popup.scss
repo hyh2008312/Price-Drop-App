@@ -205,8 +205,8 @@
   padding: 48px 32px;
   width: 750px;
   height: 770px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   background-color: #fff;
 }
 .r-icon{
@@ -331,7 +331,12 @@
 
 
 .popup-ship-content{
-  margin: 48px 32px;
+  width: 750px;
+  height: 414px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  background-color: #fff;
+
 }
 .pShip-item{
   flex-direction: row;

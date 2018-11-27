@@ -30,15 +30,20 @@
                    height="583">
             <div class="popup-content">
                 <div class="popup-content-top">
-                    <text class="popup-content-title">Select a Cancellation Reason</text>
-                    <div class="popup-content-mt">
-                        <text class="popup-content-title-1" :class="[reasonActive == index ? 'popup-content-active': '']"
-                              v-for="(item, index) in reason" @click="changeReason(index)">{{item}}</text>
+                    <div class="popup-content-title1">
+                        <text class="popup-content-title">Select a Cancellation Reason</text>
+                        <text class="popup-content-close iconfont" @click="closeBottomPop">&#xe632;</text>
+                    </div>
+
+                    <div class="popup-content-mt" v-for="(item, index) in reason" :class="[index == 0 ? 'popup-content-mt-first': '']" @click="changeReason(index)">
+                        <text class="iconfont popup-content-icon-active"  v-if="reasonActive == index">&#xe6fb;</text>
+                        <text class="iconfont popup-content-icon"  v-if="reasonActive !== index">&#xe73f;</text>
+                        <text class="popup-content-title-1"  >{{item}}</text>
                     </div>
                 </div>
                 <div class="popup-content-bottom">
-                    <text class="popup-content-button" @click="closeBottomPop">Cancel</text>
-                    <text class="popup-content-button" :class="[reasonActive >= 0 ? 'popup-content-button-1': '']"
+                    <text class="popup-content-button1" @click="closeBottomPop">Cancel</text>
+                    <text class="popup-content-button2" :class="[reasonActive >= 0 ? 'popup-content-button2-noactive': '']"
                           @click="cancelOrder">OK</text>
                 </div>
             </div>
@@ -318,13 +323,15 @@ export default {
     .cell-bottom{
         padding-bottom: 16px;
     }
-
+    .iconfont{
+        font-family: iconfont;
+    }
 
     .popup-content {
         height: 583px;
         width: 750px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
         background-color: #fff;
         overflow: hidden;
     }
@@ -336,31 +343,50 @@ export default {
         border-bottom-width: 2px;
         border-bottom-style: solid;
         border-bottom-color: rgba(0,0,0,0.08);
+    }
+
+    .popup-content-title1{
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
     }
-
     .popup-content-title{
         font-size: 28px;
-        line-height: 34px;
+        /*line-height: 34px;*/
         font-weight: bold;
-        text-align: center;
     }
-
+    .popup-content-close{
+        font-size: 44px;
+        opacity: .6;
+    }
     .popup-content-title-1{
         font-size: 24px;
-        line-height: 28px;
-        margin-top: 32px;
-        text-align: center;
-        width: 686px;
+        /*line-height: 28px;*/
+        /*margin-top: 32px;*/
+        text-align: left;
+        /*width: 686px;*/
     }
-
+    .popup-content-icon{
+        margin-right: 24px;
+    }
+    .popup-content-icon-active{
+        margin-right: 24px;
+        color: #4AB406;
+    }
     .popup-content-active{
         color: #EF8A31;
     }
 
     .popup-content-mt{
-        margin-top: 32px;
+        padding: 16px 0;
         width: 686px;
+        /*height: 32px;*/
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+    .popup-content-mt-first{
+        margin-top: 34px;
     }
 
     .popup-content-bottom{
@@ -370,25 +396,47 @@ export default {
         justify-content: space-between;
     }
 
-    .popup-content-button{
+    .popup-content-button1{
         font-size: 28px;
-        line-height: 120px;
+        line-height: 80px;
         font-weight: bold;
-        width: 375px;
-        border-right-color: rgba(0,0,0, 0.08);
-        border-right-width: 1px;
-        border-right-style: solid;
-        text-align: center;
-        color: rgba(0,0,0,0.38);
-    }
-
-    .popup-content-button-1{
-        font-size: 28px;
-        line-height: 120px;
-        font-weight: bold;
-        width: 375px;
+        width: 320px;
+        height: 80px;
+        border-color: #EF8A31 ;
+        border-width: 1px;
+        border-style: solid;
         text-align: center;
         color: #EF8A31;
+        border-radius: 50%;
+        margin-top: 18px;
+        margin-left:32px ;
+    }
+    .popup-content-button2-noactive{
+        font-size: 28px;
+        line-height: 80px;
+        font-weight: bold;
+        width: 320px;
+        height: 80px;
+        text-align: center;
+        color: white;
+        background-color: #EF8A31;
+        border-radius: 50%;
+        margin-top: 18px;
+        margin-right:32px ;
+    }
+
+    .popup-content-button2{
+        font-size: 28px;
+        line-height: 80px;
+        font-weight: bold;
+        width: 320px;
+        height: 80px;
+        text-align: center;
+        color: white;
+        background-color: rgba(0,0,0,0.38);
+        border-radius: 50%;
+        margin-top: 18px;
+        margin-right:32px ;
     }
 
     .popup-delete-container{

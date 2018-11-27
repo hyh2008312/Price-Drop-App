@@ -405,36 +405,39 @@
         </wxc-popup>
 
         <wxc-popup :have-overlay="isTrue"
-                   popup-color="rgba(255, 255, 255, 1)"
+                   popup-color="rgba(255, 255, 255, 0)"
                    :show="isShipShow"
                    @wxcPopupOverlayClicked="popupOverlayBottomClick"
                    pos="bottom"
                    height="414">
             <div class="popup-ship-content">
-                <div class="pShip-item">
-                    <text class="s-item-b">Buy Now to Enjoy Free Shipping!</text>
-                    <text class="s-item-i iconfont" @click="popupOverlayBottomClick">&#xe632;</text>
-                </div>
-                <div class="pShip-item1">
-                    <text class="s-item-t">Shipping Cost:</text>
-                    <text class="s-item-t1">₹ 0 </text>
-                    <text class="s-item-t2">₹ 100</text>
-                </div>
-                <!--<div class="pShip-item1 mg-b44">-->
-                    <!--<text class="s-item-t">Shipping Carrier:</text>-->
-                    <!--<text class="s-item-t1">{{shipObj.shippingName}}</text>-->
-                <!--</div>-->
-                <div class="pShip-item1">
-                    <text class="s-item-t">Order Processing Before Shipping:</text>
-                    <text class="s-item-t1">5 - 7 days</text>
-                </div>
-                <div class="pShip-item1">
-                    <text class="s-item-t">Shipping Time After Processing:</text>
-                    <text class="s-item-t1">{{shipObj.shippingTimeMin}} - {{shipObj.shippingTimeMax}} days</text>
-                </div>
-                <div class="pShip-item1 mg-b32">
+                <div style="margin: 48px 32px">
+
+                    <div class="pShip-item">
+                        <text class="s-item-b">Buy Now to Enjoy Free Shipping!</text>
+                        <text class="s-item-i iconfont" @click="popupOverlayBottomClick">&#xe632;</text>
+                    </div>
+                    <div class="pShip-item1">
+                        <text class="s-item-t">Shipping Cost:</text>
+                        <text class="s-item-t1">₹ 0 </text>
+                        <text class="s-item-t2">₹ 100</text>
+                    </div>
+                    <!--<div class="pShip-item1 mg-b44">-->
+                        <!--<text class="s-item-t">Shipping Carrier:</text>-->
+                        <!--<text class="s-item-t1">{{shipObj.shippingName}}</text>-->
+                    <!--</div>-->
+                    <div class="pShip-item1">
+                        <text class="s-item-t">Order Processing Before Shipping:</text>
+                        <text class="s-item-t1">5 - 7 days</text>
+                    </div>
+                    <div class="pShip-item1">
+                        <text class="s-item-t">Shipping Time After Processing:</text>
+                        <text class="s-item-t1">{{shipObj.shippingTimeMin}} - {{shipObj.shippingTimeMax}} days</text>
+                    </div>
+                    <div class="pShip-item1 mg-b32">
                     <text class="s-item-t">Estimated Arrival Date:</text>
                     <text class="s-item-t1"> {{getNowDay1(shipObj.shippingTimeMin)}} - {{getNowDay1(shipObj.shippingTimeMax)}}</text>
+                </div>
                 </div>
 
             </div>
@@ -624,12 +627,7 @@
                 pinCodeLoad: false
             }
         },
-        mounted () {
-            // setInterval(() => {
-            //     this.NOW_DATE = new Date().getTime();
-            // }, 1000);
-            // this.countDate(this.flashSale.endTime)
-        },
+        mounted () {},
         computed: {
             opacity: {
                 get: function () {
@@ -667,6 +665,9 @@
             } else {
                 this.user = null
             }
+            this.$event.on('cartNum', parmas => {
+                this.getCartNum()
+            })
             this.initBack();
             this.trimNullObj();
         },
