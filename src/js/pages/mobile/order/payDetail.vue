@@ -353,12 +353,16 @@ export default {
         color: #EF8A31;
     }
 
-    .popup-delete-button-1{
+    .popup-delete-button-1 {
         font-family: ProximaNova;
         font-weight: bold;
         font-size: 24px;
         line-height: 34px;
-        color: rgba(0,0,0,0.54);
+        color: rgba(0, 0, 0, 0.54);
+    }
+
+    .iconfont{
+        font-family: iconfont;
     }
 
     .popup-receipt-container{
@@ -367,6 +371,13 @@ export default {
         border-radius: 8px;
         background-color: #fff;
         padding: 32px;
+    }
+
+    .popup-cancel-title{
+        font-family: ProximaNova;
+        font-size: 28px;
+        line-height: 34px;
+        font-weight: bold;
     }
 
     .popup-cancel {
@@ -385,13 +396,6 @@ export default {
         border-bottom-width: 2px;
         border-bottom-style: solid;
         border-bottom-color: rgba(0,0,0,0.08);
-    }
-
-    .popup-cancel-title{
-        font-family: ProximaNova;
-        font-size: 28px;
-        line-height: 34px;
-        font-weight: bold;
     }
 
     .popup-cancel-title-1{
@@ -420,7 +424,6 @@ export default {
 
     .popup-cancel-mt{
         margin-top: 18px;
-        width: 686px;
     }
 
     .popup-cancel-bottom{

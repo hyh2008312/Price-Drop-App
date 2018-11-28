@@ -20,19 +20,22 @@
 
         <div v-if="item.drawStatus == 'Ongoing'|| item.drawStatus == 'Ended'" style="margin-left: 48px">
             <div class="goods-p">
-                <text class="goods-num">1st Prize</text>
+                <image class="goods-prize-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-01.png"></image>
+                <!--<text class="goods-num">1st Prize</text>-->
                 <div class="goods-pri">
                     <text class="goods-p-b">Free Product - </text><text class="goods-p-o">{{item.quantity}}</text> <text class="goods-p-b"> {{item.quantity > 1 ? 'Participants' : 'Participant'}}</text>
                 </div>
             </div>
             <div class="goods-p" style="margin: 8px 0;">
-                <text class="goods-num">2nd Prize</text>
+                <image class="goods-prize-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-02.png"></image>
+                <!--<text class="goods-num">2nd Prize</text>-->
                 <div class="goods-pri">
                     <text class="goods-p-b">{{item.secondPrize}} Voucher - </text><text class="goods-p-o">{{item.discountSecond}}%</text> <text class="goods-p-b"> of Participants</text>
                 </div>
             </div>
             <div class="goods-p">
-                <text class="goods-num">3rd Prize</text>
+                <image class="goods-prize-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-03.png"></image>
+                <!--<text class="goods-num">3rd Prize</text>-->
                 <div class="goods-pri">
                     <text class="goods-p-b">{{item.thirdPrize}} Voucher - </text><text class="goods-p-o">{{item.discountThird}}%</text> <text class="goods-p-b"> of Participants</text>
                 </div>
@@ -411,6 +414,12 @@
         width: 400px;
         height: 380px;
         margin-left: 64px;
+    }
+    .goods-prize-img{
+        width: 28px;
+        height: 28px;
+        margin-right: 20px;
+        margin-bottom: 4px;
     }
     .goods-num{
         font-family: ProximaNova;
