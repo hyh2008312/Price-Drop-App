@@ -51,19 +51,21 @@
                    @wxcPopupOverlayClicked="popupCancelAutoClick"
                    ref="wxcCancelPopup"
                    pos="bottom"
-                   height="583">
+                   height="542">
             <div class="popup-cancel">
                 <div class="popup-cancel-top">
-                    <text class="popup-cancel-title">Select a Cancellation Reason</text>
+                    <text class="popup-cancel-title">Select a Cancelled Reason</text>
                     <div class="popup-cancel-mt">
-                        <text class="popup-cancel-title-1"
-                              :class="[reasonActive == i ? 'popup-cancel-active': '']"
-                              v-for="(item, i) in reason" @click="changeReason(i)">{{item}}</text>
+                        <div class="popup-cancel-title-bg" v-for="(item, i) in reason" @click="changeReason(i)">
+                            <text class="iconfont popup-cancel-icon popup-cancel-active" v-if="reasonActive == i">&#xe6fb;</text>
+                            <text class="iconfont popup-cancel-icon" v-if="reasonActive != i">&#xe73f;</text>
+                            <text class="popup-cancel-title-1">{{item}}</text>
+                        </div>
                     </div>
                 </div>
                 <div class="popup-cancel-bottom">
                     <text class="popup-cancel-button" @click="closeBottomPop">Cancel</text>
-                    <text class="popup-cancel-button" :class="[reasonActive >= 0 ? 'popup-cancel-button-1': '']" @click="cancelOrder()">OK</text>
+                    <text class="popup-cancel-button-2" :class="[reasonActive >= 0 ? 'popup-cancel-button-1': '']" @click="cancelOrder()">OK</text>
                 </div>
             </div>
         </wxc-popup>

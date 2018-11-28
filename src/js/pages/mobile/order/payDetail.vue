@@ -22,24 +22,26 @@
         <order-detail-bottom :order="order" @cancel="cancel" @deleteOrder="deleteOrder"
                              @receiptOrder="receiptOrder"></order-detail-bottom>
         <wxc-popup :have-overlay="isTrue"
-                   popup-color="rgb(255, 255, 255, 255)"
+                   popup-color="rgba(255, 255, 255, 0)"
                    :show="isBottomShow"
-                   @wxcPopupOverlayClicked="popupOverlayAutoClick"
+                   @wxcPopupOverlayClicked="popupCancelAutoClick"
                    ref="wxcPopup"
                    pos="bottom"
-                   height="583">
-            <div class="popup-content">
-                <div class="popup-content-top">
-                    <text class="popup-content-title">Select a Cancellation Reason</text>
-                    <div class="popup-content-mt">
-                        <text class="popup-content-title-1" :class="[reasonActive == index ? 'popup-content-active': '']"
-                              v-for="(item, index) in reason" @click="changeReason(index)">{{item}}</text>
+                   height="542">
+            <div class="popup-cancel">
+                <div class="popup-cancel-top">
+                    <text class="popup-cancel-title">Select a Cancelled Reason</text>
+                    <div class="popup-cancel-mt">
+                        <div class="popup-cancel-title-bg" v-for="(item, i) in reason" @click="changeReason(i)">
+                            <text class="iconfont popup-cancel-icon popup-cancel-active" v-if="reasonActive == i">&#xe6fb;</text>
+                            <text class="iconfont popup-cancel-icon" v-if="reasonActive != i">&#xe73f;</text>
+                            <text class="popup-cancel-title-1">{{item}}</text>
+                        </div>
                     </div>
                 </div>
-                <div class="popup-content-bottom">
-                    <text class="popup-content-button" @click="closeBottomPop">Cancel</text>
-                    <text class="popup-content-button" :class="[reasonActive >= 0 ? 'popup-content-button-1': '']"
-                          @click="cancelOrder">OK</text>
+                <div class="popup-cancel-bottom">
+                    <text class="popup-cancel-button" @click="closeBottomPop">Cancel</text>
+                    <text class="popup-cancel-button-2" :class="[reasonActive >= 0 ? 'popup-cancel-button-1': '']" @click="cancelOrder()">OK</text>
                 </div>
             </div>
         </wxc-popup>
@@ -292,6 +294,9 @@ export default {
 </script>
 <style scoped>
 
+    .iconfont{
+        font-family: iconfont;
+    }
     .wrapper{
         position: absolute;
         left: 0;
@@ -317,78 +322,6 @@ export default {
 
     .cell-bottom{
         padding-bottom: 16px;
-    }
-
-
-    .popup-content {
-        height: 583px;
-        width: 750px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        background-color: #fff;
-        overflow: hidden;
-    }
-
-    .popup-content-top{
-        height: 463px;
-        width: 750px;
-        padding: 48px 32px;
-        border-bottom-width: 2px;
-        border-bottom-style: solid;
-        border-bottom-color: rgba(0,0,0,0.08);
-        align-items: center;
-    }
-
-    .popup-content-title{
-        font-size: 28px;
-        line-height: 34px;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .popup-content-title-1{
-        font-size: 24px;
-        line-height: 28px;
-        margin-top: 32px;
-        text-align: center;
-        width: 686px;
-    }
-
-    .popup-content-active{
-        color: #EF8A31;
-    }
-
-    .popup-content-mt{
-        margin-top: 32px;
-        width: 686px;
-    }
-
-    .popup-content-bottom{
-        height: 120px;
-        width: 750px;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .popup-content-button{
-        font-size: 28px;
-        line-height: 120px;
-        font-weight: bold;
-        width: 375px;
-        border-right-color: rgba(0,0,0, 0.08);
-        border-right-width: 1px;
-        border-right-style: solid;
-        text-align: center;
-        color: rgba(0,0,0,0.38);
-    }
-
-    .popup-content-button-1{
-        font-size: 28px;
-        line-height: 120px;
-        font-weight: bold;
-        width: 375px;
-        text-align: center;
-        color: #EF8A31;
     }
 
     .popup-delete-container{
@@ -434,6 +367,104 @@ export default {
         border-radius: 8px;
         background-color: #fff;
         padding: 32px;
+    }
+
+    .popup-cancel {
+        height: 542px;
+        width: 750px;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        background-color: #fff;
+        overflow: hidden;
+    }
+
+    .popup-cancel-top{
+        height: 428px;
+        width: 750px;
+        padding: 44px 32px;
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        border-bottom-color: rgba(0,0,0,0.08);
+    }
+
+    .popup-cancel-title{
+        font-family: ProximaNova;
+        font-size: 28px;
+        line-height: 34px;
+        font-weight: bold;
+    }
+
+    .popup-cancel-title-1{
+        font-family: ProximaNova;
+        font-size: 24px;
+        line-height: 28px;
+        margin-left: 24px;
+        width: 686px;
+    }
+
+    .popup-cancel-title-bg{
+        margin-top: 32px;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .popup-cancel-icon{
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .popup-cancel-active{
+        color: #4AB406;
+    }
+
+    .popup-cancel-mt{
+        margin-top: 18px;
+        width: 686px;
+    }
+
+    .popup-cancel-bottom{
+        height: 110px;
+        width: 750px;
+        padding: 0 32px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .popup-cancel-button{
+        font-size: 28px;
+        line-height: 78px;
+        font-weight: bold;
+        width: 338px;
+        border-color: #EF8A31;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 40px;
+        text-align: center;
+        color: #EF8A31;
+    }
+
+    .popup-cancel-button-1{
+        font-size: 28px;
+        line-height: 80px;
+        font-weight: bold;
+        width: 338px;
+        border-radius: 40px;
+        text-align: center;
+        color: #fff;
+        background-color: #EF8A31;
+    }
+
+    .popup-cancel-button-2{
+        font-size: 28px;
+        line-height: 80px;
+        font-weight: bold;
+        width: 338px;
+        border-radius: 40px;
+        text-align: center;
+        color: #fff;
+        background-color: rgba(0,0,0,0.38);
     }
 
 </style>
