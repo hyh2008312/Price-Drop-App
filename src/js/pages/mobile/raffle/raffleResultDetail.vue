@@ -283,10 +283,10 @@
 
     .product-image-1{
         position: relative;
-        /*width: 686px;*/
+        width: 686px;
         /*height: 292px;*/
-        width: 592px;
-        height: 174px;
+        /*width: 592px;*/
+        height: 202px;
     }
 
     .product-title{
@@ -313,10 +313,11 @@
         flex-direction: column;
         justify-content: start;
         align-items: start;
-        width: 590px;
+        width: 686px;
         /*height: 404px;*/
         /*width: 592px;*/
-        height: 248px;
+        height: 202px;
+
         border-radius: 24px;
         border-style: solid;
         border-color: rgba(0,0,0,0.12);
