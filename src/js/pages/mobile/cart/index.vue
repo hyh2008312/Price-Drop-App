@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <topic-header class="t-h1" title="Cart" leftBtn="y" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
+        <topic-header class="t-h1" title="Cart" :leftBtn="1" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
         <div class="blackheader"></div>
         <div class="top-buy-overflow" v-if="false">
             <div :class="[parseInt(allPrice)>0?'mg-tb16':'']" @click="jumpHome">
@@ -545,7 +545,7 @@
         background-color: black;
     }
     .content{
-        margin-bottom: 112px;
+        margin-bottom: 224px;
         width: 750px;
         /*background-color: black;*/
     }
@@ -799,7 +799,7 @@
         width: 750px;
         height: 112px;
         position: fixed;
-        bottom: 0;
+        bottom: 112px;
         right: 0;
         overflow: hidden;
     }

@@ -11,19 +11,12 @@ export const tabConfig = [{
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/drops/index.js`,
     visibility: 'hidden'
 }, {
-    icon: '&#xe74a;',
-    name: 'Luckydraw',
-    key: 'luckydraw',
+    icon: '&#xe754;',
+    name: 'Cart',
+    key: 'cart',
+    src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/cart/index.js`,
+    visibility: 'hidden',
     redPoint: true,
-    src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/raffle/index.js`,
-    visibility: 'hidden'
-}, {
-    icon: '&#xe733;',
-    name: 'Rewards',
-    key: 'rewards',
-    redPoint: true,
-    src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/perks/index.js`,
-    visibility: 'hidden'
 }, {
     icon: '&#xe701;',
     name: 'Account',

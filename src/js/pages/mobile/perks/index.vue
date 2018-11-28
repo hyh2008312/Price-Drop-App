@@ -5,6 +5,7 @@
         <scroller >
             <!--<cell><text>111</text></cell>-->
             <div class="header">
+                <text class="close iconfont" @click="$router.back();" >&#xe6f6;</text>
                 <text class="header-word" >Earn Points & Cash Bonus Every Day!</text>
             </div>
             <div class="overflow-mid1" >
@@ -868,10 +869,19 @@
     .header{
         background-color: #EF8A31;
         height: 302px;
-        border-radius: 50%;
+        border-bottom-right-radius: 100%;
+        border-bottom-left-radius: 100%;
         flex-direction: row;
         align-items: center;
         justify-content: center;
+    }
+    .close{
+        position: absolute;
+        top:48px;
+        left: 0;
+        padding-top: 50px;
+        padding-left: 28px;
+        color: white;
     }
     .header-word{
         font-size: 40px;

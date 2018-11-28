@@ -3,7 +3,9 @@
         <div v-for="(i,index) in items" :key="index" class="bar-item" @click="tabTo(i.key)">
             <text class="bar-ic iconfont" :class="[pIndexKey == i.key ? 'bar-active' : '']">{{i.icon | myFilter}}</text>
             <text class="bar-txt" :class="[pIndexKey == i.key ? 'bar-active' : '']">{{i.name}}</text>
-            <div class="bar-red" v-if="i.redPoint"></div>
+            <div class="bar-red" v-if="i.redPoint">
+                <text class="dot-num">{{cartNum}}</text>
+            </div>
         </div>
     </div>
 </template>
@@ -25,8 +27,15 @@ export default {
     },
     data () {
         return {
-            pIndexKey: 'home'
+            pIndexKey: 'home',
+            cartNum: ''
         }
+    },
+    created () {
+        this.$event.on('cartNum', params => {
+            this.getCartNum();
+        });
+        this.getCartNum()
     },
     watch: {
         indexKey: {
@@ -48,7 +57,23 @@ export default {
                     key: _key
                 }
             })
-        }
+        },
+        getCartNum () {
+            this.$fetch({
+                method: 'GET',
+                name: 'cart.count',
+                header: {
+                    needAuth: true,
+                    isLoginPop: true
+                }
+
+            }).then(data => {
+                this.cartNum = data.count
+                // this.$notice.toast({
+                //     message: data
+                // })
+            }, error => {})
+        },
     }
 }
 </script>
@@ -111,11 +136,18 @@ export default {
 
 .bar-red{
     position: absolute;
-    right: 36px;
+    right: 60px;
     top: 20px;
-    width: 14px;
-    height: 14px;
-    border-radius: 7px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     background-color: red;
+
+}
+.dot-num{
+    font-size: 15px;
+    color: white;
+    text-align: center;
+    margin-top: 1px;
 }
 </style>

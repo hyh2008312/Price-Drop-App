@@ -63,7 +63,7 @@
                 default: () => ({
                     position: 'relative',
                     width: 750,
-                    height: 998
+                    height: 1030  // 修改卡片高度 需要需要这里
                 })
             },
             cardS: {

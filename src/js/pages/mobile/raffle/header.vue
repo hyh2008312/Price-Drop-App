@@ -2,7 +2,8 @@
     <div class="wrapper">
         <div class="left">
             <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe632;</text>
-            <text class="leftTxt" v-else>{{leftBtn}}</text>
+
+            <text class="leftTxt1" v-else @click="$router.back">&#xe6f6;</text>
 
         </div>
         <text class="tlt">{{title}}</text>
@@ -88,6 +89,13 @@ export default {
     font-family: iconfont;
     color: black;
     font-size: 40px;
+    padding: 10px;
+    text-align: left;
+}
+.leftTxt1{
+    font-family: iconfont;
+    color: black;
+    font-size: 30px;
     padding: 10px;
     text-align: left;
 }

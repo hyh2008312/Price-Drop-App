@@ -6,11 +6,15 @@
             <cell class="slider-wrap">
                 <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor"></yx-slider>
             </cell>
+
             <cell>
                 <div class="shipping-bg">
                     <text class="shipping-icon iconfont">&#xe760;</text>
                     <text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>
                 </div>
+            </cell>
+            <cell class="ac-wrap">
+                <block-9 v-on:luckyDraw="goLucky" v-on:reward="goReward" ></block-9>
             </cell>
             <cell v-if="false">
                 <block-1 :category="category"></block-1>
@@ -99,6 +103,7 @@ import block5 from './block5';
 import block6 from './block6';
 import block7 from './block7';
 import block8 from './block8';
+import block9 from './block9';
 import { TAB, CHANNELLIST, CHANNELLIST1, PRODUCTS } from './config';
 import preload from '../common/preloadImg';
 
@@ -119,6 +124,7 @@ export default {
         'block-6': block6,
         'block-7': block7,
         'block-8': block8,
+        'block-9': block9,
         noWifi,
         preload
     },
@@ -515,6 +521,18 @@ export default {
             //     });
             // }
         },
+        goLucky(){
+            this.$router.open({
+                name: 'raffle',
+                type: 'PUSH',
+            })
+        },
+        goReward(){
+            this.$router.open({
+                name: 'perks',
+                type: 'PUSH',
+            })
+        }
     }
 }
 

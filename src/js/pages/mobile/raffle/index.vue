@@ -1,7 +1,8 @@
 <template>
     <div class="wrapper" >
+        <div class="blackheader"></div>
+        <topic-header ref="ref1"  leftBtn="1"   title="Luckydraw" style="margin-top: 48px" ></topic-header>
         <div :style="{ backgroundColor : bgcolor}">
-            <div class="blackheader"></div>
             <div class="top-header" >
                 <div class="th-right">
                     <text class="th-r-1" @click="openGuide">Check the Rule</text>
@@ -118,6 +119,7 @@
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { WxcEpSlider, WxcPanItem, WxcMask, WxcPopup } from 'weex-ui';
     import NewS from './test'
+    import header from './header';
     import CenterCard from './centerCard'
     import dayjs from 'dayjs';
     import noWifi from '../common/noWifi';
@@ -125,6 +127,7 @@
         components: {
             WxcEpSlider, WxcPanItem,
             WxcMask, WxcPopup, NewS,
+            'topic-header': header,
             CenterCard, noWifi },
         data: () => ({
             sliderId: 1,
@@ -132,7 +135,7 @@
             // cardLength: 5,
             cardSize: {
                 width: 624,
-                height: 998,
+                height: 1030,
                 spacing: 42,
                 scale: 1
             },
@@ -572,7 +575,7 @@
     .top-header{
         flex-direction: row;
         justify-content: space-between;
-        margin-top: 48px;
+        /*margin-top: 48px;*/
     }
     .th-right{
         flex-direction: row;
@@ -652,12 +655,12 @@
     }
     .slider {
         width: 624px;
-        height: 999px;
+        height: 1030px;
         background-color: white;
     }
     .more-slider{
         width: 100px;
-        height: 998px;
+        height: 1030px;
         /*background-color: #ffc302;*/
     }
     .mask-content{

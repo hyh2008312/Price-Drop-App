@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="left">
-            <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe632;</text>
+            <text class="leftTxt" v-if="leftSign==true" ></text>
             <text class="leftTxty" v-else @click="$router.back">&#xe6f6;</text>
 
         </div>
@@ -38,6 +38,8 @@ export default {
 
             if (this.leftBtn == 'n') {
                 this.leftSign = true
+            } else if (this.leftBtn == 1) {
+                this.leftSign = 1
             } else {
                 this.leftSign = false
             }

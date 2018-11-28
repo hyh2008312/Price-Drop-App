@@ -3,185 +3,198 @@
     <div class="wrapper">
         <div class="blackheader"></div>
 
-        <scroller>
-
-        <div class="header" v-if="user!=null" >
-            <div class="overflow-photo"   >
-                <div class="i-photo-div" @click="openMydetail(1)">
-                    <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
+        <list class="account-list" offset-accuracy="10" loadmoreoffset="400" >
+            <refresher class="gd-bg-gray" ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
+            <cell  v-if="user!=null" >
+                <div class="header">
+                    <div class="overflow-photo"   >
+                        <div class="i-photo-div" @click="openMydetail(1)">
+                            <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
+                        </div>
+                        <div class="b-tlt" @click="openMydetail(1)">
+                            <text class="i-name">{{fname}} {{lname}}</text>
+                            <div class="txt-tag ">
+                                <text class="txt-tag-txt" >{{email}}</text>&nbsp;<text class="txt-icon iconfont">&#xe74f;</text>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-setting-icon" @click="openCell(0)">
+                    <text class="iconfont setting-icon" style="">&#xe71e;</text>
                 </div>
-                <div class="b-tlt" @click="openMydetail(1)">
-                    <text class="i-name">{{fname}} {{lname}}</text>
-                    <div class="txt-tag ">
-                        <text class="txt-tag-txt" >{{email}}</text>&nbsp;<text class="txt-icon iconfont">&#xe74f;</text>
+                </div>
 
+            </cell>
+            <cell   v-if="user==null" @click="openMydetail(2)">
+                <div class="header">
+
+                    <div class="overflow-photo">
+                    <div class="no-login">
+                        <text class="" style="color: white">Welcome!</text>
+                        <text class="no-login-text">Log In / Sign Up</text>
                     </div>
                 </div>
-            </div>
-            <div class="overflow-setting-icon" @click="openCell(0)">
-                <text class="iconfont setting-icon" style="">&#xe71e;</text>
-            </div>
-        </div>
-
-        <div class="header"  v-if="user==null" @click="openMydetail(2)">
-            <div class="overflow-photo">
-                <div class="no-login">
-                    <text class="" style="color: white">Welcome!</text>
-                    <text class="no-login-text">Log In / Sign Up</text>
-                </div>
-            </div>
-        </div>
-        <div class="overflow-point-card">
-            <div class="point-card">
-                <div class="point" @click="openCell(5)">
-                    <text class="point-card-num">{{points || 0}}</text>
-                    <text class="point-card-txt">My Points</text>
-                </div>
-                <text class="center-border"></text>
-                <div class="card" @click="openCell(6)">
-                    <text class="point-card-num">{{cardNumber}}</text>
-                    <text class="point-card-txt">My Gift Vouchers</text>
                 </div>
 
-            </div>
-        </div>
-        <div class="overflow-box">
+            </cell>
 
-            <div class="s-box ">
-                <div class="box-tlt "  @click="jumpWeb(0)">
-                    <text class="box-txt1">My Orders</text>
-                    <text class="i-box iconfont">SEE MORE&nbsp;&nbsp;&#xe626;</text>
-                </div>
-
-                <div class="box-line">
-                    <div class="i-box-l" @click="jumpWeb(1)">
-                        <image class="i-box-icon" src="bmlocal://assets/ic-paid.png"></image>
-
-                        <!--<text class="i-box-icon iconfont">&#xe717;</text>-->
-                        <text class="i-box-tlt">Confirmed</text>
-                    </div>
-                    <div class="i-box-l" @click="jumpWeb(2)">
-                        <image class="i-box-icon" src="bmlocal://assets/ic-packed.png"></image>
-
-                        <!--<text class="i-box-icon iconfont">&#xe718;</text>-->
-                        <text class="i-box-tlt">Preparing</text>
-                    </div>
-                    <div class="i-box-l" @click="jumpWeb(3)">
-                        <image class="i-box-icon" src="bmlocal://assets/ic-shipped.png"></image>
-
-                        <!--<text class="i-box-icon iconfont">&#xe719;</text>-->
-                        <text class="i-box-tlt">Shipped</text>
-                    </div>
-                    <div class="i-box-l" @click="jumpWeb(4)">
-                        <image class="i-box-icon" src="bmlocal://assets/ic-delivered.png"></image>
-
-                        <!--<text class="i-box-icon iconfont">&#xe71a;</text>-->
-                        <text class="i-box-tlt">Delivered</text>
+            <cell style="width: 750px;">
+                <div style="height:64px;background-color: #EF8A31"></div>
+                <div style="height:64px;background-color: #f4f4f4"></div>  <!--无法设置负的margin-top 设置的背景-->
+                <div class="overflow-point-card">
+                    <div class="point-card">
+                        <div class="point" @click="openCell(5)">
+                            <text class="point-card-num">{{points || 0}}</text>
+                            <text class="point-card-txt">My Points</text>
+                        </div>
+                        <text class="center-border"></text>
+                        <div class="card" @click="openCell(6)">
+                            <text class="point-card-num">{{cardNumber}}</text>
+                            <text class="point-card-txt">My Gift Vouchers</text>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </cell>
 
-        </div>
-        <div class="overflow-box">
-            <div class="mid-cell">
-                <div class="box-tlt "  v-if="user">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
-                        <text class="box-txt">My Wallet</text>
-                        <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
+            <cell class="overflow-box">
+
+                <div class="s-box ">
+                    <div class="box-tlt "  @click="jumpWeb(0)">
+                        <text class="box-txt1">My Orders</text>
+                        <text class="i-box iconfont">SEE MORE&nbsp;&nbsp;&#xe626;</text>
                     </div>
-                    <text class="i-box wallet-num">₹ {{myWallet||0}}</text>
+
+                    <div class="box-line">
+                        <div class="i-box-l" @click="jumpWeb(1)">
+                            <image class="i-box-icon" src="bmlocal://assets/ic-paid.png"></image>
+
+                            <!--<text class="i-box-icon iconfont">&#xe717;</text>-->
+                            <text class="i-box-tlt">Confirmed</text>
+                        </div>
+                        <div class="i-box-l" @click="jumpWeb(2)">
+                            <image class="i-box-icon" src="bmlocal://assets/ic-packed.png"></image>
+
+                            <!--<text class="i-box-icon iconfont">&#xe718;</text>-->
+                            <text class="i-box-tlt">Preparing</text>
+                        </div>
+                        <div class="i-box-l" @click="jumpWeb(3)">
+                            <image class="i-box-icon" src="bmlocal://assets/ic-shipped.png"></image>
+
+                            <!--<text class="i-box-icon iconfont">&#xe719;</text>-->
+                            <text class="i-box-tlt">Shipped</text>
+                        </div>
+                        <div class="i-box-l" @click="jumpWeb(4)">
+                            <image class="i-box-icon" src="bmlocal://assets/ic-delivered.png"></image>
+
+                            <!--<text class="i-box-icon iconfont">&#xe71a;</text>-->
+                            <text class="i-box-tlt">Delivered</text>
+                        </div>
+                    </div>
                 </div>
 
-
-                <div class="box-tlt " @click="openMyCart()" v-if="user">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/my-cart.png"></image>
-                        <text class="box-txt">My Cart</text>
-                        <text class=" box-dot" v-if="true"></text>
+            </cell>
+            <cell class="overflow-box">
+                <div class="mid-cell">
+                    <div class="box-tlt "  v-if="user">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
+                            <text class="box-txt">My Wallet</text>
+                            <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
+                        </div>
+                        <text class="i-box wallet-num">₹ {{myWallet||0}}</text>
                     </div>
-                    <text class="i-box iconfont">&#xe626;</text>
+
+
+                    <div class="box-tlt " @click="openMyCart()" v-if="user">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/my-cart.png"></image>
+                            <text class="box-txt">My Cart</text>
+                            <text class=" box-dot" v-if="true"></text>
+                        </div>
+                        <text class="i-box iconfont">&#xe626;</text>
+
+                    </div>
+
+                    <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
+                            <text class="box-txt">My Lucky Draws</text>
+                            <text class=" box-dot" v-if="unreadR>0"></text>
+                        </div>
+                        <text class="i-box iconfont">&#xe626;</text>
+
+                    </div>
 
                 </div>
+            </cell>
 
-                <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
-                        <text class="box-txt">My Lucky Draws</text>
-                        <text class=" box-dot" v-if="unreadR>0"></text>
+            <cell class="overflow-box">
+                <div class="mid-cell">
+
+                    <div class="box-tlt " @click="openCell(1)">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/pic-customer.png"></image>
+                            <!--<text class="box-txt-icon">&#xe71b;</text>-->
+                            <text class="box-txt">Customer Support</text>
+                        </div>
+                        <text class="i-box iconfont">&#xe626;</text>
+
                     </div>
-                    <text class="i-box iconfont">&#xe626;</text>
 
+                    <div class="box-tlt " @click="openCell(2)">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/pic-address.png"></image>
+
+                            <!--<text class="box-txt-icon">&#xe705;</text>-->
+                            <text class="box-txt">My Address</text>
+                        </div>
+                        <text class="i-box iconfont">&#xe626;</text>
+                    </div>
+
+                    <div class="box-tlt " @click="openNoti()" v-if="user">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
+                            <text class="box-txt">My Notifications</text>
+                            <text class=" box-dot" v-if="unread>0"></text>
+                        </div>
+                        <text class="i-box iconfont">&#xe626;</text>
+                    </div>
                 </div>
 
-            </div>
-        </div>
-        <div class="overflow-box">
-            <div class="mid-cell">
+            </cell>
 
-                <div class="box-tlt " @click="openCell(1)">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/pic-customer.png"></image>
-                        <!--<text class="box-txt-icon">&#xe71b;</text>-->
-                        <text class="box-txt">Customer Support</text>
+            <cell class="overflow-box">
+                <div class="mid-cell mid-cell-bottom ">
+                    <div class="box-tlt " @click="openCell(3)">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/pic-about.png"></image>
+
+                            <!--<text class="box-txt-icon">&#xe721;</text>-->
+                            <text class="box-txt">About</text>
+                        </div>
+                        <text class="i-box iconfont">&#xe626;</text>
+
                     </div>
-                    <text class="i-box iconfont">&#xe626;</text>
 
+                    <div class="box-tlt " @click="openCell(4)">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/pic-FAQ.png"></image>
+                            <!--<text class="box-txt-icon">&#xe71d;</text>-->
+                            <text class="box-txt">FAQ</text>
+                        </div>
+                        <text class="i-box iconfont">&#xe626;</text>
+                    </div>
                 </div>
 
-                <div class="box-tlt " @click="openCell(2)">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/pic-address.png"></image>
+            </cell>
 
-                        <!--<text class="box-txt-icon">&#xe705;</text>-->
-                        <text class="box-txt">My Address</text>
-                    </div>
-                    <text class="i-box iconfont">&#xe626;</text>
-                </div>
-
-                <div class="box-tlt " @click="openNoti()" v-if="user">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
-                        <text class="box-txt">My Notifications</text>
-                        <text class=" box-dot" v-if="unread>0"></text>
-                    </div>
-                    <text class="i-box iconfont">&#xe626;</text>
-                </div>
-            </div>
-
-        </div>
-        <div class="overflow-box">
-            <div class="mid-cell mid-cell-bottom ">
-                <div class="box-tlt " @click="openCell(3)">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/pic-about.png"></image>
-
-                        <!--<text class="box-txt-icon">&#xe721;</text>-->
-                        <text class="box-txt">About</text>
-                    </div>
-                    <text class="i-box iconfont">&#xe626;</text>
-
-                </div>
-
-                <div class="box-tlt " @click="openCell(4)">
-                    <div class="box-left">
-                        <image class="box-txt-icon" src="bmlocal://assets/pic-FAQ.png"></image>
-                        <!--<text class="box-txt-icon">&#xe71d;</text>-->
-                        <text class="box-txt">FAQ</text>
-                    </div>
-                    <text class="i-box iconfont">&#xe626;</text>
-                </div>
-            </div>
-
-        </div>
-
-        </scroller>
+        </list>
     </div>
 </template>
 <script>
     import he from '../utils/he';
     import header from './header';
     import { SERVICES } from './config'
+    import refresher from '../common/refresh';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     Vue.filter('myFilter', function (value) {
@@ -190,6 +203,7 @@
 
     export default {
         components: {
+            'refresher': refresher,
             'topic-header': header
         },
         created () {
@@ -248,6 +262,11 @@
             }
         },
         methods: {
+            loadingDown () {
+                this.$refs.refresh.refreshEnd();
+                this.getUserData();
+                this.getMyWallet();
+            },
             openMyRaffleDraws () {
                 this.$router.open({
                     name: 'my.raffle.draws',

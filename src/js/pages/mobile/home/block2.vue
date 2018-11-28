@@ -134,11 +134,13 @@ export default {
 }
 .wrapper {
     background-color: #fff;
+    margin: 0 32px;
+    border-radius: 16px;
 }
 .gd-top{
-    width: 750px;
+    width: 686px;
     height: 90px;
-    padding: 48px 32px 24px 32px;
+    padding: 48px 22px 24px 22px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -238,13 +240,13 @@ export default {
 
 .box {
     padding-top: 8px;
-    padding-left: 32px;
+    padding-left: 22px;
     margin-bottom: 32px;
     flex-direction: row;
 }
 
 .i-good {
-    width: 230px;
+    width: 218px;
     align-items: center;
     justify-content: start;
 }
@@ -282,14 +284,14 @@ export default {
     padding-top: 4px;
 }
 .gd-img {
-    width: 208px;
-    height: 208px;
+    width: 192px;
+    height: 192px;
     border-radius: 8px;
     overflow: hidden;
 }
 .gd-img-image {
-    width: 208px;
-    height: 208px;
+    width: 192px;
+    height: 192px;
     border-radius: 8px;
     overflow: hidden;
 }

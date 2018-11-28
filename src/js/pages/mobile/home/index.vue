@@ -7,11 +7,11 @@
                 <text class="header-icon iconfont">&#xe621;</text>
                 <text class="header-title">What are you looking for?</text>
             </div>
-            <div class="box-bg" v-if="false" @click="openNotification">
+            <div class="box-bg"  @click="openNotification">
                 <text class="box-txt-icon iconfont">&#xe753;</text>
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
-            <div class="box-bg" @click="openCart">
+            <div class="box-bg" v-if="false" @click="openCart">
                 <text class="box-txt-icon iconfont">&#xe754;</text>
                 <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
             </div>
@@ -182,15 +182,15 @@ export default {
             }).catch((res) => {});
         },
         getCartNumApi (id) {
-            this.$fetch({
-                method: 'GET',
-                url: `${baseUrl}/cart/count/${id}/`,
-                header: {
-                    isLoginPop: true
-                }
-            }).then(data => {
-                this.cartNum = data.count;
-            });
+            // this.$fetch({
+            //     method: 'GET',
+            //     url: `${baseUrl}/cart/count/${id}/`,
+            //     header: {
+            //         isLoginPop: true
+            //     }
+            // }).then(data => {
+            //     this.cartNum = data.count;
+            // });
         },
         openNotification () {
             const user = this.$storage.getSync('user');

@@ -12,13 +12,10 @@
   height: 48px;
   background-color: black;
 }
-
 .header {
     margin-top: 48px;
-    height: 294px;
-    border-radius: 4px;
+    height: 234px;
     background-color: #EF8A31;
-
 }
 .overflow-photo{
   height: 230px;
@@ -144,10 +141,21 @@
   padding-right: 32px;
   color: rgba(0,0,0,0.54);
 }
+.account-list{
+  background-color: transparent;
+  width: 750px;
+  margin-top: -2px;
+}
+.gd-bg-gray{
+  background-color: transparent;
+}
 .overflow-point-card{
   flex-direction: row;
   justify-content: center;
-  margin-top: -64px;
+  //margin-top: -64px;
+  position: absolute;
+  top: 0;
+  left: 16px;
 }
 .point-card{
   height: 128px;
