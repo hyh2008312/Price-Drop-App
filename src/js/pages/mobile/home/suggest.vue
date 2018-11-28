@@ -44,7 +44,7 @@
             <header v-if="false">
                 <tab @tabTo="onTabTo" :items="tabsItems" :activeTab="activeTab"></tab>
             </header>
-            <cell class="gd-bg-gray" v-for="item in products" :ref="item.name">
+            <cell class="gd-bg-gray" v-for="item in products">
                 <list class="gd-bg-mt">
                     <cell class="gd-bg" @click="jumpCategory(item)">
                         <preload class="gd-img-image" :src="item.bgSrc"></preload>
@@ -58,7 +58,7 @@
                 </list>
                 <list class="gd-bg-mrt">
                     <cell>
-                        <block-8 :item="item.goodsList" ></block-8>
+                        <block-8 :item="item.goodsList"></block-8>
                     </cell>
                 </list>
                 <list class="gd-bg-mrt">
@@ -289,29 +289,30 @@ export default {
             this.tabsItems = TAB;
         },
         getProductCategory() {
-            this.products = PRODUCTS;
+            this.products = [];
+            for(let item of PRODUCTS) {
+                this.products.push(item);
+            }
             this.$fetch({
                 method: 'GET',
                 name: 'product.category.product.home.new.list',
                 data: {}
             }).then(resData => {
-                for(let item of this.products) {
-                    for(let m of resData) {
-                        if(item.value == m.name) {
-                            item.id = m.id;
-                            if(m.product.length > 0) {
-                                for(let i = 0; i < m.product.length; i++) {
-                                    const itm = m.product[i];
-                                    if(i < 3) {
-                                        if(i == 0) {
-                                            item.goodsList = [];
-                                            item.goodsList1 = [];
-                                        }
-                                        item.goodsList.push(itm);
-                                    } else if(i >= 3 && i < 6) {
-                                        item.goodsList1.push(itm);
-                                    }
+                for(let i = 0; i < this.products.length;i++) {
+                    const item = this.products[i];
+                    const m = resData[i];
+                    item.id = m.id;
+                    if(m.product.length > 0) {
+                        for(let i = 0; i < m.product.length; i++) {
+                            const itm = m.product[i];
+                            if(i < 3) {
+                                if(i == 0) {
+                                    item.goodsList = [];
+                                    item.goodsList1 = [];
                                 }
+                                item.goodsList.push(itm);
+                            } else if(i >= 3 && i < 6) {
+                                item.goodsList1.push(itm);
                             }
                         }
                     }

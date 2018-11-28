@@ -5,7 +5,7 @@
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name}}</text>
         </div>
-        <waterfall :style="{ backgroundColor: bgColor}" class="main-list" column-count="3" column-gap="0" ref="list" loadmoreoffset="30"
+        <waterfall :style="{ backgroundColor: bgColor}" class="main-list" column-count="3" column-gap="0" loadmoreoffset="30"
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <header>
@@ -203,6 +203,10 @@
                 this.getActivityProduct(true);
             },
             getActivityProduct (isfirst, id) {
+                this.topicTwo = '';
+                this.topicThree = '';
+                this.goodsTopic2 = [];
+                this.goodsTopic3 = [];
                 this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
