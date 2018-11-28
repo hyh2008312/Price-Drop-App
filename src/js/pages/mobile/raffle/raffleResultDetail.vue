@@ -20,7 +20,7 @@
             </cell>
             <cell class="content-4" v-if="index == 1">
                 <div class="voucher-bg">
-                    <image class="product-image-1" :src="secondPrize.voucher.image"></image>
+                    <image class="product-image-1" :src="secondPrize.voucher.newImageDetail"></image>
                     <text class="product-title-1">{{secondPrize.voucher.name}} Gift Voucher</text>
                 </div>
                 <text class="title-2">{{count > 1 ? 'Winners' : 'Winner'}} ({{count}})</text>
@@ -34,7 +34,7 @@
             </cell>
             <cell class="content-4 md-padding-bottom" v-if="index == 2">
                 <div class="voucher-bg">
-                    <image class="product-image-1" :src="thirdPrize.voucher.image"></image>
+                    <image class="product-image-1" :src="thirdPrize.voucher.newImageDetail"></image>
                     <text class="product-title-1">{{thirdPrize.voucher.name}} Gift Voucher</text>
                 </div>
                 <text class="title-2">{{count > 1 ? 'Winners' : 'Winner'}} ({{count}})</text>
@@ -283,8 +283,10 @@
 
     .product-image-1{
         position: relative;
-        width: 686px;
-        height: 292px;
+        /*width: 686px;*/
+        /*height: 292px;*/
+        width: 592px;
+        height: 174px;
     }
 
     .product-title{
@@ -306,20 +308,22 @@
     }
 
     .voucher-bg{
-        padding-top: 32px;
+        /*padding-top: 32px;*/
         position: relative;
         flex-direction: column;
         justify-content: start;
         align-items: start;
-        width: 686px;
-        height: 404px;
+        width: 590px;
+        /*height: 404px;*/
+        /*width: 592px;*/
+        height: 248px;
         border-radius: 24px;
-        border-bottom-style: solid;
-        border-bottom-color: rgba(0,0,0,0.12);
-        border-bottom-width: 1px;
-        border-right-style: solid;
-        border-right-color: rgba(0,0,0,0.12);
-        border-right-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,0.12);
+        border-width: 1px;
+        /*border-right-style: solid;*/
+        /*border-right-color: rgba(0,0,0,0.12);*/
+        /*border-right-width: 1px;*/
     }
 
     .avatar{
