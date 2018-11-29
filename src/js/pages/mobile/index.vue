@@ -96,7 +96,8 @@ export default {
             items: tabConfig,
             selectedTab: 'home',
             isFirstLogin: false,
-            show: false
+            show: false,
+            closeCount: 1
         }
     },
     methods: {
@@ -156,19 +157,17 @@ export default {
             const globalEvent = weex.requireModule('globalEvent');
             const self = this;
             globalEvent.addEventListener('homeBack', options => {
-                self.$router.finish();
-                /* this.$notice.confirm({
-                    title: '退出',
-                    message: '确定退出Price Drop吗？',
-                    okTitle: '确认',
-                    cancelTitle: '取消',
-                    okCallback () {
-                        // 点击确认按钮的回调
-                    },
-                    cancelCallback () {
-                       // 点击取消按钮的回调
-                    }
-                }) */
+                if (self.closeCount === 2) {
+                    self.$router.finish();
+                }
+                self.closeCount = self.closeCount + 1;
+                if (self.closeCount === 2) {
+                    self.$notice.toast('Press again to exit')
+                }
+
+                setTimeout(function () {
+                    self.closeCount = 1
+                }, 2000);
             })
         },
         getState () {
