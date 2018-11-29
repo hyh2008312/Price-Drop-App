@@ -1368,8 +1368,9 @@
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
-                    this.$router.open({
-                        name: 'cart',
+                    this.$router.setBackParams({ tab: 'cart' })
+                    this.$router.back({
+                        length: 9999,
                         type: 'PUSH'
                     })
                 }

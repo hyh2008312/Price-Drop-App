@@ -42,16 +42,16 @@
                             <div  @click="selGoods(i)" >
                                 <div style="margin:16px" >
                                     <!--<text class="dot-sel">&radic;</text>-->
-                                    <div v-if="i.sumStock!==0">   <!--可选-->
+                                    <div v-if="parseInt(i.sumStock)!==0">   <!--可选-->
                                         <text class="iconfont item-checked" v-if="i.sel">&#xe6fb;</text>
                                         <text class="iconfont item-no-checked" v-if="!i.sel">&#xe73f;</text>
                                     </div>
-                                    <text class="iconfont item-checked-disable" v-if="i.sumStock==0">&#xe73f;</text> <!--不可选-->
+                                    <text class="iconfont item-checked-disable" v-if="parseInt(i.sumStock)==0">&#xe73f;</text> <!--不可选-->
                                 </div>
                             </div>
                             <div class="overflow-img">
                                 <image class="lc-t-img" :src="i.mainImage" ></image>
-                                <image class="lc-sold-out" v-if="i.sumStock==0" src="bmlocal://assets/sold-out.png"></image>
+                                <image class="lc-sold-out" v-if="parseInt(i.sumStock)==0" src="bmlocal://assets/sold-out.png"></image>
                                 <!--<div>-->
                                 <text class="blue-word" v-if="i.productType=='flash'">Flash Sale</text>
                                 <!--</div>-->
@@ -59,7 +59,7 @@
                             <!--<div class="lc-t-img"  ></div>-->
                             <div class="lc-tw">
                                 <!--<text class="lc-tw1">Toyota’s Latest is an Entire Mobility Service Platform</text>-->
-                                <text class="lc-tw1" lines="3">{{i.title}}</text>
+                                <text class="lc-tw1" lines="3">{{i.title}}{{i.sumStock}}</text>
                                 <div class="lc-tw2">
                                     <text class="lc-tw-b">{{i.attributes}}</text>
                                     <div class="lc-tw-p">
