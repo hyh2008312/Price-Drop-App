@@ -11,7 +11,7 @@
                     <text class="ld-w2">Win free gifts</text>
                 </div>
                 <div class="ld-btn">
-                    <div class="ld-bw">
+                    <div class="ld-bw" ref="btn">
                         <text class="ld-bword">GO</text>
                         <text class="ld-a iconfont">&#xe626;</text>
                     </div>
@@ -30,8 +30,8 @@
                     <text class="ld-w1">Rewards</text>
                     <text class="ld-w2">Earn cash & points</text>
                 </div>
-                <div class="re-btn">
-                    <div class="re-bw">
+                <div class="re-btn" >
+                    <div class="re-bw" ref="btn1">
                         <text class="ld-bword">GO</text>
                         <text class="ld-a iconfont">&#xe626;</text>
                     </div>
@@ -43,14 +43,55 @@
 </template>
 
 <script>
+    const animation = weex.requireModule('animation')
     export default {
-        name: "block9",
+        data () {
+            return {
+                btnArr: [
+                    { ref: 'btn', p: [0, 5], delay: 0 },
+                    { ref: 'btn1', p: [0, 5], delay: 0 },
+                ]
+            }
+        },
+        created () {
+            this.shake()
+            this.setTime()
+        },
         methods: {
             luckyDraw () {
                 this.$emit('luckyDraw')
             },
             reward () {
                 this.$emit('reward')
+            },
+            setTime () {
+                setInterval(() => {
+                    this.loadingAni()
+                }, 2000)
+            },
+            loadingAni () {
+                for (let i = 0; i < this.btnArr.length; i++) {
+                    this.shake(this.$refs[this.btnArr[i].ref], this.btnArr[i].p[0], this.btnArr[i].p[1]);
+                }
+            },
+            shake (ref, x, y) {
+                animation.transition(ref, {
+                    styles: {
+                        transform: `translate(${x}, ${y}px)`
+                    },
+                    duration: 800, // ms
+                    timingFunction: 'ease-in',
+                    delay: 0 // ms
+                }, function () {
+                    animation.transition(ref, {
+                        styles: {
+                            transform: 'translate(0px, 0px)'
+                        },
+                        duration: 1000, // ms
+                        timingFunction: 'ease-out',
+                        delay: 0 // ms
+                    })
+                }.bind(this))
             }
         }
     }
