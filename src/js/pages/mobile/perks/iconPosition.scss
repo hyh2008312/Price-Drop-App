@@ -92,15 +92,48 @@
   height: 126px;
   margin-left: 252px;
 }
-.mask-ruler-content{
-  margin: 50px;
+.mask-point-success-content{
+  //margin: 50px;
+  border-radius: 32px;
+  background-color: white;
 }
-.r-cw{
-  font-size: 28px;
-  color: rgba(0,0,0,0.87);
-  letter-spacing: 0;
-  line-height: 30px;
-  margin-bottom: 16px;
+.mask-t-word{
+  font-size: 32px;
+  color: #FFFFFF;
+  font-weight: 700;
+  position: absolute;
+  top: 22px;
+  left: 186px;
+}
+.mask-t-close{
+  font-size: 46px;
+  color: #FFFFFF;
+  position: absolute;
+  top: 22px;
+  right: 30px;
+}
+.m-ps-word{
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin-left: 48px;
+  margin-top: 30px;
+}
+.m-ps-word1{
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin-left: 48px;
+}
+.m-ps-w{
+  font-size: 32px;
+  color: #389000;
+  font-weight: 700;
+}
+.m-ps-btn{
+  margin-right: 48px;
+  margin-top: 12px;
+  margin-bottom: 32px;
 }
 
 

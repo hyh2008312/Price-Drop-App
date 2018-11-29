@@ -39,7 +39,7 @@
             </div>
 
             <div class="overflow-mid2" >
-                <div class="mid-head">
+                <div class="mid-head" >
                     <text class="m-h1">Check In & Earn Points</text>
                 </div>
                 <div class="m2-content">
@@ -249,28 +249,29 @@
         </WxcMask>
 
         <WxcMask
-            height="535"
-            width="592"
+            height="287"
+            width="562"
             border-radius="16"
             duration="200"
-            mask-bg-color="#FFFFFF"
+            mask-bg-color="rgba(255, 255, 255, 0)"
             :has-animation="hasAnimation"
             :has-overlay="true"
             :show-close="false"
-            :show="ruleShow"
+            :show="pointSuccessShow"
             @wxcMaskSetHidden="wxcMaskSetShareHidden">
-            <div class="mask-ruler-content">
-                <div>
-                    <text style="text-align: center;margin-bottom: 10px;font-size: 36px">Rules to Know</text>
-                </div>
-                <div>
-                   <text class="r-cw">1. The daily cash bonus will expire after 12:00 PM every day. Please spend your bonus before it expires!</text>
-                   <text class="r-cw">2. You can apply your cash bonus to your payment at the checkout page.</text>
-                   <text class="r-cw">3. You will be asked to spend 300 points to unlock your gift box after the first time.</text>
-                   <text class="r-cw">4. The cash bonus can only be used for shopping, which cannot be withdrawn.</text>
-                </div>
-                <div>
+            <div class="mask-point-success-content">
+                <image  src="bmlocal://assets/perks/congratulations.png" style="width: 562px;height: 106px"></image>
+                <text class="mask-t-word" >Congrats!</text>
+                <text class="mask-t-close iconfont" >&#xe632;</text>
 
+                <div class="m-ps-word">
+                   <text class="m-ps-w">{{(this.signObj.originalPoints + (((this.signObj.signTimes - 1) % 15) <= 6 ? ((this.signObj.signTimes - 1) % 15) : 6) * this.signObj.gradientPoints)}}</text>
+                   <text class=""> points have been added to your </text>
+                   <!--<text class="r-cw">3. You will be asked to spend 300 points to unlock your gift box after the first time.</text>-->
+                   <!--<text class="r-cw">4. The cash bonus can only be used for shopping, which cannot be withdrawn.</text>-->
+                </div>
+                <text class="m-ps-word1">account now</text>
+                <div class="m-ps-btn">
                     <text style="text-align: right;color: #EF8A31;">OK</text>
                 </div>
             </div>
@@ -336,7 +337,7 @@
                   items: []
               },
               stopAnimation: false,
-              hasAnimation: false,
+              hasAnimation: true,
               show: false,
               secShow: false,
               giftBox: true,
@@ -356,7 +357,7 @@
               topStopShake: false,
               isCash: false,
               isFirstGet: false,
-              ruleShow: false,
+              pointSuccessShow: false,
               user: false,
               scrollerPoint: [
                   {
@@ -442,10 +443,17 @@
                 this.setTime()
                 this.shakeBtn()
                 this.shakeArrow()
+                this.initBack()
                 googleAnalytics.trackingScreen('Rewards');
                 // this.$notice.alert({
                 //     message: this.user
                 // })
+            },
+            initBack () {
+                // this.$notice.toast({ message: '1111' })
+                common.setAndroidCanBack(true, (params) => {
+                    this.wxcMaskSetShareHidden();
+                })
             },
             getCard () {
                 this.$notice.loading.show();
@@ -545,8 +553,9 @@
                     }
                 })
             },
-            openRuler () {
-                this.ruleShow = true
+            openPointSuccess () {
+                this.pointSuccessShow = true
+                common.changeAndroidCanBack(false);
             },
             // openMyPoints () {
             //     this.$router.open({
@@ -643,10 +652,10 @@
                             this.user.points = res.totalPoints;
                             this.user.pointsAvailable = res.availablePoints;
                             this.$storage.setSync('user', this.user)
-                            // this.$storage.setSync(user.pointsAvailable, 'weex-eros')
-                            this.$notice.toast({
-                                message: 'Congrats! You’ve got ' + (this.signObj.originalPoints + (((this.signObj.signTimes - 1) % 15) <= 6 ? ((this.signObj.signTimes - 1) % 15) : 6) * this.signObj.gradientPoints) + ' points today!'
-                            })
+                            this.openPointSuccess()
+                            // this.$notice.toast({
+                            //     message: 'Congrats! You’ve got ' + + ' points today!'
+                            // })
                             // googleAnalytics.recordEvent('sign Success', '', '', 0);
                             this.$event.emit('mySign')
                             googleAnalytics.recordEvent('Rewards', 'CheckIn', 'CheckInSuccess', 0);
@@ -831,7 +840,7 @@
             },
             wxcMaskSetShareHidden () {
                 this.show = false;
-                this.ruleShow = false;
+                this.pointSuccessShow = false;
                 this.secShow = false;
                 common.changeAndroidCanBack(true)
             },
