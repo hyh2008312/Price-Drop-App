@@ -75,9 +75,9 @@
                             that.isFirst = false;
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
-                            // that.$notice.toast({
-                            //     message: error
-                            // });
+                            that.$notice.toast({
+                                message: error.errorMsg
+                            })
                         });
                     } else if (that.order.proId == 'drop') {
                         that.$fetch({
@@ -117,9 +117,9 @@
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             that.isFirst = false;
-                            // that.$notice.toast({
-                            //     message: error
-                            // });
+                            that.$notice.toast({
+                                message: error.errorMsg
+                            })
                         });
                     } else if (that.order.proId == 'flash') {
                         const voucherId = that.card ? that.card.id : null;
@@ -163,9 +163,9 @@
                             that.$notice.loading.hide();
                             that.$event.emit('cutDetail');
                             that.isFirst = false;
-                            // that.$notice.toast({
-                            //     message: error
-                            // });
+                            that.$notice.toast({
+                                message: error.errorMsg
+                            })
                         });
                     } else if (that.order.proId == 'lottery') {
                         that.$fetch({
@@ -204,9 +204,9 @@
                         }, error => {
                             that.$notice.loading.hide();
                             that.isFirst = false;
-                            // that.$notice.toast({
-                            //     message: error
-                            // });
+                            that.$notice.toast({
+                                message: error.errorMsg
+                            })
                         });
                     }
                 }
