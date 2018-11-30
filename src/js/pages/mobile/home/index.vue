@@ -30,8 +30,29 @@
             <div class="slider-bg-1" :style="{ backgroundColor: bgColor}"></div>
         </div>
         <div :style="height" class="box">
-            <suggest :isHeaderBg="isHeaderBg" @colorChange="colorChange" @bannerColor="bannerColor"></suggest>
+            <suggest :isHeaderBg="isHeaderBg" @colorChange="colorChange" @bannerColor="bannerColor" @openNewMask="openMask"></suggest>
         </div>
+        <WxcMask
+            height="287"
+            width="562"
+            border-radius="16"
+            duration="200"
+            mask-bg-color="rgba(255, 255, 255, 0)"
+            :has-animation="true"
+            :has-overlay="true"
+            :show-close="false"
+            :show="newShow"
+            @wxcMaskSetHidden="wxcMaskSetShareHidden">
+            <div class="maskcontent">
+                <div class="m-c">
+                    <text>200</text>
+                    <text>200</text>
+                    <text>200</text>
+                    <text>200</text>
+
+                </div>
+            </div>
+        </WxcMask>
     </div>
 </template>
 <script>
@@ -39,7 +60,7 @@ import header from './header';
 import suggest from './suggest';
 import category from './category';
 import topChannel from './topChannel';
-import { Utils } from 'weex-ui';
+import { Utils, WxcMask } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
 
 const animation = weex.requireModule('animation');
@@ -49,6 +70,7 @@ export default {
     components: {
         'home-header': header,
         'top-channel': topChannel,
+        WxcMask,
         suggest,
         category
     },
@@ -81,7 +103,8 @@ export default {
             isFirstLoad: false,
             isHeaderBg: false,
             bgColor: '#EF8A31',
-            cartNum: ''
+            cartNum: '',
+            newShow: false
         }
     },
     computed: {
@@ -225,6 +248,12 @@ export default {
                 name: 'search',
                 type: 'PUSH'
             });
+        },
+        openMask () {
+            this.newShow = true;
+        },
+        wxcMaskSetShareHidden () {
+            this.newShow = false;
         },
         colorChange (event) {
             this.isHeaderBg = event.data.isHeaderBg;

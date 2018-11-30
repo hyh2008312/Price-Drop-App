@@ -104,15 +104,15 @@
                     </div>
 
 
-                    <div class="box-tlt " @click="openMyCart()" v-if="user">
-                        <div class="box-left">
-                            <image class="box-txt-icon" src="bmlocal://assets/my-cart.png"></image>
-                            <text class="box-txt">My Cart</text>
-                            <text class=" box-dot" v-if="true"></text>
-                        </div>
-                        <text class="i-box iconfont">&#xe626;</text>
+                    <!--<div class="box-tlt " @click="openMyCart()" v-if="user">-->
+                        <!--<div class="box-left">-->
+                            <!--<image class="box-txt-icon" src="bmlocal://assets/my-cart.png"></image>-->
+                            <!--<text class="box-txt">My Cart</text>-->
+                            <!--<text class=" box-dot" v-if="true"></text>-->
+                        <!--</div>-->
+                        <!--<text class="i-box iconfont">&#xe626;</text>-->
 
-                    </div>
+                    <!--</div>-->
 
                     <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
                         <div class="box-left">

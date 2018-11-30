@@ -7,18 +7,24 @@
                 <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor"></yx-slider>
             </cell>
 
-            <cell>
+            <cell  style="background-color: #f4f4f4">
                 <div class="shipping-bg">
                     <text class="shipping-icon iconfont">&#xe760;</text>
                     <text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>
                 </div>
             </cell>
-            <cell class="ac-wrap">
+            <cell class="ac-wrap" style="background-color: #f4f4f4">
                 <block-9 v-on:luckyDraw="goLucky" v-on:reward="goReward" ></block-9>
             </cell>
             <cell v-if="false">
                 <block-1 :category="category"></block-1>
             </cell>
+            <!--<cell>-->
+                <!--<div class="new-co" @click="openNewCo">-->
+                    <!--<image class="new-co-img" src="bmlocal://assets/home/new-gift.png" ></image>-->
+                    <!--<text class="new-co-w">New User Gift</text>-->
+                <!--</div>-->
+            <!--</cell>-->
             <cell class="cell-top" v-if="false"></cell>
             <cell class="home-drop" v-if="false">
                 <div class="drop-bg"></div>
@@ -520,6 +526,9 @@ export default {
             //         }
             //     });
             // }
+        },
+        openNewCo () {
+            this.$emit('openNewMask')
         },
         goLucky(){
             this.$router.open({

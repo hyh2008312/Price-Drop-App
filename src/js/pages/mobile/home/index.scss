@@ -530,3 +530,24 @@ body {
   line-height: 32px;
   color: #EF8A31;
 }
+.new-co{
+  position: fixed;
+  bottom: 220px;
+  right: 20px;
+  height: 150px;
+}
+.new-co-img{
+  width: 160px;
+  height: 110px;
+  position: relative;
+  top:30px;
+  left: 0;
+}
+.new-co-w{
+  font-size: 20px;
+  color: #4B2E04;
+  margin-left: 28px;
+}
+.m-c{
+  background-image: linear-gradient(-144deg, #FFD251 0%, rgba(250,163,0,0.96) 96%);
+}

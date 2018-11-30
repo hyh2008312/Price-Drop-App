@@ -28,14 +28,21 @@ export default {
     data () {
         return {
             pIndexKey: 'home',
-            cartNum: ''
+            cartNum: '',
+            user: ''
         }
     },
     created () {
+        this.user = this.$storage.getSync('user')
         this.$event.on('cartNum', params => {
             this.getCartNum();
         });
         this.getCartNum()
+        this.$event.on('logout', parmas => {
+            this.token = null
+            this.user = ''
+            this.cartNum = '0'
+        })
     },
     watch: {
         indexKey: {
@@ -51,11 +58,39 @@ export default {
         tabTo (_key) {
             if (this.pIndexKey == _key) return;
             this.pIndexKey = _key;
-            this.$emit('tabTo', {
-                status: 'tabTo',
-                data: {
-                    key: _key
+            if (_key == 'cart') {
+                if (this.user == '') {
+                    this.redirectLogin()
+                } else {
+                    this.$emit('tabTo', {
+                        status: 'tabTo',
+                        data: {
+                            key: _key
+                        }
+                    })
                 }
+            } else {
+                this.$emit('tabTo', {
+                    status: 'tabTo',
+                    data: {
+                        key: _key
+                    }
+                })
+            }
+        },
+        redirectLogin () {
+            this.$event.on('login', params => {
+                this.getCartNum()
+                this.$storage.get('user').then(resData => {
+                    this.user = resData
+                })
+                this.$event.emit('changeTab', {
+                    tab: 'cart'
+                });
+            });
+            this.$router.open({
+                name: 'login',
+                type: 'PUSH'
             })
         },
         getCartNum () {

@@ -292,11 +292,9 @@
                 })
             },
             jumpHome () {
-                this.$router.setBackParams({ tab: 'home' })
-                this.$router.back({
-                    length: 9999,
-                    type: 'PUSH'
-                })
+                this.$event.emit('changeTab', {
+                    tab: 'home'
+                });
             },
             calc (a, b) {
                 return ((a * b) / 100).toFixed(2)
@@ -425,6 +423,7 @@
                                 this.goodsList = [...arr1];
                                 this.getSelectStatus();
                                 this.countPrice();
+                                this.$event.emit('cartNum')
                             })
                             this.$notice.loading.hide();
                         }).catch((res) => {
