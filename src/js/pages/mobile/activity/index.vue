@@ -7,7 +7,7 @@
         </div>
         <waterfall :style="{ backgroundColor: bgColor}" class="main-list" column-count="3" column-gap="0" loadmoreoffset="30"
                    @loadmore="onLoadingMore">
-            <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
+            <refresher ref="refresh" v-if="false" @loadingDown="loadingDown"></refresher>
             <header>
                 <div class="banner">
                     <image class="banner-image" :src="imageUrl" resize="cover"></image>

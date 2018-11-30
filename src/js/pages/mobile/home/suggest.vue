@@ -1,7 +1,7 @@
 <!--suppress ALL -->
 <template>
     <div class="app-wrapper">
-        <list class="transparent" offset-accuracy="10" loadmoreoffset="400" @scroll="scrollHandler" @loadmore="onLoadingMore" v-if="hasWifi" >
+        <list class="transparent" offset-accuracy="50" loadmoreoffset="200" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="slider-wrap">
                 <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor"></yx-slider>

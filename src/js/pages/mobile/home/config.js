@@ -162,12 +162,12 @@ export const PRODUCTS = [{
         saleUnitPrice: '0.00'
     }]
 }, {
-    name: 'Jewellery & Watches',
-    value: 'Jewellery & Watches',
-    width: 163,
-    color: '#6822d3',
-    src: 'http://image.getpricedrop.com/banner/20181029/jewellery.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181121/5.png',
+    name: 'Shoes',
+    value: 'Shoes',
+    width: 209,
+    color: '#ffc05b',
+    src: 'http://image.getpricedrop.com/banner/20181029/shoes.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/6.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -228,12 +228,12 @@ export const PRODUCTS = [{
         saleUnitPrice: '0.00'
     }]
 }, {
-    name: 'Home',
-    value: 'Home',
-    width: 120,
-    color: '#00dfdb',
-    src: 'http://image.getpricedrop.com/banner/20181029/home.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181121/3.png',
+    name: 'Jewellery & Watches',
+    value: 'Jewellery & Watches',
+    width: 163,
+    color: '#6822d3',
+    src: 'http://image.getpricedrop.com/banner/20181029/jewellery.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/5.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
@@ -261,12 +261,12 @@ export const PRODUCTS = [{
         saleUnitPrice: '0.00'
     }]
 }, {
-    name: 'Shoes',
-    value: 'Shoes',
-    width: 209,
-    color: '#ffc05b',
-    src: 'http://image.getpricedrop.com/banner/20181029/shoes.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181121/6.png',
+    name: 'Home',
+    value: 'Home',
+    width: 120,
+    color: '#00dfdb',
+    src: 'http://image.getpricedrop.com/banner/20181029/home.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/3.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',
