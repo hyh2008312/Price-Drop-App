@@ -300,6 +300,7 @@ export default {
                 name: 'product.category.product.home.new.list',
                 data: {}
             }).then(resData => {
+                this.products = [];
                 for(let i = 0; i < PRODUCTS.length;i++) {
                     const item = PRODUCTS[i];
                     const m = resData[i];

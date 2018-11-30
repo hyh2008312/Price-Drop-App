@@ -103,6 +103,8 @@
         justify-content: space-between;
         align-items: center;
         margin: 0 32px 24px 32px;
+        width: 686px;
+        height: 133px;
     }
     .iconfont{
         font-family: iconfont;
