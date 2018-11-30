@@ -226,9 +226,9 @@
                     // this.isFirst = false;
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
+                    this.$notice.toast({
+                        message: res.errorMsg
+                    })
                 })
             },
             countPrice (arr) {
