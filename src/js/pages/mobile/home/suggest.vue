@@ -45,7 +45,7 @@
                     <block-6 :drops="drops"></block-6>
                 </div>
             </cell>
-            <cell v-if="activity && activity.length > 0">
+            <cell v-if="activity && activity.length > 0" style="background-color: #f4f4f4">
                 <block-2 :goodsList="activity" :time="time" v-on:zero="getActivity"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
@@ -54,9 +54,9 @@
             <header v-if="false">
                 <tab @tabTo="onTabTo" :items="tabsItems" :activeTab="activeTab"></tab>
             </header>
-            <cell class="gd-bg-gray" v-for="item in products" :key="item.id">
-                <list class="gd-bg-mt">
-                    <cell class="gd-bg" @click="jumpCategory(item)">
+            <cell class="gd-bg-gray" v-for="item in products">
+                <div class="gd-bg-mt" v-if="item.id">
+                    <div class="gd-bg" @click="jumpCategory(item)">
                         <preload class="gd-img-image" :src="item.bgSrc"></preload>
                         <preload class="gd-img-image-1" :src="item.src" :style="{width: item.width}"></preload>
                         <text class="img-tlt">{{item.name}}</text>
@@ -64,18 +64,11 @@
                             <text class="gd-button-1">VIEW MORE</text>
                             <text class="gd-button-2 iconfont" :style="{color: item.color}">&#xe626;</text>
                         </div>
-                    </cell>
-                </list>
-                <list class="gd-bg-mrt">
-                    <cell>
-                        <block-8 :item="item.goodsList"></block-8>
-                    </cell>
-                </list>
-                <list class="gd-bg-mrt">
-                    <cell>
-                        <block-8 :item="item.goodsList1" ></block-8>
-                    </cell>
-                </list>
+                    </div>
+                </div>
+                <div class="gd-bg-mrt" v-if="!item.id">
+                    <block-8 :item="item.items"></block-8>
+                </div>
             </cell>
             <cell class="gd-bg-white-gray"></cell>
             <cell v-if="goods3.length > 0">
@@ -302,31 +295,33 @@ export default {
         },
         getProductCategory() {
             this.products = [];
-            for(let item of PRODUCTS) {
-                this.products.push(item);
-            }
             this.$fetch({
                 method: 'GET',
                 name: 'product.category.product.home.new.list',
                 data: {}
             }).then(resData => {
-                for(let i = 0; i < this.products.length;i++) {
-                    const item = this.products[i];
+                for(let i = 0; i < PRODUCTS.length;i++) {
+                    const item = PRODUCTS[i];
                     const m = resData[i];
                     item.id = m.id;
+                    this.products.push(item)
                     if(m.product.length > 0) {
+                        const goods = [];
+                        const goods1 = [];
                         for(let i = 0; i < m.product.length; i++) {
                             const itm = m.product[i];
                             if(i < 3) {
-                                if(i == 0) {
-                                    item.goodsList = [];
-                                    item.goodsList1 = [];
-                                }
-                                item.goodsList.push(itm);
+                                goods.push(itm);
                             } else if(i >= 3 && i < 6) {
-                                item.goodsList1.push(itm);
+                                goods1.push(itm);
                             }
                         }
+                        this.products.push({
+                            items: [...goods]
+                        });
+                        this.products.push({
+                            items: [...goods1]
+                        });
                     }
                 }
             }, error => {
