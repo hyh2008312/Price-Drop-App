@@ -15,7 +15,9 @@
             <text class="od-button" @click="editAddress">Change Address</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Packing'">
-            <text class="od-button-1" @click="tracking">Track Package</text>
+            <text class="od-button-1" v-if="order.sourcingStatus == 'Not Started'"
+                  @click="cancel">Cancel Order</text>
+            <text class="od-button" @click="tracking">Track Package</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Audit canceled'">
             <text class="od-text-2">Order cancellation pending</text>
