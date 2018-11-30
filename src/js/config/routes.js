@@ -20,6 +20,9 @@ export default {
     'cart': {
         url: '/pages/mobile/cart/index.js'
     },
+    'cart.copy': {
+        url: '/pages/mobile/cart/cartCopy.js'
+    },
     'cart.order': {
         url: '/pages/mobile/cart/cartOrder.js'
     },
@@ -32,6 +35,12 @@ export default {
     'goods.dec': {
         url: '/pages/mobile/shop/goodsDec.js'
     },
+    // 'goods.reviews': {
+    //     url: '/pages/mobile/shop/goodsReviews.js'
+    // },
+    // 'write.reviews': {
+    //     url: '/pages/mobile/shop/writeReview.js'
+    // },
     'my': {
         url: '/pages/mobile/my/index.js'
     },

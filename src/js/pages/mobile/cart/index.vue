@@ -201,6 +201,9 @@
             this.$event.on('logout', parmas => {
                 this.requestProduct(false)
             })
+            this.$event.on('login', parmas => {
+                this.requestProduct(false)
+            })
             googleAnalytics.trackingScreen('Cart');
         },
         methods: {

@@ -547,7 +547,7 @@
         background-color: black;
     }
     .content{
-        margin-bottom: 224px;
+        margin-bottom: 112px;
         width: 750px;
         /*background-color: black;*/
     }
