@@ -96,6 +96,72 @@ export const PRODUCTS = [{
         saleUnitPrice: '0.00'
     }]
 }, {
+    name: 'Men',
+    value: 'Men',
+    width: 163,
+    color: '#006de6',
+    src: 'http://image.getpricedrop.com/banner/20181029/men.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/2.png',
+    goodsList: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }],
+    goodsList1: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }]
+}, {
+    name: 'Women',
+    value: 'Women',
+    width: 162,
+    color: '#e16280',
+    src: 'http://image.getpricedrop.com/banner/20181121/women.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/bn-women.png',
+    goodsList: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }],
+    goodsList1: [{
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }, {
+        mainImage: '',
+        unitPrice: '0.00',
+        saleUnitPrice: '0.00'
+    }]
+}, {
     name: 'Jewellery & Watches',
     value: 'Jewellery & Watches',
     width: 163,
@@ -168,39 +234,6 @@ export const PRODUCTS = [{
     color: '#00dfdb',
     src: 'http://image.getpricedrop.com/banner/20181029/home.png',
     bgSrc: 'http://image.getpricedrop.com/banner/20181121/3.png',
-    goodsList: [{
-        mainImage: '',
-        unitPrice: '0.00',
-        saleUnitPrice: '0.00'
-    }, {
-        mainImage: '',
-        unitPrice: '0.00',
-        saleUnitPrice: '0.00'
-    }, {
-        mainImage: '',
-        unitPrice: '0.00',
-        saleUnitPrice: '0.00'
-    }],
-    goodsList1: [{
-        mainImage: '',
-        unitPrice: '0.00',
-        saleUnitPrice: '0.00'
-    }, {
-        mainImage: '',
-        unitPrice: '0.00',
-        saleUnitPrice: '0.00'
-    }, {
-        mainImage: '',
-        unitPrice: '0.00',
-        saleUnitPrice: '0.00'
-    }]
-}, {
-    name: 'Men',
-    value: 'Men',
-    width: 163,
-    color: '#006de6',
-    src: 'http://image.getpricedrop.com/banner/20181029/men.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181121/2.png',
     goodsList: [{
         mainImage: '',
         unitPrice: '0.00',

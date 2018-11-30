@@ -48,7 +48,7 @@
             <header v-if="false">
                 <tab @tabTo="onTabTo" :items="tabsItems" :activeTab="activeTab"></tab>
             </header>
-            <cell class="gd-bg-gray" v-for="item in products">
+            <cell class="gd-bg-gray" v-for="item in products" :key="item.id">
                 <list class="gd-bg-mt">
                     <cell class="gd-bg" @click="jumpCategory(item)">
                         <preload class="gd-img-image" :src="item.bgSrc"></preload>

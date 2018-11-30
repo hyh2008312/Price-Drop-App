@@ -34,12 +34,14 @@ export default {
                     type: 'PUSH'
                 })
             } else if (img.title == 'luckydraw') {
-                this.$event.emit('changeTab', {
-                    tab: 'luckydraw'
+                this.$router.open({
+                    name: 'raffle',
+                    type: 'PUSH'
                 });
             } else if (img.title == 'rewards') {
-                this.$event.emit('changeTab', {
-                    tab: 'rewards'
+                this.$router.open({
+                    name: 'perks',
+                    type: 'PUSH'
                 });
             } else if (img.title == 'drops') {
                 this.$event.emit('changeTab', {
