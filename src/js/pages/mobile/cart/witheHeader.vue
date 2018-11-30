@@ -105,7 +105,7 @@ export default {
     font-family: iconfont;
     color: black;
     font-size: 32px;
-    padding: 10px;
+    padding: 12px 10px 10px 10px;
     text-align: left;
 }
 
@@ -118,7 +118,7 @@ export default {
 }
 .rightword {
     color: #EF8A31;
-    margin-top: 4px;
+    margin-top: 0px;
     font-size: 28px;
     padding: 10px;
     /*line-height: 28px;*/

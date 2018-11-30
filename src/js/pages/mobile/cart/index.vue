@@ -592,7 +592,7 @@
         width: 686px;
         background-color: #FFFFFF;
         box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12);
-        border-radius: 8px;
+        border-radius: 16px;
         flex-direction: column;
         justify-content: space-between;
         margin-top: 24px;
@@ -786,7 +786,7 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        height: 80px;
+        height: 50px;
         margin-left: 64px;
     }
     .lc-tt-w{
