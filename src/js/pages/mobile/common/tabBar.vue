@@ -28,7 +28,7 @@ export default {
     data () {
         return {
             pIndexKey: 'home',
-            cartNum: '',
+            cartNum: 0,
             user: ''
         }
     },
@@ -42,6 +42,7 @@ export default {
             this.token = null
             this.user = ''
             this.cartNum = '0'
+            this.getCartNum()
         })
     },
     watch: {

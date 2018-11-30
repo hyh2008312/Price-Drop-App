@@ -34,7 +34,7 @@
         </div>
         <WxcMask
             height="287"
-            width="562"
+            width="397"
             border-radius="16"
             duration="200"
             mask-bg-color="rgba(255, 255, 255, 0)"
@@ -44,12 +44,15 @@
             :show="newShow"
             @wxcMaskSetHidden="wxcMaskSetShareHidden">
             <div class="maskcontent">
+                <div style="border-radius: 16px">
+                    <image src="bmlocal://assets/home/mask-head.png" style="width:397px;height:162px; "></image>
+                </div>
+
                 <div class="m-c">
                     <text>200</text>
                     <text>200</text>
                     <text>200</text>
                     <text>200</text>
-
                 </div>
             </div>
         </WxcMask>

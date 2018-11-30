@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <topic-header class="t-h1" title="Cart" :leftBtn="1" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
+        <topic-header class="t-h1" title="Cart" leftBtn="y" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
         <div class="blackheader"></div>
         <div class="top-buy-overflow" v-if="false">
             <div :class="[parseInt(allPrice)>0?'mg-tb16':'']" @click="jumpHome">
@@ -13,22 +13,22 @@
                     <text class="t-b-t" > voucher unlocked!</text>
                 </div>
                 <div class="top-buy2" v-if="parseInt(allPrice)<900&&parseInt(allPrice)!=0" >
-                <text class="t-b-t">Buy </text>
+                    <text class="t-b-t">Buy </text>
 
-                <text class="t-b-tb" v-if="parseInt(allPrice)<300">₹{{300-parseInt(allPrice)}} </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹{{600-parseInt(allPrice)}} </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹{{900-parseInt(allPrice)}} </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)<300">₹{{300-parseInt(allPrice)}} </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹{{600-parseInt(allPrice)}} </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹{{900-parseInt(allPrice)}} </text>
 
 
-                <text class="t-b-t">more to use your </text>
+                    <text class="t-b-t">more to use your </text>
 
-                <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹100 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹150 </text>
-                <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹200 </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)<300" >₹100 </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>=300&&parseInt(allPrice)<600" >₹150 </text>
+                    <text class="t-b-tb" v-if="parseInt(allPrice)>=600&&parseInt(allPrice)<900" >₹200 </text>
 
-                <text class="t-b-t">voucher! </text>
-                <text class="t-b-tc">Add Item >></text>
-            </div>
+                    <text class="t-b-t">voucher! </text>
+                    <text class="t-b-tc">Add Item >></text>
+                </div>
             </div>
 
         </div>
@@ -326,8 +326,8 @@
                 const arr = [...this.goodsList];
                 for (let i = 0; i < arr.length; i++) {
                     if (arr[i].id === item.id) {
-                       arr[i].quantity += 1
-                       this.postQuantity(item.id, arr[i].quantity)
+                        arr[i].quantity += 1
+                        this.postQuantity(item.id, arr[i].quantity)
                     }
                 }
                 this.$nextTick(() => {
@@ -341,8 +341,8 @@
                 const arr = [...this.goodsList];
                 for (let i = 0; i < arr.length; i++) {
                     if (arr[i].id === item.id) {
-                       arr[i].quantity -= 1
-                       this.postQuantity(item.id, arr[i].quantity)
+                        arr[i].quantity -= 1
+                        this.postQuantity(item.id, arr[i].quantity)
                     }
                 }
                 this.$nextTick(() => {
@@ -383,59 +383,59 @@
             },
             handleGoods () {
                 this.$notice.loading.show();
-                    this.nextPage = [];
-                    for (let i = 0; i < this.goodsList.length; i++) {
-                        if (this.goodsList[i].sel) {
-                            this.nextPage.push(this.goodsList[i])
-                        }
+                this.nextPage = [];
+                for (let i = 0; i < this.goodsList.length; i++) {
+                    if (this.goodsList[i].sel) {
+                        this.nextPage.push(this.goodsList[i])
                     }
-                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Checkout', 0);
-                    // googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'Checkout', '', 'Rs', 0);
-                    this.$notice.loading.hide();
-                    this.$router.open({
-                        name: 'cart.order',
-                        type: 'PUSH',
-                        params: this.nextPage
-                    })
+                }
+                googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Checkout', 0);
+                // googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'Checkout', '', 'Rs', 0);
+                this.$notice.loading.hide();
+                this.$router.open({
+                    name: 'cart.order',
+                    type: 'PUSH',
+                    params: this.nextPage
+                })
             },
             handleGoodsDel () {
                 this.$notice.loading.show();
                 const idArr = [];
                 const arr = [...this.goodsList];
                 const arr1 = [];
-                    for (let j = 0; j < arr.length; j++) {
-                        if (arr[j].sel) {
-                            idArr.push(arr[j].id);
-                        } else {
-                            arr1.push(arr[j]);
+                for (let j = 0; j < arr.length; j++) {
+                    if (arr[j].sel) {
+                        idArr.push(arr[j].id);
+                    } else {
+                        arr1.push(arr[j]);
+                    }
+                }
+                if (arr.length !== 0) {
+                    this.$fetch({
+                        method: 'DELETE',
+                        name: 'cart.delete',
+                        data: {
+                            'ids': idArr
+                        },
+                        header: {
+                            needAuth: true,
+                            isLoginPop: true
                         }
-                    }
-                    if (arr.length !== 0) {
-                        this.$fetch({
-                            method: 'DELETE',
-                            name: 'cart.delete',
-                            data: {
-                                'ids': idArr
-                            },
-                            header: {
-                                needAuth: true,
-                                isLoginPop: true
-                            }
-                        }).then((res) => {
-                            this.$nextTick(() => {
-                                this.goodsList = [...arr1];
-                                this.getSelectStatus();
-                                this.countPrice();
-                                this.$event.emit('cartNum')
-                            })
-                            this.$notice.loading.hide();
-                        }).catch((res) => {
-                            this.$notice.loading.hide();
-                            // this.$notice.toast({
-                            //     message: res
-                            // })
+                    }).then((res) => {
+                        this.$nextTick(() => {
+                            this.goodsList = [...arr1];
+                            this.getSelectStatus();
+                            this.countPrice();
+                            this.$event.emit('cartNum')
                         })
-                    }
+                        this.$notice.loading.hide();
+                    }).catch((res) => {
+                        this.$notice.loading.hide();
+                        // this.$notice.toast({
+                        //     message: res
+                        // })
+                    })
+                }
             },
             selGoods (item) {
                 if (item.sumStock > 0) {
@@ -801,7 +801,7 @@
         width: 750px;
         height: 112px;
         position: fixed;
-        bottom: 112px;
+        bottom: 0px;
         right: 0;
         overflow: hidden;
     }
