@@ -135,7 +135,7 @@
             // cardLength: 5,
             cardSize: {
                 width: 624,
-                height: 1030,
+                height: 1020,
                 spacing: 42,
                 scale: 1
             },
@@ -649,18 +649,19 @@
     .scroller {
         flex: 1;
     }
+
     .wrapper1 {
-        padding-top: 40px;
+        padding-top: 16px;
         height: 1150px;  /*卡片背景高度*/
     }
     .slider {
         width: 624px;
-        height: 1030px;
+        height: 1020px;
         background-color: white;
     }
     .more-slider{
         width: 100px;
-        height: 1030px;
+        height: 1020px;
         /*background-color: #ffc302;*/
     }
     .mask-content{

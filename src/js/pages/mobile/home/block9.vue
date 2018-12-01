@@ -22,7 +22,7 @@
 
         <div class="rewards" @click="reward">
             <div class="re-img">
-                <image  src="bmlocal://assets/home/rewards.png" style="width: 338px;height:133px"></image>
+                <image  src="bmlocal://assets/home/rewards.png" style="width: 320px;height:133px"></image>
             </div>
             <div class="ld-item">
 
@@ -113,6 +113,7 @@
         width: 338px;
         height:133px;
         margin-right: 14px;
+
     }
     .ld-img{
         position: absolute;
@@ -121,6 +122,7 @@
         width: 338px;
         height:133px;
         border-radius: 16px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
     .ld-item{
         flex-direction: row;
@@ -176,16 +178,17 @@
         color: white;
     }
     .rewards{
-        width: 338px;
+        width: 320px;
         height:133px;
     }
     .re-img{
         position: absolute;
         top: 0;
         left: 0;
-        width: 338px;
+        width: 320px;
         height:133px;
         border-radius: 16px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
     .re-btn{
         width: 78px;

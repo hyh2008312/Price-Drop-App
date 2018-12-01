@@ -136,6 +136,7 @@ export default {
     background-color: #fff;
     margin: 0 32px;
     border-radius: 16px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
 }
 .gd-top{
     width: 686px;
