@@ -29,7 +29,7 @@
         <!--<scroller class="box" scroll-direction="horizontal" flex-direction="row" show-scrollbar=false>-->
         <div class="box">
             <div class="i-good" v-for="i in goodsList" :key="i.id" @click="jumpWeb(i.productId)">
-                <div style="height:230px;padding-top: 15px">
+                <div style="height:220px;padding-top: 15px">
                     <div class="gd-bg">
                         <div class="gd-img">
                             <preload class="gd-img-image" :src="i.mainImage"></preload>
@@ -141,7 +141,7 @@ export default {
 .gd-top{
     width: 686px;
     height: 90px;
-    padding: 48px 22px 24px 22px;
+    padding: 48px 22px 24px 18px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -174,6 +174,7 @@ export default {
     font-size: 24px;
     color: #EF8A31;
     line-height: 28px;
+    margin-right: 8px;
 }
 
 .tlt-box {
@@ -241,7 +242,7 @@ export default {
 
 .box {
     padding-top: 8px;
-    padding-left: 22px;
+    padding-left: 18px;
     margin-bottom: 32px;
     flex-direction: row;
 }
@@ -306,7 +307,7 @@ export default {
 
 .gd-tlt-bg{
     width: 208px;
-    margin-top: 8px;
+    margin-top: 0px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
