@@ -96,8 +96,9 @@ export default {
     font-family: iconfont;
     color: black;
     font-size: 30px;
-    padding: 10px;
+    padding: 15px 10px 10px 10px;
     text-align: left;
+    /*background-color: black;*/
 }
 
 .rightTxt {

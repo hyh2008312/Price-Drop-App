@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="goods-people" v-if="item.drawCount>0" style="margin-bottom: 50px">
+            <div class="goods-people" v-if="item.drawCount>0" style="margin-bottom: 40px">
                 <div class="goods-a" v-for="i in item.images.slice(0,6).reverse()">
                     <image class="goods-a-i" :src="i"></image>
                 </div>
@@ -485,8 +485,8 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 64px;
-        margin-left: 15px;
-        /*background-color: #689de5;*/
+        /*margin-left: 15px;*/
+        /*background-color: black;*/
     }
     .goods-btn-w-bw{
         font-size: 24px;

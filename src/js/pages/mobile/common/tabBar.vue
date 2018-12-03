@@ -57,6 +57,7 @@ export default {
     },
     methods: {
         tabTo (_key) {
+            this.user = this.$storage.getSync('user')
             if (this.pIndexKey == _key) return;
             this.pIndexKey = _key;
             if (_key == 'cart') {

@@ -67,7 +67,7 @@
             setTime () {
                 setInterval(() => {
                     this.loadingAni()
-                }, 2000)
+                }, 500)
             },
             loadingAni () {
                 for (let i = 0; i < this.btnArr.length; i++) {
@@ -79,16 +79,16 @@
                     styles: {
                         transform: `translate(${x}, ${y}px)`
                     },
-                    duration: 800, // ms
-                    timingFunction: 'ease-in',
+                    duration: 100, // ms
+                    timingFunction: 'linear',
                     delay: 0 // ms
                 }, function () {
                     animation.transition(ref, {
                         styles: {
                             transform: 'translate(0px, 0px)'
                         },
-                        duration: 1000, // ms
-                        timingFunction: 'ease-out',
+                        duration: 100, // ms
+                        timingFunction: 'linear',
                         delay: 0 // ms
                     })
                 }.bind(this))
