@@ -533,7 +533,7 @@ body {
 .new-co{
   position: fixed;
   bottom: 220px;
-  right: 20px;
+  right: 0;
   height: 150px;
 }
 .new-co-img{
@@ -548,6 +548,106 @@ body {
   color: #4B2E04;
   margin-left: 28px;
 }
+.m-ic{
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 50px;
+  color: white;
+  font-weight: 700;
+}
 .m-c{
-  background-image: linear-gradient(-144deg, #FFD251 0%, rgba(250,163,0,0.96) 96%);
+  position: absolute;
+  top: 65px;
+  left: 145px;
+  font-size: 64px;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+.mid-content{
+  background-color: white;
+}
+.m-c-w{
+  margin: 24px 34px;
+  font-size: 24px;
+  color: #000000;
+  text-align: center;
+  line-height: 34px;
+}
+.m-c-time{
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.m-c-word{
+  font-size: 24px;
+  color: #000000;
+  font-weight: 700;
+}
+.m-top{
+  border-top-right-radius: 32px;
+  border-top-left-radius: 32px
+}
+.m-bottom{
+  background-color: white;
+  padding-bottom:32px ;
+  padding-top: 20px;
+  border-bottom-right-radius: 32px;
+  border-bottom-left-radius: 32px
+}
+.overflow-mg{
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.mb-word{
+  position: absolute;
+  top: 32px;
+  left: 100px;
+  font-size: 24px;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.overflow-center-time{
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 0 8px 0 ;
+}
+.center-time-word{
+  color: black;
+  font-size: 24px;
+}
+.center-time{
+  color: #FFFFFF;
+  flex-direction: row;
+  justify-content: start;
+  margin-right: 32px;
+}
+.center-time-hh{
+  background-color: black;
+  color: white;
+  border-radius: 6px;
+  padding: 2px;
+  margin: 8px 2px 2px 2px;
+  font-size: 24px;
+}
+.center-time-hh-empty{
+  background-color: black;
+  color: white;
+  border-radius: 6px;
+  margin: 8px 2px 2px 2px;
+  width: 32px;
+  height: 32px;
+}
+.center-time-space{
+  width: 750px;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: black;
+  font-size: 24px;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }

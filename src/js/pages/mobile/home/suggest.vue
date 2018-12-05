@@ -528,7 +528,7 @@ export default {
         },
         goLucky(){
             this.$router.open({
-                name: 'raffle',
+                name: 'category',
                 type: 'PUSH',
             })
         },
