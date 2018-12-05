@@ -39,7 +39,7 @@
                    :key="i.id" style="width: 750px">
                 <div :class="[index == goodsList.length-1?'mg-b10':'']">
                     <div class="line-card">
-                        <div class="lc-top">
+                        <div class="lc-top" >
                             <div  @click="selGoods(i)" >
                                 <div style="margin:16px" >
                                     <!--<text class="dot-sel">&radic;</text>-->
@@ -57,8 +57,7 @@
                                 <text class="blue-word" v-if="i.productType=='flash'">Flash Sale</text>
                                 <!--</div>-->
                             </div>
-                            <!--<div class="lc-t-img"  ></div>-->
-                            <div class="lc-tw">
+                            <div class="lc-tw"  @click="jumpGoodsDetail(i)">
                                 <!--<text class="lc-tw1">Toyota’s Latest is an Entire Mobility Service Platform</text>-->
                                 <text class="lc-tw1" lines="3">{{i.title}}{{i.sumStock}}</text>
                                 <div class="lc-tw2">
@@ -278,6 +277,18 @@
                     //     message: res
                     // })
                 })
+            },
+            jumpGoodsDetail (id) {
+                // this.$notice.alert({
+                //     message: id
+                // })
+                // this.$router.open({
+                //     name: 'goods.details',
+                //     type: 'PUSH',
+                //     params: {
+                //         id: id
+                //     }
+                // })
             },
             getMyCard () {
                 this.$fetch({
