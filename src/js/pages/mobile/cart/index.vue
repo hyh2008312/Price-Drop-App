@@ -34,6 +34,7 @@
         </div>
 
         <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
+            <refresher class="gd-bg-gray" ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
             <cell  v-for="(i,index) in goodsList"
                    :key="i.id" style="width: 750px">
                 <div :class="[index == goodsList.length-1?'mg-b10':'']">
@@ -167,12 +168,14 @@
 
 <script>
     import header from './witheHeader';
+    import refresher from '../common/refresh';
     import { WxcCountdown, WxcRadio } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
             'topic-header': header,
+            'refresher': refresher,
             WxcCountdown,
             WxcRadio
         },
@@ -207,6 +210,12 @@
             googleAnalytics.trackingScreen('Cart');
         },
         methods: {
+            loadingDown () {
+                this.$refs.refresh.refreshEnd();
+                this.requestProduct(true)
+                this.isLoading = false;
+
+            },
             onLoadingMore () {
                 if (!this.isLoading) {
                     this.isLoading = true
@@ -214,11 +223,11 @@
                 }
             },
             requestProduct (isFirst) {
-                // this.loadingWord = 'Loading...'
                 if (isFirst) {
                     this.page = 1;
                 }
                 if (this.page > this.length) {
+                    this.$refs.refresh.refreshEnd();
                     this.$nextTick(() => {
                         this.isLoading = false
                     })
@@ -258,7 +267,7 @@
                     this.page++;
                     this.isLoading = false;
                     // this.$notice.alert({
-                    //     message: this.goodsList[0]
+                    //     message: this.page
                     // })
                     this.$notice.loading.hide();
                     // this.goodsList = [];
