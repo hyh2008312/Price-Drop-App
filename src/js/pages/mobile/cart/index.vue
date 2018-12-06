@@ -34,11 +34,12 @@
         </div>
 
         <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
+            <refresher class="gd-bg-gray" ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
             <cell  v-for="(i,index) in goodsList"
                    :key="i.id" style="width: 750px">
                 <div :class="[index == goodsList.length-1?'mg-b10':'']">
                     <div class="line-card">
-                        <div class="lc-top">
+                        <div class="lc-top" >
                             <div  @click="selGoods(i)" >
                                 <div style="margin:16px" >
                                     <!--<text class="dot-sel">&radic;</text>-->
@@ -56,8 +57,7 @@
                                 <text class="blue-word" v-if="i.productType=='flash'">Flash Sale</text>
                                 <!--</div>-->
                             </div>
-                            <!--<div class="lc-t-img"  ></div>-->
-                            <div class="lc-tw">
+                            <div class="lc-tw"  @click="jumpGoodsDetail(i)">
                                 <!--<text class="lc-tw1">Toyota’s Latest is an Entire Mobility Service Platform</text>-->
                                 <text class="lc-tw1" lines="3">{{i.title}}{{i.sumStock}}</text>
                                 <div class="lc-tw2">
@@ -167,12 +167,14 @@
 
 <script>
     import header from './witheHeader';
+    import refresher from '../common/refresh';
     import { WxcCountdown, WxcRadio } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
             'topic-header': header,
+            'refresher': refresher,
             WxcCountdown,
             WxcRadio
         },
@@ -207,6 +209,12 @@
             googleAnalytics.trackingScreen('Cart');
         },
         methods: {
+            loadingDown () {
+                this.$refs.refresh.refreshEnd();
+                this.requestProduct(true)
+                this.isLoading = false;
+
+            },
             onLoadingMore () {
                 if (!this.isLoading) {
                     this.isLoading = true
@@ -214,11 +222,11 @@
                 }
             },
             requestProduct (isFirst) {
-                // this.loadingWord = 'Loading...'
                 if (isFirst) {
                     this.page = 1;
                 }
                 if (this.page > this.length) {
+                    this.$refs.refresh.refreshEnd();
                     this.$nextTick(() => {
                         this.isLoading = false
                     })
@@ -258,7 +266,7 @@
                     this.page++;
                     this.isLoading = false;
                     // this.$notice.alert({
-                    //     message: this.goodsList[0]
+                    //     message: this.page
                     // })
                     this.$notice.loading.hide();
                     // this.goodsList = [];
@@ -269,6 +277,18 @@
                     //     message: res
                     // })
                 })
+            },
+            jumpGoodsDetail (id) {
+                // this.$notice.alert({
+                //     message: id
+                // })
+                // this.$router.open({
+                //     name: 'goods.details',
+                //     type: 'PUSH',
+                //     params: {
+                //         id: id
+                //     }
+                // })
             },
             getMyCard () {
                 this.$fetch({
