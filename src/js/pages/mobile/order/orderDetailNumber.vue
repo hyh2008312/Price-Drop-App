@@ -3,8 +3,9 @@
         <div class="wrapper-inner">
             <div>
                 <text class="gb-txt">Order Number: {{order.number}}</text>
-                <text class="gb-txt gb-mt" v-if="order.paymentType">Payment Method: PayTM</text>
                 <text class="gb-txt gb-mt">Order Time: {{formatDate(order.created, 'MMM DD, YYYY hh:mm:ss')}}</text>
+                <text class="gb-txt gb-mt" v-if="order.paymentMode == 'cod'">Payment Method: COD {{order.shippingProvider}}</text>
+                <text class="gb-txt gb-mt" v-if="order.paymentMode == 'imprest'">Payment Method: {{order.paymentStatus}}</text>
             </div>
             <text class="cy iconfont" @click="setNumber">&#xe708;</text>
         </div>
@@ -58,8 +59,8 @@
     }
 
     .gb-txt{
-        font-size: 20px;
-        line-height: 24px;
+        font-size: 24px;
+        line-height: 28px;
     }
 
     .gb-mt{

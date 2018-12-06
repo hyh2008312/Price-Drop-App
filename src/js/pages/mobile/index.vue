@@ -197,30 +197,30 @@ export default {
             const token = this.$storage.getSync('token');
             if (token && !this.isFirstLogin) {
                 this.isFirstLogin = true;
-                this.$fetch({
-                    method: 'POST', // 大写
-                    name: 'oauth2.token',
-                    data: {
-                        refresh_token: token.refreshToken,
-                        grant_type: 'refresh_token',
-                        client_id: cliendId
-                    },
-                    header: {
-                        isLoginPop: true
-                    }
-                }).then(data => {
-                    this.$storage.set('token', {
-                        tokenType: data.token_type,
-                        scope: data.scope,
-                        accessToken: data.access_token,
-                        refreshToken: data.refresh_token,
-                        expiresIn: data.expires_in
-                    });
-                    this.getUser();
-                }, error => {
-                    this.$storage.deleteSync('token');
-                    this.$storage.deleteSync('user');
-                })
+                // this.$fetch({
+                //     method: 'POST', // 大写
+                //     name: 'oauth2.token',
+                //     data: {
+                //         refresh_token: token.refreshToken,
+                //         grant_type: 'refresh_token',
+                //         client_id: cliendId
+                //     },
+                //     header: {
+                //         isLoginPop: true
+                //     }
+                // }).then(data => {
+                //     this.$storage.set('token', {
+                //         tokenType: data.token_type,
+                //         scope: data.scope,
+                //         accessToken: data.access_token,
+                //         refreshToken: data.refresh_token,
+                //         expiresIn: data.expires_in
+                //     });
+                // }, error => {
+                //     this.$storage.deleteSync('token');
+                //     this.$storage.deleteSync('user');
+                // });
+                this.getUser();
             }
         },
         getVersion () {
