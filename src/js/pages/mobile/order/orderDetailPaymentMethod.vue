@@ -2,9 +2,10 @@
     <div class="wrapper">
         <div class="wrapper-inner">
             <div>
-                <text class="gb-txt">Order Number: {{order.number}}</text>
+                <text class="gb-txt">Order Time: {{formatDate(order.created, 'MMM DD, YYYY hh:mm:ss')}}</text>
+                <text class="gb-txt gb-mt" v-if="order.paymentMode == 'cod'">Payment Method: COD {{order.shippingProvider}}</text>
+                <text class="gb-txt gb-mt" v-if="order.paymentMode == 'imprest'">Payment Method: {{order.paymentStatus}}</text>
             </div>
-            <text class="cy iconfont" @click="setNumber">&#xe708;</text>
         </div>
     </div>
 </template>
@@ -14,7 +15,9 @@
 
     export default {
         props: ['order'],
-        data () {},
+        data () {
+            return {}
+        },
         methods: {
             formatDate (str, hmr) {
                 return dayjs(new Date(str)).format(hmr)

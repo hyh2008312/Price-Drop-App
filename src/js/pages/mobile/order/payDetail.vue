@@ -10,13 +10,16 @@
                 <order-detail-shipping :order="order"></order-detail-shipping>
             </cell>
             <cell class="cell-bottom">
+                <order-detail-number :order="order"></order-detail-number>
+            </cell>
+            <cell class="cell-bottom">
                 <order-detail-item :order="order"></order-detail-item>
             </cell>
             <cell class="cell-bottom">
                 <order-detail-delivery :order="order"></order-detail-delivery>
             </cell>
             <cell class="cell-bottom">
-                <order-detail-number :order="order"></order-detail-number>
+                <order-detail-payment-method :order="order"></order-detail-payment-method>
             </cell>
         </list>
         <order-detail-bottom :order="order" @cancel="cancel" @deleteOrder="deleteOrder"
@@ -90,6 +93,7 @@ import orderDetailShipping from './orderDetailShipping';
 import orderDetailItem from './orderDetailItem';
 import orderDetailBottom from './orderDetailBottom';
 import orderDetailNumber from './orderDetailNumber';
+import orderDetailPaymentMethod from './orderDetailPaymentMethod';
 import orderDetailDelivery from './orderDetailDelivery';
 import { Utils, WxcPopup, WxcMask } from 'weex-ui';
 import { ORDERDETAIL, CANCELREASON } from './config';
@@ -105,6 +109,7 @@ export default {
         'order-detail-item': orderDetailItem,
         'order-detail-bottom': orderDetailBottom,
         'order-detail-number': orderDetailNumber,
+        'order-detail-payment-method': orderDetailPaymentMethod,
         orderDetailDelivery,
         WxcPopup,
         WxcMask
