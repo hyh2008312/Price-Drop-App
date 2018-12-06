@@ -5,6 +5,10 @@
             <text class="back iconfont" @click="back()">&#xe6f6;</text>
             <text class="title">{{title}}</text>
         </div>
+        <div class="n-item">
+            <text class="iconfont n-i-icon">&#xe763;</text>
+            <text class="n-i-word">Get extra 5% discount by using PayU, PayTM or Razorpay!</text>
+        </div>
         <list class="container" :style="height">
             <!--<cell class="container-bg">-->
                 <!--<text class="title-1">Payment Method</text>-->
@@ -99,7 +103,7 @@
                 <div class="balance-bg">
                     <div class="balance-bg-left">
                         <text class="title-3">Wallet Balance</text>
-                        <text class="title-4">₹{{balance.toFixed(2)}}</text>
+                        <text class="title-4">₹{{balance}}</text>
                     </div>
                     <div class="switch-bg" v-if="!checked" @click="changeSwitch">
                         <div class="circle-no-checked-bg"></div>
@@ -659,13 +663,13 @@ export default {
         border-radius: 50%;
     }
     .balance-bg{
-        margin-top: 32px;
+        /*margin-top: 24px;*/
         margin-left: 32px;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-        border-radius: 8px;
+        border-radius: 16px;
         width: 686px;
         height: 96px;
         background-color: #ffffff;
@@ -918,6 +922,25 @@ export default {
         font-size: 24px;
         color: #FFFFFF;
         letter-spacing: 0;
+        font-weight: 700;
+    }
+
+    .n-item{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background-color: #FCEACF;
+        height: 64px;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+    }
+    .n-i-icon{
+        color: #EF8A31;
+        font-size: 30px;
+        margin-right: 12px;
+    }
+    .n-i-word{
+        font-size: 24px;
+        color: #000000;
         font-weight: 700;
     }
 </style>

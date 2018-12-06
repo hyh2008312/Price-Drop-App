@@ -1,7 +1,10 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1">₹{{((order.paymentAmount * 100 - (checked ? balance : 0 ) * 100 < 0 ? 0 : (order.paymentAmount * 100 - (checked ? balance : 0 ) * 100)) / 100).toFixed(2)}}</text>
+        <text class="od-text-1" v-if="method=='cod'">₹{{parseInt(order.paymentAmount) - parseInt(checked? balance: 0)}}</text>
+        <text class="od-text-1" v-if="method!='cod'"> ₹{{parseInt((order.paymentAmount)*0.95) - parseInt(checked? balance: 0)}} </text>
+        <text class="od-text-lt" v-if="method!='cod'">₹{{parseInt(order.paymentAmount)}}</text>
+        <text class="percent" v-if="method!='cod'"> 5% OFF</text>
         <text class="od-button" v-if="isCanPay" @click="confirm">Pay Now</text>
         <text class="od-button-no" v-if="!isCanPay">Pay Now</text>
     </div>
@@ -427,26 +430,28 @@
 
     .od-button{
         margin-left: 24px;
-        margin-right: 16px;
+        margin-right: 30px;
         font-size: 28px;
         line-height: 80px;
         text-align: center;
-        padding: 0 24px;
+        padding: 0 32px;
         background-color: #EF8A31;
-        border-radius: 4px;
+        border-radius: 50%;
         color: #fff;
+        font-weight: 700;
     }
 
     .od-button-no{
         margin-left: 24px;
-        margin-right: 16px;
+        margin-right: 30px;
         font-size: 28px;
         line-height: 80px;
         text-align: center;
-        padding: 0 24px;
+        padding: 0 32px;
         background-color: rgba(128,128,128,.74);
-        border-radius: 4px;
+        border-radius: 50%;
         color: #fff;
+        font-weight: 700;
     }
 
     .od-text{
@@ -459,5 +464,15 @@
         line-height: 34px;
         font-weight: bold;
     }
-
+    .percent{
+        font-size: 20px;
+        color: #EF8A31;
+        margin-right: 32px;
+    }
+    .od-text-lt{
+        font-size: 24px;
+        text-decoration: line-through;
+        color: #000000;
+        margin: 0 7px;
+    }
 </style>
