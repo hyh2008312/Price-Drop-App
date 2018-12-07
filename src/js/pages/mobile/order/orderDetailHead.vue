@@ -3,6 +3,7 @@
         <div class="gb-box">
             <div class="gb-bg">
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Canceled'">&#xe711;</text>
+                <text class="gb-icon iconfont" v-if="order.orderStatus == 'Expired'">&#xe711;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Unpaid'">&#xe702;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Paid'">&#xe746;</text>
                 <text class="gb-icon iconfont" v-if="order.orderStatus == 'Packing' || order.orderStatus == 'Audit canceled'">&#xe70d;</text>
@@ -17,6 +18,7 @@
                 <text class="gb-text" v-if="order.orderStatus == 'Paid'">Confirmed</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Unpaid'">Pending</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
+                <text class="gb-text" v-if="order.orderStatus == 'Expired'">Expired</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Packing'">Preparing</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Shipped'">Shipped</text>
                 <text class="gb-text" v-if="order.orderStatus == 'Completed'">Delivered</text>

@@ -6,6 +6,7 @@
                 <text class="gb-status" v-if="order.orderStatus == 'Audit canceled'">Pending Cancel</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Paid'">Confirmed</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Unpaid'">Pending</text>
+                <text class="gb-status" v-if="order.orderStatus == 'Expired'">Expired</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Canceled'">Cancelled</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Completed'">Delivered</text>
                 <text class="gb-status" v-if="order.orderStatus == 'Shipped'">Shipped</text>
@@ -69,6 +70,10 @@
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Shipped' && order.carrierCode.toUpperCase() == 'GATICN'">
                 <text class="gd-button" @click="tracking">Track Package</text>
+            </div>
+            <div class="gb-bottom-1" v-if="order.orderStatus == 'Expired'">
+                <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
+                <text class="gd-button" @click="buyProduct">Buy Again</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Canceled'">
                 <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>

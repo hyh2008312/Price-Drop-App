@@ -14,6 +14,10 @@
             <text class="od-button-1" @click="cancel">Cancel Order</text>
             <text class="od-button" @click="editAddress">Change Address</text>
         </div>
+        <div class="wrapper" v-if="order.orderStatus == 'Expired'">
+            <text class="od-button-1" @click="deleteOrder">Delete</text>
+            <text class="od-button" @click="jumpHome">Buy Again</text>
+        </div>
         <div class="wrapper" v-if="order.orderStatus == 'Packing'">
             <text class="od-button-1" v-if="order.sourcingStatus == 'Not Started'"
                   @click="cancel">Cancel Order</text>
