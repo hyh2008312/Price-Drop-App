@@ -37,8 +37,7 @@
                     <text class="gd-text gb-text-color" v-if="order.balanceUsed && order.balance > 0">- ₹{{order.balance}}</text>
                     <text class="gb-text gb-text-color " v-if="parseInt(order.paymentDiscount)>0">- ₹{{order.paymentDiscount}}</text>
 
-                    <text class="gb-text-1" v-if="order.balanceUsed">₹{{order.realAmount}}</text>
-                    <text class="gb-text-1" v-if="!order.balanceUsed">₹{{order.paymentAmount}}</text>
+                    <text class="gb-text-1">₹{{order.realAmount}}</text>
                 </div>
             </div>
         </div>
