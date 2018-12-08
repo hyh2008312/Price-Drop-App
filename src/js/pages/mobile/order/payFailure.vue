@@ -61,7 +61,7 @@ export default {
             }
         },
         jumpHome () {
-            this.$router.setBackParams({ tab: 'drops' })
+            this.$router.setBackParams({ tab: 'home' })
             this.$router.back({
                 length: 9999,
                 type: 'PUSH'
