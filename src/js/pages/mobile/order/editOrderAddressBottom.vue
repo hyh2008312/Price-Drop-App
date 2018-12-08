@@ -47,7 +47,7 @@
                 }, error => {
                     // 错误回调
                     this.$notice.toast({
-                        message: error
+                        message: error.errorMsg
                     });
                 });
             },

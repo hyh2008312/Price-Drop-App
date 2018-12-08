@@ -119,6 +119,7 @@ export default {
             if (params && params.id) {
                 googleAnalytics.trackingScreen(`Order Detail/${params.id}`);
                 this.getOrder(params.id);
+                this.id = params.id;
                 this.$event.on('login', params => {
                     this.getOrder(params.id)
                 });
@@ -130,6 +131,7 @@ export default {
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         this.initMaskBack();
         this.$event.on('changeAddress', params => {
+            this.getOrder(this.id);
             this.$notice.toast('Address changed successfully!');
         });
     },
@@ -138,6 +140,7 @@ export default {
     },
     data () {
         return {
+            id: '',
             title: 'Order Detail',
             order: ORDERDETAIL,
             isTrue: true,
