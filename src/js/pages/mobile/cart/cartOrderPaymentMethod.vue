@@ -7,7 +7,7 @@
         </div>
         <div class="n-item">
             <text class="iconfont n-i-icon">&#xe763;</text>
-            <text class="n-i-word">Get extra 5% discount by using PayU, PayTM or Razorpay!</text>
+            <text class="n-i-word">5% Extra Discount by using PayU, PayTM or Razorpay!</text>
         </div>
         <list class="container" :style="height">
             <!--<cell class="container-bg">-->
