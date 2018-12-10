@@ -7,7 +7,7 @@
         </div>
         <div class="n-item">
             <text class="iconfont n-i-icon">&#xe763;</text>
-            <text class="n-i-word">5% Extra Discount by using PayU, PayTM or Razorpay!</text>
+            <text class="n-i-word">Get extra 5% discount by using PayU, PayTM or Razorpay!</text>
         </div>
         <list class="container" :style="height">
             <!--<cell class="container-bg">-->
@@ -18,7 +18,11 @@
                 <div  class="overflow-box b-top-r">
                     <div class="overflow-box1" >
                         <div>
-                            <image class="item-image-3" resize="contain" :src="payUSrc"></image>
+                            <!--<image class="item-image-3" resize="contain" :src="payUSrc"></image>-->
+                            <div class="overflow-img">
+                                <image class="item-image-3" resize="contain" :src="payUSrc"></image>
+                                <text class="tag-5">Extra 5% Off</text>
+                            </div>
                             <text class="item-text">Wallet / Credit&Debit Card / Net Banking</text>
                         </div>
                         <text class="iconfont item-checked" v-if="method == 'payU'">&#xe6fb;</text>
@@ -31,7 +35,11 @@
                 <div  class="overflow-box">
                     <div class="overflow-box1" >
                         <div>
-                            <image class="item-image" resize="contain" :src="paytmSrc"></image>
+                            <!--<image class="item-image" resize="contain" :src="paytmSrc"></image>-->
+                            <div class="overflow-img">
+                                <image class="item-image" resize="contain" :src="paytmSrc"></image>
+                                <text class="tag-5">Extra 5% Off</text>
+                            </div>
                             <text class="item-text">Wallet / UPI / Credit&Debit Card / Net Banking </text>
                         </div>
                         <text class="iconfont item-checked" v-if="method == 'paytm'">&#xe6fb;</text>
@@ -44,7 +52,11 @@
                 <div  class="overflow-box">
                     <div class="overflow-box1" >
                         <div>
-                            <image class="item-image-1" resize="contain" :src="razorpaySrc"></image>
+                            <!--<image class="item-image-1" resize="contain" :src="razorpaySrc"></image>-->
+                            <div class="overflow-img">
+                                <image class="item-image-1" resize="contain" :src="razorpaySrc"></image>
+                                <text class="tag-5">Extra 5% Off</text>
+                            </div>
                             <text class="item-text">UPI / Credit&Debit Card / Net Banking </text>
                         </div>
                         <text class="iconfont item-checked" v-if="method == 'razorpay'">&#xe6fb;</text>
@@ -590,7 +602,21 @@ export default {
         margin: 32px 32px 0 32px;
         padding-bottom: 32px;
     }
-
+    .overflow-img{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+    .tag-5{
+        padding: 2px 16px;
+        border-radius: 8px;
+        font-size: 20px;
+        color: #EF8A31;
+        margin-left: 16px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #EF8A31;
+    }
     .item-image{
         width: 152px;
         height: 48px;
@@ -934,7 +960,7 @@ export default {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        background-color: #FCEACF;
+        background-color: #FFE3B6;
         height: 64px;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
     }
