@@ -568,7 +568,7 @@
     }
 
     .shipping-bg{
-        background-color: #FCEACF;
+        background-color: #FFE3B6;
         width: 750px;
         height: 64px;
         flex-direction: row;

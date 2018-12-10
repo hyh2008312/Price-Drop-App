@@ -295,9 +295,11 @@
                 })
             },
             jumpHome () {
-                this.$event.emit('changeTab', {
-                    tab: 'home'
-                });
+                this.$router.setBackParams({ tab: 'home' })
+                this.$router.back({
+                    length: 9999,
+                    type: 'PUSH'
+                })
             },
             calc (a, b) {
                 return ((a * b) / 100).toFixed(2)
