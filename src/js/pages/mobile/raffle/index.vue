@@ -350,6 +350,7 @@
             },
 
             getResult () {
+                this.$notice.loading.show();
                 if (this.isF) {
                     this.isF = false
                     this.$fetch({
@@ -362,6 +363,8 @@
                             needAuth: true
                         }
                     }).then((res) => {
+                        this.$notice.loading.hide();
+
                         this.$notice.toast({
                             message: 'success'
                         })
@@ -375,7 +378,7 @@
 
                         this.wxcMaskSetShareHidden()
                     }).catch((res) => {
-                        // this.$notice.loading.hide();
+                        this.$notice.loading.hide();
                         this.$notice.toast({
                             message: res.errorMsg
                         })
