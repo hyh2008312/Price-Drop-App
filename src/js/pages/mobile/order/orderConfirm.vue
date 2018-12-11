@@ -130,6 +130,7 @@ export default {
             this.payList = [...PAYLIST]
         },
         getAddress () {
+            this.$notice.loading.show();
             this.$fetch({
                 method: 'GET', // 大写
                 name: 'address.get.default',
@@ -137,6 +138,7 @@ export default {
                     needAuth: true
                 }
             }).then(resData => {
+                this.$notice.loading.hide();
                 this.address = resData;
             }, error => {
                 this.$notice.toast({
