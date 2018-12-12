@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <topic-header class="t-h1" title="Cart" :leftBtn="1" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
+        <topic-header class="t-h1" title="Cart" leftBtn="y" :rightBtn="rightBtnWord" v-on:change="changeBtn($event) " ></topic-header>
         <div class="blackheader"></div>
         <div class="top-buy-overflow" v-if="false">
             <div :class="[parseInt(allPrice)>0?'mg-tb16':'']" @click="jumpHome">
@@ -59,7 +59,7 @@
                             </div>
                             <div class="lc-tw"  @click="jumpGoodsDetail(i)">
                                 <!--<text class="lc-tw1">Toyota’s Latest is an Entire Mobility Service Platform</text>-->
-                                <text class="lc-tw1" lines="3">{{i.title}}{{i.sumStock}}</text>
+                                <text class="lc-tw1">{{i.title}}</text>
                                 <div class="lc-tw2">
                                     <text class="lc-tw-b">{{i.attributes}}</text>
                                     <div class="lc-tw-p">
@@ -697,8 +697,8 @@
         letter-spacing: 0;
     }
     .lc-t-img{
-        width: 176px;
-        height: 176px;
+        width: 240px;
+        height: 240px;
     }
     .lc-sold-out{
         width: 176px;
@@ -711,7 +711,7 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: start;
-        height:182px ;
+        height:240px;
         /*background-color: red;*/
     }
     .lc-tw1{
@@ -734,7 +734,7 @@
     .lc-tw-b{
         font-size: 20px;
         color: rgba(0,0,0,0.87);
-        margin-bottom: 18px;
+        margin-bottom: 48px;
     }
     .lc-tw-p{
         flex-direction: row;
@@ -824,7 +824,7 @@
         width: 750px;
         height: 112px;
         position: fixed;
-        bottom: 112px;
+        bottom: 0;
         right: 0;
         overflow: hidden;
     }
@@ -876,7 +876,7 @@
         height: 80px;
         width: 160px;
         background-color: rgba(128,128,128,.74);
-        border-radius: 8px;
+        border-radius: 50%;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -892,7 +892,7 @@
         height: 80px;
         width: 160px;
         background-color: #EF8A31;
-        border-radius: 8px;
+        border-radius: 50%;
         flex-direction: row;
         justify-content: center;
         align-items: center;

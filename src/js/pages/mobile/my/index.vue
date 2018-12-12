@@ -11,16 +11,30 @@
                         <div class="i-photo-div" @click="openMydetail(1)">
                             <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
                         </div>
-                        <div class="b-tlt" @click="openMydetail(1)">
-                            <text class="i-name">{{fname}} {{lname}}</text>
+                        <div class="b-tlt" @click="openMydetail(1)" style="background-color: black">
+                            <text class="i-name" >{{fname}} {{lname}}</text>
                             <div class="txt-tag ">
                                 <text class="txt-tag-txt" >{{email}}</text>&nbsp;<text class="txt-icon iconfont">&#xe74f;</text>
                             </div>
                         </div>
                     </div>
-                    <div class="overflow-setting-icon" @click="openCell(0)">
-                    <text class="iconfont setting-icon" style="">&#xe71e;</text>
-                </div>
+                    <div class="overflow-setting-icon" >
+
+                        <div class="box-bg pdr-42"  @click="openMyCart">
+                            <text class="iconfont setting-icon">&#xe754;</text>
+                            <text class="box-dot1" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
+                        </div>
+
+                        <div class="box-bg pdr-42"  @click="openNoti"  >
+                            <text class="iconfont setting-icon">&#xe753;</text>
+                            <text class="box-dot1" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
+                        </div>
+
+                        <div class="box-bg" @click="openCell(0)" >
+                            <text class="iconfont setting-icon" style="">&#xe71e;</text>
+                        </div>
+
+                    </div>
                 </div>
 
             </cell>
@@ -37,27 +51,29 @@
 
             </cell>
 
-            <cell style="width: 750px;">
-                <div style="height:64px;background-color: #EF8A31"></div>
+            <!--<cell style="width: 750px;">-->
+                <!--<div style="height:64px;background-color: #EF8A31"></div>-->
+                <!--<div style="height:64px;background-color: #f4f4f4"></div>  &lt;!&ndash;无法设置负的margin-top 设置的背景&ndash;&gt;-->
+                <!--<div class="overflow-point-card">-->
+                    <!--<div class="point-card">-->
+                        <!--<div class="point" @click="openCell(5)">-->
+                            <!--<text class="point-card-num">{{points || 0}}</text>-->
+                            <!--<text class="point-card-txt">My Points</text>-->
+                        <!--</div>-->
+                        <!--<text class="center-border"></text>-->
+                        <!--<div class="card" @click="openCell(6)">-->
+                            <!--<text class="point-card-num">{{cardNumber}}</text>-->
+                            <!--<text class="point-card-txt">My Gift Vouchers</text>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</cell>-->
+
+            <cell style="width: 750px;" >
+                <div style="height:64px;background-color: #EF8A31;border-bottom-left-radius:64px;border-bottom-right-radius: 64px;"></div>
                 <div style="height:64px;background-color: #f4f4f4"></div>  <!--无法设置负的margin-top 设置的背景-->
-                <div class="overflow-point-card">
-                    <div class="point-card">
-                        <div class="point" @click="openCell(5)">
-                            <text class="point-card-num">{{points || 0}}</text>
-                            <text class="point-card-txt">My Points</text>
-                        </div>
-                        <text class="center-border"></text>
-                        <div class="card" @click="openCell(6)">
-                            <text class="point-card-num">{{cardNumber}}</text>
-                            <text class="point-card-txt">My Gift Vouchers</text>
-                        </div>
-                    </div>
-                </div>
-            </cell>
 
-            <cell class="overflow-box">
-
-                <div class="s-box ">
+                <div class="s-box"  >
                     <div class="box-tlt "  @click="jumpWeb(0)">
                         <text class="box-txt1">My Orders</text>
                         <text class="i-box iconfont">SEE MORE&nbsp;&nbsp;&#xe626;</text>
@@ -92,9 +108,12 @@
                 </div>
 
             </cell>
-            <cell class="overflow-box">
+
+
+
+            <cell class="overflow-box" v-if="user">
                 <div class="mid-cell">
-                    <div class="box-tlt "  v-if="user">
+                    <div class="box-tlt "    @click="openTmp">
                         <div class="box-left">
                             <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
                             <text class="box-txt">My Wallet</text>
@@ -103,31 +122,45 @@
                         <text class="i-box wallet-num">₹ {{myWallet||0}}</text>
                     </div>
 
+                    <div class="box-tlt "    @click="openCell(5)">
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
+                            <text class="box-txt">My Points</text>
+                            <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
+                        </div>
+                        <div style="flex-direction: row;justify-content: space-between;align-items: center">
+                            <text class="i-box wallet-num">{{points||0}}</text>
+                            <text class="i-box iconfont">&#xe626;</text>
 
-                    <!--<div class="box-tlt " @click="openMyCart()" v-if="user">-->
-                        <!--<div class="box-left">-->
-                            <!--<image class="box-txt-icon" src="bmlocal://assets/my-cart.png"></image>-->
-                            <!--<text class="box-txt">My Cart</text>-->
-                            <!--<text class=" box-dot" v-if="true"></text>-->
-                        <!--</div>-->
-                        <!--<text class="i-box iconfont">&#xe626;</text>-->
+                        </div>
 
-                    <!--</div>-->
+                    </div>
 
-                    <div class="box-tlt " @click="openMyRaffleDraws()" v-if="user">
+                    <div class="box-tlt " @click="openMyRaffleDraws()" >
                         <div class="box-left">
                             <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
                             <text class="box-txt">My Lucky Draws</text>
                             <text class=" box-dot" v-if="unreadR>0"></text>
                         </div>
                         <text class="i-box iconfont">&#xe626;</text>
+                    </div>
+
+                    <div class="box-tlt " @click="openCell(6)" >
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
+                            <text class="box-txt">My Vouchers</text>
+                        </div>
+                        <div style="flex-direction: row;justify-content: space-between;align-items: center">
+                            <text class="i-box wallet-num">{{cardNumber||0}}</text>
+                            <text class="i-box iconfont">&#xe626;</text>
+                        </div>
 
                     </div>
 
                 </div>
             </cell>
 
-            <cell class="overflow-box">
+            <cell class="overflow-box" >
                 <div class="mid-cell">
 
                     <div class="box-tlt " @click="openCell(1)">
@@ -150,14 +183,14 @@
                         <text class="i-box iconfont">&#xe626;</text>
                     </div>
 
-                    <div class="box-tlt " @click="openNoti()" v-if="user">
-                        <div class="box-left">
-                            <image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>
-                            <text class="box-txt">My Notifications</text>
-                            <text class=" box-dot" v-if="unread>0"></text>
-                        </div>
-                        <text class="i-box iconfont">&#xe626;</text>
-                    </div>
+                    <!--<div class="box-tlt " @click="openNoti()" v-if="user">-->
+                        <!--<div class="box-left">-->
+                            <!--<image class="box-txt-icon" src="bmlocal://assets/pic-my-noti.png"></image>-->
+                            <!--<text class="box-txt">My Notifications</text>-->
+                            <!--<text class=" box-dot" v-if="unread>0"></text>-->
+                        <!--</div>-->
+                        <!--<text class="i-box iconfont">&#xe626;</text>-->
+                    <!--</div>-->
                 </div>
 
             </cell>
@@ -258,6 +291,7 @@
                 setsign: '',
                 myWallet: '',
                 unread: 0,
+                cartNum: 1,
                 unreadR: 0
             }
         },
@@ -276,6 +310,12 @@
             openMyCart () {
                 this.$router.open({
                     name: 'cart',
+                    type: 'PUSH'
+                })
+            },
+            openTmp () {
+                this.$router.open({
+                    name: 'category',
                     type: 'PUSH'
                 })
             },

@@ -4,18 +4,17 @@
             <text  class="triangle">&#xe741;</text>
             <text  class="tick">Joined</text>
         </div>
-        <div class="goods">
-            <text class="goods-h">Lucky Draw Prize</text>
-            <!--<text class="goods-h">{{item.}}</text>-->
-            <text class="goods-t">{{item.product}}</text>
-            <div class="goods-p">
-                <text class="goods-p1">₹0</text>
-                <text class="goods-p2">₹{{parseInt(item.saleUnitPrice)}}</text>
-                <text class="goods-p3">Free Shipping</text>
-            </div>
-        </div>
         <div class="goods-image">
             <image class="goods-i" resize="contain" :src="item.image"></image>
+        </div>
+        <div class="goods">
+            <!--<text class="goods-h">Lucky Draw Prize</text>-->
+            <text class="goods-t">{{item.product}}</text>
+            <div class="goods-p">
+                <text class="goods-p1">FREE </text>
+                <text class="goods-p2"> ₹{{parseInt(item.saleUnitPrice)}}</text>
+                <text class="goods-p3">Free Shipping</text>
+            </div>
         </div>
 
         <div v-if="item.drawStatus == 'Ongoing'|| item.drawStatus == 'Ended'" style="margin-left: 48px">
@@ -41,46 +40,7 @@
                 </div>
 
             </div>
-            <div class="goods-p" v-if="loginS"  style="margin-bottom: 48px">
-                <div v-if="item.drawStatus == 'Ongoing'">
-                    <div v-if="!item.isDraw" class="goods-p mg-t20">
-                        <text class="goods-num">Time Left to Join</text>
-                        <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
-                    </div>
-                    <div v-if="item.isDraw" class="goods-p mg-t20">
-                        <text class="goods-num">Winner Announcement Time:</text>
-                        <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
-                        <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
-                    </div>
-                </div>
-                <div v-if="item.drawStatus == 'Ended'">
-                    <div  class="goods-p mg-t20">
-                        <text class="goods-num">Winner Announcement Time:</text>
-                        <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
-                        <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
-                    </div>
-                </div>
 
-            </div>
-
-            <div class="goods-p" v-if="!loginS"  style="margin-bottom: 48px">
-                <div v-if="item.drawStatus == 'Ongoing'" class="goods-p mg-t20">
-                    <text class="goods-num">Time Left to Join</text>
-                    <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
-                </div>
-                <div   v-if="item.drawStatus == 'Ended'" class="goods-p mg-t20">
-                    <text class="goods-num">Winner Announcement Time:</text>
-                    <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
-                    <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
-                </div>
-            </div>
-
-            <div class="goods-people" v-if="item.drawCount>0" style="margin-bottom: 40px">
-                <div class="goods-a" v-for="i in item.images.slice(0,6).reverse()">
-                    <image class="goods-a-i" :src="i"></image>
-                </div>
-                <text class="goods-w">{{item.drawCount}} people joined</text>
-            </div>
         </div>
 
         <div v-if="item.drawStatus == 'Scheduled'">
@@ -105,7 +65,7 @@
                 <!--<text class="iconfont goods-btn-sicon" >&#xe74b;</text>-->
                 <!--<text class="goods-btn-sword"  >Share to Your Friends</text>-->
             <!--</div>-->
-            <text class="goods-btn-w-bw" @click="openNewPage()" v-if="item.isDraw">See the Winners</text>
+            <text class="goods-btn-w-bw" @click="openNewPage()" v-if="item.isDraw">You have joined successfully!</text>
 
             <text class="goods-btn-w" @click="opendialog()" v-if="!item.isDraw">Join Now & Win Prize</text>
 
@@ -123,6 +83,53 @@
             <text class="goods-btn-w-bw" v-if="!item.prizePublic" @click="openNewPage()">See the Winners</text>
 
             <text class="goods-btn-b" v-if="item.prizePublic" @click="openPage()">See the Winners</text>
+        </div>
+
+        <div class="fl-center">
+
+            <div class="goods-p" v-if="loginS"  style="margin-bottom: 48px">
+                <div v-if="item.drawStatus == 'Ongoing'">
+                    <div v-if="!item.isDraw" class="goods-p mg-t20">
+                        <text class="goods-num">Ends in</text>
+                        <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
+                    </div>
+                    <div v-if="item.isDraw" class="goods-p mg-t20">
+                        <text class="goods-num">Winner Announcement Time:</text>
+                        <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                        <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
+                    </div>
+                </div>
+                <div v-if="item.drawStatus == 'Ended'">
+                    <div  class="goods-p mg-t20">
+                        <text class="goods-num">Winner Announcement Time:</text>
+                        <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                        <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="goods-p" v-if="!loginS"  style="margin-bottom: 48px">
+            <div v-if="item.drawStatus == 'Ongoing'" class="goods-p mg-t20">
+                <text class="goods-num">Time Left to Join</text>
+                <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
+            </div>
+            <div   v-if="item.drawStatus == 'Ended'" class="goods-p mg-t20">
+                <text class="goods-num">Winner Announcement Time:</text>
+                <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
+            </div>
+        </div>
+        </div>
+
+
+        <div class="fl-center">  <!--用户头像 -->
+            <div class="goods-people" v-if="item.drawCount>0" style="margin-bottom: 40px">
+                <div class="goods-a" v-for="i in item.images.slice(0,6).reverse()">
+                    <image class="goods-a-i" :src="i"></image>
+                </div>
+                <text class="goods-w">{{item.drawCount}} people joined</text>
+            </div>
         </div>
     </div>
 </template>
@@ -352,6 +359,7 @@
     }
     .goods{
         margin-left: 48px;
+        margin-bottom: 52px;
     }
     .goods-h{
         font-family: ProximaNova;
@@ -370,7 +378,7 @@
         height: 30px;
         width: 500px;
         text-align: left;
-        margin: 4px 0 8px 0;
+        margin: 4px 0 16px 0;
     }
     .goods-p{
         flex-direction: row;
@@ -381,11 +389,12 @@
     .goods-p1{
         font-family: ProximaNova;
         font-size: 24px;
-        color: #000000;
+        color: #FD7900;
         letter-spacing: 0;
         text-align: left;
         font-weight: 700;
         margin-right: 14px;
+
     }
     .goods-p2{
         font-family: ProximaNova;
@@ -401,8 +410,8 @@
         font-size: 20px;
         background-color: #00CFE3;
         color: white;
-        padding: 2px 6px;
-        border-radius: 4px;
+        padding: 2px 8px;
+        border-radius: 6px;
     }
     .goods-image{
         /*flex-direction: row;*/
@@ -450,11 +459,10 @@
         text-align: left;
     }
     .goods-time{
-        font-family: ProximaNova-Regular;
         font-size: 24px;
-        color: #EF8A31;
-        letter-spacing: 0;
-        text-align: left;
+        color: black;
+        font-weight: 700;
+        text-align: center;
     }
     .goods-people{
         flex-direction: row;
@@ -484,26 +492,26 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        margin-bottom: 64px;
+        margin-top: 48px;
         /*margin-left: 15px;*/
         /*background-color: black;*/
     }
     .goods-btn-w-bw{
-        font-size: 24px;
         font-weight: 700;
         background-color: white;
-        color: #00CFE3;
-        padding: 0 32px;
+        font-size: 28px;
+        color: #EF8A31;
+        /*padding: 0 32px;*/
         line-height: 60px;
         text-align: center;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        border-width: 1px ;
-        border-style: solid ;
-        border-color: #00CFE3;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);
-        border-radius: 32px;
+        /*border-width: 1px ;*/
+        /*border-style: solid ;*/
+        /*border-color: #00CFE3;*/
+        /*box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);*/
+        /*border-radius: 32px;*/
     }
     .goods-btn-w{
         font-size: 24px;
@@ -557,6 +565,11 @@
         color:#00CFE3;
     }
     .goods-snum-d{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .fl-center{
         flex-direction: row;
         align-items: center;
         justify-content: center;

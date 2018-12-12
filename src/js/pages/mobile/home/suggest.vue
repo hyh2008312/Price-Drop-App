@@ -533,10 +533,9 @@ export default {
             })
         },
         goReward(){
-            this.$router.open({
-                name: 'perks',
-                type: 'PUSH',
-            })
+            this.$event.emit('changeTab', {
+                tab: 'rewards'
+            });
         }
     }
 }

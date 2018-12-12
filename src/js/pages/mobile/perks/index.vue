@@ -5,37 +5,8 @@
         <scroller >
             <!--<cell><text>111</text></cell>-->
             <div class="header">
-                <text class="close iconfont" @click="$router.back();" >&#xe6f6;</text>
-                <text class="header-word" >Earn Points & Cash Bonus Every Day!</text>
-            </div>
-            <div class="overflow-mid1" >
-                <div class="top-card">
-                    <text class="t-c-h">Daily Cash Reward</text>
-                </div>
-                <div class="t-cm">
-                    <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
-                        <text class="t-cm-cw" >Earn up to ₹ 200 cash bonus</text>
-                        <text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>
-                    </div>
-                    <div class="t-cm-cr" v-if="isCash" >
-                        <text class="t-cm-cwr">Earned ₹ {{points}} Bonus!</text>
-                        <text class="t-cm-car iconfont" >&#xe6ed;</text>
-                    </div>
-                </div>
-                <div class="t-cb" @click="openRulerPage(1)">
-                    <text class="t-cbw" >Rules </text>
-                    <text class="iconfont" style="color:white;font-size: 18px ">&#xe626;</text>
-                </div>
-                <!--<div class="w-img">-->
-                    <image class="w-i5"  style=" width: 100px;height: 43px;" src="bmlocal://assets/perks/5.png"></image>
-                    <image class="w-i3"  style=" width: 62px;height: 98px;" src="bmlocal://assets/perks/3.png"></image>
-                    <image class="w-i1"  style=" width: 60px;height: 110px;" src="bmlocal://assets/perks/1.png"></image>
-
-                    <image class="w-i6"  style=" width: 98px;height: 106px;" src="bmlocal://assets/perks/6.png"></image>
-
-                    <image class="w-i2"  style=" width: 100px;height: 102px;" src="bmlocal://assets/perks/2.png"></image>
-                    <image class="w-i4"  style=" width: 80px;height: 96px;" src="bmlocal://assets/perks/4.png"></image>
-                <!--</div>-->
+                <!--<text class="close iconfont" @click="$router.back();" >&#xe6f6;</text>-->
+                <text class="header-word" >Earn Points & Cash Bonus</text>
             </div>
 
             <div class="overflow-mid2" >
@@ -79,27 +50,60 @@
                 </div>
 
                 <!--<div class="m2-c4">-->
-                    <scroller class="s-box" scroll-direction="horizontal" flex-direction="row">
-                        <div class="s-box-c" >
-                            <div class="single" v-for="(i,index) in scrollerPoint">
-                                <div class="single-dot">
-                                    <image style=" width: 44px;height: 44px;" v-if="index >= signObj.signTimes " src="bmlocal://assets/perks/8.png"></image>
-                                    <text class="single-word">{{i.p}}</text>
-                                    <image style=" width: 44px;height: 44px;" v-if="index < signObj.signTimes " src="bmlocal://assets/perks/7.png"></image>
-                                    <div :class="[index<14?'single-line':'single-line-last']" ></div>
-                                </div>
-                                <div>
-                                    <text class="single-day" v-if="index==0">1st</text>
-                                    <text class="single-day" v-else-if="index==1">2nd</text>
-                                    <text class="single-day" v-else-if="index==2">3rd</text>
-                                    <text class="single-day" v-else>{{index+1}}th</text>
-                                </div>
-
+                <scroller class="s-box" scroll-direction="horizontal" flex-direction="row">
+                    <div class="s-box-c" >
+                        <div class="single" v-for="(i,index) in scrollerPoint">
+                            <div class="single-dot">
+                                <image style=" width: 44px;height: 44px;" v-if="index >= signObj.signTimes " src="bmlocal://assets/perks/8.png"></image>
+                                <text class="single-word">{{i.p}}</text>
+                                <image style=" width: 44px;height: 44px;" v-if="index < signObj.signTimes " src="bmlocal://assets/perks/7.png"></image>
+                                <div :class="[index<14?'single-line':'single-line-last']" ></div>
                             </div>
+                            <div>
+                                <text class="single-day" v-if="index==0">1st</text>
+                                <text class="single-day" v-else-if="index==1">2nd</text>
+                                <text class="single-day" v-else-if="index==2">3rd</text>
+                                <text class="single-day" v-else>{{index+1}}th</text>
+                            </div>
+
                         </div>
-                    </scroller>
+                    </div>
+                </scroller>
                 <!--</div>-->
             </div>
+
+
+            <div class="overflow-mid1" >
+                <div class="top-card">
+                    <text class="t-c-h">Daily Cash Reward</text>
+                </div>
+                <div class="t-cm">
+                    <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
+                        <text class="t-cm-cw" >Earn up to ₹ 200 cash bonus</text>
+                        <text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>
+                    </div>
+                    <div class="t-cm-cr" v-if="isCash" >
+                        <text class="t-cm-cwr">Earned ₹ {{points}} Bonus!</text>
+                        <text class="t-cm-car iconfont" >&#xe6ed;</text>
+                    </div>
+                </div>
+                <div class="t-cb" @click="openRulerPage(1)">
+                    <text class="t-cbw" >Rules </text>
+                    <text class="iconfont" style="color:white;font-size: 18px ">&#xe626;</text>
+                </div>
+                <!--<div class="w-img">-->
+                    <image class="w-i5"  style=" width: 100px;height: 43px;" src="bmlocal://assets/perks/5.png"></image>
+                    <image class="w-i3"  style=" width: 62px;height: 98px;" src="bmlocal://assets/perks/3.png"></image>
+                    <image class="w-i1"  style=" width: 60px;height: 110px;" src="bmlocal://assets/perks/1.png"></image>
+
+                    <image class="w-i6"  style=" width: 98px;height: 106px;" src="bmlocal://assets/perks/6.png"></image>
+
+                    <image class="w-i2"  style=" width: 100px;height: 102px;" src="bmlocal://assets/perks/2.png"></image>
+                    <image class="w-i4"  style=" width: 80px;height: 96px;" src="bmlocal://assets/perks/4.png"></image>
+                <!--</div>-->
+            </div>
+
+
 
             <!--<div class="overflow-mid" style="margin-bottom: 100px">-->
 
@@ -129,53 +133,6 @@
 
                 <!--</div>-->
             <!--</div>-->
-
-            <div class="overflow-mid">
-
-                <div class="mid-card">
-                    <div class="top-right-div">
-                        <image class="top-right" src="bmlocal://assets/anger.png"></image>
-                    </div>
-
-                    <div  class="mid-card-h">
-                        <text class="g-ch-w"  ref="dec" >More Ways to Earn Points</text>
-                    </div>
-                    <div class="mid-card-item1">
-                        <div><image class="img-icon" src="bmlocal://assets/pic-coupon.png"></image></div>
-
-                        <div class="mid-card-text">
-                            <text class="mid-card-text1">Make a Successful Purchase</text>
-                            <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> ₹50</text><text class="mid-card-text2"> you spend</text>
-                            </div>
-
-                            <div class="count-div" style="margin-top: 6px;">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 200 points</text><text class="mid-card-text2"> by dropping price to</text><text class="mid-card-text2b"> 50% OFF</text>
-                            </div>
-
-                            <div class="count-div" style="margin-top: 6px;">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 300 points</text><text class="mid-card-text2"> by dropping price to</text><text class="mid-card-text2b"> 70% OFF</text>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mid-card-item2">
-                        <div><image class="img-icon" src="bmlocal://assets/pic-gift.png"></image></div>
-                        <div class="mid-card-text">
-                            <text class="mid-card-text1">Help Your Friends Drop Price</text>
-                            <div class="count-div">
-                                <text class="mid-card-text2">Earn</text><text class="mid-card-text2b"> 100 points</text><text class="mid-card-text2"> for every</text><text class="mid-card-text2b"> ₹50</text><text class="mid-card-text2"> your friends spend</text>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="bottom-btn" @click="openDetail">
-                        <text class="bottom-btn-txt">Learn More</text>
-                    </div>
-
-                </div>
-            </div>
 
             <div class="overflow-gift-card" >
                 <div class="top-right-div">
@@ -876,10 +833,11 @@
         background-color: black;
     }
     .header{
-        background-color: #EF8A31;
-        height: 302px;
-        border-bottom-right-radius: 100%;
-        border-bottom-left-radius: 100%;
+        background-color: white;
+        height: 112px;
+        margin-top: 48px;
+        margin-bottom: 24px;
+        box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.19);
         flex-direction: row;
         align-items: center;
         justify-content: center;
@@ -893,10 +851,10 @@
         color: white;
     }
     .header-word{
-        font-size: 40px;
+        font-size: 32px;
         font-weight: 700;
         width: 474px;
-        color: white;
+        color: black;
         text-align: center;
         line-height: 64px;
     }
@@ -907,9 +865,7 @@
     .overflow-mid1{
         flex-direction: row;
         justify-content: center;
-        height: 340px;
-        margin-top: -70px;
-        /*background-color: black*/
+        height: 312px;
     }
     .overflow-mid2{
         flex-direction: column;
@@ -987,7 +943,7 @@
     }
     .overflow-gift-card{
         width: 686px;
-        margin:  30px 32px 140px 32px;
+        margin:  24px 32px 140px 32px;
         flex-direction: column;
         justify-content: center;
         align-items: center;

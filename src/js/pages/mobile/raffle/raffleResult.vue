@@ -5,11 +5,11 @@
         <list class="content">
             <cell class="cell-content">
                 <div class="content-1">
-                    <div class="title">
-                        <image class="t-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-01.png"></image>
+                    <!--<div class="title">-->
+                        <!--<image class="t-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-01.png"></image>-->
 
-                        <text class="t-word">First Prize</text>
-                    </div>
+                        <!--<text class="t-word">First Prize</text>-->
+                    <!--</div>-->
 
                     <div class="first">
                         <image class="f-img" :src="firstPrize.product.image"></image>
@@ -17,34 +17,40 @@
                             <text class="f-title">{{firstPrize.product.productTitle}}</text>
                             <!--<text class="f-title">Kunsto Women's Leather Casual Loafer Shoes</text>-->
                             <div class="f-price">
-                                <text class="f-p-1">₹ 0 </text>
+                                <text class="f-p-1">FREE </text>
                                 <text class="f-p-2">₹ {{saleUnitPrice}}</text>
                             </div>
                         </div>
                     </div>
+
                     <div class="bottom-s" @click="changeIsShow(firstPrize)" v-if="firstPrize.drawer.length>1" >  <!--1等奖有一个以上中一等奖-->
                         <div class="b-user-s">
+                            <image class="t-imgs" src="bmlocal://assets/raffle/tubiaozhizuomoban-01.png"></image>
                             <div v-for="(item,index) in firstPrize.drawer" :class="[index===firstPrize.drawer.length-1?'':'mg-r-10']" >
                                 <div class="b-u-s">
                                     <image class="b-u-i" :src="item.avatar"></image>
                                 </div>
+                                <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
                             </div>
                         </div>
                         <div class="b-i">
-                            <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
                             <text class="iconfont b-arrow">&#xe626;</text>
                         </div>
 
                     </div>
+
                     <div class="bottom" @click="changeIsShow(firstPrize)" v-if="firstPrize.drawer.length==1"><!--1等奖只有一个中一等奖-->
+
                         <div class="b-user" v-for="item in firstPrize.drawer">
+                            <image class="t-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-01.png"></image>
                             <div class="b-u">
                                 <image class="b-u-i" :src="item.avatar"></image>
                             </div>
-                            <text class="b-u-w">{{item.userName}}</text>
+                            <text class="b-u-w">{{item.userName}} </text>
+                            <text class="b-w1">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
                         </div>
                         <div class="b-i">
-                            <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
+                            <text class="b-wB">Details</text>
                             <text class="iconfont b-arrow">&#xe626;</text>
                         </div>
                     </div>
@@ -54,11 +60,11 @@
 
             <cell class="cell-content">
                 <div class="content-1">
-                    <div class="title">
-                        <image class="t-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-02.png"></image>
+                    <!--<div class="title">-->
+                        <!--<image class="t-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-02.png"></image>-->
 
-                        <text class="t-word">Second Prize</text>
-                    </div>
+                        <!--<text class="t-word">Second Prize</text>-->
+                    <!--</div>-->
 
                     <div class="second">
                         <div style="border-radius: 16px">
@@ -68,14 +74,16 @@
                     </div>
                     <div class="bottom-s" @click="changeIsShow(secondPrize)">
                         <div class="b-user-s">
+                            <image class="t-imgs" src="bmlocal://assets/raffle/tubiaozhizuomoban-02.png"></image>
                             <div v-for="(item,index) in secondPrize.drawer" :class="[index===secondPrize.drawer.length-1?'':'mg-r-10']" >
                                 <div class="b-u-s">
                                     <image class="b-u-i" :src="item.avatar"></image>
                                 </div>
                             </div>
+                            <text class="b-w">{{secondPrize.count}} {{secondPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
                         </div>
                         <div class="b-i">
-                            <text class="b-w">{{secondPrize.count}} {{secondPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
+                            <text class="b-wB">Details</text>
                             <text class="iconfont b-arrow">&#xe626;</text>
                         </div>
 
@@ -85,11 +93,11 @@
 
             <cell class="cell-content">
                 <div class="content-1">
-                    <div class="title">
-                        <image class="t-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-03.png"></image>
+                    <!--<div class="title">-->
+                        <!--<image class="t-img" src="bmlocal://assets/raffle/tubiaozhizuomoban-03.png"></image>-->
 
-                        <text class="t-word">Third Prize</text>
-                    </div>
+                        <!--<text class="t-word">Third Prize</text>-->
+                    <!--</div>-->
 
                     <div class="third">
                         <div style="border-radius: 16px">
@@ -99,14 +107,16 @@
                     </div>
                     <div class="bottom-s" @click="changeIsShow(thirdPrize)">
                         <div class="b-user-s">
+                            <image class="t-imgs" src="bmlocal://assets/raffle/tubiaozhizuomoban-03.png"></image>
                             <div v-for="(item,index) in thirdPrize.drawer" :class="[index===thirdPrize.drawer.length-1?'':'mg-r-10']" >
                                 <div class="b-u-s">
                                     <image class="b-u-i" :src="item.avatar"></image>
                                 </div>
                             </div>
+                            <text class="b-w">{{thirdPrize.count}} {{thirdPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
                         </div>
                         <div class="b-i">
-                            <text class="b-w">{{thirdPrize.count}} {{thirdPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
+                            <text class="b-wB">Details</text>
                             <text class="iconfont b-arrow">&#xe626;</text>
                         </div>
                     </div>
@@ -265,7 +275,7 @@
         width: 688px;
         margin-top: 24px;
         background-color: white;
-        border-radius: 8px;
+        border-radius: 20px;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
     .title{
@@ -277,7 +287,13 @@
     .t-img{
         width: 36px;
         height: 36px;
-        margin-right: 24px;
+        margin-right: 8px;
+    }
+    .t-imgs{
+        width: 36px;
+        height: 36px;
+        margin-top: 6px;
+        margin-right: 16px;
     }
     .t-word{
         font-size: 32px;
@@ -300,13 +316,13 @@
         font-size: 24px;
         color: #000000;
         line-height: 34px;
-        width: 450px;
+        width: 300px;
         margin-bottom: 10px;
 
     }
     .f-img{
-        width: 148px;
-        height: 148px;
+        width: 240px;
+        height: 240px;
         margin-right: 24px;
     }
     .f-price{
@@ -316,8 +332,9 @@
     }
     .f-p-1{
         font-size: 32px;
-        color: #000000;
+        color: #EF8A31;
         font-weight: 700;
+        margin-right: 28px;
     }
     .f-p-2{
         font-size: 24px;
@@ -357,6 +374,17 @@
     .b-w{
         font-size: 24px;
         color: #000000;
+        margin-left: 24px;
+        margin-top: 12px;
+    }
+    .b-w1{
+        font-size: 24px;
+        color: #000000;
+        margin-left: 24px;
+    }
+    .b-wB{
+        font-size: 24px;
+        color: #1D7CD4;
     }
     .bottom-s{
         flex-direction: row;
@@ -377,6 +405,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-top: 32px;
     }
     .s-img{
         width: 592px;
@@ -391,6 +420,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-top: 32px;
     }
     .th-img{
         width: 592px;
