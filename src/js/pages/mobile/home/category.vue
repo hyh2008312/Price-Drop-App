@@ -14,7 +14,7 @@
                     <text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>
                 </div>
             </cell>
-            <cell v-if="subCategory.length>0">
+            <cell v-if="subCategory.length>2">
                 <scroller class="scroller" scroll-direction="horizontal">
                     <text class="tab-txt" :class="[item.id == selId ? 'tab-txt-active' : '']"
                           v-for="item in subCategory" @click="changeCategory(item.id)">{{item.name}}</text>
