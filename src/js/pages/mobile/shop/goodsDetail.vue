@@ -311,14 +311,13 @@
                         <div v-for="(val, index) in goodsType" :key="index" >
                             <text class="popup-color" v-if="val.name=='Color'">{{goods.aliasColor || val.name}}</text>
                             <text class="popup-color" v-if="val.name=='Size'">{{goods.aliasSize || val.name}}</text>
-
                             <div  class="popup-color-chd"  v-for="(val1, key1) in tranArr(val.value)" :key="key1">
-                                    <text class="popup-color-chdname"
-                                          v-for="(i,key2) in val1"
-                                          :key="key2"
-                                          :class="[i.isActive ?'popup-color-chdname-active':'',
-                                          i.seldisable ?'popup-color-chdname-disable':'']"
-                                          @click="clickColor(i, val.value)">{{i.value}}</text>
+                                <text class="popup-color-chdname"
+                                              v-for="(i,key2) in val1"
+                                              :key="key2"
+                                              :class="[i.isActive ?'popup-color-chdname-active':'',
+                                              i.seldisable ?'popup-color-chdname-disable':'']"
+                                              @click="clickColor(i, val.value)">{{i.value}}</text>
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,7 @@
 
         </div>
 
-        <div class="overflow" :style="{'height': pageHeight}">
+        <div class="overflow" :style="{'height': pageHeight}" v-if="hasWifi">
             <div style="width: 183px">
                 <list class="tag-list">
                     <cell v-for="(i,index) in tagList" @click="selTag(index, i)">
@@ -35,15 +35,19 @@
                 </cell>
             </list>
         </div>
+        <no-wifi v-if="!hasWifi" @onReload="initPage"></no-wifi>
     </div>
 </template>
 
 <script>
     import { Utils } from 'weex-ui';
     import { baseUrl } from '../../../config/apis';
+    import noWifi from '../common/noWifi';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
-        name: 'index',
+        components: {
+            noWifi
+        },
         data () {
             return {
                 // tagList: ['Electronics', 'Men', 'Women', 'Shoes', 'Bags', 'Home', 'Beauty', 'Kids', 'Bags', 'Home', 'Beauty', 'Kids', 'Bags', 'Home', 'Beauty', 'Kids'],
@@ -52,12 +56,12 @@
                 flag: '',
                 cartNum: '',
                 pageHeight: '',
+                hasWifi: true,
                 activeCategory: ''
             }
         },
         created () {
-            this.getList()
-            this.getUnread()
+            this.initPage()
             this.$event.on('login', params => {
                 this.getUnread();
             });
@@ -65,6 +69,10 @@
             googleAnalytics.trackingScreen('Categories');
         },
         methods: {
+            initPage () {
+                this.getList()
+                this.getUnread()
+            },
             selTag (index, i) {
                 this.flag = index;
                 this.SList = [...i.subCat]
@@ -81,7 +89,11 @@
                     this.tagList = [...res]
                     this.SList = [...this.tagList[0].subCat]
                     this.$notice.loading.hide();
+                    this.hasWifi = true
                 }).catch((res) => {
+                    if (res.status == 10) {
+                        this.hasWifi = false;
+                    }
                     // this.$notice.toast({
                     //     message: res
                     // })

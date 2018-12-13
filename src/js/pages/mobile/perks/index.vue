@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="blackheader"></div>
 
-        <scroller >
+        <scroller v-if="hasWifi">
             <!--<cell><text>111</text></cell>-->
             <div class="header">
                 <!--<text class="close iconfont" @click="$router.back();" >&#xe6f6;</text>-->
@@ -160,6 +160,8 @@
             </div>
         </scroller>
 
+        <no-wifi v-if="!hasWifi" @onReload="initPage"></no-wifi>
+
 
         <WxcMask
             height="798"
@@ -273,11 +275,12 @@
     import { WxcMask } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const common = weex.requireModule('CommonUtils');
+    import noWifi from '../common/noWifi';
 
     export default {
         name: 'index',
         components: {
-            WxcMask
+            WxcMask, noWifi
         },
         data () {
           return {
@@ -316,6 +319,7 @@
               isFirstGet: false,
               pointSuccessShow: false,
               user: false,
+              hasWifi: true,
               scrollerPoint: [
                   {
                       p: 150,
@@ -422,9 +426,13 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
+                    this.hasWifi = true
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
+                    if (res.status == 10) {
+                        this.hasWifi = false;
+                    }
                     this.$notice.toast({
                         message: res
                     })
