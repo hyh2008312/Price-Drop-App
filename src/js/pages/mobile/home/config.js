@@ -84,12 +84,19 @@ export const PRODUCTS = [{
     src: 'http://image.getpricedrop.com/banner/20181121/women.png',
     bgSrc: 'http://image.getpricedrop.com/banner/20181121/bn-women.png'
 }, {
-    name: 'Shoes',
+    name: 'Men\'s Shoes',
+    value: 'Shoes',
+    width: 163,
+    color: '#00ACEC',
+    src: 'http://image.getpricedrop.com/banner/20181121/m-shoes.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/men-shoes.png'
+}, {
+    name: 'Women\'s Shoes',
     value: 'Shoes',
     width: 209,
-    color: '#ffc05b',
-    src: 'http://image.getpricedrop.com/banner/20181029/shoes.png',
-    bgSrc: 'http://image.getpricedrop.com/banner/20181121/6.png'
+    color: '#f8932B',
+    src: 'http://image.getpricedrop.com/banner/20181121/w-shoes.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/women-shoes.png'
 }, {
     name: 'Bags',
     value: 'Bags',
@@ -111,4 +118,11 @@ export const PRODUCTS = [{
     color: '#00dfdb',
     src: 'http://image.getpricedrop.com/banner/20181029/home.png',
     bgSrc: 'http://image.getpricedrop.com/banner/20181121/3.png'
+}, {
+    name: 'Beauty & Personal Care',
+    value: 'Beauty & Personal Care',
+    width: 162,
+    color: '#FA57D1',
+    src: 'http://image.getpricedrop.com/banner/20181121/beauty.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/bn-beauty.png'
 }];
