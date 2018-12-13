@@ -17,7 +17,7 @@
                 <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
             </div>
         </div>
-        <div class="search-h">
+        <div class="search-h" v-if="searchList.length > 0">
             <text class="sh-1">SEARCH HISTORY</text>
             <text class="sh-2" @click="clearSearch">Clear</text>
         </div>

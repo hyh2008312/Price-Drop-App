@@ -79,7 +79,7 @@
                 </div>
                 <div class="t-cm">
                     <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
-                        <text class="t-cm-cw" >Earn up to ₹ 200 cash bonus</text>
+                        <text class="t-cm-cw" >Claim daily cash bonus. Up to ₹100</text>
                         <text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>
                     </div>
                     <div class="t-cm-cr" v-if="isCash" >

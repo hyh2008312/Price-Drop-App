@@ -431,7 +431,7 @@
         font-size: 24px;
         color: #000000;
         letter-spacing: 0;
-        font-weight: 700;
+        /*font-weight: 700;*/
         text-align: left;
         margin-right: 16px;
     }
