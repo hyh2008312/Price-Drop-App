@@ -6,7 +6,7 @@
             <!--<cell><text>111</text></cell>-->
             <div class="header">
                 <!--<text class="close iconfont" @click="$router.back();" >&#xe6f6;</text>-->
-                <text class="header-word" >Earn Points & Cash Bonus</text>
+                <text class="header-word" >Rewards</text>
             </div>
 
             <div class="overflow-mid2" >
@@ -75,7 +75,7 @@
 
             <div class="overflow-mid1" >
                 <div class="top-card">
-                    <text class="t-c-h">Daily Cash Reward</text>
+                    <text class="t-c-h">Redeem Cash Bonus</text>
                 </div>
                 <div class="t-cm">
                     <div class="t-cm-c" v-if="!isCash"  @click="getPoints">

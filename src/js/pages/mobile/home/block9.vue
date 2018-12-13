@@ -7,8 +7,8 @@
             <div class="ld-item">
 
                 <div class="ld-word">
-                    <text class="ld-w1">Luckydraw</text>
-                    <text class="ld-w2">Win free gifts</text>
+                    <text class="ld-w1">Win</text>
+                    <text class="ld-w2">Free Gifts</text>
                 </div>
                 <div class="ld-btn">
                     <div class="ld-bw" ref="btn">
@@ -27,8 +27,8 @@
             <div class="ld-item">
 
                 <div class="ld-word">
-                    <text class="ld-w1">Rewards</text>
-                    <text class="ld-w2">Earn cash & points</text>
+                    <text class="ld-w1">Earn</text>
+                    <text class="ld-w2">Cash & Points</text>
                 </div>
                 <div class="re-btn" >
                     <div class="re-bw" ref="btn1">
@@ -140,11 +140,11 @@
     .ld-w1{
         font-size: 32px;
         color: #FFFFFF;
-        font-weight: 700;
     }
     .ld-w2{
-        font-size: 24px;
+        font-size: 28px;
         color: #FFFFFF;
+        font-weight: 700;
     }
     .ld-btn{
         width: 78px;

@@ -1,7 +1,7 @@
 <template>
 
     <div class="wrapper" >
-        <topic-header ref="ref1" :style="{opacity:opacity}" @open="openLink" :leftBtn="1" :rightBtn="1" :dropGoods="cartNum"></topic-header>
+        <topic-header ref="ref1" :style="{opacity:opacity}" @open="openMyCart" :leftBtn="1" :rightBtn="1" :dropGoods="cartNum"></topic-header>
         <div class="blackheader"></div>
 
         <scroller class="main-list" @scroll="scrollHandler"  offset-accuracy="10px">
@@ -18,7 +18,7 @@
                     <text class="iiileft">&#xe6f6;</text>
                 </div>
                 <text class="iiiright-s"  @click="jumpSearch">&#xe621;</text>
-                <text class="iiiright"  @click="openMyCart">&#xe754;</text>
+                <text class="iiiright"  @click="openMyCart">&#xe767;</text>
                 <div class="red-dot" ><text style="color: white;font-size: 18px">{{cartNum}}</text></div>
 
                 <flash v-if="purchaseMethod==='flash'"
@@ -1306,18 +1306,6 @@
                     })
                 }
             },
-            openLink () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                    return
-                }
-                // this.$event.emit('jumpMyDrop');
-                // this.$router.setBackParams({ tab: 'drops' })
-                // this.$router.back({
-                //     length: 9999,
-                //     type: 'PUSH'
-                // })
-            },
             jumpLuckDraw () {
                 this.$router.setBackParams({ tab: 'luckydraw' })
                 this.$router.back({
@@ -1606,7 +1594,7 @@
     .iiiright-s{
         font-family: iconfont;
         color: white;
-        font-size: 32px;
+        font-size: 40px;
         background-color: rgba(0,0,0,.38);
         position: absolute;
         border-radius:24px ;

@@ -12,7 +12,7 @@
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
             <div class="box-bg"  @click="openCart">
-                <text class="box-txt-icon iconfont">&#xe754;</text>
+                <text class="box-txt-icon iconfont">&#xe767;</text>
                 <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <text class="header-title-new">What are you looking for?</text>
             </div>
             <div class="box-bg" @click="openNotification">
-                <text class="box-txt-icon-new iconfont">&#xe754;</text>
+                <text class="box-txt-icon-new iconfont">&#xe767;</text>
                 <text class="box-dot" v-if="unread>0">{{unread > 99? '99+': unread}}</text>
             </div>
         </div>

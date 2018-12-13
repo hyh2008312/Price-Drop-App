@@ -7,7 +7,7 @@
                 <text class="header-title">What are you looking for?</text>
             </div>
             <div class="box-bg"   @click="openCart">
-                <text class="box-txt-icon iconfont">&#xe754;</text>
+                <text class="box-txt-icon iconfont">&#xe767;</text>
                 <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
             </div>
 
@@ -23,7 +23,7 @@
                     </cell>
                 </list>
             </div>
-            <list style="background-color: white;">
+            <list style="background-color: white;" :style="{'height': pageHeight}">
                 <cell  v-for="(i,index) in SList">
                     <text class="s-headline" v-if="i.name!==''">{{i.name}}</text>
                     <div class="i-row" v-for="(item, index) in tranArr(i.subCat)">
@@ -41,6 +41,7 @@
 <script>
     import { Utils } from 'weex-ui';
     import { baseUrl } from '../../../config/apis';
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
         name: 'index',
         data () {
@@ -50,7 +51,8 @@
                 SList: [],
                 flag: '',
                 cartNum: '',
-                pageHeight: ''
+                pageHeight: '',
+                activeCategory: ''
             }
         },
         created () {
@@ -59,14 +61,18 @@
             this.$event.on('login', params => {
                 this.getUnread();
             });
-            this.pageHeight = Utils.env.getScreenHeight() - 308 + 'px';
+            this.pageHeight = Utils.env.getScreenHeight() - 277 + 'px';
+            googleAnalytics.trackingScreen('Categories');
         },
         methods: {
             selTag (index, i) {
                 this.flag = index;
                 this.SList = [...i.subCat]
+                this.activeCategory = i.name
+                googleAnalytics.recordEvent('Categories', `level1-${i.name}`, 0, 0);
             },
             getList () {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     name: 'directory.app.category.list',
@@ -74,10 +80,11 @@
                 }).then((res) => {
                     this.tagList = [...res]
                     this.SList = [...this.tagList[0].subCat]
+                    this.$notice.loading.hide();
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             getUnread () {
@@ -114,6 +121,7 @@
             },
             jumpCategory (item) {
                 if (!item.id) return;
+                googleAnalytics.recordEvent('Categories', `level1-${this.activeCategory}`, `level2-${item.name}`, 0, 0);
                 this.$router.open({
                     name: 'goods.category',
                     type: 'PUSH',

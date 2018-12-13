@@ -7,7 +7,7 @@
         <!--<text class="tlt">{{title}}</text>-->
         <text class="search-icon"  @click="jumpSearch" >&#xe621;</text>
         <div class="right">
-            <text class="rightTxt" v-if="iconSign==true" @click="openLink" >&#xe754;</text>
+            <text class="rightTxt" v-if="iconSign==true" @click="openLink" >&#xe767;</text>
 
 
 
@@ -118,7 +118,7 @@ export default {
     left: 228px;
     font-family: iconfont;
     color: #FFFFFF;
-    font-size: 32px;
+    font-size: 40px;
 }
 
 .leftTxt{
@@ -131,7 +131,7 @@ export default {
 .rightTxt {
     font-family: iconfont;
     color: #FFFFFF;
-    font-size: 32px;
+    font-size: 40px;
     text-align: center;
 }
 .red-dot{

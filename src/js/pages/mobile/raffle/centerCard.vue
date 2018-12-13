@@ -60,11 +60,6 @@
 
         <div class="goods-btn" v-if="item.drawStatus == 'Ongoing' ">
 
-            <!--<div class="goods-btn-s " @click="openshare()" v-if="item.isDraw" >-->
-            <!--<div class="goods-btn-s " @click="openshare()">-->
-                <!--<text class="iconfont goods-btn-sicon" >&#xe74b;</text>-->
-                <!--<text class="goods-btn-sword"  >Share to Your Friends</text>-->
-            <!--</div>-->
             <text class="goods-btn-w-bw" @click="openNewPage()" v-if="item.isDraw">You have joined successfully!</text>
 
             <text class="goods-btn-w" @click="opendialog()" v-if="!item.isDraw">Join Now & Win Prize</text>
@@ -93,16 +88,16 @@
                         <text class="goods-num">Ends in</text>
                         <text class="goods-time">{{ahour||'00'}}:{{amin||'00'}}:{{asecond||'00'}}</text>
                     </div>
-                    <div v-if="item.isDraw" class="goods-p mg-t20">
-                        <text class="goods-num">Winner Announcement Time:</text>
-                        <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                    <div v-if="item.isDraw" class="goods-p ">
+                        <text class="goods-num">Winner Announcement :</text>
+                        <text class="goods-time">{{tranDateM(item.endTime)}}</text>
                         <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
                     </div>
                 </div>
                 <div v-if="item.drawStatus == 'Ended'">
                     <div  class="goods-p mg-t20">
-                        <text class="goods-num">Winner Announcement Time:</text>
-                        <text class="goods-time"> {{tranDateM(item.endTime)}}</text>
+                        <text class="goods-num">Winner Announcement :</text>
+                        <text class="goods-time">{{tranDateM(item.endTime)}}</text>
                         <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
                     </div>
                 </div>
@@ -493,7 +488,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        margin-top: 90px;
+        margin-top: 70px;
         /*margin-left: 15px;*/
         /*background-color: black;*/
     }
