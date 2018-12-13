@@ -21,7 +21,7 @@
                     <div class="overflow-setting-icon" >
 
                         <div class="box-bg pdr-42"  @click="openMyCart">
-                            <text class="iconfont setting-icon">&#xe754;</text>
+                            <text class="iconfont setting-icon">&#xe767;</text>
                             <text class="box-dot1" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
                         </div>
 
@@ -113,7 +113,7 @@
 
             <cell class="overflow-box" v-if="user">
                 <div class="mid-cell">
-                    <div class="box-tlt "    @click="openTmp">
+                    <div class="box-tlt "  >
                         <div class="box-left">
                             <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
                             <text class="box-txt">My Wallet</text>

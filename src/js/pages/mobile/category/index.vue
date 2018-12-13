@@ -7,13 +7,13 @@
                 <text class="header-title">What are you looking for?</text>
             </div>
             <div class="box-bg"   @click="openCart">
-                <text class="box-txt-icon iconfont">&#xe754;</text>
+                <text class="box-txt-icon iconfont">&#xe767;</text>
                 <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
             </div>
 
         </div>
 
-        <div class="overflow" :style="{'height': pageHeight}">
+        <div class="overflow" :style="{'height': pageHeight}" v-if="hasWifi">
             <div style="width: 183px">
                 <list class="tag-list">
                     <cell v-for="(i,index) in tagList" @click="selTag(index, i)">
@@ -23,7 +23,7 @@
                     </cell>
                 </list>
             </div>
-            <list style="background-color: white;">
+            <list style="background-color: white;" :style="{'height': pageHeight}">
                 <cell  v-for="(i,index) in SList">
                     <text class="s-headline" v-if="i.name!==''">{{i.name}}</text>
                     <div class="i-row" v-for="(item, index) in tranArr(i.subCat)">
@@ -35,14 +35,19 @@
                 </cell>
             </list>
         </div>
+        <no-wifi v-if="!hasWifi" @onReload="initPage"></no-wifi>
     </div>
 </template>
 
 <script>
     import { Utils } from 'weex-ui';
     import { baseUrl } from '../../../config/apis';
+    import noWifi from '../common/noWifi';
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
-        name: 'index',
+        components: {
+            noWifi
+        },
         data () {
             return {
                 // tagList: ['Electronics', 'Men', 'Women', 'Shoes', 'Bags', 'Home', 'Beauty', 'Kids', 'Bags', 'Home', 'Beauty', 'Kids', 'Bags', 'Home', 'Beauty', 'Kids'],
@@ -50,23 +55,32 @@
                 SList: [],
                 flag: '',
                 cartNum: '',
-                pageHeight: ''
+                pageHeight: '',
+                hasWifi: true,
+                activeCategory: ''
             }
         },
         created () {
-            this.getList()
-            this.getUnread()
+            this.initPage()
             this.$event.on('login', params => {
                 this.getUnread();
             });
-            this.pageHeight = Utils.env.getScreenHeight() - 308 + 'px';
+            this.pageHeight = Utils.env.getScreenHeight() - 277 + 'px';
+            googleAnalytics.trackingScreen('Categories');
         },
         methods: {
+            initPage () {
+                this.getList()
+                this.getUnread()
+            },
             selTag (index, i) {
                 this.flag = index;
                 this.SList = [...i.subCat]
+                this.activeCategory = i.name
+                googleAnalytics.recordEvent('Categories', `level1-${i.name}`, 0, 0);
             },
             getList () {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     name: 'directory.app.category.list',
@@ -74,10 +88,15 @@
                 }).then((res) => {
                     this.tagList = [...res]
                     this.SList = [...this.tagList[0].subCat]
+                    this.$notice.loading.hide();
+                    this.hasWifi = true
                 }).catch((res) => {
-                    this.$notice.toast({
-                        message: res
-                    })
+                    if (res.status == 10) {
+                        this.hasWifi = false;
+                    }
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             getUnread () {
@@ -114,6 +133,7 @@
             },
             jumpCategory (item) {
                 if (!item.id) return;
+                googleAnalytics.recordEvent('Categories', `level1-${this.activeCategory}`, `level2-${item.name}`, 0, 0);
                 this.$router.open({
                     name: 'goods.category',
                     type: 'PUSH',

@@ -5,8 +5,8 @@
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name == 'Electronic' ? 'Electronics': name}}</text>
             <text class="search iconfont" @click="jumpSearch">&#xe621;</text>
-            <div  class="over-flow-cart">
-                <text class=" cart iconfont">&#xe754;</text>
+            <div  class="over-flow-cart" @click="openCart">
+                <text class=" cart iconfont">&#xe767;</text>
                 <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
             </div>
 
@@ -260,6 +260,20 @@
                     name: 'search',
                     type: 'PUSH'
                 });
+            },
+            openCart () {
+                const user = this.$storage.getSync('user');
+                if (user) {
+                    this.$router.open({
+                        name: 'cart',
+                        type: 'PUSH'
+                    });
+                } else {
+                    this.$router.open({
+                        name: 'login',
+                        type: 'PUSH'
+                    });
+                }
             },
             getCartNum () {
                 this.$fetch({

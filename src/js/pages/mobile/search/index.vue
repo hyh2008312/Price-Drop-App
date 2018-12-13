@@ -13,7 +13,7 @@
                 <text class="header-icon-2 iconfont" @click="clearKeywords" v-if="key">&#xe632;</text>
             </div>
             <div class="box-bg"  @click="openCart">
-                <text class="box-txt-icon iconfont">&#xe754;</text>
+                <text class="box-txt-icon iconfont">&#xe767;</text>
                 <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
             </div>
         </div>

@@ -2,11 +2,11 @@
     <div class="wrapper">
         <div class="blackheader"></div>
 
-        <scroller >
+        <scroller v-if="hasWifi">
             <!--<cell><text>111</text></cell>-->
             <div class="header">
                 <!--<text class="close iconfont" @click="$router.back();" >&#xe6f6;</text>-->
-                <text class="header-word" >Earn Points & Cash Bonus</text>
+                <text class="header-word" >Rewards</text>
             </div>
 
             <div class="overflow-mid2" >
@@ -75,7 +75,7 @@
 
             <div class="overflow-mid1" >
                 <div class="top-card">
-                    <text class="t-c-h">Daily Cash Reward</text>
+                    <text class="t-c-h">Redeem Cash Bonus</text>
                 </div>
                 <div class="t-cm">
                     <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
@@ -159,6 +159,8 @@
                 </div>
             </div>
         </scroller>
+
+        <no-wifi v-if="!hasWifi" @onReload="initPage"></no-wifi>
 
 
         <WxcMask
@@ -273,11 +275,12 @@
     import { WxcMask } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     const common = weex.requireModule('CommonUtils');
+    import noWifi from '../common/noWifi';
 
     export default {
         name: 'index',
         components: {
-            WxcMask
+            WxcMask, noWifi
         },
         data () {
           return {
@@ -316,6 +319,7 @@
               isFirstGet: false,
               pointSuccessShow: false,
               user: false,
+              hasWifi: true,
               scrollerPoint: [
                   {
                       p: 150,
@@ -422,9 +426,13 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
+                    this.hasWifi = true
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
+                    if (res.status == 10) {
+                        this.hasWifi = false;
+                    }
                     this.$notice.toast({
                         message: res
                     })
