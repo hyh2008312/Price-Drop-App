@@ -42,7 +42,7 @@
                         <div class="drop-label">
                             <text class="price-name price-off-fr">Free Shipping</text>
                             <text class="price-name price-off-fr">Imported</text>
-                            <text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')">Tax Included</text>
+                            <text class="price-name-16 price-off" v-if="!(purchaseMethod==='drop')">Tax Included</text>
                         </div>
                     </div>
                 </div>
@@ -1682,12 +1682,12 @@
     .price-off-tax{
         border-width: 1px;
         border-style: solid ;
-        border-color: #3461AD;
+        border-color: #EF8A31;
         font-size: 20px;
         border-radius: 8px;
         margin-left: 16px;
         padding: 4px 16px;
-        color: #3461AD;
+        color: #EF8A31;
     }
     .price-name{
         color: rgba(0,0,0,1);
@@ -2185,11 +2185,11 @@
     .s-i-icon{
         border-width: 1px;
         border-style: solid ;
-        border-color: #00CFE3;
+        border-color: #00A9BA;
         font-size: 20px;
         border-radius: 8px;
         padding: 4px 16px;
-        color: #00CFE3;
+        color: #00A9BA;
         margin-left: 62px;
         margin-top: 16px;
         margin-bottom: 32px;
@@ -2197,11 +2197,11 @@
     .s-i-icon-imp{
         border-width: 1px;
         border-style: solid ;
-        border-color: #E0064E;
+        border-color: #00A9BA;
         font-size: 20px;
         border-radius: 8px;
         padding: 4px 16px;
-        color: #E0064E;
+        color: #00A9BA;
         margin-left: 12px;
         margin-top: 16px;
         margin-bottom: 32px;

@@ -25,7 +25,7 @@
             </div>
             <list style="background-color: white;" :style="{'height': pageHeight}">
                 <cell  v-for="(i,index) in SList">
-                    <text :class="[i.name!==''?'s-headline':'s-headlines']" v-if="i.name!==''">{{i.name}}</text>
+                    <text :class="[i.name.trim()!==''?'s-headline':'s-headlines']" >{{i.name}}</text>
                     <div class="i-row" v-for="(item, index) in tranArr(i.subCat)">
                         <div class="i-col" v-for="(n,index) in item" @click="jumpCategory(n)">
                             <image :src="n.image" style="width:112px;height: 112px " resize="contain"></image>
@@ -111,7 +111,8 @@
                     method: 'GET',
                     url: `${baseUrl}/cart/count/${id}/`,
                     header: {
-                        isLoginPop: true
+                        isLoginPop: true,
+                        needAuth: true
                     }
                 }).then(data => {
                     this.cartNum = data.count;
@@ -342,9 +343,9 @@
         font-size: 24px;
         color: #000000;
         font-weight: 700;
-        /*margin-top: 10px;*/
+        /*margin-top: 20px;*/
         margin-left: 34px;
-        margin-bottom: 48px;
+        margin-bottom: 24px;
     }
     .i-row{
         flex-direction: row;
