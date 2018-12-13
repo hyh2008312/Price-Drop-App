@@ -41,7 +41,7 @@
                         <text class="drop-title">{{goods.title}}</text>
                         <div class="drop-label">
                             <text class="price-name price-off-fr">Free Shipping</text>
-                            <text class="price-name price-off-imp">Imported</text>
+                            <text class="price-name price-off-fr">Imported</text>
                             <text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')">Tax Included</text>
                         </div>
                     </div>
@@ -2074,7 +2074,7 @@
         width: 750px;
     }
     .a-t-c{
-        padding-top: 22px;
+        padding-top: 28px;
         padding-bottom: 29px;
         margin-left: 32px;
         margin-top: 16px;
@@ -2089,7 +2089,7 @@
     .b-n{
         padding-right: 94px;
         padding-left: 94px;
-        padding-top: 22px;
+        padding-top: 28px;
         padding-bottom: 29px;
         margin-left: 16px;
         margin-top: 16px;

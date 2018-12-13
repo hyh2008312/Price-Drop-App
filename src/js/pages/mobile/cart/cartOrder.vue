@@ -388,7 +388,7 @@
         height: 80px;
         width: 220px;
         background-color: #EF8A31;
-        border-radius: 8px;
+        border-radius: 50%;
         flex-direction: row;
         justify-content: center;
         align-items: center;

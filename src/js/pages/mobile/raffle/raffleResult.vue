@@ -30,8 +30,8 @@
                                 <div class="b-u-s">
                                     <image class="b-u-i" :src="item.avatar"></image>
                                 </div>
-                                <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
                             </div>
+                            <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
                         </div>
                         <div class="b-i">
                             <text class="iconfont b-arrow">&#xe626;</text>

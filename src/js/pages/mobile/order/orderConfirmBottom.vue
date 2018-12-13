@@ -236,10 +236,10 @@
         margin-right: 16px;
         font-size: 28px;
         line-height: 80px;
+        border-radius: 50%;
         text-align: center;
         padding: 0 24px;
         background-color: #EF8A31;
-        border-radius: 4px;
         color: #fff;
     }
 

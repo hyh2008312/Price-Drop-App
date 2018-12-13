@@ -25,10 +25,10 @@
             </div>
             <list style="background-color: white;" :style="{'height': pageHeight}">
                 <cell  v-for="(i,index) in SList">
-                    <text class="s-headline" v-if="i.name!==''">{{i.name}}</text>
+                    <text :class="[i.name!==''?'s-headline':'s-headlines']" v-if="i.name!==''">{{i.name}}</text>
                     <div class="i-row" v-for="(item, index) in tranArr(i.subCat)">
                         <div class="i-col" v-for="(n,index) in item" @click="jumpCategory(n)">
-                            <image :src="n.image" style="width:128px;height: 128px " resize="contain"></image>
+                            <image :src="n.image" style="width:112px;height: 112px " resize="contain"></image>
                             <text class="i-text">{{tranString(n.name)}}</text>
                         </div>
                     </div>
@@ -338,18 +338,27 @@
         margin-left: 34px;
         margin-bottom: 48px;
     }
+    .s-headlines{
+        font-size: 24px;
+        color: #000000;
+        font-weight: 700;
+        /*margin-top: 10px;*/
+        margin-left: 34px;
+        margin-bottom: 48px;
+    }
     .i-row{
         flex-direction: row;
         justify-content: start;
-        align-items: center;
+        align-items: start;
         margin-left: 40px;
     }
     .i-col{
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        margin-right: 40px;
+        margin-right: 48px;
         margin-bottom: 48px;
+        width: 125px;
     }
     .i-text{
         font-size: 20px;

@@ -278,17 +278,17 @@
                     // })
                 })
             },
-            jumpGoodsDetail (id) {
+            jumpGoodsDetail (i) {
                 // this.$notice.alert({
                 //     message: id
                 // })
-                // this.$router.open({
-                //     name: 'goods.details',
-                //     type: 'PUSH',
-                //     params: {
-                //         id: id
-                //     }
-                // })
+                this.$router.open({
+                    name: 'goods.details',
+                    type: 'PUSH',
+                    params: {
+                        id: i.productId
+                    }
+                })
             },
             getMyCard () {
                 this.$fetch({
