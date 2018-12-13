@@ -1,7 +1,7 @@
 <template>
 
     <div class="wrapper" >
-        <topic-header ref="ref1" :style="{opacity:opacity}" @open="openLink" :leftBtn="1" :rightBtn="1" :dropGoods="dropGoods"></topic-header>
+        <topic-header ref="ref1" :style="{opacity:opacity}" @open="openLink" :leftBtn="1" :rightBtn="1" :dropGoods="cartNum"></topic-header>
         <div class="blackheader"></div>
 
         <scroller class="main-list" @scroll="scrollHandler"  offset-accuracy="10px">
@@ -17,8 +17,10 @@
                 <div class="iiileft-div" @click="$router.back">
                     <text class="iiileft">&#xe6f6;</text>
                 </div>
-                <text class="iiiright" v-if="purchaseMethod==='direct'||purchaseMethod==='drop'" @click="openLink">&#xe700;</text>
-                <div class="red-dot" v-if="(dropGoods>0)&&(purchaseMethod==='direct'||purchaseMethod==='drop')"><text style="color: white;font-size: 18px">{{dropGoods}}</text></div>
+                <text class="iiiright-s"  @click="jumpSearch">&#xe621;</text>
+                <text class="iiiright"  @click="openMyCart">&#xe754;</text>
+                <div class="red-dot" ><text style="color: white;font-size: 18px">{{cartNum}}</text></div>
+
                 <flash v-if="purchaseMethod==='flash'"
                        :hour="ahour"
                        :min="amin"
@@ -242,6 +244,11 @@
 
         </scroller>
 
+        <div class="cart-tip" v-if="cartTipShow">
+            <image class="ct-img" src="bmlocal://assets/tips.png"></image>
+            <text class="ct-word">Successfully</text>
+            <text class="ct-word1">Added to Cart!</text>
+        </div>
         <div class="bottom-btn" v-if="purchaseMethod === 'drop'" >
             <div v-if="productStatus==='unpublished'">
                 <text class="button-gray"  >Unavailable</text>
@@ -259,12 +266,9 @@
 
             <div v-if="productStatus==='published'">
                 <!--<text class="button" @click="openBuyNow" v-if="canBuy" >Buy Now</text>-->
-                <div class="over-flow-cart">
-                    <div class="c-i-d" @click="openMyCart" >
-                        <div class="cart-red-dot"><text style="color: white;font-size: 15px">{{cartNum}}</text></div>
-                        <text class="cart-icon iconfont">&#xe754;</text>
-                    </div>
-                    <text class="a-t-c" @click="addCart">Add to Cart</text>
+                <div class="over-flow-cart" v-if="canBuy">
+                    <text class="a-t-c" @click="addCart" v-if="!cartWordStu">Add to Cart</text>
+                    <text class="a-t-c" @click="openMyCart" v-if="cartWordStu">Go to Cart</text>
                     <text class="b-n" @click="openBuyNow">Buy Now</text>
                 </div>
 
@@ -624,7 +628,9 @@
                 cartNum: '',
                 pinCode: '',
                 pinCodeStatus: 0,
-                pinCodeLoad: false
+                pinCodeLoad: false,
+                cartTipShow: false,
+                cartWordStu: false
             }
         },
         mounted () {},
@@ -914,9 +920,9 @@
                 }
             },
             wxcCellClick () {
-                // if (this.user == null) {
-                //     this.redirectLogin()
-                // } else {
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
                     this.isBottomShow = true;
                     common.changeAndroidCanBack(false)
 
@@ -943,7 +949,7 @@
                     //         })
                     //     }
                     // }
-                // }
+                }
             },
             checkedSelected () {
                 this.tmpArray = [];
@@ -1108,13 +1114,18 @@
                 }).then(data => {
                     if (data.result === 'success') {
                         this.cartNum += 1
-                        this.$notice.toast({
-                            message: 'Added to Cart Successfully!'
-                        });
+                        // this.$notice.toast({
+                        //     message: 'Added to Cart Successfully!'
+                        // });
                         this.$event.emit('cartNum')
                         googleAnalytics.recordEvent('Payment', 'Add to Cart', this.purchaseMethod, 0);
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', this.proId, '', 'Rs', this.selunitPrice);
                         this.isBottomShow = false
+                        this.cartTipShow = true
+                        this.cartWordStu = true
+                        setTimeout(() => {
+                            this.cartTipShow = false
+                        }, 5000)
                     } else {
                         this.$notice.toast({
                             message: data
@@ -1300,12 +1311,12 @@
                     this.redirectLogin()
                     return
                 }
-                this.$event.emit('jumpMyDrop');
-                this.$router.setBackParams({ tab: 'drops' })
-                this.$router.back({
-                    length: 9999,
-                    type: 'PUSH'
-                })
+                // this.$event.emit('jumpMyDrop');
+                // this.$router.setBackParams({ tab: 'drops' })
+                // this.$router.back({
+                //     length: 9999,
+                //     type: 'PUSH'
+                // })
             },
             jumpLuckDraw () {
                 this.$router.setBackParams({ tab: 'luckydraw' })
@@ -1369,10 +1380,16 @@
                     this.redirectLogin()
                 } else {
                     this.$router.open({
-                        name: 'cart.copy',
+                        name: 'cart',
                         type: 'PUSH'
                     })
                 }
+            },
+            jumpSearch () {
+                this.$router.open({
+                    name: 'search',
+                    type: 'PUSH'
+                });
             },
             openReviews () {
                 // this.$router.open({
@@ -1586,6 +1603,20 @@
         text-align: center;
         align-items: center;
     }
+    .iiiright-s{
+        font-family: iconfont;
+        color: white;
+        font-size: 32px;
+        background-color: rgba(0,0,0,.38);
+        position: absolute;
+        border-radius:24px ;
+        top:80px;
+        right:125px;
+        width: 48px;
+        line-height: 48px;
+        text-align: center;
+        align-items: center;
+    }
     .iiiright{
         font-family: iconfont;
         color: white;
@@ -1607,7 +1638,7 @@
         position: absolute;
         border-radius:24px ;
         top:75px;
-        right:38px;
+        right:34px;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -2006,7 +2037,7 @@
         height: 80px;
         background-color: #EF8A31;
         border-color: #2e6da4;
-        border-radius: 12px;
+        border-radius: 50%;
         padding-top: 22px;
         padding-bottom: 10px;
         margin-top: 16px;
@@ -2055,52 +2086,33 @@
         justify-content: start;
         width: 750px;
     }
-    .c-i-d{
-        background-color: #fff;
-        /*padding: 0 50px;*/
-        height: 110px;
-        width: 124px;
-    }
-    .cart-icon{
-        text-align: center;
-        font-size: 42px;
-        margin-top: 30px;
-    }
-    .cart-red-dot{
-        width: 20px;
-        height: 20px;
-        background-color: red;
-        position: absolute;
-        top:25px;
-        right:24px;
-        border-radius:24px ;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
     .a-t-c{
-        padding-top: 38px;
-        padding-bottom: 45px;
-        /*padding-right: 85px;*/
-        /*padding-left: 85px;*/
+        padding-top: 22px;
+        padding-bottom: 29px;
+        margin-left: 32px;
+        margin-top: 16px;
         font-size: 28px;
         color: #EF8A31;
         text-align: center;
+        border-radius: 50%;
         background-color: rgba(239,138,49,.16);
         font-weight: 700;
-        width: 318px;
+        width: 335px;
     }
     .b-n{
         padding-right: 94px;
         padding-left: 94px;
-        padding-top: 38px;
-        padding-bottom: 45px;
+        padding-top: 22px;
+        padding-bottom: 29px;
+        margin-left: 16px;
+        margin-top: 16px;
         font-size: 28px;
         color: white;
         text-align: center;
+        border-radius: 50%;
         background-color: rgba(239,138,49,1);
         font-weight: 700;
-        width: 318px;
+        width: 335px;
     }
 
     .scroller{
@@ -2234,6 +2246,31 @@
     .rowGray{
         padding: 22px 32px 22px 0 ;
         background-color: rgba(0,0,0,.08);
+    }
+
+    .cart-tip{
+        position: absolute;
+        bottom: 65px;
+        left: 80px;
+    }
+    .ct-img{
+        width: 220px;
+        height: 110px;
+        opacity:.8;
+    }
+    .ct-word{
+        position: relative;
+        bottom: 98px;
+        left: 38px;
+        color: white;
+        font-size: 24px;
+    }
+    .ct-word1{
+        position: relative;
+        bottom: 88px;
+        left: 30px;
+        color: white;
+        font-size: 24px;
     }
     .mg-b36{
         margin-bottom: 36px;

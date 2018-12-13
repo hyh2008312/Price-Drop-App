@@ -26,6 +26,9 @@ export default {
     'cart.order': {
         url: '/pages/mobile/cart/cartOrder.js'
     },
+    'category': {
+        url: '/pages/mobile/category/index.js'
+    },
     'simple.details': {
         url: '/pages/mobile/shop/simpleGoodsDetail.js'
     },

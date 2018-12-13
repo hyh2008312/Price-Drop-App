@@ -11,7 +11,7 @@
                         <div class="i-photo-div" @click="openMydetail(1)">
                             <image  class="i-photo" resize="cover" v-if="" :src="img"></image>
                         </div>
-                        <div class="b-tlt" @click="openMydetail(1)" style="background-color: black">
+                        <div class="b-tlt" @click="openMydetail(1)" >
                             <text class="i-name" >{{fname}} {{lname}}</text>
                             <div class="txt-tag ">
                                 <text class="txt-tag-txt" >{{email}}</text>&nbsp;<text class="txt-icon iconfont">&#xe74f;</text>
@@ -124,13 +124,13 @@
 
                     <div class="box-tlt "    @click="openCell(5)">
                         <div class="box-left">
-                            <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
+                            <image class="box-txt-icon" src="bmlocal://assets/account/jifen2-01.png"></image>
                             <text class="box-txt">My Points</text>
                             <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
                         </div>
                         <div style="flex-direction: row;justify-content: space-between;align-items: center">
-                            <text class="i-box wallet-num">{{points||0}}</text>
-                            <text class="i-box iconfont">&#xe626;</text>
+                            <text class="i-box1 wallet-num">{{points||0}}</text>
+                            <text class="i-box2 iconfont">&#xe626;</text>
 
                         </div>
 
@@ -147,12 +147,12 @@
 
                     <div class="box-tlt " @click="openCell(6)" >
                         <div class="box-left">
-                            <image class="box-txt-icon" src="bmlocal://assets/mylucky.png"></image>
+                            <image class="box-txt-icon" src="bmlocal://assets/account/gift2-01.png"></image>
                             <text class="box-txt">My Vouchers</text>
                         </div>
                         <div style="flex-direction: row;justify-content: space-between;align-items: center">
-                            <text class="i-box wallet-num">{{cardNumber||0}}</text>
-                            <text class="i-box iconfont">&#xe626;</text>
+                            <text class="i-box1 wallet-num">{{cardNumber||0}}</text>
+                            <text class="i-box2 iconfont">&#xe626;</text>
                         </div>
 
                     </div>
@@ -241,6 +241,7 @@
         },
         created () {
             googleAnalytics.trackingScreen('Account');
+            this.getCartNum()
             this.$event.on('login', params => {
                 this.getUserData()
             })
@@ -447,6 +448,22 @@
                     name: 'my.notice',
                     type: 'PUSH'
                 })
+            },
+            getCartNum () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'cart.count',
+                    header: {
+                        needAuth: true,
+                        isLoginPop: true
+                    }
+
+                }).then(data => {
+                    this.cartNum = data.count
+                    // this.$notice.toast({
+                    //     message: data
+                    // })
+                }, error => {})
             },
             getUserData () {
                 this.$event.on('setdetail', parmas => {

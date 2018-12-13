@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Ended'">
-            <text class="goods-btn-w-bw" v-if="!item.prizePublic" @click="openNewPage()">See the Winners</text>
+            <text class="goods-btn-b" v-if="!item.prizePublic" @click="openNewPage()">See the Winners</text>
 
             <text class="goods-btn-b" v-if="item.prizePublic" @click="openPage()">See the Winners</text>
         </div>
@@ -120,6 +120,7 @@
                 <!--<text class="goods-time"> 9:00 am, Aug 18th</text>-->
             </div>
         </div>
+
         </div>
 
 
@@ -492,7 +493,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        margin-top: 48px;
+        margin-top: 90px;
         /*margin-left: 15px;*/
         /*background-color: black;*/
     }

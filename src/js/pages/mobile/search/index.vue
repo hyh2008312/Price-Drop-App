@@ -12,14 +12,28 @@
                        @return="search" @input="changeKeywords" placeholder="What are you looking for?" v-model="key" />
                 <text class="header-icon-2 iconfont" @click="clearKeywords" v-if="key">&#xe632;</text>
             </div>
-        </div>
-        <div class="search-line" v-for="(item, index) in searchList" @click="searchKeywords(item)">
-            <text class="search-icon iconfont">&#xe621;</text>
-            <div class="search-bg" :class="[index != searchList.length ? 'search-border-bottom' : '']">
-                <text class="search-text">{{item}}</text>
+            <div class="box-bg"  @click="openCart">
+                <text class="box-txt-icon iconfont">&#xe754;</text>
+                <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
             </div>
         </div>
-        <text class="search-text-1" v-if="searchList.length > 0" @click="clearSearch">Clear Search History</text>
+        <div class="search-h">
+            <text class="sh-1">SEARCH HISTORY</text>
+            <text class="sh-2" @click="clearSearch">Clear</text>
+        </div>
+        <div class="search-line" >
+            <div v-for="(item, index) in searchList" class="search-tag" @click="searchKeywords(item)">
+                <text class="search-tag-text" >{{item}}</text>
+            </div>
+        </div>
+
+        <!--<div class="search-line" v-for="(item, index) in searchList" @click="searchKeywords(item)">-->
+            <!--<div class="search-bg" >-->
+            <!--<text>{{item}}</text>-->
+                <!--<text class="search-text">{{item}}</text>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<text class="search-text-1" v-if="searchList.length > 0" @click="clearSearch">Clear Search History</text>-->
     </div>
 </template>
 <script>
@@ -28,6 +42,7 @@
     import block3 from './block3';
     import block7 from './block7';
     import toggle from './toggle';
+    import { baseUrl } from '../../../config/apis'
 
     export default {
         components: {
@@ -49,17 +64,22 @@
             if (search && search.length > 0) {
                 this.searchList = [...search];
             }
+            this.getUnread()
         },
         data () {
             return {
                 searchList: [],
                 key: '',
+                cartNum: '',
                 deletestatus: false,
                 searchstatus: false,
-                autofocusNew: false
+                autofocusNew: false,
             }
         },
+        mounted () {
+        },
         methods: {
+
             homeBack () {
                 this.$router.back();
             },
@@ -103,6 +123,38 @@
                         params: {
                             key: this.key
                         }
+                    });
+                }
+            },
+            getUnread () {
+                this.$storage.get('user').then((data) => {
+                    if (data) {
+                        this.getCartNumApi(data.id);
+                    }
+                });
+            },
+            getCartNumApi (id) {
+                this.$fetch({
+                    method: 'GET',
+                    url: `${baseUrl}/cart/count/${id}/`,
+                    header: {
+                        isLoginPop: true
+                    }
+                }).then(data => {
+                    this.cartNum = data.count;
+                });
+            },
+            openCart () {
+                const user = this.$storage.getSync('user');
+                if (user) {
+                    this.$router.open({
+                        name: 'cart',
+                        type: 'PUSH'
+                    });
+                } else {
+                    this.$router.open({
+                        name: 'login',
+                        type: 'PUSH'
                     });
                 }
             },

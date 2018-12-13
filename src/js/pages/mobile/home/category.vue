@@ -4,6 +4,12 @@
         <div class="navigation">
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name == 'Electronic' ? 'Electronics': name}}</text>
+            <text class="search iconfont" @click="jumpSearch">&#xe621;</text>
+            <div  class="over-flow-cart">
+                <text class=" cart iconfont">&#xe754;</text>
+                <text class="box-dot" v-if="cartNum>0">{{cartNum > 99? '99+': cartNum}}</text>
+            </div>
+
         </div>
         <list class="main-list" ref="list" offset-accuracy="10" loadmoreoffset="400"
                    @loadmore="onLoadingMore">
@@ -20,6 +26,7 @@
                           v-for="item in subCategory" @click="changeCategory(item.id)">{{item.name}}</text>
                 </scroller>
             </cell>
+
             <header>
                 <div class="category-header">
                     <div class="category-left" @click="openDialog">
@@ -77,7 +84,9 @@
             block3,
             toggle
         },
-        created () {},
+        created () {
+            this.getCartNum()
+        },
         eros: {
             appeared (params, options) {
                 const arrange = this.$storage.getSync('categoryArrangement');
@@ -99,6 +108,7 @@
                 length: 2,
                 page: 1,
                 pageSize: 12,
+                cartNum: '',
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid(),
                 arrangement: false,
@@ -244,6 +254,28 @@
                         id: id
                     }
                 })
+            },
+            jumpSearch () {
+                this.$router.open({
+                    name: 'search',
+                    type: 'PUSH'
+                });
+            },
+            getCartNum () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'cart.count',
+                    header: {
+                        needAuth: true,
+                        isLoginPop: true
+                    }
+
+                }).then(data => {
+                    this.cartNum = data.count
+                    // this.$notice.toast({
+                    //     message: data
+                    // })
+                }, error => {})
             },
             homeBack () {
                 this.$router.back();
@@ -590,4 +622,37 @@
         line-height: 32px;
         color: #EF8A31;
     }
+    .search{
+        font-size: 45px;
+        font-weight: 700;
+        position: absolute;
+        right:114px ;
+        top: 34px;
+    }
+    .over-flow-cart{
+        width: 80px;
+        height: 80px;
+    }
+    .cart{
+        font-size: 40px;
+        margin-top: 38px;
+        margin-left: 20px;
+    }
+    .box-dot{
+        position:absolute;
+        right:12px;
+        top: 30px;
+        background-color: red;
+        font-size: 16px;
+        line-height: 22px;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        border-radius: 50%;
+    }
+
 </style>

@@ -18,10 +18,10 @@ body {
 }
 
 .header-search{
-  margin-left: 32px;
-  width: 622px;
+  margin-left: 16px;
+  width: 570px;
   height: 80px;
-  border-radius: 16px;
+  border-radius: 50%;
   background-color: rgba(0,0,0,0.08);
   flex-direction: row;
   justify-content: start;
@@ -86,22 +86,30 @@ body {
 
 .search-line{
   width: 750px;
-  flex-direction: row;
+  flex-direction:row;
   justify-content: start;
   align-items: center;
-  background-color: #fff;
+  flex-wrap: wrap;
+  //background-color: #fff;
 }
-
-.search-icon {
-  margin-left: 32px;
-  font-size: 32px;
-  margin-right: 16px;
-  color: rgba(0,0,0,0.38);
+.search-tag{
+  margin-left:24px;
+  border-radius: 100px;
+  background-color: white;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+}
+.search-tag-text{
+  text-align: center;
+  font-size: 24px;
+  color: #000000;
+  font-weight: 700;
+  padding: 18px 32px;
 }
 
 .search-bg{
   width: 670px;
   padding: 30px 0;
+  background-color: black;
 }
 
 .search-border-bottom{
@@ -109,16 +117,6 @@ body {
   border-bottom-color: rgba(0,0,0,0.08);
   border-bottom-style: solid;
 }
-
-.search-text{
-  font-family: ProximaNova;
-  font-size: 24px;
-  line-height: 34px;
-  color: #000000;
-  letter-spacing: 0;
-  width: 638px;
-}
-
 .search-text-1{
   border-top-width: 1px;
   border-top-color: rgba(0,0,0,0.08);
@@ -130,4 +128,50 @@ body {
   letter-spacing: 0;
   background-color: #fff;
   text-align: center;
+}
+.box-bg{
+  width: 80px;
+  height: 80px;
+}
+.box-txt-icon{
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 40px;
+}
+.box-dot{
+  position: absolute;
+  right:8px;
+  top: 8px;
+  background-color: red;
+  font-size: 16px;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50%;
+}
+.search-h{
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #f4f4f4;
+}
+.sh-1{
+  font-size: 28px;
+  color: rgba(0,0,0,.38);
+  padding-left: 32px;
+  padding-top:  32px;
+  padding-bottom:  32px;
+}
+.sh-2{
+  font-size: 24px;
+  color: #1D7CD4;
+  padding-right: 32px;
+  padding-top:  32px;
+  padding-bottom:  32px;
 }

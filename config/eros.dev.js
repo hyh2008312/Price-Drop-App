@@ -32,6 +32,7 @@ module.exports = {
         'js/pages/mobile/cart/index.vue',
         'js/pages/mobile/cart/cartCopy.vue',
         'js/pages/mobile/cart/cartOrder.vue',
+        'js/pages/mobile/category/index.vue',
         'js/pages/mobile/shop/goodsDetail.vue',
         'js/pages/mobile/shop/simpleGoodsDetail.vue',
         'js/pages/mobile/shop/ship.vue',

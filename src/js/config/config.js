@@ -79,5 +79,6 @@ export const apis = {
     'payment.payu.checksum': '/payment/payu/checksum/',
     'payment.payu.status': '/payment/payu/status/',
     'payment.cart.payu.checksum': '/payment/cart/payu/checksum/',
-    'payment.cart.payu.status': '/payment/cart/payu/status/'
+    'payment.cart.payu.status': '/payment/cart/payu/status/',
+    'directory.app.category.list': '/directory/app/category/list/'
 }

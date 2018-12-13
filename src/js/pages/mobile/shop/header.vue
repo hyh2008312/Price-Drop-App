@@ -5,8 +5,11 @@
             <text class="leftTxt" v-else                @click="$router.back">&#xe632;</text>
         </div>
         <!--<text class="tlt">{{title}}</text>-->
+        <text class="search-icon"  @click="jumpSearch" >&#xe621;</text>
         <div class="right">
-            <text class="rightTxt" v-if="iconSign==true" @click="openLink" >&#xe700;</text>
+            <text class="rightTxt" v-if="iconSign==true" @click="openLink" >&#xe754;</text>
+
+
 
             <div class="red-dot" v-if="dropGoods>0" ><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
 
@@ -42,6 +45,12 @@ export default {
             } else {
                 this.leftSign = false
             }
+        },
+        jumpSearch () {
+            this.$router.open({
+                name: 'search',
+                type: 'PUSH'
+            });
         },
         openLink () {
             this.$emit('open')
@@ -102,6 +111,14 @@ export default {
     right: 5px;
     top:67.5px;
     padding-top: 10px;
+}
+.search-icon{
+    position: relative;
+    top:35px;
+    left: 228px;
+    font-family: iconfont;
+    color: #FFFFFF;
+    font-size: 32px;
 }
 
 .leftTxt{

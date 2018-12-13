@@ -78,15 +78,26 @@
   align-items: center;
 }
 .box-bg{
+  //position: relative;
+  //right: 24px;
+  //top: 26px;
+  //width: 60px;
   height: 100px;
   padding-top: 44px;
   padding-right: 32px;
+  //flex-direction: row;
+  //justify-content: center;
+  //align-items: center;
 }
 .pdr-42{
   padding-right: 42px;
 }
 
 .box-txt-icon {
+  //position: relative;
+  //right: 24px;
+  //top: 26px;
+
   color: #fff;
   font-size: 50px;
   line-height: 40px;
@@ -163,6 +174,17 @@
 .i-box {
   font-size: 20px;
   padding-top: 40px;
+  padding-right: 32px;
+  color: rgba(0,0,0,0.54);
+}
+.i-box1 {
+  font-size: 20px;
+  padding-top: 6px;
+  padding-right: 16px;
+  color: rgba(0,0,0,0.54);
+}
+.i-box2 {
+  font-size: 20px;
   padding-right: 32px;
   color: rgba(0,0,0,0.54);
 }
