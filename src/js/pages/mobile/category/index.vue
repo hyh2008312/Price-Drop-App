@@ -156,7 +156,7 @@
                 if (s.indexOf('&') != -1 && s.length >= 13) {
                      // str2 = s.replace("\\n", " \n ");
                     // s.substring(0, s.indexOf('&'))
-                    return s.replace('&', '\n')
+                    return s.replace(' & ', '\n')
                 } else {
                     if (s.length >= 18) {
                         return s.replace(' ', '\n')
