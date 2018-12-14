@@ -1097,6 +1097,8 @@
                 // this.$notice.alert({
                 //     message: this.variantsId
                 // })
+                this.$notice.loading.show();
+
                 this.$fetch({
                     method: 'POST',
                     name: 'cart.add',
@@ -1117,6 +1119,7 @@
                         //     message: 'Added to Cart Successfully!'
                         // });
                         this.$event.emit('cartNum')
+                        this.$notice.loading.hide();
                         googleAnalytics.recordEvent('Payment', 'Add to Cart', this.purchaseMethod, 0);
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', this.proId, '', 'Rs', this.selunitPrice);
                         this.isBottomShow = false
@@ -1131,6 +1134,7 @@
                         })
                     }
                 }).catch((res) => {
+                    this.$notice.loading.hide();
                     // this.$notice.toast({
                     //     message: res.errorMsg
                     // })
