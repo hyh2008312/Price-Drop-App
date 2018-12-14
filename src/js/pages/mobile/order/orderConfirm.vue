@@ -84,6 +84,7 @@ export default {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         this.resetPayList();
+        this.getNotification();
         googleAnalytics.trackingScreen('Add to Cart');
         this.$event.on('closePayment', params => {
             this.$router.finish();
@@ -126,6 +127,17 @@ export default {
         }
     },
     methods: {
+        getNotification () {
+            this.$fetch({
+                method: 'GET',
+                name: 'notice.app.list',
+                data: {
+                    placement: 'Order Confirm'
+                }
+            }).then(resData => {
+                this.noticeList = [...resData];
+            }, error => {});
+        },
         back () {
             this.$router.finish()
         },

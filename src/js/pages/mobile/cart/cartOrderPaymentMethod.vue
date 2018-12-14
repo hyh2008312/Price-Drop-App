@@ -195,6 +195,7 @@ export default {
         this.height = { height: (pageHeight - 112 - 112 - 48 - 2) + 'px' };
         googleAnalytics.trackingScreen('Confirm Billing and Shipping');
         this.getBalance();
+        this.getNotification();
 
         // this.checkCODStatus();
         if (this.$storage.getSync('user')) {
@@ -340,6 +341,17 @@ export default {
                 //     message: error
                 // })
             })
+        },
+        getNotification () {
+            this.$fetch({
+                method: 'GET',
+                name: 'notice.app.list',
+                data: {
+                    placement: 'Order Choice'
+                }
+            }).then(resData => {
+                this.noticeList = [...resData];
+            }, error => {});
         },
         oninput (e) {
             this.phone = e.value

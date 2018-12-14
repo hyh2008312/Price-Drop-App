@@ -121,6 +121,7 @@
             this.$event.on('closePayment', params => {
                 this.$router.finish();
             });
+            this.getNotification()
         },
         methods: {
             getAddress () {
@@ -139,6 +140,17 @@
                     //     message: error
                     // })
                 });
+            },
+            getNotification () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'notice.app.list',
+                    data: {
+                        placement: 'Order Confirm'
+                    }
+                }).then(resData => {
+                    this.noticeList = [...resData];
+                }, error => {});
             },
             jumpCard () {
                 this.$router.open({

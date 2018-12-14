@@ -191,7 +191,7 @@
                 length: 2,
                 pageSize: 100,
                 goodsList: false,
-                noticeList: [1,2,3,4,5],
+                noticeList: [],
                 data: '',
                 selAllStatus: true,
                 isLoading: false,
@@ -207,6 +207,7 @@
         created () {
             this.requestProduct(true);
             this.getMyCard()
+            this.getNotification()
             this.$event.on('logout', parmas => {
                 this.requestProduct(false)
             })
@@ -216,6 +217,17 @@
             googleAnalytics.trackingScreen('Cart');
         },
         methods: {
+            getNotification () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'notice.app.list',
+                    data: {
+                        placement: 'Cart'
+                    }
+                }).then(resData => {
+                    this.noticeList = [...resData];
+                }, error => {});
+            },
             loadingDown () {
                 this.$refs.refresh.refreshEnd();
                 this.requestProduct(true)
