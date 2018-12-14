@@ -1,8 +1,8 @@
 <template>
     <div class="wrappertop">
-        <div class="left">
-            <text class="leftTxt" v-if="leftSign==true" @click="$router.back">&#xe6f6;</text>
-            <text class="leftTxt" v-else                @click="$router.back">&#xe632;</text>
+        <div class="left" @click="$router.back">
+            <text class="leftTxt" v-if="leftSign==true" >&#xe6f6;</text>
+            <text class="leftTxt" v-else                >&#xe632;</text>
         </div>
         <!--<text class="tlt">{{title}}</text>-->
         <text class="search-icon"  @click="jumpSearch" >&#xe621;</text>
@@ -126,6 +126,7 @@ export default {
     color: #FFFFFF;
     font-size: 32px;
     text-align: left;
+
 }
 
 .rightTxt {
