@@ -19,7 +19,7 @@
                 </div>
                 <text class="iiiright-s"  @click="jumpSearch">&#xe621;</text>
                 <text class="iiiright"  @click="openMyCart">&#xe767;</text>
-                <div class="red-dot" ><text style="color: white;font-size: 18px">{{cartNum}}</text></div>
+                <div class="red-dot" ><text style="color: white;font-size: 16px">{{cartNum}}</text></div>
 
                 <flash v-if="purchaseMethod==='flash'"
                        :hour="ahour"
@@ -1619,8 +1619,8 @@
         align-items: center;
     }
     .red-dot{
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         background-color: red;
         position: absolute;
         border-radius:24px ;
@@ -2077,7 +2077,7 @@
         padding-top: 28px;
         padding-bottom: 29px;
         margin-left: 32px;
-        margin-top: 16px;
+        margin-top: 12px;
         font-size: 28px;
         color: #EF8A31;
         text-align: center;
@@ -2092,7 +2092,7 @@
         padding-top: 28px;
         padding-bottom: 29px;
         margin-left: 16px;
-        margin-top: 16px;
+        margin-top: 12px;
         font-size: 28px;
         color: white;
         text-align: center;

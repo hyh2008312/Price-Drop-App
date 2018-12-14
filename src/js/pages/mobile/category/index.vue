@@ -12,7 +12,10 @@
             </div>
 
         </div>
-
+        <!--<div class="shipping-bg">-->
+            <!--<text class="shipping-icon iconfont">&#xe760;</text>-->
+            <!--<text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>-->
+        <!--</div>-->
         <div class="overflow" :style="{'height': pageHeight}" v-if="hasWifi">
             <div style="width: 183px">
                 <list class="tag-list">
@@ -244,8 +247,31 @@
         margin-left: 16px;
         margin-right: 16px;
     }
-    .cart-icon{
-        color: red;
+    .shipping-bg{
+        background-color: #FFE3B6;
+        /*box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);*/
+        /*border-radius: 32px;*/
+        width: 750px;
+        height: 64px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /*margin: 0 32px 24px;*/
+    }
+
+    .shipping-tips{
+        font-family: ProximaNova;
+        font-size: 24px;
+        line-height: 28px;
+        margin-left: 14px;
+        font-weight: 700;
+    }
+
+    .shipping-icon{
+        font-family: ProximaNova;
+        font-size: 32px;
+        line-height: 32px;
+        color: #EF8A31;
     }
     .box-bg{
         position: absolute;
@@ -297,7 +323,7 @@
         justify-content: start;
         align-items: start;
         width: 750px;
-        margin-top: 4px;
+        margin-top: 3px;
         /*background-color: black;*/
     }
     .tag-list{

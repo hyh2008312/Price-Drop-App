@@ -60,9 +60,9 @@
 
         <div class="goods-btn" v-if="item.drawStatus == 'Ongoing' ">
 
-            <text class="goods-btn-w-bw" @click="openNewPage()" v-if="item.isDraw">You have joined successfully!</text>
+            <text class="goods-btn-w-bw" @click="openNewPage()" v-if="item.isDraw" >You have joined successfully!</text>
 
-            <text class="goods-btn-w" @click="opendialog()" v-if="!item.isDraw">Join Now & Win Prize</text>
+            <text class="goods-btn-w" @click="opendialog()" v-if="!item.isDraw" >Join Now & Win Prize</text>
 
         </div>
         <div class="goods-btn" v-if="item.drawStatus == 'Scheduled'" style="margin-top: 96px" >
@@ -520,7 +520,10 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);
+        /*border-width: 1px ;*/
+        /*border-style: solid ;*/
+        /*border-color: rgba;*/
+        /*box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);*/
         border-radius: 32px;
     }
     .goods-btn-b{

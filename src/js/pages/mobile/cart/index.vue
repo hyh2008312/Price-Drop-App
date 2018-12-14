@@ -38,7 +38,7 @@
             <cell  v-for="(i,index) in goodsList"
                    :key="i.id" style="width: 750px">
                 <div :class="[index == goodsList.length-1?'mg-b10':'']">
-                    <div class="line-card">
+                    <div class="line-card" @click="jumpGoodsDetail(i)">
                         <div class="lc-top" >
                             <div  @click="selGoods(i)" >
                                 <div style="margin:16px" >
@@ -57,10 +57,10 @@
                                 <text class="blue-word" v-if="i.productType=='flash'">Flash Sale</text>
                                 <!--</div>-->
                             </div>
-                            <div class="lc-tw"  @click="jumpGoodsDetail(i)">
+                            <div class="lc-tw"  >
                                 <!--<text class="lc-tw1">Toyota’s Latest is an Entire Mobility Service Platform</text>-->
                                 <text class="lc-tw1">{{i.title}}</text>
-                                <div class="lc-tw2">
+                                <div class="lc-tw2" >
                                     <text class="lc-tw-b">{{i.attributes}}</text>
                                     <div class="lc-tw-p">
                                         <text class="lc-tw-p1" v-if="i.productType=='flash'" >₹{{parseInt(calc(i.unitPrice,i.flashDiscount))}}</text>
@@ -72,10 +72,15 @@
                                         <text class="lc-tw-p3" v-if="i.productType=='direct'" >{{countOff(i.unitPrice , i.saleUnitPrice)}}</text>
                                     </div>
                                 </div>
+                                <div class="lc-b">
+                                    <text class="lc-b-1" @click="delQuantity(i)">-</text>
+                                    <text class="lc-b-n">{{i.quantity}}</text>
+                                    <text class="lc-b-2" @click="addQuantity(i)">+</text>
+                                </div>
                             </div>
                         </div>
-                        <div class="lc-bottom">
-                            <div class="lc-tt" v-if="i.productType=='flash'">
+                        <div class="lc-bottom" v-if="i.productType=='flash'">
+                            <div class="lc-tt" >
                                 <text class="lc-tt-w">Price expires in</text>
                                 <div class="wrapper-timer">
                                     <wxc-countdown tpl="{h}:{m}:{s}"
@@ -88,14 +93,14 @@
                                     </wxc-countdown>
                                 </div>
                             </div>
-                            <div v-if="i.productType!=='flash'">
+                            <div>
                                 <!--<text>Price expires in</text>-->
                                 <!--<text> 23 : 45 : 39 </text>-->
                             </div>
                             <div class="lc-b">
-                                <text class="lc-b-1" @click="delQuantity(i)">-</text>
-                                <text class="lc-b-n">{{i.quantity}}</text>
-                                <text class="lc-b-2" @click="addQuantity(i)">+</text>
+                                <!--<text class="lc-b-1" @click="delQuantity(i)">-</text>-->
+                                <!--<text class="lc-b-n">{{i.quantity}}</text>-->
+                                <!--<text class="lc-b-2" @click="addQuantity(i)">+</text>-->
                             </div>
 
                         </div>
@@ -186,7 +191,7 @@
                 pageSize: 100,
                 goodsList: false,
                 data: '',
-                selAllStatus: false,
+                selAllStatus: true,
                 isLoading: false,
                 allPrice: '0.00',
                 bottomWord: 'Checkout',
@@ -194,7 +199,7 @@
                 nextPage: [],
                 myCard: [],
                 tmpArr: [],
-                isSelected: false
+                isSelected: true
             }
         },
         created () {
@@ -259,9 +264,14 @@
                     }
                     // this.goodsList = [...res.results]
                     this.goodsList.push(...res.results);
+                    if (this.goodsList.length == 0) {
+                        this.selAllStatus = false
+                    } else {
+                        for (let i = 0; i < this.goodsList.length; i++) {
+                            this.goodsList[i].sel = true
+                        }
 
-                    for (let i = 0; i < this.goodsList.length; i++) {
-                        this.goodsList[i].sel = false
+                        this.countPrice();
                     }
                     this.page++;
                     this.isLoading = false;
@@ -280,8 +290,9 @@
             },
             jumpGoodsDetail (i) {
                 // this.$notice.alert({
-                //     message: id
+                //     message: i.productId
                 // })
+                // return
                 this.$router.open({
                     name: 'goods.details',
                     type: 'PUSH',
@@ -318,9 +329,11 @@
                 })
             },
             jumpHome () {
-                this.$event.emit('changeTab', {
-                    tab: 'home'
-                });
+                this.$router.setBackParams({ tab: 'home' })
+                this.$router.back({
+                    length: 9999,
+                    type: 'PUSH'
+                })
             },
             calc (a, b) {
                 return ((a * b) / 100).toFixed(2)
@@ -709,18 +722,18 @@
     }
     .lc-tw{
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: start;
         align-items: start;
         height:240px;
         /*background-color: red;*/
     }
     .lc-tw1{
-        lines: 3;
+        lines: 2;
         text-overflow: ellipsis;
         font-size: 24px;
-        width: 288px;
+        width: 298px;
         color: rgba(0,0,0,0.87);
-        line-height: 28px;
+        line-height: 32px;
         /*background-color: black;*/
     }
     .lc-tw2{
@@ -728,18 +741,17 @@
         font-size: 20px;
         width: 400px;
         color: rgba(0,0,0,0.87);
-        line-height: 28px;
-        /*margin-bottom: 8px;*/
+        margin-top: 12px;
     }
     .lc-tw-b{
         font-size: 20px;
         color: rgba(0,0,0,0.87);
-        margin-bottom: 48px;
     }
     .lc-tw-p{
         flex-direction: row;
         justify-content: start;
         align-items: center;
+        margin-top: 24px;
     }
     .lc-tw-p1{
         font-size: 28px;
@@ -768,7 +780,9 @@
     .lc-b{
         flex-direction: row;
         align-items: center;
-        /*background-color: #333333;*/
+        margin-top: 28px;
+        margin-left: 100px;
+        /*background-color: black;*/
     }
     .lc-b-1{
         font-size: 48px;
