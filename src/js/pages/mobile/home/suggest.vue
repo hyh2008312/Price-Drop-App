@@ -8,10 +8,7 @@
             </cell>
 
             <cell  style="background-color: #f4f4f4">
-                <div class="shipping-bg">
-                    <text class="shipping-icon iconfont">&#xe760;</text>
-                    <text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>
-                </div>
+                <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
             </cell>
             <cell class="ac-wrap" style="background-color: #f4f4f4">
                 <block-9 v-on:luckyDraw="goLucky" v-on:reward="goReward" ></block-9>
@@ -26,20 +23,6 @@
                 <!--</div>-->
             <!--</cell>-->
             <cell class="cell-top" v-if="false"></cell>
-            <cell class="home-drop" v-if="false">
-                <div class="drop-bg"></div>
-                <div class="drop-title-bg">
-                    <div class="drop-title">
-                        <text class="drop-title-text">Start Your Drop Now</text>
-                    </div>
-                    <text class="iconfont drop-title-icon">&#xe740;</text>
-                </div>
-                <div class="notice-wrapper">
-                    <div class="notice-bg">
-                        <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
-                    </div>
-                </div>
-            </cell>
             <cell class="cell-button" v-if="false">
                 <div class="home-drop-1">
                     <block-6 :drops="drops"></block-6>
@@ -237,7 +220,7 @@ export default {
             this.getTabName();
             this.getProductCategory();
             this.getChannel();
-            // this.getBlock4();
+            this.getBlock4();
             // this.getDrops();
             this.getActivity();
             this.getBlock5();
@@ -492,7 +475,7 @@ export default {
         },
         refreshApiFinished() {
             this.countApi++;
-            if(this.countApi >= 4) {
+            if(this.countApi >= 5) {
                 this.hasWifi = true;
                 this.$refs.refresh.refreshEnd();
                 this.countApi = 0;

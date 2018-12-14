@@ -2,24 +2,17 @@
     <div class="wrapper">
         <div ref="notice">
             <div class="inner-container" v-for="message in items">
-                <div class="header">
-                    <preload class="header-image" :src="message.avatar"></preload>
-                </div>
-                <text class="tlt">{{message.title}}! </text>
+                <text class="icon iconfont">&#xe760;</text>
+                <text class="tips">Free Shipping on Everything. Limited Time Only! </text>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import preload from '../common/preloadImg';
-
     const animation = weex.requireModule('animation');
     import utilFunc from '../utils/util'
 
     export default {
-        components: {
-            preload
-        },
         props: ['items', 'index', 'activeIndex'],
         data () {
             return {
@@ -42,24 +35,26 @@
             aniNotice (e) {
                 const that = this;
                 if (!this.isOnAni) {
-                    this.isOnAni = true
+                    this.isOnAni = true;
                     animation.transition(this.$refs.notice, {
                         styles: {
                             opacity: 1,
-                            transform: 'translateY(' + (-80 * (e + 1)) + 'px)'
+                            transform: 'translateY(' + (-64 * (e + 1)) + 'px)'
                         },
-                        duration: 2500,
+                        duration: 500,
                         timingFunction: 'ease',
-                        delay: 0
+                        needLayout: true,
+                        delay: 3500
                     }, function () {
-                        that.isOnAni = false
+                        that.isOnAni = false;
                         if (e < that.items.length - 1) {
                             e++;
                             if (e == that.items.length - 1) {
-                                that.$emit('noticeFinished', {
-                                    status: 'finished'
-                                });
-                                return
+                                e = -1;
+                                // that.$emit('noticeFinished', {
+                                //     status: 'finished'
+                                // });
+                                // return
                             }
                             that.aniNotice(e)
                         }
@@ -75,7 +70,7 @@
                     },
                     duration: 0,
                     timingFunction: 'ease',
-                    delay: 0
+                    delay: 200
                 }, function () {
                     that.isOnAni = false;
                     that.init()
@@ -93,39 +88,35 @@
     }
 
     .wrapper{
-        width: 622px;
-        height: 80px;
-        overflow: hidden;
+        background-color: #FFE3B6;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+        border-radius: 32px;
+        width: 686px;
+        height: 64px;
+
+        margin: 0 32px 24px;
     }
 
     .inner-container{
-        width: 622px;
-        height: 80px;
-        justify-content: start;
+        width: 686px;
+        height: 64px;
+        justify-content: center;
         flex-direction: row;
         align-items: center;
     }
 
-    .header{
-        width: 64px;
-        height: 64px;
-        overflow: hidden;
-        border-radius: 32px;
-        margin-left: 8px;
-    }
-
-    .header-image{
-        width: 64px;
-        height: 64px;
-    }
-
-    .tlt {
-        color: rgba(0,0,0,0.87);
-        width: 530px;
+    .tips{
+        font-family: ProximaNova;
         font-size: 24px;
-        lines: 1;
-        margin-left: 12px;
-        margin-right: 8px;
-        text-overflow: ellipsis;
+        line-height: 28px;
+        margin-left: 14px;
+        font-weight: 700;
+    }
+
+    .icon{
+        font-family: ProximaNova;
+        font-size: 32px;
+        line-height: 32px;
+        color: #EF8A31;
     }
 </style>
