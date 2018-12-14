@@ -33,6 +33,7 @@
                     });
                     return;
                 }
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'POST', // 大写
                     url: `${baseUrl}/order/customer/update/address/${this.id}/`,
@@ -42,6 +43,7 @@
                     }
                 }).then(resData => {
                     // 成功回调
+                    this.$notice.loading.hide();
                     this.$router.finish();
                     this.$event.emit('changeAddress');
                 }, error => {
