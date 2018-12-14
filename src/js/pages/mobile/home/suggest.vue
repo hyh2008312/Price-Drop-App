@@ -8,7 +8,7 @@
             </cell>
 
             <cell  style="background-color: #f4f4f4">
-                <block-4 :items="block1.items" v-if="block1.items.length > 0" @noticeFinished="noNoticeFinished"></block-4>
+                <block-4 :items="noticeList" v-if="noticeList.length > 0"></block-4>
             </cell>
             <cell class="ac-wrap" style="background-color: #f4f4f4">
                 <block-9 v-on:luckyDraw="goLucky" v-on:reward="goReward" ></block-9>
@@ -117,12 +117,7 @@ export default {
     data () {
         return {
             YXBanners: [],
-            block1: {
-                title: '',
-                url: '',
-                items: []
-            },
-            backup: [],
+            noticeList: [],
             block4: {
                 items: []
             },
@@ -163,28 +158,7 @@ export default {
                 }
             })
         },
-        noNoticeFinished (e) {
-            if(this.backup.length > 0) {
-                const newArr = this.backup.splice(0, 4);
-                this.block1.items = [...newArr];
-            } else {
-                this.block1.items = [];
-                this.$fetch({
-                    method: 'GET',
-                    name: 'promotion.get.broadcast',
-                    data: {}
-                }).then(resData => {
-                    this.backup = [...resData];
-                    const newArr = this.backup.splice(0, 4);
-                    this.block1.items = [];
-                    this.block1.items = [...newArr];
-                }, error => {
-                    if(error.status == 10) {
-                        this.hasWifi = false;
-                    }
-                })
-            }
-        },
+        noNoticeFinished (e) {},
         onLoadingMore () {
             if(!this.isLoading) {
                 this.countApi = 0;
@@ -220,7 +194,7 @@ export default {
             this.getTabName();
             this.getProductCategory();
             this.getChannel();
-            this.getBlock4();
+            this.getNotification();
             // this.getDrops();
             this.getActivity();
             this.getBlock5();
@@ -314,16 +288,15 @@ export default {
                 }
             });
         },
-        getBlock4 () {
-            this.block1.items = [];
+        getNotification () {
             this.$fetch({
                 method: 'GET',
-                name: 'promotion.get.broadcast',
-                data: {}
+                name: 'notice.app.list',
+                data: {
+                    placement: 'Home'
+                }
             }).then(resData => {
-                this.backup = [...resData];
-                const newArr = this.backup.splice(0, 4);
-                this.block1.items = [...newArr];
+                this.noticeList = [...resData];
             }, error => {
                 if(error.status == 10) {
                     this.hasWifi = false;

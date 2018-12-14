@@ -2,8 +2,13 @@
     <div class="wrapper">
         <div ref="notice">
             <div class="inner-container" v-for="message in items">
-                <text class="icon iconfont">&#xe760;</text>
-                <text class="tips">Free Shipping on Everything. Limited Time Only! </text>
+                <text class="icon iconfont" v-if="message.notificationType == 'Free Shipping'">&#xe760;</text>
+                <text class="icon iconfont" v-if="message.notificationType == 'Server Maintenance'">&#xe76d;</text>
+                <text class="icon iconfont" v-if="message.notificationType == 'Holiday Shipping'">&#xe76d;</text>
+                <text class="icon iconfont" v-if="message.notificationType == 'Payment Discount'">&#xe76c;</text>
+                <text class="icon iconfont" v-if="message.notificationType == 'Coupon Promotion'">&#xe76c;</text>
+                <text class="icon iconfont" v-if="message.notificationType == 'Other'">&#xe76d;</text>
+                <text class="tips">{{message.context}} </text>
             </div>
         </div>
     </div>
