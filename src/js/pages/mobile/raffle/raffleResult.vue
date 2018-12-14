@@ -13,6 +13,7 @@
 
                     <div class="first">
                         <image class="f-img" :src="firstPrize.product.image"></image>
+                        <!--<div class="f-img" style="background-color: black"></div>-->
                         <div class="f-t-p">
                             <text class="f-title">{{firstPrize.product.productTitle}}</text>
                             <!--<text class="f-title">Kunsto Women's Leather Casual Loafer Shoes</text>-->
@@ -324,6 +325,7 @@
         width: 240px;
         height: 240px;
         margin-right: 24px;
+        margin-top: 32px;
     }
     .f-price{
         flex-direction: row;

@@ -11,7 +11,7 @@
 
 
 
-            <div class="red-dot" v-if="dropGoods>0" ><text style="color: white;font-size: 20px">{{dropGoods}}</text></div>
+            <div class="red-dot" v-if="dropGoods>0" ><text style="color: white;font-size: 16px">{{dropGoods}}</text></div>
 
             <!--<text class="rightTxt" v-if="iconSign==true" @click="openLink" >21312312</text>-->
         </div>
@@ -135,8 +135,8 @@ export default {
     text-align: center;
 }
 .red-dot{
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     background-color: red;
     position: absolute;
     border-radius:24px ;

@@ -50,7 +50,8 @@
                 </NewS>
             </div>
         </div>
-
+        <image style="width: 0px;height: 0px"  src="bmlocal://assets/raffle-2.png"></image>
+        <image style="width: 0px;height: 0px"  src="bmlocal://assets/wallet.png"></image>
         <WxcMask
             height="742"
             width="560"
