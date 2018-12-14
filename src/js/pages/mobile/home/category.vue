@@ -85,7 +85,8 @@
             toggle
         },
         created () {
-            this.getCartNum()
+            this.getCartNum();
+            this.getNotification();
         },
         eros: {
             appeared (params, options) {
@@ -137,6 +138,17 @@
             }
         },
         methods: {
+            getNotification () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'notice.app.list',
+                    data: {
+                        placement: 'Category'
+                    }
+                }).then(resData => {
+                    this.noticeList = [...resData];
+                }, error => {});
+            },
             loadingDown () {
                 this.$refs.refresh.refreshEnd();
                 this.isLoading = false;
