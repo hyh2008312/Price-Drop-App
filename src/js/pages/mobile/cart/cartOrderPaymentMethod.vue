@@ -5,10 +5,11 @@
             <text class="back iconfont" @click="back()">&#xe6f6;</text>
             <text class="title">{{title}}</text>
         </div>
-        <div class="n-item">
-            <text class="iconfont n-i-icon">&#xe763;</text>
-            <text class="n-i-word">5% Extra Discount by using PayU, PayTM or Razorpay!</text>
-        </div>
+        <!--<div class="n-item">-->
+            <!--<text class="iconfont n-i-icon">&#xe763;</text>-->
+            <!--<text class="n-i-word">5% Extra Discount by using PayU, PayTM or Razorpay!</text>-->
+        <!--</div>-->
+        <notice  :items="noticeList" v-if="noticeList.length > 0"></notice>
         <list class="container" :style="height">
             <!--<cell class="container-bg">-->
                 <!--<text class="title-1">Payment Method</text>-->
@@ -169,10 +170,11 @@ import { Utils, WxcPopup } from 'weex-ui';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 const common = weex.requireModule('CommonUtils');
 const tool = weex.requireModule('bmTool')
+import notice from '../common/notification';
 
 export default {
     components: {
-        orderPaymentMethodBottom, WxcPopup
+        orderPaymentMethodBottom, WxcPopup, notice
     },
     eros: {
         appeared (params, option) {
@@ -226,6 +228,7 @@ export default {
             prePhone: '',
             checked: false,
             balance: 0,
+            noticeList: [],
             isShowBalance: false,
             isShow: false,
             sHeight: 1340,

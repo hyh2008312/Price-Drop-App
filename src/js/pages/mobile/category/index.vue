@@ -12,10 +12,7 @@
             </div>
 
         </div>
-        <!--<div class="shipping-bg">-->
-            <!--<text class="shipping-icon iconfont">&#xe760;</text>-->
-            <!--<text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>-->
-        <!--</div>-->
+        <!--<notice :items="noticeList" v-if="noticeList.length > 0"></notice>-->
         <div class="overflow" :style="{'height': pageHeight}" v-if="hasWifi">
             <div style="width: 183px">
                 <list class="tag-list">
@@ -46,16 +43,19 @@
     import { Utils } from 'weex-ui';
     import { baseUrl } from '../../../config/apis';
     import noWifi from '../common/noWifi';
+    import notice from '../common/notification';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
         components: {
-            noWifi
+            noWifi,
+            'notice': notice
         },
         data () {
             return {
                 // tagList: ['Electronics', 'Men', 'Women', 'Shoes', 'Bags', 'Home', 'Beauty', 'Kids', 'Bags', 'Home', 'Beauty', 'Kids', 'Bags', 'Home', 'Beauty', 'Kids'],
                 tagList: [],
                 SList: [],
+                noticeList: [1,1,1,],
                 flag: '',
                 cartNum: '',
                 pageHeight: '',

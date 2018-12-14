@@ -15,10 +15,7 @@
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell>
-                <div class="shipping-bg">
-                    <text class="shipping-icon iconfont">&#xe760;</text>
-                    <text class="shipping-tips">Free Shipping on Everything. Limited Time Only! </text>
-                </div>
+                <notice :items="noticeList" v-if="noticeList.length > 0"></notice>
             </cell>
             <cell v-if="subCategory.length>2">
                 <scroller class="scroller" scroll-direction="horizontal">
@@ -73,6 +70,8 @@
     import block3 from './block3';
     import block7 from './block7';
     import toggle from './toggle';
+    import notice from '../common/notification';
+
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { baseUrl } from '../../../config/apis';
 
@@ -80,6 +79,7 @@
         components: {
             'refresher': refresher,
             preload,
+            notice,
             block7,
             block3,
             toggle
@@ -105,6 +105,7 @@
                 testImage: '',
                 goods: [],
                 subCategory: [],
+                noticeList: [],
                 length: 2,
                 page: 1,
                 pageSize: 12,

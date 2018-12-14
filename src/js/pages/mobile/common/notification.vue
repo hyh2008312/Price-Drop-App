@@ -95,13 +95,13 @@
     .wrapper{
         background-color: #FFE3B6;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-        border-radius: 32px;
+        /*border-radius: 32px;*/
         width: 750px;
         height: 64px;
     }
 
     .inner-container{
-        width: 686px;
+        width: 750px;
         height: 64px;
         justify-content: center;
         flex-direction: row;
