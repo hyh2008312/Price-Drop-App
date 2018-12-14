@@ -31,9 +31,12 @@
             </div>
             </div>
         </div>
-        <notice :items="noticeList" v-if="noticeList.length > 0"></notice>
+
         <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher class="gd-bg-gray" ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
+            <header>
+                <notice :items="noticeList" v-if="noticeList.length > 0"></notice>
+            </header>
             <cell  v-for="(i,index) in goodsList"
                    :key="i.id" style="width: 750px">
                 <div :class="[index == goodsList.length-1?'mg-b10':'']">

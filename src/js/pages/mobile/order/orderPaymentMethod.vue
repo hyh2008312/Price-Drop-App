@@ -9,11 +9,11 @@
             <!--<text class="iconfont n-i-icon">&#xe763;</text>-->
             <!--<text class="n-i-word">5% Extra Discount by using PayU, PayTM or Razorpay!</text>-->
         <!--</div>-->
-        <notice  :items="noticeList" v-if="noticeList.length > 0"></notice>
+
         <list class="container" :style="height">
-            <!--<cell class="container-bg">-->
-                <!--<text class="title-1">Payment Method</text>-->
-            <!--</cell>-->
+            <header>
+                <notice  :items="noticeList" v-if="noticeList.length > 0"></notice>
+            </header>
 
             <cell class="cell-bottom"  @click="chooseMethod('payU')">
                 <div  class="overflow-box b-top-r">

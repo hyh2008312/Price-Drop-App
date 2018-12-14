@@ -111,7 +111,7 @@
                     'stateId': 5
                 },
                 orderList: false,
-                noticeList: [1,1,1],
+                noticeList: [],
                 card: false,
                 allPrice: '0.00'
             }
