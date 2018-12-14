@@ -2,7 +2,11 @@
     <div class="wrapper">
         <top-header :title="title" ></top-header>
         <div class="status-bar"></div>
+
         <list class="container" :style="height">
+            <cell>
+                <notice :items="noticeList" v-if="noticeList.length > 0"></notice>
+            </cell>
             <cell class="cell-bottom" @click="jumpAddress">
                 <order-confirm-shipping :address="address"></order-confirm-shipping>
             </cell>
@@ -32,6 +36,7 @@ import orderConfirmPayMethod from './orderConfirmPayMethod';
 import orderConfirmDelivery from './orderConfirmDelivery';
 import { Utils } from 'weex-ui';
 import { PAYLIST } from './config';
+import notice from '../common/notification';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
 export default {
@@ -42,7 +47,7 @@ export default {
         'order-confirm-bottom': orderConfirmBottom,
         'order-detail-number': orderDetailNumber,
         'order-confirm-pay-method': orderConfirmPayMethod,
-        orderConfirmDelivery
+        orderConfirmDelivery, notice
     },
     eros: {
         backAppeared (params, options) {
@@ -100,6 +105,7 @@ export default {
             },
             isOrderConfirm: true,
             payList: [],
+            noticeList: [],
             checkedInfo: { src: false, value: 1 },
             address: {
                 'id': false,

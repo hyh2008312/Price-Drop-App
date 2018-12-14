@@ -4,6 +4,9 @@
         <div class="blackheader"></div>
 
         <list class="content" offset-accuracy="10" loadmoreoffset="400" >
+            <cell>
+                <notice :items="noticeList" v-if="noticeList.length > 0"></notice>
+            </cell>
             <cell class="overflow-box">
                 <order-shipping :address="address" style="margin-top: 24px"></order-shipping>
             </cell>
@@ -61,6 +64,8 @@
     import header from './witheHeader';
     import cartOrderShipping from './cartOrderShipping';
     import goodsItem from './cartGoods';
+    import notice from '../common/notification';
+
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { WxcCountdown } from 'weex-ui';
     export default {
@@ -68,7 +73,7 @@
             'topic-header': header,
             'order-shipping': cartOrderShipping,
             'goods-item': goodsItem,
-            WxcCountdown
+            WxcCountdown, notice
         },
         eros: {
             beforeAppear (params, options) {
@@ -106,6 +111,7 @@
                     'stateId': 5
                 },
                 orderList: false,
+                noticeList: [1,1,1],
                 card: false,
                 allPrice: '0.00'
             }

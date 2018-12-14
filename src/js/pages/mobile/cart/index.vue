@@ -30,9 +30,8 @@
                 <text class="t-b-tc">Add Item >></text>
             </div>
             </div>
-
         </div>
-
+        <notice :items="noticeList" v-if="noticeList.length > 0"></notice>
         <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <refresher class="gd-bg-gray" ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
             <cell  v-for="(i,index) in goodsList"
@@ -173,6 +172,7 @@
 <script>
     import header from './witheHeader';
     import refresher from '../common/refresh';
+    import notice from '../common/notification';
     import { WxcCountdown, WxcRadio } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
@@ -180,6 +180,7 @@
         components: {
             'topic-header': header,
             'refresher': refresher,
+            'notice': notice,
             WxcCountdown,
             WxcRadio
         },
@@ -190,6 +191,7 @@
                 length: 2,
                 pageSize: 100,
                 goodsList: false,
+                noticeList: [1,2,3,4,5],
                 data: '',
                 selAllStatus: true,
                 isLoading: false,
