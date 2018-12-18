@@ -7,8 +7,8 @@
             </div>
             <div class="gd-bg-right">
                 <text class="gd-title">{{item.title}}</text>
-                <text class="gd-price">₹{{parseInt(item.unitPrice)}}</text>
                 <div class="gd-sm">
+                    <text class="gd-price">₹{{parseInt(item.unitPrice)}}</text>
                     <text class="gd-info">₹{{parseInt(item.saleUnitPrice)}}</text>
                     <text class="gd-price-1">{{countOff(item.unitPrice, item.saleUnitPrice)}}</text>
                 </div>
@@ -106,7 +106,8 @@ export default {
 
 .gd-price {
     font-family: ProximaNova;
-    margin-top: 8px;
+    /*margin-top: 8px;*/
+    margin-right: 16px;
     font-size: 28px;
     line-height: 34px;
     font-weight: 700;

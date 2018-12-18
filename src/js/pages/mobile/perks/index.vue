@@ -593,6 +593,7 @@
             },
 
             getSign () {
+                this.$notice.loading.show();
                 if (this.user) {
                     // googleAnalytics.recordEvent('get Sign', '', '', 0);
                     googleAnalytics.recordEvent('Rewards', 'CheckIn', 'CheckIn', 0);
@@ -617,6 +618,8 @@
                             this.user.points = res.totalPoints;
                             this.user.pointsAvailable = res.availablePoints;
                             this.$storage.setSync('user', this.user)
+                            this.$notice.loading.hide();
+
                             this.openPointSuccess()
                             // this.$notice.toast({
                             //     message: 'Congrats! You’ve got ' + + ' points today!'
@@ -625,16 +628,19 @@
                             this.$event.emit('mySign')
                             googleAnalytics.recordEvent('Rewards', 'CheckIn', 'CheckInSuccess', 0);
                         }).catch((res) => {
+                            this.$notice.loading.hide();
                             // this.$notice.toast({
                             //     message: res
                             // })
                         })
                     } else {
+                        this.$notice.loading.hide();
                         this.$notice.toast({
                             message: 'These points will be available to claim tomorrow!'
                         })
                     }
                 } else {
+                    this.$notice.loading.hide();
                     this.redirectLogin()
                 }
             },

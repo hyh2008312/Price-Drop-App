@@ -25,13 +25,16 @@
             </div>
             <list style="background-color: white;" :style="{'height': pageHeight}">
                 <cell  v-for="(i,index) in SList">
-                    <text :class="[i.name.trim()!==''?'s-headline':'s-headlines']" >{{i.name}}</text>
-                    <div class="i-row" v-for="(item, index) in tranArr(i.subCat)">
-                        <div class="i-col" v-for="(n,index) in item" @click="jumpCategory(n)">
-                            <image :src="n.image" style="width:112px;height: 112px " resize="contain"></image>
-                            <text class="i-text">{{tranString(n.name)}}</text>
+                    <div  class="overflowlevel2">
+                        <text :class="[i.name.trim()!==''?'s-headline':'s-headlines']" >{{i.name}}</text>
+                        <div class="i-row" v-for="(item, index) in tranArr(i.subCat)">
+                            <div class="i-col" v-for="(n,index) in item" @click="jumpCategory(n)">
+                                <image :src="n.image" style="width:112px;height: 112px " resize="contain"></image>
+                                <text class="i-text">{{tranString(n.name)}}</text>
+                            </div>
                         </div>
                     </div>
+
                 </cell>
             </list>
         </div>
@@ -55,7 +58,7 @@
                 // tagList: ['Electronics', 'Men', 'Women', 'Shoes', 'Bags', 'Home', 'Beauty', 'Kids', 'Bags', 'Home', 'Beauty', 'Kids', 'Bags', 'Home', 'Beauty', 'Kids'],
                 tagList: [],
                 SList: [],
-                noticeList: [1,1,1,],
+                noticeList: [],
                 flag: '',
                 cartNum: '',
                 pageHeight: '',
@@ -362,8 +365,9 @@
         color: #000000;
         font-weight: 700;
         margin-top: 40px;
-        margin-left: 34px;
+        /*margin-left: 34px;*/
         margin-bottom: 48px;
+
     }
     .s-headlines{
         font-size: 24px;
@@ -373,11 +377,19 @@
         margin-left: 34px;
         margin-bottom: 24px;
     }
+    .overflowlevel2{
+        margin-left: 32px;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: rgba(0,0,0,.08);
+        /*border-bottom-color: black;*/
+        /*background-color: #EF8A31;*/
+    }
     .i-row{
         flex-direction: row;
         justify-content: start;
         align-items: start;
-        margin-left: 40px;
+        margin-left: 24px;
     }
     .i-col{
         flex-direction: column;
