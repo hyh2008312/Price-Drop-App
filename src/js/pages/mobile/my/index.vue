@@ -111,7 +111,7 @@
 
 
 
-            <cell class="overflow-box" v-if="user">
+            <cell class="overflow-box" >
                 <div class="mid-cell">
                     <div class="box-tlt "  >
                         <div class="box-left">
@@ -226,7 +226,7 @@
 <script>
     import he from '../utils/he';
     import header from './header';
-    import { SERVICES } from './config'
+    // import { SERVICES } from './config'
     import refresher from '../common/refresh';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
@@ -303,10 +303,17 @@
                 this.getMyWallet();
             },
             openMyRaffleDraws () {
-                this.$router.open({
-                    name: 'my.raffle.draws',
-                    type: 'PUSH'
-                })
+                if (this.user == null) {
+                    this.$router.open({
+                        name: 'login',
+                        type: 'PUSH'
+                    })
+                } else {
+                    this.$router.open({
+                        name: 'my.raffle.draws',
+                        type: 'PUSH'
+                    })
+                }
             },
             openMyCart () {
                 this.$router.open({

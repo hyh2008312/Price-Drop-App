@@ -27,6 +27,17 @@
             </div>
         </div>
 
+        <div class="search-h" style="margin-top: 60px"  v-if="popularList.length > 0">
+            <text class="sh-1">POPULAR SEARCH</text>
+            <text class="sh-2">&nbsp;</text>
+        </div>
+        <div class="search-line">
+            <div v-for="(item, index) in popularList" class="search-tag" @click="searchKeywords(item.keyWords)">
+                <!--<text class="search-tag-text" >{{titleCase('Jewellery & Accessories')}}</text>-->
+                <text class="search-tag-text" >{{titleCase(item.keyWords)}}</text>
+            </div>
+        </div>
+
         <!--<div class="search-line" v-for="(item, index) in searchList" @click="searchKeywords(item)">-->
             <!--<div class="search-bg" >-->
             <!--<text>{{item}}</text>-->
@@ -57,6 +68,7 @@
                 if (params && params.key) {
                     this.key = params.key;
                 }
+                // this.getPopularList()
             }
         },
         created () {
@@ -65,10 +77,12 @@
                 this.searchList = [...search];
             }
             this.getUnread()
+            this.getPopularList()
         },
         data () {
             return {
                 searchList: [],
+                popularList: [],
                 key: '',
                 cartNum: '',
                 deletestatus: false,
@@ -125,6 +139,18 @@
                         }
                     });
                 }
+            },
+            getPopularList () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'statistics.search.key.list'
+                }).then((res) => {
+                    this.popularList = [...res]
+                }).catch((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                })
             },
             getUnread () {
                 this.$storage.get('user').then((data) => {
@@ -185,6 +211,13 @@
                 if (this.$refs.searchInput.clear) {
                     this.$refs.searchInput.clear();
                 }
+            },
+            titleCase (s) {
+                const ss = s.toLowerCase().split(/\s+/);
+                for (let i = 0; i < ss.length; i++) {
+                    ss[i] = ss[i].slice(0, 1).toUpperCase() + ss[i].slice(1);
+                }
+                return ss.join(' ');
             }
         }
     }
