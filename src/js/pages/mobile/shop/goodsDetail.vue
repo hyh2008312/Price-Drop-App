@@ -265,14 +265,12 @@
             </div>
 
             <div v-if="productStatus==='published'">
-                <!--<text class="button" @click="openBuyNow" v-if="canBuy" >Buy Now</text>-->
-                <div class="over-flow-cart" v-if="canBuy">
+                <div class="over-flow-cart" >
                     <text class="a-t-c" @click="addCart" v-if="!cartWordStu">Add to Cart</text>
                     <text class="a-t-c" @click="openMyCart" v-if="cartWordStu">Go to Cart</text>
                     <text class="b-n" @click="openBuyNow">Buy Now</text>
                 </div>
 
-                <text class="button-gray"  v-if="!canBuy" >Out of Stock</text>
             </div>
         </div>
 
@@ -311,14 +309,24 @@
                         <div v-for="(val, index) in goodsType" :key="index" >
                             <text class="popup-color" v-if="val.name=='Color'">{{goods.aliasColor || val.name}}</text>
                             <text class="popup-color" v-if="val.name=='Size'">{{goods.aliasSize || val.name}}</text>
-                            <div  class="popup-color-chd"  v-for="(val1, key1) in tranArr(val.value)" :key="key1">
-                                <text class="popup-color-chdname"
-                                              v-for="(i,key2) in val1"
-                                              :key="key2"
-                                              :class="[i.isActive ?'popup-color-chdname-active':'',
-                                              i.seldisable ?'popup-color-chdname-disable':'']"
-                                              @click="clickColor(i, val.value)">{{i.value}}</text>
+
+                            <div style="width: 718px;flex-wrap: wrap;flex-direction: row;justify-content: start;align-items: center">
+
+                                <div  class="popup-color-chd" v-for="(val1, key1) in val.value" >
+                                    <text class="popup-color-chdname"
+                                          :key="key1"
+                                          :class="[val1.isActive ?'popup-color-chdname-active':'',
+                                          val1.seldisable ?'popup-color-chdname-disable':'']"
+                                          @click="clickColor(val1, val.value)">{{val1.value}}</text>
+                                </div>
                             </div>
+                                <!--<div  class="popup-color-chd"  v-for="(val1, key1) in tranArr(val.value)" :key="key1">-->
+                                    <!--<text class="popup-color-chdname"-->
+                                          <!--v-for="(i,key2) in val1"-->
+                                          <!--:key="key2"-->
+                                          <!--:class="[i.isActive ?'popup-color-chdname-active':'',i.seldisable ?'popup-color-chdname-disable':'']"-->
+                                          <!--@click="clickColor(i, val.value)">{{i.value}}</text>-->
+                                <!--</div>-->
                         </div>
                     </div>
                 </scroller>
@@ -691,7 +699,7 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/8402/`,
+                        // url: `${baseUrl}/product/customer/detail/13566/`,
                         data: {}
                     }).then((res) => {
                         // this.$notice.alert({
@@ -968,33 +976,6 @@
                 }
                 return true;
             },
-            redirectLogin () {
-                this.$event.on('login', params => {
-                    this.getGoodsDetail(this.proId)
-                    this.getSomeGoods(this.proId)
-                    this.getCartNum()
-
-                    this.$storage.get('user').then(resData => {
-                        this.user = resData
-                    })
-                });
-                this.$router.open({
-                    name: 'login',
-                    type: 'PUSH'
-                })
-            },
-            openCutPrice () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                } else {
-                    if (this.hasVariants === false) {
-                        this.createCut()
-                    } else {
-                        this.isBottomShow = true;
-                        common.changeAndroidCanBack(false)
-                    }
-                }
-            },
             confirm () {
                 if (this.user == null) {
                     this.redirectLogin()
@@ -1003,28 +984,11 @@
                     if (!this.checkedSelected()) {
                         return;
                     }
-                    for (let i = 0; i < this.goodsVariants.length; i++) {
-                        let isDoubleChecked = 0;
-                        for (let j = 0; j < this.goodsVariants[i].attributeValues.length; j++) {
-                            for (let m = 0; m < this.tmpArray.length; m++) {
-                                if (this.tmpArray[m].id == this.goodsVariants[i].attributeValues[j].attributeId &&
-                                    this.tmpArray[m].value == this.goodsVariants[i].attributeValues[j].value) {
-                                    isDoubleChecked += 1;
-                                }
-                            }
-                        }
-                        if (isDoubleChecked == this.goodsType.length) {
-                            this.variantsId = this.goodsVariants[i].id;
-                            this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice
-                            this.selunitPrice = this.goodsVariants[i].unitPrice
-
-                            this.nextPage.salePrice = this.selsaleUnitPrice;
-                            this.nextPage.currentPrice = this.selunitPrice;
-                            break;
-                        }
-                    }
                     this.nextPage.id = this.variantsId;
                     this.nextPage.quantity = this.selquantity;
+                    // this.$notice.toast({
+                    //     message: this.variantsId
+                    // })
                     // this.nextPage.currentPrice = this.nextPage.currentPric * this.selquantity;
                     if (this.isDrop == true) {
                         this.createCut()
@@ -1082,15 +1046,9 @@
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
-                    // if (this.hasVariants === false) {
-                    //     if (this.variantsId !== '' && this.isDrop == false) {
-                    //         this.postGoodsCart()
-                    //     }
-                    // } else {
-                        this.isAddCart = true;
-                        this.isBottomShow = true;
-                        common.changeAndroidCanBack(false)
-                    // }
+                    this.isAddCart = true;
+                    this.isBottomShow = true;
+                    common.changeAndroidCanBack(false)
                 }
             },
             postGoodsCart () {
@@ -1162,29 +1120,6 @@
                     this.selquantity -= 1
                 }
             },
-            // 非状态组件，需要在这里关闭
-            popupOverlayBottomClick () {
-                this.isBottomShow = false;
-                this.isCardShow = false;
-                this.isRulerShow = false;
-                this.isShipShow = false;
-                this.isCODShow = false;
-                common.changeAndroidCanBack(true)
-            },
-
-            popupCloseClick () {
-                // this.$refs.wxcPopup.hide();
-                this.isAddCart = false
-                this.isBottomShow = false;
-                common.changeAndroidCanBack(true)
-            },
-
-            popupRulerClick () {
-                // this.$refs.wxcPopup.hide();
-                this.isRulerShow = false;
-                common.changeAndroidCanBack(true)
-            },
-
             operateData (data) {
                 for (let i = 0; i < data.length; i++) {
                     for (let j = 0; j < data[i].value.length; j++) {
@@ -1251,20 +1186,6 @@
                 this.changeDom(item, color)
             },
             changeDom (item, color) {
-                if (color.length !== 0) {
-                    this.selsaleUnitPrice = color[0].item.saleUnitPrice
-                    this.selunitPrice = color[0].item.unitPrice
-                    this.variantsId = color[0].item.id
-                    for (let n = 0; n < this.goodsVariants.length; n++) {
-                        if (this.goodsVariants[n].id === color[0].item.id) {
-                            this.canBuy = this.goodsVariants[n].isCanBuy
-                        }
-                    }
-                } else {
-                    this.$notice.toast({
-                        message: 'Please select an option first.'
-                    })
-                }
                 if (item.isActive == true) {
                     if (item.id == 1) {
                         this.selsize = item.value
@@ -1277,6 +1198,10 @@
                     } else if (item.id == 2) {
                         this.selcolor = ''
                     }
+                }
+                if ((this.selsize == '') || (this.selcolor == '')) {
+                    this.canBuy = true
+                    this.variantsId = ''
                 }
                 let tmp = []
                 for (let i = 0; i < this.goodsType.length; i++) {
@@ -1291,6 +1216,86 @@
                 }
                 this.nextPage.attributes = this.selcolor + ' ' + this.selsize;
                 this.nextPage.mainImage = this.selimgsrc;
+
+                this.tmpArray = [];
+                for (let i = 0; i < this.goodsType.length; i++) {
+                    for (let j = 0; j < this.goodsType[i].value.length; j++) {
+                        if (this.goodsType[i].value[j].isActive == true) {
+                            this.tmpArray.push(this.goodsType[i].value[j])
+                            break;
+                        }
+                    }
+                }
+                for (let i = 0; i < this.goodsVariants.length; i++) {
+                    let isDoubleChecked = 0;
+                    for (let j = 0; j < this.goodsVariants[i].attributeValues.length; j++) {
+                        for (let m = 0; m < this.tmpArray.length; m++) {
+                            if (this.tmpArray[m].id == this.goodsVariants[i].attributeValues[j].attributeId &&
+                                this.tmpArray[m].value == this.goodsVariants[i].attributeValues[j].value) {
+                                isDoubleChecked += 1;
+                            }
+                        }
+                    }
+                    if (isDoubleChecked == this.goodsType.length) {
+                        this.variantsId = this.goodsVariants[i].id;
+                        this.canBuy = this.goodsVariants[i].isCanBuy;
+                        this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice
+                        this.selunitPrice = this.goodsVariants[i].unitPrice
+
+                        this.nextPage.salePrice = this.selsaleUnitPrice;
+                        this.nextPage.currentPrice = this.selunitPrice;
+                        break;
+                    }
+                }
+            },
+            redirectLogin () {
+                this.$event.on('login', params => {
+                    this.getGoodsDetail(this.proId)
+                    this.getSomeGoods(this.proId)
+                    this.getCartNum()
+
+                    this.$storage.get('user').then(resData => {
+                        this.user = resData
+                    })
+                });
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            },
+            openCutPrice () {
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    if (this.hasVariants === false) {
+                        this.createCut()
+                    } else {
+                        this.isBottomShow = true;
+                        common.changeAndroidCanBack(false)
+                    }
+                }
+            },
+            // 非状态组件，需要在这里关闭
+            popupOverlayBottomClick () {
+                this.isBottomShow = false;
+                this.isCardShow = false;
+                this.isRulerShow = false;
+                this.isShipShow = false;
+                this.isCODShow = false;
+                common.changeAndroidCanBack(true)
+            },
+
+            popupCloseClick () {
+                // this.$refs.wxcPopup.hide();
+                this.isAddCart = false
+                this.isBottomShow = false;
+                common.changeAndroidCanBack(true)
+            },
+
+            popupRulerClick () {
+                // this.$refs.wxcPopup.hide();
+                this.isRulerShow = false;
+                common.changeAndroidCanBack(true)
             },
             openShip (e) {
                 if (e == 1) {
@@ -2060,7 +2065,7 @@
         height: 80px;
         background-color: rgba(0,0,0,0.48);
         border-color: #2e6da4;
-        border-radius: 12px;
+        border-radius: 50%;
         padding-top: 22px;
         padding-bottom: 10px;
         margin-top: 16px;
