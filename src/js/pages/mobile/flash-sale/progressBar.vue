@@ -44,6 +44,8 @@
                         tmp = num
                     } else if (num >= 51 && num <= 99) {
                         tmp = (num / 2)
+                    } else {
+                        tmp = 50
                     }
                     this.len = (tmp / 100) * 320
                     this.percentNum = parseInt(tmp)
