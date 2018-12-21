@@ -35,6 +35,7 @@
                             <text class="b-w">{{firstPrize.count}} {{firstPrize.count > 1 ? 'Winners' : 'Winner'}} </text>
                         </div>
                         <div class="b-i">
+                            <text class="b-wB">Details</text>
                             <text class="iconfont b-arrow">&#xe626;</text>
                         </div>
 
