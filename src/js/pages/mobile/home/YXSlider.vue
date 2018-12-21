@@ -28,6 +28,21 @@ export default {
                         id: params.id
                     }
                 });
+            } else if (img.title == 'event') {
+                const params = {};
+                const items = JSON.parse(img.params);
+                for (const item in items) {
+                    params[item] = items[item];
+                }
+                if (params.templateId == 1) {
+                    this.$router.open({
+                        name: 'mobile.activity',
+                        params: {
+                            id: params.id
+                        }
+                    });
+                }
+
             } else if (img.title == 'flash') {
                 this.$router.open({
                     name: 'flash',

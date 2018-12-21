@@ -169,5 +169,8 @@ export default {
     },
     'search.result': {
         url: '/pages/mobile/search/result.js'
+    },
+    'mobile.activity.topic1': {
+        url: '/pages/mobile/activity/topic1.js'
     }
 }

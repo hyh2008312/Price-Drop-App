@@ -66,7 +66,8 @@ module.exports = {
         'js/pages/mobile/order/orderPaymentMethod.vue',
         'js/pages/mobile/cart/cartOrderPaymentMethod.vue',
         'js/pages/mobile/search/index.vue',
-        'js/pages/mobile/search/result.vue'
+        'js/pages/mobile/search/result.vue',
+        'js/pages/mobile/activity/topic1.vue'
     ],
     'alias': {
         'Components': 'js/components',
