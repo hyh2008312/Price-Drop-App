@@ -31,8 +31,8 @@
 
                         <image :src="i.mainImage" class="i-p-img"></image>
                         <div class="i-p-price">
-                            <text class="i-p1">₹{{parseInt(i.saleUnitPrice)}}</text>
-                            <text class="i-p2">₹{{parseInt(i.unitPrice)}}</text>
+                            <text class="i-p1">₹{{parseInt(i.unitPrice)}}</text>
+                            <text class="i-p2">₹{{parseInt(i.saleUnitPrice)}}</text>
                             <!--<text class="i-p3">{{n.p3}}</text>-->
                             <text class="i-p3">{{countOff(i.unitPrice,i.saleUnitPrice)}}</text>
                         </div>
