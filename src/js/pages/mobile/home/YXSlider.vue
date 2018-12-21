@@ -16,6 +16,13 @@ export default {
     },
     methods: {
         jumpDetail (img) {
+            this.$router.open({
+                name: 'mobile.activity.topic2',
+                params: {
+                    id: 3
+                }
+            });
+            return;
             if (img.title == 'activity') {
                 const params = {};
                 const items = JSON.parse(img.params);
