@@ -6,184 +6,84 @@
             <text class="title">{{name}}</text>
         </div>
 
-        <list  class="all-list" @scroll="scrollHandler" offset-accuracy="200px" @scrollToElement="">
+        <list  class="all-list" @scroll="scrollHandler" offset-accuracy="1300px" >
             <cell>
                 <image style="width: 750px;height: 358px" :src="bgImg"></image>
             </cell>
             <header>
-                <scroller class="scroller" scroll-direction="horizontal" :style="{backgroundColor:tabColor}">
+                <scroller class="scroller" scroll-direction="horizontal" :style="{backgroundColor:tabColor}" ref="top">
                     <text class="tab-txt" :class="[flag == item.id ? 'tab-txt-active' : '']"
                           v-for="item in productList" @click="choseActive(item.id)">{{item.name}}</text>
                 </scroller>
             </header>
-
-
-            <cell v-for="item in productList"  :style="{backgroundColor:bgColor}" :ref="item.name">
-                <div class="empty-div" :ref="item.id"></div>  <!--设置假元素进行ref  进行offset-->
-                <div class="price-title"  >
-                    <image style="width: 66px;height: 44px" :src="headImg.images[0]"></image>
-                    <text class="p-t-word">{{item.name}}</text>
-                    <image style="width: 66px;height: 44px" :src="headImg.images[1]"></image>
+            <cell  v-for="item in products" :style="{backgroundColor:bgColor}" >
+                <div  v-if="item.id" :ref="item.name">
+                    <div class="empty-div" :ref="item.id"></div>  <!--设置假元素进行ref  进行offset-->
+                    <div class="price-title"  >
+                        <image style="width: 66px;height: 44px" :src="headImg.images[0]"></image>
+                        <text class="p-t-word">{{item.name}}</text>
+                        <image style="width: 66px;height: 44px" :src="headImg.images[1]"></image>
+                    </div>
                 </div>
+                <div class="i-row" v-if="!item.id">
 
-                <div  v-for="i in tranArr(item.activityProducts)" class="i-row" >
+                    <div v-for="i in item.items" class="i-product" @click="openGoodDetail(i.productId)">
 
-                    <div v-for="n in i" class="i-product">
-                        <image :src="n.mainImage" class="i-p-img"></image>
+                        <image :src="i.mainImage" class="i-p-img"></image>
                         <div class="i-p-price">
-                            <text class="i-p1">{{n.saleUnitPrice}}</text>
-                            <text class="i-p2">{{n.unitPrice}}</text>
-                            <text class="i-p3">{{n.p3}}</text>
+                            <text class="i-p1">₹{{parseInt(i.saleUnitPrice)}}</text>
+                            <text class="i-p2">₹{{parseInt(i.unitPrice)}}</text>
+                            <!--<text class="i-p3">{{n.p3}}</text>-->
+                            <text class="i-p3">{{countOff(i.unitPrice,i.saleUnitPrice)}}</text>
                         </div>
+
                     </div>
                 </div>
             </cell>
         </list>
-
+        <div class="ic-top" @click="scrollTop">
+            <text class="i-t">&#xe76e;</text>
+        </div>
     </div>
 </template>
 
 <script>
     const dom = weex.requireModule('dom');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { baseUrl } from '../../../config/apis';
     export default {
         data () {
             return {
-                name: 'Headphones',
+                name: '',
                 bgColor: '',
                 tabColor: '',
                 bgImg: '',
                 headImg: '',
                 productList: [],
-                subCategory: [
-                    {
-                        id: 1,
-                        name: 'Below $300'
-                    }, {
-                        id: 2,
-                        name: '$300-$500'
-                    }, {
-                        id: 3,
-                        name: '$500-$800'
-                    }, {
-                        id: 4,
-                        name: 'Above $800'
-                    }],
-                flag: 1
-                // productList: [
-                //     {
-                //         c: 'Below $300',
-                //         id: 1,
-                //         product: [
-                //             {
-                //                 p1: '$150',
-                //                 p2: '$300',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             },
-                //             {
-                //                 p1: '$250',
-                //                 p2: '$400',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             },
-                //             {
-                //                 p1: '$350',
-                //                 p2: '$500',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             },
-                //             {
-                //                 p1: '$350',
-                //                 p2: '$500',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             },
-                //             {
-                //                 p1: '$350',
-                //                 p2: '$500',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             }
-                //         ]
-                //     },
-                //     {
-                //         c: '$300-$500',
-                //         id: 2,
-                //         product: [
-                //             {
-                //                 p1: '$1500',
-                //                 p2: '$300',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             }, {
-                //                 p1: '$2500',
-                //                 p2: '$300',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             }, {
-                //                 p1: '$3500',
-                //                 p2: '$300',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             }, {
-                //                 p1: '$150',
-                //                 p2: '$300',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             }, {
-                //                 p1: '$4500',
-                //                 p2: '$300',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             }
-                //         ]
-                //     },
-                //     {
-                //         c: '$500-$800',
-                //         id: 3,
-                //         product: [
-                //             {
-                //                 p1: '$150',
-                //                 p2: '$300',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             }
-                //         ]
-                //     },
-                //     {
-                //         c: 'Above $800',
-                //         id: 4,
-                //         product: [
-                //             {
-                //                 p1: '$150',
-                //                 p2: '$300',
-                //                 p3: '50%OFF',
-                //                 img: 'bmlocal://assets/home/mask-head.png'
-                //             }
-                //         ]
-                //     }
-                // ]
+                flag: 1,
+                products: ''
+            }
+        },
+        eros: {
+            appeared (params, options) {
+                if (params) {
+                    this.getActivityParam(params);
+                }
             }
         },
         created () {
-            this.getData()
+            // this.getData()
         },
         methods: {
-            choseActive (i) {
-                this.flag = i
-                const el = this.$refs[i][0]
-                // dom.scrollToElement(el, { offset: -55 })
-                // this.$nextTick(() => {
-                    dom.scrollToElement(el, { offset: -50, animated: false });
-                // })
-
+            getActivityParam (resData) {
+                googleAnalytics.trackingScreen(`Activity/${this.name}`);
+                this.getData(resData.id);
             },
-            getData () {
+            getData (id) {
                 this.$fetch({
                     methods: 'GET',
-                    // url: `${baseUrl}/product/customer/detail/${id}/`,
-                    url: `${baseUrl}/activity/app/detail/27/`
+                    // url: `${baseUrl}/activity/app/detail/${id}/`
+                    url: `${baseUrl}/activity/app/detail/3/`
                 }).then((res) => {
                     this.name = res.name
                     this.bgImg = res.image
@@ -192,6 +92,8 @@
                     this.tabColor = res.tabColor
                     this.headImg = res.templateContentJson
                     this.flag = res.activityTabs[0].id
+
+                    this.handlerData(res)
                     // this.$notice.alert({
                     //     message: this.bgImg
                     // })
@@ -201,51 +103,68 @@
                     // })
                 })
             },
+            choseActive (i) {
+                this.flag = i
+                const el = this.$refs[i][0]
+                // dom.scrollToElement(el, { offset: -55 })
+                this.$nextTick(() => {
+                    dom.scrollToElement(el, { offset: -50, animated: false })
+                })
+            },
             scrollHandler (e) {
-
-                // this.$notice.alert({
-                //     message: e.currentTarget.children[2].children[0].ref
-                // })
-                // this.$notice.alert({
-                //     message: this.$refs['456'][0].ref
-                // })
-
-                // if (e.currentTarget.children[2].children[0].ref == this.$refs['456'][0].ref) {
-                //     this.flag = 43;
-                // }
-
                 for (let item of this.productList) {
-
-                    // let id = item.id
-                    // this.$notice.alert({
-                    //     message: e
-                    // })
                     dom.getComponentRect(this.$refs[item.name][0], (res) => {
-                        // this.$notice.alert({
-                        //     message: res
-                        // })
                         if (res.size && res.size.top < 500 && res.size.top > 0) {
                             this.flag = item.id;
                         }
                     })
                 }
-
-                // if (Math.abs(e.contentOffset.y) >= 112) {
-                //     this.opacity = (Math.abs(e.contentOffset.y) - 112) / 200 > 1 ? 1 : (Math.abs(e.contentOffset.y) - 112) / 200
-                // } else {
-                //     this.opacity = 0
-                // }
-                //
-                // if (Math.abs(e.contentOffset.y) > 1200) {
-                //     this.tabshow = true
-                // } else if (Math.abs(e.contentOffset.y) < 1100) {
-                //     this.tabshow = false
-                // }
-                // if (e.contentSize.height + e.contentOffset.y < 1350) {
-                //     this.defaultTab = 'policy'
-                // } else {
-                //     this.defaultTab = 'dec'
-                // }
+            },
+            handlerData (arr) {
+                this.products = [];
+                let PRODUCTS = []
+                for (let j = 0; j < arr.activityTabs.length; j++) {
+                    PRODUCTS.push({
+                        id: arr.activityTabs[j].id,
+                        name: arr.activityTabs[j].name
+                    })
+                }
+                if (PRODUCTS.length > 0) {
+                    for (let i = 0; i < PRODUCTS.length;i++) {
+                        const item = PRODUCTS[i];
+                        const m = arr.activityTabs[i];
+                        item.id = m.id;
+                        this.products.push(item)
+                        if (m.activityProducts.length > 0) {
+                            let goods = [];
+                            for (let i = 0; i < m.activityProducts.length; i++) {
+                                const itm = m.activityProducts[i];
+                                goods.push(itm);
+                                if ((i > 0 && i % 2 == 1) || i == m.activityProducts.length - 1) {
+                                    this.products.push({
+                                        items: [...goods]
+                                    });
+                                    goods = [];
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            openGoodDetail (id) {
+                this.$router.open({
+                    name: 'goods.details',
+                    type: 'PUSH',
+                    params: {
+                        id: id
+                    }
+                })
+            },
+            scrollTop () {
+                const el = this.$refs['top']
+                this.$nextTick(() => {
+                    dom.scrollToElement(el, { offset: 0, animated: false })
+                })
             },
             tranArr (data) {
                 let arr = [];
@@ -263,6 +182,14 @@
                     }
                 }
                 return rArr
+            },
+            countOff (s, o) {
+                if (o > 0) {
+                    return Math.ceil((o - s) / o * 100) + '% OFF'
+                    // return (o - s) / o * 100 + '% OFF'
+                } else {
+                    return ''
+                }
             }
         }
     }
@@ -339,6 +266,24 @@
     }
     .empty-div{
         height: 34px;
+    }
+    .ic-top{
+       flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom:112px;
+        right:48px;
+        height: 80px;
+        width: 80px;
+        background-color: #FFFFFF;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.38);
+        border-radius: 50%;
+    }
+    .i-t{
+        font-family: iconfont;
+        font-size: 40px;
+        color: black;
     }
     .price-title{
         flex-direction: row;
