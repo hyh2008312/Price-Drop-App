@@ -457,10 +457,10 @@
                 })
             },
             openReview () {
-                this.$router.open({
-                    name: 'mobile.activity.topic2',
-                    type: 'PUSH'
-                })
+                // this.$router.open({
+                //     name: 'mobile.activity.topic2',
+                //     type: 'PUSH'
+                // })
             },
             getCartNum () {
                 this.$fetch({
