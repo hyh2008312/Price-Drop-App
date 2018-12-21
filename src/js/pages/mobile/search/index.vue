@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="search-h"   v-if="popularList.length > 0">
+        <div class="search-h" >
             <text class="sh-1">POPULAR SEARCH</text>
             <text class="sh-2">&nbsp;</text>
         </div>

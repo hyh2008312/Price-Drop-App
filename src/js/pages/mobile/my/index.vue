@@ -457,10 +457,17 @@
                 })
             },
             openReview () {
-                // this.$router.open({
-                //     name: 'mobile.activity.topic2',
-                //     type: 'PUSH'
-                // })
+                if (this.user == null) {
+                    this.$router.open({
+                        name: 'login',
+                        type: 'PUSH'
+                    })
+                } else {
+                    // this.$router.open({
+                    //     name: 'mobile.activity.topic2',
+                    //     type: 'PUSH'
+                    // })
+                }
             },
             getCartNum () {
                 this.$fetch({

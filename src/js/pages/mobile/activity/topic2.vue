@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="state"></div>
         <div class="navigation">
-            <text class="homeBack" @click="homeBack">&#xe6f6;</text>
+            <text class="homeBack" @click="$router.back();">&#xe6f6;</text>
             <text class="title">{{name}}</text>
         </div>
 
@@ -61,6 +61,7 @@
                 headImg: '',
                 productList: [],
                 flag: 1,
+                defultFlag: '',
                 products: ''
             }
         },
@@ -80,10 +81,11 @@
                 this.getData(resData.id);
             },
             getData (id) {
+                this.$notice.loading.show()
                 this.$fetch({
                     methods: 'GET',
-                    // url: `${baseUrl}/activity/app/detail/${id}/`
-                    url: `${baseUrl}/activity/app/detail/3/`
+                    url: `${baseUrl}/activity/app/detail/${id}/`
+                    // url: `${baseUrl}/activity/app/detail/3/`
                 }).then((res) => {
                     this.name = res.name
                     this.bgImg = res.image
@@ -92,12 +94,15 @@
                     this.tabColor = res.tabColor
                     this.headImg = res.templateContentJson
                     this.flag = res.activityTabs[0].id
+                    this.defultFlag = res.activityTabs[0].id
 
                     this.handlerData(res)
                     // this.$notice.alert({
                     //     message: this.bgImg
                     // })
+                    this.$notice.loading.hide()
                 }).catch((res) => {
+                    this.$notice.loading.hide()
                     // this.$notice.alert({
                     //     message: res
                     // })
@@ -161,6 +166,7 @@
                 })
             },
             scrollTop () {
+                this.flag = this.defultFlag
                 const el = this.$refs['top']
                 this.$nextTick(() => {
                     dom.scrollToElement(el, { offset: 0, animated: false })
@@ -277,7 +283,7 @@
         height: 80px;
         width: 80px;
         background-color: #FFFFFF;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.38);
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.38);
         border-radius: 50%;
     }
     .i-t{
