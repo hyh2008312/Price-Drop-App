@@ -17,7 +17,7 @@
                     </div>
                     <div class="gb-bg-1">
                         <text class="gb-icon iconfont">&#xe705;</text>
-                        <text class="gb-text-1">{{address.line1}}, {{address.line2}}, {{address.line3}}, {{address.city}}, {{address.stateName}}</text>
+                        <text class="gb-text-1">{{address.line1}}, {{address.line2}}, {{address.line3}}, {{address.city}}, {{address.postcode}}, {{address.stateName}}</text>
                     </div>
                 </div>
                 <text class="gb-icon-1 iconfont">&#xe626;</text>
