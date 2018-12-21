@@ -34,15 +34,14 @@ export default {
                 for (const item in items) {
                     params[item] = items[item];
                 }
-                if (params.templateId == 1) {
+                if (params.templateId == '1') {
                     this.$router.open({
-                        name: 'mobile.activity',
+                        name: 'mobile.activity.topic1',
                         params: {
                             id: params.id
                         }
                     });
                 }
-
             } else if (img.title == 'flash') {
                 this.$router.open({
                     name: 'flash',

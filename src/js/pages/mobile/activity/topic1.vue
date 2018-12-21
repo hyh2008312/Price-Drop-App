@@ -210,15 +210,15 @@
                 this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
-                    url: `${baseUrl}/product/app/topic/detail/${this.id}/`
+                    url: `${baseUrl}/activity/app/detail/${this.id}/`
                 }).then(data => {
                     this.$notice.loading.hide();
                     this.name = data.name;
                     this.imageUrl = data.image;
                     this.bgColor = data.color;
-                    this.topicOne = data.topicOne;
-                    this.topicTwo = data.topicTwo;
-                    this.topicThree = data.topicThree;
+                    this.topicOne = data.activityTabs[1] ? data.activityTabs[1].name : null;
+                    this.topicTwo = data.activityTabs[2] ? data.activityTabs[2].name : null;
+                    this.topicThree = data.activityTabs[3] ? data.activityTabs[3].name : null;
                     if (isfirst) {
                         this.goodsTop = [];
                         this.goodsTopic1 = [];
@@ -227,17 +227,17 @@
                         this.page = 1;
                         this.isFirstLoad = false;
                     }
-                    for (let i = 0; i < data.products.length; i++) {
-                        const item = data.products[i];
-                        if (i < 3) {
-                            this.goodsTop.push(item);
-                        } else if (i >= 3 && i < 12) {
-                            this.goodsTopic1.push(item);
-                        } else if (i >= 12 && i < 21) {
-                            this.goodsTopic2.push(item);
-                        } else if (i >= 21 && i < 30) {
-                            this.goodsTopic3.push(item);
-                        }
+                    if (data.activityTabs[0]) {
+                        this.goodsTop = [...data.activityTabs[0].activityProducts];
+                    }
+                    if (data.activityTabs[1]) {
+                        this.goodsTopic1 = [...data.activityTabs[1].activityProducts];
+                    }
+                    if (data.activityTabs[2]) {
+                        this.goodsTopic2 = [...data.activityTabs[2].activityProducts];
+                    }
+                    if (data.activityTabs[3]) {
+                        this.goodsTopic3 = [...data.activityTabs[3].activityProducts];
                     }
                     if (!isfirst) {
                         this.isLoading = false;
