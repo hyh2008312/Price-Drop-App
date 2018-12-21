@@ -82,5 +82,6 @@ export const apis = {
     'payment.cart.payu.status': '/payment/cart/payu/status/',
     'directory.app.category.list': '/directory/app/category/list/',
     'notice.app.list': '/notice/app/list/',
-    'statistics.search.key.list': '/statistics/search/key/list/'
+    'statistics.search.key.list': '/statistics/search/key/list/',
+    'activity.app.detail': '/activity/app/detail/'
 }

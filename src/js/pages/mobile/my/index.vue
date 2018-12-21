@@ -113,7 +113,7 @@
 
             <cell class="overflow-box" >
                 <div class="mid-cell">
-                    <div class="box-tlt "  >
+                    <div class="box-tlt "  @click="openReview()">
                         <div class="box-left">
                             <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
                             <text class="box-txt">My Wallet</text>
@@ -453,6 +453,12 @@
             openNoti () {
                 this.$router.open({
                     name: 'my.notice',
+                    type: 'PUSH'
+                })
+            },
+            openReview () {
+                this.$router.open({
+                    name: 'mobile.activity.topic2',
                     type: 'PUSH'
                 })
             },
