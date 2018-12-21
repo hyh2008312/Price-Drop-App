@@ -6,7 +6,7 @@
             <text class="title">{{name}}</text>
         </div>
 
-        <list  class="all-list" @scroll="scrollHandler" offset-accuracy="1300px" @scrollToElement="">
+        <list  class="all-list" @scroll="scrollHandler" offset-accuracy="200px" @scrollToElement="">
             <cell>
                 <image style="width: 750px;height: 358px" :src="bgImg"></image>
             </cell>
@@ -16,6 +16,7 @@
                           v-for="item in productList" @click="choseActive(item.id)">{{item.name}}</text>
                 </scroller>
             </header>
+
 
             <cell v-for="item in productList"  :style="{backgroundColor:bgColor}" :ref="item.name">
                 <div class="empty-div" :ref="item.id"></div>  <!--设置假元素进行ref  进行offset-->
@@ -174,7 +175,7 @@
                 const el = this.$refs[i][0]
                 // dom.scrollToElement(el, { offset: -55 })
                 // this.$nextTick(() => {
-                    dom.scrollToElement(el, { offset: -50 }, { animated: true } )
+                    dom.scrollToElement(el, { offset: -50, animated: false });
                 // })
 
             },
@@ -213,18 +214,21 @@
                 //     this.flag = 43;
                 // }
 
-                // for(let item of this.productList) {
-                //     let id = item.id
-                //     dom.getComponentRect(this.$refs[item.name][0], (e)=>{
-                //         // this.$notice.alert({
-                //         //     message: e
-                //         // })
-                //         if(e.size.top.toString() == 0) {
-                //             this.flag = id;
-                //         }
-                //     })
-                // }
+                for (let item of this.productList) {
 
+                    // let id = item.id
+                    // this.$notice.alert({
+                    //     message: e
+                    // })
+                    dom.getComponentRect(this.$refs[item.name][0], (res) => {
+                        // this.$notice.alert({
+                        //     message: res
+                        // })
+                        if (res.size && res.size.top < 500 && res.size.top > 0) {
+                            this.flag = item.id;
+                        }
+                    })
+                }
 
                 // if (Math.abs(e.contentOffset.y) >= 112) {
                 //     this.opacity = (Math.abs(e.contentOffset.y) - 112) / 200 > 1 ? 1 : (Math.abs(e.contentOffset.y) - 112) / 200

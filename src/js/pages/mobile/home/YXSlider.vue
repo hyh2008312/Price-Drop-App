@@ -41,6 +41,13 @@ export default {
                             id: params.id
                         }
                     });
+                } else if (params.templateId == '2') {
+                    this.$router.open({
+                        name: 'mobile.activity.topic2',
+                        params: {
+                            id: params.id
+                        }
+                    });
                 }
             } else if (img.title == 'flash') {
                 this.$router.open({
