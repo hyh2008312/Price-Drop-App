@@ -8,11 +8,6 @@
         <text class="search-icon"  @click="jumpSearch" >&#xe621;</text>
         <div class="right">
             <text class="rightTxt" v-if="iconSign==true" @click="openLink" >&#xe767;</text>
-
-
-
-            <div class="red-dot" v-if="dropGoods>0" ><text style="color: white;font-size: 16px">{{dropGoods}}</text></div>
-
             <!--<text class="rightTxt" v-if="iconSign==true" @click="openLink" >21312312</text>-->
         </div>
     </div>

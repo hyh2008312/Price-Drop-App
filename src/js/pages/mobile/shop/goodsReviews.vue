@@ -12,71 +12,65 @@
                     <star :points="points"></star>
                 </div>
                 <div class="h-s-d1">
-                    <text class="h-s-t">85 Rating</text>
+                    <text class="h-s-t">{{commentNum}} Rating</text>
                 </div>
             </div>
         </div>
         <list class="content">
-            <cell v-for="i in cardArr">
-                <div class="card">
-
-                    <div class="card-top">
-                        <div class="c-t-r">
-                            <div class="r-a">
-                                <div style="background-color: black;width: 64px;height: 64px"></div>
-                                <!--<image class="avatar"></image>-->
-                            </div>
-
-                            <div class="r-t">
-                                <text class="r-t1">U***S</text>
-                                <text class="r-t2">03 May 2018</text>
-                            </div>
-                        </div>
-                        <star :points="4"></star>
-                    </div>
-
-                    <div class="card-mid">
-                        <text class="c-mt1">Black, Small</text>
-                        <text class="c-mt2">Bringing his brand of innovation to the industry of fashion, Drake wants to shake things up with the Keeback. A backpack that is literally like nothing anyone’s seen before.</text>
-                    </div>
-
-                    <div class="card-bottom">
-                        <div class="img-div">
-                            <!--<image></image>-->
-                            <div style="width: 80px;height: 80px;background-color: #f1f1f1"></div>
-                        </div>
-                    </div>
-                </div>
-
-
+            <cell v-for="i in userList">
+                <card :content="i"></card>
             </cell>
         </list>
-        <!--<div>-->
-           <!---->
-        <!--</div>-->
     </div>
 </template>
 
 <script>
     import header from './witheHeader';
     import cimg from './customImg';
+    import card from './reviewsCard';
     import star from './star-item';
+    import { baseUrl } from '../../../config/apis';
     export default {
         components: {
             'topic-header': header,
             'cimg': cimg,
-            'star': star
+            'star': star,
+            'card': card
         },
         data () {
             return {
-                points: 3.5,
-                cardArr: [0, 1]
+                points: '',
+                commentNum: '',
+                userList: '',
+                cardArr: [0, 1],
+                aaa: '4.0'
             }
         },
         created () {
-            this.tranStar()
+            this.getData()
         },
         methods: {
+            getData () {
+                this.$fetch({
+                    method: 'GET',
+                    // url: `${baseUrl}/comment/product/comment/list/${id}/`,
+                    url: `${baseUrl}/comment/product/comment/list/`,
+                    data: {
+                        product_id: 13
+                    }
+                }).then((res) => {
+                    // this.$notice.alert({
+                    //     message: res.list[0].uploadImage
+                    // })
+                    this.points = res.avgScore
+                    this.commentNum = res.commentNum
+                    this.userList = res.list
+                }).catch((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                })
+            }
         }
     }
 </script>
@@ -200,7 +194,7 @@
         width: 648px;
         lines:3;
         text-overflow:ellipsis ;
-        background-color: #EF8A31;
+        /*background-color: #EF8A31;*/
         font-size: 20px;
     }
     .card-bottom{
@@ -212,5 +206,6 @@
     .img-div{
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
         border-radius: 8px;
+        margin-right: 16px;
     }
 </style>

@@ -146,8 +146,14 @@
 
             <div class="mid">
                 <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >
-                    <text class="dec">Size/Color</text>
+                    <text class="dec">Size / Color</text>
                     <text class="s-c-s">Select</text>
+
+                </div>
+
+                <div class="dec-word" @click="openGoodsSize"  >
+                    <text class="dec">Size Chart</text>
+                    <text class="s-c-s">Check</text>
 
                 </div>
 
@@ -552,6 +558,7 @@
                     cut_get: '',
                     brandLogo: '',
                     productSpecification: [],
+                    productSize: [],
                     aliasSize: '',
                     aliasColor: ''
                 },
@@ -699,15 +706,16 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/13566/`,
+                        // url: `${baseUrl}/product/customer/detail/8111/`,
                         data: {}
                     }).then((res) => {
                         // this.$notice.alert({
-                        //     message: res.aliasSize
+                        //     message: res.productSize
                         // })
                         this.goods.productSpecification = res.productSpecification
                         this.goods.aliasSize = res.aliasSize
                         this.goods.aliasColor = res.aliasColor
+                        this.goods.productSize = res.productSize
                         this.purchaseMethod = res.purchaseMethod;
                         if (this.purchaseMethod === 'flash') {
                             this.flashSale = res.flashSale;
@@ -1385,6 +1393,15 @@
                 this.$router.open({
                     name: 'search',
                     type: 'PUSH'
+                });
+            },
+            openGoodsSize () {
+                this.$router.open({
+                    name: 'goods.size',
+                    type: 'PUSH',
+                    params: {
+                        productSize: this.goods.productSize
+                    }
                 });
             },
             openReviews () {

@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="blackheader"></div>
-        <topic-header title="My Reviews" leftBtn="n" rightBtn="Submit" ></topic-header>
+        <topic-header title="My Reviews" leftBtn="n" rightBtn="Submit" @open="postData"></topic-header>
         <div class="overflow-top">
             <div class="top">
                 <div class="g-img">
@@ -9,8 +9,10 @@
                     <div style="background-color: black;width: 160px;height: 160px"></div>
                 </div>
                 <div class="g-t">
-                    <text class="g-t1">Toyota’s Latest is an Entire Mobility Service Platform</text>
-                    <text class="g-t2">Pink L</text>
+                    <text class="g-t1">{{product.title}}</text>
+                    <!--<text class="g-t1">Toyota’s Latest is an Entire Mobility Service Platform</text>-->
+                    <text class="g-t2">{{product.variant}}</text>
+                    <!--<text class="g-t2">Pink L</text>-->
                 </div>
             </div>
         </div>
@@ -29,7 +31,7 @@
                     <!--<text>{{imgSrc}}</text>-->
                     <div class="overflow-add-img" >
                         <div style="width: 686px; flex-direction: row;justify-content: start;align-items: center;flex-wrap: wrap;">
-                            <div class="add-img"  v-for="(i,index) in localImg">
+                            <div class="add-img"  v-for="(i,index) in imgSrc1">
                                     <div class="i-photo-div"   :key="index" >
                                             <image  class="i-photo" resize="cover"  :src="i" ></image>
                                         <!--<div  class="i-photo" style="background-color: #EF8A31"></div>-->
@@ -62,26 +64,73 @@
             // 'cimg': cimg,
             // 'star': star
         },
+        eros: {
+            beforeAppear (params) {
+                this.order_id = params.orderId
+                this.product_id = params.productId
+            },
+        },
         name: 'writeReview',
         data () {
             return {
                 starArr: [0, 0, 0, 0, 0],
                 src: 'https://d1vs5fqeka2glf.cloudfront.net/1e/9a/1e5b60b752dc142345b4be1d34463a9a.jpg',
-                imgSrc: [],
-                localImg: [],
-                imgArrLength: 0,
-                tmpLength: 0
-                // grayStarArr: [0, 1, 2, 3, 4],
-                // star: 'bmlocal://assets/star/1.0.png',
-                // gstar: 'bmlocal://assets/star/0.0.png',
-                // g: 0
+                imgSrc: [],   // 每一次选择的图片
+                imgSrc1: [],   // 最终传给后端的图片
+                imgSrc1Tag: true,
+                tmpImg: [],   // 本地处理
+                localImg: [], // 本地的图片
+                imgSign: [],  //  后端返回的 token 和domain
+                tmpLength: 0,
+                product: {
+                    title: 'Toyota’s Latest is an Entire Mobility Service Platform',
+                    variant: 'Pink  L'
+                },
+                content: '',
+                order_id: '',
+                product_id: '',
+                product_score: '',
             }
         },
         methods: {
+            postData () {
+                this.$fetch({
+                    method: 'POST',
+                    name: 'comment.comment.add',
+                    data: {
+                        order_id: 30,
+                        product_id: 13,
+                        product_score: parseInt(this.product_score),
+                        message: this.content,
+                        upload_image: this.imgSrc1,
+                        variant: this.product.variant,
+                        product_title: this.product.title
+                    },
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    this.$notice.alert({
+                        message: res
+                    })
+                }).catch((res) => {
+                    this.$notice.alert({
+                        message: res
+                    })
+                })
+            },
+            confirmStar () {
+
+            },
+            oninput (e) {
+                this.content = e.value
+            },
             selStar (i) {
                 const tmp = i
                 const tmpArr = this.starArr
+                let sign = false
                 for (let j = 0; j < tmpArr.length; j++) {
+                    sign = true
                     if (j <= tmp) {
                         if (tmpArr[j] == 0) {
                             tmpArr[j] = 1
@@ -94,12 +143,20 @@
                         }
                     }
                 }
+                let scoreArr = [...tmpArr]
+                for (let n = 0; n < scoreArr.length; n++) {
+                    if (scoreArr[n] == 0) {
+                        scoreArr.splice(n, scoreArr.length - 1)
+                    }
+                }
+                this.product_score = scoreArr.length
                 this.$nextTick(() => {
                     this.starArr = [...tmpArr];
                 })
                 // this.$notice.alert({
                 //     message: this.starArr
                 // })
+
                 // if (this.g == 0) {
                 //     this.g = 1
                 // } else {
@@ -107,31 +164,60 @@
                 // }
             },
             pickAndUpload () {
-                this.imgSrc = [];
-                this.$image.pick({
-                    maxCount: 6,
-                    imageWidth: '180',
-                    allowCrop: true
-                }).then(
-                    resData => {
-                        const img = this.handlerArr(resData)
-                        this.localImg = []
-                        this.imgArrLength = img.length
-
-                        for (let i = 0; i < img.length; i++) {
-                            this.getPolicy(img[i], resData)
-                            this.localImg.push(resData[i])
+                if (this.localImg.length == 0) {
+                    this.$image.pick({
+                        maxCount: 6 ,
+                        imageWidth: '180',
+                        allowCrop: true
+                    }).then(
+                        resData => {
+                            this.tmpImg = this.handlerArr(resData)
+                            const img = this.handlerArr(resData)
+                            this.localImg = []
+                            for (let i = 0; i < img.length; i++) {
+                                this.getPolicy(img[i], resData)
+                                this.localImg.push(resData[i])
                                 // this.$notice.alert({
                                 //     message:
                                 // });
+                            }
+                        },
+                        error => {
+                            this.$notice.toast({
+                                message: 'Failed to save. Please try again.:' + error.errorMsg
+                            });
                         }
-                    },
-                    error => {
-                        this.$notice.toast({
-                            message: 'Failed to save. Please try again.:' + error.errorMsg
-                        });
-                    }
-                );
+                    );
+                } else {
+                    this.$image.pick({
+                        maxCount: 6 - this.imgSrc1.length,
+                        imageWidth: '180',
+                        allowCrop: true
+                    }).then(
+                        resData => {
+                            const img = this.handlerArr(resData)
+                            this.imgSrc = []
+                            this.imgSign = []
+                            for (let i = 0; i < img.length; i++) {
+                                // this.$notice.alert({
+                                //     message: img[0]
+                                // });
+                                this.getPolicy(img[i], resData)
+                                this.localImg.push(resData[i])
+                                this.tmpImg.push(img[i])
+                                // this.$notice.alert({
+                                //     message:
+                                // });
+                            }
+                        },
+                        error => {
+                            this.$notice.toast({
+                                message: 'Failed to save. Please try again.:' + error.errorMsg
+                            });
+                        }
+                    );
+                }
+
             },
             handlerArr (pics) {
                 let tmp = [];
@@ -142,10 +228,10 @@
                 for (let j = 0; j < tmp.length; j++) {
                     for (let k = 0; k < tmp[j].length; k++) {
                         if (k == (tmp[j].length - 1)) {
-                            this.imgSrc.push({
-                                name: tmp[j][k],
-                                src: ''
-                            })
+                            // this.imgSrc.push({
+                            //     name: tmp[j][k],
+                            //     src: ''
+                            // })
                             nameArr.push(
                                 {
                                     type: 'avatar',
@@ -160,6 +246,7 @@
                 return nameArr
             },
             getPolicy (params, source) {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'POST',
                     name: 'image.qiniu',
@@ -168,55 +255,68 @@
                         needAuth: true
                     }
                 }).then((data) => {
-                    this.$image.upload({
-                        url: data.domain, // 自定义图片上传地址，默认上传地址是 eros.native.js 中的 image 地址
-                        params: {
-                            token: data.token,
-                            key: data.name
-                        }, // 传递的参数
-                        header: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        source: source // 图片路径
-                    }).then(resData => {
-                        if (data) {
-                            this.tmpLength++
-                            for (let i = 0; i < this.imgSrc.length; i++) {
-                                this.imgSrc[i].src = data.url + '/' + data.name
-                            }
+                    // this.$notice.alert({
+                    //     message: this.tmpImg
+                    // });
+                    // this.$notice.loading.hide();
+                    // return
+                    if (data) {
+                        this.imgSrc.push(data.url + '/' + data.name)
+                        this.imgSign.push(data)
+                    }
+                    this.imgSrc1Tag = true
+                    if (this.imgSign.length > 0) {
+                        for (let i = 0; i < this.imgSign.length; i++) {
+                            this.getImg(this.imgSign[i], source[i])
                         }
-                        if (this.tmpLength == this.imgArrLength) {
-                            // this.imgSrc.reverse()
-                            // this.tmp = [...this.imgSrc]
-                            this.$notice.alert({
-                                message: this.imgSrc
-                            });
-                        }
-                        // this.$notice.alert({
-                        //     message: resData
-                        // });
-                    }).catch((res) => {
-                        // this.$notice.toast({
-                        //     message: res
-                        // });
-                    })
+                    }
                 }).catch((res) => {
                     // this.$notice.toast({
                     //     message: res
                     // });
                 })
             },
+            getImg (data, source) {
+                this.$image.upload({
+                    url: data.domain, // 自定义图片上传地址，默认上传地址是 eros.native.js 中的 image 地址
+                    params: {
+                        token: data.token,
+                        key: data.name
+                    }, // 传递的参数
+                    header: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    source: source // 图片路径
+                }).then(resData => {
+                    if (this.imgSrc1Tag) {
+                        this.onSuccess()
+                        this.imgSrc1Tag = false
+                    }
+                    this.$notice.loading.hide();
+                    // this.$notice.alert({
+                    //     message: resData
+                    // });
+                }).catch((res) => {
+                    // this.$notice.toast({
+                    //     message: res
+                    // });
+                })
+            },
+            onSuccess () {
+                if (this.imgSrc1.length == 0) {
+                    this.imgSrc1 = [...this.imgSrc]
+                } else {
+                    for (let i = 0; i < this.imgSrc.length; i++) {
+                        this.imgSrc1.push(this.imgSrc[i])
+                    }
+                }
+            },
             delImg (item, index) {
-                let tmp  = this.localImg
-                tmp.splice(index, 1)
+                let tmp1  = this.imgSrc1
+                tmp1.splice(index, 1)
                 this.$nextTick(() => {
-                    this.localImg = [...tmp]
+                    this.imgSrc1 = [...tmp1]
                 });
-                // this.localImg.splice(index, 1)
-                // this.$notice.alert({
-                //     message: this.localImg
-                // });
-
             }
         }
     }

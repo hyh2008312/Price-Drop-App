@@ -83,5 +83,7 @@ export const apis = {
     'directory.app.category.list': '/directory/app/category/list/',
     'notice.app.list': '/notice/app/list/',
     'statistics.search.key.list': '/statistics/search/key/list/',
-    'activity.app.detail': '/activity/app/detail/'
+    'activity.app.detail': '/activity/app/detail/',
+    'comment.product.comment.list': '/comment/product/comment/list/',
+    'comment.comment.add': '/comment/comment/add/'
 }

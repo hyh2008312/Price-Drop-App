@@ -20,6 +20,9 @@ export default {
     'goods.details': {
         url: '/pages/mobile/shop/goodsDetail.js'
     },
+    'goods.size': {
+        url: '/pages/mobile/shop/goodsSize.js'
+    },
     'cart': {
         url: '/pages/mobile/cart/index.js'
     },
@@ -41,12 +44,12 @@ export default {
     'goods.dec': {
         url: '/pages/mobile/shop/goodsDec.js'
     },
-    // 'goods.reviews': {
-    //     url: '/pages/mobile/shop/goodsReviews.js'
-    // },
-    // 'write.reviews': {
-    //     url: '/pages/mobile/shop/writeReview.js'
-    // },
+    'goods.reviews': {
+        url: '/pages/mobile/shop/goodsReviews.js'
+    },
+    'write.reviews': {
+        url: '/pages/mobile/shop/writeReview.js'
+    },
     'my': {
         url: '/pages/mobile/my/index.js'
     },

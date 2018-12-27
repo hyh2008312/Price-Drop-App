@@ -318,9 +318,9 @@
         border-radius: 8px;
     }
     .i-p-img{
-        width: 287px;
-        height: 287px;
-        margin: 24px;
+        width: 320px;
+        height: 320px;
+        /*margin: 24px;*/
     }
     .i-p-price{
         flex-direction: row;

@@ -8,7 +8,7 @@
         <text class="tlt">{{title}}</text>
         <div class="right">
             <text class="rightTxt" v-if="iconSign==true" @click="setting" >&#xe71e;</text>
-            <text class="rightword " v-else @click="edit()">{{rBtn}}</text>
+            <text class="rightword " v-else @click="open()">{{rBtn}}</text>
         </div>
     </div>
 </template>
@@ -42,17 +42,8 @@ export default {
                 this.leftSign = false
             }
         },
-        edit () {
-            if (this.rBtn == 'Edit') {
-                this.rBtn = 'Done'
-                this.$emit('change', 1)
-            } else {
-                this.rBtn = 'Edit'
-                this.$emit('change', 2)
-            }
-        },
-        setting () {
-           this.$emit('setting', 1)
+        open () {
+           this.$emit('open', 1)
         }
     }
 }
