@@ -154,7 +154,6 @@
                 <div class="dec-word" @click="openGoodsSize"  v-if="goods.productSize!== ''">
                     <text class="dec">Size Chart</text>
                     <text class="s-c-s">Check</text>
-
                 </div>
 
                 <div class="dec-word" @click="openShipPopup"  v-if="purchaseMethod==='drop'" >
@@ -561,7 +560,7 @@
                     cut_get: '',
                     brandLogo: '',
                     productSpecification: [],
-                    productSize: '',
+                    // productSize: '',
                     aliasSize: '',
                     aliasColor: ''
                 },
@@ -708,13 +707,11 @@
                     // })
                     this.$fetch({
                         method: 'GET',
-                        url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/8111/`,
+                        // url: `${baseUrl}/product/customer/detail/${id}/`,
+                        url: `${baseUrl}/product/customer/detail/14227/`,
+
                         data: {}
                     }).then((res) => {
-                        // this.$notice.alert({
-                        //     message: res.productSize
-                        // })
                         this.goods.productSpecification = res.productSpecification
                         this.goods.aliasSize = res.aliasSize
                         this.goods.aliasColor = res.aliasColor
@@ -729,6 +726,9 @@
                                 this.countDate(this.flashSale.startTime)
                             }
                         }
+                        // this.$notice.alert({
+                        //     message: this.goods.productSize
+                        // })
                         // ---- 上面是闪购属性设置 下面是普通属性设置----
                         this.goods.title = res.title;
                         this.goods.price = res.saleUnitPrice;
@@ -777,7 +777,9 @@
                             this.nextPage.currentPrice = res.variants[0].unitPrice;
                             // this.nextPage.mainImage =
                         }
-                        this.shipObj = res.shipping
+                        if (res.shipping) {
+                            this.shipObj = res.shipping
+                        }
                         this.divider = res.divider
                         this.dividend = res.dividend
                         this.productStatus = res.status
@@ -1399,7 +1401,6 @@
                 });
             },
             openGoodsSize () {
-
                 this.$router.open({
                     name: 'goods.size',
                     type: 'PUSH',
