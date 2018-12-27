@@ -151,7 +151,7 @@
 
                 </div>
 
-                <div class="dec-word" @click="openGoodsSize"  >
+                <div class="dec-word" @click="openGoodsSize"  v-if="goods.productSize!== ''">
                     <text class="dec">Size Chart</text>
                     <text class="s-c-s">Check</text>
 
@@ -314,7 +314,10 @@
                     <div class="popup-bxottom">
                         <div v-for="(val, index) in goodsType" :key="index" >
                             <text class="popup-color" v-if="val.name=='Color'">{{goods.aliasColor || val.name}}</text>
-                            <text class="popup-color" v-if="val.name=='Size'">{{goods.aliasSize || val.name}}</text>
+                            <div class="popup-size-item" v-if="val.name=='Size'">
+                                <text class="popup-color">{{goods.aliasSize || val.name}}</text>
+                                <text class="popup-size-chart" @click="openGoodsSize"  v-if="goods.productSize!== ''">Size Chart ></text>
+                            </div>
 
                             <div style="width: 718px;flex-wrap: wrap;flex-direction: row;justify-content: start;align-items: center">
 
@@ -558,7 +561,7 @@
                     cut_get: '',
                     brandLogo: '',
                     productSpecification: [],
-                    productSize: [],
+                    productSize: '',
                     aliasSize: '',
                     aliasColor: ''
                 },
@@ -1396,6 +1399,7 @@
                 });
             },
             openGoodsSize () {
+
                 this.$router.open({
                     name: 'goods.size',
                     type: 'PUSH',
