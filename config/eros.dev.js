@@ -29,6 +29,7 @@ module.exports = {
         'js/pages/mobile/my/myNotice.vue',
         'js/pages/mobile/my/myNoticeTmp.vue',
         'js/pages/mobile/my/myRaffleDraws.vue',
+        'js/pages/mobile/my/myReview.vue',
         'js/pages/mobile/cart/index.vue',
         'js/pages/mobile/cart/cartCopy.vue',
         'js/pages/mobile/cart/cartOrder.vue',

@@ -707,8 +707,8 @@
                     // })
                     this.$fetch({
                         method: 'GET',
-                        // url: `${baseUrl}/product/customer/detail/${id}/`,
-                        url: `${baseUrl}/product/customer/detail/14227/`,
+                        url: `${baseUrl}/product/customer/detail/${id}/`,
+                        // url: `${baseUrl}/product/customer/detail/14227/`,
 
                         data: {}
                     }).then((res) => {

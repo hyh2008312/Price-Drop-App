@@ -16,10 +16,16 @@
                 </div>
             </div>
         </div>
-        <list class="content">
+        <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
             <cell v-for="i in userList">
                 <card :content="i"></card>
             </cell>
+            <cell class="loading" v-if="isLoading">
+                <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
+            </cell>
+            <loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">
+                <text class="indicator">{{loadingWord}}</text>
+            </loading>
         </list>
     </div>
 </template>
@@ -41,32 +47,79 @@
             return {
                 points: '',
                 commentNum: '',
-                userList: '',
+                loadingWord: '11111',
+                userList: [],
+                page: 1,
+                pageSize: 4,
+                length: 2,
                 cardArr: [0, 1],
-                aaa: '4.0'
+                isLoading: false
             }
         },
         created () {
-            this.getData()
+            this.init()
         },
         methods: {
-            getData () {
+            onLoadingMore () {
+                if (!this.isLoading) {
+                    this.isLoading = true;
+                    this.requestProduct(false)
+                }
+            },
+            onloading () {
+                this.isLoading = true
+                this.requestProduct(false)
+            },
+            init () {
+                this.$notice.loading.show();
+                this.requestProduct(true);
+            },
+            requestProduct (isFirst) {
+                if (isFirst) {
+                    this.page = 1;
+                }
+
+                if (this.page > this.length) {
+                    this.$nextTick(() => {
+                        this.isLoading = false
+                    })
+                    return
+                }
+                this.getData(isFirst);
+            },
+            getData (isfirst) {
                 this.$fetch({
                     method: 'GET',
                     // url: `${baseUrl}/comment/product/comment/list/${id}/`,
                     url: `${baseUrl}/comment/product/comment/list/`,
                     data: {
-                        product_id: 13
+                        product_id: 13,
+                        page: this.page,
+                        page_size: this.pageSize
                     }
                 }).then((res) => {
-                    // this.$notice.alert({
-                    //     message: res.list[0].uploadImage
-                    // })
-                    this.points = res.avgScore
-                    this.commentNum = res.commentNum
-                    this.userList = res.list
+
+                    this.$notice.loading.hide();
+
+                    this.points = res.results.avgScore
+                    this.commentNum = res.results.commentNum
+
+                    let tmp = res.results.list
+                    // this.length = Math.ceil(res.count / this.pageSize);
+
+                    if (isfirst) {
+                        this.userList = []
+                    }
+
+                    this.userList.push(...tmp)
+
+                    this.page++;
+                    // this.$nextTick(() => {
+                    this.isLoading = false;
+                    // });
                 }).catch((res) => {
-                    // this.$notice.alert({
+                    this.$notice.loading.hide();
+                    // this.$notice.toast({
                     //     message: res
                     // })
                 })
@@ -85,7 +138,6 @@
         background-color: #fff;
         width: 750px;
         margin-top: 16px;
-
     }
     .header{
         flex-direction: row;
@@ -208,4 +260,15 @@
         border-radius: 8px;
         margin-right: 16px;
     }
+    .loading{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 0;
+    }
+    .loading-icon{
+        width: 64px;
+        height: 64px;
+    }
 </style>
+

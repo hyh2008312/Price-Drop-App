@@ -10,40 +10,26 @@
 
                     <div class="r-t">
                         <!--<text class="r-t1">U***S</text>-->
-                        <text class="r-t1">{{content.userName}}</text>
-                        <text class="r-t2">{{content.created}}</text>
+                        <text class="r-t1">{{content.userName||''}}</text>
+                        <text class="r-t2">{{tranTime(content.created)}}</text>
                         <!--<text class="r-t2">03 May 2018</text>-->
                     </div>
                 </div>
 
-                <div class="h-s-d" v-if="obj.productScores">
-                    <image class="star-icon" v-if="starArr.length>0" v-for="i in tranStar(starArr)" src="bmlocal://assets/star/1.0.png"></image>
-
-                    <image class="star-icon" v-if="decimal>0" :src="'bmlocal://assets/star/0.' + decimal + '.png'"></image>
-
-                    <image class="star-icon"  v-for="j in tranStar(grayStarArr)" src="bmlocal://assets/star/0.0.png"></image>
+                <div class="h-s-d" v-if="content.productScores">
+                    <image class="star-icon" v-if="starArr.length>0" v-for="i in starArr" src="bmlocal://assets/star/1.0.png"></image>
+                    <image class="star-icon"  v-for="j in grayStarArr" src="bmlocal://assets/star/0.0.png"></image>
                 </div>
-
-                <div class="h-s-d" v-if="!obj.productScores">
-                    <!--<image class="star-icon" v-for="i in starArr" src="bmlocal://assets/star/1.0.png"></image>-->
-                    <!--<image class="star-icon" :src="'bmlocal://assets/star/0.' + decimal + '.png'"></image>-->
-                    <image class="star-icon"  v-for="i in grayStarArr" src="bmlocal://assets/star/0.0.png"></image>
-                    <!--<text>{{points}}</text>  <!--空的站位图-->
-                </div>
-                <!--<text>{{content.productScores}}</text>-->
             </div>
 
             <div class="card-mid">
                 <text class="c-mt1">{{content.variant}}</text>
-                <!--<text class="c-mt2">Bringing his brand of innovation to the industry of fashion, Drake wants to shake things up with the Keeback. A backpack that is literally like nothing anyone’s seen before.</text>-->
                 <text class="c-mt2">{{content.message}}</text>
             </div>
-            <!--<text>{{i.uploadImage}}</text>-->
 
             <div class="card-bottom">
                 <div class="img-div" v-for="item in content.uploadImages">
-                    <image style="width: 80px;height: 80px;" :src="item"></image>
-                    <!--<div style="width: 80px;height: 80px;background-color: #f1f1f1"></div>-->
+                    <image style="width: 80px;height: 80px;" :src="item" @click="blowUpImg(item)"></image>
                 </div>
             </div>
         </div>
@@ -52,15 +38,16 @@
 </template>
 
 <script>
-    import star from './star-item';
+    import dayjs from 'dayjs';
     export default {
         name: "reviewsCard",
-        components: { star },
         props: ['content'],
         data () {
             return {
-                starArr: [1, 1, 1, 1, 1],
-                grayStarArr: [0, 0, 0, 0, 0],
+                // starArr: [1, 1, 1, 1, 1],
+                // grayStarArr: [0, 0, 0, 0, 0],
+                starArr: [],
+                grayStarArr: [],
                 // starArr: [],
                 // grayStarArr: [],
                 decimal: 0,
@@ -80,33 +67,43 @@
             }
         },
         methods: {
-            tranTime () {},
+            tranTime (str) {
+                if (str) {
+                    return dayjs(str).format('DD MMM, YYYY')
+                }
+            },
+            blowUpImg (img) {
+                this.$image.preview({
+                    index: 1,                     // 所点击图片下标
+                    images: [img]       // 图片的网络地址
+                })
+            },
             tranStar (arr) {
                 // let a = this.points.splice('.')
-                const a = String(this.content.productScores).split('.');
-
-                if (parseInt(a[0]) === 5) {
-                    this.grayStarArr = []
-                } else {
-                    this.starArr.length = a[0]
-                    if (a[1] <= 3 && a[1] != 0) {
-                        this.decimal = 3
-                    } else if (a[1] > 3 && a[1] <= 5) {
-                        this.decimal = 5
-                    } else if (a[1] > 5 && a[1] <= 7) {
-                        this.decimal = 7
-                    }
-                    if (a[1] == 0) {
-                        this.grayStarArr.length = 5 - this.starArr.length
-                    } else {
-                        this.grayStarArr.length = 5 - (this.starArr.length + 1)
-                    }
-                    if (arr[0] == 1) {
-                        return this.starArr
-                    } else {
-                        return this.grayStarArr
-                    }  // 更新dom上面的数据
+                const a = String(this.obj.productScores).split('.');
+                for (let i = 0; i < parseInt(a[0]); i++) {
+                    this.starArr.push(1)
                 }
+                for (let j = 0; j < (5 - parseInt(a[0])); j++) {
+                    this.grayStarArr.push(0)
+                }
+                // if (parseInt(a[0]) === 5) {
+                //     this.grayStarArr = []
+                // } else {
+                //     this.starArr.length = a[0]
+                //     if (a[1] <= 3 && a[1] != 0) {
+                //         this.decimal = 3
+                //     } else if (a[1] > 3 && a[1] <= 5) {
+                //         this.decimal = 5
+                //     } else if (a[1] > 5 && a[1] <= 7) {
+                //         this.decimal = 7
+                //     }
+                //     if (a[1] == 0) {
+                //         this.grayStarArr.length = 5 - this.starArr.length
+                //     } else {
+                //         this.grayStarArr.length = 5 - (this.starArr.length + 1)
+                //     }
+                // }
             }
         }
     }

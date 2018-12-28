@@ -95,6 +95,9 @@ export default {
     'my.notice.tmp': {
         url: '/pages/mobile/my/myNoticeTmp.js'
     },
+    'my.review': {
+        url: '/pages/mobile/my/myReview.js'
+    },
     'order': {
         url: '/pages/mobile/order/index.js'
     },

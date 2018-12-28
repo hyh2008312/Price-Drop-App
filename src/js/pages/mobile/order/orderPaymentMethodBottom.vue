@@ -107,7 +107,7 @@
                                 that.isFirst = false;
                             }, (data) => {
                                 if (that.source == 'confirm') {
-                                    that.$router.finish();
+                                    that.$event.emit('closePayment');
                                     if (data.code == 300) {
                                         that.$router.open({
                                             name: 'order.failure',
@@ -132,7 +132,7 @@
                                             }
                                         });
                                     } else {
-                                        that.$router.finish();
+                                        that.$event.emit('closePayment');
                                     }
                                 }
                                 that.isFirst = false;
@@ -219,7 +219,7 @@
                                     }
                                 }, (data) => {
                                     if (that.source == 'confirm') {
-                                        that.$router.finish();
+                                        that.$event.emit('closePayment');
                                         if (data.code == 300) {
                                             that.$router.open({
                                                 name: 'order.failure',
@@ -244,7 +244,7 @@
                                                 }
                                             });
                                         } else {
-                                            that.$router.finish();
+                                            that.$event.emit('closePayment');
                                         }
                                     }
                                 });
@@ -334,7 +334,7 @@
                                     })
                                 }, function (param) {
                                     if (that.source == 'confirm') {
-                                        that.$router.finish();
+                                        that.$event.emit('closePayment');
                                         if (param.code != 0) {
                                             that.$router.open({
                                                 name: 'order.failure',
@@ -359,7 +359,7 @@
                                                 }
                                             });
                                         } else {
-                                            that.$router.finish();
+                                            that.$event.emit('closePayment');
                                         }
                                     }
                                 });
