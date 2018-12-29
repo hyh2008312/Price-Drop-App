@@ -88,7 +88,11 @@
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Completed'">
                 <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
-                <text class="od-button-1 gt-mr" @click="buyProduct">Buy Again</text>
+                <!--<text class="od-button-1 gt-mr" @click="buyProduct">Buy Again</text>-->
+                <!--<text class="od-button-1 gt-mr" v-if="order.orderComment==''" @click="writeReviews">Write Reviews</text>-->
+
+                <!--<text class="od-button-1 gt-mr" v-if="order.orderComment" @click="writeReviews">Update Reviews</text>-->
+
                 <text class="gd-button" @click="tracking">Track Package</text>
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Undelivered'">
@@ -114,6 +118,7 @@
                 src: 'bmlocal://assets/occupy.png'
             }
         },
+        created () {},
         methods: {
             jumpWeb () {
                 // if (!url) return;
@@ -149,6 +154,16 @@
                         id: this.order.id,
                         status: this.order.orderStatus,
                         carrierCode: this.order.carrierCode
+                    }
+                });
+            },
+            writeReviews () {
+                this.$router.open({
+                    name: 'write.reviews',
+                    type: 'PUSH',
+                    params: {
+                        order: this.order,
+                        update:
                     }
                 });
             },

@@ -5,8 +5,8 @@
         <div class="overflow-top">
             <div class="top">
                 <div class="g-img">
-                    <!--<image></image>-->
-                    <div style="background-color: black;width: 160px;height: 160px"></div>
+                    <image style="width: 160px;height: 160px" :src="product.img"></image>
+                    <!--<div style="background-color: black;width: 160px;height: 160px"></div>-->
                 </div>
                 <div class="g-t">
                     <text class="g-t1">{{product.title}}</text>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="b-ta">
-                    <textarea class="text-review" name="" @input="oninput" @change="onchange" cols="30" rows="8" maxlength="10" placeholder="Write your review here…"></textarea>
+                    <textarea class="text-review" name="" @input="oninput" @change="onchange" cols="30" rows="8" maxlength="240" placeholder="Write your review here…"></textarea>
                     <!--<text>{{imgSrc}}</text>-->
                     <div class="overflow-add-img" >
                         <div style="width: 686px; flex-direction: row;justify-content: start;align-items: center;flex-wrap: wrap;">
@@ -38,17 +38,14 @@
                                     </div>
                                 <text class="i-close iconfont" @click="delImg(i, index)" >&#xe632;</text>
                             </div>
-                            <div class="add-img">
+                            <div class="add-img" v-if="imgSrc1.length<6">
                                 <div class="b-ta-a" @click="pickAndUpload">
                                     <text class="add-photo iconfont">&#xe75a;</text>
                                     <text class="add-txt">Add Photo</text>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -66,9 +63,15 @@
         },
         eros: {
             beforeAppear (params) {
-                this.order_id = params.orderId
-                this.product_id = params.productId
-            },
+                this.order_id = params.order.id
+                this.product_id = params.order.lines[0].productId
+                this.product.title = params.order.lines[0].title
+                this.product.variant = params.order.lines[0].attributes
+                this.product.img = params.order.lines[0].mainImage
+                // this.$notice.alert({
+                //     message: params.order.lines[0]
+                // })
+            }
         },
         name: 'writeReview',
         data () {
@@ -84,12 +87,13 @@
                 tmpLength: 0,
                 product: {
                     title: 'Toyota’s Latest is an Entire Mobility Service Platform',
-                    variant: 'Pink  L'
+                    variant: 'Pink  L',
+                    img: ''
                 },
                 content: '',
                 order_id: '',
                 product_id: '',
-                product_score: '',
+                product_score: ''
             }
         },
         methods: {
@@ -98,8 +102,8 @@
                     method: 'POST',
                     name: 'comment.comment.add',
                     data: {
-                        order_id: 30,
-                        product_id: 13,
+                        order_id: this.order_id,
+                        product_id: this.product_id,
                         product_score: parseInt(this.product_score),
                         message: this.content,
                         upload_image: this.imgSrc1,
@@ -110,17 +114,17 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    this.$notice.alert({
-                        message: res
-                    })
+                    if (res.results == 'add_success') {
+                        this.$notice.toast({
+                            message: 'save success'
+                        })
+                        this.$router.back()
+                    }
                 }).catch((res) => {
-                    this.$notice.alert({
+                    this.$notice.toast({
                         message: res
                     })
                 })
-            },
-            confirmStar () {
-
             },
             oninput (e) {
                 this.content = e.value
