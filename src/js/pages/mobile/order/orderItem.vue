@@ -90,7 +90,6 @@
                 <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
                 <!--<text class="od-button-1 gt-mr" @click="buyProduct">Buy Again</text>-->
                 <!--<text class="od-button-1 gt-mr" v-if="order.orderComment==''" @click="writeReviews">Write Reviews</text>-->
-
                 <!--<text class="od-button-1 gt-mr" v-if="order.orderComment" @click="writeReviews">Update Reviews</text>-->
 
                 <text class="gd-button" @click="tracking">Track Package</text>
@@ -163,7 +162,7 @@
                     type: 'PUSH',
                     params: {
                         order: this.order,
-                        update:
+                        update: ''
                     }
                 });
             },
