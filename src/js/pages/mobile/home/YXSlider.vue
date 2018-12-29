@@ -64,6 +64,10 @@ export default {
                     name: 'perks',
                     type: 'PUSH'
                 });
+            } else if (img.title == 'reward') {
+                this.$event.emit('changeTab', {
+                    tab: 'rewards'
+                });
             } else if (img.title == 'drops') {
                 this.$event.emit('changeTab', {
                     tab: 'drops'
