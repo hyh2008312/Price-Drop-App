@@ -4,7 +4,7 @@
             <text class="bar-ic iconfont" :class="[pIndexKey == i.key ? 'bar-active' : '']">{{i.icon | myFilter}}</text>
             <text class="bar-txt" :class="[pIndexKey == i.key ? 'bar-active' : '']">{{i.name}}</text>
             <div class="bar-red" v-if="i.redPoint">
-                <text class="dot-num">{{cartNum}}</text>
+                <!--<text class="dot-num">{{cartNum}}</text>-->
             </div>
         </div>
     </div>
@@ -175,8 +175,8 @@ export default {
     position: absolute;
     right: 60px;
     top: 20px;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background-color: red;
 
