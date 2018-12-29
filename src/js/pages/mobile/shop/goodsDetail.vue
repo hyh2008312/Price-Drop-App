@@ -560,7 +560,7 @@
                     cut_get: '',
                     brandLogo: '',
                     productSpecification: [],
-                    // productSize: '',
+                    productSize: '',
                     aliasSize: '',
                     aliasColor: ''
                 },
