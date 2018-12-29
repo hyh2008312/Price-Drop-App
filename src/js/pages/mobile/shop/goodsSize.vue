@@ -9,18 +9,21 @@
                     <div style="flex-direction: row;align-items: center;justify-content: center;width: 324px">
                         <text class="tab-text1" :class="[activeTab == t.name?'tab-text1-active':'']">{{(t.name).slice(-4)}}</text>
                     </div>
-
                 </div>
             </div>
-            <div class="table" v-for="i in sizeData.table" >
-                <div v-if="activeTab==i.name">
-                    <!--<text>{{i}}</text>-->
-                    <div  class="i-row" v-for="(item,index) in i.children">
-                        <div class="item">
-                            <text class="item-t" >{{item.name}}</text>
-                        </div>
-                        <div class="i-col" v-for="n in item.value">
-                            <div class="block" >
+
+            <div class="table" v-for="i in sizeData.table" v-if="activeTab==i.name">
+                <div class="i-col-1" >
+                    <div class="item" v-for="(item,index) in i.children">
+                        <text class="item-t" >{{item.name}}</text>
+                    </div>
+                </div>
+                <scroller    scroll-direction="horizontal"   show-scrollbar="true">
+                    <div class="i-row"  v-for="(item,index) in i.children" :style="{width: (item.value.length > 2 ? (200*item.value.length)+'px': '584px')}">
+                        <!--<div class="i-row"  v-for="(item,index) in i.children" style="width: 800px">-->
+                        <div class="i-col" v-for="n in item.value" :style="{width: (item.value.length > 2 ? '200px': '292px')}">
+                            <!--<div class="i-col" v-for="n in item.value" style="width: 200px">-->
+                            <div class="block"  >
                                 <div v-if="index==0" class="item-block" >
                                     <text class="item-0" >{{n.value.slice(0, -4)}}</text>
                                     <text class="item-0" >{{n.value.slice(-4)}}</text>
@@ -29,10 +32,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
+                </scroller>
             </div>
-
             <div>
                 <text class="bottom-text">The Products come from all over the world. Product size may smaller for the local.</text>
             </div>
@@ -134,6 +135,11 @@
         border-top-width: 2px;
         border-top-style: solid;
         background-color: white;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        width: 750px;
+
     }
     .item-block{
         flex-direction: column;
@@ -146,13 +152,19 @@
         align-items: center;
     }
     .i-col{
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         align-items: center;
+        /*width: 200px;*/
         height: 102px;
         border-bottom-width: 2px;
         border-bottom-style: solid;
         border-bottom-color: rgba(0,0,0,.08);
+    }
+    .i-col-1{
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
     }
     .item{
         width: 166px;
@@ -174,6 +186,7 @@
         justify-content: center;
         align-items: center;
         width: 292px;
+        height: 100px;
     }
     .item-0{
         font-size: 24px;
