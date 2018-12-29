@@ -4,7 +4,7 @@
         <topic-header title="Size Chart" leftBtn="n"  ></topic-header>
         <scroller>
             <div class="tab">
-                <div  v-for="t in sizeData.table" @click="tabTo(t)">
+                <div  v-for="(t, i) in sizeData.table" @click="tabTo(i)">
                     <text class="tab-text">{{t.name.slice(0, -4)}}</text>
                     <div style="flex-direction: row;align-items: center;justify-content: center;width: 324px">
                         <text class="tab-text1" :class="[activeTab == t.name?'tab-text1-active':'']">{{(t.name).slice(-4)}}</text>
@@ -12,14 +12,14 @@
                 </div>
             </div>
 
-            <div class="table" v-for="i in sizeData.table" v-if="activeTab==i.name">
+            <div class="table">
                 <div class="i-col-1" >
-                    <div class="item" v-for="(item,index) in i.children">
+                    <div class="item" v-for="(item,index) in array">
                         <text class="item-t" >{{item.name}}</text>
                     </div>
                 </div>
                 <scroller    scroll-direction="horizontal"   show-scrollbar="true">
-                    <div class="i-row"  v-for="(item,index) in i.children" :style="{width: (item.value.length > 2 ? (200*item.value.length)+'px': '584px')}">
+                    <div class="i-row"  v-for="(item,index) in array" :style="{width: (item.value.length > 2 ? (200*item.value.length)+'px': '584px')}">
                         <!--<div class="i-row"  v-for="(item,index) in i.children" style="width: 800px">-->
                         <div class="i-col" v-for="n in item.value" :style="{width: (item.value.length > 2 ? '200px': '292px')}">
                             <!--<div class="i-col" v-for="n in item.value" style="width: 200px">-->
@@ -55,6 +55,7 @@
                     this.inSize = this.sizeData.table[0]
                     this.activeTab = this.sizeData.table[0].name
                     this.cmSize = this.sizeData.table[1]
+                    this.array = this.sizeData.table[0].children;
                     // this.sizeData1 = params.productSize.table
                 }
             }
@@ -65,7 +66,8 @@
                 sizeData: '',
                 inSize: '',
                 cmSize: '',
-                activeTab: ''
+                activeTab: '',
+                array: []
             }
         },
         methods: {
@@ -73,7 +75,8 @@
                 // this.$notice.alert({
                 //     message: i.name
                 // })
-                this.activeTab = i.name
+                this.activeTab = this.sizeData.table[i].name;
+                this.array = this.sizeData.table[i].children;
             }
             // tranString (s) {
             //     this.$notice.alert({
