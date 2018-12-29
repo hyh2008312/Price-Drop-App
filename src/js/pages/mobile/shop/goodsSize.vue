@@ -19,9 +19,9 @@
                     </div>
                 </div>
                 <scroller    scroll-direction="horizontal"   show-scrollbar="true">
-                    <div class="i-row"  v-for="(item,index) in array" :style="{width: (item.value.length > 2 ? (200*item.value.length)+'px': '584px')}">
+                    <div class="i-row"  v-for="(item,index) in array" :style="{width: (item.value.length > 2 ? (165*item.value.length)+'px': '584px')}">
                         <!--<div class="i-row"  v-for="(item,index) in i.children" style="width: 800px">-->
-                        <div class="i-col" v-for="n in item.value" :style="{width: (item.value.length > 2 ? '200px': '292px')}">
+                        <div class="i-col" v-for="n in item.value" :style="{width: (item.value.length > 2 ? '165px': '292px')}">
                             <!--<div class="i-col" v-for="n in item.value" style="width: 200px">-->
                             <div class="block"  >
                                 <div v-if="index==0" class="item-block" >
