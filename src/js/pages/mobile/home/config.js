@@ -125,4 +125,11 @@ export const PRODUCTS = [{
     color: '#FA57D1',
     src: 'http://image.getpricedrop.com/banner/20181121/beauty.png',
     bgSrc: 'http://image.getpricedrop.com/banner/20181121/bn-beauty.png'
+}, {
+    name: 'Kids',
+    value: 'Kids',
+    width: 162,
+    color: '#F7D363',
+    src: 'http://image.getpricedrop.com/banner/20181121/kids-conner.png',
+    bgSrc: 'http://image.getpricedrop.com/banner/20181121/kids.png'
 }];
