@@ -96,6 +96,9 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
+        background-color: white;
+        margin-top: 2px;
+
     }
     .tab-text{
         width: 324px;
@@ -130,6 +133,7 @@
         border-top-color: rgba(0,0,0,.08);
         border-top-width: 2px;
         border-top-style: solid;
+        background-color: white;
     }
     .item-block{
         flex-direction: column;
