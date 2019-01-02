@@ -54,7 +54,8 @@
                             </div>
                             <div class="overflow-img">
                                 <image class="lc-t-img" :src="i.mainImage" ></image>
-                                <image class="lc-sold-out" v-if="parseInt(i.sumStock)==0" src="bmlocal://assets/sold-out.png"></image>
+                                <image class="lc-sold-out" v-if="parseInt(i.sumStock)==0" src="bmlocal://assets/cart/sold-out.png"></image>
+                                <image class="lc-sold-out" v-if="i.productStatus=='unpublished'" src="bmlocal://assets/cart/unavailable.png"></image>
                                 <!--<div>-->
                                 <text class="blue-word" v-if="i.productType=='flash'">Flash Sale</text>
                                 <!--</div>-->
@@ -293,7 +294,7 @@
                     this.page++;
                     this.isLoading = false;
                     // this.$notice.alert({
-                    //     message: this.page
+                    //     message: this.goodsList
                     // })
                     this.$notice.loading.hide();
                     // this.goodsList = [];
@@ -734,8 +735,8 @@
         width: 176px;
         height: 176px;
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 32px;
+        left: 32px;
     }
     .lc-tw{
         flex-direction: column;
