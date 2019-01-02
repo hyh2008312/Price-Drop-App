@@ -34,6 +34,9 @@
                     </div>
                 </scroller>
             </div>
+            <div class="img-div" v-if="image!=''">
+                <image style="width: 496px;height: 496px;" :src="image"></image>
+            </div>
             <div>
                 <text class="bottom-text">The Products come from all over the world. Product size may smaller for the local.</text>
             </div>
@@ -52,6 +55,7 @@
             beforeAppear (params, options) {
                 if (params) {
                     this.sizeData = params.productSize
+                    this.image = params.productSize.image
                     this.inSize = this.sizeData.table[0]
                     this.activeTab = this.sizeData.table[0].name
                     this.cmSize = this.sizeData.table[1]
@@ -67,6 +71,7 @@
                 inSize: '',
                 cmSize: '',
                 activeTab: '',
+                image: '',
                 array: []
             }
         },
@@ -206,6 +211,12 @@
         line-height: 36px;
         color: rgba(0,0,0,0.87);
         opacity: 0.56;
-
+    }
+    .img-div{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 4px 0;
+        background-color: #FFFFFF;
     }
 </style>
