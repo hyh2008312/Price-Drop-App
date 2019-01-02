@@ -464,7 +464,7 @@
                     })
                 } else {
                     // this.$router.open({
-                    //     name: 'mobile.activity.topic2',
+                    //     name: 'write.reviews',
                     //     type: 'PUSH'
                     // })
                 }

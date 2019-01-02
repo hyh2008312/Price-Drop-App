@@ -143,18 +143,31 @@
                  <!--<div v-if="tabshow" style="position: sticky">-->
                     <!--<tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>-->
                  <!--</div>-->
-
             <div class="mid">
                 <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >
                     <text class="dec">Size / Color</text>
                     <text class="s-c-s">Select</text>
 
                 </div>
-
                 <div class="dec-word" @click="openGoodsSize"  v-if="goods.productSize!== '' && goods.productSize != undefined">
                     <text class="dec">Size Chart</text>
                     <text class="s-c-s">Check</text>
                 </div>
+            </div>
+
+            <!--<div class="mid">-->
+                <!--<div class="dec-word" >-->
+                    <!--<text class="dec">Reviews</text>-->
+                    <!--<div class="review-star">-->
+                        <!--<star :points="points"></star>-->
+                        <!--<text>3.7</text>-->
+                        <!--<text>|</text>-->
+                        <!--<text>85 Rating</text>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="mid">
 
                 <div class="dec-word" @click="openShipPopup"  v-if="purchaseMethod==='drop'" >
                     <text class="dec">Shipping Time & Cost</text>
@@ -186,12 +199,12 @@
                         <text class="i-slg-2" > Return </text>
                     </div>
                 </div>
-
+            </div>
+            <div class="mid">
                 <div class="dec-word" ref="dec" >
                     <text class="dec">Description</text>
                 </div>
             </div>
-
 
 
             <div @click="opendec" style="width: 750px; background-color: white ; padding-top: 20px;height: 568px">
@@ -517,6 +530,7 @@
     import { baseUrl } from '../../../config/apis';
     import somegoods from './someGoods';
     import dayjs from 'dayjs';
+    import star from './star-item';
 
     const dom = weex.requireModule('dom');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
@@ -535,6 +549,7 @@
             'tab': tab,
             'cimg': cimg,
             'somegoods': somegoods,
+            'star': star,
             preload
             // 'refresher': refresher,
             // 'block': block
@@ -708,7 +723,7 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/14227/`,
+                        // url: `${baseUrl}/product/customer/detail/13/`,
 
                         data: {}
                     }).then((res) => {
@@ -727,7 +742,7 @@
                             }
                         }
                         // this.$notice.alert({
-                        //     message: this.goods.productSize
+                        //     message: res.commentStar
                         // })
                         // ---- 上面是闪购属性设置 下面是普通属性设置----
                         this.goods.title = res.title;
@@ -1502,7 +1517,6 @@
             },
             countDate (time) {
                 const self = this
-                // if (this.purchaseMethod == 'flash') {
                 setInterval(() => {
                     this.NOW_DATE = new Date().getTime();
 
@@ -2289,6 +2303,11 @@
         left: 30px;
         color: white;
         font-size: 24px;
+    }
+    .review-star{
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
     }
     .mg-b36{
         margin-bottom: 36px;

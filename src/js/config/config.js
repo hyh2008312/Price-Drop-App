@@ -85,5 +85,6 @@ export const apis = {
     'statistics.search.key.list': '/statistics/search/key/list/',
     'activity.app.detail': '/activity/app/detail/',
     'comment.product.comment.list': '/comment/product/comment/list/',
-    'comment.comment.add': '/comment/comment/add/'
+    'comment.comment.add': '/comment/comment/add/',
+    'comment.comment.update': '/comment/comment/update/'
 }

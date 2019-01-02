@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="blackheader"></div>
-        <topic-header title="My Reviews" leftBtn="n" rightBtn="Submit" @open="postData"></topic-header>
+        <topic-header title="My Reviews" leftBtn="n"  :rightBtn="rightBtnWord" v-on:change="changeBtn($event) "></topic-header>
         <div class="overflow-top">
             <div class="top">
                 <div class="g-img">
@@ -27,7 +27,8 @@
                     </div>
                 </div>
                 <div class="b-ta">
-                    <textarea class="text-review" name="" @input="oninput" @change="onchange" cols="30" rows="8" maxlength="240" placeholder="Write your review here…"></textarea>
+                    <!--<textarea class="text-review"   disabled="true" @input="oninput" @change="onchange" cols="30" rows="8" maxlength="240" placeholder="Write your review here…" :value="content"></textarea>-->
+                    <textarea class="text-review"   :disabled="textAreaS" @input="oninput" @change="onchange" cols="30" rows="8" maxlength="240" placeholder="Write your review here…" :value="content"></textarea>
                     <!--<text>{{imgSrc}}</text>-->
                     <div class="overflow-add-img" >
                         <div style="width: 686px; flex-direction: row;justify-content: start;align-items: center;flex-wrap: wrap;">
@@ -36,7 +37,7 @@
                                             <image  class="i-photo" resize="cover"  :src="i" ></image>
                                         <!--<div  class="i-photo" style="background-color: #EF8A31"></div>-->
                                     </div>
-                                <text class="i-close iconfont" @click="delImg(i, index)" >&#xe632;</text>
+                                <text class="i-close iconfont" @click="delImg(i, index)" v-if="rightBtnWord == 'Submit'">&#xe632;</text>
                             </div>
                             <div class="add-img" v-if="imgSrc1.length<6">
                                 <div class="b-ta-a" @click="pickAndUpload">
@@ -55,6 +56,7 @@
 
 <script>
     import header from './witheHeader';
+    import { baseUrl } from '../../../config/apis';
     export default {
         components: {
             'topic-header': header
@@ -68,8 +70,13 @@
                 this.product.title = params.order.lines[0].title
                 this.product.variant = params.order.lines[0].attributes
                 this.product.img = params.order.lines[0].mainImage
+                this.status = params.update
+
+                if (params.update == 2) { // 2: 修改评论
+                    this.getReviewData()
+                }
                 // this.$notice.alert({
-                //     message: params.order.lines[0]
+                //     message: params.order.id
                 // })
             }
         },
@@ -77,7 +84,7 @@
         data () {
             return {
                 starArr: [0, 0, 0, 0, 0],
-                src: 'https://d1vs5fqeka2glf.cloudfront.net/1e/9a/1e5b60b752dc142345b4be1d34463a9a.jpg',
+                status: 1,   // 1: 新建评论 2: 修改评论
                 imgSrc: [],   // 每一次选择的图片
                 imgSrc1: [],   // 最终传给后端的图片
                 imgSrc1Tag: true,
@@ -86,18 +93,24 @@
                 imgSign: [],  //  后端返回的 token 和domain
                 tmpLength: 0,
                 product: {
-                    title: 'Toyota’s Latest is an Entire Mobility Service Platform',
-                    variant: 'Pink  L',
+                    title: '',
+                    variant: '',
                     img: ''
                 },
                 content: '',
                 order_id: '',
                 product_id: '',
-                product_score: ''
+                product_score: '',
+                updateData: '',
+                rightBtnWord: 'Submit',
+                commentId: '',
+                textAreaS: false,
+                justOne: true
             }
         },
         methods: {
-            postData () {
+            addReview () {
+                this.$notice.loading.show()
                 this.$fetch({
                     method: 'POST',
                     name: 'comment.comment.add',
@@ -114,13 +127,55 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    if (res.results == 'add_success') {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                    if (res.result == 'success') {
+                        this.$notice.loading.hide()
+
                         this.$notice.toast({
                             message: 'save success'
                         })
                         this.$router.back()
                     }
                 }).catch((res) => {
+                    this.$notice.loading.hide()
+                    this.$notice.toast({
+                        message: res
+                    })
+                })
+            },
+            editReview () {
+                this.$notice.loading.show()
+                this.$fetch({
+                    method: 'PUT',
+                    name: 'comment.comment.update',
+                    data: {
+                        id: this.commentId,
+                        product_score: parseInt(this.product_score),
+                        message: this.content,
+                        upload_image: this.imgSrc1,
+                        variant: this.product.variant,
+                        product_title: this.product.title
+                    },
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                    if (res.result == 'success') {
+                        this.$notice.loading.hide()
+
+                        this.$notice.toast({
+                            message: 'save success'
+                        })
+                        this.$router.back()
+                    }
+                }).catch((res) => {
+                    this.$notice.loading.hide()
+
                     this.$notice.toast({
                         message: res
                     })
@@ -130,6 +185,9 @@
                 this.content = e.value
             },
             selStar (i) {
+                if (this.rightBtnWord == 'Edit') {
+                    return
+                }
                 const tmp = i
                 const tmpArr = this.starArr
                 let sign = false
@@ -321,7 +379,61 @@
                 this.$nextTick(() => {
                     this.imgSrc1 = [...tmp1]
                 });
+            },
+            getReviewData () {
+                this.$notice.loading.show()
+                this.$fetch({
+                    method: 'GET',
+                    // url: `${baseUrl}/comment/product/comment/list/${id}/`,
+                    url: `${baseUrl}/comment/customer/comment/list/`,
+                    header: {
+                        needAuth: true
+                    },
+                    data: {
+                        order_id: this.order_id
+                    }
+                }).then((res) => {
+                    this.updateData = res
+                    this.commentId = res.id
+                    this.rightBtnWord = 'Edit'
+                    this.textAreaS = true
+                    this.$notice.loading.hide()
+                    if (this.justOne) {
+                        this.product_score = parseInt(this.updateData.productScores)
+                        this.content = this.updateData.message
+                        this.imgSrc1 = this.updateData.uploadImages
+                        for (let i = 0; i < this.product_score; i++) {
+                            this.starArr.unshift(1)
+                            this.starArr.pop()
+                        }
+                        this.justOne = false
+                    }
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                }).catch((res) => {
+                    this.$notice.loading.hide();
+                    this.$notice.alert({
+                        message: res
+                    })
+                })
+            },
+            changeBtn (p) {
+                if (p === 2) {
+                    if (this.status == 1) {
+                        this.addReview()
+                    } else if (this.status == 2) {
+                        this.editReview()
+                    }
+                } else {
+                    this.rightBtnWord = 'Submit'
+                    this.textAreaS = false
+                    // this.rightBtnWord = 'Edit';
+                    // this.getSelectStatus();
+                    // this.countPrice();
+                }
             }
+
         }
     }
 </script>

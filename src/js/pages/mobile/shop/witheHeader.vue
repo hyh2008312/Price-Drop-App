@@ -8,7 +8,7 @@
         <text class="tlt">{{title}}</text>
         <div class="right">
             <text class="rightTxt" v-if="iconSign==true" @click="setting" >&#xe71e;</text>
-            <text class="rightword " v-else @click="open()">{{rBtn}}</text>
+            <text class="rightword " v-else @click="edit()">{{rightBtn}}</text>
         </div>
     </div>
 </template>
@@ -33,17 +33,19 @@ export default {
             } else if (this.rBtn == 'Edit') {
                 this.iconSign = false
             }
-
-            // this.$notice.toast({message: this.leftBtn})
-
             if (this.leftBtn == 'n') {
                 this.leftSign = true
             } else {
                 this.leftSign = false
             }
         },
-        open () {
-           this.$emit('open', 1)
+        edit () {
+            if (this.rightBtn == 'Submit') {
+                this.$emit('change', 2)
+            } else {
+                this.rightBtn = 'Submit'
+                this.$emit('change', 1)
+            }
         }
     }
 }
