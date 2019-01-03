@@ -4,10 +4,10 @@
         <list class="transparent" offset-accuracy="50" loadmoreoffset="200" @loadmore="onLoadingMore" v-if="hasWifi" >
             <refresher ref="refresh" @loadingDown="loadingDown"></refresher>
             <cell class="slider-wrap">
-                <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor"></yx-slider>
+                <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor" v-if="isLoaded"></yx-slider>
             </cell>
 
-            <cell  style="background-color: #f4f4f4">
+            <cell  style="background-color: #f4f4f4"  v-if="isLoaded">
                 <block-4 :items="noticeList" v-if="noticeList.length > 0"></block-4>
             </cell>
             <cell class="ac-wrap" style="background-color: #f4f4f4">
@@ -28,7 +28,7 @@
                     <block-6 :drops="drops"></block-6>
                 </div>
             </cell>
-            <cell v-if="activity && activity.length > 0" style="background-color: #f4f4f4">
+            <cell v-if="isLoaded && activity && activity.length > 0" style="background-color: #f4f4f4">
                 <block-2 :goodsList="activity" :time="time" v-on:zero="getActivity"></block-2>
             </cell>
             <cell class="cell-button" v-if="false">
@@ -37,7 +37,7 @@
             <header v-if="false">
                 <tab @tabTo="onTabTo" :items="tabsItems" :activeTab="activeTab"></tab>
             </header>
-            <cell class="gd-bg-gray" v-for="item in products">
+            <cell class="gd-bg-gray" v-for="item in products" v-if="isLoaded">
                 <div class="gd-bg-mt" v-if="item.id">
                     <div class="gd-bg" @click="jumpCategory(item)">
                         <preload class="gd-img-image" :src="item.bgSrc"></preload>
@@ -54,13 +54,13 @@
                 </div>
             </cell>
             <cell class="gd-bg-white-gray"></cell>
-            <cell v-if="goods3.length > 0">
+            <cell v-if="goods3.length > 0 && isLoaded">
                 <text class="home-title">Featured</text>
             </cell>
-            <cell v-for="(item,index) in goods3">
+            <cell v-for="(item,index) in goods3" v-if="isLoaded">
                 <block-3 :goods="item" :tab="tabKey"></block-3>
             </cell>
-            <cell class="cell-fixed" v-if="goods3.length > 0"></cell>
+            <cell class="cell-fixed" v-if="goods3.length > 0 && isLoaded"></cell>
             <cell class="loading" v-if="isLoading">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </cell>
@@ -68,6 +68,9 @@
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </loading>
         </list>
+        <div class="loading-top" v-if="!isLoaded">
+            <image class="loading-icon-1" src="bmlocal://assets/loading-2.gif"></image>
+        </div>
         <no-wifi v-if="!hasWifi" @onReload="loadingDown"></no-wifi>
     </div>
 </template>
@@ -143,7 +146,8 @@ export default {
             hasWifi: true,
             category: [],
             drops: [],
-            products: []
+            products: [],
+            isLoaded: false
         }
     },
     methods: {
@@ -282,6 +286,7 @@ export default {
                         });
                     }
                 }
+                this.refreshApiFinished();
             }, error => {
                 if(error.status == 10) {
                     this.hasWifi = false;
@@ -450,6 +455,7 @@ export default {
             this.countApi++;
             if(this.countApi >= 5) {
                 this.hasWifi = true;
+                this.isLoaded = true;
                 this.$refs.refresh.refreshEnd();
                 this.countApi = 0;
             }

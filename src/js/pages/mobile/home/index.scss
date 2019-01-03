@@ -409,6 +409,11 @@ body {
   height: 64px;
 }
 
+.loading-icon-1{
+  width: 80px;
+  height: 80px;
+}
+
 .gd-bg {
   width: 750px;
   height: 108px;
@@ -650,4 +655,14 @@ body {
   font-size: 24px;
   margin-top: 4px;
   margin-bottom: 4px;
+}
+
+.loading-top{
+  position: absolute;
+  top: 90px;
+  width: 750px;
+  height: 80px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
