@@ -27,7 +27,7 @@
                 <text class="c-mt2">{{content.message}}</text>
             </div>
 
-            <div class="card-bottom">
+            <div class="card-bottom" v-if="content.uploadImages">
                 <div class="img-div" v-for="item in content.uploadImages">
                     <image style="width: 80px;height: 80px;" :src="item" @click="blowUpImg(item)"></image>
                 </div>
@@ -115,9 +115,9 @@
         margin-left: 32px;
         padding-top: 34px;
         padding-bottom: 24px;
-        border-bottom-width:2px ;
-        border-bottom-style: dashed;
-        border-bottom-color: rgba(0,0,0,.32);
+        /*border-bottom-width:2px ;*/
+        /*border-bottom-style: dashed;*/
+        /*border-bottom-color: rgba(0,0,0,.32);*/
     }
     .card-top{
         flex-direction: row;
@@ -163,7 +163,8 @@
         lines:3;
         text-overflow:ellipsis ;
         /*background-color: #EF8A31;*/
-        font-size: 20px;
+        font-size: 24px;
+        line-height: 34px;
     }
     .card-bottom{
         flex-direction: row;

@@ -113,7 +113,7 @@
 
             <cell class="overflow-box" >
                 <div class="mid-cell">
-                    <div class="box-tlt "  @click="openReview()">
+                    <div class="box-tlt "  >
                         <div class="box-left">
                             <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
                             <text class="box-txt">My Wallet</text>
@@ -152,6 +152,18 @@
                         </div>
                         <div style="flex-direction: row;justify-content: space-between;align-items: center">
                             <text class="i-box1 wallet-num">{{cardNumber||0}}</text>
+                            <text class="i-box2 iconfont">&#xe626;</text>
+                        </div>
+
+                    </div>
+
+                    <div class="box-tlt " @click="openReview()" >
+                        <div class="box-left">
+                            <image class="box-txt-icon" src="bmlocal://assets/account/pinglun-01.png"></image>
+                            <text class="box-txt">My Review</text>
+                        </div>
+                        <div style="flex-direction: row;justify-content: space-between;align-items: center">
+                            <!--<text class="i-box1 wallet-num">{{cardNumber||0}}</text>-->
                             <text class="i-box2 iconfont">&#xe626;</text>
                         </div>
 
@@ -463,10 +475,10 @@
                         type: 'PUSH'
                     })
                 } else {
-                    // this.$router.open({
-                    //     name: 'write.reviews',
-                    //     type: 'PUSH'
-                    // })
+                    this.$router.open({
+                        name: 'my.review',
+                        type: 'PUSH'
+                    })
                 }
             },
             getCartNum () {
