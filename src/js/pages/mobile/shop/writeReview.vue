@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="blackheader"></div>
         <topic-header title="My Reviews" leftBtn="n"  :rightBtn="rightBtnWord" v-on:change="changeBtn($event) "></topic-header>
-        <div class="overflow-top">
+        <div class="overflow-top" @click="openProduct">
             <div class="top">
                 <div class="g-img">
                     <image style="width: 160px;height: 160px" :src="product.img"></image>
@@ -432,7 +432,16 @@
                     // this.getSelectStatus();
                     // this.countPrice();
                 }
-            }
+            },
+            openProduct (i) {
+                this.$router.open({
+                    name: 'goods.details',
+                    type: 'PUSH',
+                    params: {
+                        id: this.product_id
+                    }
+                })
+            },
 
         }
     }
