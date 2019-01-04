@@ -388,9 +388,9 @@
                                 bonus: this.checked ? this.checked : null
                             }
                         }).then((res) => {
-                            googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-COD success return', 0);
                             that.$notice.loading.hide();
-                            that.$router.finish();
+                            googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-COD success return', 0);
+                            // that.$router.finish();
                             that.$router.open({
                                 name: 'order.success',
                                 type: 'PUSH',

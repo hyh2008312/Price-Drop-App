@@ -20,7 +20,12 @@
                     </div>
                 </div>
             </cell>
-
+            <cell class="container-1" v-if="userList.length == 0">
+                <div class="container-2">
+                    <image class="pay-image" src="bmlocal://assets/empty.png"></image>
+                </div>
+                <text class="address-title">There is no review to show. </text>
+            </cell>
             <cell class="loading" v-if="isLoading">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </cell>
@@ -215,6 +220,31 @@
         font-size: 24px;
         color: rgba(0,0,0,0.87);
         margin-bottom: 8px;
+    }
+    .container-1{
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background-color: #fff;
+    }
+    .container-2{
+        margin-top: 86px;
+        width: 750px;
+        align-items: center;
+    }
+
+    .pay-image{
+        width: 202px;
+        height: 202px;
+    }
+
+    .address-title{
+        margin-top: 32px;
+        font-size: 28px;
+        line-height: 34px;
+        text-align: center;
     }
     .loading{
         flex-direction: row;
