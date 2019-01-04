@@ -38,7 +38,7 @@
                 <image style="width: 496px;height: 496px;" :src="image"></image>
             </div>
             <div>
-                <text class="bottom-text">The Products come from all over the world. Product size may smaller for the local.</text>
+                <text class="bottom-text">{{note}}</text>
             </div>
 
         </scroller>
@@ -55,6 +55,7 @@
             beforeAppear (params, options) {
                 if (params) {
                     this.sizeData = params.productSize
+                    this.note = params.productSize.note
                     this.image = params.productSize.image
                     this.inSize = this.sizeData.table[0]
                     this.activeTab = this.sizeData.table[0].name
@@ -72,6 +73,7 @@
                 cmSize: '',
                 activeTab: '',
                 image: '',
+                note: '',
                 array: []
             }
         },
