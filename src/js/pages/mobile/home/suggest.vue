@@ -455,9 +455,12 @@ export default {
             this.countApi++;
             if(this.countApi >= 5) {
                 this.hasWifi = true;
-                this.isLoaded = true;
                 this.$refs.refresh.refreshEnd();
                 this.countApi = 0;
+            }
+
+            if(this.countApi >= 4) {
+                this.isLoaded = true;
             }
         },
         scrollHandler (e) {
