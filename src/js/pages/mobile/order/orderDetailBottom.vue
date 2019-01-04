@@ -35,7 +35,8 @@
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Completed'">
             <text class="od-button-1" @click="deleteOrder">Delete</text>
-            <text class="od-button-1" @click="jumpHome">Buy Again</text>
+            <text class="od-button-1 gt-mr" v-if="order.orderComment==''" @click="writeReviews(1)">Write Reviews</text>
+            <text class="od-button-1 gt-mr" v-if="order.orderComment" @click="writeReviews(2)">See Reviews</text>
             <text class="od-button" @click="tracking">Track Package</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Partially Refunded'">
@@ -81,6 +82,16 @@
                         id: this.order.lines[0].productId
                     }
                 })
+            },
+            writeReviews (type) {
+                this.$router.open({
+                    name: 'write.reviews',
+                    type: 'PUSH',
+                    params: {
+                        order: this.order,
+                        update: type
+                    }
+                });
             },
             cancel () {
                 this.$emit('cancel', {

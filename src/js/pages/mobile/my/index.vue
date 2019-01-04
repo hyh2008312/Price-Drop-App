@@ -160,7 +160,7 @@
                     <div class="box-tlt " @click="openReview()" >
                         <div class="box-left">
                             <image class="box-txt-icon" src="bmlocal://assets/account/pinglun-01.png"></image>
-                            <text class="box-txt">My Review</text>
+                            <text class="box-txt">My Reviews</text>
                         </div>
                         <div style="flex-direction: row;justify-content: space-between;align-items: center">
                             <!--<text class="i-box1 wallet-num">{{cardNumber||0}}</text>-->

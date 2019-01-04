@@ -23,7 +23,7 @@
             </div>
 
             <div class="card-mid">
-                <text class="c-mt1">{{content.variant}}</text>
+                <!--<text class="c-mt1">{{content.variant}}</text>-->
                 <text class="c-mt2">{{content.message}}</text>
             </div>
 
