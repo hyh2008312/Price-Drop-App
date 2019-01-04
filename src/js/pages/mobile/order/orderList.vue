@@ -141,6 +141,9 @@
             this.$event.on('paid', params => {
                 this.init();
             });
+            this.$event.on('reviews', params => {
+                this.init();
+            });
         },
         destory () {
             this.$event.off('login')

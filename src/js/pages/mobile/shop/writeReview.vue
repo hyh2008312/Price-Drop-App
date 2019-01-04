@@ -28,7 +28,7 @@
                 </div>
                 <div class="b-ta">
                     <!--<textarea class="text-review"   disabled="true" @input="oninput" @change="onchange" cols="30" rows="8" maxlength="240" placeholder="Write your review here…" :value="content"></textarea>-->
-                    <textarea class="text-review"   :disabled="textAreaS" @input="oninput" @change="onchange" cols="30" rows="8" maxlength="240" placeholder="Write your review here…" :value="content"></textarea>
+                    <textarea class="text-review"   :disabled="textAreaS" @input="oninput" @change="onchange" cols="30" rows="8" maxlength="240" :placeholder="textAreaWord" :value="content"></textarea>
                     <!--<text>{{imgSrc}}</text>-->
                     <div class="overflow-add-img" >
                         <div style="width: 686px; flex-direction: row;justify-content: start;align-items: center;flex-wrap: wrap;">
@@ -39,7 +39,7 @@
                                     </div>
                                 <text class="i-close iconfont" @click="delImg(i, index)" v-if="rightBtnWord == 'Submit'">&#xe632;</text>
                             </div>
-                            <div class="add-img" v-if="imgSrc1.length<6">
+                            <div class="add-img" v-if="imgSrc1.length<6&&rightBtnWord == 'Submit'">
                                 <div class="b-ta-a" @click="pickAndUpload">
                                     <text class="add-photo iconfont">&#xe75a;</text>
                                     <text class="add-txt">Add Photo</text>
@@ -74,6 +74,7 @@
 
                 if (params.update == 2) { // 2: 修改评论
                     this.getReviewData()
+                    this.textAreaWord = 'No review yet'
                 }
                 // this.$notice.alert({
                 //     message: params.order.id
@@ -103,6 +104,7 @@
                 product_score: '',
                 updateData: '',
                 rightBtnWord: 'Submit',
+                textAreaWord: 'Write your review here…',
                 commentId: '',
                 textAreaS: false,
                 justOne: true
@@ -136,6 +138,7 @@
                         this.$notice.toast({
                             message: 'save success'
                         })
+                        this.$event.emit('reviews')
                         this.$router.back()
                     }
                 }).catch((res) => {
@@ -171,6 +174,7 @@
                         this.$notice.toast({
                             message: 'save success'
                         })
+                        this.$event.emit('reviews')
                         this.$router.back()
                     }
                 }).catch((res) => {
@@ -413,21 +417,28 @@
                     // })
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    this.$notice.alert({
-                        message: res
-                    })
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
                 })
             },
             changeBtn (p) {
                 if (p === 2) {
                     if (this.status == 1) {
-                        this.addReview()
+                        if (this.product_score == '') {
+                            this.$notice.toast({
+                                message: 'Please choose a rating'
+                            })
+                        } else {
+                            this.addReview()
+                        }
                     } else if (this.status == 2) {
                         this.editReview()
                     }
                 } else {
                     this.rightBtnWord = 'Submit'
                     this.textAreaS = false
+                    this.textAreaWord = 'Write your review here…'
                     // this.rightBtnWord = 'Edit';
                     // this.getSelectStatus();
                     // this.countPrice();

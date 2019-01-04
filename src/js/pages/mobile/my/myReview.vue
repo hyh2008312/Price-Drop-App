@@ -3,6 +3,7 @@
         <div class="blackheader"></div>
         <topic-header class="top" title="My Reviews" leftBtn="n"  ></topic-header>
         <list class="content" offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
+            <refresher class="gd-bg-gray" ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
             <cell class="cell" v-for="i in userList">
                 <div style="background-color: #fff;box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);">
                     <div @click="openWriteReview(i)">
@@ -35,9 +36,12 @@
     import header from '../shop/witheHeader';
     import card from '../shop/reviewsCard';
     import { baseUrl } from '../../../config/apis';
+    import refresher from '../common/refresh';
+
     export default {
         components: {
             'topic-header': header,
+            'refresher': refresher,
             'star': star,
             'card': card
         },
@@ -52,6 +56,9 @@
         },
         created () {
             this.init()
+            this.$event.on('reviews', parmas => {
+                this.init()
+            })
         },
         methods: {
             onLoadingMore () {
@@ -59,6 +66,11 @@
                     this.isLoading = true;
                     this.requestProduct(false)
                 }
+            },
+            loadingDown () {
+                this.$refs.refresh.refreshEnd();
+                this.isLoading = false;
+                this.init();
             },
             init () {
                 this.$notice.loading.show();
@@ -102,9 +114,9 @@
                         this.isLoading = false;
                     })
                     this.$notice.loading.hide();
-                    this.$notice.alert({
-                        message: res.results
-                    })
+                    // this.$notice.alert({
+                    //     message: res.results
+                    // })
                 }).catch((res) => {
                     this.$notice.loading.hide();
                     // this.$notice.alert({
@@ -196,6 +208,7 @@
         color: rgba(0,0,0,0.87);
         line-height: 38px;
         margin-top: 8px;
+        width: 480px;
     }
     .c-t-t1{
         opacity: 0.54;
