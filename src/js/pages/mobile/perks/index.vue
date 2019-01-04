@@ -6,18 +6,21 @@
             <!--<cell><text>111</text></cell>-->
             <div class="header">
                 <!--<text class="close iconfont" @click="$router.back();" >&#xe6f6;</text>-->
-                <text class="header-word" >Rewards</text>
+                <text class="header-word" >Earn Points & Rewards Every Day</text>
             </div>
 
             <div class="overflow-mid2" >
-                <div class="mid-head" >
-                    <text class="m-h1">Check In & Earn Points</text>
-                </div>
-                <div class="m2-content">
+                <!--<div class="mid-head" >-->
+                    <!--<text class="m-h1">Check In & Earn Points</text>-->
+                <!--</div>-->
+                <div class="o-m-head">
+                    <text class="o-mt1">Check In & Earn Points</text>
                     <div class="m2-r" @click="openRulerPage(2)">
                         <text class="m2-rw" >Rules </text>
-                        <text class="iconfont" style="color:white;font-size: 18px ">&#xe626;</text>
+                        <text class="iconfont" style="color:#1D7CD4;font-size: 24px ">&#xe626;</text>
                     </div>
+                </div>
+                <div class="m2-content">
                     <div class="m2-c1">
                         <image style=" width: 32px;height: 32px;" src="bmlocal://assets/perks/goldcoin.png"></image>
                         <text class="m2-c1w"> My Points</text>
@@ -73,91 +76,136 @@
             </div>
 
 
-            <div class="overflow-mid1" >
-                <div class="top-card">
-                    <text class="t-c-h">Redeem Cash Bonus</text>
-                </div>
-                <div class="t-cm">
-                    <div class="t-cm-c" v-if="!isCash"  @click="getPoints">
-                        <text class="t-cm-cw" >Claim daily cash bonus. Up to ₹100</text>
-                        <text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>
-                    </div>
-                    <div class="t-cm-cr" v-if="isCash" >
-                        <text class="t-cm-cwr">Earned ₹ {{points}} Bonus!</text>
-                        <text class="t-cm-car iconfont" >&#xe6ed;</text>
-                    </div>
-                </div>
-                <div class="t-cb" @click="openRulerPage(1)">
-                    <text class="t-cbw" >Rules </text>
-                    <text class="iconfont" style="color:white;font-size: 18px ">&#xe626;</text>
-                </div>
-                <!--<div class="w-img">-->
-                    <image class="w-i5"  style=" width: 100px;height: 43px;" src="bmlocal://assets/perks/5.png"></image>
-                    <image class="w-i3"  style=" width: 62px;height: 98px;" src="bmlocal://assets/perks/3.png"></image>
-                    <image class="w-i1"  style=" width: 60px;height: 110px;" src="bmlocal://assets/perks/1.png"></image>
-
-                    <image class="w-i6"  style=" width: 98px;height: 106px;" src="bmlocal://assets/perks/6.png"></image>
-
-                    <image class="w-i2"  style=" width: 100px;height: 102px;" src="bmlocal://assets/perks/2.png"></image>
-                    <image class="w-i4"  style=" width: 80px;height: 96px;" src="bmlocal://assets/perks/4.png"></image>
+            <!--<div class="overflow-mid1" >-->
+                <!--<div class="top-card">-->
+                    <!--<text class="t-c-h">Redeem Cash Bonus</text>-->
                 <!--</div>-->
+                <!--<div class="t-cm">-->
+                    <!--<div class="t-cm-c" v-if="!isCash"  @click="getPoints">-->
+                        <!--<text class="t-cm-cw" >Claim daily cash bonus. Up to ₹100</text>-->
+                        <!--<text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>-->
+                    <!--</div>-->
+                    <!--<div class="t-cm-cr" v-if="isCash" >-->
+                        <!--<text class="t-cm-cwr">Earned ₹ {{points}} Bonus!</text>-->
+                        <!--<text class="t-cm-car iconfont" >&#xe6ed;</text>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="t-cb" @click="openRulerPage(1)">-->
+                    <!--<text class="t-cbw" >Rules </text>-->
+                    <!--<text class="iconfont" style="color:white;font-size: 18px ">&#xe626;</text>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="w-img">&ndash;&gt;-->
+                    <!--<image class="w-i5"  style=" width: 100px;height: 43px;" src="bmlocal://assets/perks/5.png"></image>-->
+                    <!--<image class="w-i3"  style=" width: 62px;height: 98px;" src="bmlocal://assets/perks/3.png"></image>-->
+                    <!--<image class="w-i1"  style=" width: 60px;height: 110px;" src="bmlocal://assets/perks/1.png"></image>-->
+
+                    <!--<image class="w-i6"  style=" width: 98px;height: 106px;" src="bmlocal://assets/perks/6.png"></image>-->
+
+                    <!--<image class="w-i2"  style=" width: 100px;height: 102px;" src="bmlocal://assets/perks/2.png"></image>-->
+                    <!--<image class="w-i4"  style=" width: 80px;height: 96px;" src="bmlocal://assets/perks/4.png"></image>-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+
+
+            <div class="overflow-mid2 mg-b3">
+                <div class="o-m-head">
+                    <text class="o-mt1">Redeem Bonus with Points</text>
+                    <div class="m2-r" @click="openRulerPage(1)" >
+                        <text class="m2-rw" >Rules </text>
+                        <text class="iconfont" style="color:#1D7CD4;font-size: 24px ">&#xe626;</text>
+                    </div>
+                </div>
+                <div class="red-block">
+                    <image class="rb-bg-img" src="bmlocal://assets/perks/cash-bonus-2.png"></image>
+                    <div class="red-right" v-if="!isCash" @click="getPoints">
+                        <div class="rr-top">
+                            <text class="rrt-t1">Up to ₹100 daily bonus</text>
+                            <div class="rrt-btn">
+                                <text class="rrt-btn-t">Claim Now</text>
+                                <text class="iconfont" style="font-size: 22px;color: #EC8830;font-weight: 700;margin-left: 4px;">&#xe626;</text>
+                            </div>
+                        </div>
+                        <text class="rrt-t2">400 Points Needed</text>
+                    </div>
+
+                    <div class="red-right1" v-if="isCash">
+                        <div class="red-right" style="margin-right: 34px">
+
+                            <div class="rr-top">
+                                <text class="rrt-t3">Your have claimed</text>
+                                <text class="rrt-t4"> ₹ {{points}}. </text>
+                            </div>
+                            <text class="rrt-t3">The bonus will expire by 23:59:59 today!</text>
+                        </div>
+
+                        <text v-if="isCash" class="iconfont rrt1-icon" > &#xe6ed;</text>
+
+                    </div>
+
+                </div>
             </div>
 
 
 
-            <!--<div class="overflow-mid" style="margin-bottom: 100px">-->
+            <!--<div class="overflow-gift-card" >-->
+                <!--<div class="top-right-div">-->
+                    <!--<image class="top-right" src="bmlocal://assets/anger.png"></image>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<text class="g-ch-w"  style="">Redeem Gift Voucher</text>-->
+                <!--</div>-->
+                <!--<div >-->
+                    <!--<div v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'mg-b5':'mg-b3',]">-->
 
+                        <!--<div class="gift-card" @click="redeemCard(i)">-->
+                            <!--<image class="gift-card-img"  :src="i.newImageDetail"></image>-->
+                            <!--<div class="gift-card-txt">-->
+                                <!--<text class="gift-card-txt1">{{i.name}} Gift Voucher</text>-->
+                                <!--<div class="gift-card-txtr">-->
 
-                <!--<div class="mid-card-noShadow">-->
-                   <!--<div>-->
-                       <!--<image  src="bmlocal://assets/perks/bg-1.jpg" style="width: 686px;height:520px"></image>-->
-                       <!--<image class="center-img"  src="bmlocal://assets/perks/bg-3.png" style="width: 500px;height:294px"></image>-->
-                   <!--</div>-->
-                    <!--<div class="center-word">-->
-                        <!--<text :class="[signObj.isSign?'c-w-hs':'c-w-h',]">Check In & Earn Points</text>-->
-                        <!--<div class="c-wb" v-if="signObj.isSign" >-->
-                            <!--<text class="c-wb-wn">Got </text>-->
-                            <!--<text class="c-wb-wn">{{(signObj.originalPoints + (((signObj.signTimes - 1) % 15) <= 6 ? ((signObj.signTimes - 1) % 15) : 6)*signObj.gradientPoints) }}</text>-->
-                            <!--<text class="c-wb-wn"> Points! </text>-->
-                            <!--&lt;!&ndash;<text class="c-wb-wn iconfont">&#xe626;</text>&ndash;&gt;-->
-                        <!--</div>-->
-                        <!--<text class="c-w-r" @click="openRulerPage(2)">Rules >></text>-->
-                    <!--</div>-->
-                    <!--<div class="over-flow-cwb" ref="getBtn">-->
-                        <!--<div class="c-w-b"  @click="getSign">-->
-                            <!--<text class="c-w-bw" v-if="signObj.isSign">Get {{signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)* signObj.gradientPoints)}} Points Tomorrow</text>-->
-                            <!--<text class="c-w-bw" v-if="!signObj.isSign">Claim {{(signObj.originalPoints+(((signObj.signTimes % 15) <= 6 ? (signObj.signTimes % 15) : 6)*signObj.gradientPoints))||0}} Daily Points</text>-->
-                            <!--<text class="c-w-bwa iconfont" v-if="!signObj.isSign" >&#xe626;</text>-->
+                                    <!--<text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>-->
+                                    <!--<text class="gift-card-icon iconfont">&#xe626;</text>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         <!--</div>-->
                     <!--</div>-->
-
                 <!--</div>-->
             <!--</div>-->
 
-            <div class="overflow-gift-card" >
-                <div class="top-right-div">
-                    <image class="top-right" src="bmlocal://assets/anger.png"></image>
-                </div>
-                <div>
-                    <text class="g-ch-w"  style="">Redeem Gift Voucher</text>
-                </div>
-                <div >
-                    <div v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'mg-b5':'mg-b3',]">
-
-                        <div class="gift-card" @click="redeemCard(i)">
-                            <image class="gift-card-img"  :src="i.newImageDetail"></image>
-                            <div class="gift-card-txt">
-                                <text class="gift-card-txt1">{{i.name}} Gift Voucher</text>
-                                <div class="gift-card-txtr">
-
-                                    <text class="gift-card-txt2">{{i.pointNumber}} Points Needed</text>
-                                    <text class="gift-card-icon iconfont">&#xe626;</text>
-                                </div>
-                            </div>
-                        </div>
+            <div class="overflow-mid2 mg-b5">
+                <div class="o-m-head">
+                    <text class="o-mt1">Redeem Voucher with Points</text>
+                    <div class="m2-r" >
+                        <!--<text class="m2-rw" >Rules </text>-->
+                        <!--<text class="iconfont" style="color:#1D7CD4;font-size: 24px ">&#xe626;</text>-->
                     </div>
                 </div>
+                <scroller scroll-direction="horizontal" flex-direction="row" class="card-row">
+                    <div class="cr-content">
+                        <div class="cr-card" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'mg-r32':'',]" @click="redeemCard(i)">
+                            <image  :src="i.newImageMini" style="width: 272px;height: 205px;"></image>
+                            <!--<div style="width: 272px;height: 205px;background-color: #EF8A31;"></div>-->
+                            <div class="cr-bottom" >
+
+                                <text class="crc-t1">Valid on order above ₹{{parseInt(i.lowestAmount)}}</text>
+                                <text class="crc-t2">{{i.pointNumber}} Points Needed</text>
+                                <div class="crc-btn">
+                                    <text class="crc-btn-t">Redeem</text>
+                                    <text class="iconfont" style="font-size: 18px;color: #EC8830;font-weight: 700;">&#xe626;</text>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </scroller>
+
             </div>
+            <div>
+                <text>&nbsp;</text>
+                <text>&nbsp;</text>
+            </div>
+
         </scroller>
 
         <no-wifi v-if="!hasWifi" @onReload="initPage"></no-wifi>
@@ -188,10 +236,7 @@
                             </div>
                             <image v-if="giftBox" ref="giftH" class="g-b-h"   src="bmlocal://assets/perks/cover.png" ></image>
                             <image v-if="giftBox" ref="giftC" class="g-b-c" src="bmlocal://assets/perks/open-box.png"></image>
-
                         </div>
-
-
                     </div>
 
                     <text class="mask-t-w1">Congrats</text>
@@ -253,15 +298,54 @@
                     <text class="iconfont mask-p-c">&#xe632;</text>
                 </div>
                 <div class="mask-pw">
-                    <text class="mask-pw1" >You need {{miniPoints}} points to open a gift box for bonus!</text>
-                    <div class="mask-pw2">
-                        <text  class="mask-pw21">Your current available points:</text><text class="mask-pw22">{{user.pointsAvailable}}</text>
-                    </div>
+                    <bmrichtext class="mpw-t">
+                        <bmspan class="mpw-t1" value='You need'></bmspan>
+                        <bmspan class="mpw-t2" value=' 400 '></bmspan>
+                        <bmspan class="mpw-t1" value='points to claim the bonus. Your current points balance is not enough.'></bmspan>
+                    </bmrichtext>
+                    <!--<text class="mask-pw1" >You need {{miniPoints}} points to open a gift box for bonus!</text>-->
+                    <!--<text>You need 400 points to claim the bonus. Your current points balance is not enough.</text>-->
+                    <!--<div class="mask-pw2">-->
+                        <!--<text  class="mask-pw21">You need </text><text class="mask-pw22">{{miniPoints}}</text><text class="mask-pw21">points to claim the bonus. Your current points balance is not enough.</text>-->
+                    <!--</div>-->
 
                 </div>
                 <div class="mask-p-btn">
-                    <text class="mask-p-btnw" v-if="user.pointsAvailable<miniPoints" @click="scroller">Earn More Points</text>
-                    <text class="mask-p-btnw" v-if="user.pointsAvailable>=miniPoints" @click="requestP()">Get Cash Bonus Now</text>
+                    <text class="mask-p-btnw"  @click="wxcMaskSetShareHidden">Earn More Points</text>
+                </div>
+            </div>
+        </WxcMask>
+
+        <WxcMask
+            height="587"
+            width="397"
+            border-radius="16"
+            duration="200"
+            mask-bg-color="rgba(255, 255, 255, 0)"
+            :has-animation="true"
+            :has-overlay="true"
+            :show-close="false"
+            :show="newShow"
+            @wxcMaskSetHidden="wxcMaskSetShareHidden">
+            <div class="maskcontent">
+                <div class="m-top">
+                    <image src="bmlocal://assets/home/mask-head.png" style="width:397px;height:162px; "></image>
+                </div>
+                <text class="iconfont m-ic">&#xe632;</text>
+                <text class="m-c">₹{{points}}</text>
+                <div class="mid-content">
+                    <text class="m-c-w">You cash got bonus will expire</text>
+                    <text class="m-c-w1">by 23:59:59 PM today</text>
+                </div>
+                <image src="bmlocal://assets/home/voucher-part.png" style="width: 398px;height: 28px;"></image>
+                <div class="m-bottom">
+                    <div class="overflow-mg">
+                        <div style="border-radius: 32px;">
+                            <image src="bmlocal://assets/home/maskBtn.png" style="width: 238px;height: 56px;"></image>
+                        </div>
+                    </div>
+
+                    <text class="mb-word" @click="wxcMaskSetShareHidden">Go Shopping Now</text>
                 </div>
             </div>
         </WxcMask>
@@ -300,6 +384,7 @@
               hasAnimation: true,
               show: false,
               secShow: false,
+              newShow: false,
               giftBox: true,
               loginS: false,
               points: '00',
@@ -550,46 +635,39 @@
                 })
             },
             getPoints () {
-                googleAnalytics.recordEvent('Rewards', 'DailyGiftBox', 'EarnCashBonus', 0);
-                if (!this.isCash && this.user && this.isFirstGet) {
-                    this.show = true
-                    this.requestP()
-                } else if (!this.user) {
-                    this.redirectLogin()
-                } else if (!this.isFirstGet) {
+                if (this.user.pointsAvailable < 400) {
                     this.secShow = true
+                    return
+                } else {
+                    googleAnalytics.recordEvent('Rewards', 'DailyGiftBox', 'EarnCashBonus', 0);
+                    if (!this.isCash && this.user) {
+                        this.requestP()
+                    } else if (!this.user) {
+                        this.redirectLogin()
+                    }
                 }
             },
             requestP () {
-                this.secShow = false
-                if (!this.show) {
-                    this.show = true
-                }
-                if (!this.secShow) {
-                    this.$fetch({
-                        method: 'GET',
-                        name: 'point.cashing.prize',
-                        header: {
-                            needAuth: true
-                        }
-                    }).then((res) => {
-                        this.points = res.amount
-                        this.isCash = true
-                        setTimeout(() => {
-                            this.shake2()
-                        }, 500)
-                        this.topStopShake = true
-                        this.$event.emit('getMyWallet')
-                        // this.$notice.alert({
-                        //     message: res.amount
-                        // })
-                        googleAnalytics.recordEvent('Rewards', 'DailyGiftBox', 'EarnCashBonusSuccess', 0);
-                    }).catch((res) => {
-                        // this.$notice.toast({
-                        //     message: res
-                        // })
+                this.$fetch({
+                    method: 'GET',
+                    name: 'point.cashing.prize',
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    this.points = res.amount
+                    this.isCash = true
+                    // setTimeout(() => {
+                    //     this.shake2()
+                    // }, 500)
+                    this.newShow = true
+                    this.$event.emit('getMyWallet')
+                    googleAnalytics.recordEvent('Rewards', 'DailyGiftBox', 'EarnCashBonusSuccess', 0);
+                }).catch((res) => {
+                    this.$notice.toast({
+                        message: res
                     })
-                }
+                })
             },
 
             getSign () {
@@ -773,10 +851,6 @@
                         }.bind(this))
                     }.bind(this))
                 }.bind(this))
-
-                // this.$notice.alert({
-                //     message: this.$refs.pG1
-                // })
             },
             redirectLogin () {
                 this.$event.on('login', params => {
@@ -802,9 +876,9 @@
                 this.isBottomShow = false;
             },
             scroller () {
-                this.secShow = false
-                const el = this.$refs.dec
-                dom.scrollToElement(el, { offset: -140 })
+                // this.secShow = false
+                // const el = this.$refs.dec
+                // dom.scrollToElement(el, { offset: -140 })
                 // this.$nextTick(() => {
                 //     dom.scrollToElement(this.$refs['tab'], { animated: false })
                 // })
@@ -813,6 +887,7 @@
                 this.show = false;
                 this.pointSuccessShow = false;
                 this.secShow = false;
+                this.newShow = false;
                 common.changeAndroidCanBack(true)
             },
             tranString (s) {
@@ -834,10 +909,6 @@
     .iconfont{
         font-family: iconfont;
     }
-    .img-icon{
-        width: 48px;
-        height: 48px;
-    }
     .blackheader{
         position: fixed;
         top: 0;
@@ -856,25 +927,13 @@
         align-items: center;
         justify-content: center;
     }
-    .close{
-        position: absolute;
-        top:48px;
-        left: 0;
-        padding-top: 50px;
-        padding-left: 28px;
-        color: white;
-    }
     .header-word{
         font-size: 32px;
         font-weight: 700;
-        width: 474px;
+        /*width: 474px;*/
         color: black;
         text-align: center;
         line-height: 64px;
-    }
-    .overflow-mid{
-        flex-direction: row;
-        justify-content: center;
     }
     .overflow-mid1{
         flex-direction: row;
@@ -886,75 +945,19 @@
         justify-content: center;
         align-items: center;
     }
-    .overflow-gift-bottom{
-        margin-bottom: 150px;
-    }
-    .mid-card{
-        width: 686px;
-        /*height: 520px;*/
-        background-color: white;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
-        border-radius: 16px;
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .mid-card-noShadow{
-        width: 686px;
-        background-color: white;
-        border-radius: 16px;
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .mid-card-item1{
-        margin-top: 64px;
-        margin-left: 32px;
+    .o-m-head{
         flex-direction: row;
-        justify-content: flex-start;
-    }
-    .mid-card-item2{
-        margin-top: 54px;
-        margin-left: 32px;
-        flex-direction: row;
-        justify-content: flex-start;
-    }
-    .mid-card-text{
-        margin-left: 48px;
-    }
-    .mid-card-text1 {
-        font-family: ProximaNova-Regular;
-        margin-bottom: 16px;
-        font-weight: 700;
-        font-size: 28px;
-        color: rgba(0, 0, 0, 0.87);
-    }
-    .mid-card-text2{
-        color: black;
-        line-height: 38px;
-        font-size: 24px;
-        font-family: ProximaNova-Regular;
-    }
-    .mid-card-text2b{
-        color: #EF8A31;
-        font-size: 24px;
-        line-height: 38px;
-        font-weight: 700;
-        font-family: ProximaNova-Regular;
-    }
-    .bottom-btn{
+        justify-content: space-between;
         align-items: center;
-        margin-top: 48px;
-        margin-bottom: 38px;
+        width: 686px;
+        margin-bottom: 24px;
     }
-    .bottom-btn-txt{
-        background-color: #EF8A31;
-        padding-top: 12px;
-        font-size: 24px;
-        text-align: center;
-        color: white;
-        width: 234px;
-        height: 56px;
-        border-radius: 4px;
+    .o-mt1{
+        font-size: 28px;
+        color: #000000;
+        font-weight: 700;
     }
+
     .overflow-gift-card{
         width: 686px;
         margin:  24px 32px 140px 32px;
@@ -978,11 +981,6 @@
     .top-right {
         width: 204px;
         height: 100px;
-    }
-    .mid-card-h{
-        flex-direction: row;
-        justify-content: center;
-        margin-bottom: -70px;
     }
     .gift-card{
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
@@ -1021,147 +1019,20 @@
     .gift-card-icon{
         color: #333333;
     }
-    .count-div{
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-    }
     .mg-b3{
         margin-bottom: 30px;
     }
     .mg-b5{
         margin-bottom: 50px;
     }
+    .mg-r32{
+        margin-right: 32px;
+    }
     .top-card{
         width: 686px;
         height: 264px;
         background-color: #31005f;
         border-radius: 180px;
-    }
-    .w-i5{
-        position: absolute;
-        top: 158px;
-        left: 113px;
-    }
-    .w-i3{
-        position: absolute;
-        top: 102px;
-        left: 210px;
-    }
-    .w-i1{
-        position: absolute;
-        top: 91px;
-        left: 274px;
-    }
-    .w-i6{
-        position: absolute;
-        top: 104px;
-        left: 336px;
-    }
-    .w-i2{
-        position: absolute;
-        top: 98px;
-        left: 435px;
-    }
-    .w-i4{
-        position: absolute;
-        top: 104px;
-        right: 130px;
-    }
-    .t-c-h{
-        position: absolute;
-        top: 32px;
-        left: 0;
-        font-size: 36px;
-        color: white;
-        font-weight: 700;
-        text-align: center;
-    }
-    .t-cb{
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        right: 70px;
-        width: 104px;
-        height: 42px;
-        border-top-right-radius: 100%;
-        border-top-left-radius: 50%;
-        border-bottom-left-radius: 50%;
-        background-color: #D71D2A ;
-    }
-    .t-cbw{
-        font-size: 20px;
-        color: white;
-    }
-    .t-cm{
-        position: absolute;
-        top: 200px;
-        left: 32px;
-        width: 686px;
-
-    }
-    .t-cm-c{
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        background-color: #6900CB;
-        height: 108px;
-        border-radius:50%;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.50);
-    }
-    .t-cm-cw{
-        font-size: 28px;
-        color: white;
-        font-weight: 700;
-        margin-left: 10px;
-    }
-    .t-cm-ca{
-        font-size: 36px;
-        color: white;
-        margin-left: 10px;
-        font-weight: 700;
-    }
-    .t-cm-cr{
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        background-color: #6900CB;
-        height: 108px;
-        /*width: 460px;*/
-        border-radius:50%;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.50);
-    }
-    .t-cm-cwr{
-        margin-left: 10px;
-        font-size: 24px;
-        color: white;
-        font-weight: 700;
-    }
-    .t-cm-car{
-        font-size: 36px;
-        color: white;
-        margin-left: 10px;
-        /*font-weight: 700;*/
-    }
-    .mid-head{
-        height: 96px;
-        width: 502px;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        border-top-right-radius: 100%;
-        border-top-left-radius: 100%;
-        background-color: #FFBD24;
-    }
-    .m-h1{
-        font-size: 36px;
-        color: #FFFFFF;
-        font-weight: 700;
-        margin-top: 16px;
-
     }
     .m2-content{
         background-color:#F1A800;
@@ -1175,18 +1046,11 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 100px;
-        height: 48px;
-        background-color: #389000;
-        border-top-left-radius:100%;
-        border-bottom-left-radius:100%;
+        padding: 10px 0;
     }
     .m2-rw{
-        font-size: 20px;
-        color: #FFFFFF;
+        font-size: 24px;
+        color: #1D7CD4;
     }
     .m2-c1{
         flex-direction: row;
@@ -1274,13 +1138,6 @@
         font-weight: 700;
         color: #FFFFFF;
     }
-    /*.m2-c4{*/
-        /*width: 592px;*/
-        /*height: 122px;*/
-        /*flex-direction: row;*/
-        /*justify-content: center;*/
-        /*align-items: center;*/
-    /*}*/
     .s-box{
         padding-top: 8px;
         padding-left: 32px;
@@ -1330,102 +1187,251 @@
         margin-top: 4px;
         margin-left: 6px;
     }
-    .bg-tangle{
+    .red-block{
+        width: 686px;
+        height: 160px;
+    }
+    .rb-bg-img{
         position: absolute;
         top: 0;
         left: 0;
         width: 686px;
-        height:328px;
+        height: 160px;
     }
-    .center-img{
-        position: absolute;
-        top: 40px;
-        left: 90px;
+    .red-right{
+        margin-left: 130px;
+        flex-direction: column;
+        align-items:start;
+        justify-content: center;
+        height: 160px;
     }
-    .center-word{
+    .red-right1{
+        /*margin-left: 130px;*/
+        flex-direction: row;
+        align-items:center;
+        justify-content: start;
+        height: 160px;
+    }
+    .rr-top{
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+    }
+    .rrt-t1{
+        font-size: 28px;
+        color: #FFFFFF;
+        font-weight: 700;
+    }
+    .rrt-t2{
+        margin-top: 6px;
+        font-size: 20px;
+        color: #FFFFFF;
+    }
+    .rrt-t3{
+        margin-top: 6px;
+        font-size: 24px;
+        color: #FFFFFF;
+    }
+    .rrt-t4{
+        margin-top: 6px;
+        font-size: 24px;
+        font-weight: 900;
+        color: #FFFFFF;
+    }
+    .rrt-btn{
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        margin-left: 16px;
+        background-color: #FFFFFF;
+        padding: 10px 18px 10px 26px;
+        border-radius: 50%;
+    }
+    .rrt-btn-t{
+        font-size: 24px;
+        color: #EC8830;
+        font-weight: 700;
+    }
+    .rrt1-icon{
+        color: white;
+        font-size: 38px;
+    }
+
+
+    .card-row{
+        width: 750px;
+        height: 366px;
+        flex-direction: row;
+        /*background-color:#1D7CD4;*/
+    }
+    .cr-content{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center
+    }
+    .cr-card{
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        margin-left: 32px;
+        background-color: white;
+        border-radius: 16px;
+        /*height: 174px;*/
+        height: 348px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+    }
+    .cr-bottom{
+        margin-left: 16px;
+    }
+    .crc-t1{
+        font-size: 20px;
+        color: #000000;
+        margin-top: 15px;
+    }
+    .crc-t2{
+        font-size: 20px;
+        color: rgba(0,0,0,.54);
+        margin-top: 4px;
+    }
+    .crc-btn{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding:6px;
+        border-radius: 50%;
+        border-style:solid ;
+        border-width: 2px;
+        border-color: #EC8830 ;
+        margin: 16px 0;
+    }
+    .crc-btn-t{
+        font-size: 24px;
+        color: #EC8830;
+    }
+    .mpw-t{
+        line-height: 38px;
+    }
+    .mpw-t1{
+        font-size: 28px;
+        color: #000000;
+    }
+    .mpw-t2{
+        font-size: 28px;
+        color: #000000;
+        font-weight: 700;
+    }
+
+
+
+
+    .m-ic{
+         position: absolute;
+         top: 24px;
+         right: 24px;
+         font-size: 50px;
+         color: white;
+         font-weight: 700;
+     }
+    .m-c{
         position: absolute;
-        top: 135px;
-        left: 150px;
-        /*background-color: salmon;*/
+        top: 65px;
+        left: 145px;
+        font-size: 64px;
+        color: #FFFFFF;
+        font-weight: 700;
+    }
+    .mid-content{
+        background-color: white;
+        padding: 32px 34px;
+    }
+    .m-c-w{
+        font-size: 24px;
+        color: #000000;
+        text-align: center;
+        line-height: 34px;
+    }
+    .m-c-w1{
+        font-size: 24px;
+        color: #000000;
+        font-weight: 700;
+        text-align: center;
+        line-height: 34px;
+    }
+    .m-c-time{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .m-c-word{
+        font-size: 24px;
+        color: #000000;
+        font-weight: 700;
+    }
+    .m-top{
+        border-top-right-radius: 32px;
+        border-top-left-radius: 32px
+    }
+    .m-bottom{
+        background-color: white;
+        padding-bottom:32px ;
+        padding-top: 20px;
+        border-bottom-right-radius: 32px;
+        border-bottom-left-radius: 32px
+    }
+    .overflow-mg{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .mb-word{
+        position: absolute;
+        top: 32px;
+        left: 100px;
+        font-size: 24px;
+        color: #FFFFFF;
+        font-weight: 700;
+    }
+
+    .overflow-center-time{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0px 0 8px 0 ;
+    }
+    .center-time-word{
+        color: black;
+        font-size: 24px;
+    }
+    .center-time{
+        color: #FFFFFF;
+        flex-direction: row;
+        justify-content: start;
+        margin-right: 32px;
+    }
+    .center-time-hh{
+        background-color: black;
+        color: white;
+        border-radius: 6px;
+        padding: 2px;
+        margin: 8px 2px 2px 2px;
+        font-size: 24px;
+    }
+    .center-time-hh-empty{
+        background-color: black;
+        color: white;
+        border-radius: 6px;
+        margin: 8px 2px 2px 2px;
+        width: 32px;
+        height: 32px;
+    }
+    .center-time-space{
+        width: 750px;
         flex-direction: column;
         justify-content: center;
-        align-items: start;
-    }
-    .over-flow-cwb{
-        position: absolute;
-        top: 340px;
-        left: 128px;
-        width: 435px;
-        padding:0 0px 10px 0px;
-        background-color: #DBAE12;
-        border-radius: 50%;
-    }
-    .c-w-b{
-        background-color: #F6C312;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-    }
-    .c-w-h{
-        width: 200px;
-        font-size: 36px;
-        color: #FFFFFF;
-        letter-spacing: 0;
         text-align: center;
-        font-weight: bold;
-        margin-left: 90px;
-    }
-    .c-w-hs{
-        /*width: 200px;*/
-        margin-left: 30px;
-        font-size: 32px;
-        color: #FFFFFF;
-        letter-spacing: 0;
-        text-align: center;
-        font-weight: bold;
-    }
-    .c-w-r{
+        color: black;
         font-size: 24px;
-        color: #FFFFFF;
-        letter-spacing: 0;
-        margin-top: 25px;
-        margin-left: 145px;
-        text-align: center;
-        text-decoration: underline;
-        /*background-color: black;*/
-        padding: 15px;
-    }
-    .c-wb{
-        /*width: 160px;*/
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-left: 100px;
-        margin-top: 18px;
-        /*background-color: black;*/
-    }
-    .c-wb-w{
-        font-size: 24px;
-        color: #FFFFFF;
-        letter-spacing: 0;
-        padding: 0 4px;
-    }
-    .c-wb-wn{
-        font-size: 24px;
-        color: #FFFFFF;
-        letter-spacing: 0;
-        font-weight: 700;
-    }
-    .c-w-bw{
-        padding: 18px 9px 18px 18px;
-        color: white;
-        font-size: 24px;
-        font-weight: 700;
-    }
-    .c-w-bwa{
-        color: white;
-        font-size: 24px;
-        font-weight: 700;
+        margin-top: 4px;
+        margin-bottom: 4px;
     }
 </style>

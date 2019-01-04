@@ -6,6 +6,7 @@
             <div class="overflow-top">
                 <div class="top-card">
                     <div class="top-card-imgdiv">
+
                         <div style="border-radius: 16px">
                             <image class="top-card-img"  :src="card.newImageDetail"></image>
                         </div>
@@ -16,7 +17,7 @@
                         <div class="top-card-txt2">
                             <text style="line-height: 42px;">• Points needed: {{card.pointNumber}}</text>
                             <text >• Only vaild for order above ₹{{parseInt(card.lowestAmount)}}</text>
-                            <text >• The gift voucher doesn't apply to any Drops order. </text>
+                            <text >• You can only use one voucher for each order. </text>
                         </div>
                     </div>
                 </div>
@@ -187,12 +188,14 @@
         border-radius: 8px;
     }
     .top-card-imgdiv{
-        margin-top: 16px;
+        margin-top: 32px;
         align-items: center;
     }
     .top-card-img{
-        width: 592px;
-        height: 174px;
+        /*width: 592px;*/
+        /*height: 174px;*/
+        width: 650px;
+        height: 191px;
     }
     .top-card-txt{
         flex-direction: column;
