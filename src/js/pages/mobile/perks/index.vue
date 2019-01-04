@@ -1041,6 +1041,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
     .m2-r{
         flex-direction: row;
@@ -1148,6 +1149,7 @@
         border-radius: 16px;
         flex-direction: row;
         background-color:#FFDD90;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
     .s-box-c{
         flex-direction: row;
@@ -1190,6 +1192,8 @@
     .red-block{
         width: 686px;
         height: 160px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+        border-radius: 16px;
     }
     .rb-bg-img{
         position: absolute;
