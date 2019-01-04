@@ -388,6 +388,8 @@
                                 bonus: this.checked ? this.checked : null
                             }
                         }).then((res) => {
+                            that.$event.emit('getMyWallet');
+                            that.$event.emit('closePayment');
                             that.$notice.loading.hide();
                             googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Pay Now-COD success return', 0);
                             // that.$router.finish();
@@ -399,8 +401,6 @@
                                     order: that.order
                                 }
                             });
-                            that.$event.emit('getMyWallet');
-                            that.$event.emit('closePayment');
                         }).catch((res) => {
                             that.$notice.loading.hide();
                             // this.$notice.toast({
