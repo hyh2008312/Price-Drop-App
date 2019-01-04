@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -99,6 +100,7 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFormat(PixelFormat.RGBA_8888);
         setContentView(R.layout.activity_main);
         initView();
         initPayment();
