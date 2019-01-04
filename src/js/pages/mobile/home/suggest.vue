@@ -69,7 +69,7 @@
             </loading>
         </list>
         <div class="loading-top" v-if="!isLoaded">
-            <image class="loading-icon-1" src="bmlocal://assets/loading-2.gif"></image>
+            <image class="loading-icon-1" src="bmlocal://assets/loading-3.gif"></image>
         </div>
         <no-wifi v-if="!hasWifi" @onReload="loadingDown"></no-wifi>
     </div>
