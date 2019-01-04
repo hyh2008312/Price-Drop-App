@@ -135,7 +135,7 @@
                                 <text class="rrt-t3">Your have claimed</text>
                                 <text class="rrt-t4"> ₹ {{points}}. </text>
                             </div>
-                            <text class="rrt-t3">The bonus will expire by 23:59:59 today!</text>
+                            <text class="rrt-t3">The bonus will expire at 23:59:59 today!</text>
                         </div>
 
                         <text v-if="isCash" class="iconfont rrt1-icon" > &#xe6ed;</text>
@@ -334,7 +334,7 @@
                 <text class="iconfont m-ic">&#xe632;</text>
                 <text class="m-c">₹{{points}}</text>
                 <div class="mid-content">
-                    <text class="m-c-w">You cash got bonus will expire</text>
+                    <text class="m-c-w">Your cash got bonus will expire</text>
                     <text class="m-c-w1">by 23:59:59 PM today</text>
                 </div>
                 <image src="bmlocal://assets/home/voucher-part.png" style="width: 398px;height: 28px;"></image>

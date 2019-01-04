@@ -30,7 +30,7 @@
                     <text class="bottom-card-txt2">1. To redeem this gift voucher, please check your balance to ensure you have enough points.</text>
                     <text class="bottom-card-txt2">2. Once you confirm to redeem this gift voucher, you cannot cancel it any more.</text>
                     <text class="bottom-card-txt2">3. The gift voucher cannot be redeemed for cash at any time.</text>
-                    <text class="bottom-card-txt2">4. The gift voucher can only be used for orders above the minimum price during checkout, but it doesn't include any Drops order.</text>
+                    <text class="bottom-card-txt2">4. The gift voucher can only be used for orders above the minimum price during checkout.</text>
 
                 </div>
             </div>

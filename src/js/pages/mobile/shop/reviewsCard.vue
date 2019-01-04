@@ -29,7 +29,7 @@
 
             <div class="card-bottom" v-if="content.uploadImages">
                 <div class="img-div" v-for="item in content.uploadImages">
-                    <image style="width: 80px;height: 80px;" :src="item" @click="blowUpImg(item)"></image>
+                    <image style="width: 80px;height: 80px;" :src="item" ></image>
                 </div>
             </div>
         </div>

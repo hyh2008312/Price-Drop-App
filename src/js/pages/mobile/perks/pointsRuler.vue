@@ -4,12 +4,12 @@
         <div class="blackheader"></div>
         <div v-if="type==1" class="overflow-box" >
 
-            <text class="first-word">1. The daily cash bonus will expire after 12:00 PM every day. </text>
+            <text class="first-word">1. The daily cash bonus will expire at 23:59:59 PM every day. </text>
             <text class="second-word">Please spend your bonus before it expires!</text>
-            <text class="first-word">2. You can apply your cash bonus to your payment at the </text>
-            <text class="second-word">checkout page.</text>
-            <text class="first-word">3. You will be asked to spend 300 points to unlock your gift </text>
-            <text class="second-word">box after the first time.</text>
+            <text class="first-word">2. You can apply your bonus to your order at the payment page.</text>
+            <!--<text class="second-word"></text>-->
+            <text class="first-word">3. You will be asked to spend 400 points to unlock your daily </text>
+            <text class="second-word">bonus. </text>
             <text class="first-word">4. The cash bonus can only be used for shopping, which </text>
             <text class="second-word">cannot be withdrawn.</text>
 

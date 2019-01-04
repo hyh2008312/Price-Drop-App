@@ -33,7 +33,7 @@
                     <div class="overflow-add-img" >
                         <div style="width: 686px; flex-direction: row;justify-content: start;align-items: center;flex-wrap: wrap;">
                             <div class="add-img"  v-for="(i,index) in imgSrc1">
-                                    <div class="i-photo-div"   :key="index" >
+                                    <div class="i-photo-div"   :key="index"  @click="blowUpImg(index)">
                                             <image  class="i-photo" resize="cover"  :src="i" ></image>
                                         <!--<div  class="i-photo" style="background-color: #EF8A31"></div>-->
                                     </div>
@@ -453,6 +453,12 @@
                     }
                 })
             },
+            blowUpImg (index) {
+                this.$image.preview({
+                    index: index,               // 所点击图片下标
+                    images: this.imgSrc1       // 图片的网络地址
+                })
+            }
 
         }
     }
