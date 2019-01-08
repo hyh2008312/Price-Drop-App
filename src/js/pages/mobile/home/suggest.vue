@@ -7,10 +7,10 @@
                 <yx-slider class="slider-container" :imageList="YXBanners" @changeColor="changeColor" v-if="isLoaded"></yx-slider>
             </cell>
 
-            <cell  style="background-color: #f4f4f4"  v-if="isLoaded">
+            <cell   v-if="isLoaded">
                 <block-4 :items="noticeList" v-if="noticeList.length > 0"></block-4>
             </cell>
-            <cell class="ac-wrap" style="background-color: #f4f4f4">
+            <cell class="ac-wrap" >
                 <block-9 v-on:luckyDraw="goLucky" v-on:reward="goReward" ></block-9>
             </cell>
             <cell v-if="false">

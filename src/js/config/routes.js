@@ -98,6 +98,12 @@ export default {
     'my.review': {
         url: '/pages/mobile/my/myReview.js'
     },
+    'my.wallet': {
+        url: '/pages/mobile/my/myWallet.js'
+    },
+    'wallet.tran': {
+        url: '/pages/mobile/my/myWalletTransactions.js'
+    },
     'order': {
         url: '/pages/mobile/order/index.js'
     },

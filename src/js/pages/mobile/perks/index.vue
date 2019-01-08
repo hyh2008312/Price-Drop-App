@@ -68,7 +68,6 @@
                                 <text class="single-day" v-else-if="index==2">3rd</text>
                                 <text class="single-day" v-else>{{index+1}}th</text>
                             </div>
-
                         </div>
                     </div>
                 </scroller>
@@ -921,7 +920,7 @@
         background-color: white;
         height: 112px;
         margin-top: 48px;
-        margin-bottom: 24px;
+        margin-bottom: 32px;
         box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.19);
         flex-direction: row;
         align-items: center;
@@ -951,73 +950,12 @@
         align-items: center;
         width: 686px;
         margin-bottom: 24px;
+        /*background-color: black;*/
     }
     .o-mt1{
         font-size: 28px;
         color: #000000;
         font-weight: 700;
-    }
-
-    .overflow-gift-card{
-        width: 686px;
-        margin:  24px 32px 140px 32px;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: white;
-        border-radius: 16px;
-    }
-    .g-ch-w{
-        margin-bottom: 50px;
-        margin-top: 48px;
-        font-size: 40px;
-        font-weight: 700;
-    }
-    .top-right-div{
-        position: absolute;
-        top:-11px;
-        right:0;
-    }
-    .top-right {
-        width: 204px;
-        height: 100px;
-    }
-    .gift-card{
-        box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
-        border-radius: 24px;
-        background-color: white;
-        width: 594px;
-    }
-    .gift-card-img{
-        width: 592px;
-        height: 174px;
-    }
-    .gift-card-txt{
-        width: 594px;
-        flex-direction: row;
-        justify-content: space-between;
-        background-color: white;
-        padding-top:26px ;
-        padding-bottom:26px ;
-        padding-left:24px ;
-        padding-right:24px ;
-    }
-    .gift-card-txt1{
-        font-weight: 700;
-        font-size: 24px;
-        color: rgba(0,0,0,0.87);
-    }
-    .gift-card-txtr{
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    .gift-card-txt2{
-        font-family: ProximaNova-Regular;
-        font-size: 24px;
-        color: rgba(0,0,0,0.87);
-    }
-    .gift-card-icon{
-        color: #333333;
     }
     .mg-b3{
         margin-bottom: 30px;
@@ -1047,7 +985,7 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        padding: 10px 0;
+        /*padding: 10px 0;*/
     }
     .m2-rw{
         font-size: 24px;
@@ -1394,48 +1332,5 @@
         font-size: 24px;
         color: #FFFFFF;
         font-weight: 700;
-    }
-
-    .overflow-center-time{
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 0px 0 8px 0 ;
-    }
-    .center-time-word{
-        color: black;
-        font-size: 24px;
-    }
-    .center-time{
-        color: #FFFFFF;
-        flex-direction: row;
-        justify-content: start;
-        margin-right: 32px;
-    }
-    .center-time-hh{
-        background-color: black;
-        color: white;
-        border-radius: 6px;
-        padding: 2px;
-        margin: 8px 2px 2px 2px;
-        font-size: 24px;
-    }
-    .center-time-hh-empty{
-        background-color: black;
-        color: white;
-        border-radius: 6px;
-        margin: 8px 2px 2px 2px;
-        width: 32px;
-        height: 32px;
-    }
-    .center-time-space{
-        width: 750px;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        color: black;
-        font-size: 24px;
-        margin-top: 4px;
-        margin-bottom: 4px;
     }
 </style>

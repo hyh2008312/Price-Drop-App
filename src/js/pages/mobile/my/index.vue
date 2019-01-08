@@ -113,7 +113,7 @@
 
             <cell class="overflow-box" >
                 <div class="mid-cell">
-                    <div class="box-tlt "  >
+                    <div class="box-tlt "  @click="openMyWallet">
                         <div class="box-left">
                             <image class="box-txt-icon" src="bmlocal://assets/wallet-01.png"></image>
                             <text class="box-txt">My Wallet</text>
@@ -333,9 +333,9 @@
                     type: 'PUSH'
                 })
             },
-            openTmp () {
+            openMyWallet () {
                 this.$router.open({
-                    name: 'category',
+                    name: 'my.wallet',
                     type: 'PUSH'
                 })
             },
