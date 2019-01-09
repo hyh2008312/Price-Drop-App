@@ -9,7 +9,12 @@
                     <div class="th-r-d" @click="openMyRaffleDraws">
                         <image class="th-r-img" src="bmlocal://assets/myprize-01.png"></image>
                     </div>
-                    <text class="dot" v-if="dotNum>0">{{dotNum}}</text>
+                    <!--<div class="box-bg"  >-->
+                        <text class="dot" v-if="dotNum>0">{{dotNum > 99? '99+': dotNum}}</text>
+
+                    <!--</div>-->
+
+                    <!--<text class="dot" v-if="dotNum>0">{{dotNum}}</text>-->
                 </div>
                 <div class="th-left">
                     <div class="th-l-div-icon" @click="goDefault">
@@ -617,14 +622,16 @@
     .dot{
         background-color: #F84242;
         color: white;
-        font-size:20px;
-        width: 20px;
+        font-size:16px;
+        width: 30px;
+        height: 30px;
         text-align: center;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
         margin-left: -12px;
+        line-height: 30px;
     }
     .th-left{
         margin-top: 25px;

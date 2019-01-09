@@ -142,6 +142,7 @@
         },
         methods: {
             init () {
+                this.$notice.loading.show();
                 this.getNewGoods(true);
             },
             getNewGoods (isfirst) {
