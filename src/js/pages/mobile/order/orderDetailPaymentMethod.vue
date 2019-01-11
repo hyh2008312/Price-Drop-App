@@ -4,7 +4,7 @@
             <div>
                 <text class="gb-txt">Order Time: {{formatDate(order.created, 'MMM DD, YYYY hh:mm:ss')}}</text>
                 <text class="gb-txt gb-mt" v-if="order.paymentMode == 'cod'">Payment Method: COD {{order.shippingProvider}}</text>
-                <text class="gb-txt gb-mt" v-if="order.paymentMode == 'imprest'">Payment Method: {{order.paymentStatus}}</text>
+                <text class="gb-txt gb-mt" v-if="order.paymentMode == 'imprest'">Payment Method: {{order.paymentType}}</text>
             </div>
         </div>
     </div>
