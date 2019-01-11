@@ -12,24 +12,36 @@
 
 
             <div class="overflow-gift" v-if="cardArr.length!==0" v-for="(i,index) in cardArr" :class="[index==cardArr.length-1 ?'overflow-gift-bottom':'',]">
-                <div class="gift-card" @click="tickCard(index,i)">
-                    <image class="gift-card-img" v-if="cardMoney>=i.lowestAmount"  :src="i.newImageDetail" ></image>
-                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&(i.share===100||i.share===80||i.share===120)" :src="i.newImageExpired"></image>
+                <div class="gift-card-c" @click="tickCard(index,i)">
 
-                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===150" :src="i.newImageExpired"></image>
-                    <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===200" :src="i.newImageExpired"></image>
-                    <div class="triangle-topright" v-if="(index === flag&&cardMoney>=i.lowestAmount)||i.id===selCardId">
-                        <text  class="triangle">&#xe741;</text>
-                        <text  class="tick">&radic;</text>
-                    </div>
-                    <div class="gift-card-txt">
-                        <div class="gift-card-right-txt">
-                            <!--<text class="gift-card-txt1">{{i.name}} Gift Card </text>-->
-                            <text class="gift-card-txt2">Order above ₹{{i.lowestAmount}} </text>
+
+                    <text class="iconfont item-checked" v-if="(index === flag&&cardMoney>=i.lowestAmount)||i.id===selCardId">&#xe6fb;</text>
+                    <text class="iconfont item-disable-checked" v-else-if="cardMoney<i.lowestAmount">&#xe73f;</text>
+                    <text class="iconfont item-no-checked" v-else>&#xe73f;</text>
+
+                    <div class="gift-card">
+
+                        <image class="gift-card-img" v-if="cardMoney>=i.lowestAmount"  :src="i.newImageDetail" ></image>
+                        <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&(i.share===100||i.share===80||i.share===120)" :src="i.newImageExpired"></image>
+
+                        <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===150" :src="i.newImageExpired"></image>
+                        <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===200" :src="i.newImageExpired"></image>
+
+                        <!--<div class="triangle-topright" v-if="(index === flag&&cardMoney>=i.lowestAmount)||i.id===selCardId">-->
+                            <!--<text  class="triangle">&#xe741;</text>-->
+                            <!--<text  class="tick">&radic;</text>-->
+                        <!--</div>-->
+                        <div class="gift-card-txt">
+                            <div class="gift-card-right-txt">
+                                <!--<text class="gift-card-txt1">{{i.name}} Gift Card </text>-->
+                                <text class="gift-card-txt2">Order above ₹{{i.lowestAmount}} </text>
+                            </div>
+                            <text class="gift-card-txt3" style="color: rgba(0,0,0,0.38)" v-if="cardMoney<i.lowestAmount" >Not Applicable</text>
+                            <text class="gift-card-txt3" v-if="cardMoney>=i.lowestAmount">Expire in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>
                         </div>
-                        <text class="gift-card-txt3" style="color: rgba(0,0,0,0.38)" v-if="cardMoney<i.lowestAmount" >Not Applicable</text>
-                        <text class="gift-card-txt3" v-if="cardMoney>=i.lowestAmount">Expire in&nbsp;{{tranDate(i.expiredTime)}}&nbsp;days</text>
+
                     </div>
+
                 </div>
             </div>
         </div>
@@ -172,6 +184,9 @@
         /*background-color: #f4f4f4;*/
         background-color: black;
     }
+    .iconfont{
+        font-family: iconfont;
+    }
     .blackheader{
         position: fixed;
         top: 0;
@@ -183,13 +198,35 @@
 
     .overflow-gift{
         flex-direction: row;
-        justify-content: center;
+        justify-content: start;
         margin-top: 32px;
         /*background-color: ;*/
+    }
+    .gift-card-c{
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
     }
     .gift-card{
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
         border-radius: 24px;
+    }
+    .item-checked{
+        padding: 0 18px 0 32px ;
+        font-size:38px ;
+        color: #EF8A31;
+    }
+    .item-disable-checked{
+        margin: 0 18px 0 32px ;
+        font-size:38px ;
+        opacity: 0.24;
+        border-radius: 50%;
+        background-color: #BBBBBB;
+    }
+    .item-no-checked{
+        padding: 0 18px 0 32px ;
+        font-size:38px ;
+        color: rgba(0,0,0,.32);
     }
     .triangle-topright{
         position: absolute;
@@ -213,12 +250,12 @@
         color: #EF8A31;
     }
     .gift-card-img{
-        width: 686px;
-        height: 203px;
+        width: 624px;
+        height: 187px;
     }
 
     .gift-card-txt{
-        width: 686px;
+        width: 624px;
         flex-direction: row;
         justify-content: space-between;
         background-color: white;
@@ -253,6 +290,7 @@
         background-color:white;
         box-shadow: 0 -1px 3px 0 rgba(0,0,0,0.24);
         height: 118px;
+
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -260,9 +298,9 @@
     .bottom-btn-txt1{
         background-color: #EF8A31;
         color: white;
-        padding: 18px 30px;
+        padding: 20px 40px;
         margin-right: 66px;
-        border-radius: 4px;
+        border-radius: 50%;
 
     }
     .bottom-btn-txt2{
