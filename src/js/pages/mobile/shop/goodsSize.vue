@@ -34,8 +34,11 @@
                     </div>
                 </scroller>
             </div>
-            <div class="img-div" v-if="image!=''">
+            <div class="img-div" v-if="image">
                 <image style="width: 496px;height: 496px;" :src="image"></image>
+            </div>
+            <div class="img-div" v-if="imageList" v-for="i in imageList">
+                <image style="width: 496px;height: 496px;" :src="i"></image>
             </div>
             <div>
                 <text class="bottom-text">{{note}}</text>

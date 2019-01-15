@@ -647,6 +647,7 @@
                 }
             },
             requestP () {
+                this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
                     name: 'point.cashing.prize',
@@ -659,6 +660,7 @@
                     // setTimeout(() => {
                     //     this.shake2()
                     // }, 500)
+                    this.$notice.loading.hide();
                     this.newShow = true
                     this.$event.emit('getMyWallet')
                     googleAnalytics.recordEvent('Rewards', 'DailyGiftBox', 'EarnCashBonusSuccess', 0);
@@ -975,7 +977,7 @@
     .m2-content{
         background-color:#F1A800;
         width: 686px;
-        border-radius: 32px;
+        border-radius: 16px;
         flex-direction: column;
         align-items: center;
         justify-content: center;

@@ -5,7 +5,7 @@
         <div class="content">
             <div class="title">
                 <text class="t-t1">Available Balance </text>
-                <text class="t-t2"> ₹ 1400</text>
+                <text class="t-t2"> ₹ {{userBonus + userWallet||0}}</text>
             </div>
             <div class="tab" >
                 <div :class="[flag==i?'tab-item-active':'tab-item']" v-for="(i,index) in tab" @click="selTab(i)" v-if="">
@@ -20,12 +20,12 @@
                 <div class="points-content">
                     <div v-if="pArr.length===0" class="empty-div">
                         <image src="bmlocal://assets/empty.png" class="empty-img"></image>
-                        <text class="empty-txt">You haven’t earned or spent any points yet.</text>
+                        <text class="empty-txt">There is no transaction history. </text>
                     </div>
 
-                    <div style="height: 900px;margin-top: 32px"  v-if="pArr.length!==0">
+                    <div :style="{height: contentHeight+'px','margin-top': '32px'}"  v-if="pArr.length!==0">
                         <scroller>
-                            <div class="points-content-content" v-for="(i,index) in pArr" :class="[index==pArr.length-1 ?'bottom-last':'',]">
+                            <div class="points-content-content" v-for="(i,index) in pArr" :class="[index==pArr.length-1 ?'bottom-last':'',]" v-if="parseInt(i.operationAmount)!=0"> <!-- 等于0的记录不显示-->
                                 <text class="points-date" :class="[index==0 ?'points-date-f':'',index==pArr.length-1 ?'points-date-f':'',]">&nbsp;</text>
 
                                 <div class="dot-line">
@@ -37,14 +37,19 @@
                                     <text class="pci-time1">{{tranDate(i.created)}}</text>
                                     <div class="pci-item">
                                         <div class="pci-right">
-                                            <text class="iconfont pci-icon">&#xe764;</text>
+                                            <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'" class="iconfont pci-icon">&#xe765;</text>
+                                            <text v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='cash earn'||i.type=='cash refund'" class="iconfont pci-icon">&#xe766;</text>
                                             <div>
-                                                <text class="pci-t1">Reward Bonus Expired</text>
-                                                <text class="pci-t2">Expired on 03 Dec 2018</text>
+                                                <text class="pci-t1">{{i.contents}}</text>
+                                                <!--<text class="pci-t2">Expired on 03 Dec 2018</text>-->
+                                                <!--<text class="pci-t2">&nbsp;&nbsp;&nbsp;</text>-->
                                             </div>
                                         </div>
 
-                                        <text style="color: #b4282d">- ₹400</text>
+                                        <text style="color: #b4282d" v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='bonus spent'">- ₹{{parseInt(i.operationAmount)}}</text>
+
+
+                                        <text style="color: #43AC0A" v-if="i.type=='cash earn'||i.type=='cash refund'||i.type=='sign bonus'||i.type=='newer bonus'">+ ₹{{parseInt(i.operationAmount)}}</text>
                                     </div>
 
                                 </div>
@@ -66,7 +71,7 @@
     import header from './header';
     import refresher from '../common/refresh';
     import dayjs from 'dayjs';
-
+    import { Utils } from 'weex-ui';
     export default {
         components: {
             'topic-header': header,
@@ -76,32 +81,61 @@
             return {
                 tab: ['All', 'Cash', 'Bonus'],
                 pArr: false,
-                flag: 'All'
+                flag: 'All',
+                page: 1,
+                pageSize: 40,
+                status: '',
+                userWallet: 0,
+                userBonus: 0,
+                contentHeight: ''
+            }
+        },
+        eros: {
+            appeared (params, options) {
+                if (params) {
+                    this.userWallet = params.userWallet
+                    this.userBonus = params.userBonus
+                }
             }
         },
         created () {
             this.getPoints()
+            this.contentHeight = Utils.env.getScreenHeight() - (Utils.env.getScreenHeight() - 48 - 940 )
+
         },
         methods: {
             getPoints () {
                 this.$notice.loading.show();
+                this.pArr = false
+
                 this.$fetch({
-                    method: 'GET',
-                    name: 'point.detail', // 通过get 获取我自己的积分
+                    method: 'POST',
+                    name: 'point.bonus.wallet.record.list', //
+                    data: {
+                        status: this.status
+                    },
                     header: {
                         needAuth: true
                     }
                 }).then((res) => {
+                    this.pArr = []
+                    this.$notice.loading.hide();
+
                     // this.$notice.alert({
                     //     message: res
                     // })
-                    this.pArr = res.records
-                    // this.pArr = []
-                    this.$notice.loading.hide();
+
+                    this.pArr = [...res]
+
+                    // this.totalPoints = res.totalPoints
+                    // this.availablePoints = res.availablePoints
+                    // this.pendingPoints = this.totalPoints - this.availablePoints
+                    // // this.pArr = []
                 }).catch((res) => {
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
+                    this.$notice.loading.hide();
+                    this.$notice.toast({
+                        message: res
+                    })
                 })
             },
             selTab (i) {
@@ -109,6 +143,14 @@
                //     message: i
                // })
                 this.flag = i
+                if (i === 'All') {
+                    this.status = ''
+                } else if (i === 'Cash') {
+                    this.status = 'wallet'
+                } else {
+                    this.status = i.toLowerCase()
+                }
+                this.getPoints()
             },
             tranDate (str) {
                 return dayjs(new Date(str)).format('DD MMM YYYY')
@@ -383,17 +425,19 @@
         flex-direction: column;
         justify-content:flex-start;
         align-items: center;
-        height: 300px;
+        height: 400px;
         /*background-color: black;*/
     }
     .empty-img{
         width: 200px;
         height: 200px;
+        margin-top: 40px;
     }
     .empty-txt{
         opacity: 0.54;
         font-family: ProximaNova-Bold;
         font-size: 24px;
         color: #000000;
+        margin-bottom: 128px;
     }
 </style>

@@ -119,7 +119,11 @@
                             <text class="box-txt">My Wallet</text>
                             <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
                         </div>
-                        <text class="i-box wallet-num">₹ {{myWallet||0}}</text>
+                        <div style="flex-direction: row;justify-content: space-between;align-items: center">
+                            <text class="i-box1 wallet-num">₹{{userWallet+userBonus||0}}</text>
+                            <text class="i-box2 iconfont">&#xe626;</text>
+                        </div>
+                        <!--<text class="i-box wallet-num">₹ {{myWallet||0}}</text>-->
                     </div>
 
                     <div class="box-tlt "    @click="openCell(5)">
@@ -305,7 +309,9 @@
                 myWallet: '',
                 unread: 0,
                 cartNum: 1,
-                unreadR: 0
+                unreadR: 0,
+                userWallet: 0,
+                userBonus: 0
             }
         },
         methods: {
@@ -336,7 +342,11 @@
             openMyWallet () {
                 this.$router.open({
                     name: 'my.wallet',
-                    type: 'PUSH'
+                    type: 'PUSH',
+                    params: {
+                        userBonus: this.userBonus,
+                        userWallet: this.userWallet
+                    }
                 })
             },
             jumpWeb (id) {
@@ -531,14 +541,16 @@
                             this.points = res.points
                             this.cardNumber = res.cardNumber
                             this.gender = res.gender
+                            this.userBonus = res.userBonus
+                            this.userWallet = res.userWallet
                             this.unread = res.unreadNumber
                             this.$event.emit('getRead', {
                                 unread: this.unread
                             });
                         }).catch((res) => {
-                            // this.$notice.toast({
-                            //     message: res
-                            // })
+                            this.$notice.toast({
+                                message: res
+                            })
                         })
                         this.$fetch({
                             method: 'GET',

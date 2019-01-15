@@ -1,9 +1,11 @@
 <template>
     <div class="wrapper">
         <text class="od-text">Total:  </text>
-        <text class="od-text-1" v-if="method=='cod'">₹{{parseInt(order.paymentAmount) - parseInt(checked? balance: 0)}}</text>
-        <text class="od-text-1" v-if="method!='cod'"> ₹{{parseInt((order.paymentAmount)*0.95) - parseInt(checked? balance: 0)}} </text>
+        <text class="od-text-1" v-if="method=='cod'">₹{{ (parseInt(order.paymentAmount) - parseInt(checked? balance: 0))<=0 ? 0: (parseInt(order.paymentAmount) - parseInt(checked? balance: 0)) }}</text>
+
+        <text class="od-text-1" v-if="method!='cod'"> ₹{{(parseInt((order.paymentAmount)*0.95) - parseInt(checked? balance: 0))<=0? 0: parseInt((order.paymentAmount)*0.95) - parseInt(checked? balance: 0)}} </text>
         <text class="od-text-lt" v-if="method!='cod'">₹{{parseInt(order.paymentAmount)}}</text>
+
         <text class="percent" v-if="method!='cod'"> 5% OFF</text>
         <text class="od-button" v-if="isCanPay" @click="confirm">Pay Now</text>
         <text class="od-button-no" v-if="!isCanPay">Pay Now</text>

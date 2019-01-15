@@ -86,5 +86,8 @@ export const apis = {
     'activity.app.detail': '/activity/app/detail/',
     'comment.product.comment.list': '/comment/product/comment/list/',
     'comment.comment.add': '/comment/comment/add/',
-    'comment.comment.update': '/comment/comment/update/'
+    'comment.comment.update': '/comment/comment/update/',
+    // 'point.bonus.record.list': '/point/bonus/record/list/',
+    // 'wallet.record.list': '/wallet/record/list/',
+    'point.bonus.wallet.record.list': '/point/bonus/wallet/record/list/'
 }

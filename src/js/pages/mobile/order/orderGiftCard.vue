@@ -22,10 +22,7 @@
                     <div class="gift-card">
 
                         <image class="gift-card-img" v-if="cardMoney>=i.lowestAmount"  :src="i.newImageDetail" ></image>
-                        <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&(i.share===100||i.share===80||i.share===120)" :src="i.newImageExpired"></image>
-
-                        <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===150" :src="i.newImageExpired"></image>
-                        <image class="gift-card-img" v-if="cardMoney<i.lowestAmount&&i.share===200" :src="i.newImageExpired"></image>
+                        <image class="gift-card-img" v-if="cardMoney<i.lowestAmount" :src="i.newImageExpired"></image>
 
                         <!--<div class="triangle-topright" v-if="(index === flag&&cardMoney>=i.lowestAmount)||i.id===selCardId">-->
                             <!--<text  class="triangle">&#xe741;</text>-->

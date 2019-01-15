@@ -8,7 +8,7 @@
                 <text class="center-word"  >Wallet Balance</text>
                 <text class="center-word"  >&nbsp;</text>
             </div>
-            <text class="total-points">₹{{totalPoints||0}}</text>
+            <text class="total-points">₹{{userWallet+userBonus||0}}</text>
 
         </div>
         <div class="overflow-mid">
@@ -20,7 +20,7 @@
                             <text class="cb1c-t1">Cash</text>
                             <text class="cb1c-t2">Use Unrestricted</text>
                         </div>
-                        <text class="cb1c-t3">₹1000</text>
+                        <text class="cb1c-t3">₹{{userWallet||0}}</text>
                     </div>
                 </div>
 
@@ -29,9 +29,9 @@
                     <div class="cb1-content">
                         <div class="cb1c-item">
                             <text class="cb1c-t1">Bonus</text>
-                            <text class="cb1c-t2c">Use Unrestricted</text>
+                            <text class="cb1c-t2c">Use Restricted</text>
                         </div>
-                        <text class="cb1c-t3">₹1000</text>
+                        <text class="cb1c-t3">₹{{userBonus||0}}</text>
                     </div>
                 </div>
             </div>
@@ -46,10 +46,10 @@
                 <div v-if="pArr.length===0" class="empty-div">
 
                     <image src="bmlocal://assets/empty.png" class="empty-img"></image>
-                    <text class="empty-txt">You haven’t earned or spent any points yet.</text>
+                    <text class="empty-txt">There is no transaction history. </text>
                 </div>
 
-                <div style="height: 900px"  v-if="pArr.length!==0">
+                <div :style="{height: contentHeight+'px'}"  v-if="pArr.length!==0">
                     <!--<scroller>-->
                         <div class="points-content-content" v-for="(i,index) in pArr" :class="[index==pArr.length-1 ?'bottom-last':'',]">
                             <text class="points-date" :class="[index==0 ?'points-date-f':'',index==pArr.length-1 ?'points-date-f':'',]">&nbsp;</text>
@@ -65,14 +65,16 @@
                                 <text class="pci-time1">{{tranDate(i.created)}}</text>
                                 <div class="pci-item">
                                     <div class="pci-right">
-                                        <text class="iconfont pci-icon">&#xe764;</text>
+                                        <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'" class="iconfont pci-icon">&#xe765;</text>
+                                        <text v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='cash earn'||i.type=='cash refund'" class="iconfont pci-icon">&#xe766;</text>
                                         <div>
-                                            <text class="pci-t1">Reward Bonus Expired</text>
-                                            <text class="pci-t2">Expired on 03 Dec 2018</text>
+                                            <text class="pci-t1">{{i.contents}}</text>
+                                            <!--<text class="pci-t2">Expired on 03 Dec 2018</text>-->
                                         </div>
                                     </div>
 
-                                    <text style="color: #b4282d">- ₹400</text>
+                                    <text style="color: #b4282d" v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='bonus spent'">- ₹{{parseInt(i.operationAmount)}}</text>
+                                    <text style="color: #43AC0A" v-if="i.type=='cash earn'||i.type=='cash refund'||i.type=='sign bonus'||i.type=='newer bonus'">+ ₹{{parseInt(i.operationAmount)}}</text>
                                 </div>
 
                             </div>
@@ -91,6 +93,7 @@
     import header from './header';
     import dayjs from 'dayjs';
     import NewDialog from './newPopup';
+    import { Utils } from 'weex-ui';
     export default {
         components: {
             'topic-header': header,
@@ -100,50 +103,58 @@
         eros: {
             appeared (params, options) {
                 if (params) {
-                    if (params.num) {
-                        this.points = params.num
-                    }
+                    this.userWallet = params.userWallet
+                    this.userBonus = params.userBonus
                 }
             }
         },
         data () {
             return {
-                totalPoints: '',
-                availablePoints: '',
-                pendingPoints: '',
+                userWallet: 0,
+                userBonus: 0,
                 pArr: false,
                 show: false,
                 isChecked: false,
-                content: 'All “Pending" points cannot be used until they ' +
-                'change to “Available" status. \n' +
-                'These points will become “Available" on the ' +
-                '10th' + ' day after you confirm the receipt of your ' +
-                'order with no return.'
+                contentHeight: ''
             }
         },
         created () {
             this.getPoints()
+            this.contentHeight = Utils.env.getScreenHeight() - (Utils.env.getScreenHeight() - 48 - 398 - 135 - 86)
+            // this.$notice.alert({
+            //     message: this.pageHeight - 48 - 398 - 135 - 24 - 64
+            // })
         },
         methods: {
             getPoints () {
                 this.$notice.loading.show();
                 this.$fetch({
-                    method: 'GET',
-                    name: 'point.detail', // 通过get 获取我自己的积分
+                    method: 'POST',
+                    name: 'point.bonus.wallet.record.list', //
+                    data: {
+                        status: ''
+                    },
                     header: {
                         needAuth: true
                     }
                 }).then((res) => {
                     // this.$notice.alert({
-                    //     message: res
+                    //     message: res.length
                     // })
-                    this.pArr = res.records
-                    this.totalPoints = res.totalPoints
-                    this.availablePoints = res.availablePoints
-                    this.pendingPoints = this.totalPoints - this.availablePoints
-                    // this.pArr = []
+                    if (res.length <= 3) {
+                        this.pArr = res
+                    } else {
+                        let tmp = res
+                        tmp.splice(3, tmp.length)
+                        this.pArr = tmp
+                    }
+                    // this.totalPoints = res.totalPoints
+                    // this.availablePoints = res.availablePoints
+                    // this.pendingPoints = this.totalPoints - this.availablePoints
+                    // // this.pArr = []
                     this.$notice.loading.hide();
                 }).catch((res) => {
+                    this.$notice.loading.hide();
                     // this.$notice.toast({
                     //     message: res
                     // })
@@ -155,7 +166,11 @@
             openDetail () {
                 this.$router.open({
                     name: 'wallet.tran',
-                    type: 'PUSH'
+                    type: 'PUSH',
+                    params: {
+                        userBonus: this.userBonus,
+                        userWallet: this.userWallet
+                    }
                 })
             },
             wxcDialogCancelBtnClicked () {
@@ -495,5 +510,6 @@
         font-family: ProximaNova-Bold;
         font-size: 24px;
         color: #000000;
+        margin-bottom: 128px;
     }
 </style>

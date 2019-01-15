@@ -77,6 +77,7 @@
 
                             <div v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">
                                 <text class="item-text-err" v-if="codMsg1!=''" >{{codMsg1}}</text> <!--黑名单-->
+
                                 <text class="item-text-err" v-else >{{codMsg}}</text>  <!--cod-->
 
                             </div>
@@ -322,6 +323,9 @@ export default {
             }
         },
         getBalance () {
+            // this.$notice.alert({
+            //     message: 111111
+            // })
             this.$fetch({
                 method: 'GET', // 大写
                 name: 'point.cashing.amount',
