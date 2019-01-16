@@ -46,6 +46,7 @@ module.exports = {
         'js/pages/mobile/shop/writeReview.vue',
         'js/pages/mobile/activity/index.vue',
         'js/pages/mobile/activity/topic2.vue',
+        'js/pages/mobile/activity/topic3.vue',
         'js/pages/mobile/order/index.vue',
         'js/pages/mobile/order/orderGiftCard.vue',
         'js/pages/mobile/order/paySuccess.vue',

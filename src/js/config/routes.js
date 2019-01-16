@@ -14,6 +14,9 @@ export default {
     'mobile.activity.topic2': {
         url: '/pages/mobile/activity/topic2.js'
     },
+    'mobile.activity.topic3': {
+        url: '/pages/mobile/activity/topic3.js'
+    },
     'goods.category': {
         url: '/pages/mobile/home/category.js'
     },
@@ -143,8 +146,8 @@ export default {
     'order.address.tracking': {
         url: '/pages/mobile/order/trackingPackage.js'
     },
-    'drops.cutDetail': {
-        url: '/pages/mobile/drops/cutDetail.js'
+    'drops': {
+        url: '/pages/mobile/drops/index.js'
     },
     'perks': {
         url: '/pages/mobile/perks/index.js'
