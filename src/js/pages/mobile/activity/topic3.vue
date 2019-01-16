@@ -52,7 +52,7 @@
 
 <script>
     export default {
-        name: "topic3",
+        name: 'topic3',
         data () {
             return {
                name: 'Announcement'
