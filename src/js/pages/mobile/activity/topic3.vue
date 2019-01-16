@@ -5,6 +5,7 @@
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name}}</text>
         </div>
+        <scroller style="background-color: #980100">
         <div>
             <image style="width: 750px;height: 332px;" src="bmlocal://assets/home/spring-page.png"></image>
             <text class="center-txt">Longer delivery times expected: </text>
@@ -45,6 +46,7 @@
 
             </div>
         </div>
+        </scroller>
     </div>
 </template>
 
@@ -108,7 +110,8 @@
         left: 104px;
     }
     .circle-bg{
-        background-color: #980100;
+        /*background-color: #980100;*/
+        margin-top: -60px;
     }
     .cb-txt1{
         position: absolute;
