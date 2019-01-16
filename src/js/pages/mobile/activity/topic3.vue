@@ -5,47 +5,47 @@
             <text class="homeBack" @click="homeBack">&#xe6f6;</text>
             <text class="title">{{name}}</text>
         </div>
-        <scroller style="background-color: #980100">
-        <div>
-            <image style="width: 750px;height: 332px;" src="bmlocal://assets/home/spring-page.png"></image>
-            <text class="center-txt">Longer delivery times expected: </text>
-        </div>
-        <div class="circle-bg">
-            <image style="width: 750px;height: 710px;" src="bmlocal://assets/home/3.png"></image>
-            <div class="cb-txt1">
-                <text class="normal" style="margin-bottom: 6px;">Due to Chinese New Year vacation,</text>
-                <div class="word-center" >
-                    <text class="normal">it will take</text>
-                    <text class="red-txt"> extra 3 weeks</text>
-                    <text class="normal"> for our Chinese</text>
-                </div>
-                <text class="normal" style="margin-bottom: 6px;">suppliers & shipping partners to process </text>
-                <div class="word-center">
-                    <text class="normal">orders placed during </text>
-                    <text class="bold-txt">Jan 24 - Feb 15.</text>
-                </div>
-                <text class="normal" style="margin-bottom: 6px;"> Please check the product pages for processing  </text>
-                <text class="normal"> time updates and estimated arrival date.</text>
+        <scroller style="background-color: #980100" :show-scrollbar="false">
+            <div>
+                <image style="width: 750px;height: 332px;" src="bmlocal://assets/home/spring-page.png"></image>
+                <text class="center-txt">Longer delivery times expected: </text>
             </div>
-            <div class="cb-txt2">
-                <text class="normal1">At PriceDrop, we respect local culture and look</text>
-                <text class="normal1">forward to observing China’s most important</text>
-                <text class="normal1"> holiday along with our suppliers and shipping</text>
-                <text class="normal1"> partners. Meanwhile, as a strong customer-</text>
-                <text class="normal1">oriented company, we will do the utmost to</text>
-                <text class="normal1"> ensure that we deliver your orders</text>
-                <text class="normal1"> as fast as possible. </text>
+            <div class="circle-bg">
+                <image style="width: 750px;height: 710px;" src="bmlocal://assets/home/3.png"></image>
+                <div class="cb-txt1">
+                    <text class="normal" style="margin-bottom: 6px;">Due to Chinese New Year vacation,</text>
+                    <div class="word-center" >
+                        <text class="normal">it will take</text>
+                        <text class="red-txt"> extra 3 weeks</text>
+                        <text class="normal"> for our Chinese</text>
+                    </div>
+                    <text class="normal" style="margin-bottom: 6px;">suppliers & shipping partners to process </text>
+                    <div class="word-center">
+                        <text class="normal">orders placed during </text>
+                        <text class="bold-txt">Jan 24 - Feb 15.</text>
+                    </div>
+                    <text class="normal" style="margin-bottom: 6px;"> Please check the product pages for processing  </text>
+                    <text class="normal"> time updates and estimated arrival date.</text>
+                </div>
+                <div class="cb-txt2">
+                    <text class="normal1">At PriceDrop, we respect local culture and look</text>
+                    <text class="normal1">forward to observing China’s most important</text>
+                    <text class="normal1"> holiday along with our suppliers and shipping</text>
+                    <text class="normal1"> partners. Meanwhile, as a strong customer-</text>
+                    <text class="normal1">oriented company, we will do the utmost to</text>
+                    <text class="normal1"> ensure that we deliver your orders</text>
+                    <text class="normal1"> as fast as possible. </text>
+                </div>
             </div>
-        </div>
-        <div class="bottom-bg">
-            <text class="normal2">Thank you for accommodating the</text>
-            <text class="normal2">Chinese New Year holiday shipping schedule.</text>
-            <div class="bto-img">
-                <image style="width: 140px;height: 130px" src="bmlocal://assets/home/2.png"></image>
-                <image style="width: 59px;height: 115px" src="bmlocal://assets/home/1.png"></image>
+            <div class="bottom-bg">
+                <text class="normal2">Thank you for accommodating the</text>
+                <text class="normal2">Chinese New Year holiday shipping schedule.</text>
+                <div class="bto-img">
+                    <image style="width: 140px;height: 130px" src="bmlocal://assets/home/2.png"></image>
+                    <image style="width: 59px;height: 115px" src="bmlocal://assets/home/1.png"></image>
 
+                </div>
             </div>
-        </div>
         </scroller>
     </div>
 </template>

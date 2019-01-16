@@ -49,6 +49,10 @@ export default {
                         }
                     });
                 }
+            } else if (img.title == 'holidays') {
+                this.$router.open({
+                    name: 'mobile.activity.topic3'
+                });
             } else if (img.title == 'flash') {
                 this.$router.open({
                     name: 'flash',
