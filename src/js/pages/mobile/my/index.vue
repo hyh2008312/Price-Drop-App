@@ -284,7 +284,7 @@
                 this.getUserData()
             })
             this.$event.on('getMyWallet', parmas => {
-                this.getMyWallet()
+                this.getUserData()
             })
         },
         destory () {
@@ -531,9 +531,9 @@
                                 needAuth: true
                             }
                         }).then((res) => {
-                            // this.$notice.alert({
-                            //     message: res
-                            // })
+                            this.$notice.alert({
+                                message: res
+                            })
                             this.nickname = res.firstName + ' ' + res.lastName
                             this.fname = res.firstName
                             this.lname = res.lastName
@@ -541,8 +541,10 @@
                             this.points = res.points
                             this.cardNumber = res.cardNumber
                             this.gender = res.gender
+
                             this.userBonus = res.userBonus
                             this.userWallet = res.userWallet
+
                             this.unread = res.unreadNumber
                             this.$event.emit('getRead', {
                                 unread: this.unread
@@ -566,7 +568,6 @@
                             //     message: res
                             // })
                         })
-                        this.getMyWallet()
                     } else {
                         this.$notice.toast({
                             message: 'please login'
@@ -578,25 +579,6 @@
                     this.email = this.user.email
                     this.fname = resData.firstName
                     this.lname = resData.lastName
-                })
-            },
-            getMyWallet () {
-                this.$fetch({
-                    method: 'GET',
-                    name: 'point.cashing.amount',
-                    header: {
-                        needAuth: true
-                    }
-                }).then((res) => {
-                    this.myWallet = res.amount
-                    // this.$notice.alert({
-                    //     message: res.amount
-                    // })
-                }).catch((res) => {
-                    // this.$notice.loading.hide();
-                    // this.$notice.toast({
-                    //     message: res
-                    // })
                 })
             },
             tranString (s) {

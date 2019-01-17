@@ -37,7 +37,7 @@
                                     <text class="pci-time1">{{tranDate(i.created)}}</text>
                                     <div class="pci-item">
                                         <div class="pci-right">
-                                            <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'" class="iconfont pci-icon">&#xe765;</text>
+                                            <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'||i.type=='bonus refund'" class="iconfont pci-icon">&#xe765;</text>
                                             <text v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='cash earn'||i.type=='cash refund'" class="iconfont pci-icon">&#xe766;</text>
                                             <div>
                                                 <text class="pci-t1">{{i.contents}}</text>
@@ -49,9 +49,8 @@
                                         <text style="color: #b4282d" v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='bonus spent'">- ₹{{parseInt(i.operationAmount)}}</text>
 
 
-                                        <text style="color: #43AC0A" v-if="i.type=='cash earn'||i.type=='cash refund'||i.type=='sign bonus'||i.type=='newer bonus'">+ ₹{{parseInt(i.operationAmount)}}</text>
+                                        <text style="color: #43AC0A" v-if="i.type=='cash earn'||i.type=='cash refund'||i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus refund'">+ ₹{{parseInt(i.operationAmount)}}</text>
                                     </div>
-
                                 </div>
                             </div>
                         </scroller>
@@ -121,9 +120,9 @@
                     this.pArr = []
                     this.$notice.loading.hide();
 
-                    // this.$notice.alert({
-                    //     message: res
-                    // })
+                    this.$notice.alert({
+                        message: res
+                    })
 
                     this.pArr = [...res]
 

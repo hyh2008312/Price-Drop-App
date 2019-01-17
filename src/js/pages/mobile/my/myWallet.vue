@@ -65,7 +65,7 @@
                                 <text class="pci-time1">{{tranDate(i.created)}}</text>
                                 <div class="pci-item">
                                     <div class="pci-right">
-                                        <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'" class="iconfont pci-icon">&#xe765;</text>
+                                        <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'||i.type=='bonus refund'" class="iconfont pci-icon">&#xe765; </text>
                                         <text v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='cash earn'||i.type=='cash refund'" class="iconfont pci-icon">&#xe766;</text>
                                         <div>
                                             <text class="pci-t1">{{i.contents}}</text>
@@ -74,15 +74,13 @@
                                     </div>
 
                                     <text style="color: #b4282d" v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='bonus spent'">- ₹{{parseInt(i.operationAmount)}}</text>
-                                    <text style="color: #43AC0A" v-if="i.type=='cash earn'||i.type=='cash refund'||i.type=='sign bonus'||i.type=='newer bonus'">+ ₹{{parseInt(i.operationAmount)}}</text>
+                                    <text style="color: #43AC0A" v-if="i.type=='cash earn'||i.type=='cash refund'||i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus refund'">+ ₹{{parseInt(i.operationAmount)}}</text>
                                 </div>
 
                             </div>
                         </div>
                     <!--</scroller>-->
                 </div>
-
-
             </div>
         </div>
 
@@ -103,8 +101,8 @@
         eros: {
             appeared (params, options) {
                 if (params) {
-                    this.userWallet = params.userWallet
-                    this.userBonus = params.userBonus
+                    // this.userWallet = params.userWallet
+                    // this.userBonus = params.userBonus
                 }
             }
         },
@@ -120,6 +118,7 @@
         },
         created () {
             this.getPoints()
+            this.getMyWallet()
             this.contentHeight = Utils.env.getScreenHeight() - (Utils.env.getScreenHeight() - 48 - 398 - 135 - 86)
             // this.$notice.alert({
             //     message: this.pageHeight - 48 - 398 - 135 - 24 - 64
@@ -139,7 +138,7 @@
                     }
                 }).then((res) => {
                     // this.$notice.alert({
-                    //     message: res.length
+                    //     message: res
                     // })
                     if (res.length <= 3) {
                         this.pArr = res
@@ -155,6 +154,27 @@
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
+                })
+            },
+            getMyWallet () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'point.cashing.amount',
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    // this.myWallet = res.amount
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                    this.userWallet = res.cash
+                    this.userBonus = res.amount - res.cash
+                }).catch((res) => {
+                    // this.$notice.loading.hide();
                     // this.$notice.toast({
                     //     message: res
                     // })
