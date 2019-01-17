@@ -22,7 +22,9 @@
                     <text class="gd-text">Tax</text>
                     <text class="gd-text" v-if="order.orderType == 'Cut'">Price Drop</text>
                     <text class="gd-text" v-if="(order.orderType == 'Normal' || order.orderType == 'Flash') && order.voucherShare > 0">Voucher</text>
-                    <text class="gd-text" v-if="order.balanceUsed && order.balance > 0">Wallet</text>
+                    <!--<text class="gd-text" v-if="order.balanceUsed && order.balance > 0">Wallet</text>-->
+                    <text class="gd-text" v-if="order.bonusWallet > 0">Wallet</text>
+
                     <text class="gd-text" v-if="parseInt(order.paymentDiscount)>0">Payment Discount</text>
                     <text class="gd-text-1">Total</text>
                 </div>
@@ -34,7 +36,9 @@
                     <text class="gb-text gb-text-color" v-if="order.orderType == 'Cut'">- ₹{{((order.totalExclTax * 100 + order.shippingExclTax * 100 - order.paymentAmount * 100) / 100).toFixed(2)}}</text>
                     <text class="gd-text gb-text-color" v-if="(order.orderType == 'Normal'|| order.orderType == 'Flash') && order.voucherShare > 0">- ₹{{order.voucherShare}}</text>
 
-                    <text class="gd-text gb-text-color" v-if="order.balanceUsed && order.balance > 0">- ₹{{order.balance}}</text>
+                    <!--<text class="gd-text gb-text-color" v-if="order.balanceUsed && order.balance > 0">- ₹{{order.balance}}</text>-->
+                    <text class="gd-text gb-text-color" v-if="order.bonusWallet > 0">- ₹{{order.bonusWallet}}</text>
+
                     <text class="gb-text gb-text-color " v-if="parseInt(order.paymentDiscount)>0">- ₹{{order.paymentDiscount}}</text>
 
                     <text class="gb-text-1">₹{{order.realAmount}}</text>
