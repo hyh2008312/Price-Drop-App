@@ -54,6 +54,8 @@ export default {
             this.getAddress();
             if (params.card) {
                 this.card = params.card;
+            } else {
+                this.card = false
             }
         },
         beforeAppear (params, options) {
