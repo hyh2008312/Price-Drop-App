@@ -349,8 +349,13 @@
                         this.order[this.cancelIndex].orderStatus = 'Audit canceled';
                         this.$notice.toast('Your order cancellation request has been submitted for review.');
                     } else {
-                        this.order.splice(this.cancelIndex, 1);
-                        this.$notice.toast('Cancelled successfully.');
+                        if (this.index == '0') {
+                            this.order[this.cancelIndex].orderStatus = 'Canceled';
+                            this.$notice.toast('Cancelled successfully.');
+                        } else {
+                            this.order.splice(this.cancelIndex, 1);
+                            this.$notice.toast('Cancelled successfully.');
+                        }
                     }
                 }, error => {
                     this.$notice.toast({
