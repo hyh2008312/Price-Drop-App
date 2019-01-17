@@ -206,12 +206,16 @@ export default {
                     needAuth: true
                 }
             }).then(resData => {
-                this.$notice.toast('Your order cancellation request has been submitted for review.')
-                this.order = resData
+                if (resData.orderStatus == 'Audit canceled') {
+                    this.$notice.toast('Your order cancellation request has been submitted for review.');
+                } else {
+                    this.$notice.toast('Cancelled Successfully.');
+                }
+                this.order = resData;
             }, error => {
                 this.$notice.toast({
                     message: error
-                })
+                });
             })
         },
         deleteOrder (event) {

@@ -345,8 +345,13 @@
                         needAuth: true
                     }
                 }).then(resData => {
-                    this.order[this.cancelIndex].orderStatus = 'Audit canceled';
-                    this.$notice.toast('Your order cancellation request has been submitted for review.');
+                    if (resData.orderStatus == 'Audit canceled') {
+                        this.order[this.cancelIndex].orderStatus = 'Audit canceled';
+                        this.$notice.toast('Your order cancellation request has been submitted for review.');
+                    } else {
+                        this.order.splice(this.cancelIndex, 1);
+                        this.$notice.toast('Cancelled successfully.');
+                    }
                 }, error => {
                     this.$notice.toast({
                         message: error
