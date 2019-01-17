@@ -207,11 +207,12 @@ export default {
                 }
             }).then(resData => {
                 if (resData.orderStatus == 'Audit canceled') {
+                    this.order.orderStatus = 'Audit canceled';
                     this.$notice.toast('Your order cancellation request has been submitted for review.');
                 } else {
+                    this.order.orderStatus = 'Canceled';
                     this.$notice.toast('Cancelled Successfully.');
                 }
-                this.order = resData;
             }, error => {
                 this.$notice.toast({
                     message: error
