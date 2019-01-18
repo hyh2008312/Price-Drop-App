@@ -390,7 +390,6 @@
                             }
                         }).then((res) => {
                             that.$notice.loading.hide();
-                            that.$router.finish();
                             that.$router.open({
                                 name: 'order.success',
                                 type: 'PUSH',
