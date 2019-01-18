@@ -60,6 +60,7 @@
                     this.sizeData = params.productSize
                     this.note = params.productSize.note
                     this.image = params.productSize.image
+                    this.imageList = params.productSize.imageList
                     this.inSize = this.sizeData.table[0]
                     this.activeTab = this.sizeData.table[0].name
                     this.cmSize = this.sizeData.table[1]
@@ -76,6 +77,7 @@
                 cmSize: '',
                 activeTab: '',
                 image: '',
+                imageList: '',
                 note: '',
                 array: []
             }
@@ -221,7 +223,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        margin: 4px 0;
+        /*margin: 4px 0;*/
         background-color: #FFFFFF;
     }
 </style>
