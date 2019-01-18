@@ -278,9 +278,9 @@
                 }, error => {
                     this.$notice.loading.hide();
                     // 错误回调
-                    this.$notice.alert({
-                        message: error
-                    });
+                    // this.$notice.alert({
+                    //     message: error
+                    // });
                 })
             },
             refreshApiFinished () {

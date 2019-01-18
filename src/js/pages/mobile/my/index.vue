@@ -119,11 +119,11 @@
                             <text class="box-txt">My Wallet</text>
                             <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
                         </div>
-                        <div style="flex-direction: row;justify-content: space-between;align-items: center">
-                            <text class="i-box1 wallet-num">₹{{userWallet+userBonus||0}}</text>
-                            <text class="i-box2 iconfont">&#xe626;</text>
-                        </div>
-                        <!--<text class="i-box wallet-num">₹ {{myWallet||0}}</text>-->
+                        <!--<div style="flex-direction: row;justify-content: space-between;align-items: center">-->
+                            <!--<text class="i-box1 wallet-num">₹{{userWallet+userBonus||0}}</text>-->
+                            <!--<text class="i-box2 iconfont">&#xe626;</text>-->
+                        <!--</div>-->
+                        <text class="i-box wallet-num">₹ {{myWallet||0}}</text>
                     </div>
 
                     <div class="box-tlt "    @click="openCell(5)">
@@ -284,7 +284,7 @@
                 this.getUserData()
             })
             this.$event.on('getMyWallet', parmas => {
-                this.getUserData()
+                this.getMyWallet()
             })
         },
         destory () {
@@ -340,14 +340,14 @@
                 })
             },
             openMyWallet () {
-                this.$router.open({
-                    name: 'my.wallet',
-                    type: 'PUSH',
-                    params: {
-                        userBonus: this.userBonus,
-                        userWallet: this.userWallet
-                    }
-                })
+                // this.$router.open({
+                //     name: 'my.wallet',
+                //     type: 'PUSH',
+                //     params: {
+                //         userBonus: this.userBonus,
+                //         userWallet: this.userWallet
+                //     }
+                // })
             },
             jumpWeb (id) {
                 if (this.user == null) {
@@ -531,9 +531,9 @@
                                 needAuth: true
                             }
                         }).then((res) => {
-                            this.$notice.alert({
-                                message: res
-                            })
+                            // this.$notice.alert({
+                            //     message: res
+                            // })
                             this.nickname = res.firstName + ' ' + res.lastName
                             this.fname = res.firstName
                             this.lname = res.lastName
@@ -542,17 +542,17 @@
                             this.cardNumber = res.cardNumber
                             this.gender = res.gender
 
-                            this.userBonus = res.userBonus
-                            this.userWallet = res.userWallet
+                            // this.userBonus = res.userBonus
+                            // this.userWallet = res.userWallet
 
                             this.unread = res.unreadNumber
                             this.$event.emit('getRead', {
                                 unread: this.unread
                             });
                         }).catch((res) => {
-                            this.$notice.toast({
-                                message: res
-                            })
+                            // this.$notice.toast({
+                            //     message: res
+                            // })
                         })
                         this.$fetch({
                             method: 'GET',
@@ -579,6 +579,25 @@
                     this.email = this.user.email
                     this.fname = resData.firstName
                     this.lname = resData.lastName
+                })
+            },
+            getMyWallet () {
+                this.$fetch({
+                    method: 'GET',
+                    name: 'point.cashing.amount',
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    this.myWallet = res.amount
+                    // this.$notice.alert({
+                    //     message: res.amount
+                    // })
+                }).catch((res) => {
+                    // this.$notice.loading.hide();
+                    // this.$notice.toast({
+                    //     message: res
+                    // })
                 })
             },
             tranString (s) {

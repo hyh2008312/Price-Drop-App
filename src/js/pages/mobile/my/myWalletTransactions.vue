@@ -120,9 +120,9 @@
                     this.pArr = []
                     this.$notice.loading.hide();
 
-                    this.$notice.alert({
-                        message: res
-                    })
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
 
                     this.pArr = [...res]
 

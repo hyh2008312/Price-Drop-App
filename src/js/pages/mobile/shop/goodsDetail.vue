@@ -527,7 +527,7 @@
     import preload from '../common/preloadImg';
     import { WxcCell, WxcButton, WxcPopup, WxcMask, Utils } from 'weex-ui'
     import tab from './tab';
-    import { baseUrl } from '../../../config/apis';
+    import { baseUrl , dataUrl } from '../../../config/apis';
     import somegoods from './someGoods';
     import dayjs from 'dayjs';
     import star from './star-item';
@@ -555,11 +555,14 @@
             // 'block': block
         },
         eros: {
-          backAppeared (params) {
+            backAppeared (params) {
               //   this.$notice.toast({
               //     message: 111111
               // })
-          }
+            },
+            beforeDisappear (options) {
+              this.userBackProductAnalytics()
+          },
         },
         data () {
             return {
@@ -644,6 +647,7 @@
                 user: null,
                 opacity: 0,
                 category: '',
+                categoryId: '',
                 purchaseMethod: '',
                 flashSale: '',
                 NOW_DATE: '',
@@ -723,7 +727,7 @@
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
-                        // url: `${baseUrl}/product/customer/detail/13/`,
+                        // url: `${baseUrl}/product/customer/detail/8112/`,
 
                         data: {}
                     }).then((res) => {
@@ -741,9 +745,6 @@
                                 this.countDate(this.flashSale.startTime)
                             }
                         }
-                        // this.$notice.alert({
-                        //     message: res.commentStar
-                        // })
                         // ---- 上面是闪购属性设置 下面是普通属性设置----
                         this.goods.title = res.title;
                         this.goods.price = res.saleUnitPrice;
@@ -766,6 +767,7 @@
                         } else {
                             this.selimgsrc = ''
                         }
+
                         if (res.attributes != null && res.attributes.length > 0) {
                             if (this.goodsVariants.length == 1) {
                                 this.hasVariants = false;
@@ -795,25 +797,34 @@
                         if (res.shipping) {
                             this.shipObj = res.shipping
                         }
+
                         this.divider = res.divider
                         this.dividend = res.dividend
                         this.productStatus = res.status
                         this.dectxt = []
                         this.nextPage.title = res.title;
                         this.nextPage.productId = id.id;
+                        // this.$notice.alert({
+                        //     message: this.purchaseMethod
+                        // })
                         this.nextPage.shippingPrice = res.shipping.priceItem;
                         this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
                         this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
+
+
                         this.isDrop = this.purchaseMethod == 'drop';
                         this.nextPage.proId = this.purchaseMethod;
                         // nextPage 传给下一页组织的数据
+
 
                         if (res.newDescription != null) {
                             this.newDescription = res.newDescription
                         }
                         if (res.categories && res.categories.length > 0) {
                             this.category = res.categories[0].name;
+                            this.categoryId = res.categories[0].id;
                         }
+                        this.userProductAnalytics();
                         this.$notice.loading.hide();
                         googleAnalytics.trackingScreen(`Product Detail/${this.category}`);
                         googleAnalytics.recordEvent('ProductViewCategory', this.purchaseMethod, this.category, 0);
@@ -877,6 +888,49 @@
                    //     message: data.count
                    // })
                 }, error => {})
+            },
+            userProductAnalytics () {
+                this.$fetch({
+                    method: 'POST',
+                    url: `${dataUrl}/userdbanalysis/add/`,
+                    data: {
+                        user_id: this.user.id,
+                        product_id: this.proId,
+                        product_title: this.goods.title,
+                        product_price: this.goods.unitPrice,
+                        product_category: this.category,
+                        category_id: this.categoryId ? this.categoryId : '',
+                        product_image: this.goodsImg
+                    }
+                }).then((res) => {
+                    // this.dropGoods = data.count
+                   // this.$notice.alert({
+                   //     message: res
+                   // })
+                }).catch((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                })
+            },
+            userBackProductAnalytics () {
+                this.$fetch({
+                    method: 'POST',
+                    url: `${dataUrl}/userdbanalysis/notebacktime/`,
+                    data: {
+                        user_id: this.user.id,
+                        product_id: this.proId,
+                    }
+                }).then((res) => {
+                    // this.dropGoods = data.count
+                   // this.$notice.alert({
+                   //     message: res
+                   // })
+                }).catch((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                })
             },
             getCartNum () {
                 this.$fetch({
@@ -1035,6 +1089,7 @@
                                 type: 'PUSH',
                                 params: this.nextPage
                             })
+
                         }
                     }
 
