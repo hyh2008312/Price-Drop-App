@@ -119,11 +119,11 @@
                             <text class="box-txt">My Wallet</text>
                             <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
                         </div>
-                        <!--<div style="flex-direction: row;justify-content: space-between;align-items: center">-->
-                            <!--<text class="i-box1 wallet-num">₹{{userWallet+userBonus||0}}</text>-->
-                            <!--<text class="i-box2 iconfont">&#xe626;</text>-->
-                        <!--</div>-->
-                        <text class="i-box wallet-num">₹ {{myWallet||0}}</text>
+                        <div style="flex-direction: row;justify-content: space-between;align-items: center">
+                            <text class="i-box1 wallet-num">₹{{userWallet+userBonus||0}}</text>
+                            <text class="i-box2 iconfont">&#xe626;</text>
+                        </div>
+                        <!--<text class="i-box wallet-num">₹ {{myWallet||0}}</text>-->
                     </div>
 
                     <div class="box-tlt "    @click="openCell(5)">
@@ -284,7 +284,7 @@
                 this.getUserData()
             })
             this.$event.on('getMyWallet', parmas => {
-                this.getMyWallet()
+                this.getUserData()
             })
         },
         destory () {
@@ -340,14 +340,14 @@
                 })
             },
             openMyWallet () {
-                // this.$router.open({
-                //     name: 'my.wallet',
-                //     type: 'PUSH',
-                //     params: {
-                //         userBonus: this.userBonus,
-                //         userWallet: this.userWallet
-                //     }
-                // })
+                this.$router.open({
+                    name: 'my.wallet',
+                    type: 'PUSH',
+                    params: {
+                        userBonus: this.userBonus,
+                        userWallet: this.userWallet
+                    }
+                })
             },
             jumpWeb (id) {
                 if (this.user == null) {
@@ -542,8 +542,8 @@
                             this.cardNumber = res.cardNumber
                             this.gender = res.gender
 
-                            // this.userBonus = res.userBonus
-                            // this.userWallet = res.userWallet
+                            this.userBonus = res.userBonus
+                            this.userWallet = res.userWallet
 
                             this.unread = res.unreadNumber
                             this.$event.emit('getRead', {
@@ -589,7 +589,7 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    this.myWallet = res.amount
+                    // this.myWallet = res.amount
                     // this.$notice.alert({
                     //     message: res.amount
                     // })
