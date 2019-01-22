@@ -7,7 +7,7 @@
                     <text class="gb-text">Carrier: </text>
                     <text class="gb-text-color">{{order.carrierCode}}</text>
                 </div>
-                <div class="gb-box-bg gb-mt" v-if="order.trackingNumber">
+                <div class="gb-box-bg gb-mt" v-if="order.trackingNumber && order.shippedTime">
                     <text class="gb-text">Tracking Number: </text>
                     <text class="gb-text-color" @click="setNumber">{{order.trackingNumber}}</text>
                     <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
@@ -22,7 +22,7 @@
                     <text class="gb-text-color" @click="setNumber">ccc_intl@gati.com</text>
                     <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
                 </div>
-                <div class="gb-box-bg gb-mt" v-if="!order.trackingNumber">
+                <div class="gb-box-bg gb-mt" v-if="!order.trackingNumber || !order.shippedTime">
                     <text class="gb-text">Tracking Number: </text>
                     <text class="gb-text-color">Waiting for update</text>
                 </div>
