@@ -27,6 +27,8 @@
                     <text class="normal" style="margin-bottom: 6px;"> Please check the product pages for processing  </text>
                     <text class="normal"> time updates and estimated arrival date.</text>
                 </div>
+
+
                 <div class="cb-txt2">
                     <text class="normal1">At PriceDrop, we respect local culture and look</text>
                     <text class="normal1">forward to observing China’s most important</text>
@@ -112,12 +114,13 @@
     .circle-bg{
         /*background-color: #980100;*/
         margin-top: -60px;
+        width: 750px;
     }
     .cb-txt1{
         position: absolute;
         top: 150px;
-        left: 122px;
-        width: 514px;
+        left: 0px;
+        width: 750px;
     }
     .cb-txt2{
         position: absolute;
@@ -153,6 +156,7 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 6px;
+        width:750px;
     }
     .bottom-bg{
         background-color: #980100;

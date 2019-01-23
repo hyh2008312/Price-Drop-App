@@ -308,18 +308,18 @@
         flex-direction: row;
         justify-content: start;
         align-items: center;
-        margin: 0 32px;
+        margin: 0 0 0 32px;
         /*height: 168px;*/
     }
     .i-product{
         background-color: white;
-        margin-right: 18px;
-        margin-bottom: 18px;
+        margin-right: 24px;
+        margin-bottom: 24px;
         border-radius: 8px;
     }
     .i-p-img{
-        width: 320px;
-        height: 320px;
+        width: 332px;
+        height: 332px;
         /*margin: 24px;*/
     }
     .i-p-price{
