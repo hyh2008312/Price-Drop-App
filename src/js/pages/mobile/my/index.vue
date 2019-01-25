@@ -340,14 +340,21 @@
                 })
             },
             openMyWallet () {
-                this.$router.open({
-                    name: 'my.wallet',
-                    type: 'PUSH',
-                    params: {
-                        userBonus: this.userBonus,
-                        userWallet: this.userWallet
-                    }
-                })
+                if (this.user == null) {
+                    this.$router.open({
+                        name: 'login',
+                        type: 'PUSH'
+                    })
+                } else {
+                    this.$router.open({
+                        name: 'my.wallet',
+                        type: 'PUSH',
+                        params: {
+                            userBonus: this.userBonus,
+                            userWallet: this.userWallet
+                        }
+                    })
+                }
             },
             jumpWeb (id) {
                 if (this.user == null) {
