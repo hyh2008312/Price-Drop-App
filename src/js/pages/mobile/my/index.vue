@@ -548,9 +548,12 @@
                             this.points = res.points
                             this.cardNumber = res.cardNumber
                             this.gender = res.gender
-
-                            this.userBonus = res.userBonus
-                            this.userWallet = res.userWallet
+                            if (res.userBonus) {
+                                this.userBonus = res.userBonus
+                            }
+                            if (res.userWallet) {
+                                this.userWallet = res.userWallet
+                            }
 
                             this.unread = res.unreadNumber
                             this.$event.emit('getRead', {
