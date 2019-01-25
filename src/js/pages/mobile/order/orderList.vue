@@ -359,7 +359,7 @@
                     }
                 }, error => {
                     this.$notice.toast({
-                        message: error
+                        message: error.errorMsg
                     });
                 })
             },
@@ -398,7 +398,7 @@
                     this.order.splice(this.deleteIndex, 1);
                 }, error => {
                     this.$notice.toast({
-                        message: error
+                        message: error.errorMsg
                     });
                 });
             },

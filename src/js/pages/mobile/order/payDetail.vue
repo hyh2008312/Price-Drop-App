@@ -214,7 +214,7 @@ export default {
                 this.order = resData;
             }, error => {
                 this.$notice.toast({
-                    message: error
+                    message: error.errorMsg
                 });
             });
         },
@@ -251,7 +251,7 @@ export default {
                 this.$router.finish();
             }, error => {
                 this.$notice.toast({
-                    message: error
+                    message: error.errorMsg
                 });
             })
         },
