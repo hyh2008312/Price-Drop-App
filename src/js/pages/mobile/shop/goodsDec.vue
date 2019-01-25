@@ -24,6 +24,7 @@
 <script>
     import header from './witheHeader';
     import cimg from './customImg';
+    import { dataUrl } from '../../../config/apis';
     export default {
         components: {
             'topic-header': header,
@@ -35,18 +36,46 @@
                     // this.$notice.alert({message:params})
                     if (params.dec) {
                         this.decData = params.dec
+                        this.analyticsId = params.analyticsId
                         this.productSpecificationData = params.productSpecification
                     }
+                }
+            },
+            beforeDisappear (options) {
+                if (this.analyticsCount==1) {
+                    this.productData()
                 }
             }
         },
         data () {
             return {
                 decData: '',
-                productSpecificationData: ''
+                productSpecificationData: '',
+                analyticsCount: 1,
+                analyticsId: ''
             }
         },
         methods: {
+            productData () {
+                this.analyticsCount = 2
+                this.$fetch({
+                    method: 'POST',
+                    url: `${dataUrl}/userdbanalysis/notebacktime/`,
+                    data: {
+                        status: 'description',
+                        session_id: this.analyticsId
+                    }
+                }).then((res) => {
+                    // this.dropGoods = data.count
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                }).catch((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                })
+            },
             trimNullObj (arr) {
                 let tmpArr = []
                 for (let i = 0; i < arr.length; i++) {

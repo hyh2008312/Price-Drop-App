@@ -554,16 +554,6 @@
             // 'refresher': refresher,
             // 'block': block
         },
-        eros: {
-            backAppeared (params) {
-              //   this.$notice.toast({
-              //     message: 111111
-              // })
-            },
-            beforeDisappear (options) {
-              this.userBackProductAnalytics()
-          },
-        },
         data () {
             return {
                 block1: {
@@ -663,12 +653,25 @@
                 cartNum: '',
                 pinCode: '',
                 pinCodeStatus: 0,
+                analyticsId: '',
+                analyticsCount: 1,
                 pinCodeLoad: false,
                 cartTipShow: false,
                 cartWordStu: false
             }
         },
-        mounted () {},
+        eros: {
+            backAppeared (params) {
+                //   this.$notice.toast({
+                //     message: 111111
+                // })
+            },
+            beforeDisappear (options) {
+                if(this.analyticsCount==1){
+                    this.userBackProductAnalytics()
+                }
+            },
+        },
         computed: {
             opacity: {
                 get: function () {
@@ -907,6 +910,7 @@
                    // this.$notice.alert({
                    //     message: res
                    // })
+                    this.analyticsId = res
                 }).catch((res) => {
                     // this.$notice.alert({
                     //     message: res
@@ -914,18 +918,21 @@
                 })
             },
             userBackProductAnalytics () {
+                this.analyticsCount = 2  // 防止请求两次
                 this.$fetch({
                     method: 'POST',
                     url: `${dataUrl}/userdbanalysis/notebacktime/`,
                     data: {
                         user_id: this.user.id,
                         product_id: this.proId,
+                        session_id: this.analyticsId
                     }
                 }).then((res) => {
                     // this.dropGoods = data.count
-                   // this.$notice.alert({
-                   //     message: res
-                   // })
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                    this.analyticsCount = 1;
                 }).catch((res) => {
                     // this.$notice.alert({
                     //     message: res
@@ -1450,6 +1457,7 @@
                     type: 'PUSH',
                     params: {
                         dec: this.newDescription,
+                        analyticsId: this.analyticsId,
                         productSpecification: this.goods.productSpecification
                     }
                 })
@@ -1471,11 +1479,29 @@
                 });
             },
             openGoodsSize () {
+                this.$fetch({
+                    method: 'POST',
+                    url: `${dataUrl}/userdbanalysis/notebacktime/`,
+                    data: {
+                        status: 'size_chart',
+                        session_id: this.analyticsId
+                    }
+                }).then((res) => {
+                    // this.dropGoods = data.count
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                }).catch((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                })
                 this.$router.open({
                     name: 'goods.size',
                     type: 'PUSH',
                     params: {
-                        productSize: this.goods.productSize
+                        productSize: this.goods.productSize,
+                        analyticsId: this.analyticsId
                     }
                 });
             },

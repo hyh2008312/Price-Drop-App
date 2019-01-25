@@ -9,8 +9,8 @@
             </div>
             <div class="tab" >
                 <div :class="[flag==i?'tab-item-active':'tab-item']" v-for="(i,index) in tab" @click="selTab(i)" v-if="">
-                    <text :class="[flag==i?'tt-icon-active':'tt-icon']"class="iconfont " v-if="index==1">&#xe766;</text>
-                    <text :class="[flag==i?'tt-icon1-active':'tt-icon1']" class="iconfont" v-if="index==2">&#xe765;</text>
+                    <text :class="[flag==i?'tt-icon-active':'tt-icon']"class="iconfont " v-if="index==1">&#xe765;</text>
+                    <text :class="[flag==i?'tt-icon1-active':'tt-icon1']" class="iconfont" v-if="index==2">&#xe766;</text>
                     <text :class="[flag==i?'tt-t1-active':'tt-t1']" v-if="index==0">{{i}}</text>
                     <text :class="[flag==i?'tt-t2-active':'tt-t2']" v-else>{{i}}</text>
                 </div>
@@ -37,16 +37,16 @@
                                     <text class="pci-time1">{{tranDate(i.created)}}</text>
                                     <div class="pci-item">
                                         <div class="pci-right">
-                                            <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'||i.type=='bonus refund'" class="iconfont pci-icon">&#xe765;</text>
-                                            <text v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='cash earn'||i.type=='cash refund'" class="iconfont pci-icon">&#xe766;</text>
+                                            <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'||i.type=='bonus refund'||i.type=='bonus expired'" class="iconfont pci-icon">&#xe766;</text>
+                                            <text v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='cash earn'||i.type=='cash refund'" class="iconfont pci-icon">&#xe765;</text>
                                             <div>
                                                 <text class="pci-t1">{{i.contents}}</text>
-                                                <!--<text class="pci-t2">Expired on 03 Dec 2018</text>-->
+                                                <text class="pci-t2">{{i.subContents}}</text>
                                                 <!--<text class="pci-t2">&nbsp;&nbsp;&nbsp;</text>-->
                                             </div>
                                         </div>
 
-                                        <text style="color: #b4282d" v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='bonus spent'">- ₹{{parseInt(i.operationAmount)}}</text>
+                                        <text style="color: #b4282d" v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='bonus spent'||i.type=='bonus expired'">- ₹{{parseInt(i.operationAmount)}}</text>
 
 
                                         <text style="color: #43AC0A" v-if="i.type=='cash earn'||i.type=='cash refund'||i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus refund'">+ ₹{{parseInt(i.operationAmount)}}</text>

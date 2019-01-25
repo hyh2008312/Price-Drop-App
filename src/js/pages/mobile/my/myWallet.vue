@@ -14,7 +14,7 @@
         <div class="overflow-mid">
             <div class="cash-bonus">
                 <div class="c-b1">
-                    <text class="iconfont cb1-icon">&#xe766;</text>
+                    <text class="iconfont cb1-icon">&#xe765;</text>
                     <div class="cb1-content">
                         <div class="cb1c-item">
                             <text class="cb1c-t1">Cash</text>
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="c-b1">
-                    <text class="iconfont cb1-iconc">&#xe765;</text>
+                    <text class="iconfont cb1-iconc">&#xe766;</text>
                     <div class="cb1-content">
                         <div class="cb1c-item">
                             <text class="cb1c-t1">Bonus</text>
@@ -65,15 +65,16 @@
                                 <text class="pci-time1">{{tranDate(i.created)}}</text>
                                 <div class="pci-item">
                                     <div class="pci-right">
-                                        <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'||i.type=='bonus refund'" class="iconfont pci-icon">&#xe765; </text>
-                                        <text v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='cash earn'||i.type=='cash refund'" class="iconfont pci-icon">&#xe766;</text>
+                                        <text v-if="i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus spent'||i.type=='bonus refund'||i.type=='bonus expired'" class="iconfont pci-icon">&#xe766; </text>
+                                        <text v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='cash earn'||i.type=='cash refund'" class="iconfont pci-icon">&#xe765;</text>
                                         <div>
                                             <text class="pci-t1">{{i.contents}}</text>
+                                            <text class="pci-t2">{{i.subContents}}</text>
                                             <!--<text class="pci-t2">Expired on 03 Dec 2018</text>-->
                                         </div>
                                     </div>
 
-                                    <text style="color: #b4282d" v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='bonus spent'">- ₹{{parseInt(i.operationAmount)}}</text>
+                                    <text style="color: #b4282d" v-if="i.type=='cash withdrawn'||i.type=='cash spent'||i.type=='bonus spent'||i.type=='bonus expired'">- ₹{{parseInt(i.operationAmount)}}</text>
 
                                     <text style="color: #43AC0A" v-if="i.type=='cash earn'||i.type=='cash refund'||i.type=='sign bonus'||i.type=='newer bonus'||i.type=='bonus refund'">+ ₹{{parseInt(i.operationAmount)}}</text>
                                 </div>
@@ -152,10 +153,13 @@
                     // this.availablePoints = res.availablePoints
                     // this.pendingPoints = this.totalPoints - this.availablePoints
                     // // this.pArr = []
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    // this.$notice.toast({
+                    // this.$notice.alert({
                     //     message: res
                     // })
                 })

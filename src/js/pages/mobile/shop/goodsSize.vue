@@ -50,6 +50,8 @@
 
 <script>
     import header from './witheHeader';
+    import { dataUrl } from '../../../config/apis';
+
     export default {
         components: {
             'topic-header': header,
@@ -65,7 +67,19 @@
                     this.activeTab = this.sizeData.table[0].name
                     this.cmSize = this.sizeData.table[1]
                     this.array = this.sizeData.table[0].children;
+                    this.analyticsId = params.analyticsId
                     // this.sizeData1 = params.productSize.table
+                }
+            },
+            beforeDisappear (options) {
+
+
+                if(this.analyticsCount==1){
+                    // this.productData()
+
+                    this.$notice.alert({
+                        message: 1111
+                    })
                 }
             }
         },
@@ -79,10 +93,32 @@
                 image: '',
                 imageList: '',
                 note: '',
-                array: []
+                array: [],
+                analyticsCount: 1,
+                analyticsId: ''
             }
         },
         methods: {
+            productData () {
+                this.analyticsCount = 2
+                this.$fetch({
+                    method: 'POST',
+                    url: `${dataUrl}/userdbanalysis/notebacktime/`,
+                    data: {
+                        status: 'description',
+                        session_id: this.analyticsId
+                    }
+                }).then((res) => {
+                    // this.dropGoods = data.count
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                }).catch((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                })
+            },
             tabTo (i) {
                 // this.$notice.alert({
                 //     message: i.name

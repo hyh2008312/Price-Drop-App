@@ -37,7 +37,7 @@
                     <text class="gd-text gb-text-color" v-if="(order.orderType == 'Normal'|| order.orderType == 'Flash') && order.voucherShare > 0">- ₹{{order.voucherShare}}</text>
 
                     <!--<text class="gd-text gb-text-color" v-if="order.balanceUsed && order.balance > 0">- ₹{{order.balance}}</text>-->
-                    <text class="gd-text gb-text-color" v-if="order.bonusWallet > 0">- ₹{{order.bonusWallet}}</text>
+                    <text class="gd-text gb-text-color" v-if="order.bonusWallet > 0">- ₹{{order.bonusWallet.toFixed(2)}}</text>
 
                     <text class="gb-text gb-text-color " v-if="parseInt(order.paymentDiscount)>0">- ₹{{order.paymentDiscount}}</text>
 
