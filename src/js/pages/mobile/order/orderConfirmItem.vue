@@ -34,6 +34,7 @@
                     <text class="gd-text">Shipping</text>
                     <text class="gd-text">Tax</text>
                     <text class="gd-text" v-if="order.proId == 'drop'">Price Drop</text>
+                    <text class="gd-text" v-if="order.proId == 'dropGoods'">Price Drop</text>
                     <text class="gd-text" v-if="card && card != ''">Gift Voucher</text>
                     <text class="gd-text-1">Total Price</text>
                 </div>
@@ -42,9 +43,12 @@
                     <text class="gb-text" v-if="order.proId == 'flash'">₹{{(parseInt(order.currentPrice)*order.quantity).toFixed(2)}}</text>
                     <text class="gb-text" v-if="order.proId == 'lottery'">₹{{parseInt(order.currentPrice).toFixed(2)}}</text>
                     <text class="gb-text" v-if="order.proId == 'drop'">₹{{parseInt(order.salePrice).toFixed(2)}}</text>
+                    <text class="gb-text" v-if="order.proId == 'dropGoods'">₹{{parseInt(order.salePrice).toFixed(2)}}</text>
                     <text class="gb-text">₹{{order.shippingPrice||'0.00'}}</text>
+
                     <text class="gb-text">₹0.00</text>
                     <text class="gb-text gb-text-color" v-if="order.proId == 'drop'">- ₹{{parseInt((order.salePrice * 100 - order.total * 100) / 100).toFixed(2)}}</text>
+                    <text class="gb-text gb-text-color" v-if="order.proId == 'dropGoods'">- ₹{{parseInt((order.salePrice * 100 - order.currentPrice * 100) / 100).toFixed(2)}}</text>
                     <text class="gb-text gb-text-color" v-if="card">- ₹{{card.share.toFixed(2)}}</text>
                     <text class="gb-text-1">₹{{getOrderTotal(order, card)}}</text>
                 </div>

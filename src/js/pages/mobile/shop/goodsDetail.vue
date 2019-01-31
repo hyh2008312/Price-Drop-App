@@ -30,22 +30,22 @@
                        :unitPrice="goods.unitPrice"
                        :discount="flashSale.discount"
                 ></flash>
-                <drop  v-if="purchaseMethod==='drop'"
-                       :saleUnitPrice="goods.unitPrice"
-                       :lowestPrice="lowestPrice"
-                ></drop>
+                <!--<drop  v-if="purchaseMethod==='drop'"-->
+                       <!--:saleUnitPrice="goods.unitPrice"-->
+                       <!--:lowestPrice="lowestPrice"-->
+                <!--&gt;</drop>-->
 
-                <text class="onetitle" v-if="purchaseMethod !== 'drop'" @click="openReviews">{{goods.title}}</text>
-                <div class="count-div"  v-if="purchaseMethod === 'drop'">
-                    <div >
-                        <text class="drop-title">{{goods.title}}</text>
-                        <div class="drop-label">
-                            <text class="price-name price-off-fr">Free Shipping</text>
-                            <text class="price-name price-off-fr">Imported</text>
-                            <text class="price-name-16 price-off" v-if="!(purchaseMethod==='drop')">Tax Included</text>
-                        </div>
-                    </div>
-                </div>
+                <text class="onetitle"  @click="openReviews">{{goods.title}}</text>
+                <!--<div class="count-div"  v-if="purchaseMethod === 'drop'">-->
+                    <!--<div >-->
+                        <!--<text class="drop-title">{{goods.title}}</text>-->
+                        <!--<div class="drop-label">-->
+                            <!--<text class="price-name price-off-fr">Free Shipping</text>-->
+                            <!--<text class="price-name price-off-fr">Imported</text>-->
+                            <!--<text class="price-name-16 price-off" v-if="!(purchaseMethod==='drop')">Tax Included</text>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div class="count-div">
                     <!--<text class="price-name" v-if="((purchaseMethod==='flash'&&flashSale.flashStatus=='Scheduled')||purchaseMethod==='direct')" >Original Price: </text>-->
@@ -56,7 +56,7 @@
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Scheduled'" >{{countOff(goods.unitPrice, goods.price)}}</text>
                     <text class="price-name price-price" v-if="flashSale.flashStatus=='Ongoing'" >{{countOff(countPrice(goods.unitPrice, flashSale.discount), goods.price)}}</text>
                     <!--<text>{{goods.unitPrice}}&#45;&#45;{{flashSale.discount}}-&#45;&#45;{{goods.price}}</text>-->
-                    <text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')" @click="openReviews1">Tax Included</text>
+                    <!--<text class="price-name-16 price-off-tax" v-if="!(purchaseMethod==='drop')" @click="openReviews1">Tax Included</text>-->
                 </div>
                 <div class="count-div">
                     <!--<text class=" price-name" >You Save:</text><text class="price">{{}}%</text>-->
@@ -104,42 +104,40 @@
                     </div>
                 </div>
             </div>
-            <div class="learn-drop"  v-if="isDrop">
-                <div class="learn-drop-itme1">
-                    <text class="learn-drop-itmeh">Invite NEW Friends to Unlock Special Discount!</text>
-                    <!--<div class="learn-drop-itmed">-->
-                    <!--<text class="learn-drop-itmem">More Details </text><text class="iconfont learn-drop-itmem" style="padding-top: 2px">&#xe626;</text>-->
+            <!--<div class="learn-drop"  v-if="isDrop">-->
+                <!--<div class="learn-drop-itme1">-->
+                    <!--<text class="learn-drop-itmeh">Invite NEW Friends to Unlock Special Discount!</text>-->
+                <!--</div>-->
+                <!--<div class="learn-drop-itme2">-->
+                    <!--<div class="progress">-->
+                        <!--<text class="progress-word">5 new referrals</text>-->
+                        <!--<div class="progress-numdiv"><text  class="progress-num"></text></div>-->
+                        <!--<text class="progress-word1">50% OFF</text>-->
                     <!--</div>-->
-                </div>
-                <div class="learn-drop-itme2">
-                    <div class="progress">
-                        <text class="progress-word">5 new referrals</text>
-                        <div class="progress-numdiv"><text  class="progress-num"></text></div>
-                        <text class="progress-word1">50% OFF</text>
-                    </div>
-                    <div class="progress">
-                        <text class="progress-word">10 new referrals</text>
-                        <div class="progress-numdiv"><text  class="progress-num"></text></div>
-                        <text class="progress-word1">70% OFF</text>
-                    </div>
-                    <div class="progress">
-                        <text class="progress-word" style="color: #492799">13 new referrals</text>
-                        <div class="progress-numdiv"><text  class="progress-num-right"></text></div>
-                        <text class="progress-word1"  style="color: #492799" >75% OFF</text>
-                        <!--<text class="progress-word">Lowest Price</text>-->
-                    </div>
-                </div>
-                <div class="learn-drop-line">
-                    <div class="progress-line-left-last"></div>
-                    <div class="progress-line-left"></div>
-                    <div class="progress-line-right"></div>
-                    <div class="progress-line-right-last"></div>
-                </div>
-                <text class="l-d-lp">Lowest Price</text>
-                    <div class="learn-see-more" @click="openShip(1)">
-                        <text class="d-sm-w">SEE MORE</text>
-                    </div>
-                 </div>
+                    <!--<div class="progress">-->
+                        <!--<text class="progress-word">10 new referrals</text>-->
+                        <!--<div class="progress-numdiv"><text  class="progress-num"></text></div>-->
+                        <!--<text class="progress-word1">70% OFF</text>-->
+                    <!--</div>-->
+                    <!--<div class="progress">-->
+                        <!--<text class="progress-word" style="color: #492799">13 new referrals</text>-->
+                        <!--<div class="progress-numdiv"><text  class="progress-num-right"></text></div>-->
+                        <!--<text class="progress-word1"  style="color: #492799" >75% OFF</text>-->
+                        <!--&lt;!&ndash;<text class="progress-word">Lowest Price</text>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="learn-drop-line">-->
+                    <!--<div class="progress-line-left-last"></div>-->
+                    <!--<div class="progress-line-left"></div>-->
+                    <!--<div class="progress-line-right"></div>-->
+                    <!--<div class="progress-line-right-last"></div>-->
+                <!--</div>-->
+                <!--<text class="l-d-lp">Lowest Price</text>-->
+                    <!--<div class="learn-see-more" @click="openShip(1)">-->
+                        <!--<text class="d-sm-w">SEE MORE</text>-->
+                    <!--</div>-->
+                 <!--</div>-->
+
                  <!--<div v-if="tabshow" style="position: sticky">-->
                     <!--<tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>-->
                  <!--</div>-->
@@ -152,6 +150,14 @@
                 <div class="dec-word" @click="openGoodsSize"  v-if="goods.productSize!== '' && goods.productSize != undefined">
                     <text class="dec">Size Chart</text>
                     <text class="s-c-s">Check</text>
+                </div>
+            </div>
+
+            <div class="mid" v-if="isDrop">
+                <div class="dec-word" @click="createDrop"  >
+                    <text class="dec">Created Drop</text>
+                    <text class="s-c-s">Select</text>
+
                 </div>
             </div>
 
@@ -305,11 +311,8 @@
                            class="popup-image"></image>
 
                     <div class="popup-py">
-                        <text class="popup-price" v-if="!isDrop">₹{{parseInt(selsaleUnitPrice)}}</text>
-                        <text class="popup-price" v-if="isDrop">₹{{parseInt(selunitPrice)}}</text>
-                        <text class="popup-lowprice-word" v-if="isDrop">Start a drop to get it at: </text>
-                        <text class="popup-lowprice-word" v-if="!isDrop">Exclusive Price: </text>
-                        <text class="popup-lowprice"      v-if="isDrop">₹{{parseInt(lowestPrice)}}</text>
+                        <text class="popup-price" >₹{{parseInt(selsaleUnitPrice)}}</text>
+                        <text class="popup-lowprice-word" >Exclusive Price: </text>
 
                         <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Ongoing'">₹{{ parseInt(selunitPrice*(flashSale.discount/100)) || parseInt(goods.unitPrice*(flashSale.discount/100))}}</text>
                         <text class="popup-lowprice"      v-if="flashSale.flashStatus=='Scheduled'||purchaseMethod==='direct'">₹{{parseInt(selunitPrice)||parseInt(goods.unitPrice)}}</text>
@@ -627,6 +630,7 @@
                 tabshow: false,
                 headerShow: true,
                 isDrop: false,
+                dropStatus: 1, // 1, 正常购买  2, 砍价
                 divider: '',
                 dividend: '',
                 productStatus: '',
@@ -667,7 +671,7 @@
                 // })
             },
             beforeDisappear (options) {
-                if(this.analyticsCount==1){
+                if (this.analyticsCount==1) {
                     this.userBackProductAnalytics()
                 }
             },
@@ -698,7 +702,6 @@
             this.$notice.loading.show();
             this.$router.getParams().then(resData => {
                 this.proId = resData.id
-                this.isDrop = resData.isDrop
                 this.getGoodsDetail(this.proId)
                 this.getSomeGoods(this.proId)
                 this.getDropGoods()
@@ -747,6 +750,8 @@
                             } else {
                                 this.countDate(this.flashSale.startTime)
                             }
+                        } else {
+                            this.isDrop = true
                         }
                         // ---- 上面是闪购属性设置 下面是普通属性设置----
                         this.goods.title = res.title;
@@ -808,14 +813,13 @@
                         this.nextPage.title = res.title;
                         this.nextPage.productId = id.id;
                         // this.$notice.alert({
-                        //     message: this.purchaseMethod
+                        //     message: id.id
                         // })
                         this.nextPage.shippingPrice = res.shipping.priceItem;
                         this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
                         this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
 
-
-                        this.isDrop = this.purchaseMethod == 'drop';
+                        // this.isDrop = this.purchaseMethod == 'drop';
                         this.nextPage.proId = this.purchaseMethod;
                         // nextPage 传给下一页组织的数据
 
@@ -955,96 +959,12 @@
                    // })
                 }, error => {})
             },
-            createCut () {
-                if (this.variantsId == '') {
-                    this.$notice.toast({
-                        message: 'please select variant'
-                    });
-                    return
-                } else {
-                    this.$notice.loading.show();
-                    this.$fetch({
-                        method: 'POST',
-                        url: `${baseUrl}/promotion/cut/down/create/`,
-                        data: {
-                            variant_id: this.variantsId,
-                            version: 1
-                        },
-                        header: {
-                            needAuth: true
-                        }
-                    }).then((res) => {
-                        this.$event.emit('createCut');
-                        if (res.cutId) {
-                            this.$router.open({
-                                name: 'drops.cutDetail',
-                                type: 'PUSH',
-                                params: {
-                                    isShowSharePanel: false,
-                                    id: res.cutId
-                                }
-                            })
-                        } else {
-                            this.$router.open({
-                                name: 'drops.cutDetail',
-                                type: 'PUSH',
-                                params: {
-                                    isShowSharePanel: false,
-                                    id: res.id
-                                }
-                            })
-                            this.dropGoods += 1
-                            googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.category + '-' + this.variantsId, 0);
-                        }
-                        this.$notice.loading.hide();
-                    }).catch((res) => {
-                        if (res.status == 409) {
-                            this.$notice.loading.hide();
-                            // if (res.errorMsg == 'You are bargaining for this item, you cannot add it repeatedly') {
-                            //     this.$event.emit('jumpMyDrop');
-                            //     this.$router.setBackParams({ tab: 'drops' })
-                            //     this.$router.back({
-                            //         length: 9999,
-                            //         type: 'PUSH'
-                            //     })
-                            // }
-                            // this.$notice.toast({
-                            //     message: res.errorMsg
-                            // })
-                        }
-                    })
-                }
-            },
             wxcCellClick () {
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
                     this.isBottomShow = true;
                     common.changeAndroidCanBack(false)
-
-                    // if (this.variantsId !== '') {
-                    //     if (this.isDrop == true) {
-                    //         if (!this.checkedSelected()) {
-                    //             return;
-                    //         }
-                    //         this.createCut()
-                    //     } else {
-                    //         if (!this.checkedSelected()) {
-                    //             return;
-                    //         }
-                    //         if (this.flashSale.flashStatus === 'Ongoing') {
-                    //             this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
-                    //         }
-                    //         if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
-                    //             this.nextPage.proId = 'direct'
-                    //         }
-                    //         this.$router.open({
-                    //             name: 'order.confirm',
-                    //             type: 'PUSH',
-                    //             params: this.nextPage
-                    //         })
-                    //     }
-                    // }
                 }
             },
             checkedSelected () {
@@ -1079,8 +999,8 @@
                     //     message: this.variantsId
                     // })
                     // this.nextPage.currentPrice = this.nextPage.currentPric * this.selquantity;
-                    if (this.isDrop == true) {
-                        this.createCut()
+                    if (this.isDrop == true && this.dropStatus==2) {
+                        this.createDrop()
                     } else {
                         if (this.flashSale.flashStatus === 'Ongoing') {
                             this.nextPage.currentPrice = ((this.selunitPrice * this.flashSale.discount) / 100).toFixed(2)
@@ -1099,18 +1019,61 @@
 
                         }
                     }
-
-                    // } else {
-                    //     this.$notice.toast({
-                    //         message: 'Please select an option first.'
-                    //     })
-                    // }
+                }
+            },
+            createDrop () {
+                this.dropStatus = 2
+                if (this.variantsId=='') {
+                    this.wxcCellClick()
+                    return
+                } else {
+                    this.$notice.loading.show();
+                    this.$fetch({
+                        method: 'POST',
+                        url: `${baseUrl}/drops/create/`,
+                        data: {
+                            variant_id: this.variantsId,
+                        },
+                        header: {
+                            needAuth: true
+                        }
+                    }).then((res) => {
+                        this.$event.emit('createDrop');
+                        if (res.id) {
+                            this.dropGoods += 1
+                            this.$router.open({
+                                name: 'drop.detail',
+                                type: 'PUSH',
+                                params: {
+                                    id: res.id
+                                }
+                            })
+                            googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.category + '-' + this.variantsId, 0);
+                        }
+                        this.$notice.loading.hide();
+                    }).catch((res) => {
+                        if (res.status == 409) {
+                            this.$notice.loading.hide();
+                            // if (res.errorMsg == 'You are bargaining for this item, you cannot add it repeatedly') {
+                            //     this.$event.emit('jumpMyDrop');
+                            //     this.$router.setBackParams({ tab: 'drops' })
+                            //     this.$router.back({
+                            //         length: 9999,
+                            //         type: 'PUSH'
+                            //     })
+                            // }
+                            // this.$notice.toast({
+                            //     message: res.errorMsg
+                            // })
+                        }
+                    })
                 }
             },
             openBuyNow () {
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
+                    this.dropStatus = 1
                     // if (this.hasVariants === false) {
                         if (this.variantsId != '' && this.isDrop == false) {
                             if (this.flashSale.flashStatus === 'Ongoing') {
@@ -1354,16 +1317,6 @@
                 })
             },
             openCutPrice () {
-                if (this.user == null) {
-                    this.redirectLogin()
-                } else {
-                    if (this.hasVariants === false) {
-                        this.createCut()
-                    } else {
-                        this.isBottomShow = true;
-                        common.changeAndroidCanBack(false)
-                    }
-                }
             },
             // 非状态组件，需要在这里关闭
             popupOverlayBottomClick () {

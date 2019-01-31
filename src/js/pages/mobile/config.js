@@ -12,12 +12,19 @@ export const tabConfig = [{
     visibility: 'hidden',
     // redPoint: true,
 }, {
+    icon: '&#xe6f8;',
+    name: 'Drops',
+    key: 'drops',
+    src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/drops/index.js`,
+    visibility: 'hidden',
+    // redPoint: true,
+}, {
     icon: '&#xe733;',
     name: 'Rewards',
     key: 'rewards',
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/perks/index.js`,
     visibility: 'hidden',
-    redPoint: true
+    // redPoint: true
 }, {
     icon: '&#xe701;',
     name: 'Account',

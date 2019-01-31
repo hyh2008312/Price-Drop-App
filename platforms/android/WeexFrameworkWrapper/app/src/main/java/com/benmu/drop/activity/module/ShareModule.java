@@ -85,5 +85,14 @@ public class ShareModule extends WXModule {
                 .build());
     }
 
+    @JSMethod
+    public void shareMorePlatform(String content) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, content);
+        mWXSDKInstance.getContext().startActivity(Intent.createChooser(shareIntent, "Share Link with Friends"));
+    }
+
+
 
 }

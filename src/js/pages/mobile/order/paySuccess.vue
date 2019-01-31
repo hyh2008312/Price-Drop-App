@@ -43,6 +43,7 @@ export default {
         this.height = { height: (pageHeight - 112 - 48 - 4) + 'px' };
         googleAnalytics.trackingScreen('Order Completed');
         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'Purchase Success', '', 'Rs', 0);
+        this.$event.emit('placeOrder');
     },
     data () {
         return {

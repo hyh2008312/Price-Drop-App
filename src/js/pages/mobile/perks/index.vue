@@ -870,6 +870,12 @@
                     type: 'PUSH'
                 })
             },
+            openDrop () {
+                // this.$router.open({
+                //     name: 'drops',
+                //     type: 'PUSH'
+                // })
+            },
             openBottomPopup () {
                 this.isBottomShow = true;
             },

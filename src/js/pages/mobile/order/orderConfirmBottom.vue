@@ -208,6 +208,53 @@
                                 message: error.errorMsg
                             })
                         });
+                    } else if (that.order.proId == 'dropGoods') {
+                        const voucherId = that.card ? that.card.id : null;
+                        that.$fetch({
+                            method: 'POST', // 大写
+                            name: 'order.drop.create.pure',
+                            data: {
+                                dropId: that.order.dropId,
+                                vid: that.order.id,
+                                voucherId
+                            },
+                            header: {
+                                needAuth: true
+                            }
+                        }).then(resData => {
+                            that.$notice.loading.hide();
+                            that.$event.emit('placeOrder');
+
+                            googleAnalytics.recordEvent('Payment', 'Add to Cart', 'drop', 0);
+                            googleAnalytics.facebookRecordEvent('fb_mobile_add_to_cart', that.order.productId, '', 'Rs', that.order.currentPrice);
+
+                            const order = resData;
+                            // that.$router.finish();
+                            that.$router.open({
+                                name: 'order.payment',
+                                type: 'PUSH',
+                                params: {
+                                    source: 'confirm',
+                                    data: order
+                                },
+                                backCallback: () => {
+                                    that.$router.finish();
+                                    that.$router.open({
+                                        name: 'order',
+                                        type: 'PUSH'
+                                    });
+                                    that.$event.emit('closePayment');
+                                }
+                            });
+                            that.isFirst = false;
+
+                        }, error => {
+                            that.$notice.loading.hide();
+                            that.isFirst = false;
+                            that.$notice.toast({
+                                message: error.errorMsg
+                            })
+                        });
                     }
                 }
             }

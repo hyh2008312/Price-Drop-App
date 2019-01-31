@@ -149,6 +149,9 @@ export default {
     'drops': {
         url: '/pages/mobile/drops/index.js'
     },
+    'drop.detail': {
+        url: '/pages/mobile/drops/dropDetail.js'
+    },
     'perks': {
         url: '/pages/mobile/perks/index.js'
     },

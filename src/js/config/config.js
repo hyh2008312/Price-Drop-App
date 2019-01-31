@@ -31,8 +31,13 @@ export const apis = {
     'notice.detail': '/notice/detail/',
     'app.get.version': '/app/get/version/',
     'order.create': '/order/create/',
-    'product.cut.list': '/product/cut/list/', // 砍价商品的列表
-    'promotion.new.cut.list': '/promotion/new/cut/list/', // 我的砍价列表
+    'drops.list': '/drops/list/', // 我的砍价列表
+    'drops.friends.list': '/drops/friends/list/', // 朋友的砍价列表
+    'drops.friends.down': '/drops/friend/down/', // 帮朋友的砍价列表
+    'drops.detail': '/drops/detail/', // 砍价详情页
+    'point.drops.bonus': '/point/drops/bonus/', // 我的砍价积分
+    'order.drop.create.pure': '/order/drop/create/pure/', // 砍价下单
+    'drop.delete': '/drops/delete/', // 删除砍价
     'payment.razorpay.check': '/payment/razorpay/check/',
     'payment.cart.razorpay.check': '/payment/cart/razorpay/check/',
     'payment.cart.razorpay.create': '/payment/cart/razorpay/create/',
