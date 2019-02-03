@@ -52,7 +52,7 @@
                     <div class="c2-avatar" >
                     <div v-for="i in content.friendsDrop" :class="[index===content.friendsDrop.length-1?'':'mg-r-14']">
                         <div class="c2a-co">
-                            <preload style="width: 46px;height: 46px;" :src="i.avatar"></preload>
+                            <preload style="width: 36px;height: 36px;" :src="i.avatar"></preload>
                             <!--<div style="width: 40px;height: 40px;background-color: #1D7CD4"></div>-->
                         </div>
                     </div>
@@ -61,7 +61,8 @@
                             <text class="c2a-txt">?</text>
                         </div>
                     </div>
-                    <text class="c2-txt1"  v-if="activeTab=='my'">Invite {{5-content.friendsDrop.length}} more friends</text>
+                    <!--<text class="c2-txt1"  v-if="activeTab=='my'">Invite {{5-content.friendsDrop.length}} more friends</text>-->
+                    <text class="c2-txt1"  v-if="activeTab=='my'"> Ask {{5-content.friendsDrop.length}} {{5-content.friendsDrop.length<5?'more':''}} friends to drop price</text>
                     <text class="c2-txt1"  v-if="activeTab=='friend'" >{{content.friendsDrop.length}} {{content.friendsDrop.length>1?'friends':'friend'}} helped</text>
                 </div>
                 </div>
@@ -379,9 +380,10 @@
         margin-top:24px;
     }
     .c2-img{
-        width:192px;
-        height: 192px;
-        margin-right: 24px;
+        width:176px;
+        height: 176px;
+        margin-right: 16px;
+        border-radius: 8px;
     }
     .c2-txt{
         font-size: 22px;
@@ -424,9 +426,9 @@
     }
 
     .c2a-txt{
-        font-size: 24px;
+        font-size: 22px;
         color: #000000;
-        padding: 6px 16px;
+        padding: 2px 12px;
     }
     .c2-end-txt{
         font-size: 24px;
@@ -436,7 +438,7 @@
     }
     .c2-txt1{
         color: #492799;
-        font-size: 24px;
+        font-size: 20px;
         margin-left: 20px;
     }
     .c3-price{
@@ -578,6 +580,6 @@
         background-color: #8F8F8F;
     }
     .mg-r-14{
-        margin-right: -14px;
+        margin-right: -16px;
     }
 </style>

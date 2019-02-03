@@ -108,6 +108,7 @@
                     <text class="m1-p2">₹{{parseInt(drop.salePrice)||0}}</text>
                 </div>
                 <div class="m3-progress">
+
                     <div class="m3p-user" >
                         <div  v-for="(i,index) in drop.friendsDrop " >
                             <div style="margin-left: 80px" v-if="index==drop.friendsDrop.length-1">
@@ -132,10 +133,12 @@
 
                     </div>
 
+
                     <div class="m-progress" >
                         <div class="m-line2"></div>
                         <div class="m-line1" :style="{'width':percent*615+'px'}"></div>
                     </div>
+
                 </div>
 
 
@@ -195,7 +198,15 @@
                     </div>
                 </div>
             </div>
-            <somegoods></somegoods>
+            <div>
+                <div class="top-title">
+                    <text class="tt-txt">You may also like</text>
+                </div>
+                <div   v-for="(i, index) in someGoodsList" :key="i.id"  >
+                    <somegoods :goods="i"  :type="1" ></somegoods>  <!-- 1：一列 2：两列 -->
+                </div>
+            </div>
+
         </scroller>
     </div>
 </template>
@@ -222,6 +233,7 @@
                 drop: '',
                 user: '',
                 dropLink: '',
+                someGoodsList: [],
                 nextPage: {
                     title: '',
                     mainImage: '',
@@ -251,7 +263,7 @@
         methods: {
             init(){
                 this.user = this.$storage.getSync('user')
-
+                this.getSomeGoods()
                 this.nextPage.title = this.drop.title;
                 this.nextPage.mainImage = this.drop.mainImage;
                 this.nextPage.salePrice = this.drop.salePrice;
@@ -365,6 +377,38 @@
                 this.$router.open({
                     name: 'login',
                     type: 'PUSH'
+                })
+            },
+
+            getSomeGoods (id) {
+                this.$fetch({
+                    methods: 'GET',
+                    url: `${baseUrl}/product/relations/recommend/list/`,
+                    // url: `${baseUrl}/product/customer/detail/654/`,
+                    data: {
+                        id: 10000
+                    }
+                }).then((res) => {
+                    this.someGoodsList = [...res]
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                    // let arr = [];
+                    // for (let i = 0; i < res.length; i++) {
+                    //     const item = res[i];
+                    //     arr.push(item);
+                    //     if ((i > 0 && i % 2 === 1) || i === res.length - 1) {
+                    //         this.someGoodsList.push(arr);
+                    //         arr = [];
+                    //     }
+                    // }
+                    // this.$notice.alert({
+                    //     message: this.someGoodsList
+                    // })
+                }).catch((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
                 })
             },
             countDate (time) {
@@ -610,6 +654,9 @@
     .m3-progress{
         margin: 24px 32px  14px 32px;
         height: 100px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
     }
     .m3p-user{
         flex-direction: row;
@@ -770,5 +817,17 @@
         background-color: #FFFFFF;
         border-radius: 16px;
         box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .top-title{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 718px;
+        background-color: transparent;
+    }
+    .tt-txt{
+        font-size: 32px;
+        font-weight: 700;
     }
 </style>
