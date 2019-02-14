@@ -146,13 +146,13 @@
                         // this.productList = [...this.myDropList]
                     })
                     this.$notice.toast({
-                        message: res.result
+                        message: 'Successfully Deleted! '
                     })
                 }).catch((res) => {
                     this.$notice.loading.hide();
-                    this.$notice.alert({
-                        message: res
-                    })
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
                 })
             },
 

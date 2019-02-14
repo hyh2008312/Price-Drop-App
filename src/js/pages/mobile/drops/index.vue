@@ -271,7 +271,7 @@
                     this.$notice.loading.hide();
                     this.myDropList.splice(deleteIndex, 1);
                     this.$notice.toast({
-                        message: res.result
+                        message: 'Successfully Deleted! '
                     })
                 }).catch((res) => {
                     this.$notice.loading.hide();
@@ -489,6 +489,7 @@
         align-items: center;
         justify-content: center;
         width: 718px;
+        margin-top: 12px;
         background-color: transparent;
     }
     .tt-txt{

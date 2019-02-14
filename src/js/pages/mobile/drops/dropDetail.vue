@@ -7,7 +7,7 @@
                     <text class="homeBack" @click="$router.back()">&#xe6f6;</text>
                     <div class="cut-rule" @click="showCutRule">
                         <text class="cut-rule-icon iconfont">&#xe709;</text>
-                        <text class="cut-rule-text">Price Drop FAQ</text>
+                        <text class="cut-rule-text" @click="openRulerPage">Price Drop FAQ</text>
                     </div>
                 </div>
             </div>
@@ -409,6 +409,18 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
+                })
+            },
+            openRulerPage () {
+                let e;
+
+                this.drop.user==='owner'?e=1:e=2
+                this.$router.open({
+                    name: 'drop.ruler',
+                    type: 'PUSH',
+                    params: {
+                        type: e
+                    }
                 })
             },
             countDate (time) {

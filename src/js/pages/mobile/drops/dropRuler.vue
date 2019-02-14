@@ -130,7 +130,7 @@
                     this.title = 'The more friends help you, the lower price you unlock! ';
                     this.QAArr = learnMore
                 }else {
-                    this.title = 'Drop price for friends & Earn cash for free!';
+                    this.title = 'Drop price for friends & \ Earn cash for free!';
                     this.QAArr = helpFriend
                 }
 
@@ -212,9 +212,9 @@
         color: black;
         font-size: 40px;
         font-weight: 900;
-        width: 470px;
+        width: 500px;
         line-height: 60px;
-        margin-left: 126px;
+        margin-left: 130px;
     }
 
     .mask-content {
