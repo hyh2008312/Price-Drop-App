@@ -19,7 +19,7 @@
 
             <div class="p-gd-tlt-bg">
                 <text class="g-title">{{goods.title}}</text>
-                <text class="g-title1">XXX people have started to drop</text>
+                <text class="g-title1">{{goods.cutProductNum||0}} people have started to drop</text>
                 <div class="p-line3">
                     <text class="p-gd-tlt">₹{{parseInt(goods.unitPrice)}}</text>
                     <text class="p-gd-info">Drop Price</text>
@@ -71,6 +71,7 @@
     .wrapper{
         /*background-color: #fff;*/
         padding: 24px 32px 0 32px;
+        margin-bottom: 32px;
         width: 750px;
         flex-direction: row;
     }

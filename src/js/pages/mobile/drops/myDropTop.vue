@@ -5,11 +5,11 @@
             <image style="width: 750px;height: 166px" v-if="dropTab=='friend'" src="bmlocal://assets/home/drop-friends-v1.2.png"></image>
             <!--<text class="center-word">Save More with Help from Friends</text>-->
             <div class="top-target" v-if="dropTab=='my'">
-                <text class="t-word">Learn More</text>
+                <text class="t-word" @click="openRuler(1)">Learn More</text>
                 <text class="t-word1 iconfont">&#xe626;</text>
             </div>
             <div class="top-target" v-if="dropTab=='friend'">
-                <text class="t-word">How to Earn Rewards</text>
+                <text class="t-word" @click="openRuler(2)">How to Earn Rewards</text>
                 <text class="t-word1 iconfont">&#xe626;</text>
             </div>
         </div>
@@ -38,16 +38,16 @@
             <div class="help-fri">
                 <div class="hf-content1">
                     <text class="hfc-txt1">Total Rewards</text>
-                    <text class="hfc-price1">₹{{parseInt(allBouns.totalAmount) || 0}}</text>
+                    <text class="hfc-price1">₹{{parseInt(allBouns.dropRewardTotal) || 0}}</text>
                 </div>
                 <div class="hf-content2">
                     <text class="hfc-txt2">Earned</text>
-                    <text class="hfc-price2">₹{{parseInt(allBouns.availableAmount) || 0}}</text>
+                    <text class="hfc-price2">₹{{parseInt(allBouns.dropRewardEarned) || 0}}</text>
                 </div>
 
                 <div class="hf-content3">
                     <text class="hfc-txt3">Pending</text>
-                    <text class="hfc-price3">₹{{parseInt(allBouns.totalAmount) - parseInt(allBouns.availableAmount) || 0}}</text>
+                    <text class="hfc-price3">₹{{parseInt(allBouns.dropRewardTotal) - parseInt(allBouns.dropRewardEarned) || 0}}</text>
                 </div>
             </div>
 
@@ -59,7 +59,12 @@
 <script>
     export default {
         props: ['dropTab', 'allBouns'],
-        name: 'myDropTop'
+        name: 'myDropTop',
+        methods:{
+            openRuler(key){
+                this.$emit('rulerType',key)
+            }
+        }
     }
 </script>
 

@@ -6,7 +6,7 @@
         <list class="main-list" ref="list" offset-accuracy="10" loadmoreoffset="400" >
             <refresher class="gd-bg-gray" ref="refresh" :key="1" @loadingDown="loadingDown"></refresher>
             <cell >
-                <mydroptop :dropTab="activeTab" :allBouns="dropBonus"></mydroptop>
+                <mydroptop :dropTab="activeTab" :allBouns="dropBonus" v-on:rulerType="openRulerPage($event)"></mydroptop>
             </cell>
             <cell>
                 <div class="overflow-mid1" v-if="user==''&&activeTab=='my'" @click="redirectLogin">
@@ -55,9 +55,23 @@
                 </div>
             </cell>
 
+            <cell @click="openMoreList" v-if="friendDropList.length>=5||myDropList.length>=5">
+                <div class="overflow-va">
+                    <text class="v-a-word">View All</text>
+                </div>
+            </cell>
             <!--<loading v-if="false" class="loading" @loading="onloading" :display="isLoading? 'show': 'hide'">-->
                 <!--<image class="loading-icon" src="bmlocal://assets/loading.gif"></image>-->
             <!--</loading>-->
+
+            <cell v-if="someGoodsList.length!=0">
+                <div class="top-title">
+                    <text class="tt-txt">Popular Drops</text>
+                </div>
+                <div   v-for="(i, index) in someGoodsList" :key="i.id"  >
+                    <somegoods :goods="i"  :type="1" ></somegoods>  <!-- 1：一列 2：两列 -->
+                </div>
+            </cell>
         </list>
     </div>
 </template>
@@ -68,13 +82,15 @@
     import card from './card';
     import mydroptop from './myDropTop';
     import { baseUrl } from '../../../config/apis';
+    import somegoods from './someGoods';
+
 
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
             'refresher': refresher,
-            tab, card, mydroptop
+            tab, card, mydroptop,somegoods
         },
         eros: {
             beforeAppear (params, options) {
@@ -100,10 +116,11 @@
                 friendDropList: [],
                 productList: [],
                 dropBonus: '',
+                someGoodsList:[],
                 user: '',
                 page: 1,
                 length: 2,
-                pageSize: 10
+                pageSize: 5
             }
         },
         created () {
@@ -122,6 +139,7 @@
         },
         methods: {
             init (){
+                this.getSomeGoodsList()
                 this.user = this.$storage.getSync('user')
                 if (this.user) {
                     this.getMyDropList()
@@ -155,11 +173,29 @@
                     // this.$notice.alert({
                     //     message: res.results[1]
                     // })
+
                     this.myDropList = [...res.results]
                     this.productList = [...this.myDropList]
-                    // this.totalPoints = res.totalPoints
-                    // this.availablePoints = res.availablePoints
-                    // this.pendingPoints = this.totalPoints - this.availablePoints
+
+
+                    // // this.pArr = []
+                    this.$notice.loading.hide();
+                }).catch((res) => {
+                    this.$notice.loading.hide();
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+                })
+            },
+            getSomeGoodsList () {
+                this.$notice.loading.show();
+                this.$fetch({
+                    method: 'post',
+                    name: 'drop.hot.push',
+                }).then((res) => {
+                    this.someGoodsList = [...res]
+
+
                     // // this.pArr = []
                     this.$notice.loading.hide();
                 }).catch((res) => {
@@ -173,11 +209,11 @@
                 this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
-                    name: 'drops.friends.list',
-                    data: {
-                        page: this.page,
-                        page_size: this.pageSize
-                    },
+                    name: 'drops.friends.new.list',
+                    // data: {
+                    //     page: this.page,
+                    //     page_size: this.pageSize
+                    // },
                     header: {
                         needAuth: true
                     }
@@ -185,7 +221,7 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
-                    this.friendDropList = [...res.results]
+                    this.friendDropList = [...res]
                     // this.totalPoints = res.totalPoints
                     // this.availablePoints = res.availablePoints
                     // this.pendingPoints = this.totalPoints - this.availablePoints
@@ -251,6 +287,22 @@
                     // })
                 })
             },
+            openMoreList(){
+                if(this.activeTab=='my'){
+                    this.$router.open({
+                        name: 'more.my.drop.list',
+                        type: 'PUSH',
+
+                    })
+                }else {
+                    this.$router.open({
+                        name: 'more.friend.drop.list',
+                        type: 'PUSH',
+
+                    })
+                }
+
+            },
             redirectLogin () {
                 this.$event.on('login', params => {
                     this.user = this.$storage.getSync('user')
@@ -274,8 +326,19 @@
                         id: i.id
                     }
                 })
+            },
+            openRulerPage (e) {
+                // this.$notice.alert({
+                //     message: e
+                // })
+                this.$router.open({
+                    name: 'drop.ruler',
+                    type: 'PUSH',
+                    params: {
+                        type: e
+                    }
+                })
             }
-
        }
     }
 </script>
@@ -380,13 +443,32 @@
     }
     .overflow-mid2{
         width: 686px;
-        margin: 32px 32px 0 32px;
+        margin: 32px ;
         background-color: white;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         border-radius: 16px;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+    }
+    .overflow-va{
+        width: 610px;
+        margin: 32px 32px 20px 64px;
+        background-color: transparent;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border-color: #492799;
+        border-width: 1px;
+        border-style: solid;
+    }
+    .v-a-word{
+        font-size: 24px;
+        color: #492799;
+        font-weight: 700;
+        margin-bottom: 16px;
+        margin-top: 20px;
     }
     .om-img{
         width: 144px;
@@ -407,6 +489,17 @@
     .om-txt{
         color: white;
         font-size: 24px;
+        font-weight: 700;
+    }
+    .top-title{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 718px;
+        background-color: transparent;
+    }
+    .tt-txt{
+        font-size: 32px;
         font-weight: 700;
     }
 </style>

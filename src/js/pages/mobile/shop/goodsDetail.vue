@@ -153,11 +153,17 @@
                 </div>
             </div>
 
-            <div class="mid" v-if="isDrop">
-                <div class="dec-word" @click="createDrop"  >
-                    <text class="dec">Created Drop</text>
-                    <text class="s-c-s">Select</text>
-
+            <div class="create-drop" v-if="isDrop" @click="createDrop" >
+                <div class="c-d-item1"  >
+                    <text class="cd-item1-word">Drop & Save More</text>
+                    <text class="">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                </div>
+                <div class="c-d-item2">
+                    <text class="c-d-word">Start a drop to get extra discount!</text>
+                    <div class="cd-btn">
+                        <text class="cd-btn1">GO</text>
+                        <text class="iconfont cd-btn2">&#xe626;</text>
+                    </div>
                 </div>
             </div>
 
@@ -705,10 +711,11 @@
                 this.getGoodsDetail(this.proId)
                 this.getSomeGoods(this.proId)
                 this.getDropGoods()
-                this.getCartNum()
+
             })
             if (this.$storage.getSync('user')) {
                 this.user = this.$storage.getSync('user')
+                this.getCartNum()
             } else {
                 this.user = null
             }
@@ -901,7 +908,7 @@
                     method: 'POST',
                     url: `${dataUrl}/userdbanalysis/add/`,
                     data: {
-                        user_id: this.user.id,
+                        user_id: this.user==null?'':this.user.id,
                         product_id: this.proId,
                         product_title: this.goods.title,
                         product_price: this.goods.unitPrice,
@@ -927,7 +934,7 @@
                     method: 'POST',
                     url: `${dataUrl}/userdbanalysis/notebacktime/`,
                     data: {
-                        user_id: this.user.id,
+                        user_id: this.user==null?'':this.user.id,
                         product_id: this.proId,
                         session_id: this.analyticsId
                     }
@@ -2304,6 +2311,62 @@
         font-size: 24px;
         color: rgba(0,0,0,.54);
 
+    }
+    .create-drop{
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        background-color: #FFFFFF;
+        margin-top: 16px;
+    }
+    .c-d-item1{
+        width: 686px;
+        margin-left: 32px;
+    }
+    .cd-item1-word{
+        font-size: 24px;
+        color: #000000;
+        font-weight: 700;
+        margin-top: 32px;
+        margin-bottom: 16px;
+    }
+    .c-d-item2{
+        width: 686px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-left: 32px;
+        margin-bottom: 24px;
+        padding-left:32px;
+        background-color: rgba(231,226,246,1);
+        border-radius: 8px;
+    }
+    .c-d-word{
+        font-size: 24px;
+        color: #000000;
+    }
+    .cd-btn{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 92px;
+        height: 48px;
+        background-color: #492799;
+        margin-right: 32px;
+        margin-top: 22px;
+        margin-bottom: 24px;
+        border-radius: 50%;
+    }
+    .cd-btn1{
+        font-size: 24px;
+        font-weight: 700;
+        margin-left: 8px;
+        color: #FFFFFF;
+    }
+    .cd-btn2{
+        font-size: 20px;
+        font-weight: 700;
+        color: #FFFFFF;
     }
     .rowWithe{
         padding: 22px 32px 22px 0 ;

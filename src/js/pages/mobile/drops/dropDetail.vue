@@ -198,14 +198,14 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="top-title">
-                    <text class="tt-txt">You may also like</text>
-                </div>
-                <div   v-for="(i, index) in someGoodsList" :key="i.id"  >
-                    <somegoods :goods="i"  :type="1" ></somegoods>  <!-- 1：一列 2：两列 -->
-                </div>
-            </div>
+            <!--<div>-->
+                <!--<div class="top-title">-->
+                    <!--<text class="tt-txt">You may also like</text>-->
+                <!--</div>-->
+                <!--<div   v-for="(i, index) in someGoodsList" :key="i.id"  >-->
+                    <!--<somegoods :goods="i"  :type="1" ></somegoods>  &lt;!&ndash; 1：一列 2：两列 &ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
 
         </scroller>
     </div>

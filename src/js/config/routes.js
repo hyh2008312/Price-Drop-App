@@ -149,6 +149,15 @@ export default {
     'drops': {
         url: '/pages/mobile/drops/index.js'
     },
+    'more.my.drop.list': {
+        url: '/pages/mobile/drops/moreMyDropList.js'
+    },
+    'more.friend.drop.list': {
+        url: '/pages/mobile/drops/moreFriendDropList.js'
+    },
+    'drop.ruler': {
+        url: '/pages/mobile/drops/dropRuler.js'
+    },
     'drop.detail': {
         url: '/pages/mobile/drops/dropDetail.js'
     },
