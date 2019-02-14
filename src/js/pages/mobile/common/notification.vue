@@ -49,19 +49,20 @@
                         duration: 500,
                         timingFunction: 'ease',
                         needLayout: true,
-                        delay: 3500
+                        delay: 0
                     }, function () {
                         that.isOnAni = false;
                         if (e < that.items.length - 1) {
                             e++;
                             if (e == that.items.length - 1) {
-                                e = -1;
-                                // that.$emit('noticeFinished', {
-                                //     status: 'finished'
-                                // });
-                                // return
+                                setTimeout(() => {
+                                    that.resetAni();
+                                }, 3500);
+                                return
                             }
-                            that.aniNotice(e)
+                            setTimeout(() => {
+                                that.aniNotice(e);
+                            }, 3500);
                         }
                     });
                 }
@@ -75,7 +76,7 @@
                     },
                     duration: 0,
                     timingFunction: 'ease',
-                    delay: 200
+                    delay: 0
                 }, function () {
                     that.isOnAni = false;
                     that.init()
