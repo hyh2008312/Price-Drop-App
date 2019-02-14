@@ -103,8 +103,8 @@
                     </div>
                 </div>
                 <div class="c4-end-btn" v-if="content.payStatus=='overdue'||content.payStatus=='paid'">
-                    <text class="c4-end-btn1" @click="delDrop">delete</text>
-                    <text class="c4-end-btn2" @click="openGoodsDetail">drop Again</text>
+                    <text class="c4-end-btn1" @click="delDrop">Delete</text>
+                    <text class="c4-end-btn2" @click="openGoodsDetail">Drop Again</text>
                 </div>
             </div>
         </div>

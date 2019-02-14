@@ -71,7 +71,7 @@
     .wrapper{
         /*background-color: #fff;*/
         padding: 24px 32px 0 32px;
-        margin-bottom: 32px;
+        /*margin-bottom: 32px;*/
         width: 750px;
         flex-direction: row;
     }

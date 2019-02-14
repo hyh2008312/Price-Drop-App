@@ -6,55 +6,91 @@
 
                 <div class="overflow-box" >
                     <text class="close" @click="$router.finish();" >&#xe6f6;</text>
-                    <text class="center-word"  >The more friends help you, the lower price you unlock!  </text>
+                    <text class="center-word"  >{{title}}</text>
                 </div>
                 <div class="mask-content" style="margin-top: -80px">
                     <div class="overflow-mid">
-                        <div class="mid-card">
+                        <div class="mid-card" v-if="type==1">
                             <div class="mask-head">
-                                <text class="mask-title">How To Drop Price</text>
+                                <text class="mask-title">How It Works</text>
                             </div>
                             <div class="mid-card-item1">
-                                <div><image class="img-icon" src="bmlocal://assets/pic-click.png"></image></div>
+                                <div><image class="img-icon" src="bmlocal://assets/drop/gift-12-01.png"></image></div>
                                 <div class="mid-card-text">
                                     <text class="mid-card-text1">Step 1</text>
                                     <text class="mid-card-text2">Start a Drop for your favorite product</text>
                                 </div>
                             </div>
                             <div class="mid-card-item1">
-                                <div><image class="img-icon" src="bmlocal://assets/pic-share.png"></image></div>
+                                <div><image class="img-icon" src="bmlocal://assets/drop/fenxiang.png"></image></div>
                                 <div class="mid-card-text">
                                     <text class="mid-card-text1">Step 2</text>
                                     <text class="mid-card-text2">Share links with your friends on social media</text>
                                 </div>
                             </div>
                             <div class="mid-card-item1 ">
-                                <div><image class="img-icon" src="bmlocal://assets/pic-crowed.png"></image></div>
+                                <div><image class="img-icon" src="bmlocal://assets/drop/friend.png"></image></div>
                                 <div class="mid-card-text">
                                     <text class="mid-card-text1">Step 3</text>
                                     <text class="mid-card-text2">Ask friends to drop price for you on our App</text>
                                 </div>
                             </div>
                             <div class="mid-card-item1 mid-card-btm">
-                                <div><image class="img-icon" src="bmlocal://assets/pic-crowed.png"></image></div>
+                                <div><image class="img-icon" src="bmlocal://assets/drop/lock.png"></image></div>
                                 <div class="mid-card-text">
                                     <text class="mid-card-text1">Step 4</text>
                                     <text class="mid-card-text2">Unlock a better price with help from friends</text>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="mid-card" v-if="type==2">
+                            <div class="mask-head">
+                                <text class="mask-title">How to Earn</text>
+                            </div>
+                            <div class="mid-card-item1">
+                                <div><image class="img-icon" src="bmlocal://assets/drop/dianjishoushi-01.png"></image></div>
+                                <div class="mid-card-text">
+                                    <text class="mid-card-text1">Step 1</text>
+                                    <text class="mid-card-text2">Help your friends drop price for their products</text>
+                                </div>
+                            </div>
+                            <div class="mid-card-item1">
+                                <div><image class="img-icon" src="bmlocal://assets/drop/gift-12.png"></image></div>
+                                <div class="mid-card-text">
+                                    <text class="mid-card-text1">Step 2</text>
+                                    <text class="mid-card-text2">Get cash rewards when your friends buy with your help</text>
+                                </div>
+                            </div>
+                            <div class="mid-card-item1 mid-card-btm">
+                                <div><image class="img-icon" src="bmlocal://assets/drop/wallet-02.png"></image></div>
+                                <div class="mid-card-text">
+                                    <text class="mid-card-text1">Step 3</text>
+                                    <text class="mid-card-text2">The cash rewards will be added to wallet after order deliver</text>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="overflow-bottom"  >
 
-                    <div class="bottom-card"  >
+                    <div class="bottom-card"  v-if="type==1">
                         <text class="bottom-head-txt head-txt">Rules to Know</text>
                         <div class="bottom-card-item1" v-for="(i,index) in QAArr"  :class="[index==QAArr.length-1 ?'bottom-last':'',]">
                             <div><text class="bottom-num">{{index+1}}.</text></div>
                             <div class="bottom-card-txt">
                                 <text class="bottom-card-question">{{i.question}}</text>
-                                <!--<text class="bottom-card-answer">{{i.answer}} </text>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bottom-card"  v-if="type==2">
+                        <text class="bottom-head-txt head-txt">Rules to Know</text>
+                        <div class="bottom-card-item1" v-for="(i,index) in QAArr"  :class="[index==QAArr.length-1 ?'bottom-last':'',]">
+                            <div><text class="bottom-num">{{index+1}}.</text></div>
+                            <div class="bottom-card-txt">
+                                <text class="bottom-card-question1">{{i.question}}</text>
+                                <text class="bottom-card-answer" >{{i.answer}} </text>
                             </div>
                         </div>
                     </div>
@@ -66,20 +102,37 @@
 </template>
 
 <script>
+    import {learnMore, helpFriend } from './config'
     export default {
         name: "dropRuler",
         data () {
             return{
-
+                QAArr:[],
+                type:'',
+                title:''
             }
         },
         eros:{
             appeared(params){
-                // this.$notice.alert({
-                //     message: params
-                // })
+                if(params){
+                    this.type = params.type
+                    this.check(params.type)
+
+                }
             },
             beforeAppear(params){
+
+            }
+        },
+        methods:{
+            check(num){
+                if(num == 1){
+                    this.title = 'The more friends help you, the lower price you unlock! ';
+                    this.QAArr = learnMore
+                }else {
+                    this.title = 'Drop price for friends & Earn cash for free!';
+                    this.QAArr = helpFriend
+                }
 
             }
         }
@@ -159,7 +212,7 @@
         color: black;
         font-size: 40px;
         font-weight: 900;
-        width: 506px;
+        width: 470px;
         line-height: 60px;
         margin-left: 126px;
     }
@@ -175,7 +228,7 @@
     }
     .mask-title {
         color: #333333;
-        font-weight: 700;
+        font-weight: 900;
         font-size: 32px;
     }
     .mask-text {
@@ -211,7 +264,7 @@
     }
     .mid-card-item1{
         margin-top: 30px;
-        margin-left: 32px;
+        margin-left: 36px;
         flex-direction: row;
         justify-content: flex-start;
     }
@@ -222,14 +275,13 @@
         margin-left: 48px;
     }
     .mid-card-text1 {
-        font-family: ProximaNova-Regular;
+        font-weight: 700;
         margin-bottom: 16px;
         font-size: 28px;
-        color: #EF8A31;
+        color: black;
     }
     .mid-card-text2{
         color: rgba(0, 0, 0, 0.87);
-        opacity: 0.54;
         font-size: 24px;
         width: 510px;
         line-height: 42px;
@@ -290,6 +342,15 @@
         width: 560px;
         font-family: ProximaNova-Regular;
         /*font-weight: 700;*/
+        /*margin-bottom: 16px;*/
+    }
+    .bottom-card-question1{
+        color: black;
+        font-size: 28px;
+        line-height: 42px;
+        width: 560px;
+        font-family: ProximaNova-Regular;
+        font-weight: 700;
         margin-bottom: 16px;
     }
     .bottom-card-answer{
@@ -300,7 +361,7 @@
         font-family: ProximaNova-Regular;
         padding-right: 24px;
         margin-top: -5px;
-        margin-bottom: 48px;
+        margin-bottom: 16px;
     }
     .bottom-last{
         /*margin-bottom: 50px;*/

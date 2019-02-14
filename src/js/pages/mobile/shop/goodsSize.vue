@@ -77,9 +77,9 @@
                 if(this.analyticsCount==1){
                     // this.productData()
 
-                    this.$notice.alert({
-                        message: 1111
-                    })
+                    // this.$notice.alert({
+                    //     message: 1111
+                    // })
                 }
             }
         },

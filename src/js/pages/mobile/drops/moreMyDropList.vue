@@ -12,7 +12,7 @@
 
             <cell v-for="(i,index) in myDropList"  >
                 <div class="overflow-card" :class="[index==myDropList.length-1 ?'mg-b-20':'',]">
-                    <card  :content="i" :activeTab="'my'" ></card>
+                    <card  :content="i" :activeTab="'my'" @del="delItem(i,index)"></card>
                 </div>
             </cell>
 
@@ -39,6 +39,8 @@
     import tab from './moreTab';
     import card from './card';
     import refresher from '../common/refresh';
+    import { baseUrl } from '../../../config/apis';
+
     export default {
         name: "moreDropList",
         props:[''],
@@ -125,7 +127,34 @@
                     // })
                 })
             },
+            delItem (i,deleteIndex) {
+                this.$notice.loading.show();
+                this.$fetch({
+                    method: 'POST',
+                    url: `${baseUrl}/drops/delete/${i.id}/`,
+                    header: {
+                        needAuth: true
+                    }
+                }).then((res) => {
+                    // this.productList.splice(deleteIndex, 1);
 
+
+                    this.$notice.loading.hide();
+                    this.myDropList.splice(deleteIndex, 1);
+
+                    this.$nextTick(() => {
+                        // this.productList = [...this.myDropList]
+                    })
+                    this.$notice.toast({
+                        message: res.result
+                    })
+                }).catch((res) => {
+                    this.$notice.loading.hide();
+                    this.$notice.alert({
+                        message: res
+                    })
+                })
+            },
 
             onTabTo (e) {
                 this.activeTab = e.data.key

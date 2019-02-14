@@ -68,7 +68,7 @@
                 <div class="top-title">
                     <text class="tt-txt">Popular Drops</text>
                 </div>
-                <div   v-for="(i, index) in someGoodsList" :key="i.id"  >
+                <div   v-for="(i, index) in someGoodsList" :key="i.id"  :class="[index==someGoodsList.length-1 ?'mg-b-32':'',]">
                     <somegoods :goods="i"  :type="1" ></somegoods>  <!-- 1：一列 2：两列 -->
                 </div>
             </cell>
@@ -193,16 +193,16 @@
                     method: 'post',
                     name: 'drop.hot.push',
                 }).then((res) => {
-                    this.someGoodsList = [...res]
-
-
-                    // // this.pArr = []
-                    this.$notice.loading.hide();
-                }).catch((res) => {
-                    this.$notice.loading.hide();
                     // this.$notice.alert({
                     //     message: res
                     // })
+                    this.someGoodsList = [...res]
+                    this.$notice.loading.hide();
+                }).catch((res) => {
+                    this.$notice.loading.hide();
+                    this.$notice.alert({
+                        message: res
+                    })
                 })
             },
             getFriendsDropList () {
@@ -259,7 +259,6 @@
                 })
             },
             delItem (i,deleteIndex) {
-
                 this.$notice.loading.show();
                 this.$fetch({
                     method: 'POST',
@@ -268,15 +267,9 @@
                         needAuth: true
                     }
                 }).then((res) => {
-                    // this.productList.splice(deleteIndex, 1);
-
 
                     this.$notice.loading.hide();
                     this.myDropList.splice(deleteIndex, 1);
-
-                    this.$nextTick(() => {
-                        // this.productList = [...this.myDropList]
-                    })
                     this.$notice.toast({
                         message: res.result
                     })
@@ -501,5 +494,8 @@
     .tt-txt{
         font-size: 32px;
         font-weight: 700;
+    }
+    .mg-b-32{
+        margin-bottom: 32px;
     }
 </style>

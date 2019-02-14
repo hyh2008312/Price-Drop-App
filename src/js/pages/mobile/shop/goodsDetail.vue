@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <div class="reward-points" v-if="!isDrop" @click="openRuler">
+            <div class="reward-points"  @click="openRuler">
                 <div class="r-p-t" >
                     <text class="r-p-t1">Reward Points</text>
                     <text class="r-p-t2" >Details</text>
@@ -141,6 +141,20 @@
                  <!--<div v-if="tabshow" style="position: sticky">-->
                     <!--<tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>-->
                  <!--</div>-->
+            <div class="create-drop" v-if="isDrop" @click="createDrop" >
+                <div class="c-d-item1"  >
+                    <text class="cd-item1-word">Drop & Save More</text>
+                    <text class="">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                </div>
+                <div class="c-d-item2">
+                    <text class="c-d-word">Start a drop to get extra discount!</text>
+                    <div class="cd-btn">
+                        <text class="cd-btn1">GO</text>
+                        <text class="iconfont cd-btn2" ref="getArrow">&#xe626;</text>
+                    </div>
+                </div>
+            </div>
+
             <div class="mid">
                 <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >
                     <text class="dec">Size / Color</text>
@@ -153,19 +167,7 @@
                 </div>
             </div>
 
-            <div class="create-drop" v-if="isDrop" @click="createDrop" >
-                <div class="c-d-item1"  >
-                    <text class="cd-item1-word">Drop & Save More</text>
-                    <text class="">&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                </div>
-                <div class="c-d-item2">
-                    <text class="c-d-word">Start a drop to get extra discount!</text>
-                    <div class="cd-btn">
-                        <text class="cd-btn1">GO</text>
-                        <text class="iconfont cd-btn2">&#xe626;</text>
-                    </div>
-                </div>
-            </div>
+
 
             <!--<div class="mid">-->
                 <!--<div class="dec-word" >-->
@@ -181,12 +183,12 @@
 
             <div class="mid">
 
-                <div class="dec-word" @click="openShipPopup"  v-if="purchaseMethod==='drop'" >
+                <div class="dec-word" @click="openShipPopup"  >
                     <text class="dec">Shipping Time & Cost</text>
                     <text class="iconfont dec-arrows">&#xe626;</text>
                 </div>
 
-                <div class="slogan" v-if="!isDrop">
+                <div class="slogan" >
                     <div class="slg">
                         <text class="i-slg-icon">&#xe714;</text>
                         <text class="i-slg-1" > Quality  </text>
@@ -543,6 +545,8 @@
 
     const dom = weex.requireModule('dom');
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+    const animation = weex.requireModule('animation')
+
     const common = weex.requireModule('CommonUtils');
 
     // import block from './block';
@@ -672,9 +676,6 @@
         },
         eros: {
             backAppeared (params) {
-                //   this.$notice.toast({
-                //     message: 111111
-                // })
             },
             beforeDisappear (options) {
                 if (this.analyticsCount==1) {
@@ -722,6 +723,7 @@
             this.$event.on('cartNum', parmas => {
                 this.getCartNum()
             })
+            this.setTime();
             this.initBack();
             this.trimNullObj();
         },
@@ -1069,9 +1071,9 @@
                             //         type: 'PUSH'
                             //     })
                             // }
-                            // this.$notice.toast({
-                            //     message: res.errorMsg
-                            // })
+                            this.$notice.toast({
+                                message: res.errorMsg
+                            })
                         }
                     })
                 }
@@ -1629,7 +1631,31 @@
                 } else {
                     this.firstHeight = 'auto';
                 }
-            }
+            },
+            setTime () {
+                setInterval(() => {
+                    this.shakeArrow()
+                }, 1000)
+            },
+            shakeArrow () {
+                animation.transition(this.$refs.getArrow, {
+                    styles: {
+                        transform: 'translate(10px, 0px)'
+                    },
+                    duration: 500, // ms
+                    timingFunction: 'ease',
+                    delay: 0 // ms
+                }, function () {
+                    animation.transition(this.$refs.getArrow, {
+                        styles: {
+                            transform: 'translate(0px, 0px)'
+                        },
+                        duration: 500, // ms
+                        timingFunction: 'ease',
+                        delay: 0 // ms
+                    })
+                }.bind(this))
+            },
         }
     }
 </script>
@@ -2213,7 +2239,7 @@
         flex-direction: row;
         justify-content: center;
         background-color: white;
-        margin-bottom: 11px;
+        margin-bottom: 16px;
     }
     .d-sm-w{
         font-size: 24px;
@@ -2314,8 +2340,8 @@
     }
     .create-drop{
         flex-direction: column;
+        justify-content: start;
         align-items: start;
-        justify-content: center;
         background-color: #FFFFFF;
         margin-top: 16px;
     }
@@ -2328,7 +2354,7 @@
         color: #000000;
         font-weight: 700;
         margin-top: 32px;
-        margin-bottom: 16px;
+        /*margin-bottom: 16px;*/
     }
     .c-d-item2{
         width: 686px;
@@ -2337,6 +2363,7 @@
         justify-content: space-between;
         margin-left: 32px;
         margin-bottom: 24px;
+        margin-top: -14px;
         padding-left:32px;
         background-color: rgba(231,226,246,1);
         border-radius: 8px;
@@ -2349,7 +2376,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        width: 92px;
+        width: 108px;
         height: 48px;
         background-color: #492799;
         margin-right: 32px;

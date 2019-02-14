@@ -55,11 +55,8 @@
                         if (e < that.items.length - 1) {
                             e++;
                             if (e == that.items.length - 1) {
-                                e = -1;
-                                // that.$emit('noticeFinished', {
-                                //     status: 'finished'
-                                // });
-                                // return
+                                that.resetAni();
+                                return
                             }
                             that.aniNotice(e)
                         }
@@ -73,13 +70,13 @@
                         opacity: 0,
                         transform: 'translateY(0px)'
                     },
-                    duration: 0,
+                    duration: 200,
                     timingFunction: 'ease',
-                    delay: 200
+                    delay: 0
                 }, function () {
                     that.isOnAni = false;
                     that.init()
-                })
+                });
             },
             formateDate (dateTimeStamp) {
                 return utilFunc.formateDate(dateTimeStamp);
