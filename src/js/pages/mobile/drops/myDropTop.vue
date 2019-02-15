@@ -9,7 +9,7 @@
                 <text class="t-word1 iconfont">&#xe626;</text>
             </div>
             <div class="top-target" v-if="dropTab=='friend'">
-                <text class="t-word" >How to Earn Rewards</text>
+                <text class="t-word" >How to Earn</text>
                 <text class="t-word1 iconfont">&#xe626;</text>
             </div>
         </div>

@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-            <div class="gb-gift-bg" v-if="order.proId == 'direct' || order.proId == 'flash'">
+            <div class="gb-gift-bg" v-if="order.proId == 'direct' || order.proId == 'flash'|| order.proId == 'dropGoods'">
                 <div class="gb-gift" @click="jumpCard">
                     <div>
                         <text class="gd-text-2">Gift Voucher</text>

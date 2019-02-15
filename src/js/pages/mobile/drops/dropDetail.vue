@@ -29,15 +29,16 @@
                 </div>
 
             </div>
-            <div class="middle" v-if="drop.user=='owner'">
+            <div class="middle" v-if="drop.user=='owner'"  >
 
                 <div class="m1-price">
                     <text class="m1-p1">₹{{parseInt(drop.currentPrice)||0}}</text>
                     <text class="m1-p2">₹{{parseInt(drop.salePrice)||0}}</text>
                 </div>
-                <text class="m2-txt" v-if="drop.dropStatus=='progressing'">Invite {{5-drop.friendsDrop.length}} more friends to drop the price</text>
+                <text class="m2-txt" v-if="drop.dropStatus=='progressing'">Ask {{5-drop.friendsDrop.length}} {{5-drop.friendsDrop.length==5?'':'more'}} friends for help & unlock lower price!</text>
 
-                <text class="m2-txt" v-if="drop.dropStatus=='end'">Wow, your price has dropped by ₹{{parseInt(drop.salePrice)-parseInt(drop.currentPrice)}}</text>
+                <text class="m2-txt" v-if="drop.dropStatus=='end'&&(parseInt(drop.salePrice)-parseInt(drop.currentPrice))!=0">Wow, your price has dropped by ₹{{parseInt(drop.salePrice)-parseInt(drop.currentPrice)}}</text>
+                <text class="m2-txt" v-if="drop.dropStatus=='end'&&(parseInt(drop.salePrice)-parseInt(drop.currentPrice))==0">You didn’t unlock any discount</text>
 
                 <div class="m3-progress">
                     <div class="m3p-user" >
@@ -101,7 +102,7 @@
                 </div>
                 <div class="m1-price" v-if="drop.canDrop.toString()=='false'">
                     <text class="m1-p1-iconfont iconfont">&#xe6fb;</text>
-                    <text class="m1-p1-friend">Earned</text>
+                    <text class="m1-p1-friend">Reward for Help</text>
                     <text class="m1-p1" style="color: #E30000">₹{{parseInt(drop.rewardBonus)||0}}</text>
                 </div>
 
@@ -152,7 +153,7 @@
                     <text class="m4-btn-word color4">Successfully Helped</text>
                 </div>
 
-                <div class="m-time">
+                <div class="m-time" >
                     <div class="flash-sales-time" >
                         <text class="flash-sales-hh">{{ahour||'00'}}</text>
                         <text class="flash-sales-dot" >:</text>
@@ -210,11 +211,41 @@
             </div>
 
         </scroller>
+
+        <WxcMask
+            height="477"
+            width="397"
+            border-radius="16"
+            duration="200"
+            mask-bg-color="rgba(255, 255, 255, 0)"
+            :has-animation="true"
+            :has-overlay="true"
+            :show-close="false"
+            :show="newShow"
+            @wxcMaskSetHidden="wxcMaskSetShareHidden">
+            <div class="maskcontent">
+                <div class="mc-top">
+                    <text class="mct-word">₹{{parseInt(drop.rewardBonus)}}</text>
+                </div>
+                <div class="mask-mid">
+
+                    <text class="mm-word">Thank you for your help!</text>
+                    <text class="mm-word1">You will earn the cash reward once this order is delivered.</text>
+                </div>
+
+                <image src="bmlocal://assets/home/voucher-part.png" style="width: 398px;height: 28px;"></image>
+                <div class="mask-bottom">
+                    <div class="mb-btn">
+                        <text class="mb-btn-word">OK</text>
+                    </div>
+                </div>
+            </div>
+        </WxcMask>
     </div>
 </template>
 
 <script>
-    import { WxcCountdown, WxcPopup, WxcMask } from 'weex-ui';
+    import { WxcMask } from 'weex-ui';
     const shareModule = weex.requireModule('ShareModule');
 
     import { baseUrl } from '../../../config/apis';
@@ -222,7 +253,7 @@
     import somegoods from './someGoods';
     export default {
         components: {
-            preload, somegoods
+            preload, somegoods,WxcMask
         },
         data () {
             return {
@@ -234,6 +265,7 @@
                 user_id: '',
                 drop: '',
                 user: '',
+                newShow: false,
                 dropLink: '',
                 someGoodsList: [],
                 nextPage: {
@@ -316,6 +348,7 @@
                         // })
 
                         this.drop = res
+                        this.openMask()
                         this.$event.emit('dropPrice');
                         this.$notice.loading.hide();
                     }).catch((res) => {
@@ -419,6 +452,12 @@
                         type: e
                     }
                 })
+            },
+            openMask () {
+                this.newShow = true
+            },
+            wxcMaskSetShareHidden () {
+                this.newShow = false;
             },
             countDate (time) {
                 const self = this
@@ -822,7 +861,7 @@
     }
 
     .contributors {
-        margin: 35px 32px 40px 32px;
+        margin: 5px 32px 40px 32px;
         background-color: #FFFFFF;
         border-radius: 16px;
         box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
@@ -837,6 +876,65 @@
     }
     .tt-txt{
         font-size: 32px;
+        font-weight: 700;
+    }
+    .mc-top{
+        background-image: linear-gradient(to right, #C1B1E8,#5B37AE);
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .mct-word{
+        font-size: 72px;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 28px;
+        margin-top: 42px;
+    }
+    .mask-mid{
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    }
+    .mm-word{
+        font-size: 24px;
+        color: #000000;
+        width:320px;
+        text-align: center;
+        margin-top: 32px;
+        margin-bottom: 16px;
+    }
+    .mm-word1{
+        font-size: 24px;
+        color: #000000;
+        width:320px;
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 16px;
+
+    }
+    .mask-bottom{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+    }
+    .mb-btn{
+        width:140px;
+        height:60px;
+        margin-top: 36px;
+        margin-bottom: 48px;
+        border-radius: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to right,#5B37AE,#C1B1E8);
+
+    }
+    .mb-btn-word{
+        font-size: 24px;
+        color: #FFFFFF;
         font-weight: 700;
     }
 </style>

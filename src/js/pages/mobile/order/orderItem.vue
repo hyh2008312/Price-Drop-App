@@ -47,7 +47,7 @@
                     </wxc-countdown>
                 </div>
                 <div class="gb-bottom-2">
-                    <text class="od-button-1 gt-mr" @click="deleteOrder">Delete</text>
+                    <text class="od-button-1 gt-mr" @click="deleteOrder" v-if="order.orderType != 'Drop'">Delete</text>
                     <text class="gd-button" @click="openBottomPopup">Pay Now</text>
                 </div>
             </div>

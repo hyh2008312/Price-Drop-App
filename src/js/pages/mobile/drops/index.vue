@@ -87,6 +87,36 @@
                 </div>
             </cell>
         </list>
+
+        <WxcMask
+            height="477"
+            width="397"
+            border-radius="16"
+            duration="200"
+            mask-bg-color="rgba(255, 255, 255, 0)"
+            :has-animation="true"
+            :has-overlay="true"
+            :show-close="false"
+            :show="newShow"
+            @wxcMaskSetHidden="wxcMaskSetShareHidden">
+            <div class="maskcontent">
+                <div class="mc-top">
+                    <text class="mct-word">₹{{parseInt(dropObj.rewardBonus)}}</text>
+                </div>
+                <div class="mask-mid">
+
+                    <text class="mm-word">Thank you for your help!</text>
+                    <text class="mm-word1">You will earn the cash reward once this order is delivered.</text>
+                </div>
+
+                <image src="bmlocal://assets/home/voucher-part.png" style="width: 398px;height: 28px;"></image>
+                <div class="mask-bottom">
+                    <div class="mb-btn">
+                        <text class="mb-btn-word">OK</text>
+                    </div>
+                </div>
+            </div>
+        </WxcMask>
     </div>
 </template>
 <script>
@@ -97,6 +127,8 @@
     import mydroptop from './myDropTop';
     import { baseUrl } from '../../../config/apis';
     import somegoods from './someGoods';
+    import { WxcMask } from 'weex-ui';
+
 
 
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
@@ -104,7 +136,7 @@
     export default {
         components: {
             'refresher': refresher,
-            tab, card, mydroptop,somegoods
+            tab, card, mydroptop,somegoods,WxcMask
         },
         eros: {
             beforeAppear (params, options) {
@@ -131,6 +163,8 @@
                 productList: [],
                 dropBonus: '',
                 someGoodsList:[],
+                dropObj:{},
+                newShow:false,
                 user: '',
                 page: 1,
                 length: 2,
@@ -141,12 +175,17 @@
             const pageHeight = Utils.env.getScreenHeight();
             this.height = { height: (pageHeight - 48 - 112 - 128 - 96 - 112) + 'px' };
             this.$event.on('dropPrice', parmas => {
+                this.dropObj = parmas.drop
+                this.newShow = true
                 this.getFriendsDropList()
             })
             this.$event.on('createDrop', parmas => {
                 this.getMyDropList()
             })
             this.$event.on('placeOrder', parmas => {
+                this.getMyDropList()
+            })
+            this.$event.on('paid', parmas => {
                 this.getMyDropList()
             })
             this.$event.on('login', parmas => {
@@ -336,6 +375,9 @@
                         id: i.id
                     }
                 })
+            },
+            wxcMaskSetShareHidden () {
+                this.newShow = false;
             },
             openRulerPage (e) {
                 // this.$notice.alert({
@@ -531,5 +573,64 @@
     }
     .mg-b-32{
         margin-bottom: 32px;
+    }
+    .mc-top{
+        background-image: linear-gradient(to right, #C1B1E8,#5B37AE);
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .mct-word{
+        font-size: 72px;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 28px;
+        margin-top: 42px;
+    }
+    .mask-mid{
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    }
+    .mm-word{
+        font-size: 24px;
+        color: #000000;
+        width:320px;
+        text-align: center;
+        margin-top: 32px;
+        margin-bottom: 16px;
+    }
+    .mm-word1{
+        font-size: 24px;
+        color: #000000;
+        width:320px;
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 16px;
+
+    }
+    .mask-bottom{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+    }
+    .mb-btn{
+        width:140px;
+        height:60px;
+        margin-top: 36px;
+        margin-bottom: 48px;
+        border-radius: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to right,#5B37AE,#C1B1E8);
+
+    }
+    .mb-btn-word{
+        font-size: 24px;
+        color: #FFFFFF;
+        font-weight: 700;
     }
 </style>

@@ -46,27 +46,27 @@
 
                         <div class="mid-card" v-if="type==2">
                             <div class="mask-head">
-                                <text class="mask-title">How to Earn</text>
+                                <text class="mask-title">How to Earn Rewards</text>
                             </div>
                             <div class="mid-card-item1">
                                 <div><image class="img-icon" src="bmlocal://assets/drop/dianjishoushi-01.png"></image></div>
                                 <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 1</text>
-                                    <text class="mid-card-text2">Help your friends drop price for their products</text>
+                                    <text class="mid-card-text1">Click Help for Your Friends</text>
+                                    <text class="mid-card-text2">Help your friends drop price for their products.</text>
                                 </div>
                             </div>
                             <div class="mid-card-item1">
                                 <div><image class="img-icon" src="bmlocal://assets/drop/gift-12.png"></image></div>
                                 <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 2</text>
-                                    <text class="mid-card-text2">Get cash rewards when your friends buy with your help</text>
+                                    <text class="mid-card-text1">Your Friends Buy the Products</text>
+                                    <text class="mid-card-text2">Get cash rewards when your friends buy with your help.</text>
                                 </div>
                             </div>
                             <div class="mid-card-item1 mid-card-btm">
                                 <div><image class="img-icon" src="bmlocal://assets/drop/wallet-02.png"></image></div>
                                 <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 3</text>
-                                    <text class="mid-card-text2">The cash rewards will be added to wallet after order deliver</text>
+                                    <text class="mid-card-text1">Earn Rewards Once Order Delivers</text>
+                                    <text class="mid-card-text2">The rewards will be credited to you after your friends sign the order.</text>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                     this.title = 'The more friends help you, the lower price you unlock! ';
                     this.QAArr = learnMore
                 }else {
-                    this.title = 'Drop price for friends & \ Earn cash for free!';
+                    this.title = 'Drop price for friends, \ Earn cash for free!';
                     this.QAArr = helpFriend
                 }
 

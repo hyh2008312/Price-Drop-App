@@ -67,13 +67,29 @@
                 </div>
                 </div>
                 <div v-if="content.dropStatus=='end'">
-                    <text class="c2-end-txt">Wow, your price dropped by ₹{{parseInt(content.salePrice)-parseInt(content.currentPrice)}}</text>
+                    <text class="c2-end-txt"
+                          v-if="parseInt(content.salePrice)-parseInt(content.currentPrice)==0&&activeTab=='my'"
+                    >You didn’t unlock any discount.</text>
+                    <text class="c2-end-txt"
+                          v-if="parseInt(content.salePrice)-parseInt(content.currentPrice)!=0&&activeTab=='my'"
+                    >Total price dropped: ₹{{parseInt(content.salePrice)-parseInt(content.currentPrice)}}</text>
+
+
+                    <text class="c2-end-txt"
+                          v-if="parseInt(content.salePrice)-parseInt(content.currentPrice)!=0&&activeTab=='friend'"
+                    >Total price dropped: ₹{{parseInt(content.salePrice)-parseInt(content.currentPrice)}}</text>
+
+                    <text class="c2-end-txt"
+                          v-if="parseInt(content.salePrice)-parseInt(content.currentPrice)==0&&activeTab=='friend'"
+                    >No discount has been unlocked. ₹{{parseInt(content.salePrice)-parseInt(content.currentPrice)}}</text>
+
+
                 </div>
 
 
                 <div class="c3-price">
-                    <text class="c3-p1-end" v-if="content.dropStatus=='end'&&content.payStatus=='unpaid'">Buy now for: </text>
-                    <text class="c3-p1-end" v-if="content.dropStatus=='end'&&(content.payStatus=='overdue'||content.payStatus=='paid')"></text>
+                    <text class="c3-p1-end" v-if="content.dropStatus=='end'&&content.payStatus=='unpaid'">Price Unlocked: </text>
+                    <text class="c3-p1-end" v-if="content.dropStatus=='end'&&(content.payStatus=='overdue'||content.payStatus=='paid')">Price Unlocked: </text>
                     <text class="c3-p1" v-if="content.dropStatus=='progressing'">Current Price:</text>
                     <text class="c3-p2">₹{{parseInt(content.currentPrice)}}</text>
                     <text class="c3-p3">₹{{parseInt(content.salePrice)}}</text>
@@ -198,7 +214,7 @@
                     //     message: res
                     // })
                     this.drop = res
-                    this.$event.emit('dropPrice');
+                    this.$event.emit('dropPrice', { drop: this.drop });
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();

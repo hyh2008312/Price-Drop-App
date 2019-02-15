@@ -33,7 +33,7 @@
                     <text class="gb-text">₹{{order.shippingExclTax}}</text>
                     <text class="gb-text">₹0.00</text>
                     <text class="gb-text gb-text-color" v-if="order.orderType == 'Drop'">- ₹{{order.dropAmount.toFixed(2)}}</text>
-                    <text class="gd-text gb-text-color" v-if="(order.orderType == 'Normal'|| order.orderType == 'Flash') && order.voucherShare > 0">- ₹{{order.voucherShare}}</text>
+                    <text class="gd-text gb-text-color" v-if="(order.orderType == 'Normal'|| order.orderType == 'Flash'|| order.orderType == 'Drop') && order.voucherShare > 0">- ₹{{order.voucherShare}}</text>
 
                     <!--<text class="gd-text gb-text-color" v-if="order.balanceUsed && order.balance > 0">- ₹{{order.balance}}</text>-->
                     <text class="gd-text gb-text-color" v-if="order.bonusWallet > 0">- ₹{{order.bonusWallet.toFixed(2)}}</text>

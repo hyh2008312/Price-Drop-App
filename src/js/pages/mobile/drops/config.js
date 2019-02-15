@@ -13,21 +13,21 @@ export const learnMore = [{
 }];
 export const  helpFriend = [{
     question: 'How to see my friend’s Drops?',
-    answer: 'Once a friend drops price for you, or you support your friend’s Drops, then you can see the upcoming Drops .'
+    answer: 'Once a friend drops price for you, or you support your friend’s Drops, then you can see the upcoming Drops of your friends.'
 }, {
-    question: 'I have clicked to help my friend drop price, but why I didn’t earn the reward? ',
-    answer: 'The cash reward will be canceled if your friend not purchase the product, or cancel the order before it delivers.'
+    question: 'I have helped my friend drop the price, but why I don’t earn my rewards? ',
+    answer: 'The cash reward will be removed if your friend not purchase the product, or cancel the order before it delivers.'
 }, {
-    question: 'Why my cash reward shows Pending? When it will be available to use?',
-    answer: 'The cash rewards will be in Pending status until your friend’s order is delivered successfully. Once your friend signed the order, your cash reward will be added to your wallet.'
+    question: 'Why my cash reward shows Pending? When will it be available to use?',
+    answer: 'The cash rewards will show as Pending until your friends accept orders successfully. Once your friends sign their orders, your cash rewards will be added to your wallet.'
 }, {
     question: 'Is my cash reward going to expire?',
     answer: 'Your cash reward will expire in 15 days. Please make sure to use your rewards as early as possible.'
 }, {
     question: 'Can I withdraw my cash rewards? ',
-    answer: 'No, you can only use the cash reward for shopping on our App. '
+    answer: 'No, you can only use the cash reward for shopping on our App.'
 }, {
-    question: 'How many friends can I help to drop price every day?',
-    answer: 'You can help to drop price for up to 3 friends a day. '
+    question: 'How many friends can I help to drop the price every day?',
+    answer: 'You can help to drop the price for up to 3 friends a day. '
 }];
 
