@@ -8,6 +8,8 @@ export const learnMore = [{
     question: 'After the Drop ends, you can buy the product at the final price you have unlocked within 24 hours.',
 }, {
     question: 'If you don’t place your order within 24 hours after your Drop ends, the price will expire.',
+}, {
+    question: 'We reserve the right to modify these terms at any time or take action against users for non-genuine behaviors.',
 }];
 export const  helpFriend = [{
     question: 'How to see my friend’s Drops?',

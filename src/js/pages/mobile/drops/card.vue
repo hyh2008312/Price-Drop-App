@@ -86,7 +86,7 @@
         <div v-if="activeTab=='my'">
 
             <div class="c4-btn" v-if="content.dropStatus=='progressing'" @click="share">
-                <text class="c4-txt">Share to Drop Price</text>
+                <text class="c4-txt">Share to Drop the Price</text>
             </div>
             <div v-if="content.dropStatus=='end'">
                 <div class="c4-btn1" v-if="content.payStatus=='unpaid'" @click="buyGoods">

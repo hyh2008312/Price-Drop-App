@@ -8,28 +8,28 @@
             <cell >
                 <mydroptop :dropTab="activeTab" :allBouns="dropBonus" v-on:rulerType="openRulerPage($event)"></mydroptop>
             </cell>
-            <cell>
-                <div class="overflow-mid1" v-if="user==''&&activeTab=='my'" @click="redirectLogin">
-                    <div class="top-card"></div>
-                    <div class="t-cm">
-                        <div class="t-cm-c" >
-                            <text class="t-cm-cw">Your friends started 200+ Drops & saved ₹20,000+</text>
-                            <text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>
-                        </div>
-                    </div>
-
-                    <!--<div class="w-img">-->
-                    <image class="w-i5" style=" width: 100px;height: 43px;" src="bmlocal://assets/perks/5.png"></image>
-                    <image class="w-i3" style=" width: 62px;height: 98px;" src="bmlocal://assets/perks/3.png"></image>
-                    <image class="w-i1" style=" width: 60px;height: 110px;" src="bmlocal://assets/perks/1.png"></image>
-
-                    <image class="w-i6" style=" width: 98px;height: 106px;" src="bmlocal://assets/perks/6.png"></image>
-
-                    <image class="w-i2" style=" width: 100px;height: 102px;" src="bmlocal://assets/perks/2.png"></image>
-                    <image class="w-i4" style=" width: 80px;height: 96px;" src="bmlocal://assets/perks/4.png"></image>
+            <!--<cell>-->
+                <!--<div class="overflow-mid1" v-if="user==''&&activeTab=='my'" @click="redirectLogin">-->
+                    <!--<div class="top-card"></div>-->
+                    <!--<div class="t-cm">-->
+                        <!--<div class="t-cm-c" >-->
+                            <!--<text class="t-cm-cw">Your friends started 200+ Drops & saved ₹20,000+</text>-->
+                            <!--<text class="t-cm-ca iconfont" ref="getArrow">&#xe626;</text>-->
+                        <!--</div>-->
                     <!--</div>-->
-                </div>
-            </cell>
+
+                    <!--&lt;!&ndash;<div class="w-img">&ndash;&gt;-->
+                    <!--<image class="w-i5" style=" width: 100px;height: 43px;" src="bmlocal://assets/perks/5.png"></image>-->
+                    <!--<image class="w-i3" style=" width: 62px;height: 98px;" src="bmlocal://assets/perks/3.png"></image>-->
+                    <!--<image class="w-i1" style=" width: 60px;height: 110px;" src="bmlocal://assets/perks/1.png"></image>-->
+
+                    <!--<image class="w-i6" style=" width: 98px;height: 106px;" src="bmlocal://assets/perks/6.png"></image>-->
+
+                    <!--<image class="w-i2" style=" width: 100px;height: 102px;" src="bmlocal://assets/perks/2.png"></image>-->
+                    <!--<image class="w-i4" style=" width: 80px;height: 96px;" src="bmlocal://assets/perks/4.png"></image>-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</cell>-->
 
             <cell>
                 <div class="overflow-mid2" v-if="user==''&&activeTab=='friend'" @click="redirectLogin">
@@ -55,7 +55,21 @@
                 </div>
             </cell>
 
-            <cell @click="openMoreList" v-if="friendDropList.length>=5||myDropList.length>=5">
+            <cell  v-if="activeTab=='friend'&&user!=''&&friendDropList.length===0">
+                <div class="overflow-mid3">
+                    <image class="om-img" style="" src="bmlocal://assets/empty.png"></image>
+                    <text class="om-txt1">There is no Drop from your friends yet. </text>
+                </div>
+            </cell>
+
+
+            <cell @click="openMoreList" v-if="myDropList.length>=5&&activeTab=='my'">
+                <div class="overflow-va">
+                    <text class="v-a-word">View All</text>
+                </div>
+            </cell>
+
+            <cell @click="openMoreList" v-if="friendDropList.length>=5&&activeTab=='friend'">
                 <div class="overflow-va">
                     <text class="v-a-word">View All</text>
                 </div>
@@ -134,6 +148,9 @@
             })
             this.$event.on('placeOrder', parmas => {
                 this.getMyDropList()
+            })
+            this.$event.on('login', parmas => {
+                this.init()
             })
             this.init()
         },
@@ -444,6 +461,16 @@
         border-radius: 16px;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
     }
+    .overflow-mid3{
+        width: 686px;
+        margin: 32px 32px 0 32px ;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+    }
     .overflow-va{
         width: 610px;
         margin: 32px 32px 20px 64px;
@@ -464,8 +491,8 @@
         margin-top: 20px;
     }
     .om-img{
-        width: 144px;
-        height: 144px;
+        width: 160px;
+        height: 140px;
         margin-top: 20px;
         margin-bottom: 12px;
     }
@@ -484,12 +511,18 @@
         font-size: 24px;
         font-weight: 700;
     }
+    .om-txt1{
+        color: rgba(0,0,0,.54);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 42px;
+    }
     .top-title{
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        width: 718px;
-        margin-top: 12px;
+        width: 750px;
+        margin-top: 32px;
         background-color: transparent;
     }
     .tt-txt{

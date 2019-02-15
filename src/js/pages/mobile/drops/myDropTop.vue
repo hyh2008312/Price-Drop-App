@@ -1,19 +1,20 @@
 <template>
     <div class="wrapper">
-        <div>
-            <image style="width: 750px;height: 166px" v-if="dropTab=='my'" src="bmlocal://assets/home/drop-mine-v1.2.png"></image>
-            <image style="width: 750px;height: 166px" v-if="dropTab=='friend'" src="bmlocal://assets/home/drop-friends-v1.2.png"></image>
+        <div @click="openRuler(dropTab)">
+            <image style="width: 750px;height: 166px" v-if="dropTab=='my'" src="bmlocal://assets/home/drop-mine-v1.3.png"></image>
+            <image style="width: 750px;height: 166px" v-if="dropTab=='friend'" src="bmlocal://assets/home/drop-friends-v1.3.png"></image>
             <!--<text class="center-word">Save More with Help from Friends</text>-->
             <div class="top-target" v-if="dropTab=='my'">
-                <text class="t-word" @click="openRuler(1)">Learn More</text>
+                <text class="t-word" >Learn More</text>
                 <text class="t-word1 iconfont">&#xe626;</text>
             </div>
             <div class="top-target" v-if="dropTab=='friend'">
-                <text class="t-word" @click="openRuler(2)">How to Earn Rewards</text>
+                <text class="t-word" >How to Earn Rewards</text>
                 <text class="t-word1 iconfont">&#xe626;</text>
             </div>
         </div>
         <div class="content" v-if="dropTab=='my'">
+            <text class="c-tword">Start to Drop Price Now</text>
             <div class="cimg-group">
                 <div class="c-img">
                     <image class="icon-img" src="bmlocal://assets/pic-discount.png"></image>
@@ -28,9 +29,20 @@
                 </div>
             </div>
             <div class="c-bottom">
-                <text class="cb-txt1">Start a Drop</text>
-                <text class="cb-txt2">Get Help From Friends</text>
-                <text class="cb-txt3">Save More Money</text>
+                <div class="cb-txt-of">
+                    <text class="cb-txt1">Share</text>
+                    <text class="cb-txt1">with Friends</text>
+                </div>
+                <div class="cb-txt-of">
+                    <text class="cb-txt2">Friends</text>
+                    <text class="cb-txt2">Click Help</text>
+
+                </div>
+                <div class="cb-txt-of">
+                    <text class="cb-txt1">You</text>
+                    <text class="cb-txt1">Save More</text>
+                </div>
+
             </div>
         </div>
         <div class="content" v-if="dropTab=='friend'">
@@ -62,7 +74,11 @@
         name: 'myDropTop',
         methods:{
             openRuler(key){
-                this.$emit('rulerType',key)
+                if(key=='my'){
+                    this.$emit('rulerType',1)
+                } else {
+                    this.$emit('rulerType',2)
+                }
             }
         }
     }
@@ -112,6 +128,12 @@
         margin-left: 32px;
         margin-top: -26px;
     }
+    .c-tword{
+        font-weight: 900;
+        font-size: 34px;
+        color: #FFFFFF;
+        margin-top: 26px;
+    }
     .cimg-group{
         flex-direction: row;
 
@@ -141,22 +163,28 @@
     .c-bottom{
         flex-direction: row;
         align-items: center;
-        justify-content: start;
+        justify-content: space-between;
         margin-bottom: 20px;
         width: 686px;
     }
+    .cb-txt-of{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
     .cb-txt1{
         font-weight: 700;
-        font-size: 20px;
-        margin-left: 68px;
-        margin-right: 30px;
+        font-size: 28px;
+        margin-left: 48px;
+        margin-right: 55px;
         color: #FFFFFF;
         /*background-color: #EF8A31;*/
     }
     .cb-txt2{
         font-weight: 700;
-        font-size: 20px;
-        margin-left: 42px;
+        font-size: 28px;
+        margin-right: 10px;
         color: #FFFFFF;
         /*background-color: #EF8A31;*/
     }

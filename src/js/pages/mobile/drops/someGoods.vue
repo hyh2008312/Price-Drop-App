@@ -7,7 +7,7 @@
             </div>
 
             <div class="gd-tlt-bg">
-                <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
+                <text class="gd-tlt">₹{{i.unitPrice}}</text>
                 <text class="gd-info">Drop Price</text>
             </div>
         </div>

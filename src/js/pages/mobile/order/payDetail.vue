@@ -134,6 +134,9 @@ export default {
             this.getOrder(this.id);
             this.$notice.toast('Address changed successfully!');
         });
+        this.$event.on('paid', params => {
+            this.getOrder(this.id);
+        });
     },
     destory () {
         this.$event.off('login')

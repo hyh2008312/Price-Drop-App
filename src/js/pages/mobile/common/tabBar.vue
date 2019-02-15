@@ -173,8 +173,8 @@ export default {
 
 .bar-red{
     position: absolute;
-    right: 60px;
-    top: 20px;
+    right: 40px;
+    top: 15px;
     width: 16px;
     height: 16px;
     border-radius: 50%;

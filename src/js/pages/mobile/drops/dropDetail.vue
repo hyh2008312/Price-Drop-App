@@ -35,7 +35,9 @@
                     <text class="m1-p1">₹{{parseInt(drop.currentPrice)||0}}</text>
                     <text class="m1-p2">₹{{parseInt(drop.salePrice)||0}}</text>
                 </div>
-                <text class="m2-txt">Invite {{5-drop.friendsDrop.length}} more friends to drop the price</text>
+                <text class="m2-txt" v-if="drop.dropStatus=='progressing'">Invite {{5-drop.friendsDrop.length}} more friends to drop the price</text>
+
+                <text class="m2-txt" v-if="drop.dropStatus=='end'">Wow, your price has dropped by ₹{{parseInt(drop.salePrice)-parseInt(drop.currentPrice)}}</text>
 
                 <div class="m3-progress">
                     <div class="m3p-user" >
@@ -198,14 +200,14 @@
                     </div>
                 </div>
             </div>
-            <!--<div>-->
-                <!--<div class="top-title">-->
-                    <!--<text class="tt-txt">You may also like</text>-->
-                <!--</div>-->
-                <!--<div   v-for="(i, index) in someGoodsList" :key="i.id"  >-->
-                    <!--<somegoods :goods="i"  :type="1" ></somegoods>  &lt;!&ndash; 1：一列 2：两列 &ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>-->
+            <div>
+                <div class="top-title">
+                    <text class="tt-txt">You may also like</text>
+                </div>
+                <div   v-for="(i, index) in someGoodsList" :key="i.id"   style="margin-bottom: 32px">
+                    <somegoods :goods="i"  :type="2" ></somegoods>  <!-- 1：一列 2：两列 -->
+                </div>
+            </div>
 
         </scroller>
     </div>
@@ -253,7 +255,7 @@
             }
         },
         created () {
-            // this.percent = 50/100
+            this.user = this.$storage.getSync('user')
             this.$router.getParams().then(resData => {
                 this.dropId = resData.id
                 this.getDropDetail(this.dropId)
@@ -263,20 +265,9 @@
         methods: {
             init(){
                 this.user = this.$storage.getSync('user')
-                this.getSomeGoods()
-                this.nextPage.title = this.drop.title;
-                this.nextPage.mainImage = this.drop.mainImage;
-                this.nextPage.salePrice = this.drop.salePrice;
-                this.nextPage.currentPrice = this.drop.currentPrice;
-                this.nextPage.id = this.drop.variantId;
-                this.nextPage.proId = 'dropGoods';
-                this.nextPage.dropId = this.drop.id;
-                this.nextPage.attributes = this.drop.attribute;
-                this.nextPage.productId = this.drop.productId;
-                this.nextPage.shippingPrice = this.drop.shipping.priceItem;
-                this.nextPage.shippingTimeMin = this.drop.shipping.shippingTimeMin;
-                this.nextPage.shippingTimeMax = this.drop.shipping.shippingTimeMax;
+
             },
+
             getDropDetail (id) {
                 this.$notice.loading.show();
                 this.$fetch({
@@ -288,8 +279,9 @@
                 }).then((res) => {
                     this.drop = res
                     // this.$notice.alert({
-                    //     message: this.drop.canDrop.toString()
+                    //     message: this.drop.productId
                     // })
+                    this.getSomeGoods()
                     this.dropLink = res.dropLink
                     if (this.drop.dropStatus == 'progressing') {
                         this.countDate(this.drop.endTime)
@@ -343,19 +335,32 @@
                 return a
             },
             buyGoods (){
-                if(this.content.orderId!=''){
-                    this.$router.open({
-                        name: 'order.detail',
-                        params: {
-                            id: this.content.orderId
-                        }
-                    });
-                } else {
+                this.nextPage.title = this.drop.title;
+                this.nextPage.mainImage = this.drop.mainImage;
+                this.nextPage.salePrice = this.drop.salePrice;
+                this.nextPage.currentPrice = this.drop.currentPrice;
+                this.nextPage.id = this.drop.variantId;
+                this.nextPage.proId = 'dropGoods';
+                this.nextPage.dropId = this.drop.id;
+                this.nextPage.attributes = this.drop.attribute;
+                this.nextPage.productId = this.drop.productId;
+                this.nextPage.shippingPrice = this.drop.shipping.priceItem;
+                this.nextPage.shippingTimeMin = this.drop.shipping.shippingTimeMin;
+                this.nextPage.shippingTimeMax = this.drop.shipping.shippingTimeMax;
+                // 创建订单所需要的信息 必传
+                if(this.drop.orderId==0){
                     this.$router.open({
                         name: 'order.confirm',
                         type: 'PUSH',
                         params: this.nextPage
                     })
+                } else {
+                    this.$router.open({
+                        name: 'order.detail',
+                        params: {
+                            id: this.drop.orderId
+                        }
+                    });
                 }
             },
             openGoodsDetail () {
@@ -363,7 +368,7 @@
                     name: 'goods.details',
                     type: 'PUSH',
                     params: {
-                        id: this.content.productId
+                        id: this.drop.productId
                     }
                 })
             },
@@ -381,31 +386,23 @@
             },
 
             getSomeGoods (id) {
+                this.$notice.loading.show();
                 this.$fetch({
                     methods: 'GET',
-                    url: `${baseUrl}/product/relations/recommend/list/`,
-                    // url: `${baseUrl}/product/customer/detail/654/`,
-                    data: {
-                        id: 10000
-                    }
+                    url: `${baseUrl}/drops/detail/recommend/?product_id=${this.drop.productId}`,
                 }).then((res) => {
-                    this.someGoodsList = [...res]
-                    // this.$notice.alert({
-                    //     message: res
-                    // })
-                    // let arr = [];
-                    // for (let i = 0; i < res.length; i++) {
-                    //     const item = res[i];
-                    //     arr.push(item);
-                    //     if ((i > 0 && i % 2 === 1) || i === res.length - 1) {
-                    //         this.someGoodsList.push(arr);
-                    //         arr = [];
-                    //     }
-                    // }
-                    // this.$notice.alert({
-                    //     message: this.someGoodsList
-                    // })
+                    let arr = [];
+                    for (let i = 0; i < res.length; i++) {
+                        const item = res[i];
+                        arr.push(item);
+                        if ((i > 0 && i % 2 === 1) || i === res.length - 1) {
+                            this.someGoodsList.push(arr);
+                            arr = [];
+                        }
+                    }
+                    this.$notice.loading.hide();
                 }).catch((res) => {
+                    this.$notice.loading.show();
                     // this.$notice.alert({
                     //     message: res
                     // })

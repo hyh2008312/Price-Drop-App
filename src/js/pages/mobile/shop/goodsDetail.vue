@@ -77,15 +77,28 @@
 
                 </div>
 
-                <div class="ship-item mg-b36" @click="openCODPopup" v-if="purchaseMethod==='direct'||purchaseMethod==='flash'">
-                    <div class="s-i-1">
-                        <div class="s-i-2">
-                            <image class="s-i-img" src="bmlocal://assets/COD-01.png"></image>
-                            <text class="s-i-t">Cash/Card on Delivery availability check</text>
-                        </div>
-                        <text class="s-i-t1" >Check</text>
+                <!--<div class="ship-item mg-b36" @click="openCODPopup" v-if="purchaseMethod==='direct'||purchaseMethod==='flash'">-->
+                    <!--<div class="s-i-1">-->
+                        <!--<div class="s-i-2">-->
+                            <!--<image class="s-i-img" src="bmlocal://assets/COD-01.png"></image>-->
+                            <!--<text class="s-i-t">Cash/Card on Delivery availability check</text>-->
+                        <!--</div>-->
+                        <!--<text class="s-i-t1" >Check</text>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<text class="s-i-icon">Free Shipping</text>&ndash;&gt;-->
+                <!--</div>-->
+            </div>
+            <div class="create-drop" v-if="isDrop" @click="createDrop" >
+                <div class="c-d-item1"  >
+                    <text class="cd-item1-word">Share & Save More</text>
+                    <text class="">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                </div>
+                <div class="c-d-item2">
+                    <text class="c-d-word">Start a Drop to unlock extra discount!</text>
+                    <div class="cd-btn">
+                        <text class="cd-btn1">GO</text>
+                        <text class="iconfont cd-btn2" ref="getArrow">&#xe626;</text>
                     </div>
-                    <!--<text class="s-i-icon">Free Shipping</text>-->
                 </div>
             </div>
 
@@ -141,19 +154,7 @@
                  <!--<div v-if="tabshow" style="position: sticky">-->
                     <!--<tab   @tabTo="onTabTo" :items="tabsItems" :indexKey="defaultTab"></tab>-->
                  <!--</div>-->
-            <div class="create-drop" v-if="isDrop" @click="createDrop" >
-                <div class="c-d-item1"  >
-                    <text class="cd-item1-word">Drop & Save More</text>
-                    <text class="">&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                </div>
-                <div class="c-d-item2">
-                    <text class="c-d-word">Start a drop to get extra discount!</text>
-                    <div class="cd-btn">
-                        <text class="cd-btn1">GO</text>
-                        <text class="iconfont cd-btn2" ref="getArrow">&#xe626;</text>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="mid">
                 <div class="dec-word" @click="wxcCellClick" v-if="hasVariants === true"  >

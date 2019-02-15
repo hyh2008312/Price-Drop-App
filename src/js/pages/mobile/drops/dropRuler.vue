@@ -15,33 +15,33 @@
                                 <text class="mask-title">How It Works</text>
                             </div>
                             <div class="mid-card-item1">
-                                <div><image class="img-icon" src="bmlocal://assets/drop/gift-12-01.png"></image></div>
+                                <div><image class="img-icon" src="bmlocal://assets/drop/fenxiang.png"></image></div>
                                 <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 1</text>
-                                    <text class="mid-card-text2">Start a Drop for your favorite product</text>
+                                    <text class="mid-card-text1">Start a Drop</text>
+                                    <text class="mid-card-text2">Share and ask your friends for help!</text>
                                 </div>
                             </div>
                             <div class="mid-card-item1">
-                                <div><image class="img-icon" src="bmlocal://assets/drop/fenxiang.png"></image></div>
-                                <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 2</text>
-                                    <text class="mid-card-text2">Share links with your friends on social media</text>
-                                </div>
-                            </div>
-                            <div class="mid-card-item1 ">
                                 <div><image class="img-icon" src="bmlocal://assets/drop/friend.png"></image></div>
                                 <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 3</text>
-                                    <text class="mid-card-text2">Ask friends to drop price for you on our App</text>
+                                    <text class="mid-card-text1">Friends Click Help</text>
+                                    <text class="mid-card-text2">Friends will earn bonus by supporting you!</text>
                                 </div>
                             </div>
                             <div class="mid-card-item1 mid-card-btm">
                                 <div><image class="img-icon" src="bmlocal://assets/drop/lock.png"></image></div>
                                 <div class="mid-card-text">
-                                    <text class="mid-card-text1">Step 4</text>
-                                    <text class="mid-card-text2">Unlock a better price with help from friends</text>
+                                    <text class="mid-card-text1">You Save More!</text>
+                                    <text class="mid-card-text2">Unlock extra discount for your purchase!</text>
                                 </div>
                             </div>
+                            <!--<div class="mid-card-item1 mid-card-btm">-->
+                                <!--<div><image class="img-icon" src="bmlocal://assets/drop/lock.png"></image></div>-->
+                                <!--<div class="mid-card-text">-->
+                                    <!--<text class="mid-card-text1">Step 4</text>-->
+                                    <!--<text class="mid-card-text2">Unlock a better price with help from friends</text>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </div>
 
                         <div class="mid-card" v-if="type==2">
@@ -85,7 +85,7 @@
                     </div>
 
                     <div class="bottom-card"  v-if="type==2">
-                        <text class="bottom-head-txt head-txt">Rules to Know</text>
+                        <text class="bottom-head-txt head-txt">FAQ</text>
                         <div class="bottom-card-item1" v-for="(i,index) in QAArr"  :class="[index==QAArr.length-1 ?'bottom-last':'',]">
                             <div><text class="bottom-num">{{index+1}}.</text></div>
                             <div class="bottom-card-txt">
