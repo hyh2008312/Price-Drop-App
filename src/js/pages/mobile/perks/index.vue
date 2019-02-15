@@ -368,11 +368,11 @@
         data () {
           return {
               cardArr: [
-                  {
-                      image: '',
-                      name: '',
-                      pointNumber: ''
-                  }
+                  // {
+                  //     image: '',
+                  //     name: '',
+                  //     pointNumber: ''
+                  // }
               ],
               block1: {
                   title: '',
