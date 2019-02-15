@@ -207,6 +207,7 @@
                 this.$refs.refresh.refreshEnd();
                 if(this.activeTab == 'my'){
                     this.getMyDropList()
+
                 } else {
                     this.getFriendsDropList()
                 }
@@ -230,8 +231,13 @@
                     //     message: res.results[1]
                     // })
 
-                    this.myDropList = [...res.results]
-                    this.productList = [...this.myDropList]
+                    this.myDropList = []
+                    this.productList = []
+                    setTimeout(() => {
+                        this.myDropList = [...res.results]
+                        this.productList = [...this.myDropList]
+                    }, 10)
+
 
 
                     // // this.pArr = []
@@ -277,7 +283,10 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
-                    this.friendDropList = [...res]
+                    this.friendDropList = []
+                    setTimeout(() => {
+                        this.friendDropList = [...res]
+                    }, 10)
                     // this.totalPoints = res.totalPoints
                     // this.availablePoints = res.availablePoints
                     // this.pendingPoints = this.totalPoints - this.availablePoints
