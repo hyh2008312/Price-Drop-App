@@ -348,7 +348,7 @@
                         // })
 
                         this.drop = res
-                        this.openMask()
+                        this.newShow = true;
                         this.$event.emit('dropPrice');
                         this.$notice.loading.hide();
                     }).catch((res) => {
