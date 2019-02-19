@@ -264,8 +264,8 @@ export default {
                 data: {}
             }).then(resData => {
                 this.products = [];
-                for(let i = 0; i < PRODUCTS.length;i++) {
-                    const item = PRODUCTS[i];
+                for(let i = 0; i < resData.length;i++) {
+                    const item = resData[i];
                     const m = resData[i];
                     item.id = m.id;
                     this.products.push(item)
