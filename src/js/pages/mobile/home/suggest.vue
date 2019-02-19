@@ -266,14 +266,12 @@ export default {
                 this.products = [];
                 for(let i = 0; i < resData.length;i++) {
                     const item = resData[i];
-                    const m = resData[i];
-                    item.id = m.id;
                     this.products.push(item)
-                    if(m.product.length > 0) {
+                    if(item.product.length > 0) {
                         const goods = [];
                         const goods1 = [];
-                        for(let i = 0; i < m.product.length; i++) {
-                            const itm = m.product[i];
+                        for(let i = 0; i < item.product.length; i++) {
+                            const itm = item.product[i];
                             if(i < 3) {
                                 goods.push(itm);
                             } else if(i >= 3 && i < 6) {
