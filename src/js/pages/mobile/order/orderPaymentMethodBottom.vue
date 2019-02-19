@@ -28,8 +28,8 @@
                     this.isFirst = true;
                     if (that.method == 'payU') {
                         that.$notice.loading.show();
-                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'payU', 'Rs', 0);
-                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'payU', 0);
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'PayU Clicks', 'Rs', 0);
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'PayU Clicks', 0);
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'payment.payu.checksum',
@@ -63,7 +63,7 @@
                             pay.startPayUmoneyRequest(resData.posted.txnid, resData.payment.amount, resData.posted.email,
                                 resData.payment.order.phoneNumber, resData.posted.productinfo,
                                 resData.posted.firstname, resData.payment.payuHash, (data) => {
-                                googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'payU sdk success return', 0);
+                                googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'PayU Successful', 0);
                                     if (data.code == 200) {
                                         that.$notice.loading.show();
                                         that.$fetch({
@@ -148,8 +148,8 @@
                         });
                     } else if (that.method == 'paytm') {
                         that.$notice.loading.show();
-                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'paytm', 'Rs', 0);
-                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm', 0);
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'Paytm Clicks', 'Rs', 0);
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Paytm Clicks', 0);
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'payment.paytm.checksum',
@@ -183,7 +183,7 @@
                             pay.startPaytmRequest(resData.paytmOrderId, resData.orderNumber, resData.amount,
                                 resData.order.phoneNumber, resData.order.ownerEmail, resData.paytmCallbackUrl,
                                 resData.paytmChecksum, (data) => {
-                                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'paytm sdk success return', 0);
+                                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Paytm Successful', 0);
                                     if (data.code == 200) {
                                         that.$notice.loading.show();
                                         that.$fetch({
@@ -261,8 +261,8 @@
                         });
                     } else if (that.method == 'razorpay') {
                         that.$notice.loading.show();
-                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'razorpay', 'Rs', 0);
-                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'razorpay sdk success return', 0);
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'Razorpay Clicks', 'Rs', 0);
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Razorpay Clicks', 0);
                         that.$fetch({
                             method: 'POST', // 大写
                             name: 'payment.razorpay.create',
@@ -299,7 +299,7 @@
                             pay.startPayRequest(order.razorpayOrderId, order.order.lines[0].title, 'Order#: ' + order.orderNumber,
                                 that.order.lines[0].mainImage, parseInt(payAmount), user.defaultAddress.phoneNumber, user.email,
                                 function (param) {
-                                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Razorpay sdk success return', 0);
+                                    googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Razorpay Successful', 0);
                                     that.$notice.loading.show();
                                     that.$fetch({
                                         method: 'POST', // 大写
@@ -376,6 +376,8 @@
                         });
                     } else if (that.method == 'cod') {
                         that.$notice.loading.show();
+                        googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'Cod Clicks', 'Rs', 0);
+                        googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Cod Clicks', 0);
                         this.$emit('change', 1);
                         this.$fetch({
                             method: 'POST',
@@ -390,6 +392,7 @@
                             }
                         }).then((res) => {
                             that.$notice.loading.hide();
+                            googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Cod Successful', 0);
                             that.$router.open({
                                 name: 'order.success',
                                 type: 'PUSH',
