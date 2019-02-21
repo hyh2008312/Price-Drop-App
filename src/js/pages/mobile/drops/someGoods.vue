@@ -14,15 +14,15 @@
                 </div>
             </div>
 
-            <div v-if="type==1" class="p-good"  @click="openPopup()">
+            <div v-if="type==1" class="p-good"  @click="openNewDetail(goods.id)">
                 <div class="p-gd-img">
                     <preload class="p-gd-img-image" :src="goods.mainImage"></preload>
                 </div>
 
-                <div class="p-gd-tlt-bg">
+                <div class="p-gd-tlt-bg" @click="openPopup">
                     <text class="g-title">{{goods.title}}</text>
-                    <text class="g-title1">{{goods.cutProductNum||0}} people have started to drop</text>
-                    <div class="p-line3" @click="openPopup">
+                    <text class="g-title1">{{goods.cutProductNum||0}}+ people have joined!</text>
+                    <div class="p-line3" >
                         <text class="p-gd-tlt">₹{{parseInt(goods.unitPrice)}}</text>
                         <text class="p-gd-info">Drop Price</text>
                     </div>

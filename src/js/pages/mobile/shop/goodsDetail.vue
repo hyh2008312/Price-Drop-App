@@ -88,12 +88,12 @@
                     <!--&lt;!&ndash;<text class="s-i-icon">Free Shipping</text>&ndash;&gt;-->
                 <!--</div>-->
             </div>
-            <div class="create-drop" v-if="isDrop" @click="createDrop" >
-                <div class="c-d-item1"  >
+            <div class="create-drop" v-if="isDrop"  >
+                <div class="c-d-item1"  @click="openRulerPage">
                     <text class="cd-item1-word">Share & Save More</text>
-                    <text class="cd-item1-word1">How It Works</text>
+                    <text class="cd-item1-word1" >How It Works</text>
                 </div>
-                <div class="c-d-item2">
+                <div class="c-d-item2" @click="createDrop">
                     <text class="c-d-word">Start a Drop to unlock extra discount!</text>
                     <div class="cd-btn">
                         <text class="cd-btn1">GO</text>
@@ -363,14 +363,14 @@
                         </div>
                     </div>
                 </scroller>
-                <div class="popup-quantity" v-if="!isDrop">
-                    <text class="popup-qt">Quantity</text>
-                    <div class="lc-b">
-                        <text class="lc-b-1" @click="delQuantity">-</text>
-                        <text class="lc-b-n">{{selquantity}}</text>
-                        <text class="lc-b-2" @click="addQuantity">+</text>
-                    </div>
-                </div>
+                <!--<div class="popup-quantity" v-if="!isDrop">-->
+                    <!--<text class="popup-qt">Quantity</text>-->
+                    <!--<div class="lc-b">-->
+                        <!--<text class="lc-b-1" @click="delQuantity">-</text>-->
+                        <!--<text class="lc-b-n">{{selquantity}}</text>-->
+                        <!--<text class="lc-b-2" @click="addQuantity">+</text>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div class="popup-btn">
                     <text class="button" @click="confirm()" v-if="canBuy==true" >Confirm</text>
@@ -1064,14 +1064,6 @@
                     }).catch((res) => {
                         if (res.status == 409) {
                             this.$notice.loading.hide();
-                            // if (res.errorMsg == 'You are bargaining for this item, you cannot add it repeatedly') {
-                            //     this.$event.emit('jumpMyDrop');
-                            //     this.$router.setBackParams({ tab: 'drops' })
-                            //     this.$router.back({
-                            //         length: 9999,
-                            //         type: 'PUSH'
-                            //     })
-                            // }
                             this.$notice.toast({
                                 message: res.errorMsg
                             })
@@ -1084,34 +1076,39 @@
                     this.redirectLogin()
                 } else {
                     this.dropStatus = 1
-                    // if (this.hasVariants === false) {
-                        if (this.variantsId != '' && this.isDrop == false) {
+                    if (this.hasVariants === false) {
+                        if (this.variantsId != '') {
                             if (this.flashSale.flashStatus === 'Ongoing') {
                                 this.nextPage.currentPrice = (((this.selunitPrice || this.goods.unitPrice) * this.flashSale.discount) / 100).toFixed(2);
                             }
                             if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
                                 this.nextPage.proId = 'direct'
                             }
-                            // this.$router.open({
-                            //     name: 'order.confirm',
-                            //     type: 'PUSH',
-                            //     params: this.nextPage
-                            // })
+                            this.$router.open({
+                                name: 'order.confirm',
+                                type: 'PUSH',
+                                params: this.nextPage
+                            })
+
                         }
-                    // } else {
+                    } else {
                         this.isAddCart = false;
                         this.isBottomShow = true;
                         common.changeAndroidCanBack(false)
-                    // }
+                    }
                 }
             },
             addCart () {
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
-                    this.isAddCart = true;
-                    this.isBottomShow = true;
-                    common.changeAndroidCanBack(false)
+                    if (this.hasVariants === false&&this.variantsId != '') {
+                        this.postGoodsCart()
+                    }else {
+                        this.isAddCart = true;
+                        this.isBottomShow = true;
+                        common.changeAndroidCanBack(false)
+                    }
                 }
             },
             postGoodsCart () {
@@ -1326,8 +1323,6 @@
                     type: 'PUSH'
                 })
             },
-            openCutPrice () {
-            },
             // 非状态组件，需要在这里关闭
             popupOverlayBottomClick () {
                 this.isBottomShow = false;
@@ -1366,6 +1361,18 @@
                         }
                     })
                 }
+            },
+            openRulerPage () {
+                // this.$notice.alert({
+                //     message: e
+                // })
+                this.$router.open({
+                    name: 'drop.ruler',
+                    type: 'PUSH',
+                    params: {
+                        type: 1
+                    }
+                })
             },
             jumpLuckDraw () {
                 this.$router.setBackParams({ tab: 'luckydraw' })

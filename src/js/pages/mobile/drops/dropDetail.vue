@@ -24,7 +24,7 @@
                     <image class="pro-img" :src="drop.mainImage"></image>
                     <div class="pro-word">
                         <text class="pro-t1" >{{drop.title}}</text>
-                        <text class="pro-t2">{{drop.dropsPeopleNumber|| 0}}+ people have started to drop</text>
+                        <text class="pro-t2">{{drop.dropsPeopleNumber|| 0}}+ people have joined!</text>
                     </div>
                 </div>
 

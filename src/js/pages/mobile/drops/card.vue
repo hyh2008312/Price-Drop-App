@@ -49,22 +49,25 @@
                         <div class="c2-line2"></div>
                         <div class="c2-line1" :style="{'width':percent*376+'px'}"></div>
                     </div>
+
+
+
                     <div class="c2-avatar" >
-                    <div v-for="i in content.friendsDrop" :class="[index===content.friendsDrop.length-1?'':'mg-r-14']">
-                        <div class="c2a-co">
-                            <preload style="width: 36px;height: 36px;" :src="i.avatar"></preload>
-                            <!--<div style="width: 40px;height: 40px;background-color: #1D7CD4"></div>-->
+                        <div style="flex-direction: row-reverse; padding-right: 16px" >
+
+                            <div  v-for="(j,index) in handleArr([1,1,1,1,1],content.friendsDrop)" style="margin-right: -16px" >
+                                <div class="c2a-co1" v-if="j==1">
+                                    <text class="c2a-txt">?</text>
+                                </div>
+                                <div class="c2a-co" v-else>
+                                    <preload style="width: 36px;height: 36px;" :src="j"></preload>
+                                </div>
+                            </div>
                         </div>
+                        <!--<text class="c2-txt1"  v-if="activeTab=='my'">Invite {{5-content.friendsDrop.length}} more friends</text>-->
+                        <text class="c2-txt1"  v-if="activeTab=='my'"> Ask {{5-content.friendsDrop.length}} {{5-content.friendsDrop.length<5?'more':''}} friends for help</text>
+                        <text class="c2-txt1"  v-if="activeTab=='friend'" >{{content.friendsDrop.length}} {{content.friendsDrop.length>1?'friends':'friend'}} helped</text>
                     </div>
-                    <div v-for="j in handleArr([1,1,1,1,1],content.friendsDrop.length)" :class="[index===content.friendsDrop.length-1?'':'mg-r-14']">
-                        <div class="c2a-co1">
-                            <text class="c2a-txt">?</text>
-                        </div>
-                    </div>
-                    <!--<text class="c2-txt1"  v-if="activeTab=='my'">Invite {{5-content.friendsDrop.length}} more friends</text>-->
-                    <text class="c2-txt1"  v-if="activeTab=='my'"> Ask {{5-content.friendsDrop.length}} {{5-content.friendsDrop.length<5?'more':''}} friends for help</text>
-                    <text class="c2-txt1"  v-if="activeTab=='friend'" >{{content.friendsDrop.length}} {{content.friendsDrop.length>1?'friends':'friend'}} helped</text>
-                </div>
                 </div>
                 <div v-if="content.dropStatus=='end'">
                     <text class="c2-end-txt"
@@ -181,7 +184,7 @@
         },
         created () {
             // this.$notice.alert({
-            //     message: this.content.dropLink
+            //     message: this.content.friendsDrop
             // })
             if (this.content.dropStatus == 'progressing') {
                 this.countDate(this.content.endTime)
@@ -247,9 +250,19 @@
             handleArr (arr, l) {
                 this.percent = l / 5
                 let a
-                arr.splice(0, l)
-                a = arr
-                return a
+                if(l.length==0){
+                    return arr
+                }else {
+                    arr.splice(0, l.length)
+                    for (let i = 0; i <l.length ; i++) {
+                        arr.push(l[i].avatar)
+                    }
+                    a =[...arr]
+                    // this.$notice.alert({
+                    //     message: a
+                    // })
+                    return a
+                }
             },
             share () {
                 shareModule.shareMorePlatform(this.content.dropLink)
