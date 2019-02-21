@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div v-for="(i,index) in items" :key="index" class="tab-item" @click="tabTo(i.key)">
-            <text class="tab-txt" :class="[indexKey == i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
+            <text class="tab-txt mg-t" :class="[indexKey == i.key ? 'tab-txt-active' : '']">{{i.name}}</text>
             <div class="line" :class="[indexKey == i.key ? 'line-active' : '']"></div>
         </div>
     </div>
@@ -35,7 +35,7 @@ export default {
 
 .wrapper {
     background-color: #fff;
-    height: 112px;
+    height: 114px;
     width: 750px;
     flex-direction: row;
     justify-content: start;
@@ -46,20 +46,24 @@ export default {
 
 .tab-item {
     width: 375px;
-    height: 96px;
+    /*height: 96px;*/
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    /*background-color: #1D7CD4;*/
 }
 
 .tab-txt {
     width: 260px;
     text-align: center;
     font-size: 30px;
-    line-height: 34px;
-    padding-bottom: 8px;
+    /*line-height: 34px;*/
     border-bottom-width: 6px;
     border-bottom-color: rgba(0,0,0,0);
     border-bottom-style: solid;
+}
+.mg-t{
+    margin-top: 6px;
 }
 .line{
     width: 56px;
@@ -74,6 +78,7 @@ export default {
 }
 .tab-txt-active {
     color: #EF8A31;
+    font-weight: 700;
     /*border-bottom-color: #EF8A31;*/
 }
 
