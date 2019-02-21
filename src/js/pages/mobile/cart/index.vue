@@ -55,7 +55,7 @@
                             <div class="overflow-img">
                                 <image class="lc-t-img" :src="i.mainImage" ></image>
                                 <image class="lc-sold-out" v-if="parseInt(i.sumStock)==0" src="bmlocal://assets/cart/sold-out.png"></image>
-                                <image class="lc-sold-out" v-if="i.productStatus=='unpublished'" src="bmlocal://assets/cart/unavailable.png"></image>
+                                <image class="lc-sold-out" v-if="i.productStatus!='published'" src="bmlocal://assets/cart/unavailable.png"></image>
                                 <!--<div>-->
                                 <text class="blue-word" v-if="i.productType=='flash'">Flash Sale</text>
                                 <!--</div>-->

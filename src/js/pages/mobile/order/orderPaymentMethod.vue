@@ -15,65 +15,101 @@
                 <notice  :items="noticeList" v-if="noticeList.length > 0"></notice>
             </header>
 
-            <cell class="cell-bottom"  @click="chooseMethod('payU')">
+            <cell class="cell-bottom"  @click="chooseMethod('razorpay1')">
                 <div  class="overflow-box b-top-r">
                     <div class="overflow-box1" >
                         <div>
                             <div class="overflow-img">
-                                <image class="item-image-3" resize="contain" :src="payUSrc"></image>
+                                <!--<image class="item-image-3" resize="contain" :src="payUSrc"></image>-->
+                                <text class="txt1">Debit or Credit Card</text>
                                 <text class="tag-5">Extra 5% Off</text>
                             </div>
-                            <text class="item-text">Wallet / Credit&Debit Card / Net Banking</text>
+                            <image class="img-1" src="bmlocal://assets/payment/credit-card-2.jpg"></image>
+
+                            <!--<text class="item-text">Wallet / Credit&Debit Card / Net Banking</text>-->
                         </div>
-                        <text class="iconfont item-checked" v-if="method == 'payU'">&#xe6fb;</text>
-                        <text class="iconfont item-no-checked" v-if="method != 'payU'">&#xe73f;</text>
+                        <text class="iconfont item-checked" v-if="method == 'razorpay1'">&#xe6fb;</text>
+                        <text class="iconfont item-no-checked" v-if="method != 'razorpay1'">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
 
-            <cell class="cell-bottom "  @click="chooseMethod('paytm')">
-                <div  class="overflow-box">
+            <cell class="cell-bottom"  @click="chooseMethod('razorpay2')">
+                <div  class="overflow-box ">
                     <div class="overflow-box1" >
                         <div>
-                            <!--<image class="item-image" resize="contain" :src="paytmSrc"></image>-->
                             <div class="overflow-img">
-                                <image class="item-image" resize="contain" :src="paytmSrc"></image>
+                                <text class="txt1">Net Banking</text>
                                 <text class="tag-5">Extra 5% Off</text>
                             </div>
-                            <text class="item-text">Wallet / UPI / Credit&Debit Card / Net Banking </text>
+                            <image class="img-2" src="bmlocal://assets/payment/net-bank-2.jpg"></image>
+
+                            <!--<text class="item-text">Wallet / Credit&Debit Card / Net Banking</text>-->
                         </div>
-                        <text class="iconfont item-checked" v-if="method == 'paytm'">&#xe6fb;</text>
-                        <text class="iconfont item-no-checked" v-if="method != 'paytm'">&#xe73f;</text>
+                        <text class="iconfont item-checked" v-if="method == 'razorpay2'">&#xe6fb;</text>
+                        <text class="iconfont item-no-checked" v-if="method != 'razorpay2'">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
 
-            <cell  class="cell-bottom" @click="chooseMethod('razorpay')">
-                <div  class="overflow-box">
+            <cell class="cell-bottom"  @click="chooseMethod('razorpay3')">
+                <div  class="overflow-box ">
                     <div class="overflow-box1" >
                         <div>
-                            <!--<image class="item-image-1" resize="contain" :src="razorpaySrc"></image>-->
                             <div class="overflow-img">
-                                <image class="item-image-1" resize="contain" :src="razorpaySrc"></image>
+                                <text class="txt1">UPI</text>
                                 <text class="tag-5">Extra 5% Off</text>
                             </div>
-                            <text class="item-text">UPI / Credit&Debit Card / Net Banking </text>
+                            <image class="img-3" src="bmlocal://assets/payment/upi.jpg"></image>
                         </div>
-                        <text class="iconfont item-checked" v-if="method == 'razorpay'">&#xe6fb;</text>
-                        <text class="iconfont item-no-checked" v-if="method != 'razorpay'">&#xe73f;</text>
+                        <text class="iconfont item-checked" v-if="method == 'razorpay3'">&#xe6fb;</text>
+                        <text class="iconfont item-no-checked" v-if="method != 'razorpay3'">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
+
+            <cell class="cell-bottom"  >
+                <div  class="overflow-box b-bottom-r">
+                    <div class="overflow-box2" >
+                        <div class="overflow-img">
+                            <text class="txt1">Wallet</text>
+                            <text class="tag-5">Extra 5% Off</text>
+                        </div>
+
+                        <div>
+                            <div @click="chooseMethod('paytm')" class="of-ptm-pu">
+                                <image class="img-4" src="bmlocal://assets/payment/paytm.jpg"></image>
+                                <text class="iconfont item-checked" v-if="method == 'paytm'">&#xe6fb;</text>
+                                <text class="iconfont item-no-checked" v-if="method != 'paytm'">&#xe73f;</text>
+                            </div>
+
+                            <div @click="chooseMethod('payU')" class="of-ptm-pu" >
+
+                                <image class="img-5" src="bmlocal://assets/payment/payu.png"></image>
+                                <text class="iconfont item-checked" v-if="method == 'payU'">&#xe6fb;</text>
+                                <text class="iconfont item-no-checked" v-if="method != 'payU'">&#xe73f;</text>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </cell>
+
 
             <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode.toLocaleUpperCase() == 'GATICN'">
-                <div  class="overflow-box b-bottom-r">
+                <div  class="overflow-box b-top-r b-bottom-r">
                     <div class="overflow-box1" >
                         <div>
                             <div class="cod-d">
-                                <image class="item-image-2"  :src="codSrc"></image>
+
                                 <text class="cod-text">Cash/Card on Delivery</text>
                             </div>
-                            <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
+                            <div class="overflow-cod">
+                                <image class="item-image-2"  :src="codSrc"></image>
+                                <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
+                            </div>
+
 
                             <div v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">
                                 <text class="item-text-err" v-if="codMsg1!=''" >{{codMsg1}}</text>
@@ -91,21 +127,22 @@
             </cell>
 
             <cell  class="cell-bottom" v-if="order.carrierCode.toLocaleUpperCase() != 'GATICN'">
-                <div  class="overflow-box b-bottom-r">
+                <div  class="overflow-box b-top-r b-bottom-r">
                     <div class="overflow-box1" >
                         <div>
                             <div class="cod-d">
-                                <image class="item-image-2"  :src="codSrc"></image>
                                 <text class="cod-text">Cash / Card on Delivery </text>
                             </div>
-                            <div>
+
+                            <div class="overflow-cod">
+                                <image class="item-image-2"  :src="codSrc"></image>
                                 <text class="item-text-err">This item is not available for COD delivery. </text>
                             </div>
+
                         </div>
                         <text class="iconfont item-checked-disable">&#xe73f;</text>
                     </div>
                 </div>
-
             </cell>
 
             <!--<cell>-->
@@ -223,7 +260,7 @@ export default {
     data () {
         return {
             title: 'Payment',
-            method: 'payU',
+            method: 'paytm',
             paytmSrc: 'bmlocal://assets/paytm.png',
             razorpaySrc: 'bmlocal://assets/razorpay.png',
             payUSrc: 'bmlocal://assets/payu.png',
@@ -327,7 +364,7 @@ export default {
                 } else if (this.order.cod.exist && this.CODStatus == 2) {
                     this.method = e;
                     this.isCanPay = true;
-                } else if (this.CODStatus == 3) {}
+                }
             } else {
                 this.method = e;
                 this.isCanPay = true;
@@ -595,6 +632,7 @@ export default {
     .overflow-box{
         width: 686px;
         background-color: #fff;
+        box-shadow:  0 1px 1px 0 rgba(0,0,0,0.12);
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
@@ -612,6 +650,17 @@ export default {
     .overflow-box1{
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
+        width: 620px;
+        margin: 32px 32px 0 32px;
+        padding-bottom: 32px;
+        border-bottom-width:1px ;
+        border-bottom-style:solid ;
+        border-bottom-color: rgba(0,0,0,.08) ;
+    }
+    .overflow-box2{
+        flex-direction: column;
+        align-items: start;
         justify-content: space-between;
         width: 620px;
         margin: 32px 32px 0 32px;
@@ -646,11 +695,9 @@ export default {
     }
 
     .item-text{
-        margin-top: 16px;
         font-family: ProximaNova;
         font-size: 20px;
-        line-height: 24px;
-        color: rgba(0,0,0,0.87);
+        color: rgba(0,0,0,0.54);
         letter-spacing: 0;
     }
     .item-text-err{
@@ -668,11 +715,10 @@ export default {
         /*background-color: black;*/
     }
     .cod-text{
-        font-size: 32px;
+        font-size: 28px;
         color: #000000;
         letter-spacing: 0;
         text-align: left;
-        font-weight: 700;
     }
     .item-image-1{
         width: 227px;
@@ -680,7 +726,7 @@ export default {
     }
     .item-image-2{
         width: 50px;
-        height: 40px;
+        height: 45px;
         margin-right: 16px;
     }
 
@@ -964,7 +1010,46 @@ export default {
         letter-spacing: 0;
         font-weight: 700;
     }
-
+    .txt1{
+        font-size: 28px;
+    }
+    .img-1{
+        margin-top: 16px;
+        width: 242px;
+        height: 28px;
+    }
+    .img-2{
+        margin-top: 24px;
+        width: 264px;
+        height: 28px;
+    }
+    .img-3{
+        margin-top: 20px;
+        width: 92px;
+        height: 30px;
+    }
+    .img-4{
+        margin-top: 16px;
+        width: 94px;
+        height: 36px;
+    }
+    .img-5{
+        margin-top: 16px;
+        width: 84px;
+        height: 42px;
+    }
+    .overflow-cod{
+        height: 35px;
+        flex-direction: row;
+        justify-content:start;
+        align-items: center;
+        margin-top:24px;
+    }
+    .of-ptm-pu{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between
+    }
     .n-item{
         flex-direction: row;
         justify-content: center;

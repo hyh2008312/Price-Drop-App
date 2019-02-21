@@ -259,7 +259,7 @@
                                 message: error
                             });
                         });
-                    } else if (that.method == 'razorpay') {
+                    } else if (that.method == 'razorpay1'||that.method == 'razorpay2'||that.method == 'razorpay3') {
                         that.$notice.loading.show();
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', '', 'Razorpay Clicks', 'Rs', 0);
                         googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Razorpay Clicks', 0);
