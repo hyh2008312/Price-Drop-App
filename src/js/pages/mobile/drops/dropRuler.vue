@@ -103,6 +103,8 @@
 
 <script>
     import {learnMore, helpFriend } from './config'
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
+
     export default {
         name: "dropRuler",
         data () {
@@ -123,6 +125,9 @@
             beforeAppear(params){
 
             }
+        },
+        created(){
+            googleAnalytics.trackingScreen(`Drop Ruler`);
         },
         methods:{
             check(num){

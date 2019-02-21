@@ -58,7 +58,7 @@
             <cell  v-if="activeTab=='friend'&&user!=''&&friendDropList.length===0">
                 <div class="overflow-mid3">
                     <image class="om-img" style="" src="bmlocal://assets/empty.png"></image>
-                    <text class="om-txt1">There is no Drop from your friends yet. </text>
+                    <text class="om-txt1">Uh oh! Your friends haven’t started a Drop yet.</text>
                 </div>
             </cell>
 
@@ -83,7 +83,7 @@
                     <text class="tt-txt">Popular Drops</text>
                 </div>
                 <div   v-for="(i, index) in someGoodsList" :key="i.id"  :class="[index==someGoodsList.length-1 ?'mg-b-32':'',]">
-                    <somegoods :goods="i"  :type="1" ></somegoods>  <!-- 1：一列 2：两列 -->
+                    <somegoods :goods="i"  :type="1" v-on:pop="openPopup($event)"></somegoods>  <!-- 1：一列 2：两列 -->
                 </div>
             </cell>
         </list>
@@ -117,6 +117,63 @@
                 </div>
             </div>
         </WxcMask>
+        <wxc-popup :have-overlay="true"
+                   popup-color="rgb(255, 255, 255)"
+                   :show="isBottomShow"
+                   @wxcPopupOverlayClicked="popupCloseClick"
+                   pos="bottom"
+                   ref="wxcPopup"
+                   height="870">
+            <div class="popup-content">
+                <div class="popup-top">
+                    <div class="popup-title">
+                        <text class="pt-1">Please select your preference first!</text>
+                        <text class="popup-close" @click="popupCloseClick">&#xe632;</text>
+
+                    </div>
+                    <div class="popup-goods">
+                        <div style="border-radius: 8px">
+                            <image :src="singleGoods.mainImage" class="popup-image"></image>
+                        </div>
+                        <div class="popup-py">
+                            <text class="pt-title">{{singleGoods.title}}</text>
+                            <div class="pt-price">
+                                <text class="popup-yet" v-if="selcolor != ''">{{selcolor}}</text>
+                                <text class="popup-yet" v-if="selsize != ''">{{selsize}}</text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <scroller  class="scroller" show-scrollbar="true" >
+                    <div class="popup-bottom">
+                        <div v-for="(val, index) in goodsType" :key="index" >
+                            <text class="popup-color" v-if="val.name=='Color'">{{singleGoods.aliasColor || val.name}}</text>
+                            <div class="popup-size-item" v-if="val.name=='Size'">
+                                <text class="popup-color">{{singleGoods.aliasSize || val.name}}</text>
+                                <!--<text class="popup-size-chart"   v-if="singleGoods.productSize!== '' && singleGoods.productSize != undefined">Size Chart ></text>-->
+                            </div>
+
+                            <div style="width: 718px;flex-wrap: wrap;flex-direction: row;justify-content: start;align-items: center">
+
+                                <div  class="popup-color-chd" v-for="(val1, key1) in val.value" >
+                                    <text class="popup-color-chdname"
+                                          :key="key1"
+                                          :class="[val1.isActive ?'popup-color-chdname-active':'',
+                                          val1.seldisable ?'popup-color-chdname-disable':'']"
+                                          @click="clickColor(val1, val.value)">{{val1.value}}</text>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </scroller>
+                <div class="popup-btn">
+                    <text class="button-purple" @click="confirm()" v-if="canBuy==true" >Start Now</text>
+                    <text class="button-gray"               v-if="canBuy==false" >Out of Stock</text>
+                </div>
+
+            </div>
+        </wxc-popup>
     </div>
 </template>
 <script>
@@ -127,16 +184,13 @@
     import mydroptop from './myDropTop';
     import { baseUrl } from '../../../config/apis';
     import somegoods from './someGoods';
-    import { WxcMask } from 'weex-ui';
-
-
-
+    import { WxcMask, WxcPopup } from 'weex-ui';
     const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 
     export default {
         components: {
             'refresher': refresher,
-            tab, card, mydroptop,somegoods,WxcMask
+            tab, card, mydroptop,somegoods,WxcMask,WxcPopup
         },
         eros: {
             beforeAppear (params, options) {
@@ -163,8 +217,24 @@
                 productList: [],
                 dropBonus: '',
                 someGoodsList:[],
+                singleGoods:'',
+                canBuy:true,
+                hasVariants:true,
+                selcolor:'',
+                selsize:'',
+                selimgsrc:'',
+                selsaleUnitPrice:'',
+                selunitPrice:'',
+
+                goodsType:[],
+                goodsVariants:[],
+                tmpArray:'',
+                variantsId:'',
+
+                nextPage:{},
                 dropObj:{},
                 newShow:false,
+                isBottomShow:false,
                 user: '',
                 page: 1,
                 length: 2,
@@ -172,6 +242,7 @@
             }
         },
         created () {
+            googleAnalytics.trackingScreen(`Drop List/${this.activeTab}-Drop`);
             const pageHeight = Utils.env.getScreenHeight();
             this.height = { height: (pageHeight - 48 - 112 - 128 - 96 - 112) + 'px' };
             this.$event.on('dropPrice', parmas => {
@@ -256,8 +327,11 @@
                     name: 'drop.hot.push',
                 }).then((res) => {
                     // this.$notice.alert({
-                    //     message: res
+                    //     message: res[0]
                     // })
+
+
+
                     this.someGoodsList = [...res]
                     this.$notice.loading.hide();
                 }).catch((res) => {
@@ -345,21 +419,64 @@
                     // })
                 })
             },
+            confirm () {
+                if (this.user == null) {
+                    this.redirectLogin()
+                } else {
+                    if (!this.checkedSelected()) {
+                        return;
+                    }
+                    this.createDrop()
+                }
+            },
+            createDrop () {
+                if (this.variantsId!=='') {
+                    this.$notice.loading.show();
+                    this.$fetch({
+                        method: 'POST',
+                        url: `${baseUrl}/drops/create/`,
+                        data: {
+                            variant_id: this.variantsId,
+                        },
+                        header: {
+                            needAuth: true
+                        }
+                    }).then((res) => {
+                        this.$event.emit('createDrop');
+                        if (res.id) {
+                            this.isBottomShow = false;
+                            this.$router.open({
+                                name: 'drop.detail',
+                                type: 'PUSH',
+                                params: {
+                                    id: res.id
+                                }
+                            })
+                            googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.category + '-' + this.variantsId, 0);
+                        }
+                        this.$notice.loading.hide();
+                    }).catch((res) => {
+                        if (res.status == 409) {
+                            this.$notice.loading.hide();
+                            this.$notice.toast({
+                                message: res.errorMsg
+                            })
+                        }
+                    })
+                }
+            },
             openMoreList(){
                 if(this.activeTab=='my'){
                     this.$router.open({
                         name: 'more.my.drop.list',
                         type: 'PUSH',
-
                     })
                 }else {
                     this.$router.open({
                         name: 'more.friend.drop.list',
                         type: 'PUSH',
-
                     })
                 }
-
             },
             redirectLogin () {
                 this.$event.on('login', params => {
@@ -387,6 +504,14 @@
             },
             wxcMaskSetShareHidden () {
                 this.newShow = false;
+                this.isBottomShow = false;
+                this.selcolor ='';
+                this.selsize ='';
+                this.selimgsrc ='';
+            },
+            popupCloseClick () {
+                // this.$refs.wxcPopup.hide();
+                this.isBottomShow = false;
             },
             openRulerPage (e) {
                 // this.$notice.alert({
@@ -399,247 +524,185 @@
                         type: e
                     }
                 })
-            }
+            },
+            openPopup (goods) {
+                this.selcolor ='';
+                this.selsize ='';
+                this.variantsId ='';
+                this.singleGoods = goods
+                this.selsaleUnitPrice = goods.saleUnitPrice
+                this.goodsVariants = [...this.singleGoods.variants];
+                if (this.singleGoods.attributes != null && this.singleGoods.attributes.length > 0) {
+                    if (this.goodsVariants.length == 1) {
+                        this.hasVariants = false;
+                        this.nextPage.attributes = '';
+                        this.goodsType = [];
+                        this.canBuy = this.singleGoods.variants[0].isCanBuy;
+                        this.variantsId = this.singleGoods.variants[0].id;
+                        this.confirm()
+                    } else {
+                        this.goodsType = this.singleGoods.attributes;
+                        this.operateData(this.singleGoods.attributes);
+                        this.isBottomShow = true
+                    }
+                } else {
+                    this.hasVariants = false;
+                    this.nextPage.attributes = '';
+                    this.goodsType = [];
+                    this.canBuy = this.singleGoods.variants[0].isCanBuy;
+                    this.variantsId = this.singleGoods.variants[0].id;
+                    this.confirm()
+                }
+            },
+            operateData (data) {
+                for (let i = 0; i < data.length; i++) {
+                    for (let j = 0; j < data[i].value.length; j++) {
+                        data[i].value[j].isActive = false
+                        data[i].value[j].seldisable = false
+                    }
+                }
+                return data
+            },
+            clickColor (item, list) {
+                if (item.seldisable) return
+                item.isActive = !item.isActive
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].value != item.value) {
+                        list[i].isActive = false
+                    }
+                }
+                const color = []; // 点选的这个 有其他的颜色或者规格
+                const discolor = [];
+                for (let j = 0; j < this.goodsVariants.length; j++) {
+                    for (let k = 0; k < this.goodsVariants[j].attributeValues.length; k++) {
+                        if (item.value == this.goodsVariants[j].attributeValues[k].value) {
+                            color.push({
+                                item: this.goodsVariants[j],
+                                index: k
+                            });
+                            break;
+                            // this.seldisable = true
+                        }
+                    }
+                }
+
+                if (item.isActive == true) {
+                    for (let n = 0; n < color.length; n++) {
+                        for (let m = 0; m < color[n].item.attributeValues.length; m++) {
+                            if (m == color[n].index) {
+                                continue
+                            }
+                            discolor.push(color[n].item.attributeValues[m].value)
+                        }
+                    }
+
+                    for (let p = 0; p < this.goodsType.length; p++) {
+                        if (item.id != this.goodsType[p].id) {
+                            for (let u = 0; u < this.goodsType[p].value.length; u++) {
+                                this.goodsType[p].value[u].seldisable = true
+                                for (let o = 0; o < discolor.length; o++) {
+                                    if (this.goodsType[p].value[u].value == discolor[o]) {
+                                        this.goodsType[p].value[u].seldisable = false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    for (let p = 0; p < this.goodsType.length; p++) {
+                        if (item.id != this.goodsType[p].id) {
+                            for (let u = 0; u < this.goodsType[p].value.length; u++) {
+                                this.goodsType[p].value[u].seldisable = false
+                            }
+                        }
+                    }
+                }
+
+                this.changeDom(item, color)
+            },
+            changeDom (item, color) {
+                if (item.isActive == true) {
+                    if (item.id == 1) {
+                        this.selsize = item.value
+                    } else if (item.id == 2) {
+                        this.selcolor = item.value
+                    }
+                } else if (item.isActive == false) {
+                    if (item.id == 1) {
+                        this.selsize = ''
+                    } else if (item.id == 2) {
+                        this.selcolor = ''
+                    }
+                }
+                if ((this.selsize == '') || (this.selcolor == '')) {
+                    this.canBuy = true
+                    this.variantsId = ''
+                }
+                let tmp = []
+                for (let i = 0; i < this.goodsType.length; i++) {
+                    if (this.goodsType[i].name == 'Color') {
+                        tmp = this.goodsType[i].images
+                    }
+                }
+                for (let j = 0; j < tmp.length; j++) {
+                    if (tmp[j].value == this.selcolor) {
+                        this.selimgsrc = tmp[j].image
+                    }
+                }
+                this.nextPage.attributes = this.selcolor + ' ' + this.selsize;
+                this.nextPage.mainImage = this.selimgsrc;
+
+                this.tmpArray = [];
+                for (let i = 0; i < this.goodsType.length; i++) {
+                    for (let j = 0; j < this.goodsType[i].value.length; j++) {
+                        if (this.goodsType[i].value[j].isActive == true) {
+                            this.tmpArray.push(this.goodsType[i].value[j])
+                            break;
+                        }
+                    }
+                }
+                for (let i = 0; i < this.goodsVariants.length; i++) {
+                    let isDoubleChecked = 0;
+                    for (let j = 0; j < this.goodsVariants[i].attributeValues.length; j++) {
+                        for (let m = 0; m < this.tmpArray.length; m++) {
+                            if (this.tmpArray[m].id == this.goodsVariants[i].attributeValues[j].attributeId &&
+                                this.tmpArray[m].value == this.goodsVariants[i].attributeValues[j].value) {
+                                isDoubleChecked += 1;
+                            }
+                        }
+                    }
+                    if (isDoubleChecked == this.goodsType.length) {
+                        this.variantsId = this.goodsVariants[i].id;
+                        this.canBuy = this.goodsVariants[i].isCanBuy;
+                        this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice
+                        this.selunitPrice = this.goodsVariants[i].unitPrice
+
+                        this.nextPage.salePrice = this.selsaleUnitPrice;
+                        this.nextPage.currentPrice = this.selunitPrice;
+                        break;
+                    }
+                }
+            },
+            checkedSelected () {
+                this.tmpArray = [];
+                for (let i = 0; i < this.goodsType.length; i++) {
+                    for (let j = 0; j < this.goodsType[i].value.length; j++) {
+                        if (this.goodsType[i].value[j].isActive == true) {
+                            this.tmpArray.push(this.goodsType[i].value[j])
+                            break;
+                        }
+                        if (j == this.goodsType[i].value.length - 1) {
+                            this.$notice.toast({
+                                message: 'Please select a ' + this.goodsType[i].name.toLowerCase() + '!'
+                            });
+                            return false
+                        }
+                    }
+                }
+                return true;
+            },
        }
     }
 </script>
-<style scoped>
-    .iconfont{
-        font-family: iconfont;
-    }
-    .main-list {
-        width: 750px;
-        background-color: #D1C8E8;
-        padding-bottom: 114px;
-        margin-top: 2px;
-    }
-    .overflow-card{
-        width: 686px;
-        margin-left: 32px;
-        margin-top: 24px;
-        border-radius: 16px;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-    }
-    .state {
-        width: 750px;
-        height: 48px;
-        background-color: black;
-    }
+<style lang="sass" src="./index.scss"></style>
 
-    .wrapper {
-        background-color: white;
-    }
-    .gd-bg-gray{
-        background-color: transparent;
-    }
-    .top-card{
-        width: 686px;
-        height: 184px;
-        margin-top: 32px;
-        background-color: #31005f;
-        border-radius: 180px;
-    }
-    .overflow-mid1{
-        flex-direction: row;
-        justify-content: center;
-        height: 312px;
-    }
-    .t-cm{
-        position: absolute;
-        top: 180px;
-        left: 32px;
-        width: 686px;
-
-    }
-    .t-cm-c{
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        background-color: #6900CB;
-        height: 108px;
-        border-radius:50%;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.50);
-    }
-    .t-cm-cw{
-        font-size: 24px;
-        color: white;
-        font-weight: 700;
-        margin-left: 10px;
-    }
-    .t-cm-ca{
-        font-size: 32px;
-        color: white;
-        margin-left: 10px;
-        font-weight: 700;
-    }
-    .w-i5{
-        position: absolute;
-        top: 138px;
-        left: 113px;
-    }
-    .w-i3{
-        position: absolute;
-        top: 82px;
-        left: 210px;
-    }
-    .w-i1{
-        position: absolute;
-        top: 71px;
-        left: 274px;
-    }
-    .w-i6{
-        position: absolute;
-        top: 84px;
-        left: 336px;
-    }
-    .w-i2{
-        position: absolute;
-        top: 78px;
-        left: 435px;
-    }
-    .w-i4{
-        position: absolute;
-        top: 84px;
-        right: 130px;
-    }
-    .overflow-mid2{
-        width: 686px;
-        margin: 32px ;
-        background-color: white;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border-radius: 16px;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-    }
-    .overflow-mid3{
-        width: 686px;
-        margin: 32px 32px 0 32px ;
-        background-color: white;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border-radius: 16px;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
-    }
-    .overflow-va{
-        width: 610px;
-        margin: 32px 32px 20px 64px;
-        background-color: transparent;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        border-color: #492799;
-        border-width: 1px;
-        border-style: solid;
-    }
-    .v-a-word{
-        font-size: 24px;
-        color: #492799;
-        font-weight: 700;
-        margin-bottom: 16px;
-        margin-top: 20px;
-    }
-    .om-img{
-        width: 160px;
-        height: 140px;
-        margin-top: 20px;
-        margin-bottom: 12px;
-    }
-    .om-btn{
-        width: 312px;
-        height: 64px;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        background-color: #492799;
-        border-radius: 32px;
-        margin-bottom: 32px;
-    }
-    .om-txt{
-        color: white;
-        font-size: 24px;
-        font-weight: 700;
-    }
-    .om-txt1{
-        color: rgba(0,0,0,.54);
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 42px;
-    }
-    .top-title{
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 750px;
-        margin-top: 32px;
-        background-color: transparent;
-    }
-    .tt-txt{
-        font-size: 32px;
-        font-weight: 700;
-    }
-    .mg-b-32{
-        margin-bottom: 32px;
-    }
-    .mc-top{
-        background-image: linear-gradient(to right, #C1B1E8,#5B37AE);
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
-    .mct-word{
-        font-size: 72px;
-        font-weight: 900;
-        color: white;
-        margin-bottom: 28px;
-        margin-top: 42px;
-    }
-    .mask-mid{
-        background-color: white;
-        flex-direction: column;
-        align-items: center;
-        justify-content: start;
-    }
-    .mm-word{
-        font-size: 24px;
-        color: #000000;
-        width:320px;
-        text-align: center;
-        margin-top: 32px;
-        margin-bottom: 16px;
-    }
-    .mm-word1{
-        font-size: 24px;
-        color: #000000;
-        width:320px;
-        text-align: center;
-        font-weight: 700;
-        margin-bottom: 16px;
-
-    }
-    .mask-bottom{
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        background-color: white;
-    }
-    .mb-btn{
-        width:140px;
-        height:60px;
-        margin-top: 36px;
-        margin-bottom: 48px;
-        border-radius: 100%;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        background-image: linear-gradient(to right,#5B37AE,#C1B1E8);
-
-    }
-    .mb-btn-word{
-        font-size: 24px;
-        color: #FFFFFF;
-        font-weight: 700;
-    }
-</style>

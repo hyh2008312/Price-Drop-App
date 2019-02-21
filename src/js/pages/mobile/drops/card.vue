@@ -62,22 +62,22 @@
                         </div>
                     </div>
                     <!--<text class="c2-txt1"  v-if="activeTab=='my'">Invite {{5-content.friendsDrop.length}} more friends</text>-->
-                    <text class="c2-txt1"  v-if="activeTab=='my'"> Ask {{5-content.friendsDrop.length}} {{5-content.friendsDrop.length<5?'more':''}} friends to drop price</text>
+                    <text class="c2-txt1"  v-if="activeTab=='my'"> Ask {{5-content.friendsDrop.length}} {{5-content.friendsDrop.length<5?'more':''}} friends for help</text>
                     <text class="c2-txt1"  v-if="activeTab=='friend'" >{{content.friendsDrop.length}} {{content.friendsDrop.length>1?'friends':'friend'}} helped</text>
                 </div>
                 </div>
                 <div v-if="content.dropStatus=='end'">
                     <text class="c2-end-txt"
                           v-if="parseInt(content.salePrice)-parseInt(content.currentPrice)==0&&activeTab=='my'"
-                    >You didn’t unlock any discount.</text>
+                    >Uh oh! You didn’t drop any price.</text>
                     <text class="c2-end-txt"
                           v-if="parseInt(content.salePrice)-parseInt(content.currentPrice)!=0&&activeTab=='my'"
-                    >Total price dropped: ₹{{parseInt(content.salePrice)-parseInt(content.currentPrice)}}</text>
+                    >Extra price dropped: ₹{{parseInt(content.salePrice)-parseInt(content.currentPrice)}}</text>
 
 
                     <text class="c2-end-txt"
                           v-if="parseInt(content.salePrice)-parseInt(content.currentPrice)!=0&&activeTab=='friend'"
-                    >Total price dropped: ₹{{parseInt(content.salePrice)-parseInt(content.currentPrice)}}</text>
+                    >Extra price dropped: ₹{{parseInt(content.salePrice)-parseInt(content.currentPrice)}}</text>
 
                     <text class="c2-end-txt"
                           v-if="parseInt(content.salePrice)-parseInt(content.currentPrice)==0&&activeTab=='friend'"
@@ -88,11 +88,11 @@
 
 
                 <div class="c3-price">
-                    <text class="c3-p1-end" v-if="content.dropStatus=='end'&&content.payStatus=='unpaid'">Price Unlocked: </text>
-                    <text class="c3-p1-end" v-if="content.dropStatus=='end'&&(content.payStatus=='overdue'||content.payStatus=='paid')">Price Unlocked: </text>
-                    <text class="c3-p1" v-if="content.dropStatus=='progressing'">Current Price:</text>
+                    <!--<text class="c3-p1-end" v-if="content.dropStatus=='end'&&content.payStatus=='unpaid'">Price Unlocked: </text>-->
+                    <!--<text class="c3-p1-end" v-if="content.dropStatus=='end'&&(content.payStatus=='overdue'||content.payStatus=='paid')">Price Unlocked: </text>-->
                     <text class="c3-p2">₹{{parseInt(content.currentPrice)}}</text>
-                    <text class="c3-p3">₹{{parseInt(content.salePrice)}}</text>
+                    <text class="c3-p3">₹{{parseInt(content.saleUnitPrice)}}</text>
+                    <text class="c3-p4">{{countOff(parseInt(content.currentPrice),parseInt(content.saleUnitPrice))}}</text>
                 </div>
 
             </div>
@@ -135,8 +135,9 @@
                 <div class="c4f-btn color1"  v-if="content.canDrop" @click="dropPrice">
                     <text class="c4f-btn-txt">Help & Earn Reward</text>
                 </div>
-                <div class="c4f-btn color4"  v-else>
-                    <text class="c4f-btn-txt">Successfully Helped</text>
+                <div class="c4f-btn1 "  v-else>
+                    <text class="c4f-btn-txt1">Successfully Helped</text>
+                    <text class="c4f-btn-txt2 iconfont">&#xe75f;</text>
                 </div>
             </div>
 
@@ -270,6 +271,14 @@
                         id: this.content.productId
                     }
                 })
+            },
+            countOff (s, o) {
+                if (o > 0) {
+                    return Math.ceil((o - s) / o * 100) + '% OFF'
+                    // return ((o - s) / o * 100)  + '% OFF'
+                } else {
+                    return ''
+                }
             },
             countDate (time) {
                 const self = this
@@ -476,12 +485,17 @@
         font-size: 48px;
         font-weight: 700;
         color: #000000;
-        margin-right: 10px;
+        margin-right: 11px;
     }
     .c3-p3{
         font-size: 24px;
         color: #000000;
         text-decoration: line-through;
+    }
+    .c3-p4{
+        font-size: 24px;
+        color: #492799;
+        margin-left: 22px;
     }
     .c4-btn{
         width: 620px;
@@ -584,10 +598,30 @@
         align-items: center;
         justify-content: center;
     }
+    .c4f-btn1{
+        width: 264px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
     .c4f-btn-txt{
         font-size: 24px;
-        color: #FFFFFF;
+        color: #fff;
         font-weight: 700;
+        margin-right:4px;
+    }
+    .c4f-btn-txt1{
+        font-size: 24px;
+        color: #492799;
+        font-weight: 700;
+        margin-right:4px;
+    }
+    .c4f-btn-txt2{
+        font-size: 28px;
+        color: #492799;
+        font-weight: 700;
+        padding: 4px;
+        margin-right:10px;
     }
     .color1{
         background-color: #492799 ;

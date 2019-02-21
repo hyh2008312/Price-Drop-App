@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-            <div class="top">
+            <div class="top" @click="openGoodsDetail">
                 <div class="top-friend" v-if="drop.user=='friend'">
                     <div class="topf-img" >
                         <image style="width:56px;height:56px " :src="drop.avatar"></image>
@@ -33,7 +33,8 @@
 
                 <div class="m1-price">
                     <text class="m1-p1">₹{{parseInt(drop.currentPrice)||0}}</text>
-                    <text class="m1-p2">₹{{parseInt(drop.salePrice)||0}}</text>
+                    <text class="m1-p2">₹{{parseInt(drop.saleUnitPrice)||0}}</text>
+                    <text class="m1-p4">{{countOff(parseInt(drop.currentPrice),parseInt(drop.saleUnitPrice))||0}}</text>
                 </div>
                 <text class="m2-txt" v-if="drop.dropStatus=='progressing'">Ask {{5-drop.friendsDrop.length}} {{5-drop.friendsDrop.length==5?'':'more'}} friends for help & unlock lower price!</text>
 
@@ -72,7 +73,7 @@
                 </div>
 
                 <div class="m4-btn" v-if="drop.dropStatus=='progressing'" @click="share">
-                    <text class="m4-btn-word color1">Share to Drop Price</text>
+                    <text class="m4-btn-word color1">Share to Drop the Price</text>
                 </div>
                 <div v-if="drop.dropStatus=='end'">
                     <div class="m4-btn" v-if="drop.payStatus=='unpaid'" @click="buyGoods">
@@ -105,10 +106,12 @@
                     <text class="m1-p1-friend">Reward for Help</text>
                     <text class="m1-p1" style="color: #E30000">₹{{parseInt(drop.rewardBonus)||0}}</text>
                 </div>
+                <text class="m1-txt">Rewards credited after order is completed!</text>
 
                 <div class="m1-price-friend">
                     <text class="m1-p3">₹{{parseInt(drop.currentPrice)||0}}</text>
-                    <text class="m1-p2">₹{{parseInt(drop.salePrice)||0}}</text>
+                    <text class="m1-p2">₹{{parseInt(drop.saleUnitPrice)||0}}</text>
+                    <text class="m1-p4">{{countOff(parseInt(drop.currentPrice),parseInt(drop.saleUnitPrice))||0}}</text>
                 </div>
                 <div class="m3-progress">
 
@@ -149,8 +152,9 @@
                 <div class="m4-btn" v-if="drop.canDrop.toString()=='true'" @click="dropPrice">
                     <text class="m4-btn-word color1">Help & Earn Rewards</text>
                 </div>
-                <div class="m4-btn" v-if="drop.canDrop.toString()=='false'" >
-                    <text class="m4-btn-word color4">Successfully Helped</text>
+                <div class="m4-btn1" v-if="drop.canDrop.toString()=='false'" >
+                    <text class="m4-btn-word1 ">Successfully Helped</text>
+                    <text class="m4-btn-icon iconfont">&#xe75f;</text>
                 </div>
 
                 <div class="m-time" >
@@ -203,7 +207,7 @@
             </div>
             <div>
                 <div class="top-title">
-                    <text class="tt-txt">You may also like</text>
+                    <text class="tt-txt">Start Another Drop</text>
                 </div>
                 <div   v-for="(i, index) in someGoodsList" :key="i.id"   style="margin-bottom: 32px">
                     <somegoods :goods="i"  :type="2" ></somegoods>  <!-- 1：一列 2：两列 -->
@@ -267,6 +271,8 @@
                 user: '',
                 newShow: false,
                 dropLink: '',
+                dropWebLink: 'https://app.getpricedrop.com/drops/detail/',
+                dropCategory: '',
                 someGoodsList: [],
                 nextPage: {
                     title: '',
@@ -301,6 +307,9 @@
             },
 
             getDropDetail (id) {
+                // this.$notice.alert({
+                //     message: id
+                // })
                 this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
@@ -315,6 +324,7 @@
                     // })
                     this.getSomeGoods()
                     this.dropLink = res.dropLink
+                    this.dropCategory = res.category
                     if (this.drop.dropStatus == 'progressing') {
                         this.countDate(this.drop.endTime)
                     } else {
@@ -329,7 +339,12 @@
                 })
             },
             share () {
-                shareModule.shareMorePlatform(this.dropLink)
+                // shareModule.shareMorePlatform(`qweqweqweqwe  ${this.dropLink}`)
+                // shareModule.shareMorePlatform('Yaar, I really need your help to drop the price for this ' + this.dropCategory + ' item. Help me na & you\'ll also earn Rs 50! \n'+ this.dropLink + '!')
+
+                shareModule.shareMorePlatform
+                (`Yaar, I really need your help to drop the price for this ${this.dropCategory} item. Help me na & you\'ll also earn Rs 50!  ${this.dropWebLink}${this.dropId}`)
+
             },
             dropPrice () {
                 if(this.user ==''){
@@ -435,11 +450,19 @@
                     }
                     this.$notice.loading.hide();
                 }).catch((res) => {
-                    this.$notice.loading.show();
+                    this.$notice.loading.hide();
                     // this.$notice.alert({
                     //     message: res
                     // })
                 })
+            },
+            countOff (s, o) {
+                if (o > 0) {
+                    return Math.ceil((o - s) / o * 100) + '% OFF'
+                    // return ((o - s) / o * 100)  + '% OFF'
+                } else {
+                    return ''
+                }
             },
             openRulerPage () {
                 let e;
@@ -470,6 +493,7 @@
                     self.aday = day
                     const afterDay = total - day * 24 * 60 * 60;
                     self.ahour = Math.floor(afterDay / (60 * 60)); // 小时
+
                     const afterHour = total - day * 24 * 60 * 60 - self.ahour * 60 * 60;
                     self.amin = Math.floor(afterHour / 60); // 分钟
                     if (self.amin < 10) {
@@ -561,6 +585,7 @@
         font-family: iconfont;
         color: #00CFE3;
         font-size: 25px;
+        flex-direction: revert;
     }
     .top{
         width: 686px;
@@ -659,6 +684,12 @@
         align-items: center;
         justify-content: center;
     }
+    .m1-txt{
+        font-size: 24px;
+        color: #000000;
+        margin-top: 10px;
+        text-align: center;
+    }
     .m1-price-friend{
         margin-top: 20px;
         flex-direction: row;
@@ -692,6 +723,11 @@
     .m1-p3{
         font-size: 28px;
         font-weight: 700;
+    }
+    .m1-p4{
+        margin-left: 12px;
+        font-size: 28px;
+        color: #492799;
     }
     .m2-txt{
         font-size: 24px;
@@ -741,14 +777,31 @@
         justify-content: center;
         margin-bottom: 24px;
     }
+    .m4-btn1{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+    }
     .m4-btn-word{
         width: 528px;
         font-size: 24px;
-        padding: 28px 0;
         border-radius: 50%;
+        padding: 28px 0;
         text-align: center;
         color: white;
         font-weight: 700;
+    }
+    .m4-btn-word1{
+        font-size: 24px;
+        color: #492799;
+        font-weight: 700;
+    }
+    .m4-btn-icon{
+        font-size: 28px;
+        color: #492799;
+        margin-left: 6px;
+        padding-bottom: 4px;
     }
     .color1{
         background-color: #492799 ;
@@ -872,6 +925,7 @@
         align-items: center;
         justify-content: center;
         width: 718px;
+        margin-bottom: 24px;
         background-color: transparent;
     }
     .tt-txt{

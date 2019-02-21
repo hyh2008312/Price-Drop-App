@@ -91,7 +91,7 @@
             <div class="create-drop" v-if="isDrop" @click="createDrop" >
                 <div class="c-d-item1"  >
                     <text class="cd-item1-word">Share & Save More</text>
-                    <text class="">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <text class="cd-item1-word1">How It Works</text>
                 </div>
                 <div class="c-d-item2">
                     <text class="c-d-word">Start a Drop to unlock extra discount!</text>
@@ -2347,15 +2347,24 @@
         margin-top: 16px;
     }
     .c-d-item1{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: start;
         width: 686px;
+        /*background-color: #b4282d;*/
         margin-left: 32px;
+        margin-bottom: 16px;
     }
     .cd-item1-word{
         font-size: 24px;
         color: #000000;
         font-weight: 700;
         margin-top: 32px;
-        /*margin-bottom: 16px;*/
+    }
+    .cd-item1-word1{
+        font-size: 24px;
+        color: #1D7CD4;
+        margin-top: 32px;
     }
     .c-d-item2{
         width: 686px;
@@ -2364,7 +2373,6 @@
         justify-content: space-between;
         margin-left: 32px;
         margin-bottom: 24px;
-        margin-top: -14px;
         padding-left:32px;
         background-color: rgba(231,226,246,1);
         border-radius: 8px;

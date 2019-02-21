@@ -33,7 +33,7 @@
     import tab from './moreTab';
     import refresher from '../common/refresh';
     import card from './card';
-
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     export default {
         components: {
             'refresher': refresher,
@@ -62,6 +62,7 @@
             }
         },
         created () {
+            // googleAnalytics.trackingScreen(`Drop Ruler`);
             this.requestProduct(true)
         },
         methods:{
