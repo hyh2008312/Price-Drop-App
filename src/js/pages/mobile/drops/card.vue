@@ -151,6 +151,7 @@
 
 <script>
     const shareModule = weex.requireModule('ShareModule');
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import preload from '../common/preloadImg';
     import { baseUrl } from '../../../config/apis';
 
@@ -250,7 +251,7 @@
 
             },
             handleArr (arr, l) {
-                this.percent = l / 5
+                this.percent = l.length / 5
                 let a
                 if(l.length==0){
                     return arr
@@ -267,6 +268,8 @@
                 }
             },
             share () {
+                googleAnalytics.recordEvent('Drop', 'Drops List Page', 'CLick Share to Drop Button', 0);
+
                 shareModule.shareMorePlatform
                 (`Yaar, I really need your help to drop the price for this ${this.content.category} item. Help me na & you\'ll also earn Rs 50!  ${this.dropWebLink}${this.content.id}`)
             },

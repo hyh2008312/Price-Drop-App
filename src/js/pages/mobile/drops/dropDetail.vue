@@ -342,7 +342,7 @@
             share () {
                 // shareModule.shareMorePlatform(`qweqweqweqwe  ${this.dropLink}`)
                 // shareModule.shareMorePlatform('Yaar, I really need your help to drop the price for this ' + this.dropCategory + ' item. Help me na & you\'ll also earn Rs 50! \n'+ this.dropLink + '!')
-                googleAnalytics.recordEvent('Drop', 'DropDetail', 'ShareDropBtn', 0);
+                googleAnalytics.recordEvent('Drop', 'Drops Detail Page', 'CLick Share to Drop Button', 0);
                 shareModule.shareMorePlatform
                 (`Yaar, I really need your help to drop the price for this ${this.dropCategory} item. Help me na & you\'ll also earn Rs 50!  ${this.dropWebLink}${this.dropId}`)
 

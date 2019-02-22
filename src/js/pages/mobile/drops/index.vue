@@ -49,7 +49,7 @@
 
 
 
-            <cell v-for="i in friendDropList" v-if="activeTab=='friend'&&user!=''">
+            <cell v-for="i in tranArr(friendDropList)" v-if="activeTab=='friend'&&user!=''">
                 <div class="overflow-card" >
                     <card :content="i" :activeTab="activeTab"></card>
                 </div>
@@ -495,7 +495,15 @@
             },
             onTabTo (e) {
                 this.activeTab = e.data.key
-                googleAnalytics.recordEvent('Drop', 'DropList', `${this.activeTab}-Drop`, 0);
+                googleAnalytics.recordEvent('Drop', 'Drops Listing Page', `${this.activeTab}-Drop`, 0);
+            },
+            tranArr(arr){
+                if(arr.length>5){
+                    let resultArr= arr.slice(0,5)
+                    return resultArr
+                }else {
+                    return arr
+                }
             },
             openDetail (i) {
                 this.$router.open({
