@@ -262,6 +262,9 @@
             this.$event.on('login', parmas => {
                 this.init()
             })
+            this.$event.on('logout', parmas => {
+                this.init()
+            })
             this.init()
         },
         methods: {
