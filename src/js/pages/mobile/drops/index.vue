@@ -492,6 +492,7 @@
             },
             onTabTo (e) {
                 this.activeTab = e.data.key
+                googleAnalytics.recordEvent('Drop', 'DropList', `${this.activeTab}-Drop`, 0);
             },
             openDetail (i) {
                 this.$router.open({

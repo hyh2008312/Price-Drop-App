@@ -22,6 +22,26 @@
                 </div>
             </cell>
 
+            <cell >
+                <div class="overflow-card" :class="[index==friendDropEndList.length-1 ?'mg-b-20':'',]">
+                    <card  :content="i" :activeTab="'friend'" ></card>
+                </div>
+            </cell>
+
+            <cell  v-if="friendDropList.length==0&&activeTab=='help'">
+                <div class="overflow-mid3">
+                    <image class="om-img" style="" src="bmlocal://assets/empty.png"></image>
+                    <text class="om-txt1">Uh oh! Your friends haven’t started a Drop yet.</text>
+                </div>
+            </cell>
+
+            <cell  v-if="friendDropEndList.length==0&&activeTab=='helped'">
+                <div class="overflow-mid3">
+                    <image class="om-img" style="" src="bmlocal://assets/empty.png"></image>
+                    <text class="om-txt1">You haven’t helped any friends drop the price yet.</text>
+                </div>
+            </cell>
+
             <cell class="loading" v-if="isLoading">
                 <image class="loading-icon" src="bmlocal://assets/loading.gif"></image>
             </cell>
@@ -48,8 +68,8 @@
                     name: 'Successfully Helped',
                     key: 'helped'
                 }],
-                friendDropList:[],
-                friendDropEndList:[],
+                friendDropList:false,
+                friendDropEndList:false,
                 activeTab: 'help',
                 isLoading: false,
                 page: 1,
@@ -64,6 +84,8 @@
         created () {
             // googleAnalytics.trackingScreen(`Drop Ruler`);
             this.requestProduct(true)
+            this.getFriendsDropEndList(true)
+            this.$notice.loading.show();
         },
         methods:{
             onLoadingMore () {
@@ -127,6 +149,7 @@
                         this.friendDropList = [];
                     }
                     this.friendDropList.push(...res.results)
+                    // this.friendDropList.push(...[])
                     this.page++;
 
                     this.isLoading = false;
@@ -138,9 +161,6 @@
                     // })
                 })
             },
-
-
-
             getFriendsDropEndList (isFirst) {
                 this.$fetch({
                     method: 'GET',
@@ -176,7 +196,7 @@
             },
             onTabTo(e){
                 this.activeTab = e.data.key
-                this.getFriendsDropEndList(true)
+                // this.getFriendsDropEndList(true)
             }
         }
     }
@@ -241,5 +261,27 @@
     }
     .mg-b-20{
         margin-bottom: 20px;
+    }
+    .overflow-mid3{
+        width: 686px;
+        margin: 32px 32px 0 32px ;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
+    }
+    .om-img{
+        width: 160px;
+        height: 140px;
+        margin-top: 20px;
+        margin-bottom: 12px;
+    }
+    .om-txt1{
+        color: rgba(0,0,0,.54);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 42px;
     }
 </style>

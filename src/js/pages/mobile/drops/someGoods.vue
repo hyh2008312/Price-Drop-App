@@ -14,8 +14,8 @@
                 </div>
             </div>
 
-            <div v-if="type==1" class="p-good"  @click="openNewDetail(goods.id)">
-                <div class="p-gd-img">
+            <div v-if="type==1" class="p-good" >
+                <div class="p-gd-img" @click="openNewDetail(goods.id)">
                     <preload class="p-gd-img-image" :src="goods.mainImage"></preload>
                 </div>
 

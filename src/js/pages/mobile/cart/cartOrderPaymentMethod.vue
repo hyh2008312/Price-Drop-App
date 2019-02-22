@@ -94,7 +94,7 @@
             </cell>
 
             <cell  class="cell-bottom" @click="chooseMethod('cod')">
-                <div  class="overflow-box b-top-r b-bottom-r">
+                <div  class="overflow-box b-top-r1 b-bottom-r">
                     <div class="overflow-box2" >
                         <div>
                             <div class="cod-d">
@@ -621,6 +621,10 @@ export default {
     }
     .b-top-r{
         margin-top: 28px;
+        border-top-right-radius: 16px;
+        border-top-left-radius: 16px;
+    }
+    .b-top-r1{
         border-top-right-radius: 16px;
         border-top-left-radius: 16px;
     }

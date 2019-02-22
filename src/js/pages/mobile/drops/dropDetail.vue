@@ -38,8 +38,8 @@
                 </div>
                 <text class="m2-txt" v-if="drop.dropStatus=='progressing'">Ask {{5-drop.friendsDrop.length}} {{5-drop.friendsDrop.length==5?'':'more'}} friends for help & unlock lower price!</text>
 
-                <text class="m2-txt" v-if="drop.dropStatus=='end'&&(parseInt(drop.salePrice)-parseInt(drop.currentPrice))!=0">Wow, your price has dropped by ₹{{parseInt(drop.salePrice)-parseInt(drop.currentPrice)}}</text>
-                <text class="m2-txt" v-if="drop.dropStatus=='end'&&(parseInt(drop.salePrice)-parseInt(drop.currentPrice))==0">You didn’t unlock any discount</text>
+                <text class="m2-txt" v-if="drop.dropStatus=='end'&&(parseInt(drop.salePrice)-parseInt(drop.currentPrice))!=0">Extra price dropped: ₹{{parseInt(drop.salePrice)-parseInt(drop.currentPrice)}}</text>
+                <text class="m2-txt" v-if="drop.dropStatus=='end'&&(parseInt(drop.salePrice)-parseInt(drop.currentPrice))==0">Uh oh! You didn’t drop any price.</text>
 
                 <div class="m3-progress">
                     <div class="m3p-user" >
@@ -110,8 +110,8 @@
 
                 <div class="m1-price-friend">
                     <text class="m1-p3">₹{{parseInt(drop.currentPrice)||0}}</text>
-                    <text class="m1-p2">₹{{parseInt(drop.saleUnitPrice)||0}}</text>
-                    <text class="m1-p4">{{countOff(parseInt(drop.currentPrice),parseInt(drop.saleUnitPrice))||0}}</text>
+                    <text class="m1-p2" v-if="parseInt(drop.saleUnitPrice)!=0">₹{{parseInt(drop.saleUnitPrice)||0}}</text>
+                    <text class="m1-p4" v-if="parseInt(drop.saleUnitPrice)!=0">{{countOff(parseInt(drop.currentPrice),parseInt(drop.saleUnitPrice))||0}}</text>
                 </div>
                 <div class="m3-progress">
 
@@ -251,7 +251,7 @@
 <script>
     import { WxcMask } from 'weex-ui';
     const shareModule = weex.requireModule('ShareModule');
-
+    const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
     import { baseUrl } from '../../../config/apis';
     import preload from '../common/preloadImg';
     import somegoods from './someGoods';
@@ -298,12 +298,13 @@
                 this.dropId = resData.id
                 this.getDropDetail(this.dropId)
             })
+
             this.init()
         },
         methods: {
             init(){
                 this.user = this.$storage.getSync('user')
-
+                googleAnalytics.trackingScreen(`Drop Detail`);
             },
 
             getDropDetail (id) {
@@ -341,7 +342,7 @@
             share () {
                 // shareModule.shareMorePlatform(`qweqweqweqwe  ${this.dropLink}`)
                 // shareModule.shareMorePlatform('Yaar, I really need your help to drop the price for this ' + this.dropCategory + ' item. Help me na & you\'ll also earn Rs 50! \n'+ this.dropLink + '!')
-
+                googleAnalytics.recordEvent('Drop', 'DropDetail', 'ShareDropBtn', 0);
                 shareModule.shareMorePlatform
                 (`Yaar, I really need your help to drop the price for this ${this.dropCategory} item. Help me na & you\'ll also earn Rs 50!  ${this.dropWebLink}${this.dropId}`)
 
@@ -365,6 +366,8 @@
                         this.drop = res
                         this.newShow = true;
                         this.$event.emit('dropPrice');
+                        googleAnalytics.recordEvent('Drop', 'DropDetail', 'DropPrice', 0);
+
                         this.$notice.loading.hide();
                     }).catch((res) => {
                         this.$notice.loading.hide();

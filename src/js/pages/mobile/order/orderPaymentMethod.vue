@@ -98,7 +98,7 @@
 
 
             <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode.toLocaleUpperCase() == 'GATICN'">
-                <div  class="overflow-box b-top-r b-bottom-r">
+                <div  class="overflow-box b-top-r1 b-bottom-r">
                     <div class="overflow-box1" >
                         <div>
                             <div class="cod-d">
@@ -127,7 +127,7 @@
             </cell>
 
             <cell  class="cell-bottom" v-if="order.carrierCode.toLocaleUpperCase() != 'GATICN'">
-                <div  class="overflow-box b-top-r b-bottom-r">
+                <div  class="overflow-box b-top-r1 b-bottom-r">
                     <div class="overflow-box1" >
                         <div>
                             <div class="cod-d">
@@ -639,6 +639,11 @@ export default {
     }
     .b-top-r{
         margin-top: 28px;
+        border-top-right-radius: 16px;
+        border-top-left-radius: 16px;
+    }
+    .b-top-r1{
+        /*margin-top: 12px;*/
         border-top-right-radius: 16px;
         border-top-left-radius: 16px;
     }

@@ -94,8 +94,8 @@
                     <!--<text class="c3-p1-end" v-if="content.dropStatus=='end'&&content.payStatus=='unpaid'">Price Unlocked: </text>-->
                     <!--<text class="c3-p1-end" v-if="content.dropStatus=='end'&&(content.payStatus=='overdue'||content.payStatus=='paid')">Price Unlocked: </text>-->
                     <text class="c3-p2">₹{{parseInt(content.currentPrice)}}</text>
-                    <text class="c3-p3">₹{{parseInt(content.saleUnitPrice)}}</text>
-                    <text class="c3-p4">{{countOff(parseInt(content.currentPrice),parseInt(content.saleUnitPrice))}}</text>
+                    <text class="c3-p3" v-if="parseInt(content.saleUnitPrice)!=0">₹{{parseInt(content.saleUnitPrice)}}</text>
+                    <text class="c3-p4" v-if="parseInt(content.saleUnitPrice)!=0">{{countOff(parseInt(content.currentPrice),parseInt(content.saleUnitPrice))}}</text>
                 </div>
 
             </div>
@@ -164,6 +164,7 @@
                 asecond: '',
                 percent: '',
                 userAvatar: [1, 1, 1, 1, 1],
+                dropWebLink: 'https://app.getpricedrop.com/drops/detail/',
                 nextPage: {
                     title: '',
                     mainImage: '',
@@ -219,6 +220,7 @@
                     // })
                     this.drop = res
                     this.$event.emit('dropPrice', { drop: this.drop });
+                    googleAnalytics.recordEvent('Drop', 'DropDetail', 'DropPrice', 0);
                     this.$notice.loading.hide();
                 }).catch((res) => {
                     this.$notice.loading.hide();
@@ -265,7 +267,8 @@
                 }
             },
             share () {
-                shareModule.shareMorePlatform(this.content.dropLink)
+                shareModule.shareMorePlatform
+                (`Yaar, I really need your help to drop the price for this ${this.content.category} item. Help me na & you\'ll also earn Rs 50!  ${this.dropWebLink}${this.content.id}`)
             },
             openDetail (i) {
                 this.$router.open({
