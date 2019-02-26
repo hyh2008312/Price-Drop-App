@@ -90,6 +90,9 @@
                 <data
                     android:host="pricedrop"
                     android:scheme="https" />
+                <data
+                    android:host="pricedrop"
+                    android:scheme="socialcommer" />
             </intent-filter>
         </activity>
         <activity android:name="com.benmu.framework.activity.GlobalWebViewActivity">

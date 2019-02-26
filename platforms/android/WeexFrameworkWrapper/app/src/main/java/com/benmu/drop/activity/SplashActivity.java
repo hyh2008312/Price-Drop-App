@@ -1,8 +1,6 @@
 package com.benmu.drop.activity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,12 +17,13 @@ import com.benmu.framework.manager.impl.dispatcher.DispatchEventManager;
 import com.benmu.framework.model.RouterModel;
 import com.benmu.framework.model.WeexEventBean;
 import com.benmu.drop.R;
-import com.benmu.framework.utils.JsPoster;
+import com.facebook.applinks.AppLinkData;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.benmu.framework.manager.StorageManager;
+
 
 /**
  * Created by lzq on 2017/8/23.
@@ -38,11 +37,34 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        initFacebookDeepLink();
         initDeepLink();
         init();
     }
+    // 初始化 facebook deeplink链接
+    public void initFacebookDeepLink() {
+        AppLinkData.fetchDeferredAppLinkData(this,
+                new AppLinkData.CompletionHandler() {
+                    @Override
+                    public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+                        // Process app link data
+                        if (appLinkData !=null) {
+                            Uri targetUrl = appLinkData.getTargetUri();
+                            if (targetUrl != null) {
+                                Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
+                                StorageManager storageManager = ManagerFactory.getManagerService(StorageManager.class);
+                                String key = "pricedrop";
+                                boolean result = storageManager.setData(SplashActivity.this, key, targetUrl.toString());
+                                Log.d("dddddd", "----success----- "+result);
+                            }
+                        }
+                    }
+                }
+        );
+    }
+
     // 初始化deeplink
-    private void initDeepLink() {
+    public void initDeepLink() {
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {

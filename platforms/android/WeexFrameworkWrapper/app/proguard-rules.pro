@@ -10,6 +10,11 @@
 -keep class android.support.v7.**{*;}
 -keep public class com.benmu.drop.activity.bean.**{*;}
 -keep public class com.sun.**
+-keep public class com.android.vending.licensing.ILicensingService
+
+-keepattributes Exceptions,InnerClasses,Signature
+-keepattributes JavascriptInterface
+-keepattributes *Annotation*
 
 #保留Parcelable序列化的类不被混淆
 -keep class * implements android.os.Parcelable {
@@ -29,6 +34,7 @@
 -keep class android.app.**{*;}
 -keep class java.nio.**{*;}
 -keep class java.lang.**{*;}
+-dontwarn java.lang.**
 
 #对于R（资源）下的所有类及其方法，都不能被混淆
 -keep class **.R$* {
@@ -39,15 +45,23 @@
 -keep class com.bumptech.glide.**{*;}
 -dontwarn com.bumptech.glide.**
 
+# facebook
+-keep enum com.facebook.**
+-keep public interface com.facebook.**
+-keep class com.facebook.** { *; }
+
+
+-keep class com.facebook.applinks.**{*;}
+-keep class com.facebook.applinks.**$*{*;}
+-keep class com.benmu.drop.activity.SplashActivity{*;}
+
+-ignorewarning
 
 
 # 支付
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;
 }
-
--keepattributes JavascriptInterface
--keepattributes *Annotation*
 
 -dontwarn com.razorpay.**
 -keep class com.razorpay.** {*;}
@@ -114,16 +128,14 @@
 -dontwarn android.webkit.WebView
 -dontwarn com.umeng.**
 -dontwarn com.tencent.weibo.sdk.**
--dontwarn com.facebook.**
+
 -keep public class javax.**
 -keep public class android.webkit.**
 -dontwarn android.support.v4.**
--keep enum com.facebook.**
--keepattributes Exceptions,InnerClasses,Signature
--keepattributes *Annotation*
--keepattributes SourceFile,LineNumberTable
 
--keep public interface com.facebook.**
+
+
+
 -keep public interface com.tencent.**
 -keep public interface com.umeng.socialize.**
 -keep public interface com.umeng.socialize.sensor.**
@@ -132,8 +144,7 @@
 -keep public class com.umeng.socialize.* {*;}
 
 
--keep class com.facebook.**
--keep class com.facebook.** { *; }
+
 -keep class com.umeng.scrshot.**
 -keep public class com.tencent.** {*;}
 -keep class com.umeng.socialize.sensor.**
