@@ -599,6 +599,8 @@
                    shippingPrice: '',
                    shippingTimeMin: '',
                    shippingTimeMax: '',
+                   processingTimeMin: '',
+                   processingTimeMax: '',
                    proId: '',
                    flashSale: {}
                 },
@@ -828,6 +830,9 @@
                         this.nextPage.shippingPrice = res.shipping.priceItem;
                         this.nextPage.shippingTimeMin = res.shipping.shippingTimeMin;
                         this.nextPage.shippingTimeMax = res.shipping.shippingTimeMax;
+
+                        this.nextPage.processingTimeMin = res.shipping.processingTimeMin;
+                        this.nextPage.processingTimeMax = res.shipping.processingTimeMax;
 
                         // this.isDrop = this.purchaseMethod == 'drop';
                         this.nextPage.proId = this.purchaseMethod;

@@ -239,10 +239,10 @@
 
             },
             onLoadingMore () {
-                if (!this.isLoading) {
-                    this.isLoading = true
-                    this.requestProduct(false)
-                }
+                // if (!this.isLoading) {
+                //     this.isLoading = true
+                //     this.requestProduct(false)
+                // }
             },
             requestProduct (isFirst) {
                 if (isFirst) {
@@ -291,7 +291,7 @@
 
                         this.countPrice();
                     }
-                    this.page++;
+                    // this.page++;
                     this.isLoading = false;
                     // this.$notice.alert({
                     //     message: this.goodsList

@@ -58,7 +58,8 @@
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Paid'">
                 <text class="od-button-1 gt-mr" @click="cancel">Cancel Order</text>
-                <text class="gd-button" @click="editAddress">Change Address</text>
+                <text class="gd-button" @click="editAddress" v-if="order.paymentMode!='cod'">Change Address</text>
+
             </div>
             <div class="gb-bottom-1" v-if="order.orderStatus == 'Audit canceled'">
                 <text class="od-text-2">Order cancellation pending</text>

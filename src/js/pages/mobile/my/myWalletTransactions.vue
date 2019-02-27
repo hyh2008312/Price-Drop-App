@@ -82,7 +82,7 @@
                 pArr: false,
                 flag: 'All',
                 page: 1,
-                pageSize: 40,
+                pageSize: 50,
                 status: '',
                 userWallet: 0,
                 userBonus: 0,

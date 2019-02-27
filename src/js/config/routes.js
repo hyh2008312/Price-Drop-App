@@ -161,6 +161,9 @@ export default {
     'drop.detail': {
         url: '/pages/mobile/drops/dropDetail.js'
     },
+    'drop.rewards.detail': {
+        url: '/pages/mobile/drops/dropRewardsDetail.js'
+    },
     'perks': {
         url: '/pages/mobile/perks/index.js'
     },

@@ -15,6 +15,7 @@ module.exports = {
         'js/pages/mobile/drops/moreMyDropList.vue',
         'js/pages/mobile/drops/moreFriendDropList.vue',
         'js/pages/mobile/drops/dropDetail.vue',
+        'js/pages/mobile/drops/dropRewardsDetail.vue',
         'js/pages/mobile/drops/dropRuler.vue',
         // 'js/pages/mobile/shop/index.vue',
         'js/pages/mobile/my/index.vue',

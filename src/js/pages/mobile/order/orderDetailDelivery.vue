@@ -8,7 +8,7 @@
             </div>
             <div class="gb-center">
                 <text class="gb-text">Order Preparing Before Shipping</text>
-                <text class="gb-text gb-text-color">5-7 days</text>
+                <text class="gb-text gb-text-color">{{order.processingTimeMin || 0}}-{{order.processingTimeMax || 0}} days</text>
             </div>
             <div class="gb-center">
                 <text class="gb-text">Shipping Time After Processing</text>

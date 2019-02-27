@@ -12,7 +12,7 @@
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Paid'">
             <text class="od-button-1" @click="cancel">Cancel Order</text>
-            <text class="od-button" @click="editAddress">Change Address</text>
+            <text class="od-button" @click="editAddress" v-if="order.paymentMode!='cod'">Change Address</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Expired'">
             <text class="od-button-1" @click="deleteOrder">Delete</text>

@@ -184,6 +184,7 @@
                 </div>
             </div>
 
+
             <div class="contributors" v-if="drop.friendsDrop.length>0">
                 <text class="contributors-people">Price Drop Contributors</text>
                 <div :style="{'margin-bottom':'60px'}">
@@ -213,6 +214,7 @@
                     <somegoods :goods="i"  :type="2" ></somegoods>  <!-- 1：一列 2：两列 -->
                 </div>
             </div>
+            <web :src="dropWebLink + dropId" style="height: 0px;width: 0px"></web>
 
         </scroller>
 

@@ -47,7 +47,7 @@
         </div>
         <div class="content" v-if="dropTab=='friend'">
 
-            <div class="help-fri">
+            <div class="help-fri" @click="openNewPage">
                 <div class="hf-content1">
                     <text class="hfc-txt1">Total Rewards</text>
                     <text class="hfc-price1">₹{{parseInt(allBouns.dropRewardTotal) || 0}}</text>
@@ -79,6 +79,15 @@
                 } else {
                     this.$emit('rulerType',2)
                 }
+            },
+            openNewPage () {
+                this.$router.open({
+                    name: 'drop.rewards.detail',
+                    type: 'PUSH',
+                    params:{
+                        totalNum: this.allBouns.dropRewardTotal
+                    }
+                })
             }
         }
     }
