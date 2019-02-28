@@ -39,6 +39,7 @@ export const apis = {
     'point.drops.bonus': '/point/drops/bonus/', // 我的砍价积分
     'order.drop.create.pure': '/order/drop/create/pure/', // 砍价下单
     'drop.hot.push': '/drops/hot/push/', // 热推
+    'drop.hot.push.optimise': '/drops/hot/push/optimise/', // 热推
     'drops.detail.recommend': '/drops/detail/recommend/', // 商品推荐
     'drop.delete': '/drops/delete/', // 删除砍价
     'point.rewards.detail': '/point/rewards/detail/', // 砍价红包详情

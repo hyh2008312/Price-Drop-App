@@ -305,6 +305,7 @@
                     //     message: res.results[1]
                     // })
 
+
                     this.myDropList = []
                     this.productList = []
                     setTimeout(() => {
@@ -326,15 +327,9 @@
             getSomeGoodsList () {
                 this.$notice.loading.show();
                 this.$fetch({
-                    method: 'post',
-                    name: 'drop.hot.push',
+                    method: 'GET',
+                    name: 'drop.hot.push.optimise',
                 }).then((res) => {
-                    // this.$notice.alert({
-                    //     message: res[0]
-                    // })
-
-
-
                     this.someGoodsList = [...res]
                     this.$notice.loading.hide();
                 }).catch((res) => {

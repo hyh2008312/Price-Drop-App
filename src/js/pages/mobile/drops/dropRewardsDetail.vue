@@ -35,9 +35,9 @@
                                     <text class="txt"  v-if="i.type == 'bonus expired'">₹{{i.operationAmount}}  Reward Was Cancelled</text>
                                     <text class="txt"  v-if="i.type == 'bonus pending'">₹{{i.operationAmount}}  Reward Pending to Release</text>
 
-                                    <text class="txt1" v-if="i.type == 'bonus earn'">Congrats! Your reward is now available to use now. It will expire at March 15!</text>
+                                    <text class="txt1" v-if="i.type == 'bonus earn'">Congrats! Your reward is now available to use now. It will expire at {{tranDate1(i.expiredTime)}}!</text>
                                     <text class="txt1" v-if="i.type == 'bonus expired'">Sorry! Your reward has been cancelled due to order cancellation of your friend.</text>
-                                    <text class="txt1" v-if="i.type == 'bonus pending'">Your pending reward will become available once the Drop’s order is delivered</text>
+                                    <text class="txt1" v-if="i.type == 'bonus pending'">Your pending reward will become available once the Drop’s order is delivered.</text>
                                     <div class="item">
                                         <text class="pc-txt1">Drop’s Owner : </text>
                                         <div class="pc-avatar">
@@ -82,7 +82,7 @@
         created (){
             this.getList(true)
             const pageHeight = Utils.env.getScreenHeight();
-            this.height = { height: (pageHeight - 132 - 246) + 'px' };
+            this.height = { height: (pageHeight - 64 - 246) + 'px' };
             this.$notice.loading.show();
             // this.$notice.alert({
             //     message: this.height
@@ -120,6 +120,10 @@
                         needAuth: true
                     }
                 }).then((res) => {
+                    // this.$notice.alert({
+                    //     message: res
+                    // })
+
                     if (res.count == 0) {
                         this.length = 2;
                     } else {
@@ -144,6 +148,9 @@
             },
             tranDate (str) {
                 return dayjs(new Date(str)).format('DD MMM YYYY')
+            },
+            tranDate1 (str) {
+                return dayjs(new Date(str)).format('MMM DD')
             }
         }
     }
@@ -227,7 +234,7 @@
         width: 686px;
         box-shadow: 0 1px 6px 0 rgba(0,0,0,0.12);
         background-color: white;
-        border-radius: 8px;
+        border-radius: 16px;
         margin-top: 0px;
     }
     .points-content-head{
