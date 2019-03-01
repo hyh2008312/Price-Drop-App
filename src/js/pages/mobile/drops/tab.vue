@@ -63,7 +63,7 @@ export default {
     border-bottom-style: solid;
 }
 .mg-t{
-    margin-top: 6px;
+    margin-top: 12px;
 }
 .line{
     width: 56px;

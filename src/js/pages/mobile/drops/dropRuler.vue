@@ -234,7 +234,7 @@
     .mask-title {
         color: #333333;
         font-weight: 900;
-        font-size: 32px;
+        font-size: 40px;
     }
     .mask-text {
         color: #333333;
@@ -305,7 +305,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-top: 16px;
+        /*margin-top: 16px;*/
         margin-bottom: 32px;
     }
     .head-txt{
@@ -320,7 +320,7 @@
         overflow: hidden;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,0.12);
         background-color: white;
-        border-radius: 8px;
+        border-radius: 16px;
     }
     .bottom-head-txt{
         margin-top: 48px;

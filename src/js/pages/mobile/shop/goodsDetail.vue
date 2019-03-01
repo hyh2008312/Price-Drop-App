@@ -216,7 +216,7 @@
                 </div>
             </div>
             <div class="mid">
-                <div class="dec-word" ref="dec" >
+                <div class="dec-word-noborder"  ref="dec" >
                     <text class="dec">Description</text>
                 </div>
             </div>
@@ -2091,6 +2091,15 @@
         border-bottom-color: rgba(0,0,0,0.12) ;
         border-bottom-width: 1px ;
         border-bottom-style: solid ;
+        background-color: white;
+    }
+    .dec-word-noborder{
+        width: 750px;
+        height: 96px;
+        padding-left: 38px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         background-color: white;
     }
     .s-c-s{
