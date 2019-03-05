@@ -114,6 +114,9 @@ export default {
                     this.$event.emit('changeTab', {
                         tab: params.tab
                     });
+                    if (params.activeTab) {
+                        this.$storage.set('activeTab', params.activeTab);
+                    }
                 } else {
                     const params = this.getParams(query);
                     let router = path.split('/');

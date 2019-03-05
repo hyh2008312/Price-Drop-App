@@ -243,6 +243,12 @@
         },
         created () {
             googleAnalytics.trackingScreen(`Drop List/${this.activeTab}-Drop`);
+            this.$storage.get('activeTab').then((data) => {
+                if(data) {
+                    this.activeTab = data;
+                    this.$storage.delete('activeTab');
+                }
+            });
             const pageHeight = Utils.env.getScreenHeight();
             this.height = { height: (pageHeight - 48 - 112 - 128 - 96 - 112) + 'px' };
             this.$event.on('dropPrice', parmas => {
@@ -265,6 +271,7 @@
             this.$event.on('logout', parmas => {
                 this.init()
             })
+
             this.init()
         },
         methods: {
