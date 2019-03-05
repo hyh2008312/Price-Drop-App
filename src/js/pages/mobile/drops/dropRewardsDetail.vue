@@ -19,7 +19,7 @@
                 <div v-if="pArr.length===0" class="empty-div">
 
                     <image src="bmlocal://assets/empty.png" class="empty-img"></image>
-                    <text class="empty-txt">You haven’t earned or spent any points yet.</text>
+                    <text class="empty-txt">You haven’t earned or spent any reward yet.</text>
                 </div>
                 <div :style="height" class="mg-t32"  v-if="pArr.length!==0">
                     <list offset-accuracy="10" loadmoreoffset="400" @loadmore="onLoadingMore">
@@ -31,9 +31,9 @@
                                 </div>
                                 <div class="" >
                                     <text class="points-date" :class="[index==0 ?'points-date-f':'',index==pArr.length-1 ?'points-date-f':'',]">{{tranDate(i.created)}}</text>
-                                    <text class="txt"  v-if="i.type == 'bonus earn'">₹{{i.operationAmount}}  Reward Available to Use Now</text>
-                                    <text class="txt"  v-if="i.type == 'bonus expired'">₹{{i.operationAmount}}  Reward Was Cancelled</text>
-                                    <text class="txt"  v-if="i.type == 'bonus pending'">₹{{i.operationAmount}}  Reward Pending to Release</text>
+                                    <text class="txt"  v-if="i.type == 'bonus earn'">₹{{parseInt(i.operationAmount)}}  Reward Available to Use Now</text>
+                                    <text class="txt"  v-if="i.type == 'bonus expired'">₹{{parseInt(i.operationAmount)}}  Reward Was Cancelled</text>
+                                    <text class="txt"  v-if="i.type == 'bonus pending'">₹{{parseInt(i.operationAmount)}}  Reward Pending to Release</text>
 
                                     <text class="txt1" v-if="i.type == 'bonus earn'">Congrats! Your reward is now available to use now. It will expire at {{tranDate1(i.expiredTime)}}!</text>
                                     <text class="txt1" v-if="i.type == 'bonus expired'">Sorry! Your reward has been cancelled due to order cancellation of your friend.</text>

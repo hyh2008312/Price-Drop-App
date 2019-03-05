@@ -1,22 +1,15 @@
 <template>
     <div class="wrapper">
-
         <div class="i-good" v-for="i in goods" :key="i.id"  @click="openNewDetail(i.id)">
-            <div class="gd-bg">
-                <div class="gd-img">
-                    <preload class="gd-img-image" :src="i.mainImage"></preload>
-                </div>
-            <!--<text class="gd-txt">{{countOff(countPrice(i.unitPrice, i.discount), i.saleUnitPrice)}} 111</text>-->
-            <!--<text class="gd-txt">11111111</text>-->
-            <!--<text class="gd-txt"></text>-->
+            <div class="gd-img">
+                <preload class="gd-img-image" :src="i.mainImage"></preload>
+                <!--<div class="gd-img-image" style="background-color: black"></div>-->
             </div>
-        <!--<text class="gd-tlt1">{{i.title}}</text>-->
             <div class="gd-tlt-bg">
                 <text class="gd-tlt">₹{{parseInt(i.unitPrice)}}</text>
                 <text class="gd-info">{{countOff(i.unitPrice, i.saleUnitPrice)}}</text>
             </div>
-        <text class="gd-price">₹{{parseInt(i.saleUnitPrice)}}</text>
-            <!--<text class="gd-price">₹44444</text>-->
+            <text class="gd-price">₹{{parseInt(i.saleUnitPrice)}}</text>
         </div>
     </div>
 
@@ -70,58 +63,21 @@
     .i-good {
         padding-left: 8px;
         padding-right: 8px;
-        width: 304px;
+        width: 319px;
         align-items: center;
     }
-    .gd-bg {
-        height: 288px;
-        width: 288px;
-        border-radius: 8px;
-        overflow: hidden;
-        /*border-top-width: 1px;*/
-        /*border-top-style: solid;*/
-        /*border-top-color: rgba(0,0,0,.08);*/
-        /*border-left-width: 1px;*/
-        /*border-left-style: solid;*/
-        /*border-left-color: rgba(0,0,0,.08);*/
-        /*border-right-width: 1px;*/
-        /*border-right-style: solid;*/
-        /*border-right-color: rgba(0,0,0,.08);*/
-        /*border-bottom-width: 2px;*/
-        /*border-bottom-style: solid;*/
-        /*border-bottom-color: rgba(0,0,0,.08);*/
-    }
-    .gd-txt{
-        font-family: ProximaNova-Bold;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: #00CFE3 ;
-        width: 66px;
-        height: 66px;
-        font-size: 24px;
-        font-weight: 700;
-        color: #FFFFFF;
-        letter-spacing: 0;
-        text-align: center;
-        line-height: 28px;
-        border-radius: 8px;
-        padding-top: 4px;
-    }
     .gd-img {
-        width: 284px;
-        height: 284px;
-        border-radius: 8px;
-        overflow: hidden;
+        width: 319px;
+        height: 319px;
+        border-radius: 16px;
     }
     .gd-img-image {
-        width: 284px;
-        height: 284px;
+        width: 319px;
+        height: 319px;
         border-radius: 8px;
-        overflow: hidden;
-        position: relative;
+        /*overflow: hidden;*/
+        /*position: relative;*/
     }
-
     .gd-tlt {
         font-size: 28px;
         font-weight: bold;
