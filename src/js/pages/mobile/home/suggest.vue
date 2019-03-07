@@ -16,12 +16,12 @@
             <cell v-if="false">
                 <block-1 :category="category"></block-1>
             </cell>
-            <!--<cell>-->
-                <!--<div class="new-co" @click="openNewCo">-->
-                    <!--<image class="new-co-img" src="bmlocal://assets/home/new-gift.png" ></image>-->
-                    <!--<text class="new-co-w">New User Gift</text>-->
-                <!--</div>-->
-            <!--</cell>-->
+            <cell v-if="firstLogin&&newGift">
+                <div class="new-co" @click="openNewCo">
+                    <image class="new-co-img" src="bmlocal://assets/home/new-gift.png" ></image>
+                    <text class="new-co-w">New User Gift</text>
+                </div>
+            </cell>
             <cell class="cell-top" v-if="false"></cell>
             <cell class="cell-button" v-if="false">
                 <div class="home-drop-1">
@@ -116,6 +116,27 @@ export default {
     props: ['isHeaderBg'],
     created () {
         this.init();
+        this.$event.on('first', parmas => {
+            this.$storage.get('user').then((res) => {
+                if(res) {
+                    this.user = res;
+                    this.$storage.get('firstLogin').then((data) => {
+                        if(data) {
+                            this.firstLogin = data
+                            this.openNewCo()
+                            this.user.firstLogin = false
+                            this.$storage.set('user', this.user)
+                        }
+                    });
+                }
+            })
+        })
+        this.user = this.$storage.getSync('user');
+        if(this.user!=''){
+            if(!this.user.firstLogin){
+                this.firstLogin = false;
+            }
+        }
     },
     data () {
         return {
@@ -147,6 +168,9 @@ export default {
             category: [],
             drops: [],
             products: [],
+            user: '',
+            firstLogin: true,
+            newGift: true,
             isLoaded: false
         }
     },
@@ -202,6 +226,7 @@ export default {
             // this.getDrops();
             this.getActivity();
             this.getBlock5();
+            // this.user = this.$storage.getSync('user')
             if(this.tabKey == 'new') {
                 this.getNewGoods(true);
             } else {
@@ -485,8 +510,26 @@ export default {
             //     });
             // }
         },
+        redirectLogin () {
+            this.$event.on('login', params => {
+                this.user = this.$storage.getSync('user')
+                if (this.user) {
+                    this.init()
+                }
+            });
+            this.$router.open({
+                name: 'login',
+                type: 'PUSH'
+            })
+        },
         openNewCo () {
-            this.$emit('openNewMask')
+            if (this.user == ''){
+                this.redirectLogin()
+            }else {
+                this.newGift = false
+                this.$emit('openNewMask')
+                this.$event.emit('hideBlock')
+            }
         },
         goLucky(){
             this.$router.open({

@@ -9,7 +9,7 @@
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" v-if="false" @loadingDown="loadingDown"></refresher>
             <header>
-                <div class="banner">
+                <div class="banner" >
                     <image class="banner-image" :src="imageUrl" resize="cover"></image>
                     <div class="banner-mask" v-if="false"></div>
                     <text class="banner-text" v-if="false">{{name}}</text>

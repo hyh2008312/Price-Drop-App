@@ -120,7 +120,7 @@
                             <!--<text class=" box-dot" v-if="unreadR>0"></text>-->
                         </div>
                         <div style="flex-direction: row;justify-content: space-between;align-items: center">
-                            <text class="i-box1 wallet-num">₹{{userWallet+userBonus||0}}</text>
+                            <text class="i-box1 wallet-num">₹{{allWallet}}</text>
                             <text class="i-box2 iconfont">&#xe626;</text>
                         </div>
                         <!--<text class="i-box wallet-num">₹ {{myWallet||0}}</text>-->
@@ -310,8 +310,7 @@
                 unread: 0,
                 cartNum: 1,
                 unreadR: 0,
-                userWallet: 0,
-                userBonus: 0
+                allWallet: 0
             }
         },
         methods: {
@@ -548,13 +547,7 @@
                             this.points = res.points
                             this.cardNumber = res.cardNumber
                             this.gender = res.gender
-                            if (res.userBonus) {
-                                this.userBonus = res.userBonus
-                            }
-                            if (res.userWallet) {
-                                this.userWallet = res.userWallet
-                            }
-
+                            this.allWallet = res.userBonus + res.userWallet
                             this.unread = res.unreadNumber
                             this.$event.emit('getRead', {
                                 unread: this.unread
@@ -585,10 +578,12 @@
                     }
                 })
                 this.$storage.get('user').then(resData => {
-                    this.user = resData
-                    this.email = this.user.email
-                    this.fname = resData.firstName
-                    this.lname = resData.lastName
+                    if(resData) {
+                        this.user = resData
+                        this.email = this.user.email
+                        this.fname = resData.firstName
+                        this.lname = resData.lastName
+                    }
                 })
             },
             getMyWallet () {

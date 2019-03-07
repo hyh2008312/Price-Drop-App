@@ -35,6 +35,12 @@
                     <text class="iconfont category-arrange" v-if="arrangement == true" @click="changeArrangement">&#xe743;</text>
                 </div>
             </header>
+            <cell v-if="firstLogin&&newGift">
+                <div class="new-co" @click="openNewCo">
+                    <image class="new-co-img" src="bmlocal://assets/home/new-gift.png" ></image>
+                    <text class="new-co-w">New User Gift</text>
+                </div>
+            </cell>
             <cell v-for="(i ,index) in goods" :key="index" >
                 <block3 :goods="i" v-if="arrangement == false"></block3>
                 <block7 :goods="i" v-if="arrangement == true"></block7>
@@ -61,10 +67,64 @@
                 </div>
             </div>
         </toggle>
+
+        <WxcMask
+            height="587"
+            width="397"
+            border-radius="16"
+            duration="200"
+            mask-bg-color="rgba(255, 255, 255, 0)"
+            :has-animation="true"
+            :has-overlay="true"
+            :show-close="false"
+            :show="newShow"
+            @wxcMaskSetHidden="wxcMaskSetShareHidden">
+            <div class="maskcontent">
+                <div class="m-top">
+                    <image src="bmlocal://assets/home/mask-head.png" style="width:397px;height:162px; "></image>
+                </div>
+                <text class="iconfont m-ic">&#xe632;</text>
+                <text class="m-c">₹{{newUserBonus}}</text>
+                <div class="mid-content">
+                    <text class="m-c-w">You just got ₹{{newUserBonus}} cash bonus for shopping now.</text>
+                    <div class="m-c-time">
+                        <text class="m-c-word">Expire in </text>
+                        <div  class="overflow-center-time">
+                            <div class="center-time" v-if="asecond!=''">
+                                <text class="center-time-hh">{{ahour}}</text>
+                                <text style="font-size: 20px;">:</text>
+                                <text class="center-time-hh">{{amin}}</text>
+                                <text style="font-size: 20px;">:</text>
+                                <text class="center-time-hh">{{asecond}}</text>
+                            </div> <!-- 正常显示的 -->
+
+                            <div class="center-time" v-if="asecond==''">
+                                <text class="center-time-hh-empty"></text>
+
+                                <text style="font-size: 24px; padding-top: 10px;">:</text>
+                                <text class="center-time-hh-empty"></text>
+                                <text style="font-size: 24px; padding-top: 10px;">:</text>
+                                <text class="center-time-hh-empty"></text>
+                            </div>  <!-- 做空白处理的 -->
+                        </div>
+                    </div>
+                </div>
+                <image src="bmlocal://assets/home/voucher-part.png" style="width: 398px;height: 28px;"></image>
+                <div class="m-bottom">
+                    <div class="overflow-mg">
+                        <div style="border-radius: 32px;">
+                            <image src="bmlocal://assets/home/maskBtn.png" style="width: 238px;height: 56px;"></image>
+                        </div>
+                    </div>
+
+                    <text class="mb-word">Go Shopping Now</text>
+                </div>
+            </div>
+        </WxcMask>
     </div>
 </template>
 <script>
-    import { Utils } from 'weex-ui';
+    import { Utils,WxcMask } from 'weex-ui';
     import refresher from '../common/refresh';
     import preload from '../common/preloadImg';
     import block3 from './block3';
@@ -78,6 +138,7 @@
     export default {
         components: {
             'refresher': refresher,
+            WxcMask,
             preload,
             notice,
             block7,
@@ -87,6 +148,27 @@
         created () {
             this.getCartNum();
             this.getNotification();
+            this.$event.on('first', parmas => {
+                this.$storage.get('user').then((res) => {
+                    if(res) {
+                        this.user = res;
+                        this.$storage.get('firstLogin').then((data) => {
+                            if(data) {
+                                this.firstLogin = data
+                                this.openNewCo()
+                                this.user.firstLogin = false
+                                this.$storage.set('user', this.user)
+                            }
+                        });
+                    }
+                })
+            })
+            this.user = this.$storage.getSync('user');
+            if(this.user!=''){
+                if(!this.user.firstLogin){
+                    this.firstLogin = false;
+                }
+            }
         },
         eros: {
             appeared (params, options) {
@@ -114,6 +196,15 @@
                 isLoading: false,
                 isPlatformAndroid: Utils.env.isAndroid(),
                 arrangement: false,
+                newShow: false,
+                firstLogin: true,
+                newGift: true,
+                aday: '',
+                ahour: '',
+                amin: '',
+                asecond: '',
+                newUserBonus:'',
+                user: '',
                 goodsSave: [],
                 sort: [{
                     value: false,
@@ -304,6 +395,32 @@
                     // })
                 }, error => {})
             },
+            redirectLogin () {
+                this.$event.on('login', params => {
+                    this.user = this.$storage.getSync('user')
+                });
+                this.$router.open({
+                    name: 'login',
+                    type: 'PUSH'
+                })
+            },
+            openNewCo () {
+                if (this.user==''){
+                    this.redirectLogin()
+                }else {
+                    this.newGift = false
+                    this.$storage.get('firstBonus').then((data) => {
+                        if(data) {
+                            this.newUserBonus = data;
+                            this.$storage.delete('firstBonus');
+                        }
+                    });
+
+                    let TIME = new Date().getTime() + 86400000*3
+                    this.countDate(TIME)
+                    this.newShow = true;
+                }
+            },
             homeBack () {
                 this.$router.back();
             },
@@ -347,6 +464,42 @@
                 }
                 this.$notice.loading.show();
                 this.getActivityProduct(true, false, this.selId);
+            },
+            countDate (time) {
+                const self = this
+                // if (this.purchaseMethod == 'flash') {
+                setInterval(() => {
+                    this.NOW_DATE = new Date().getTime();
+
+                    const total = (new Date(time).getTime() - this.NOW_DATE) / 1000
+
+                    const day = Math.floor(total / (24 * 60 * 60))// 整天
+
+                    self.aday = day
+                    const afterDay = total - day * 24 * 60 * 60;
+                    self.ahour = Math.floor(afterDay / (60 * 60)); // 小时
+                    const afterHour = total - day * 24 * 60 * 60 - self.ahour * 60 * 60;
+                    self.amin = Math.floor(afterHour / 60); // 分钟
+                    if (self.amin < 10) {
+                        self.amin = '0' + self.amin
+                    }
+
+                    const afterMin = total - day * 24 * 60 * 60 - self.ahour * 60 * 60 - self.amin * 60;
+                    self.asecond = Math.floor(afterMin)// 秒
+                    if (self.asecond < 10) {
+                        self.asecond = '0' + self.asecond
+                    }
+                    // 加上减掉的天数
+                    self.ahour += (self.aday * 24)
+
+                    if (self.ahour < 10) {
+                        self.ahour = '0' + self.ahour
+                    }
+                    // this.$notice.toast({
+                    //     message: self.aday + '天' + self.ahour + ':' + self.amin + ':' + self.asecond
+                    // })
+                }, 1000);
+                // }
             }
         }
     }
@@ -680,6 +833,150 @@
         align-items: center;
         color: white;
         border-radius: 50%;
+    }
+    .new-co{
+        position: fixed;
+        bottom: 10px;
+        right: 0;
+        height: 150px;
+    }
+    .new-co-img{
+        width: 160px;
+        height: 110px;
+        position: relative;
+        top:30px;
+        left: 0;
+    }
+    .new-co-w{
+        font-size: 20px;
+        color: #4B2E04;
+        margin-left: 28px;
+    }
+
+
+
+
+
+    .new-co{
+        position: fixed;
+        bottom: 140px;
+        right: 0;
+        height: 150px;
+    }
+    .new-co-img{
+        width: 160px;
+        height: 110px;
+        position: relative;
+        top:30px;
+        left: 0;
+    }
+    .new-co-w{
+        font-size: 20px;
+        color: #4B2E04;
+        margin-left: 28px;
+    }
+    .m-ic{
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        font-size: 50px;
+        color: white;
+        font-weight: 700;
+    }
+    .m-c{
+        position: absolute;
+        top: 65px;
+        left: 145px;
+        font-size: 64px;
+        color: #FFFFFF;
+        font-weight: 700;
+    }
+    .mid-content{
+        background-color: white;
+    }
+    .m-c-w{
+        margin: 24px 34px;
+        font-size: 24px;
+        color: #000000;
+        text-align: center;
+        line-height: 34px;
+    }
+    .m-c-time{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .m-c-word{
+        font-size: 24px;
+        color: #000000;
+        font-weight: 700;
+    }
+    .m-top{
+        border-top-right-radius: 32px;
+        border-top-left-radius: 32px
+    }
+    .m-bottom{
+        background-color: white;
+        padding-bottom:32px ;
+        padding-top: 20px;
+        border-bottom-right-radius: 32px;
+        border-bottom-left-radius: 32px
+    }
+    .overflow-mg{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .mb-word{
+        position: absolute;
+        top: 32px;
+        left: 100px;
+        font-size: 24px;
+        color: #FFFFFF;
+        font-weight: 700;
+    }
+
+    .overflow-center-time{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0px 0 8px 0 ;
+    }
+    .center-time-word{
+        color: black;
+        font-size: 24px;
+    }
+    .center-time{
+        color: #FFFFFF;
+        flex-direction: row;
+        justify-content: start;
+        margin-right: 32px;
+    }
+    .center-time-hh{
+        background-color: black;
+        color: white;
+        border-radius: 6px;
+        padding: 2px;
+        margin: 8px 2px 2px 2px;
+        font-size: 24px;
+    }
+    .center-time-hh-empty{
+        background-color: black;
+        color: white;
+        border-radius: 6px;
+        margin: 8px 2px 2px 2px;
+        width: 32px;
+        height: 32px;
+    }
+    .center-time-space{
+        width: 750px;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        color: black;
+        font-size: 24px;
+        margin-top: 4px;
+        margin-bottom: 4px;
     }
 
 </style>

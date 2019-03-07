@@ -15,6 +15,55 @@
                 <notice  :items="noticeList" v-if="noticeList.length > 0"></notice>
             </header>
 
+            <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode.toLocaleUpperCase() == 'GATICN'">
+                <div  class="overflow-box b-top-r1 b-bottom-r">
+                    <div class="overflow-box1" >
+                        <div>
+                            <div class="cod-d">
+
+                                <text class="cod-text">Cash/Card on Delivery</text>
+                            </div>
+                            <div class="overflow-cod">
+                                <image class="item-image-2"  :src="codSrc"></image>
+                                <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
+                            </div>
+
+
+                            <div v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">
+                                <text class="item-text-err" v-if="codMsg1!=''" >{{codMsg1}}</text>
+                                <text class="item-text-err" v-else >{{codMsg}}</text>
+
+                            </div>
+                        </div>
+
+                        <div v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">
+                            <text class="iconfont item-checked" v-if="method == 'cod'">&#xe6fb;</text>
+                            <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
+                        </div>
+                        <text class="iconfont item-checked-disable" v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">&#xe73f;</text>
+                    </div>
+                </div>
+            </cell>
+
+            <cell  class="cell-bottom" v-if="order.carrierCode.toLocaleUpperCase() != 'GATICN'">
+                <div  class="overflow-box b-top-r b-bottom-r">
+                    <div class="overflow-box1" >
+                        <div>
+                            <div class="cod-d">
+                                <text class="cod-text">Cash / Card on Delivery </text>
+                            </div>
+
+                            <div class="overflow-cod">
+                                <image class="item-image-2"  :src="codSrc"></image>
+                                <text class="item-text-err">This item is not available for COD delivery. </text>
+                            </div>
+
+                        </div>
+                        <text class="iconfont item-checked-disable">&#xe73f;</text>
+                    </div>
+                </div>
+            </cell>
+
             <cell class="cell-bottom"  @click="chooseMethod('razorpay1')">
                 <div  class="overflow-box b-top-r">
                     <div class="overflow-box1" >
@@ -97,53 +146,7 @@
             </cell>
 
 
-            <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode.toLocaleUpperCase() == 'GATICN'">
-                <div  class="overflow-box b-top-r1 b-bottom-r">
-                    <div class="overflow-box1" >
-                        <div>
-                            <div class="cod-d">
 
-                                <text class="cod-text">Cash/Card on Delivery</text>
-                            </div>
-                            <div class="overflow-cod">
-                                <image class="item-image-2"  :src="codSrc"></image>
-                                <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
-                            </div>
-
-
-                            <div v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">
-                                <text class="item-text-err" v-if="codMsg1!=''" >{{codMsg1}}</text>
-                                <text class="item-text-err" v-else >{{codMsg}}</text>
-
-                            </div>
-                        </div>
-                        <div v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">
-                            <text class="iconfont item-checked" v-if="method == 'cod'">&#xe6fb;</text>
-                            <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
-                        </div>
-                        <text class="iconfont item-checked-disable" v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">&#xe73f;</text>
-                    </div>
-                </div>
-            </cell>
-
-            <cell  class="cell-bottom" v-if="order.carrierCode.toLocaleUpperCase() != 'GATICN'">
-                <div  class="overflow-box b-top-r1 b-bottom-r">
-                    <div class="overflow-box1" >
-                        <div>
-                            <div class="cod-d">
-                                <text class="cod-text">Cash / Card on Delivery </text>
-                            </div>
-
-                            <div class="overflow-cod">
-                                <image class="item-image-2"  :src="codSrc"></image>
-                                <text class="item-text-err">This item is not available for COD delivery. </text>
-                            </div>
-
-                        </div>
-                        <text class="iconfont item-checked-disable">&#xe73f;</text>
-                    </div>
-                </div>
-            </cell>
 
             <!--<cell>-->
                 <!--<text class="title-2">Order#:{{order.number}}</text>-->
@@ -253,6 +256,7 @@ export default {
         this.$event.on('closePayment', params => {
             this.$router.finish();
         });
+        this.method = (!this.order.cod.exist ||this.CODStatus==3||this.CODStatus==4)?'paytm':'cod'
         // this.$notice.alert({
         //     message: this.codMsg1
         // })
@@ -260,7 +264,7 @@ export default {
     data () {
         return {
             title: 'Payment',
-            method: 'paytm',
+            method: '',
             paytmSrc: 'bmlocal://assets/paytm.png',
             razorpaySrc: 'bmlocal://assets/razorpay.png',
             payUSrc: 'bmlocal://assets/payu.png',

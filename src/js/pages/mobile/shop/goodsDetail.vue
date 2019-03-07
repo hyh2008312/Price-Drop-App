@@ -308,12 +308,12 @@
         </div>
 
         <wxc-popup :have-overlay="isTrue"
-                   popup-color="rgb(255, 255, 255)"
+                   popup-color="rgba(255, 255, 255, 0)"
                    :show="isBottomShow"
                    @wxcPopupOverlayClicked="popupCloseClick"
                    pos="bottom"
                    ref="wxcPopup"
-                   height="870">
+                   height="718">
             <div class="popup-content">
                 <div class="popup-top">
                     <image :src="selimgsrc"
@@ -360,6 +360,8 @@
                                           <!--:class="[i.isActive ?'popup-color-chdname-active':'',i.seldisable ?'popup-color-chdname-disable':'']"-->
                                           <!--@click="clickColor(i, val.value)">{{i.value}}</text>-->
                                 <!--</div>-->
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
                     </div>
                 </scroller>

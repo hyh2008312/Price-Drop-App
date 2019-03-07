@@ -335,7 +335,7 @@
                 this.$notice.loading.show();
                 this.$fetch({
                     method: 'GET',
-                    name: 'drop.hot.push.optimise',
+                    name: 'product.hotpush.app.list',
                 }).then((res) => {
                     this.someGoodsList = [...res]
                     this.$notice.loading.hide();
@@ -512,7 +512,7 @@
                     name: 'drop.detail',
                     type: 'PUSH',
                     params: {
-                        id: i.id
+                        id: i.productId
                     }
                 })
             },
@@ -540,16 +540,25 @@
                 })
             },
             openPopup (goods) {
+
                 if (this.user == '') {
                     this.redirectLogin()
                 } else {
+
                     this.selcolor = '';
                     this.selsize = '';
                     this.variantsId = '';
                     this.singleGoods = goods
+
                     this.selsaleUnitPrice = goods.saleUnitPrice
+
                     this.goodsVariants = [...this.singleGoods.variants];
+
+
+
                     if (this.singleGoods.attributes != null && this.singleGoods.attributes.length > 0) {
+
+
                         if (this.goodsVariants.length == 1) {
                             this.hasVariants = false;
                             this.nextPage.attributes = '';
@@ -557,12 +566,15 @@
                             this.canBuy = this.singleGoods.variants[0].isCanBuy;
                             this.variantsId = this.singleGoods.variants[0].id;
                             this.confirm()
+
                         } else {
                             this.goodsType = this.singleGoods.attributes;
                             this.operateData(this.singleGoods.attributes);
+
                             this.isBottomShow = true
                         }
                     } else {
+
                         this.hasVariants = false;
                         this.nextPage.attributes = '';
                         this.goodsType = [];

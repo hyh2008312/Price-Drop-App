@@ -63,17 +63,17 @@
     .i-good {
         padding-left: 8px;
         padding-right: 8px;
-        width: 319px;
+        width: 326px;
         align-items: center;
     }
     .gd-img {
-        width: 319px;
-        height: 319px;
-        border-radius: 16px;
+        width: 326px;
+        height: 326px;
+        border-radius: 8px;
     }
     .gd-img-image {
-        width: 319px;
-        height: 319px;
+        width: 326px;
+        height: 326px;
         border-radius: 8px;
         /*overflow: hidden;*/
         /*position: relative;*/

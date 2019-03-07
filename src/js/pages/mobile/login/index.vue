@@ -86,7 +86,6 @@
                         idToken: id_token
                     }
                 }).then(data => {
-                    that.loadingEnd();
                     that.$storage.deleteSync('user');
                     that.$storage.deleteSync('token');
                     that.$storage.setSync('user', data.user);
@@ -94,7 +93,28 @@
                     bmPush.bindAlias(data.user.id, function (params) {
                     });
                     googleAnalytics.recordEvent('login', 'google', data.user, 0);
-                     that.$router.back({
+                    //that.requestFirstLogin()
+                    that.loadingEnd();
+                    that.requestFirstLogin();
+                }, error => {
+                    that.loadingEnd();
+                    that.$notice.toast('It seems that your internet is not stable. Please try again!');
+                })
+            },
+            requestFirstLogin () {
+                let that = this
+                that.$fetch({
+                    method: 'POST',
+                    name: 'user.app.first.google_login',
+                    header: {
+                        needAuth: true
+                    }
+                }).then(data => {
+                    that.loadingEnd();
+                    that.$storage.setSync('firstLogin', data.firstLogin);
+                    that.$storage.setSync('firstBonus', data.NewUserBonus);
+                    that.$event.emit('first')
+                    that.$router.back({
                         length: 1,
                         type: 'PUSH',
                         callback () {
@@ -102,9 +122,12 @@
                             that.$event.emit('login')
                         }
                     });
+
                 }, error => {
+                    that.$notice.toast({
+                        message: error
+                    });
                     that.loadingEnd();
-                    that.$notice.toast('It seems that your internet is not stable. Please try again!');
                 })
             }
         }

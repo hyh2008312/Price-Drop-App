@@ -1,8 +1,11 @@
 // 选择变体
 .popup-content{
-  height: 870px;
+  height: 718px;
   width: 750px;
   flex-direction: column;
+  background-color: white;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
 }
 .popup-image {
   width: 200px;

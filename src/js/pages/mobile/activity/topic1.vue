@@ -8,14 +8,14 @@
         <waterfall :style="{ backgroundColor: bgColor}" class="main-list" column-count="3" column-gap="0" loadmoreoffset="30"
                    @loadmore="onLoadingMore">
             <refresher ref="refresh" v-if="false" @loadingDown="loadingDown"></refresher>
-            <header>
-                <div class="banner">
+            <header >
+                <div class="banner" >
                     <image class="banner-image" :src="imageUrl" resize="cover"></image>
                     <div class="banner-mask" v-if="false"></div>
                     <text class="banner-text" v-if="false">{{name}}</text>
                 </div>
             </header>
-            <cell class="gd-bg-bottom" v-for="(i ,index) in goodsTop">
+            <cell class="gd-bg-bottom1"  v-for="(i ,index) in goodsTop">
                 <div class="i-good margin-left32" v-if="index % 3 == 0" @click="jumpItem(i.productId)">
                     <div class="item-bg">
                         <preload class="gd-img" :src="i.mainImage"></preload>
@@ -395,12 +395,22 @@
         overflow: hidden;
     }
 
+    .gd-bg-bottom1 {
+        width: 250px;
+        flex-direction: row;
+        align-items: start;
+        justify-content: space-between;
+        padding-bottom: 24px;
+        padding-top: 32px;
+
+    }
     .gd-bg-bottom {
         width: 250px;
         flex-direction: row;
         align-items: start;
         justify-content: space-between;
         padding-bottom: 24px;
+
     }
 
     .gd-tlt {

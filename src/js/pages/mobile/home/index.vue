@@ -48,9 +48,9 @@
                     <image src="bmlocal://assets/home/mask-head.png" style="width:397px;height:162px; "></image>
                 </div>
                 <text class="iconfont m-ic">&#xe632;</text>
-                <text class="m-c">₹20</text>
+                <text class="m-c">₹{{newUserBonus}}</text>
                 <div class="mid-content">
-                    <text class="m-c-w">You just got ₹20 cash bonus for shopping now.</text>
+                    <text class="m-c-w">You just got ₹{{newUserBonus}} cash bonus for shopping now.</text>
                     <div class="m-c-time">
                         <text class="m-c-word">Expire in </text>
                         <div  class="overflow-center-time">
@@ -110,6 +110,7 @@ export default {
         const pageHeight = Utils.env.getScreenHeight();
         this.height = { height: (pageHeight - 112 - 112 - 48) + 'px' };
         this.initGoogleAnalytics();
+
         this.$event.on('getRead', param => {
             this.unread = param.unread
         });
@@ -119,6 +120,7 @@ export default {
         this.$event.on('cartNum', params => {
             this.getUnread();
         });
+
         this.getUnread();
     },
     data () {
@@ -137,11 +139,11 @@ export default {
             bgColor: '#EF8A31',
             cartNum: '',
             newShow: false,
+            newUserBonus: '',
             aday: '',
             ahour: '',
             amin: '',
             asecond: '',
-            TIME: new Date().getTime() + 86400000
         }
     },
     computed: {
@@ -287,8 +289,15 @@ export default {
             });
         },
         openMask () {
+            this.$storage.get('firstBonus').then((data) => {
+                if(data) {
+                    this.newUserBonus = data;
+                    this.$storage.delete('firstBonus');
+                }
+            });
+            let TIME = new Date().getTime() + 86400000*3
+            this.countDate(TIME)
             this.newShow = true;
-            this.countDate(this.TIME)
         },
         wxcMaskSetShareHidden () {
             this.newShow = false;

@@ -43,6 +43,7 @@ export const apis = {
     'drops.detail.recommend': '/drops/detail/recommend/', // 商品推荐
     'drop.delete': '/drops/delete/', // 删除砍价
     'point.rewards.detail': '/point/rewards/detail/', // 砍价红包详情
+    'product.hotpush.app.list': '/product/hotpush/app/list/', // drops 推荐商品列表
     'payment.razorpay.check': '/payment/razorpay/check/',
     'payment.cart.razorpay.check': '/payment/cart/razorpay/check/',
     'payment.cart.razorpay.create': '/payment/cart/razorpay/create/',
@@ -99,5 +100,6 @@ export const apis = {
     'comment.comment.update': '/comment/comment/update/',
     'point.bonus.record.list': '/point/bonus/record/list/',
     // 'wallet.record.list': '/wallet/record/list/',
-    'point.bonus.wallet.record.list': '/point/bonus/wallet/record/list/'
+    'point.bonus.wallet.record.list': '/point/bonus/wallet/record/list/',
+    'user.app.first.google_login': '/user/app/first/google_login/'
 }
