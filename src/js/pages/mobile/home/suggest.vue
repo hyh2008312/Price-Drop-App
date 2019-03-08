@@ -117,9 +117,13 @@ export default {
     created () {
         this.init();
         this.$event.on('first', parmas => {
+
             this.$storage.get('user').then((res) => {
                 if(res) {
                     this.user = res;
+                    if(this.user.firstLogin.toString()=='false'){
+                        this.newGift = false
+                    }
                     this.$storage.get('firstLogin').then((data) => {
                         if(data) {
                             this.firstLogin = data

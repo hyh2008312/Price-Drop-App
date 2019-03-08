@@ -15,7 +15,7 @@
             </header>
 
             <cell  class="cell-bottom" @click="chooseMethod('cod')">
-                <div  class="overflow-box b-top-r b-bottom-r">
+                <div  class="overflow-box  b-top-r b-bottom-r1">
                     <div class="overflow-box2" >
                         <div>
                             <div class="cod-d">
@@ -23,7 +23,7 @@
                             </div>
                             <div  class="overflow-cod">
                                 <image class="item-image-2"  :src="codSrc"></image>
-                                <!--<text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>-->
+                                <text class="item-text" >Cash / Debit Card / Credit Card at your doorstep</text>
                                 <!--<text class="item-text" v-else>Cash / Debit Card / Credit Card at your doorstep</text>-->
                             </div>
 
@@ -632,6 +632,11 @@ export default {
     }
     .b-bottom-r{
         margin-bottom: 28px;
+        border-bottom-right-radius: 16px;
+        border-bottom-left-radius: 16px;
+    }
+    .b-bottom-r1{
+        /*margin-bottom: 28px;*/
         border-bottom-right-radius: 16px;
         border-bottom-left-radius: 16px;
     }

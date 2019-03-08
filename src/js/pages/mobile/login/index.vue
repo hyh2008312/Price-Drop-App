@@ -3,9 +3,9 @@
         <div class="state"></div>
         <text class="close" @click="loginBack">&#xe632;</text>
         <div class="container-1">
-            <image class="price-drop" src="bmlocal://assets/price-drop-logo.png"></image>
+            <image class="price-drop" src="bmlocal://assets/login-new.png"></image>
             <text class="price-drop-text">PriceDrop </text>
-            <text class="price-drop-tip">A fun, social and money-saving way for online shopping.</text>
+            <text class="price-drop-tip">Join Now to Claim Rs.45 New User Bonus!</text>
             <div class="google-login" @click="startGoogleLogin">
                <text class="google-login-icon">&#xe71f;</text>
                <text class="google-login-text">Continue with Google</text>
@@ -149,18 +149,17 @@
     .google-login {
         width: 600px;
         height: 80px;
-        margin-top: 190px;
+        margin-top: 72px;
         background-color: #DF4A32;
-        border-radius: 8px;
+        border-radius: 50%;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
     }
     .price-drop-tip {
-        font-size: 24px;
-        font-weight: 400;
-        color: #000000;
+        font-size: 32px;
+        color: #E58636;
         margin-top: 32px;
     }
 
@@ -172,11 +171,11 @@
         font-weight: bold;
     }
     .price-drop{
-        width: 160px;
-        height: 160px;
+        width: 750px;
+        height: 520px;
     }
     .container-1{
-        margin-top: 140px;
+        /*margin-top: 140px;*/
         display: flex;
         flex-direction: column;
         justify-content: flex-start;

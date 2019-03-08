@@ -16,7 +16,7 @@
             </header>
 
             <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode.toLocaleUpperCase() == 'GATICN'">
-                <div  class="overflow-box b-top-r1 b-bottom-r">
+                <div  class="overflow-box b-top-r b-bottom-r1">
                     <div class="overflow-box1" >
                         <div>
                             <div class="cod-d">
@@ -25,7 +25,7 @@
                             </div>
                             <div class="overflow-cod">
                                 <image class="item-image-2"  :src="codSrc"></image>
-                                <text class="item-text" v-if="order.cod.exist && (CODStatus==1||CODStatus==2)">Cash / Debit Card / Credit Card at your doorstep</text>
+                                <text class="item-text" >Cash / Debit Card / Credit Card at your doorstep</text>
                             </div>
 
 
@@ -226,6 +226,7 @@ import { Utils, WxcPopup } from 'weex-ui';
 import notice from '../common/notification';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 const common = weex.requireModule('CommonUtils');
+import { baseUrl } from '../../../config/apis';
 const tool = weex.requireModule('bmTool')
 
 export default {
@@ -237,6 +238,7 @@ export default {
             this.order = params.data;
             this.codMsg = params.data.cod.notes;
             this.prePhone = params.data.phoneNumber;
+            // this.checkCODBindNumStatus();
             this.checkCODStatus();
             // this.$notice.alert({
             //     message: params.data.codUsable
@@ -256,7 +258,7 @@ export default {
         this.$event.on('closePayment', params => {
             this.$router.finish();
         });
-        this.method = (!this.order.cod.exist ||this.CODStatus==3||this.CODStatus==4)?'paytm':'cod'
+
         // this.$notice.alert({
         //     message: this.codMsg1
         // })
@@ -296,7 +298,7 @@ export default {
             successS: false,
             user: '',
             selItem4: true,
-            CODStatus: false,
+            CODStatus: 2,
             codMsg1: false,
             codMsg: false,
             isCanPay: true
@@ -327,7 +329,25 @@ export default {
         checkItem () {
             this.selItem4 = !this.selItem4
         },
-        checkCODStatus () {
+        checkCODStatus(){
+            this.$notice.loading.show();
+            this.$fetch({
+                method: 'GET', // 大写
+                url: `${baseUrl}/order/pay/cod/check/${this.order.id}/`,
+            }).then((res) => {
+                this.codMsg = res.cod.notes
+                this.order.cod = res.cod
+
+                this.method = !this.order.cod.exist?'paytm':'cod'
+                this.$notice.loading.hide();
+            }).catch((res) => {
+                this.$notice.alert({
+                    message: res
+                })
+                this.$notice.loading.hide();
+            })
+        },
+        checkCODBindNumStatus () {
             this.$notice.loading.show();
             this.$fetch({
                 method: 'POST', // 大写
@@ -653,6 +673,11 @@ export default {
     }
     .b-bottom-r{
         margin-bottom: 28px;
+        border-bottom-right-radius: 16px;
+        border-bottom-left-radius: 16px;
+    }
+    .b-bottom-r1{
+        /*margin-bottom: 14px;*/
         border-bottom-right-radius: 16px;
         border-bottom-left-radius: 16px;
     }
