@@ -26,12 +26,8 @@
         <div class="wrapper" v-if="order.orderStatus == 'Audit canceled'">
             <text class="od-text-2">Order cancellation pending</text>
         </div>
-        <div class="wrapper" v-if="order.orderStatus == 'Shipped' && order.carrierCode.toUpperCase() != 'GATICN'">
+        <div class="wrapper" v-if="order.orderStatus == 'Shipped'">
             <text class="od-button-1" @click="tracking">Track Package</text>
-            <text class="od-button" @click="receipt">Package Arrival Confirm</text>
-        </div>
-        <div class="wrapper" v-if="order.orderStatus == 'Shipped' && order.carrierCode.toUpperCase() == 'GATICN'">
-            <text class="od-button" @click="tracking">Track Package</text>
         </div>
         <div class="wrapper" v-if="order.orderStatus == 'Completed'">
             <text class="od-button-1" @click="deleteOrder">Delete</text>

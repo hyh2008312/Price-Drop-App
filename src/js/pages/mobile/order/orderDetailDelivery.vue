@@ -3,8 +3,8 @@
         <div class="gb-box-1">
             <text class="gb-title">Delivery</text>
             <div class="gb-center">
-                <text class="gb-text" v-if="order.orderStatus != 'Canceled'">Estimated Arrival</text>
-                <text class="gb-text gb-text-color" v-if="order.orderStatus != 'Canceled'">{{formatMinDate(order,  'MMM DD, YYYY')}} - {{formatMaxDate(order,  'MMM DD, YYYY')}}</text>
+                <text class="gb-text">Estimated Arrival</text>
+                <text class="gb-text gb-text-color">{{formatMinDate(order,  'MMM DD, YYYY')}} - {{formatMaxDate(order,  'MMM DD, YYYY')}}</text>
             </div>
             <div class="gb-center">
                 <text class="gb-text">Order Preparing Before Shipping</text>
@@ -25,26 +25,10 @@
         props: ['order'],
         methods: {
             formatMinDate (order, hmr) {
-                if (order.orderStatus != 'Canceled' && order.orderStatus != 'Unpaid') {
-                    if (order.paidTime) {
-                        return dayjs(new Date(order.paidTime).getTime() + (order.shippingTimeMin + 7) * 24 * 60 * 60 * 1000).format(hmr);
-                    } else {
-                        return dayjs(new Date(order.created).getTime() + (order.shippingTimeMin + 8) * 24 * 60 * 60 * 1000).format(hmr);
-                    }
-                } else {
-                    return dayjs(new Date().getTime() + (order.shippingTimeMin + 7) * 24 * 60 * 60 * 1000).format(hmr);
-                }
+                return dayjs(new Date().getTime() + (order.shippingTimeMax + order.processingTimeMin + 1) * 24 * 60 * 60 * 1000).format(hmr);
             },
             formatMaxDate (order, hmr) {
-                if (order.orderStatus != 'Canceled' && order.orderStatus != 'Unpaid') {
-                    if (order.paidTime) {
-                        return dayjs(new Date(order.paidTime).getTime() + (order.shippingTimeMax + 7) * 24 * 60 * 60 * 1000).format(hmr);
-                    } else {
-                        return dayjs(new Date(order.created).getTime() + (order.shippingTimeMax + 8) * 24 * 60 * 60 * 1000).format(hmr);
-                    }
-                } else {
-                    return dayjs(new Date().getTime() + (order.shippingTimeMax + 7) * 24 * 60 * 60 * 1000).format(hmr);
-                }
+                return dayjs(new Date().getTime() + (order.shippingTimeMax + order.processingTimeMax + 1) * 24 * 60 * 60 * 1000).format(hmr);
             }
         }
     }

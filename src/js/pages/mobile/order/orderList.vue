@@ -128,12 +128,12 @@
         },
         props: ['index', 'activeIndex', 'item'],
         created () {
-            this.resetPayList()
+            this.resetPayList();
             if (this.index == 0 && this.activeIndex == 0) {
-                this.init()
+                this.init();
             }
             this.$event.on('login', params => {
-                this.init()
+                this.init();
             });
             this.$event.on('balanceUsed', params => {
                 this.init();
@@ -152,7 +152,7 @@
             backAppeared (params) {
                 if (params && params.status == 'delete') {
                     if (this.index == this.activeIndex) {
-                        this.init()
+                        this.init();
                     }
                 }
             }
@@ -164,7 +164,7 @@
                         if (!this.isFirstLoad) {
                             this.isFirstLoad = true
                             googleAnalytics.trackingScreen(`${this.item.name}`);
-                            this.init()
+                            this.init();
                         }
                     }
                 },
@@ -227,8 +227,8 @@
                 }
             },
             loadingDown () {
-                this.$refs.refresh.refreshEnd()
-                this.isLoading = false
+                this.$refs.refresh.refreshEnd();
+                this.isLoading = false;
                 this.init();
             },
             init () {
