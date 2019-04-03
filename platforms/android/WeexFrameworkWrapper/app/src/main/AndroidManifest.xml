@@ -174,7 +174,7 @@
         <!--支付相关-->
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_S1L7BaoXwjfcux"
+            android:value="rzp_live_dHSGsC4x92fxAQ"
             />
         <!--google play -->
             <!-- Used for Google Play Store Campaign Measurement-->
