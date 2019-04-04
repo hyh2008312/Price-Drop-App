@@ -71,6 +71,7 @@
                         <text class="s-i-t1" >Details</text>
                     </div>
                     <div class="ship-label">
+                        <text class="s-i-space"></text>
                         <text class="s-i-icon" v-if="shippingPrice == 0">Free Shipping</text>
                         <text class="s-i-icon-imp">Imported</text>
                     </div>
@@ -2321,6 +2322,9 @@
         font-size: 24px;
         color: #1D7CD4;
     }
+    .s-i-space{
+        width: 62px;
+    }
     .s-i-icon{
         border-width: 1px;
         border-style: solid ;
@@ -2329,9 +2333,9 @@
         border-radius: 8px;
         padding: 4px 16px;
         color: #00A9BA;
-        margin-left: 62px;
         margin-top: 16px;
         margin-bottom: 32px;
+        margin-right: 12px;
     }
     .s-i-icon-imp{
         border-width: 1px;
@@ -2341,7 +2345,6 @@
         border-radius: 8px;
         padding: 4px 16px;
         color: #00A9BA;
-        margin-left: 12px;
         margin-top: 16px;
         margin-bottom: 32px;
     }
