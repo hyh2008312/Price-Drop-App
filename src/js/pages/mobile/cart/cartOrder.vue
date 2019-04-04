@@ -205,17 +205,11 @@
                     }
                 }).then(resData => {
                     this.$notice.loading.hide();
-                    // this.$notice.alert({
-                    //     message: resData
-                    // })
-                    //
-                    // return
 
                     googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'PlaceOrder', 0);
                     googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'PlaceOrder', '', 'Rs', this.allPrice);
                     const order = resData;
-                    order.paymentAmount = resData.paymentPrice;
-                    // that.$router.finish();
+                    order.paymentAmount = resData.paymentPrice - resData.voucherShare;
                     this.$router.open({
                         name: 'cart.order.payment',
                         type: 'PUSH',
