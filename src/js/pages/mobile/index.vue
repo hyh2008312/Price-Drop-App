@@ -20,7 +20,6 @@
 import util from './utils/util';
 import tabBar from './common/tabBar';
 import { tabConfig } from './config';
-import { cliendId } from '../../config/apis';
 import NewDialog from './home/newPopup';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
 

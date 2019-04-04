@@ -9,7 +9,7 @@ export const tabConfig = [{
     name: 'Categories',
     key: 'categories',
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/category/index.js`,
-    visibility: 'hidden',
+    visibility: 'hidden'
     // redPoint: true,
 }, {
     icon: '&#xe6f8;',
@@ -17,13 +17,13 @@ export const tabConfig = [{
     key: 'drops',
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/drops/index.js`,
     visibility: 'hidden',
-    redPoint: true,
+    redPoint: true
 }, {
     icon: '&#xe733;',
     name: 'Rewards',
     key: 'rewards',
     src: `${weex.config.eros.jsServer}/dist/js/pages/mobile/perks/index.js`,
-    visibility: 'hidden',
+    visibility: 'hidden'
     // redPoint: true
 }, {
     icon: '&#xe701;',

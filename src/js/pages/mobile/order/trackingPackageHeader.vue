@@ -14,13 +14,23 @@
                 </div>
                 <div class="gb-box-bg gb-mt" v-if="order.carrierCode == 'GATI'">
                     <text class="gb-text">Carrier's Contact Number: </text>
-                    <text class="gb-text-color" @click="setNumber">1860 123 4284</text>
-                    <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
+                    <text class="gb-text-color" @click="setGATINumber">1860 123 4284</text>
+                    <text class="gb-icon iconfont" @click="setGATINumber">&#xe708;</text>
                 </div>
                 <div class="gb-box-bg gb-mt" v-if="order.carrierCode == 'GATI'">
                     <text class="gb-text">Carrier's Support Email: </text>
-                    <text class="gb-text-color" @click="setNumber">ccc_intl@gati.com</text>
-                    <text class="gb-icon iconfont" @click="setNumber">&#xe708;</text>
+                    <text class="gb-text-color" @click="setGATIEmail">ccc_intl@gati.com</text>
+                    <text class="gb-icon iconfont" @click="setGATIEmail">&#xe708;</text>
+                </div>
+                <div class="gb-box-bg gb-mt" v-if="order.carrierCode == 'Delhivery'">
+                    <text class="gb-text">Carrier's Contact Number: </text>
+                    <text class="gb-text-color" @click="setGATINumber">1246719500</text>
+                    <text class="gb-icon iconfont" @click="setGATINumber">&#xe708;</text>
+                </div>
+                <div class="gb-box-bg gb-mt" v-if="order.carrierCode == 'Delhivery'">
+                    <text class="gb-text">Email: </text>
+                    <text class="gb-text-color" @click="setGATIEmail">customer.support@delhivery.com</text>
+                    <text class="gb-icon iconfont" @click="setGATIEmail">&#xe708;</text>
                 </div>
                 <div class="gb-box-bg gb-mt" v-if="!order.trackingNumber || !order.shippedTime">
                     <text class="gb-text">Tracking Number: </text>
@@ -44,6 +54,22 @@
         methods: {
             setNumber () {
                 clipboard.setString(this.order.trackingNumber)
+                this.$notice.toast('Successfully Copied')
+            },
+            setGATINumber () {
+                clipboard.setString(18601234284);
+                this.$notice.toast('Successfully Copied')
+            },
+            setGATIEmail () {
+                clipboard.setString('ccc_intl@gati.com');
+                this.$notice.toast('Successfully Copied')
+            },
+            setDelhiveryNumber () {
+                clipboard.setString(1246719500);
+                this.$notice.toast('Successfully Copied')
+            },
+            setDelhiveryEmail () {
+                clipboard.setString('customer.support@delhivery.com');
                 this.$notice.toast('Successfully Copied')
             }
         }

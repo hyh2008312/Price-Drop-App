@@ -1,31 +1,19 @@
 <template>
     <div class="wrapper">
-        <div class="gb-box" v-if="address">
-            <div class="gb-box-left">
-
-            </div>
-            <div class="gb-box-line"></div>
-            <div class="gb-box-center">
-                <text class="iconfont gb-box-icon">&#xe716;</text>
-            </div>
-            <div class="gb-box-right">
-                <text class="gb-text">{{address}}</text>
-            </div>
-        </div>
         <div class="gb-box" v-if="order">
             <div class="gb-box-left">
-                <text class="gb-text-2">{{getYear(order.Date)}}</text>
-                <text class="gb-text-2">{{getMonth(order.Date)}}</text>
-                <text class="gb-text-3">{{getHour(order.Date)}}</text>
+                <text class="gb-text-2">{{getNewYear(order.actiondate)}}</text>
+                <text class="gb-text-2">{{getNewMonth(order.actiondate)}}</text>
+                <text class="gb-text-3">{{getNewHour(order.actiondate)}}</text>
             </div>
             <div class="gb-box-line"></div>
             <div class="gb-box-center">
-                <text class="iconfont gb-box-icon" v-if="order.checkpointStatus == 'delivered'">&#xe6fb;</text>
-                <div class="gb-icon" v-if="order.checkpointStatus == 'transit' || order.checkpointStatus == 'pickup' "></div>
+                <text class="iconfont gb-box-icon" v-if="complete">&#xe6fb;</text>
+                <div class="gb-icon" v-if="!complete"></div>
             </div>
             <div class="gb-box-right">
-                <text class="gb-text" :class="[order.checkpointStatus == 'transit'? 'gb-text-color': '']">{{order.StatusDescription}}</text>
-                <text class="gb-text-1" :class="[order.checkpointStatus == 'transit'? 'gb-text-color': '']">{{order.Details}}</text>
+                <text class="gb-text" :class="[!complete? 'gb-text-color': '']">{{order.exception}}</text>
+                <text class="gb-text-1" :class="[!complete? 'gb-text-color': '']">{{order.location}}</text>
             </div>
         </div>
         <div class="gb-box" v-if="shippedTime">
@@ -77,7 +65,7 @@
             order: {
                 default: false
             },
-            address: {
+            complete: {
                 default: false
             },
             paidTime: {
@@ -127,7 +115,8 @@
 
     .wrapper{
         background-color: #fff;
-        width: 750px;
+        width: 712px;
+        margin: 0 16px;
     }
 
     .gb-box{
@@ -184,7 +173,7 @@
     }
 
     .gb-box-right{
-        width: 592px;
+        width: 560px;
         padding-left: 26px;
         padding-right: 40px;
         padding-bottom: 64px;

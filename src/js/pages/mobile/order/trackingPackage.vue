@@ -7,11 +7,11 @@
                 <tracking-package-header :order="order.orderData"></tracking-package-header>
             </cell>
             <cell class="cell-line"></cell>
-            <cell v-for="item in trackingInfo" v-if="trackingInfo.length > 0">
-                <tracking-package-item-new :order="item"></tracking-package-item-new>
-            </cell>
-            <cell v-for="item in gatiTrackingInfo" v-if="gatiTrackingInfo.length > 0">
-                <tracking-package-item-gati :order="item"></tracking-package-item-gati>
+            <cell v-for="(item,i) in trackingData" v-if="trackingData">
+                <tracking-package-item-new :order="item" :complete="true"
+                   v-if="i == 0 && order.orderData.orderStatus == 'Completed'"></tracking-package-item-new>
+                <tracking-package-item-new :order="item"
+                   v-if="i > 0 || (i == 0 && order.orderData.orderStatus != 'Completed')"></tracking-package-item-new>
             </cell>
             <cell>
                 <tracking-package-item-new :shippedTime="order.orderData.shippedTime"></tracking-package-item-new>
@@ -27,7 +27,6 @@ import header from './header';
 import trackingPackageHeader from './trackingPackageHeader';
 import trackingPackageItem from './trackingPackageItem';
 import trackingPackageItemNew from './trackingPackageItemNew';
-import trackingPackageItemGati from './trackingPackageItemGati';
 import { Utils } from 'weex-ui';
 import { baseUrl } from '../../../config/apis';
 const googleAnalytics = weex.requireModule('GoogleAnalyticsModule');
@@ -37,8 +36,7 @@ export default {
         'top-header': header,
         'tracking-package-header': trackingPackageHeader,
         'tracking-package-item': trackingPackageItem,
-        trackingPackageItemNew,
-        trackingPackageItemGati
+        trackingPackageItemNew
     },
     eros: {
         appeared (params, option) {
@@ -48,18 +46,10 @@ export default {
                 googleAnalytics.trackingScreen(`Tracking Package/${this.id}`);
                 if (!this.isFirstLoad) {
                     this.isFirstLoad = true;
-                   if (this.carrierCode == 'gaticn') {
-                       this.getGATIOrderTracking();
-                   } else {
-                       this.getOrderTracking();
-                   }
+                    this.getOrderTracking();
                 }
                 this.$event.once('login', params => {
-                    if (this.carrierCode == 'gaticn') {
-                        this.getGATIOrderTracking();
-                    } else {
-                        this.getOrderTracking();
-                    }
+                    this.getOrderTracking();
                 })
             }
         }
@@ -83,8 +73,7 @@ export default {
                     carrierCode: ' '
                 }
             },
-            trackingInfo: [],
-            gatiTrackingInfo: []
+            trackingData: []
         }
     },
     methods: {
@@ -92,7 +81,7 @@ export default {
             this.$notice.loading.show();
             this.$fetch({
                 method: 'GET', // 大写
-                url: `${baseUrl}/order/tracking/${this.id}/`,
+                url: `${baseUrl}/order/tracking/shipping/${this.id}/`,
                 header: {
                     needAuth: true
                 }
@@ -102,28 +91,8 @@ export default {
                 // 成功回调
                 this.order = {};
                 this.order = resData;
-                if (resData.data && resData.data.originInfo.trackingInfo.length > 0) {
-                    this.trackingInfo = [...resData.data.originInfo.trackingInfo];
-                }
-            }, error => {});
-        },
-        getGATIOrderTracking () {
-            this.$notice.loading.show();
-            this.$fetch({
-                method: 'GET', // 大写
-                url: `${baseUrl}/order/gati/shipping/${this.id}/`,
-                header: {
-                    needAuth: true
-                }
-            }).then(resData => {
-                this.$notice.loading.hide();
-                this.isFirstLoad = false;
-                // 成功回调
-                this.order = {};
-                this.order = resData;
-                if (resData.data && resData.data.TrackData.length > 0) {
-                    this.gatiTrackingInfo = [...resData.data.TrackData];
-                }
+
+                this.trackingData = resData.trackingData;
             }, error => {});
         }
     }

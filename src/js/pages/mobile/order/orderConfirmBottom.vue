@@ -14,6 +14,7 @@
         },
         methods: {
             getOrderTotal (order, card) {
+                console.log(order);
                 if (card) {
                     return parseInt((order.total * 100 - card.share * 100) / 100).toFixed(2);
                 } else {
@@ -24,7 +25,7 @@
                 const that = this;
                 if (!that.address.id) {
                     that.$notice.toast('Please add address first!');
-                    return
+                    return;
                 }
                 if (!this.isFirst) {
                     this.isFirst = true;
@@ -37,7 +38,8 @@
                             data: {
                                 vid: that.order.id,
                                 quantity: that.order.quantity,
-                                voucherId
+                                voucherId,
+                                version: 'v1'
                             },
                             header: {
                                 needAuth: true
@@ -84,7 +86,8 @@
                             method: 'POST', // 大写
                             name: 'order.cut.create.pure',
                             data: {
-                                cutId: that.order.id
+                                cutId: that.order.id,
+                                version: 'v1'
                             },
                             header: {
                                 needAuth: true
@@ -130,7 +133,8 @@
                                 flashPromotionId: that.order.flashSale.promotionId,
                                 vid: that.order.id,
                                 quantity: that.order.quantity,
-                                voucherId
+                                voucherId,
+                                version: 'v1'
                             },
                             header: {
                                 needAuth: true
@@ -216,7 +220,8 @@
                             data: {
                                 dropId: that.order.dropId,
                                 vid: that.order.id,
-                                voucherId
+                                voucherId,
+                                version: 'v1'
                             },
                             header: {
                                 needAuth: true

@@ -77,18 +77,19 @@
         },
         eros: {
             beforeAppear (params, options) {
-                this.orderList = params;
-                this.countPrice(this.orderList);
+                this.getAddress();
             },
             appeared (params, option) {
                 this.card = false;
-                this.getAddress();
+                this.orderList = params;
+                this.getCartShipping();
+                this.countPrice(this.orderList);
             },
             backAppeared (params, options) {
                 if (params.card) {
                     this.card = params.card;
-                    this.countPrice(this.orderList)
-                    this.allPrice = (parseInt(this.allPrice) - parseInt(this.card.share))
+                    this.countPrice(this.orderList);
+                    this.allPrice = (parseInt(this.allPrice) - parseInt(this.card.share));
                 }
                 this.getAddress();
             }
@@ -113,7 +114,8 @@
                 orderList: false,
                 noticeList: [],
                 card: false,
-                allPrice: '0.00'
+                allPrice: '0.00',
+                isFirstLoad: false
             }
         },
         created () {
@@ -121,7 +123,7 @@
             this.$event.on('closePayment', params => {
                 this.$router.finish();
             });
-            this.getNotification()
+            this.getNotification();
         },
         methods: {
             getAddress () {
@@ -167,7 +169,7 @@
                     return
                 }
                 this.$notice.loading.show();
-                let arr = []
+                const arr = [];
                 for (let i = 0; i < this.orderList.length; i++) {
                     if (this.orderList[i].productType === 'direct') {
                         arr.push({
@@ -188,18 +190,6 @@
                         })
                     }
                 }
-                // if (this.card == null) {
-                //     this.card.id = ''
-                // }
-                // let aa = {
-                //         amount: this.allPrice,
-                //         voucherId: this.card.id,
-                //         cartData: arr
-                //     }
-                // this.$notice.alert({
-                //     message: this.card.id
-                // })
-                // return
                 this.$fetch({
                     method: 'POST', // 大写
                     name: 'order.cart.create',
@@ -212,7 +202,6 @@
                         needAuth: true
                     }
                 }).then(resData => {
-
                     this.$notice.loading.hide();
                     // this.$notice.alert({
                     //     message: resData
@@ -252,21 +241,21 @@
                 })
             },
             countPrice (arr) {
-                const priceArr = []
+                const priceArr = [];
                 if (arr.length !== 0) {
                     for (let j = 0; j < arr.length; j++) {
                         if (arr[j].productType == 'flash') {
                             priceArr.push(
-                                ((parseInt(this.calc(arr[j].unitPrice, arr[j].flashDiscount))) * arr[j].quantity)
+                                ((parseInt(this.calc(arr[j].unitPrice, arr[j].flashDiscount))) * arr[j].quantity + arr[j].shippingPrice)
                             ) // 计算浮点数 乘100
                         } else if (arr[j].productType == 'direct') {
-                            priceArr.push((parseInt(arr[j].unitPrice) * arr[j].quantity)) // 计算浮点数 乘100
+                            priceArr.push((parseInt(arr[j].unitPrice) * arr[j].quantity) + arr[j].shippingPrice) // 计算浮点数 乘100
                         }
                     }
                     if (priceArr.length == 0) {
-                    this.allPrice = '0.00'
-                } else if (priceArr.length >= 1) {
-                    this.allPrice = 0;
+                        this.allPrice = '0.00';
+                    } else if (priceArr.length >= 1) {
+                        this.allPrice = 0;
                         for (let i = 0; i < priceArr.length; i++) {
                             this.allPrice += parseInt(priceArr[i])
                         }
@@ -275,6 +264,40 @@
             },
             calc (a, b) {
                 return ((a * b) / 100).toFixed(2)
+            },
+            getCartShipping () {
+                if (!this.isFirstLoad) {
+                    this.isFirstLoad = true;
+                    this.$fetch({
+                        method: 'POST',
+                        name: 'order.cart.freight.rules',
+                        data: {
+                            platform: 'PriceDrop',
+                            v: 'v1',
+                            cart: this.orderList
+                        },
+                        header: {
+                            needAuth: true
+                        }
+                    }).then((res) => {
+                        for (const item of res) {
+                            for (const em of this.orderList) {
+                                if (item.vid == em.variantId) {
+                                    em.shippingPrice = item.shippingFee;
+                                    break;
+                                }
+                            }
+                        }
+                        this.countPrice(this.orderList);
+                        this.isFirstLoad = false;
+                    }).catch((res) => {
+                        this.$notice.toast({
+                            message: res
+                        });
+                        this.isFirstLoad = false;
+                    });
+                }
+
             }
         }
     }

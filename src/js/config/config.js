@@ -102,5 +102,7 @@ export const apis = {
     // 'wallet.record.list': '/wallet/record/list/',
     'point.bonus.wallet.record.list': '/point/bonus/wallet/record/list/',
     'user.app.first.google_login': '/user/app/first/google_login/',
-    'order.pay.cod.check': '/order/pay/cod/check/'
+    'order.pay.cod.check': '/order/pay/cod/check/',
+    'shipping.freight.rules': '/shipping/freight/rules/',
+    'order.cart.freight.rules': '/order/cart/freight/rules/'
 }

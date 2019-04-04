@@ -22,7 +22,7 @@
                 </div>
                 <div class="b-item">
                     <text class="b-i-w1">Shipping</text>
-                    <text class="b-i-w1">₹0.00</text>
+                    <text class="b-i-w1">₹{{item.shippingPrice.toFixed(2)}}</text>
                 </div>
                 <div class="b-item">
                     <text class="b-i-w1">Tax</text>
@@ -30,8 +30,8 @@
                 </div>
                 <div class="b-item">
                     <text class="b-i-w1 fb">Total</text>
-                    <text class="b-i-w1" v-if="item.productType=='flash'">₹{{calcPrice(item.quantity,calc(item.unitPrice,item.flashDiscount))}}</text>
-                    <text class="b-i-w1" v-if="item.productType=='direct'">₹{{calcPrice(item.quantity,item.unitPrice)}}</text>
+                    <text class="b-i-w1" v-if="item.productType=='flash'">₹{{calcPrice(item.quantity, calc(item.unitPrice,item.flashDiscount), item.shippingPrice)}}</text>
+                    <text class="b-i-w1" v-if="item.productType=='direct'">₹{{calcPrice(item.quantity,item.unitPrice, item.shippingPrice)}}</text>
                 </div>
             </div>
         </div>
@@ -54,11 +54,11 @@
         },
         methods: {
             calc (a, b) {
-                return parseInt((parseInt(a) * parseInt(b)) / 100).toFixed(2)
+                return parseInt((parseInt(a) * parseInt(b)) / 100).toFixed(2);
                 // return (('0.00' * 100) / 100).toFixed(2)
             },
-            calcPrice (q, p) {
-                return parseInt((parseInt(q) * (parseInt(p) * 100)) / 100).toFixed(2)
+            calcPrice (q, p, s) {
+                return (parseInt((parseInt(q) * (parseInt(p) * 100)) / 100) + parseInt(s)).toFixed(2);
             }
         }
     }

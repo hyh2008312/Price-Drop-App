@@ -79,7 +79,10 @@ export default {
                     }
                 }
             }
-            this.order.total = (parseInt((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100)*this.order.quantity).toFixed(2);
+            this.order.total = (parseInt((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100) * this.order.quantity).toFixed(2);
+            if (this.order.proId != 'lottery') {
+                this.getShippingPrice();
+            }
         }
     },
     created () {
@@ -125,7 +128,8 @@ export default {
                 'phoneNumber': '',
                 'stateId': 5
             },
-            card: false
+            card: false,
+            isFirstLoad: false
         }
     },
     methods: {
@@ -165,6 +169,33 @@ export default {
                     message: error
                 })
             });
+        },
+        getShippingPrice () {
+            if (!this.isFirstLoad) {
+                this.isFirstLoad = true;
+                this.$fetch({
+                    method: 'GET', // 大写
+                    name: 'shipping.freight.rules',
+                    data: {
+                        platform: 'PriceDrop',
+                        quantity: this.order.quantity,
+                        v: 'v1',
+                        amount: this.order.currentPrice
+                    },
+                    header: {
+                        needAuth: true
+                    }
+                }).then(resData => {
+                    this.isFirstLoad = false;
+                    this.order.shippingPrice = resData.shippingFee;
+                    this.order.total = (parseInt((this.order.currentPrice * 100 + (this.order.shippingPrice || 0) * 100) / 100) * this.order.quantity).toFixed(2);
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    });
+                    this.isFirstLoad = false;
+                });
+            }
         }
     }
 }

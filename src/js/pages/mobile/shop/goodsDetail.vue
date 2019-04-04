@@ -541,7 +541,7 @@
     import preload from '../common/preloadImg';
     import { WxcCell, WxcButton, WxcPopup, WxcMask, Utils } from 'weex-ui'
     import tab from './tab';
-    import { baseUrl , dataUrl } from '../../../config/apis';
+    import { baseUrl, dataUrl } from '../../../config/apis';
     import somegoods from './someGoods';
     import dayjs from 'dayjs';
     import star from './star-item';
@@ -683,10 +683,10 @@
             backAppeared (params) {
             },
             beforeDisappear (options) {
-                if (this.analyticsCount==1) {
+                if (this.analyticsCount == 1) {
                     this.userBackProductAnalytics()
                 }
-            },
+            }
         },
         computed: {
             opacity: {
@@ -710,24 +710,23 @@
         },
         created () {
             const pageHeight = Utils.env.getScreenHeight();
-            this.sHeight = pageHeight - 48
+            this.sHeight = pageHeight - 48;
             this.$notice.loading.show();
             this.$router.getParams().then(resData => {
-                this.proId = resData.id
-                this.getGoodsDetail(this.proId)
-                this.getSomeGoods(this.proId)
-                this.getDropGoods()
-
-            })
+                this.proId = resData.id;
+                this.getGoodsDetail(this.proId);
+                this.getSomeGoods(this.proId);
+                this.getDropGoods();
+            });
             if (this.$storage.getSync('user')) {
-                this.user = this.$storage.getSync('user')
-                this.getCartNum()
+                this.user = this.$storage.getSync('user');
+                this.getCartNum();
             } else {
                 this.user = null
             }
             this.$event.on('cartNum', parmas => {
-                this.getCartNum()
-            })
+                this.getCartNum();
+            });
             this.setTime();
             this.initBack();
             this.trimNullObj();
@@ -741,9 +740,6 @@
             },
             getGoodsDetail (id) {
                 if (id) {
-                    // this.$notice.alert({
-                    //     message: id
-                    // })
                     this.$fetch({
                         method: 'GET',
                         url: `${baseUrl}/product/customer/detail/${id}/`,
@@ -840,7 +836,6 @@
                         this.nextPage.proId = this.purchaseMethod;
                         // nextPage 传给下一页组织的数据
 
-
                         if (res.newDescription != null) {
                             this.newDescription = res.newDescription
                         }
@@ -918,7 +913,7 @@
                     method: 'POST',
                     url: `${dataUrl}/userdbanalysis/add/`,
                     data: {
-                        user_id: this.user==null?'':this.user.id,
+                        user_id: this.user == null ? '' : this.user.id,
                         product_id: this.proId,
                         product_title: this.goods.title,
                         product_price: this.goods.unitPrice,
@@ -939,12 +934,12 @@
                 })
             },
             userBackProductAnalytics () {
-                this.analyticsCount = 2  // 防止请求两次
+                this.analyticsCount = 2 // 防止请求两次
                 this.$fetch({
                     method: 'POST',
                     url: `${dataUrl}/userdbanalysis/notebacktime/`,
                     data: {
-                        user_id: this.user==null?'':this.user.id,
+                        user_id: this.user == null ? '' : this.user.id,
                         product_id: this.proId,
                         session_id: this.analyticsId
                     }
@@ -1016,7 +1011,7 @@
                     //     message: this.variantsId
                     // })
                     // this.nextPage.currentPrice = this.nextPage.currentPric * this.selquantity;
-                    if (this.isDrop == true && this.dropStatus==2) {
+                    if (this.isDrop == true && this.dropStatus == 2) {
                         this.createDrop()
                     } else {
                         if (this.flashSale.flashStatus === 'Ongoing') {
@@ -1033,14 +1028,13 @@
                                 type: 'PUSH',
                                 params: this.nextPage
                             })
-
                         }
                     }
                 }
             },
             createDrop () {
                 this.dropStatus = 2
-                if (this.variantsId=='') {
+                if (this.variantsId == '') {
                     this.wxcCellClick()
                     return
                 } else {
@@ -1049,7 +1043,7 @@
                         method: 'POST',
                         url: `${baseUrl}/drops/create/`,
                         data: {
-                            variant_id: this.variantsId,
+                            variant_id: this.variantsId
                         },
                         header: {
                             needAuth: true
@@ -1080,23 +1074,22 @@
             },
             openBuyNow () {
                 if (this.user == null) {
-                    this.redirectLogin()
+                    this.redirectLogin();
                 } else {
-                    this.dropStatus = 1
+                    this.dropStatus = 1;
                     if (this.hasVariants === false) {
                         if (this.variantsId != '') {
                             if (this.flashSale.flashStatus === 'Ongoing') {
                                 this.nextPage.currentPrice = (((this.selunitPrice || this.goods.unitPrice) * this.flashSale.discount) / 100).toFixed(2);
                             }
                             if (this.nextPage.proId == 'flash' && this.flashSale.flashStatus !== 'Ongoing') {
-                                this.nextPage.proId = 'direct'
+                                this.nextPage.proId = 'direct';
                             }
                             this.$router.open({
                                 name: 'order.confirm',
                                 type: 'PUSH',
                                 params: this.nextPage
                             })
-
                         }
                     } else {
                         this.isAddCart = false;
@@ -1109,9 +1102,9 @@
                 if (this.user == null) {
                     this.redirectLogin()
                 } else {
-                    if (this.hasVariants === false&&this.variantsId != '') {
+                    if (this.hasVariants === false && this.variantsId != '') {
                         this.postGoodsCart()
-                    }else {
+                    } else {
                         this.isAddCart = true;
                         this.isBottomShow = true;
                         common.changeAndroidCanBack(false)
@@ -1139,19 +1132,19 @@
 
                 }).then(data => {
                     if (data.result === 'success') {
-                        this.cartNum += 1
+                        this.cartNum += 1;
                         // this.$notice.toast({
                         //     message: 'Added to Cart Successfully!'
                         // });
-                        this.$event.emit('cartNum')
+                        this.$event.emit('cartNum');
                         this.$notice.loading.hide();
                         googleAnalytics.recordEvent('Payment', 'Add to Cart', this.purchaseMethod, 0);
                         googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', this.proId, '', 'Rs', this.selunitPrice);
-                        this.isBottomShow = false
-                        this.cartTipShow = true
-                        this.cartWordStu = true
+                        this.isBottomShow = false;
+                        this.cartTipShow = true;
+                        this.cartWordStu = true;
                         setTimeout(() => {
-                            this.cartTipShow = false
+                            this.cartTipShow = false;
                         }, 5000)
                     } else {
                         this.$notice.toast({
@@ -1670,7 +1663,7 @@
                         delay: 0 // ms
                     })
                 }.bind(this))
-            },
+            }
         }
     }
 </script>

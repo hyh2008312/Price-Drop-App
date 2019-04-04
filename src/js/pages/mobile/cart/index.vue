@@ -210,14 +210,14 @@
         },
         created () {
             this.requestProduct(true);
-            this.getMyCard()
-            this.getNotification()
+            this.getMyCard();
+            this.getNotification();
             this.$event.on('logout', parmas => {
                 this.requestProduct(false)
-            })
+            });
             this.$event.on('login', parmas => {
                 this.requestProduct(false)
-            })
+            });
             googleAnalytics.trackingScreen('Cart');
         },
         methods: {
@@ -252,8 +252,8 @@
                     this.$refs.refresh.refreshEnd();
                     this.$nextTick(() => {
                         this.isLoading = false
-                    })
-                    return
+                    });
+                    return;
                 }
                 this.getCartList(isFirst);
             },
@@ -271,7 +271,7 @@
                         isLoginPop: true
                     }
                 }).then((res) => {
-                    this.data = res
+                    this.data = res;
                     if (res.count == 0) {
                         this.length = 2;
                     } else {
@@ -380,7 +380,7 @@
                 const arr = [...this.goodsList];
                 for (let i = 0; i < arr.length; i++) {
                     if (arr[i].id === item.id) {
-                       arr[i].quantity += 1
+                       arr[i].quantity += 1;
                        this.postQuantity(item.id, arr[i].quantity)
                     }
                 }
@@ -417,7 +417,7 @@
                     }
                 }).then((res) => {
                     if (res.result == 'success') {
-                        this.countPrice()
+                        this.countPrice();
                         this.$event.emit('cartNum')
                     }
                 }).catch((res) => {
@@ -440,7 +440,9 @@
                     this.nextPage = [];
                     for (let i = 0; i < this.goodsList.length; i++) {
                         if (this.goodsList[i].sel) {
-                            this.nextPage.push(this.goodsList[i])
+                            let item = this.goodsList[i];
+                            item.shippingPrice = 0;
+                            this.nextPage.push(item);
                         }
                     }
                     googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'Checkout', 0);
@@ -481,7 +483,7 @@
                                 this.getSelectStatus();
                                 this.countPrice();
                                 this.$event.emit('cartNum')
-                            })
+                            });
                             this.$notice.loading.hide();
                         }).catch((res) => {
                             this.$notice.loading.hide();
