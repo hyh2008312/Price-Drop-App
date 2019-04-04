@@ -48,7 +48,7 @@
 
                 <div class="bb-d-l">
                     <text class="bb-dl" >Total：</text>
-                    <text class="bb-dl-p" >₹{{parseInt(allPrice).toFixed(2)}}</text>
+                    <text class="bb-dl-p" >₹{{(parseInt(allPrice) + parseInt(shippingPrice)).toFixed(2)}}</text>
                     <div class="bb-dl-b" @click="postOrder">
                         <text class="bb-dl-bf" >Place Order</text>
                     </div>
@@ -115,6 +115,7 @@
                 noticeList: [],
                 card: false,
                 allPrice: '0.00',
+                shippingPrice: '0.00',
                 isFirstLoad: false
             }
         },
@@ -196,7 +197,8 @@
                     data: {
                         amount: this.allPrice,
                         voucherId: this.card.id,
-                        cartData: arr
+                        cartData: arr,
+                        version: 'v1'
                     },
                     header: {
                         needAuth: true
@@ -212,7 +214,7 @@
                     googleAnalytics.recordEvent('Payment', 'Initial Checkout', 'PlaceOrder', 0);
                     googleAnalytics.facebookRecordEvent('fb_mobile_initiated_checkout', 'PlaceOrder', '', 'Rs', this.allPrice);
                     const order = resData;
-                    order.paymentAmount = parseInt(this.allPrice)
+                    order.paymentAmount = resData.paymentPrice;
                     // that.$router.finish();
                     this.$router.open({
                         name: 'cart.order.payment',
@@ -242,14 +244,21 @@
             },
             countPrice (arr) {
                 const priceArr = [];
+                const shippingArr = []
                 if (arr.length !== 0) {
                     for (let j = 0; j < arr.length; j++) {
                         if (arr[j].productType == 'flash') {
                             priceArr.push(
-                                ((parseInt(this.calc(arr[j].unitPrice, arr[j].flashDiscount))) * arr[j].quantity + arr[j].shippingPrice)
-                            ) // 计算浮点数 乘100
+                                ((parseInt(this.calc(arr[j].unitPrice, arr[j].flashDiscount))) * arr[j].quantity)
+                            ); // 计算浮点数 乘100
+                            shippingArr.push(
+                                parseInt(arr[j].shippingPrice)
+                            );
                         } else if (arr[j].productType == 'direct') {
-                            priceArr.push((parseInt(arr[j].unitPrice) * arr[j].quantity) + arr[j].shippingPrice) // 计算浮点数 乘100
+                            priceArr.push((parseInt(arr[j].unitPrice) * arr[j].quantity)) // 计算浮点数 乘100
+                            shippingArr.push(
+                                parseInt(arr[j].shippingPrice)
+                            );
                         }
                     }
                     if (priceArr.length == 0) {
@@ -258,6 +267,14 @@
                         this.allPrice = 0;
                         for (let i = 0; i < priceArr.length; i++) {
                             this.allPrice += parseInt(priceArr[i])
+                        }
+                    }
+                    if (shippingArr.length == 0) {
+                        this.shippingPrice = '0.00';
+                    } else if (shippingArr.length >= 1) {
+                        this.shippingPrice = 0;
+                        for (let i = 0; i < shippingArr.length; i++) {
+                            this.shippingPrice += parseInt(shippingArr[i])
                         }
                     }
                 }

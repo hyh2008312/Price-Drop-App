@@ -104,5 +104,6 @@ export const apis = {
     'user.app.first.google_login': '/user/app/first/google_login/',
     'order.pay.cod.check': '/order/pay/cod/check/',
     'shipping.freight.rules': '/shipping/freight/rules/',
-    'order.cart.freight.rules': '/order/cart/freight/rules/'
+    'order.cart.freight.rules': '/order/cart/freight/rules/',
+    'shipping.product.detail.rules': '/shipping/product/detail/rules/'
 }

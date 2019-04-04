@@ -71,7 +71,7 @@
                         <text class="s-i-t1" >Details</text>
                     </div>
                     <div class="ship-label">
-                        <text class="s-i-icon">Free Shipping</text>
+                        <text class="s-i-icon" v-if="shippingPrice == 0">Free Shipping</text>
                         <text class="s-i-icon-imp">Imported</text>
                     </div>
 
@@ -465,8 +465,8 @@
                     </div>
                     <div class="pShip-item1">
                         <text class="s-item-t">Shipping Cost:</text>
-                        <text class="s-item-t1">₹ 0 </text>
-                        <text class="s-item-t2">₹ 100</text>
+                        <text class="s-item-t1">₹ {{shippingPrice}} </text>
+                        <text class="s-item-t2" v-if="shipObj">₹ {{shipObj.priceItem}}</text>
                     </div>
                     <!--<div class="pShip-item1 mg-b44">-->
                         <!--<text class="s-item-t">Shipping Carrier:</text>-->
@@ -676,7 +676,8 @@
                 analyticsCount: 1,
                 pinCodeLoad: false,
                 cartTipShow: false,
-                cartWordStu: false
+                cartWordStu: false,
+                shippingPrice: 0
             }
         },
         eros: {
@@ -717,6 +718,7 @@
                 this.getGoodsDetail(this.proId);
                 this.getSomeGoods(this.proId);
                 this.getDropGoods();
+                this.getShippingPrice();
             });
             if (this.$storage.getSync('user')) {
                 this.user = this.$storage.getSync('user');
@@ -860,7 +862,6 @@
                 this.$fetch({
                     methods: 'GET',
                     url: `${baseUrl}/product/relations/recommend/list/`,
-                    // url: `${baseUrl}/product/customer/detail/654/`,
                     data: {
                         id: id
                     }
@@ -878,14 +879,7 @@
                             arr = [];
                         }
                     }
-                    // this.$notice.alert({
-                    //     message: this.someGoodsList
-                    // })
-                }).catch((res) => {
-                    // this.$notice.alert({
-                    //     message: res
-                    // })
-                })
+                }).catch((res) => {});
             },
             getDropGoods () {
                 this.$fetch({
@@ -1051,14 +1045,14 @@
                     }).then((res) => {
                         this.$event.emit('createDrop');
                         if (res.id) {
-                            this.dropGoods += 1
+                            this.dropGoods += 1;
                             this.$router.open({
                                 name: 'drop.detail',
                                 type: 'PUSH',
                                 params: {
                                     id: res.id
                                 }
-                            })
+                            });
                             googleAnalytics.recordEvent('DropStart', 'Invite Friends to Drop Price', this.category + '-' + this.variantsId, 0);
                         }
                         this.$notice.loading.hide();
@@ -1248,30 +1242,30 @@
             changeDom (item, color) {
                 if (item.isActive == true) {
                     if (item.id == 1) {
-                        this.selsize = item.value
+                        this.selsize = item.value;
                     } else if (item.id == 2) {
-                        this.selcolor = item.value
+                        this.selcolor = item.value;
                     }
                 } else if (item.isActive == false) {
                     if (item.id == 1) {
-                        this.selsize = ''
+                        this.selsize = '';
                     } else if (item.id == 2) {
-                        this.selcolor = ''
+                        this.selcolor = '';
                     }
                 }
                 if ((this.selsize == '') || (this.selcolor == '')) {
-                    this.canBuy = true
-                    this.variantsId = ''
+                    this.canBuy = true;
+                    this.variantsId = '';
                 }
-                let tmp = []
+                let tmp = [];
                 for (let i = 0; i < this.goodsType.length; i++) {
                     if (this.goodsType[i].name == 'Color') {
-                        tmp = this.goodsType[i].images
+                        tmp = this.goodsType[i].images;
                     }
                 }
                 for (let j = 0; j < tmp.length; j++) {
                     if (tmp[j].value == this.selcolor) {
-                        this.selimgsrc = tmp[j].image
+                        this.selimgsrc = tmp[j].image;
                     }
                 }
                 this.nextPage.attributes = this.selcolor + ' ' + this.selsize;
@@ -1281,7 +1275,7 @@
                 for (let i = 0; i < this.goodsType.length; i++) {
                     for (let j = 0; j < this.goodsType[i].value.length; j++) {
                         if (this.goodsType[i].value[j].isActive == true) {
-                            this.tmpArray.push(this.goodsType[i].value[j])
+                            this.tmpArray.push(this.goodsType[i].value[j]);
                             break;
                         }
                     }
@@ -1299,8 +1293,8 @@
                     if (isDoubleChecked == this.goodsType.length) {
                         this.variantsId = this.goodsVariants[i].id;
                         this.canBuy = this.goodsVariants[i].isCanBuy;
-                        this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice
-                        this.selunitPrice = this.goodsVariants[i].unitPrice
+                        this.selsaleUnitPrice = this.goodsVariants[i].saleUnitPrice;
+                        this.selunitPrice = this.goodsVariants[i].unitPrice;
 
                         this.nextPage.salePrice = this.selsaleUnitPrice;
                         this.nextPage.currentPrice = this.selunitPrice;
@@ -1363,9 +1357,6 @@
                 }
             },
             openRulerPage () {
-                // this.$notice.alert({
-                //     message: e
-                // })
                 this.$router.open({
                     name: 'drop.ruler',
                     type: 'PUSH',
@@ -1392,33 +1383,33 @@
                 if (Math.abs(e.contentOffset.y) >= 112) {
                    this.opacity = (Math.abs(e.contentOffset.y) - 112) / 200 > 1 ? 1 : (Math.abs(e.contentOffset.y) - 112) / 200
                 } else {
-                   this.opacity = 0
+                   this.opacity = 0;
                 }
 
                 if (Math.abs(e.contentOffset.y) > 1200) {
-                    this.tabshow = true
+                    this.tabshow = true;
                 } else if (Math.abs(e.contentOffset.y) < 1100) {
-                    this.tabshow = false
+                    this.tabshow = false;
                 }
                 if (e.contentSize.height + e.contentOffset.y < 1350) {
-                    this.defaultTab = 'policy'
+                    this.defaultTab = 'policy';
                 } else {
-                    this.defaultTab = 'dec'
+                    this.defaultTab = 'dec';
                 }
             },
             onTabTo (key) {
                 if (key.data.key == 'dec') {
-                    const el = this.$refs.dec
-                    dom.scrollToElement(el, { offset: -140 })
+                    const el = this.$refs.dec;
+                    dom.scrollToElement(el, { offset: -140 });
                     this.$nextTick(() => {
-                        dom.scrollToElement(this.$refs['tab'], { animated: false })
-                    })
+                        dom.scrollToElement(this.$refs['tab'], { animated: false });
+                    });
                 } else {
-                    const el = this.$refs.policy
-                    dom.scrollToElement(el, { offset: 2 })
+                    const el = this.$refs.policy;
+                    dom.scrollToElement(el, { offset: 2 });
                     this.$nextTick(() => {
-                        dom.scrollToElement(this.$refs['tab'], { animated: false })
-                    })
+                        dom.scrollToElement(this.$refs['tab'], { animated: false });
+                    });
                 }
             },
             opendec () {
@@ -1465,7 +1456,7 @@
                     // this.$notice.alert({
                     //     message: res
                     // })
-                })
+                });
                 this.$router.open({
                     name: 'goods.size',
                     type: 'PUSH',
@@ -1502,15 +1493,15 @@
                 common.changeAndroidCanBack(false);
             },
             oninput (e) {
-                this.pinCode = e.value
-                this.pinCodeStatus = 0
+                this.pinCode = e.value;
+                this.pinCodeStatus = 0;
             },
             checkPinCode () {
                 if (this.pinCode.length == 0) {
-                    this.pinCodeStatus = 3 // 1支持 2不支持 3 输入的pincode为空
-                    return
+                    this.pinCodeStatus = 3; // 1支持 2不支持 3 输入的pincode为空
+                    return;
                 } else {
-                    this.pinCodeLoad = true
+                    this.pinCodeLoad = true;
                     this.$fetch({
                         method: 'POST',
                         name: 'order.cod.check',
@@ -1519,11 +1510,11 @@
                         }
                     }).then((res) => {
                         if (res.enable) {
-                            this.pinCodeStatus = 1
+                            this.pinCodeStatus = 1;
                         } else {
-                            this.pinCodeStatus = 2
+                            this.pinCodeStatus = 2;
                         }
-                        this.pinCodeLoad = false
+                        this.pinCodeLoad = false;
                     }).catch((res) => {
                         // this.$notice.toast({
                         //     message: res
@@ -1533,7 +1524,7 @@
             },
             countOff (s, o) {
                 if (o > 0) {
-                    return Math.ceil((o - s) / o * 100) + '% OFF'
+                    return Math.ceil((o - s) / o * 100) + '% OFF';
                     // return ((o - s) / o * 100)  + '% OFF'
                 } else {
                     return ''
@@ -1541,57 +1532,57 @@
             },
             countPrice (s, o) {
                 if (o > 0) {
-                    return Math.floor(s * (o / 100)) + '.00'
+                    return Math.floor(s * (o / 100)) + '.00';
                 } else {
-                    return ''
+                    return '';
                 }
             },
             countPoints (p, a, b) {
                 return (Math.floor(parseInt(p) / a)) * b;
             },
             calc (a, b) {
-                return ((a * b) / 100).toFixed(2)
+                return ((a * b) / 100).toFixed(2);
             },
             getNowDay (str) {
                 if (str) {
                     const date = new Date().valueOf();
-                    const tmp = (date + ((24 * 60 * 60 * 1000) * (7 + str)))
-                    return dayjs(new Date(tmp)).format('MMMM DD')
+                    const tmp = (date + ((24 * 60 * 60 * 1000) * (7 + str)));
+                    return dayjs(new Date(tmp)).format('MMMM DD');
                 }
             },
             getNowDay1 (str) {
                 if (str) {
                     const date = new Date().valueOf();
-                    const tmp = (date + ((24 * 60 * 60 * 1000) * (7 + str)))
-                    return dayjs(new Date(tmp)).format('MMM DD, YYYY')
+                    const tmp = (date + ((24 * 60 * 60 * 1000) * (7 + str)));
+                    return dayjs(new Date(tmp)).format('MMM DD, YYYY');
                 }
             },
             countDate (time) {
-                const self = this
+                const self = this;
                 setInterval(() => {
                     this.NOW_DATE = new Date().getTime();
 
                     const total = (new Date(time).getTime() - this.NOW_DATE) / 1000
                     const day = Math.floor(total / (24 * 60 * 60))// 整天
 
-                    self.aday = day
+                    self.aday = day;
                     const afterDay = total - day * 24 * 60 * 60;
                     self.ahour = Math.floor(afterDay / (60 * 60)); // 小时
                     const afterHour = total - day * 24 * 60 * 60 - self.ahour * 60 * 60;
                     self.amin = Math.floor(afterHour / 60); // 分钟
                     if (self.amin < 10) {
-                        self.amin = '0' + self.amin
+                        self.amin = '0' + self.amin;
                     }
                     const afterMin = total - day * 24 * 60 * 60 - self.ahour * 60 * 60 - self.amin * 60;
                     self.asecond = Math.floor(afterMin)// 秒
                     if (self.asecond < 10) {
-                        self.asecond = '0' + self.asecond
+                        self.asecond = '0' + self.asecond;
                     }
 
                     // 加上减掉的天数
-                    self.ahour += (self.aday * 24)
+                    self.ahour += (self.aday * 24);
                     if (self.ahour < 10) {
-                        self.ahour = '0' + self.ahour
+                        self.ahour = '0' + self.ahour;
                     }
                     // this.$notice.toast({
                     //     message: self.ahour + ':' + self.amin + ':' + self.asecond
@@ -1600,7 +1591,7 @@
                 // }
             },
             trimNullObj (arr) {
-                const tmpArr = []
+                const tmpArr = [];
                 for (let i = 0; i < arr.length; i++) {
                     if (arr[i].content != '') {
                         tmpArr.push(arr[i])
@@ -1663,6 +1654,25 @@
                         delay: 0 // ms
                     })
                 }.bind(this))
+            },
+            getShippingPrice () {
+                this.$fetch({
+                    method: 'GET', // 大写
+                    name: 'shipping.product.detail.rules',
+                    data: {
+                        pid: this.proId,
+                        v: 'v1'
+                    },
+                    header: {
+                        needAuth: true
+                    }
+                }).then(resData => {
+                    this.shippingPrice = resData.shippingFee;
+                }, error => {
+                    this.$notice.toast({
+                        message: error
+                    });
+                });
             }
         }
     }
