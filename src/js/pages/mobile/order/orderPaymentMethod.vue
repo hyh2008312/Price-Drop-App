@@ -15,7 +15,7 @@
                 <notice  :items="noticeList" v-if="noticeList.length > 0"></notice>
             </header>
 
-            <cell  class="cell-bottom" @click="chooseMethod('cod')" v-if="order.carrierCode.toLocaleUpperCase() == 'GATICN'">
+            <cell  class="cell-bottom" @click="chooseMethod('cod')">
                 <div  class="overflow-box b-top-r b-bottom-r1">
                     <div class="overflow-box1" >
                         <div>
@@ -41,25 +41,6 @@
                             <text class="iconfont item-no-checked" v-if="method != 'cod'">&#xe73f;</text>
                         </div>
                         <text class="iconfont item-checked-disable" v-if="!order.cod.exist ||CODStatus==3||CODStatus==4">&#xe73f;</text>
-                    </div>
-                </div>
-            </cell>
-
-            <cell  class="cell-bottom" v-if="order.carrierCode.toLocaleUpperCase() != 'GATICN'">
-                <div  class="overflow-box b-top-r b-bottom-r">
-                    <div class="overflow-box1" >
-                        <div>
-                            <div class="cod-d">
-                                <text class="cod-text">Cash / Card on Delivery </text>
-                            </div>
-
-                            <div class="overflow-cod">
-                                <image class="item-image-2"  :src="codSrc"></image>
-                                <text class="item-text-err">This item is not available for COD delivery. </text>
-                            </div>
-
-                        </div>
-                        <text class="iconfont item-checked-disable">&#xe73f;</text>
                     </div>
                 </div>
             </cell>
