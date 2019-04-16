@@ -56,8 +56,8 @@
                     }, error => {
                         // 错误回调
                         this.$notice.toast({
-                            message: error
-                        })
+                            message: error.errorMsg
+                        });
                     })
                 } else {
                     this.$fetch({
@@ -75,8 +75,8 @@
                         // 错误回调
                         this.$notice.toast({
                             message: error.errorMsg
-                        })
-                    })
+                        });
+                    });
                 }
             },
             isChecked () {

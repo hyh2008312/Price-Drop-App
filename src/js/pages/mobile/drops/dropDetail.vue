@@ -273,7 +273,7 @@
                 user: '',
                 newShow: false,
                 dropLink: '',
-                dropWebLink: 'https://app.getpricedrop.com/drops/detail/',
+                dropWebLink: 'https://wholesale.getpricedrop.com/drops/detail/',
                 dropCategory: '',
                 someGoodsList: [],
                 nextPage: {

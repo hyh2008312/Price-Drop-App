@@ -140,12 +140,12 @@ export default {
                 const address = that.addressList[that.deleteIndex];
                 if (address.isDefault) {
                     that.$storage.get('user').then((data) => {
-                        const user = data
-                        user.defaultAddress = false
-                        that.$storage.set('user', user)
+                        const user = data;
+                        user.defaultAddress = false;
+                        that.$storage.set('user', user);
                     })
                 }
-                that.addressList.splice(that.deleteIndex, 1)
+                that.addressList.splice(that.deleteIndex, 1);
             }, error => {
                 // this.$notice.toast({
                 //     message: error
