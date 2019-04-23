@@ -393,13 +393,13 @@ public class MainActivity extends AbstractWeexActivity implements PaymentResultW
         HashMap<String, String> paramMap = new HashMap<String, String>();
 
         // these are mandatory parameters
-        paramMap.put("MID", "JMDTec16243179908223");
+        paramMap.put("MID", "sPYPwc09661795388620");
         paramMap.put("ORDER_ID", orderId);
         paramMap.put("CUST_ID", custId);
         paramMap.put("TXN_AMOUNT", txnAmount);
         paramMap.put("CHANNEL_ID", "WAP");
-        paramMap.put("INDUSTRY_TYPE_ID", "Retail109");
-        paramMap.put("WEBSITE", "APPPROD");
+        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
+        paramMap.put("WEBSITE", "DEFAULT");
         paramMap.put("MOBILE_NO", mobileNo);
         paramMap.put("EMAIL", email);
         paramMap.put("CALLBACK_URL", calllbackUrl);
