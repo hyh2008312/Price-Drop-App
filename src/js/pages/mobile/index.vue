@@ -4,11 +4,11 @@
         <tab-bar @tabTo="onTabTo" :items="items" :indexKey="selectedTab"></tab-bar>
 
         <NewDialog class="wxdialog"
-                   :content="'Welcome back! We just released a new version. Please update your app to continue.'"
+                   :content="content"
                    :show="show"
                    :single="true"
                    :is-checked="isChecked"
-                   :confirmText="'Update Now'"
+                   :confirmText="'Update Your App’s Version'"
                    @wxcDialogCancelBtnClicked="wxcDialogCancelBtnClicked"
                    @wxcDialogConfirmBtnClicked="wxcDialogConfirmBtnClicked"
                    @wxcDialogNoPromptClicked="wxcDialogNoPromptClicked">
@@ -49,7 +49,7 @@ export default {
                         return
                     }
                     val.visibility = 'hidden';
-                })
+                });
             }
             if (params && params.type == 'login') {
                 this.$router.refresh();
@@ -88,7 +88,7 @@ export default {
             // that.$notice.toast({
             //     message: data
             // })
-        })
+        });
     },
     data () {
         return {
@@ -96,6 +96,7 @@ export default {
             selectedTab: 'home',
             isFirstLogin: false,
             show: false,
+            content: 'Welcome back! We just released a new version. Please update your app to continue.',
             closeCount: 1
         }
     },
@@ -146,13 +147,13 @@ export default {
         },
         onTabTo (_result) {
             const _key = _result.data.key || '';
-            this.selectedTab = _key
+            this.selectedTab = _key;
             this.items.forEach((val) => {
                 if (val.key === _key) {
-                    val.visibility = 'visible'
+                    val.visibility = 'visible';
                     return
                 }
-                val.visibility = 'hidden'
+                val.visibility = 'hidden';
             })
         },
         androidFinishApp () {
@@ -174,14 +175,13 @@ export default {
         },
         getState () {
             this.$fetch({
-                method: 'GET', // 大写
+                method: 'GET',
                 name: 'address.state.list',
                 data: {}
             }).then(data => {
                 this.$storage.set('state', data);
-            }, error => {})
+            }, error => {});
         },
-
         getUser () {
             return this.$fetch({
                 method: 'GET', // 大写
@@ -193,7 +193,7 @@ export default {
                 }
             }).then(data => {
                 this.$storage.set('user', data);
-            }, error => {})
+            }, error => {});
         },
         refreshToken () {
             const token = this.$storage.getSync('token');
@@ -226,11 +226,21 @@ export default {
             }
         },
         getVersion () {
-            // commonUtils.getAppVersionCode((params) => {
-            //     if (params.code === 200 && Number(params.versionCode) < 138) {
-            //         this.openDialog()
-            //     }
-            // })
+            commonUtils.getAppVersionCode((params) => {
+                if (params.code === 200) {
+                    this.$fetch({
+                        method: 'GET',
+                        name: 'app_version.force.app.update',
+                        data: {}
+                    }).then(data => {
+                        const version = data.versionNumber ? data.versionNumber.split('.').join('') : 0;
+                        if (Number(params.versionCode) <= Number(version)) {
+                            this.content = data.updateNotification;
+                            this.openDialog();
+                        }
+                    }, error => {});
+                }
+            });
         },
         openDialog () {
             // if (this.user == null) {

@@ -105,5 +105,6 @@ export const apis = {
     'order.pay.cod.check': '/order/pay/cod/check/',
     'shipping.freight.rules': '/shipping/freight/rules/',
     'order.cart.freight.rules': '/order/cart/freight/rules/',
-    'shipping.product.detail.rules': '/shipping/product/detail/rules/'
+    'shipping.product.detail.rules': '/shipping/product/detail/rules/',
+    'app_version.force.app.update': '/app_version/force/app/update/'
 }
